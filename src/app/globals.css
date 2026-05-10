@@ -1,25 +1,25 @@
 @import "tailwindcss";
 
 @theme {
-  --color-accent: #f0a860;
-  --color-accent-2: #ffb56b;
-  --color-bg-0: #0a0806;
-  --color-bg-1: #14100b;
-  --color-bg-2: #1c1610;
-  --color-bg-3: #251e15;
-  --color-border: rgba(255, 255, 255, 0.07);
-  --color-border-light: rgba(255, 255, 255, 0.14);
-  --color-text-1: #f0f0f0;
-  --color-text-2: #c4a882;
-  --color-text-3: #8a7a6a;
-  --color-green: #3fb950;
-  --color-green-bg: rgba(63, 185, 80, 0.12);
-  --color-green-border: rgba(63, 185, 80, 0.3);
-  --color-red: #f85149;
-  --color-red-bg: rgba(248, 81, 73, 0.12);
-  --color-red-border: rgba(248, 81, 73, 0.3);
-  --color-amber-bg: rgba(240, 168, 96, 0.12);
-  --color-amber-border: rgba(240, 168, 96, 0.3);
+  --color-accent: #e6993a;
+  --color-accent-2: #f5b04a;
+  --color-bg-0: #faf7f2;
+  --color-bg-1: #ffffff;
+  --color-bg-2: #f2ede6;
+  --color-bg-3: #e8e0d4;
+  --color-border: rgba(0, 0, 0, 0.1);
+  --color-border-light: rgba(0, 0, 0, 0.15);
+  --color-text-1: #1a1a1a;
+  --color-text-2: #4a4a4a;
+  --color-text-3: #888888;
+  --color-green: #16a34a;
+  --color-green-bg: rgba(22, 163, 74, 0.1);
+  --color-green-border: rgba(22, 163, 74, 0.3);
+  --color-red: #dc2626;
+  --color-red-bg: rgba(220, 38, 38, 0.08);
+  --color-red-border: rgba(220, 38, 38, 0.25);
+  --color-amber-bg: rgba(230, 153, 58, 0.1);
+  --color-amber-border: rgba(230, 153, 58, 0.3);
   --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Consolas, monospace;
 }
 
@@ -37,19 +37,16 @@ html, body {
 }
 
 body {
-  background:
-    radial-gradient(ellipse at 20% -10%, rgba(240, 168, 96, 0.08), transparent 55%),
-    radial-gradient(ellipse at 80% 100%, rgba(240, 168, 96, 0.04), transparent 50%),
-    var(--color-bg-0);
+  background: var(--color-bg-0);
 }
 
 ::selection {
-  background: rgba(240, 168, 96, 0.35);
+  background: rgba(230, 153, 58, 0.25);
   color: var(--color-text-1);
 }
 
 ::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-thumb { background: rgba(240, 168, 96, 0.2); border-radius: 3px; }
+::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.15); border-radius: 3px; }
 ::-webkit-scrollbar-track { background: transparent; }
 
 a { color: var(--color-accent); text-decoration: none; }

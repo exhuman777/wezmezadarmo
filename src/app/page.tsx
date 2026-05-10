@@ -18,10 +18,10 @@ interface QualifyingQuestion {
 const QUESTIONS: QualifyingQuestion[] = [
   {
     id: 'stanCywilny',
-    question: 'Jaki jest Twoj stan cywilny?',
+    question: 'Jaki jest Twój stan cywilny?',
     options: [
       { label: 'Wolny/wolna', value: 'wolny' },
-      { label: 'W zwiazku malzenskim', value: 'malzenstwo' },
+      { label: 'W związku małżeńskim', value: 'malzenstwo' },
       { label: 'Rozwiedziony/a', value: 'rozwiedziony' },
       { label: 'Wdowiec/wdowa', value: 'wdowiec' },
     ],
@@ -29,33 +29,33 @@ const QUESTIONS: QualifyingQuestion[] = [
   },
   {
     id: 'liczbaDzieci',
-    question: 'Ile masz dzieci ponizej 18 roku zycia?',
+    question: 'Ile masz dzieci poniżej 18 roku życia?',
     options: [
       { label: 'Brak', value: '0' },
       { label: '1', value: '1' },
       { label: '2', value: '2' },
-      { label: '3 lub wiecej', value: '3' },
+      { label: '3 lub więcej', value: '3' },
     ],
     profileKey: 'liczbaDzieci',
   },
   {
     id: 'dochodMiesiecznie',
-    question: 'Jaki jest miesieczny dochod netto Twojego gospodarstwa domowego?',
+    question: 'Jaki jest miesięczny dochód netto Twojego gospodarstwa domowego?',
     options: [
-      { label: 'Ponizej 2000 PLN', value: '1500' },
+      { label: 'Poniżej 2000 PLN', value: '1500' },
       { label: '2000-4000 PLN', value: '3000' },
       { label: '4000-7000 PLN', value: '5500' },
-      { label: 'Powyzej 7000 PLN', value: '9000' },
+      { label: 'Powyżej 7000 PLN', value: '9000' },
     ],
     profileKey: 'dochodMiesiecznie',
   },
   {
     id: 'zatrudnienie',
-    question: 'Jaki jest Twoj status zatrudnienia?',
+    question: 'Jaki jest Twój status zatrudnienia?',
     options: [
-      { label: 'Umowa o prace', value: 'umowa_o_prace' },
-      { label: 'Dzialalnosc gospodarcza', value: 'dzialalnosc' },
-      { label: 'Umowa zlecenie/dzielo', value: 'umowa_zlecenie' },
+      { label: 'Umowa o pracę', value: 'umowa_o_prace' },
+      { label: 'Działalność gospodarcza', value: 'dzialalnosc' },
+      { label: 'Umowa zlecenie/dzieło', value: 'umowa_zlecenie' },
       { label: 'Bezrobotny/a', value: 'bezrobotny' },
       { label: 'Emeryt/rencista', value: 'emeryt' },
     ],
@@ -63,12 +63,12 @@ const QUESTIONS: QualifyingQuestion[] = [
   },
   {
     id: 'niepelnosprawnosc',
-    question: 'Czy posiadasz orzeczenie o niepelnosprawnosci?',
+    question: 'Czy posiadasz orzeczenie o niepełnosprawności?',
     options: [
       { label: 'Nie', value: 'brak' },
-      { label: 'Lekki stopien', value: 'lekki' },
-      { label: 'Umiarkowany stopien', value: 'umiarkowany' },
-      { label: 'Znaczny stopien', value: 'znaczny' },
+      { label: 'Lekki stopień', value: 'lekki' },
+      { label: 'Umiarkowany stopień', value: 'umiarkowany' },
+      { label: 'Znaczny stopień', value: 'znaczny' },
     ],
     profileKey: 'niepelnosprawnosc',
   },
@@ -76,29 +76,29 @@ const QUESTIONS: QualifyingQuestion[] = [
     id: 'wlasnosc',
     question: 'Jaka jest Twoja sytuacja mieszkaniowa?',
     options: [
-      { label: 'Wlasne mieszkanie', value: 'mieszkanie' },
-      { label: 'Wlasny dom', value: 'dom' },
+      { label: 'Własne mieszkanie', value: 'mieszkanie' },
+      { label: 'Własny dom', value: 'dom' },
       { label: 'Wynajem', value: 'wynajem' },
-      { label: 'Zamieszkanie z rodzina', value: 'rodzina' },
+      { label: 'Zamieszkanie z rodziną', value: 'rodzina' },
     ],
     profileKey: 'wlasnosc',
   },
   {
     id: 'wojewodztwo',
-    question: 'W jakim wojewodztwie mieszkasz?',
+    question: 'W jakim województwie mieszkasz?',
     options: [
       { label: 'Mazowieckie', value: 'mazowieckie' },
-      { label: 'Malopolskie', value: 'malopolskie' },
-      { label: 'Slaskie', value: 'slaskie' },
+      { label: 'Małopolskie', value: 'malopolskie' },
+      { label: 'Śląskie', value: 'slaskie' },
       { label: 'Wielkopolskie', value: 'wielkopolskie' },
-      { label: 'Dolnoslaskie', value: 'dolnoslaskie' },
+      { label: 'Dolnośląskie', value: 'dolnoslaskie' },
       { label: 'Inne', value: 'inne' },
     ],
     profileKey: 'wojewodztwo',
   },
   {
     id: 'ciaza',
-    question: 'Czy ktos w Twoim gospodarstwie domowym jest w ciazy?',
+    question: 'Czy ktoś w Twoim gospodarstwie domowym jest w ciąży?',
     options: [
       { label: 'Nie', value: 'false' },
       { label: 'Tak', value: 'true' },
@@ -107,7 +107,7 @@ const QUESTIONS: QualifyingQuestion[] = [
   },
   {
     id: 'student',
-    question: 'Czy jestes studentem/studentka?',
+    question: 'Czy jesteś studentem/studentką?',
     options: [
       { label: 'Nie', value: 'false' },
       { label: 'Tak', value: 'true' },
@@ -116,7 +116,7 @@ const QUESTIONS: QualifyingQuestion[] = [
   },
   {
     id: 'rolnik',
-    question: 'Czy jestes ubezpieczony/a w KRUS (rolnik)?',
+    question: 'Czy jesteś ubezpieczony/a w KRUS (rolnik)?',
     options: [
       { label: 'Nie', value: 'false' },
       { label: 'Tak', value: 'true' },
@@ -125,7 +125,7 @@ const QUESTIONS: QualifyingQuestion[] = [
   },
   {
     id: 'bezrobotnyZarejestrowany',
-    question: 'Czy jestes zarejestrowany/a jako bezrobotny/a w urzedzie pracy (PUP)?',
+    question: 'Czy jesteś zarejestrowany/a jako bezrobotny/a w urzędzie pracy (PUP)?',
     options: [
       { label: 'Nie', value: 'false' },
       { label: 'Tak', value: 'true' },
@@ -198,7 +198,6 @@ export default function Home() {
     if (questionIndex < QUESTIONS.length - 1) {
       setQuestionIndex(questionIndex + 1);
     } else {
-      // All questions answered -- run verification
       runVerification(updated as UserProfile);
     }
   }
@@ -207,7 +206,6 @@ export default function Home() {
     setIsLoading(true);
     setPhase('chat');
 
-    // Fill in defaults for missing optional fields
     const completeProfile: UserProfile = {
       wiek: fullProfile.wiek,
       plec: fullProfile.plec,
@@ -240,7 +238,7 @@ export default function Home() {
         body: JSON.stringify({ profile: completeProfile }),
       });
 
-      if (!res.ok) throw new Error('Blad weryfikacji');
+      if (!res.ok) throw new Error('Błąd weryfikacji');
 
       const data = await res.json();
       setResults(data.results ?? []);
@@ -250,14 +248,14 @@ export default function Home() {
         id: 'welcome',
         role: 'assistant',
         content: count > 0
-          ? `Znalazlem ${count} swiadczen, na ktore mozesz sie kwalifikowac. Przejrzyj je ponizej -- kliknij "Jak zlozyc wniosek" przy kazdym swiadczeniu, zeby zobaczyc instrukcje krok po kroku. Mozesz tez zadac mi pytanie o dowolne swiadczenie.`
-          : 'Nie znalazlem swiadczen pasujacych do Twojego profilu. Sprawdz dane lub zadaj pytanie -- postaram sie pomoc.',
+          ? `Znalazłem ${count} świadczeń, na które możesz się kwalifikować. Przejrzyj je poniżej -- kliknij "Jak złożyć wniosek" przy każdym świadczeniu, żeby zobaczyć instrukcje krok po kroku. Możesz też zadać mi pytanie o dowolne świadczenie.`
+          : 'Nie znalazłem świadczeń pasujących do Twojego profilu. Sprawdź dane lub zadaj pytanie -- postaram się pomóc.',
       }]);
     } catch {
       setMessages([{
         id: 'error',
         role: 'assistant',
-        content: 'Wystapil blad podczas weryfikacji. Sprobuj ponownie za chwile.',
+        content: 'Wystąpił błąd podczas weryfikacji. Spróbuj ponownie za chwilę.',
       }]);
     }
 
@@ -295,7 +293,7 @@ export default function Home() {
         }),
       });
 
-      if (!res.ok || !res.body) throw new Error('Blad czatu');
+      if (!res.ok || !res.body) throw new Error('Błąd czatu');
 
       const reader = res.body.getReader();
       const decoder = new TextDecoder();
@@ -338,7 +336,7 @@ export default function Home() {
         if (last.id === assistantMsg.id) {
           updated[updated.length - 1] = {
             ...last,
-            content: 'Przepraszam, wystapil blad. Sprobuj ponownie.',
+            content: 'Przepraszam, wystąpił błąd. Spróbuj ponownie.',
           };
         }
         return updated;
@@ -353,22 +351,17 @@ export default function Home() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center px-4">
         <div
-          className="w-full max-w-lg rounded-2xl overflow-hidden"
+          className="w-full max-w-lg rounded-2xl overflow-hidden bg-bg-1"
           style={{
-            background: 'var(--color-bg-1)',
             border: '1px solid var(--color-border-light)',
-            boxShadow: '0 8px 60px rgba(0,0,0,0.5), inset 0 0 80px rgba(240,168,96,0.03)',
+            boxShadow: '0 8px 40px rgba(0,0,0,0.08)',
           }}
         >
           {/* Panel header */}
           <div
-            className="flex items-center gap-3 px-5 py-3"
-            style={{
-              borderBottom: '1px solid var(--color-border)',
-              background: 'linear-gradient(180deg, rgba(255,255,255,0.03), transparent)',
-            }}
+            className="flex items-center gap-3 px-5 py-3 border-b border-border"
           >
-            <span className="w-2.5 h-2.5 rounded-full bg-accent" style={{ boxShadow: '0 0 8px rgba(240,168,96,0.4)' }} />
+            <span className="w-2.5 h-2.5 rounded-full" style={{ background: '#e6993a', boxShadow: '0 0 6px rgba(230,153,58,0.4)' }} />
             <span className="text-[13px] font-extrabold tracking-[3px] text-text-1 uppercase">
               WEZMEZADARMO
             </span>
@@ -378,26 +371,11 @@ export default function Home() {
 
           {/* Header content */}
           <div className="px-6 pt-6 pb-4">
-            <pre className="text-accent text-[5.5px] leading-none mb-5 select-none hidden sm:block">{`
- __        ________ ________  __ __ ________ ________  _____  _____  _____  __  ___ ___  ___
-|  |      |   ____|/  __   / |  |  |   ____|/  __   / /  _  ||  _  \\|  _  \\|  |/  /|   \\/   |
-|  |  __  |  |__  |  / /  /  |  |  |  |__  |  / /  / |  | | || | |  | |_|  |     / |  \\  /  |
-|  | |  | |   __| | |/  /   |  |  |   __| | |/  /  |  |_| || | |  |      /|  |  \\ |  |\\/|  |
-|   \\|  | |  |____|  /  /---|  |  |  |____|  /  /---|     || |_|  |  |\\  \\|  |  \\\\|  |  |  |
- \\      / |_______|_/ /____|  |__|_______|_/ /____|\\___/\\_\\|_____/|__| \\__|__|\\__\\|__|  |__|
-  \\____/
-`}</pre>
-
-            {/* Mobile title */}
-            <h1 className="text-accent text-2xl font-extrabold tracking-[4px] mb-2 sm:hidden">
-              WEZMEZADARMO
+            <h1 className="text-[22px] font-bold text-text-1 mb-1.5">
+              Sprawdź co Ci się należy
             </h1>
-
-            <p className="text-text-1 text-[18px] font-semibold mb-1.5">
-              Sprawdz co Ci sie nalezy
-            </p>
-            <p className="text-text-2 text-[14px] mb-6">
-              Zasilki, ulgi, badania, dotacje -- sprawdz w 2 minuty
+            <p className="text-text-2 text-[15px] mb-6">
+              Zasiłki, ulgi, badania, dotacje -- sprawdź w 2 minuty
             </p>
           </div>
 
@@ -408,21 +386,17 @@ export default function Home() {
 
           {/* Disclaimer footer */}
           <div
-            className="px-6 py-3 text-[12px] text-text-3 leading-relaxed"
-            style={{
-              borderTop: '1px solid var(--color-border)',
-              background: 'rgba(0,0,0,0.15)',
-            }}
+            className="px-6 py-3 text-[12px] text-text-3 leading-relaxed border-t border-border bg-bg-2"
           >
-            Nie jestem urzednikiem -- to informacja orientacyjna, nie decyzja urzedowa.
-            Twoj numer PESEL nie opuszcza Twojej przegladarki. NIP jest uzywany jednorazowo
+            Nie jestem urzędnikiem -- to informacja orientacyjna, nie decyzja urzędowa.
+            Twój numer PESEL nie opuszcza Twojej przeglądarki. NIP jest używany jednorazowo
             do sprawdzenia statusu firmy i nie jest przechowywany.
           </div>
         </div>
 
         {/* Benefit count */}
         <div className="mt-4 text-[13px] text-text-3 text-center">
-          Baza: 99 swiadczen | 15 kategorii
+          Baza: 99 świadczeń | 15 kategorii
         </div>
       </div>
     );
@@ -434,39 +408,31 @@ export default function Home() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center px-4">
         <div
-          className="w-full max-w-lg rounded-2xl overflow-hidden"
+          className="w-full max-w-lg rounded-2xl overflow-hidden bg-bg-1"
           style={{
-            background: 'var(--color-bg-1)',
             border: '1px solid var(--color-border-light)',
-            boxShadow: '0 8px 60px rgba(0,0,0,0.5), inset 0 0 80px rgba(240,168,96,0.03)',
+            boxShadow: '0 8px 40px rgba(0,0,0,0.08)',
           }}
         >
           {/* Panel header with progress */}
-          <div
-            className="flex items-center gap-3 px-5 py-3"
-            style={{
-              borderBottom: '1px solid var(--color-border)',
-              background: 'linear-gradient(180deg, rgba(255,255,255,0.03), transparent)',
-            }}
-          >
-            <span className="w-2.5 h-2.5 rounded-full bg-accent" style={{ boxShadow: '0 0 8px rgba(240,168,96,0.4)' }} />
+          <div className="flex items-center gap-3 px-5 py-3 border-b border-border">
+            <span className="w-2.5 h-2.5 rounded-full" style={{ background: '#e6993a', boxShadow: '0 0 6px rgba(230,153,58,0.4)' }} />
             <span className="text-[13px] font-extrabold tracking-[3px] text-text-1 uppercase">
               WEZMEZADARMO
             </span>
             <span className="flex-1" />
-            <span className="text-[14px] text-accent font-bold tracking-[1px]">
+            <span className="text-[14px] font-bold tracking-[1px]" style={{ color: '#b87a1e' }}>
               {questionIndex + 1}/{QUESTIONS.length}
             </span>
           </div>
 
           {/* Progress bar */}
-          <div className="h-1.5" style={{ background: 'var(--color-bg-3)' }}>
+          <div className="h-1.5 bg-bg-3">
             <div
               className="h-full transition-all duration-300"
               style={{
                 width: `${((questionIndex + 1) / QUESTIONS.length) * 100}%`,
-                background: 'linear-gradient(90deg, #f0a860, #ffb56b)',
-                boxShadow: '0 0 12px rgba(240,168,96,0.3)',
+                background: 'linear-gradient(90deg, #e6993a, #f5b04a)',
               }}
             />
           </div>
@@ -483,22 +449,17 @@ export default function Home() {
                   key={opt.value}
                   onClick={() => handleQuestionAnswer(opt.value)}
                   disabled={isLoading}
-                  className="w-full text-left px-5 py-4 rounded-xl text-[15px] border transition-all hover:-translate-y-px disabled:opacity-40 cursor-pointer"
-                  style={{
-                    background: 'var(--color-bg-2)',
-                    borderColor: 'var(--color-border)',
-                    color: 'var(--color-text-1)',
-                  }}
+                  className="w-full text-left px-5 py-4 rounded-xl text-[15px] border border-border bg-bg-2 text-text-1 transition-all hover:-translate-y-px hover:shadow-sm disabled:opacity-40 cursor-pointer"
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = 'rgba(240,168,96,0.4)';
-                    e.currentTarget.style.background = 'rgba(240,168,96,0.06)';
+                    e.currentTarget.style.borderColor = 'rgba(230,153,58,0.4)';
+                    e.currentTarget.style.background = 'rgba(230,153,58,0.06)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.borderColor = 'var(--color-border)';
                     e.currentTarget.style.background = 'var(--color-bg-2)';
                   }}
                 >
-                  <span className="text-accent font-bold mr-2.5">
+                  <span className="font-bold mr-2.5" style={{ color: '#e6993a' }}>
                     {String.fromCharCode(97 + i)})
                   </span>
                   {opt.label}
@@ -515,14 +476,8 @@ export default function Home() {
   return (
     <div className="h-screen flex flex-col">
       {/* Topbar */}
-      <div
-        className="flex items-center gap-3 px-5 py-3"
-        style={{
-          borderBottom: '1px solid var(--color-border)',
-          background: 'linear-gradient(180deg, rgba(255,255,255,0.03), transparent), var(--color-bg-1)',
-        }}
-      >
-        <span className="w-2.5 h-2.5 rounded-full bg-accent" style={{ boxShadow: '0 0 8px var(--color-accent)' }} />
+      <div className="flex items-center gap-3 px-5 py-3 border-b border-border bg-bg-1">
+        <span className="w-2.5 h-2.5 rounded-full" style={{ background: '#e6993a', boxShadow: '0 0 6px rgba(230,153,58,0.4)' }} />
         <span className="text-[13px] font-extrabold tracking-[3px] text-text-1 uppercase">
           wezmezadarmo
         </span>

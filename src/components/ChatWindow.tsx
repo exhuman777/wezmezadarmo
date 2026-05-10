@@ -68,8 +68,8 @@ export function ChatWindow({
         {/* Benefit cards */}
         {results.length > 0 && !guideBenefitId && (
           <div className="mt-3 mb-4">
-            <div className="text-[13px] font-bold tracking-[2px] text-accent mb-3 uppercase">
-              Dopasowane swiadczenia ({results.length})
+            <div className="text-[13px] font-bold tracking-[2px] mb-3 uppercase" style={{ color: '#b87a1e' }}>
+              Dopasowane świadczenia ({results.length})
             </div>
             {results.map((r) => (
               <BenefitCard key={r.benefit.id} result={r} onGuide={onGuide} />
@@ -88,14 +88,10 @@ export function ChatWindow({
       {/* Input bar */}
       <form
         onSubmit={handleSubmit}
-        className="flex gap-3 px-4 py-3.5 border-t"
-        style={{ borderColor: 'var(--color-border)' }}
+        className="flex gap-3 px-4 py-3.5 border-t border-border"
       >
-        <div className="flex-1 flex items-center gap-2 px-4 py-3 rounded-lg" style={{
-          background: 'var(--color-bg-2)',
-          border: '1px solid var(--color-border)',
-        }}>
-          <span className="text-accent font-bold text-[16px]">/</span>
+        <div className="flex-1 flex items-center gap-2 px-4 py-3 rounded-lg bg-bg-2 border border-border">
+          <span className="font-bold text-[16px]" style={{ color: '#e6993a' }}>/</span>
           <input
             ref={inputRef}
             type="text"
@@ -111,8 +107,8 @@ export function ChatWindow({
           disabled={isStreaming || !input.trim()}
           className="px-5 py-3 rounded-lg text-[14px] font-bold tracking-[0.5px] transition-all disabled:opacity-30 cursor-pointer"
           style={{
-            background: 'linear-gradient(135deg, #f0a860, #ffb56b)',
-            color: '#1a1208',
+            background: 'linear-gradient(135deg, #e6993a, #f5b04a)',
+            color: '#fff',
           }}
         >
           Wyslij
@@ -120,11 +116,8 @@ export function ChatWindow({
       </form>
 
       {/* Disclaimer */}
-      <div className="px-4 py-2 text-[12px] text-text-3 text-center" style={{
-        borderTop: '1px solid var(--color-border)',
-        background: 'var(--color-bg-1)',
-      }}>
-        Informacja orientacyjna, nie decyzja urzedowa. Zweryfikuj na stronach zrodlowych.
+      <div className="px-4 py-2 text-[12px] text-text-3 text-center border-t border-border bg-bg-1">
+        Informacja orientacyjna, nie decyzja urzędowa. Zweryfikuj na stronach źródłowych.
       </div>
     </div>
   );

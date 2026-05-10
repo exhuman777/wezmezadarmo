@@ -9,25 +9,25 @@ interface BenefitCardProps {
 
 const STATUS_STYLES = {
   PRZYSLUGUJE: {
-    border: 'rgba(63,185,80,0.45)',
-    glow: '0 4px 24px rgba(63,185,80,0.15), inset 0 0 40px rgba(63,185,80,0.05)',
+    border: 'rgba(22,163,74,0.4)',
+    bg: 'linear-gradient(135deg, rgba(22,163,74,0.06), rgba(22,163,74,0.02))',
     label: 'PRZYSLUGUJE',
-    labelColor: '#3fb950',
-    labelBg: 'rgba(63,185,80,0.18)',
+    labelColor: '#16a34a',
+    labelBg: 'rgba(22,163,74,0.12)',
   },
   MOZLIWE: {
-    border: 'rgba(240,168,96,0.45)',
-    glow: '0 4px 24px rgba(240,168,96,0.15), inset 0 0 40px rgba(240,168,96,0.05)',
+    border: 'rgba(230,153,58,0.4)',
+    bg: 'linear-gradient(135deg, rgba(230,153,58,0.06), rgba(230,153,58,0.02))',
     label: 'MOZLIWE',
-    labelColor: '#f0a860',
-    labelBg: 'rgba(240,168,96,0.18)',
+    labelColor: '#b87a1e',
+    labelBg: 'rgba(230,153,58,0.12)',
   },
   NIE_PRZYSLUGUJE: {
-    border: 'rgba(100,100,100,0.3)',
-    glow: 'none',
+    border: 'rgba(0,0,0,0.1)',
+    bg: 'rgba(0,0,0,0.02)',
     label: 'NIE PRZYSLUGUJE',
-    labelColor: '#777',
-    labelBg: 'rgba(100,100,100,0.18)',
+    labelColor: '#888',
+    labelBg: 'rgba(0,0,0,0.06)',
   },
 } as const;
 
@@ -37,11 +37,10 @@ export function BenefitCard({ result, onGuide }: BenefitCardProps) {
 
   return (
     <div
-      className="w-full rounded-xl p-4 mb-3 cursor-pointer transition-transform hover:-translate-y-0.5"
+      className="w-full rounded-xl p-4 mb-3 cursor-pointer transition-all hover:-translate-y-0.5 hover:shadow-md"
       style={{
-        background: 'linear-gradient(135deg, rgba(40,28,16,0.95), rgba(20,14,8,0.95))',
+        background: s.bg,
         border: `2px solid ${s.border}`,
-        boxShadow: s.glow,
       }}
       onClick={() => onGuide(b.id)}
     >
@@ -49,7 +48,7 @@ export function BenefitCard({ result, onGuide }: BenefitCardProps) {
       <div className="flex justify-between items-center text-[12px] font-bold tracking-[1px]">
         <span
           className="px-2 py-0.5 rounded"
-          style={{ background: 'rgba(240,168,96,0.2)', color: '#f0a860' }}
+          style={{ background: 'rgba(230,153,58,0.12)', color: '#b87a1e' }}
         >
           {b.kategoria}
         </span>
@@ -74,7 +73,7 @@ export function BenefitCard({ result, onGuide }: BenefitCardProps) {
         </span>
       </div>
 
-      {/* Confidence + warnings */}
+      {/* Warnings */}
       {result.warnings.length > 0 && (
         <div className="text-[12px] text-red mb-2.5 leading-relaxed">
           {result.warnings.map((w, i) => (
@@ -84,7 +83,7 @@ export function BenefitCard({ result, onGuide }: BenefitCardProps) {
       )}
 
       {/* Footer: source + guide button */}
-      <div className="flex justify-between items-center pt-3 border-t" style={{ borderColor: 'rgba(240,168,96,0.15)' }}>
+      <div className="flex justify-between items-center pt-3 border-t border-border">
         <a
           href={b.zrodloUrl}
           target="_blank"
@@ -92,7 +91,7 @@ export function BenefitCard({ result, onGuide }: BenefitCardProps) {
           onClick={(e) => e.stopPropagation()}
           className="text-[12px] text-text-3 hover:text-accent transition-colors"
         >
-          Zrodlo: {b.zrodloNazwa}
+          Źródło: {b.zrodloNazwa}
         </a>
         <button
           onClick={(e) => {
@@ -101,12 +100,11 @@ export function BenefitCard({ result, onGuide }: BenefitCardProps) {
           }}
           className="text-[13px] font-bold tracking-[0.5px] px-3.5 py-1.5 rounded-lg transition-colors cursor-pointer"
           style={{
-            background: 'rgba(240,168,96,0.15)',
-            color: '#f0a860',
-            border: '1px solid rgba(240,168,96,0.3)',
+            background: 'linear-gradient(135deg, #e6993a, #f5b04a)',
+            color: '#fff',
           }}
         >
-          Jak zlozyc wniosek
+          Jak złożyć wniosek
         </button>
       </div>
     </div>
