@@ -5,12 +5,18 @@ export type BenefitCategory =
   | 'BIZNES'
   | 'MIESZKANIE'
   | 'NIEPELNOSPRAWNOSC'
-  | 'ENERGIA';
+  | 'ENERGIA'
+  | 'ZUS'
+  | 'PRACA'
+  | 'EDUKACJA'
+  | 'SENIOR'
+  | 'POMOC_SPOLECZNA'
+  | 'EKOLOGIA';
 
 export type BenefitStatus = 'PRZYSLUGUJE' | 'MOZLIWE' | 'NIE_PRZYSLUGUJE';
 export type Confidence = 'WYSOKA' | 'SREDNIA' | 'NISKA';
 export type Gender = 'K' | 'M';
-export type ApplicationChannel = 'PUE_ZUS' | 'ePUAP' | 'EMPATIA' | 'BANK' | 'MOPS' | 'URZAD_GMINY' | 'POZ' | 'URZAD_SKARBOWY';
+export type ApplicationChannel = 'PUE_ZUS' | 'ePUAP' | 'EMPATIA' | 'BANK' | 'MOPS' | 'URZAD_GMINY' | 'POZ' | 'URZAD_SKARBOWY' | 'PUP' | 'PFRON' | 'KRUS' | 'UCZELNIA' | 'WFOSIGW' | 'NFZ' | 'ONLINE';
 
 export interface BenefitRequirements {
   wiekMin?: number;
@@ -29,6 +35,11 @@ export interface BenefitRequirements {
   pkd?: string[];
   wojewodztwo?: string[];
   ciaza?: boolean;
+  student?: boolean;
+  emeryt?: boolean;
+  rolnik?: boolean;
+  bezrobotnyZarejestrowany?: boolean;
+  statusWdowiec?: boolean;
 }
 
 export interface Exclusion {
@@ -80,6 +91,10 @@ export interface UserProfile {
   dataDzialalnosci?: string;
   pkd?: string[];
   ciaza?: boolean;
+  student?: boolean;
+  emeryt?: boolean;
+  rolnik?: boolean;
+  bezrobotnyZarejestrowany?: boolean;
 }
 
 export interface MatchResult {

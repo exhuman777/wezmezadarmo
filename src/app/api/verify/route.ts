@@ -23,15 +23,21 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ results: [], summary: 'Nie znaleziono swiadczen.' });
     }
 
-    // Pass 2: Adversarial verification
-    const verifierMessages = buildVerifierMessages(profile, matches);
-    const verifierResponse = await chatCompletion(verifierMessages, 'verifier');
-    const verifierResults = parseVerifierResponse(verifierResponse);
+    // Pass 2: Adversarial verification (graceful degradation if no API key)
+    if (!process.env.OPENROUTER_API_KEY || process.env.OPENROUTER_API_KEY === 'your-key-here') {
+      return NextResponse.json({ results: matches });
+    }
 
-    // Merge verification into results
-    const verifiedResults = applyVerification(matches, verifierResults);
-
-    return NextResponse.json({ results: verifiedResults });
+    try {
+      const verifierMessages = buildVerifierMessages(profile, matches);
+      const verifierResponse = await chatCompletion(verifierMessages, 'verifier');
+      const verifierResults = parseVerifierResponse(verifierResponse);
+      const verifiedResults = applyVerification(matches, verifierResults);
+      return NextResponse.json({ results: verifiedResults });
+    } catch {
+      // Verifier failed -- return unverified matches
+      return NextResponse.json({ results: matches });
+    }
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Blad weryfikacji';
     return NextResponse.json(

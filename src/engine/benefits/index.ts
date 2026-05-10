@@ -6,6 +6,14 @@ import { BIZNES } from './biznes';
 import { MIESZKANIE } from './mieszkanie';
 import { NIEPELNOSPRAWNOSC } from './niepelnosprawnosc';
 import { ENERGIA } from './energia';
+import { PRACA } from './praca';
+import { ZUS } from './zus';
+import { EKOLOGIA } from './ekologia';
+import { SENIOR } from './senior';
+import { KRUS } from './krus';
+import { POMOC_SPOLECZNA } from './pomoc_spoleczna';
+import { EDUKACJA } from './edukacja';
+import { INNE } from './inne';
 
 // Cross-listed benefits (referenced by ID, not duplicated)
 import { PODATKI as PODATKI_REF } from './podatki';
@@ -20,6 +28,14 @@ export const ALL_BENEFITS: Benefit[] = [
   ...MIESZKANIE,
   ...NIEPELNOSPRAWNOSC,
   ...ENERGIA,
+  ...PRACA,
+  ...ZUS,
+  ...EKOLOGIA,
+  ...SENIOR,
+  ...KRUS,
+  ...POMOC_SPOLECZNA,
+  ...EDUKACJA,
+  ...INNE,
 ];
 
 // Deduplicate by ID (cross-listed benefits appear once)
@@ -51,4 +67,4 @@ export function getAllBenefits(): Benefit[] {
   return BENEFITS;
 }
 
-export { ZDROWIE, RODZINA, PODATKI, BIZNES, MIESZKANIE, NIEPELNOSPRAWNOSC, ENERGIA };
+export { ZDROWIE, RODZINA, PODATKI, BIZNES, MIESZKANIE, NIEPELNOSPRAWNOSC, ENERGIA, PRACA, ZUS, EKOLOGIA, SENIOR, KRUS, POMOC_SPOLECZNA, EDUKACJA, INNE };

@@ -36,13 +36,13 @@ export function applyVerification(
 
 export function formatBenefitsSummary(results: MatchResult[]): string {
   if (results.length === 0) {
-    return 'Nie znaleziono swiadczen pasujacych do Twojego profilu. Jesli uwazasz ze to blad, skontaktuj sie z lokalnym MOPS lub urzedem gminy.';
+    return 'Nie znaleziono świadczeń pasujących do Twojego profilu. Jeśli uważasz że to błąd, skontaktuj się z lokalnym MOPS lub urzędem gminy.';
   }
 
   const przysluguje = results.filter(r => r.status === 'PRZYSLUGUJE');
   const mozliwe = results.filter(r => r.status === 'MOZLIWE');
 
-  let summary = `Znaleziono ${results.length} swiadczen`;
+  let summary = `Znaleziono ${results.length} świadczeń`;
   if (przysluguje.length > 0) {
     summary += ` (${przysluguje.length} pewnych`;
   }
@@ -54,7 +54,7 @@ export function formatBenefitsSummary(results: MatchResult[]): string {
   const totalMin = results.reduce((sum, r) => sum + (r.benefit.kwotaMin ?? 0), 0);
   const totalMax = results.reduce((sum, r) => sum + (r.benefit.kwotaMax ?? 0), 0);
   if (totalMax > 0) {
-    summary += ` Szacowana wartosc: ${totalMin !== totalMax ? `${totalMin}-${totalMax}` : totalMax} PLN.`;
+    summary += ` Szacowana wartość: ${totalMin !== totalMax ? `${totalMin}-${totalMax}` : totalMax} PLN.`;
   }
 
   return summary;

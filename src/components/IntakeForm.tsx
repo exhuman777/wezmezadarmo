@@ -45,10 +45,10 @@ export function IntakeForm({ onSubmit, isLoading }: IntakeFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-md space-y-4">
+    <form onSubmit={handleSubmit} className="w-full max-w-md space-y-6">
       {/* PESEL */}
       <div>
-        <label className="block text-[10px] font-bold tracking-[1.5px] text-text-3 mb-1.5 uppercase">
+        <label className="block text-[13px] font-bold tracking-[2px] text-text-2 mb-2 uppercase">
           PESEL
         </label>
         <input
@@ -57,14 +57,14 @@ export function IntakeForm({ onSubmit, isLoading }: IntakeFormProps) {
           value={pesel}
           onChange={(e) => handlePeselChange(e.target.value)}
           placeholder="00000000000"
-          className="w-full px-3 py-2.5 bg-bg-2 border border-border rounded-md text-text-1 font-mono text-sm outline-none transition-colors focus:border-accent placeholder:text-text-3"
+          className="w-full px-4 py-3.5 bg-bg-2 border border-border rounded-lg text-text-1 font-mono text-[16px] outline-none transition-colors focus:border-accent placeholder:text-text-3"
           disabled={isLoading}
         />
         {peselError && (
-          <p className="mt-1 text-xs text-red">{peselError}</p>
+          <p className="mt-1.5 text-[13px] text-red">{peselError}</p>
         )}
         {decoded && (
-          <div className="mt-1.5 flex gap-3 text-xs">
+          <div className="mt-2 flex gap-4 text-[14px] font-medium">
             <span className="text-green">
               Wiek: {decoded.wiek} lat
             </span>
@@ -77,8 +77,8 @@ export function IntakeForm({ onSubmit, isLoading }: IntakeFormProps) {
 
       {/* NIP */}
       <div>
-        <label className="block text-[10px] font-bold tracking-[1.5px] text-text-3 mb-1.5 uppercase">
-          NIP <span className="font-normal tracking-normal">(opcjonalnie -- dla swiadczen firmowych)</span>
+        <label className="block text-[13px] font-bold tracking-[2px] text-text-2 mb-2 uppercase">
+          NIP <span className="font-normal tracking-normal text-text-3 text-[12px]">(opcjonalnie -- dla swiadczen firmowych)</span>
         </label>
         <input
           type="text"
@@ -86,7 +86,7 @@ export function IntakeForm({ onSubmit, isLoading }: IntakeFormProps) {
           value={nip}
           onChange={(e) => setNip(e.target.value.replace(/\D/g, '').slice(0, 10))}
           placeholder="0000000000"
-          className="w-full px-3 py-2.5 bg-bg-2 border border-border rounded-md text-text-1 font-mono text-sm outline-none transition-colors focus:border-accent placeholder:text-text-3"
+          className="w-full px-4 py-3.5 bg-bg-2 border border-border rounded-lg text-text-1 font-mono text-[16px] outline-none transition-colors focus:border-accent placeholder:text-text-3"
           disabled={isLoading}
         />
       </div>
@@ -95,7 +95,7 @@ export function IntakeForm({ onSubmit, isLoading }: IntakeFormProps) {
       <button
         type="submit"
         disabled={isLoading || !decoded}
-        className="w-full py-3 rounded-md font-bold text-sm tracking-[1px] uppercase transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+        className="w-full py-4 rounded-lg font-bold text-[15px] tracking-[1.5px] uppercase transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
         style={{
           background: decoded ? 'linear-gradient(135deg, #f0a860, #ffb56b)' : undefined,
           color: decoded ? '#1a1208' : undefined,
@@ -103,6 +103,7 @@ export function IntakeForm({ onSubmit, isLoading }: IntakeFormProps) {
           borderColor: decoded ? 'transparent' : 'rgba(255,255,255,0.06)',
           borderWidth: '1px',
           borderStyle: 'solid',
+          boxShadow: decoded ? '0 4px 24px rgba(240,168,96,0.25)' : 'none',
         }}
       >
         {isLoading ? 'Sprawdzam...' : 'Sprawdz co Ci sie nalezy'}

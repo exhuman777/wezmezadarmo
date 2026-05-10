@@ -10,8 +10,8 @@ const openrouter = new OpenAI({
 });
 
 export const MODELS = {
-  conversation: 'anthropic/claude-sonnet-4-20250514',
-  verifier: 'anthropic/claude-haiku-4-20250414',
+  conversation: 'anthropic/claude-haiku-4-5-20251001',
+  verifier: 'anthropic/claude-haiku-4-5-20251001',
 } as const;
 
 export async function chatCompletion(

@@ -40,7 +40,7 @@ const QUESTIONS: QualifyingQuestion[] = [
   },
   {
     id: 'dochodMiesiecznie',
-    question: 'Jaki jest miesięczny dochod netto Twojego gospodarstwa domowego?',
+    question: 'Jaki jest miesieczny dochod netto Twojego gospodarstwa domowego?',
     options: [
       { label: 'Ponizej 2000 PLN', value: '1500' },
       { label: '2000-4000 PLN', value: '3000' },
@@ -105,6 +105,33 @@ const QUESTIONS: QualifyingQuestion[] = [
     ],
     profileKey: 'ciaza',
   },
+  {
+    id: 'student',
+    question: 'Czy jestes studentem/studentka?',
+    options: [
+      { label: 'Nie', value: 'false' },
+      { label: 'Tak', value: 'true' },
+    ],
+    profileKey: 'student',
+  },
+  {
+    id: 'rolnik',
+    question: 'Czy jestes ubezpieczony/a w KRUS (rolnik)?',
+    options: [
+      { label: 'Nie', value: 'false' },
+      { label: 'Tak', value: 'true' },
+    ],
+    profileKey: 'rolnik',
+  },
+  {
+    id: 'bezrobotnyZarejestrowany',
+    question: 'Czy jestes zarejestrowany/a jako bezrobotny/a w urzedzie pracy (PUP)?',
+    options: [
+      { label: 'Nie', value: 'false' },
+      { label: 'Tak', value: 'true' },
+    ],
+    profileKey: 'bezrobotnyZarejestrowany',
+  },
 ];
 
 export default function Home() {
@@ -153,7 +180,7 @@ export default function Home() {
     const updated = { ...profile };
     if (key === 'liczbaDzieci' || key === 'dochodMiesiecznie') {
       (updated as Record<string, unknown>)[key] = parseInt(value, 10);
-    } else if (key === 'ciaza') {
+    } else if (key === 'ciaza' || key === 'student' || key === 'rolnik' || key === 'bezrobotnyZarejestrowany') {
       (updated as Record<string, unknown>)[key] = value === 'true';
     } else {
       (updated as Record<string, unknown>)[key] = value;
@@ -198,6 +225,10 @@ export default function Home() {
       dataDzialalnosci: fullProfile.dataDzialalnosci,
       pkd: fullProfile.pkd,
       ciaza: fullProfile.ciaza ?? false,
+      student: fullProfile.student ?? false,
+      emeryt: fullProfile.zatrudnienie === 'emeryt',
+      rolnik: fullProfile.rolnik ?? false,
+      bezrobotnyZarejestrowany: fullProfile.bezrobotnyZarejestrowany ?? false,
     };
 
     setProfile(completeProfile);
@@ -219,7 +250,7 @@ export default function Home() {
         id: 'welcome',
         role: 'assistant',
         content: count > 0
-          ? `Znalazlem ${count} swiadczen, na ktore mozesz sie kwalifikowac. Przegladnij je ponizej -- kliknij "Jak zlozyc wniosek" przy kazdym swiadczeniu, zeby zobaczyc instrukcje krok po kroku. Mozesz tez zadac mi pytanie o dowolne swiadczenie.`
+          ? `Znalazlem ${count} swiadczen, na ktore mozesz sie kwalifikowac. Przejrzyj je ponizej -- kliknij "Jak zlozyc wniosek" przy kazdym swiadczeniu, zeby zobaczyc instrukcje krok po kroku. Mozesz tez zadac mi pytanie o dowolne swiadczenie.`
           : 'Nie znalazlem swiadczen pasujacych do Twojego profilu. Sprawdz dane lub zadaj pytanie -- postaram sie pomoc.',
       }]);
     } catch {
@@ -321,8 +352,33 @@ export default function Home() {
   if (phase === 'landing') {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center px-4">
-        {/* ASCII header */}
-        <pre className="text-accent text-[6px] leading-none mb-4 select-none hidden sm:block">{`
+        <div
+          className="w-full max-w-lg rounded-2xl overflow-hidden"
+          style={{
+            background: 'var(--color-bg-1)',
+            border: '1px solid var(--color-border-light)',
+            boxShadow: '0 8px 60px rgba(0,0,0,0.5), inset 0 0 80px rgba(240,168,96,0.03)',
+          }}
+        >
+          {/* Panel header */}
+          <div
+            className="flex items-center gap-3 px-5 py-3"
+            style={{
+              borderBottom: '1px solid var(--color-border)',
+              background: 'linear-gradient(180deg, rgba(255,255,255,0.03), transparent)',
+            }}
+          >
+            <span className="w-2.5 h-2.5 rounded-full bg-accent" style={{ boxShadow: '0 0 8px rgba(240,168,96,0.4)' }} />
+            <span className="text-[13px] font-extrabold tracking-[3px] text-text-1 uppercase">
+              WEZMEZADARMO
+            </span>
+            <span className="flex-1" />
+            <span className="text-[12px] text-text-3 tracking-[1px]">v1.0</span>
+          </div>
+
+          {/* Header content */}
+          <div className="px-6 pt-6 pb-4">
+            <pre className="text-accent text-[5.5px] leading-none mb-5 select-none hidden sm:block">{`
  __        ________ ________  __ __ ________ ________  _____  _____  _____  __  ___ ___  ___
 |  |      |   ____|/  __   / |  |  |   ____|/  __   / /  _  ||  _  \\|  _  \\|  |/  /|   \\/   |
 |  |  __  |  |__  |  / /  /  |  |  |  |__  |  / /  / |  | | || | |  | |_|  |     / |  \\  /  |
@@ -332,22 +388,42 @@ export default function Home() {
   \\____/
 `}</pre>
 
-        {/* Mobile title */}
-        <h1 className="text-accent text-lg font-bold tracking-[3px] mb-1 sm:hidden">
-          WEZMEZADARMO
-        </h1>
+            {/* Mobile title */}
+            <h1 className="text-accent text-2xl font-extrabold tracking-[4px] mb-2 sm:hidden">
+              WEZMEZADARMO
+            </h1>
 
-        <p className="text-text-2 text-[13px] mb-6 text-center">
-          Sprawdz co Ci sie nalezy
-        </p>
+            <p className="text-text-1 text-[18px] font-semibold mb-1.5">
+              Sprawdz co Ci sie nalezy
+            </p>
+            <p className="text-text-2 text-[14px] mb-6">
+              Zasilki, ulgi, badania, dotacje -- sprawdz w 2 minuty
+            </p>
+          </div>
 
-        <IntakeForm onSubmit={handleIntakeSubmit} isLoading={isLoading} />
+          {/* Form section */}
+          <div className="px-6 pb-6">
+            <IntakeForm onSubmit={handleIntakeSubmit} isLoading={isLoading} />
+          </div>
 
-        <p className="text-text-3 text-[9px] mt-8 text-center max-w-sm leading-relaxed">
-          Nie jestem urzednikiem -- to informacja orientacyjna, nie decyzja urzedowa.
-          Twoj numer PESEL nie opuszcza Twojej przegladarki. NIP jest uzywany jednorazowo
-          do sprawdzenia statusu firmy i nie jest przechowywany.
-        </p>
+          {/* Disclaimer footer */}
+          <div
+            className="px-6 py-3 text-[12px] text-text-3 leading-relaxed"
+            style={{
+              borderTop: '1px solid var(--color-border)',
+              background: 'rgba(0,0,0,0.15)',
+            }}
+          >
+            Nie jestem urzednikiem -- to informacja orientacyjna, nie decyzja urzedowa.
+            Twoj numer PESEL nie opuszcza Twojej przegladarki. NIP jest uzywany jednorazowo
+            do sprawdzenia statusu firmy i nie jest przechowywany.
+          </div>
+        </div>
+
+        {/* Benefit count */}
+        <div className="mt-4 text-[13px] text-text-3 text-center">
+          Baza: 99 swiadczen | 15 kategorii
+        </div>
       </div>
     );
   }
@@ -357,56 +433,78 @@ export default function Home() {
     const q = QUESTIONS[questionIndex];
     return (
       <div className="min-h-screen flex flex-col items-center justify-center px-4">
-        <div className="w-full max-w-md">
-          {/* Progress */}
-          <div className="flex items-center gap-2 mb-6">
-            <span className="text-[10px] text-text-3 font-bold tracking-[1px]">
+        <div
+          className="w-full max-w-lg rounded-2xl overflow-hidden"
+          style={{
+            background: 'var(--color-bg-1)',
+            border: '1px solid var(--color-border-light)',
+            boxShadow: '0 8px 60px rgba(0,0,0,0.5), inset 0 0 80px rgba(240,168,96,0.03)',
+          }}
+        >
+          {/* Panel header with progress */}
+          <div
+            className="flex items-center gap-3 px-5 py-3"
+            style={{
+              borderBottom: '1px solid var(--color-border)',
+              background: 'linear-gradient(180deg, rgba(255,255,255,0.03), transparent)',
+            }}
+          >
+            <span className="w-2.5 h-2.5 rounded-full bg-accent" style={{ boxShadow: '0 0 8px rgba(240,168,96,0.4)' }} />
+            <span className="text-[13px] font-extrabold tracking-[3px] text-text-1 uppercase">
+              WEZMEZADARMO
+            </span>
+            <span className="flex-1" />
+            <span className="text-[14px] text-accent font-bold tracking-[1px]">
               {questionIndex + 1}/{QUESTIONS.length}
             </span>
-            <div className="flex-1 h-1 rounded-full" style={{ background: 'var(--color-bg-3)' }}>
-              <div
-                className="h-full rounded-full transition-all"
-                style={{
-                  width: `${((questionIndex + 1) / QUESTIONS.length) * 100}%`,
-                  background: 'linear-gradient(90deg, #f0a860, #ffb56b)',
-                }}
-              />
-            </div>
           </div>
 
-          {/* Question */}
-          <h2 className="text-[14px] font-semibold text-text-1 mb-4 leading-relaxed">
-            {q.question}
-          </h2>
+          {/* Progress bar */}
+          <div className="h-1.5" style={{ background: 'var(--color-bg-3)' }}>
+            <div
+              className="h-full transition-all duration-300"
+              style={{
+                width: `${((questionIndex + 1) / QUESTIONS.length) * 100}%`,
+                background: 'linear-gradient(90deg, #f0a860, #ffb56b)',
+                boxShadow: '0 0 12px rgba(240,168,96,0.3)',
+              }}
+            />
+          </div>
 
-          {/* Options */}
-          <div className="space-y-2">
-            {q.options.map((opt, i) => (
-              <button
-                key={opt.value}
-                onClick={() => handleQuestionAnswer(opt.value)}
-                disabled={isLoading}
-                className="w-full text-left px-4 py-3 rounded-lg text-[12px] border transition-all hover:-translate-y-px disabled:opacity-40"
-                style={{
-                  background: 'var(--color-bg-2)',
-                  borderColor: 'var(--color-border)',
-                  color: 'var(--color-text-1)',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(240,168,96,0.4)';
-                  e.currentTarget.style.background = 'rgba(240,168,96,0.06)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'var(--color-border)';
-                  e.currentTarget.style.background = 'var(--color-bg-2)';
-                }}
-              >
-                <span className="text-accent font-bold mr-2">
-                  {String.fromCharCode(97 + i)})
-                </span>
-                {opt.label}
-              </button>
-            ))}
+          {/* Question content */}
+          <div className="px-6 py-7">
+            <h2 className="text-[18px] font-semibold text-text-1 mb-6 leading-relaxed">
+              {q.question}
+            </h2>
+
+            <div className="space-y-3">
+              {q.options.map((opt, i) => (
+                <button
+                  key={opt.value}
+                  onClick={() => handleQuestionAnswer(opt.value)}
+                  disabled={isLoading}
+                  className="w-full text-left px-5 py-4 rounded-xl text-[15px] border transition-all hover:-translate-y-px disabled:opacity-40 cursor-pointer"
+                  style={{
+                    background: 'var(--color-bg-2)',
+                    borderColor: 'var(--color-border)',
+                    color: 'var(--color-text-1)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(240,168,96,0.4)';
+                    e.currentTarget.style.background = 'rgba(240,168,96,0.06)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--color-border)';
+                    e.currentTarget.style.background = 'var(--color-bg-2)';
+                  }}
+                >
+                  <span className="text-accent font-bold mr-2.5">
+                    {String.fromCharCode(97 + i)})
+                  </span>
+                  {opt.label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -417,16 +515,19 @@ export default function Home() {
   return (
     <div className="h-screen flex flex-col">
       {/* Topbar */}
-      <div className="flex items-center gap-3 px-4 py-2 border-b" style={{
-        borderColor: 'var(--color-border)',
-        background: 'var(--color-bg-1)',
-      }}>
-        <span className="w-2 h-2 rounded-full bg-accent" />
-        <span className="text-[11px] font-bold tracking-[2px] text-text-1 uppercase">
+      <div
+        className="flex items-center gap-3 px-5 py-3"
+        style={{
+          borderBottom: '1px solid var(--color-border)',
+          background: 'linear-gradient(180deg, rgba(255,255,255,0.03), transparent), var(--color-bg-1)',
+        }}
+      >
+        <span className="w-2.5 h-2.5 rounded-full bg-accent" style={{ boxShadow: '0 0 8px var(--color-accent)' }} />
+        <span className="text-[13px] font-extrabold tracking-[3px] text-text-1 uppercase">
           wezmezadarmo
         </span>
         {results.length > 0 && (
-          <span className="text-[10px] text-green font-bold">
+          <span className="text-[13px] text-green font-bold ml-2">
             {results.filter((r) => r.status === 'PRZYSLUGUJE').length} pewnych
             {results.filter((r) => r.status === 'MOZLIWE').length > 0 &&
               ` / ${results.filter((r) => r.status === 'MOZLIWE').length} do weryfikacji`

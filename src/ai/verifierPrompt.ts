@@ -4,24 +4,24 @@ export function buildVerifierMessages(
   profile: UserProfile,
   matches: MatchResult[],
 ): { role: 'system' | 'user'; content: string }[] {
-  const systemPrompt = `Jestes weryfikatorem swiadczen rzadowych w Polsce. Twoja rola to TYLKO sprawdzanie czy dopasowania sa prawidlowe.
+  const systemPrompt = `Jesteś weryfikatorem świadczeń rządowych w Polsce. Twoja rola to TYLKO sprawdzanie czy dopasowania są prawidłowe.
 
 ZASADY:
-1. Dla kazdego dopasowanego swiadczenia znajdz powody, dla ktorych ta osoba moze NIE kwalifikowac sie
-2. Sprawdz progi dochodowe, ograniczenia wiekowe, wykluczenia
-3. Jesli nie mozesz znalezc wykluczenia, potwierdz z pewnoscia WYSOKA
-4. Jesli cos jest niejednoznaczne lub brakuje danych, oznacz jako SREDNIA
-5. Jesli znalazles twarde wykluczenie, oznacz jako NISKA
-6. Nigdy nie dodawaj swiadczen ktorych nie ma w liscie wejsciowej
+1. Dla każdego dopasowanego świadczenia znajdź powody, dla których ta osoba może NIE kwalifikować się
+2. Sprawdź progi dochodowe, ograniczenia wiekowe, wykluczenia
+3. Jeśli nie możesz znaleźć wykluczenia, potwierdź z pewnością WYSOKA
+4. Jeśli coś jest niejednoznaczne lub brakuje danych, oznacz jako ŚREDNIA
+5. Jeśli znalazłeś twarde wykluczenie, oznacz jako NISKA
+6. Nigdy nie dodawaj świadczeń których nie ma w liście wejściowej
 7. Odpowiadaj TYLKO w formacie JSON
 
 FORMAT ODPOWIEDZI (JSON array):
 [
   {
     "id": "benefit-id",
-    "confidence": "WYSOKA" | "SREDNIA" | "NISKA",
-    "warnings": ["ostrzezenie 1", "ostrzezenie 2"],
-    "reason": "krotkie uzasadnienie"
+    "confidence": "WYSOKA" | "ŚREDNIA" | "NISKA",
+    "warnings": ["ostrzeżenie 1", "ostrzeżenie 2"],
+    "reason": "krótkie uzasadnienie"
   }
 ]`;
 
@@ -29,31 +29,31 @@ FORMAT ODPOWIEDZI (JSON array):
     const b = m.benefit;
     return `- ${b.id}: ${b.nazwa} (${b.kwota})
   Status: ${m.status}
-  Dopasowane: ${m.matchedCriteria.join(', ') || 'brak specyficznych wymagan'}
-  Niespelnione: ${m.failedCriteria.join(', ') || 'brak'}
+  Dopasowane: ${m.matchedCriteria.join(', ') || 'brak specyficznych wymagań'}
+  Niespełnione: ${m.failedCriteria.join(', ') || 'brak'}
   Wykluczenia do sprawdzenia: ${b.wykluczenia.map(w => w.opis).join(', ') || 'brak'}`;
   }).join('\n');
 
-  const userMessage = `PROFIL UZYTKOWNIKA:
+  const userMessage = `PROFIL UŻYTKOWNIKA:
 - Wiek: ${profile.wiek} lat
-- Plec: ${profile.plec === 'K' ? 'kobieta' : 'mezczyzna'}
+- Płeć: ${profile.plec === 'K' ? 'kobieta' : 'mężczyzna'}
 - Stan cywilny: ${profile.stanCywilny}
 - Dzieci: ${profile.liczbaDzieci} (wiek: ${profile.wiekDzieci.join(', ') || 'brak'})
-- Dochod miesiecznie: ${profile.dochodMiesiecznie} PLN
-- Dochod na osobe: ${profile.dochodNaOsobe} PLN
+- Dochód miesięcznie: ${profile.dochodMiesiecznie} PLN
+- Dochód na osobę: ${profile.dochodNaOsobe} PLN
 - Zatrudnienie: ${profile.zatrudnienie}
-- Niepelnosprawnosc: ${profile.niepelnosprawnosc}
-- Wlasnosc: ${profile.wlasnosc}
-- Wojewodztwo: ${profile.wojewodztwo}
-- Dzialalnosc: ${profile.prowadzDzialalnosc ? 'tak' : 'nie'}
-- Pierwsza dzialalnosc: ${profile.pierwszaDzialalnosc ? 'tak' : 'nie'}
+- Niepełnosprawność: ${profile.niepelnosprawnosc}
+- Własność: ${profile.wlasnosc}
+- Województwo: ${profile.wojewodztwo}
+- Działalność: ${profile.prowadzDzialalnosc ? 'tak' : 'nie'}
+- Pierwsza działalność: ${profile.pierwszaDzialalnosc ? 'tak' : 'nie'}
 ${profile.dataDzialalnosci ? `- Data rejestracji firmy: ${profile.dataDzialalnosci}` : ''}
-${profile.ciaza ? '- Ciaza: tak' : ''}
+${profile.ciaza ? '- Ciąża: tak' : ''}
 
-DOPASOWANE SWIADCZENIA:
+DOPASOWANE ŚWIADCZENIA:
 ${matchesDescription}
 
-Zweryfikuj kazde swiadczenie i zwroc JSON z ocena pewnosci.`;
+Zweryfikuj każde świadczenie i zwróć JSON z oceną pewności.`;
 
   return [
     { role: 'system' as const, content: systemPrompt },

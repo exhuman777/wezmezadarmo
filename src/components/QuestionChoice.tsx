@@ -9,27 +9,27 @@ interface QuestionChoiceProps {
 
 export function QuestionChoice({ question, options, onSelect, disabled }: QuestionChoiceProps) {
   return (
-    <div className="mb-3">
-      <div className="bg-bg-2 border border-border rounded-lg px-3.5 py-2.5 mb-2">
-        <div className="flex items-center gap-1.5 mb-1.5">
-          <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-          <span className="text-[9px] font-bold tracking-[1px] text-accent uppercase">
+    <div className="mb-4">
+      <div className="bg-bg-2 border border-border rounded-xl px-4 py-3 mb-3">
+        <div className="flex items-center gap-2 mb-2">
+          <span className="w-2 h-2 rounded-full bg-accent" />
+          <span className="text-[12px] font-bold tracking-[1.5px] text-accent uppercase">
             wezmezadarmo
           </span>
         </div>
-        <p className="text-[12px] text-text-2 leading-relaxed">{question}</p>
+        <p className="text-[15px] text-text-2 leading-relaxed">{question}</p>
       </div>
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2.5">
         {options.map((opt, i) => (
           <button
             key={opt.value}
             onClick={() => onSelect(opt.value)}
             disabled={disabled}
-            className="px-3 py-2 rounded-md text-[11px] font-semibold tracking-[0.5px] border transition-all hover:-translate-y-px disabled:opacity-40 disabled:cursor-not-allowed"
+            className="px-4 py-2.5 rounded-lg text-[14px] font-semibold tracking-[0.5px] border transition-all hover:-translate-y-px disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
             style={{
               background: 'rgba(240,168,96,0.06)',
               borderColor: 'rgba(240,168,96,0.2)',
-              color: '#ececec',
+              color: '#f0f0f0',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.borderColor = 'rgba(240,168,96,0.5)';
@@ -40,7 +40,7 @@ export function QuestionChoice({ question, options, onSelect, disabled }: Questi
               e.currentTarget.style.background = 'rgba(240,168,96,0.06)';
             }}
           >
-            <span className="text-accent mr-1.5 font-bold">
+            <span className="text-accent mr-2 font-bold">
               {String.fromCharCode(97 + i)})
             </span>
             {opt.label}

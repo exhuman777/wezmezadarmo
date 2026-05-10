@@ -58,6 +58,26 @@ function checkRequirements(benefit: Benefit, profile: UserProfile): { matched: s
     if (profile.ciaza) matched.push('Ciaza: tak');
     else failed.push('Wymagana ciaza');
   }
+  if (req.student !== undefined && req.student) {
+    if (profile.student) matched.push('Student: tak');
+    else failed.push('Wymagany status studenta');
+  }
+  if (req.emeryt !== undefined && req.emeryt) {
+    if (profile.emeryt) matched.push('Emeryt: tak');
+    else failed.push('Wymagany status emeryta');
+  }
+  if (req.rolnik !== undefined && req.rolnik) {
+    if (profile.rolnik) matched.push('Rolnik: tak');
+    else failed.push('Wymagany status rolnika');
+  }
+  if (req.bezrobotnyZarejestrowany !== undefined && req.bezrobotnyZarejestrowany) {
+    if (profile.bezrobotnyZarejestrowany) matched.push('Zarejestrowany bezrobotny: tak');
+    else failed.push('Wymagana rejestracja w PUP');
+  }
+  if (req.statusWdowiec !== undefined && req.statusWdowiec) {
+    if (profile.stanCywilny === 'wdowiec') matched.push('Wdowiec/wdowa: tak');
+    else failed.push('Wymagany status wdowca/wdowy');
+  }
 
   return { matched, failed };
 }
