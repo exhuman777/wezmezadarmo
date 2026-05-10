@@ -53,9 +53,9 @@ export function ChatWindow({
     : null;
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full min-h-0">
       {/* Messages area */}
-      <div className="flex-1 overflow-y-auto px-4 py-4 min-h-0">
+      <div className="flex-1 overflow-y-auto px-3 sm:px-4 py-3 sm:py-4 min-h-0">
         {messages.map((msg, i) => (
           <MessageBubble
             key={msg.id}
@@ -68,7 +68,7 @@ export function ChatWindow({
         {/* Benefit cards */}
         {results.length > 0 && !guideBenefitId && (
           <div className="mt-3 mb-4">
-            <div className="text-[13px] font-bold tracking-[2px] mb-3 uppercase" style={{ color: '#b87a1e' }}>
+            <div className="text-[12px] sm:text-[13px] font-bold tracking-[2px] mb-3 uppercase text-accent">
               Dopasowane świadczenia ({results.length})
             </div>
             {results.map((r) => (
@@ -88,10 +88,10 @@ export function ChatWindow({
       {/* Input bar */}
       <form
         onSubmit={handleSubmit}
-        className="flex gap-3 px-4 py-3.5 border-t border-border"
+        className="flex gap-2 sm:gap-3 px-3 sm:px-4 py-3 border-t border-border"
       >
-        <div className="flex-1 flex items-center gap-2 px-4 py-3 rounded-lg bg-bg-2 border border-border">
-          <span className="font-bold text-[16px]" style={{ color: '#e6993a' }}>/</span>
+        <div className="flex-1 flex items-center gap-2 px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg bg-bg-2 border border-border">
+          <span className="font-bold text-[16px] text-accent">/</span>
           <input
             ref={inputRef}
             type="text"
@@ -99,24 +99,24 @@ export function ChatWindow({
             onChange={(e) => setInput(e.target.value)}
             placeholder="Zadaj pytanie..."
             disabled={isStreaming}
-            className="flex-1 bg-transparent border-none text-text-1 text-[15px] outline-none placeholder:text-text-3 disabled:opacity-50"
+            className="flex-1 bg-transparent border-none text-text-1 text-[14px] sm:text-[15px] outline-none placeholder:text-text-3 disabled:opacity-50"
           />
         </div>
         <button
           type="submit"
           disabled={isStreaming || !input.trim()}
-          className="px-5 py-3 rounded-lg text-[14px] font-bold tracking-[0.5px] transition-all disabled:opacity-30 cursor-pointer"
+          className="px-4 sm:px-5 py-2.5 sm:py-3 rounded-lg text-[13px] sm:text-[14px] font-bold tracking-[0.5px] transition-all disabled:opacity-30 cursor-pointer shrink-0"
           style={{
-            background: 'linear-gradient(135deg, #e6993a, #f5b04a)',
+            background: 'linear-gradient(135deg, var(--color-accent), var(--color-accent-2))',
             color: '#fff',
           }}
         >
-          Wyslij
+          Wyślij
         </button>
       </form>
 
       {/* Disclaimer */}
-      <div className="px-4 py-2 text-[12px] text-text-3 text-center border-t border-border bg-bg-1">
+      <div className="px-3 sm:px-4 py-2 text-[11px] sm:text-[12px] text-text-3 text-center border-t border-border bg-bg-1">
         Informacja orientacyjna, nie decyzja urzędowa. Zweryfikuj na stronach źródłowych.
       </div>
     </div>

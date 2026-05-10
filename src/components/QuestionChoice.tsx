@@ -27,17 +27,17 @@ export function QuestionChoice({ question, options, onSelect, disabled }: Questi
             disabled={disabled}
             className="px-4 py-2.5 rounded-lg text-[14px] font-semibold tracking-[0.5px] border transition-all hover:-translate-y-px disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
             style={{
-              background: 'rgba(240,168,96,0.06)',
-              borderColor: 'rgba(240,168,96,0.2)',
-              color: '#f0f0f0',
+              background: 'var(--color-amber-bg)',
+              borderColor: 'var(--color-amber-border)',
+              color: 'var(--color-text-1)',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = 'rgba(240,168,96,0.5)';
-              e.currentTarget.style.background = 'rgba(240,168,96,0.12)';
+              e.currentTarget.style.borderColor = 'var(--color-accent)';
+              e.currentTarget.style.background = 'var(--color-amber-bg)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = 'rgba(240,168,96,0.2)';
-              e.currentTarget.style.background = 'rgba(240,168,96,0.06)';
+              e.currentTarget.style.borderColor = 'var(--color-amber-border)';
+              e.currentTarget.style.background = 'var(--color-amber-bg)';
             }}
           >
             <span className="text-accent mr-2 font-bold">

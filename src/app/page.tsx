@@ -1,12 +1,22 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { IntakeForm } from '@/components/IntakeForm';
 import { ChatWindow, ChatMessage } from '@/components/ChatWindow';
+import { ThemeToggle } from '@/components/ThemeToggle';
+import { useTheme } from '@/hooks/useTheme';
 import { MatchResult, UserProfile } from '@/engine/types';
 import { CeidgBusinessData } from '@/lib/ceidg';
 
-type Phase = 'landing' | 'questions' | 'chat';
+type Phase = 'landing' | 'questions' | 'loading' | 'chat';
+
+const LOADING_MESSAGES = [
+  'Szukamy pieniędzy dla Twojej rodziny...',
+  'Sprawdzamy 99 świadczeń w 15 kategoriach...',
+  'Szukam dla Ciebie funduszy...',
+  'Analizujemy Twój profil...',
+  'Twoje darmowe pieniądze z Państwa w zasięgu ręki...',
+];
 
 interface QualifyingQuestion {
   id: string;
@@ -134,7 +144,22 @@ const QUESTIONS: QualifyingQuestion[] = [
   },
 ];
 
+function TopBar({ theme, onToggle, children }: { theme: 'light' | 'dark'; onToggle: () => void; children?: React.ReactNode }) {
+  return (
+    <div className="flex items-center gap-2 sm:gap-3 px-3 sm:px-5 py-3 border-b border-border bg-bg-1">
+      <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: 'var(--color-accent)', boxShadow: '0 0 6px var(--color-amber-border)' }} />
+      <span className="text-[11px] sm:text-[13px] font-extrabold tracking-[2px] sm:tracking-[3px] text-text-1 uppercase">
+        WEZMEZADARMO
+      </span>
+      <span className="flex-1" />
+      {children}
+      <ThemeToggle theme={theme} onToggle={onToggle} />
+    </div>
+  );
+}
+
 export default function Home() {
+  const { theme, toggle: toggleTheme } = useTheme();
   const [phase, setPhase] = useState<Phase>('landing');
   const [isLoading, setIsLoading] = useState(false);
   const [profile, setProfile] = useState<Partial<UserProfile>>({});
@@ -143,6 +168,17 @@ export default function Home() {
   const [results, setResults] = useState<MatchResult[]>([]);
   const [isStreaming, setIsStreaming] = useState(false);
   const [guideBenefitId, setGuideBenefitId] = useState<string | null>(null);
+  const [loadingMsgIndex, setLoadingMsgIndex] = useState(0);
+
+  // Rotate loading messages
+  useEffect(() => {
+    if (phase !== 'loading') return;
+    setLoadingMsgIndex(0);
+    const interval = setInterval(() => {
+      setLoadingMsgIndex((prev) => (prev + 1) % LOADING_MESSAGES.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, [phase]);
 
   async function handleIntakeSubmit(data: { pesel: string; wiek: number; plec: 'K' | 'M'; nip?: string }) {
     setProfile((prev) => ({ ...prev, wiek: data.wiek, plec: data.plec }));
@@ -186,7 +222,6 @@ export default function Home() {
       (updated as Record<string, unknown>)[key] = value;
     }
 
-    // Derive dochodNaOsobe from dochodMiesiecznie and family size
     if (updated.dochodMiesiecznie != null) {
       const familySize = 1 + (typeof updated.liczbaDzieci === 'number' ? updated.liczbaDzieci : 0) +
         (updated.stanCywilny === 'malzenstwo' ? 1 : 0);
@@ -204,7 +239,7 @@ export default function Home() {
 
   async function runVerification(fullProfile: UserProfile) {
     setIsLoading(true);
-    setPhase('chat');
+    setPhase('loading');
 
     const completeProfile: UserProfile = {
       wiek: fullProfile.wiek,
@@ -241,15 +276,37 @@ export default function Home() {
       if (!res.ok) throw new Error('Błąd weryfikacji');
 
       const data = await res.json();
-      setResults(data.results ?? []);
+      const matchedResults: MatchResult[] = data.results ?? [];
+      setResults(matchedResults);
 
-      const count = data.results?.length ?? 0;
+      const pewne = matchedResults.filter((r) => r.status === 'PRZYSLUGUJE').length;
+      const mozliwe = matchedResults.filter((r) => r.status === 'MOZLIWE').length;
+      const total = matchedResults.length;
+
+      let welcomeText: string;
+      if (total > 0) {
+        welcomeText = `Znalazłem ${total} świadczeń dla Ciebie`;
+        if (pewne > 0) welcomeText += ` (${pewne} pewnych`;
+        if (pewne > 0 && mozliwe > 0) welcomeText += `, ${mozliwe} do weryfikacji)`;
+        else if (pewne > 0) welcomeText += ')';
+        else if (mozliwe > 0) welcomeText += ` (${mozliwe} do weryfikacji)`;
+        welcomeText += '.\n\n';
+        welcomeText += 'Kliknij dowolne świadczenie, żeby zobaczyć instrukcję krok po kroku jak złożyć wniosek.\n\n';
+        welcomeText += 'Jestem Twoim agentem AI -- mogę:\n';
+        welcomeText += '-- Pomóc Ci wypełnić wniosek o dowolne świadczenie\n';
+        welcomeText += '-- Wyjaśnić warunki i wymagania\n';
+        welcomeText += '-- Odpowiedzieć na pytania o terminy i dokumenty\n';
+        welcomeText += '-- Sprawdzić czy kwalifikujesz się na dodatkowe świadczenia\n\n';
+        welcomeText += 'Napisz mi pytanie poniżej -- jestem tutaj, żeby pomóc.';
+      } else {
+        welcomeText = 'Nie znalazłem świadczeń pasujących do Twojego profilu na ten moment.\n\n';
+        welcomeText += 'Ale mogę pomóc -- napisz mi o swojej sytuacji, a sprawdzę czy nie przeoczyłem czegoś. Możesz też zadać pytanie o dowolne świadczenie w Polsce.';
+      }
+
       setMessages([{
         id: 'welcome',
         role: 'assistant',
-        content: count > 0
-          ? `Znalazłem ${count} świadczeń, na które możesz się kwalifikować. Przejrzyj je poniżej -- kliknij "Jak złożyć wniosek" przy każdym świadczeniu, żeby zobaczyć instrukcje krok po kroku. Możesz też zadać mi pytanie o dowolne świadczenie.`
-          : 'Nie znalazłem świadczeń pasujących do Twojego profilu. Sprawdź dane lub zadaj pytanie -- postaram się pomóc.',
+        content: welcomeText,
       }]);
     } catch {
       setMessages([{
@@ -259,6 +316,7 @@ export default function Home() {
       }]);
     }
 
+    setPhase('chat');
     setIsLoading(false);
   }
 
@@ -349,7 +407,7 @@ export default function Home() {
   // LANDING
   if (phase === 'landing') {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center px-4">
+      <div className="min-h-screen flex flex-col items-center justify-center px-3 sm:px-4 py-6">
         <div
           className="w-full max-w-lg rounded-2xl overflow-hidden bg-bg-1"
           style={{
@@ -357,45 +415,34 @@ export default function Home() {
             boxShadow: '0 8px 40px rgba(0,0,0,0.08)',
           }}
         >
-          {/* Panel header */}
-          <div
-            className="flex items-center gap-3 px-5 py-3 border-b border-border"
-          >
-            <span className="w-2.5 h-2.5 rounded-full" style={{ background: '#e6993a', boxShadow: '0 0 6px rgba(230,153,58,0.4)' }} />
-            <span className="text-[13px] font-extrabold tracking-[3px] text-text-1 uppercase">
-              WEZMEZADARMO
-            </span>
-            <span className="flex-1" />
-            <span className="text-[12px] text-text-3 tracking-[1px]">v1.0</span>
-          </div>
+          <TopBar theme={theme} onToggle={toggleTheme}>
+            <span className="text-[11px] sm:text-[12px] text-text-3 tracking-[1px]">v1.0</span>
+          </TopBar>
 
           {/* Header content */}
-          <div className="px-6 pt-6 pb-4">
-            <h1 className="text-[22px] font-bold text-text-1 mb-1.5">
+          <div className="px-4 sm:px-6 pt-5 sm:pt-6 pb-3 sm:pb-4">
+            <h1 className="text-[20px] sm:text-[22px] font-bold text-text-1 mb-1.5">
               Sprawdź co Ci się należy
             </h1>
-            <p className="text-text-2 text-[15px] mb-6">
+            <p className="text-text-2 text-[14px] sm:text-[15px] mb-5 sm:mb-6">
               Zasiłki, ulgi, badania, dotacje -- sprawdź w 2 minuty
             </p>
           </div>
 
           {/* Form section */}
-          <div className="px-6 pb-6">
+          <div className="px-4 sm:px-6 pb-5 sm:pb-6">
             <IntakeForm onSubmit={handleIntakeSubmit} isLoading={isLoading} />
           </div>
 
           {/* Disclaimer footer */}
-          <div
-            className="px-6 py-3 text-[12px] text-text-3 leading-relaxed border-t border-border bg-bg-2"
-          >
+          <div className="px-4 sm:px-6 py-3 text-[11px] sm:text-[12px] text-text-3 leading-relaxed border-t border-border bg-bg-2">
             Nie jestem urzędnikiem -- to informacja orientacyjna, nie decyzja urzędowa.
             Twój numer PESEL nie opuszcza Twojej przeglądarki. NIP jest używany jednorazowo
             do sprawdzenia statusu firmy i nie jest przechowywany.
           </div>
         </div>
 
-        {/* Benefit count */}
-        <div className="mt-4 text-[13px] text-text-3 text-center">
+        <div className="mt-4 text-[12px] sm:text-[13px] text-text-3 text-center">
           Baza: 99 świadczeń | 15 kategorii
         </div>
       </div>
@@ -406,7 +453,7 @@ export default function Home() {
   if (phase === 'questions') {
     const q = QUESTIONS[questionIndex];
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center px-4">
+      <div className="min-h-screen flex flex-col items-center justify-center px-3 sm:px-4 py-6">
         <div
           className="w-full max-w-lg rounded-2xl overflow-hidden bg-bg-1"
           style={{
@@ -414,17 +461,11 @@ export default function Home() {
             boxShadow: '0 8px 40px rgba(0,0,0,0.08)',
           }}
         >
-          {/* Panel header with progress */}
-          <div className="flex items-center gap-3 px-5 py-3 border-b border-border">
-            <span className="w-2.5 h-2.5 rounded-full" style={{ background: '#e6993a', boxShadow: '0 0 6px rgba(230,153,58,0.4)' }} />
-            <span className="text-[13px] font-extrabold tracking-[3px] text-text-1 uppercase">
-              WEZMEZADARMO
-            </span>
-            <span className="flex-1" />
-            <span className="text-[14px] font-bold tracking-[1px]" style={{ color: '#b87a1e' }}>
+          <TopBar theme={theme} onToggle={toggleTheme}>
+            <span className="text-[13px] sm:text-[14px] font-bold tracking-[1px] text-accent">
               {questionIndex + 1}/{QUESTIONS.length}
             </span>
-          </div>
+          </TopBar>
 
           {/* Progress bar */}
           <div className="h-1.5 bg-bg-3">
@@ -432,34 +473,34 @@ export default function Home() {
               className="h-full transition-all duration-300"
               style={{
                 width: `${((questionIndex + 1) / QUESTIONS.length) * 100}%`,
-                background: 'linear-gradient(90deg, #e6993a, #f5b04a)',
+                background: 'linear-gradient(90deg, var(--color-accent), var(--color-accent-2))',
               }}
             />
           </div>
 
           {/* Question content */}
-          <div className="px-6 py-7">
-            <h2 className="text-[18px] font-semibold text-text-1 mb-6 leading-relaxed">
+          <div className="px-4 sm:px-6 py-5 sm:py-7">
+            <h2 className="text-[16px] sm:text-[18px] font-semibold text-text-1 mb-5 sm:mb-6 leading-relaxed">
               {q.question}
             </h2>
 
-            <div className="space-y-3">
+            <div className="space-y-2.5 sm:space-y-3">
               {q.options.map((opt, i) => (
                 <button
                   key={opt.value}
                   onClick={() => handleQuestionAnswer(opt.value)}
                   disabled={isLoading}
-                  className="w-full text-left px-5 py-4 rounded-xl text-[15px] border border-border bg-bg-2 text-text-1 transition-all hover:-translate-y-px hover:shadow-sm disabled:opacity-40 cursor-pointer"
+                  className="w-full text-left px-4 sm:px-5 py-3.5 sm:py-4 rounded-xl text-[14px] sm:text-[15px] border border-border bg-bg-2 text-text-1 transition-all active:scale-[0.98] hover:shadow-sm disabled:opacity-40 cursor-pointer"
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = 'rgba(230,153,58,0.4)';
-                    e.currentTarget.style.background = 'rgba(230,153,58,0.06)';
+                    e.currentTarget.style.borderColor = 'var(--color-amber-border)';
+                    e.currentTarget.style.background = 'var(--color-amber-bg)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.borderColor = 'var(--color-border)';
                     e.currentTarget.style.background = 'var(--color-bg-2)';
                   }}
                 >
-                  <span className="font-bold mr-2.5" style={{ color: '#e6993a' }}>
+                  <span className="font-bold mr-2 text-accent">
                     {String.fromCharCode(97 + i)})
                   </span>
                   {opt.label}
@@ -472,24 +513,61 @@ export default function Home() {
     );
   }
 
+  // LOADING
+  if (phase === 'loading') {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center px-3 sm:px-4 py-6">
+        <div
+          className="w-full max-w-lg rounded-2xl overflow-hidden bg-bg-1"
+          style={{
+            border: '1px solid var(--color-border-light)',
+            boxShadow: '0 8px 40px rgba(0,0,0,0.08)',
+          }}
+        >
+          <TopBar theme={theme} onToggle={toggleTheme} />
+
+          <div className="px-4 sm:px-6 py-12 sm:py-16 flex flex-col items-center text-center">
+            {/* Spinner */}
+            <div
+              className="w-12 h-12 sm:w-14 sm:h-14 rounded-full mb-6 sm:mb-8"
+              style={{
+                border: '3px solid var(--color-bg-3)',
+                borderTopColor: 'var(--color-accent)',
+                animation: 'spin 0.8s linear infinite',
+              }}
+            />
+
+            {/* Rotating message */}
+            <p
+              className="text-[16px] sm:text-[18px] font-semibold text-text-1 mb-3 transition-opacity duration-500"
+              key={loadingMsgIndex}
+              style={{ animation: 'fadeInOut 2.5s ease-in-out' }}
+            >
+              {LOADING_MESSAGES[loadingMsgIndex]}
+            </p>
+
+            <p className="text-[13px] sm:text-[14px] text-text-3">
+              To zajmuje kilka sekund...
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   // CHAT
   return (
-    <div className="h-screen flex flex-col">
-      {/* Topbar */}
-      <div className="flex items-center gap-3 px-5 py-3 border-b border-border bg-bg-1">
-        <span className="w-2.5 h-2.5 rounded-full" style={{ background: '#e6993a', boxShadow: '0 0 6px rgba(230,153,58,0.4)' }} />
-        <span className="text-[13px] font-extrabold tracking-[3px] text-text-1 uppercase">
-          wezmezadarmo
-        </span>
+    <div className="h-dvh flex flex-col">
+      <TopBar theme={theme} onToggle={toggleTheme}>
         {results.length > 0 && (
-          <span className="text-[13px] text-green font-bold ml-2">
+          <span className="text-[11px] sm:text-[13px] text-green font-bold">
             {results.filter((r) => r.status === 'PRZYSLUGUJE').length} pewnych
             {results.filter((r) => r.status === 'MOZLIWE').length > 0 &&
-              ` / ${results.filter((r) => r.status === 'MOZLIWE').length} do weryfikacji`
+              ` / ${results.filter((r) => r.status === 'MOZLIWE').length} do weryf.`
             }
           </span>
         )}
-      </div>
+      </TopBar>
 
       <ChatWindow
         messages={messages}
