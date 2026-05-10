@@ -45,10 +45,10 @@ export function IntakeForm({ onSubmit, isLoading }: IntakeFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-md space-y-5 sm:space-y-6">
+    <form onSubmit={handleSubmit} className="w-full max-w-md space-y-4 sm:space-y-5">
       {/* PESEL */}
       <div>
-        <label className="block text-[12px] sm:text-[13px] font-bold tracking-[2px] text-text-2 mb-2 uppercase">
+        <label className="block text-[13px] sm:text-[14px] font-semibold text-text-2 mb-1.5">
           PESEL
         </label>
         <input
@@ -57,24 +57,24 @@ export function IntakeForm({ onSubmit, isLoading }: IntakeFormProps) {
           value={pesel}
           onChange={(e) => handlePeselChange(e.target.value)}
           placeholder="00000000000"
-          className="w-full px-3.5 sm:px-4 py-3 sm:py-3.5 bg-bg-2 border border-border rounded-lg text-text-1 font-mono text-[16px] outline-none transition-colors focus:border-accent placeholder:text-text-3"
+          className="w-full px-3.5 py-3 bg-bg-2 border border-border rounded-xl text-text-1 text-[16px] outline-none transition-colors focus:border-accent placeholder:text-text-3"
           disabled={isLoading}
         />
         {peselError && (
           <p className="mt-1.5 text-[13px] text-red">{peselError}</p>
         )}
         {decoded && (
-          <div className="mt-2 flex gap-4 text-[13px] sm:text-[14px] font-medium">
-            <span className="text-green font-bold">Wiek: {decoded.wiek} lat</span>
-            <span className="text-accent font-bold">{decoded.plec === 'K' ? 'Kobieta' : 'Mężczyzna'}</span>
+          <div className="mt-2 flex gap-3 text-[14px] font-medium">
+            <span className="text-green font-semibold">Wiek: {decoded.wiek} lat</span>
+            <span className="text-accent font-semibold">{decoded.plec === 'K' ? 'Kobieta' : 'Mężczyzna'}</span>
           </div>
         )}
       </div>
 
       {/* NIP */}
       <div>
-        <label className="block text-[12px] sm:text-[13px] font-bold tracking-[2px] text-text-2 mb-2 uppercase">
-          NIP <span className="font-normal tracking-normal text-text-3 text-[11px] sm:text-[12px]">(opcjonalnie -- dla świadczeń firmowych)</span>
+        <label className="block text-[13px] sm:text-[14px] font-semibold text-text-2 mb-1.5">
+          NIP <span className="font-normal text-text-3 text-[12px]">(opcjonalnie -- dla świadczeń firmowych)</span>
         </label>
         <input
           type="text"
@@ -82,7 +82,7 @@ export function IntakeForm({ onSubmit, isLoading }: IntakeFormProps) {
           value={nip}
           onChange={(e) => setNip(e.target.value.replace(/\D/g, '').slice(0, 10))}
           placeholder="0000000000"
-          className="w-full px-3.5 sm:px-4 py-3 sm:py-3.5 bg-bg-2 border border-border rounded-lg text-text-1 font-mono text-[16px] outline-none transition-colors focus:border-accent placeholder:text-text-3"
+          className="w-full px-3.5 py-3 bg-bg-2 border border-border rounded-xl text-text-1 text-[16px] outline-none transition-colors focus:border-accent placeholder:text-text-3"
           disabled={isLoading}
         />
       </div>
@@ -91,15 +91,12 @@ export function IntakeForm({ onSubmit, isLoading }: IntakeFormProps) {
       <button
         type="submit"
         disabled={isLoading || !decoded}
-        className="w-full py-3.5 sm:py-4 rounded-lg font-bold text-[14px] sm:text-[15px] tracking-[1.5px] uppercase transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer active:scale-[0.98]"
+        className="w-full py-3.5 rounded-xl font-semibold text-[15px] transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer active:scale-[0.98]"
         style={{
-          background: decoded ? 'linear-gradient(135deg, var(--color-accent), var(--color-accent-2))' : undefined,
-          color: decoded ? '#fff' : undefined,
-          backgroundColor: decoded ? undefined : 'var(--color-bg-3)',
-          borderColor: decoded ? 'transparent' : 'var(--color-border)',
-          borderWidth: '1px',
-          borderStyle: 'solid',
-          boxShadow: decoded ? '0 4px 16px var(--color-amber-border)' : 'none',
+          background: decoded ? 'linear-gradient(135deg, var(--color-accent), var(--color-accent-2))' : 'var(--color-bg-3)',
+          color: decoded ? '#fff' : 'var(--color-text-3)',
+          border: '1px solid transparent',
+          boxShadow: decoded ? '0 2px 12px var(--color-amber-border)' : 'none',
         }}
       >
         {isLoading ? 'Sprawdzam...' : 'Sprawdź co Ci się należy'}

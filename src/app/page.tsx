@@ -285,22 +285,19 @@ export default function Home() {
 
       let welcomeText: string;
       if (total > 0) {
-        welcomeText = `Znalazłem ${total} świadczeń dla Ciebie`;
-        if (pewne > 0) welcomeText += ` (${pewne} pewnych`;
-        if (pewne > 0 && mozliwe > 0) welcomeText += `, ${mozliwe} do weryfikacji)`;
-        else if (pewne > 0) welcomeText += ')';
-        else if (mozliwe > 0) welcomeText += ` (${mozliwe} do weryfikacji)`;
-        welcomeText += '.\n\n';
-        welcomeText += 'Kliknij dowolne świadczenie, żeby zobaczyć instrukcję krok po kroku jak złożyć wniosek.\n\n';
-        welcomeText += 'Jestem Twoim agentem AI -- mogę:\n';
-        welcomeText += '-- Pomóc Ci wypełnić wniosek o dowolne świadczenie\n';
-        welcomeText += '-- Wyjaśnić warunki i wymagania\n';
-        welcomeText += '-- Odpowiedzieć na pytania o terminy i dokumenty\n';
-        welcomeText += '-- Sprawdzić czy kwalifikujesz się na dodatkowe świadczenia\n\n';
-        welcomeText += 'Napisz mi pytanie poniżej -- jestem tutaj, żeby pomóc.';
+        welcomeText = `Znalazłem ${total} świadczeń dla Ciebie.\n\n`;
+
+        welcomeText += 'Poniżej znajdziesz listę -- kliknij dowolne świadczenie, żeby zobaczyć jak złożyć wniosek krok po kroku.\n\n';
+
+        welcomeText += 'Jestem Twoim asystentem AI. Mogę Ci pomóc:\n\n';
+        welcomeText += '>>> Przeprowadzić Cię przez składanie wniosku\n';
+        welcomeText += '>>> Wyjaśnić warunki i wymagane dokumenty\n';
+        welcomeText += '>>> Odpowiedzieć na pytania o terminy i procedury\n';
+        welcomeText += '>>> Sprawdzić dodatkowe świadczenia\n\n';
+        welcomeText += 'Napisz pytanie poniżej -- jestem tutaj żeby pomóc.';
       } else {
-        welcomeText = 'Nie znalazłem świadczeń pasujących do Twojego profilu na ten moment.\n\n';
-        welcomeText += 'Ale mogę pomóc -- napisz mi o swojej sytuacji, a sprawdzę czy nie przeoczyłem czegoś. Możesz też zadać pytanie o dowolne świadczenie w Polsce.';
+        welcomeText = 'Nie znalazłem świadczeń pasujących do Twojego profilu.\n\n';
+        welcomeText += 'Opisz mi swoją sytuację, a sprawdzę czy czegoś nie przeoczyłem. Mogę też odpowiedzieć na pytania o dowolne świadczenie w Polsce.';
       }
 
       setMessages([{
@@ -442,8 +439,13 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="mt-4 text-[12px] sm:text-[13px] text-text-3 text-center">
-          Baza: 99 świadczeń | 15 kategorii
+        <div className="mt-4 text-[12px] sm:text-[13px] text-text-3 text-center space-y-1">
+          <div>Baza: 99 świadczeń | 15 kategorii</div>
+          <div>
+            <a href="/regulamin" className="text-accent hover:underline">Regulamin</a>
+            <span className="mx-1.5">|</span>
+            <a href="/polityka-prywatnosci" className="text-accent hover:underline">Polityka prywatności</a>
+          </div>
         </div>
       </div>
     );
@@ -541,7 +543,7 @@ export default function Home() {
             <p
               className="text-[16px] sm:text-[18px] font-semibold text-text-1 mb-3 transition-opacity duration-500"
               key={loadingMsgIndex}
-              style={{ animation: 'fadeInOut 2.5s ease-in-out' }}
+              style={{ animation: 'fadeInUp 2.5s ease-in-out' }}
             >
               {LOADING_MESSAGES[loadingMsgIndex]}
             </p>
