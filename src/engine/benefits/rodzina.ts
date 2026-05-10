@@ -145,7 +145,7 @@ export const RODZINA: Benefit[] = [
   {
     id: 'renta-rodzinna', nazwa: 'Renta rodzinna', kategoria: 'RODZINA',
     kwota: '85-95% emerytury zmarłego', czestotliwosc: 'miesięcznie',
-    wymagania: {},
+    wymagania: { statusWdowiec: true },
     wykluczenia: [],
     wniosek: {
       kanal: ['PUE_ZUS'], formularz: 'ERR (wniosek o rentę rodzinną)',
