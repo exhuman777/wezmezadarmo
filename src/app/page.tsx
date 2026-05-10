@@ -146,10 +146,17 @@ const QUESTIONS: QualifyingQuestion[] = [
 
 function TopBar({ theme, onToggle, children }: { theme: 'light' | 'dark'; onToggle: () => void; children?: React.ReactNode }) {
   return (
-    <div className="flex items-center gap-2 sm:gap-3 px-3 sm:px-5 py-3 border-b border-border bg-bg-1">
-      <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: 'var(--color-accent)', boxShadow: '0 0 6px var(--color-amber-border)' }} />
-      <span className="text-[11px] sm:text-[13px] font-extrabold tracking-[2px] sm:tracking-[3px] text-text-1 uppercase">
-        WEZMEZADARMO
+    <div
+      className="flex items-center gap-2 sm:gap-3 px-3 sm:px-5 py-2.5 sm:py-3 border-b border-border sticky top-0 z-50"
+      style={{
+        background: theme === 'dark' ? 'rgba(17,17,17,0.9)' : 'rgba(255,255,255,0.9)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+      }}
+    >
+      <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full shrink-0" style={{ background: 'var(--color-accent)', boxShadow: '0 0 6px var(--color-amber-border)' }} />
+      <span className="text-[12px] sm:text-[14px] font-extrabold tracking-[1.5px] sm:tracking-[2px] text-text-1">
+        wezmezadarmo
       </span>
       <span className="flex-1" />
       {children}
@@ -285,16 +292,20 @@ export default function Home() {
 
       let welcomeText: string;
       if (total > 0) {
-        welcomeText = `Znalazłem ${total} świadczeń dla Ciebie.\n\n`;
+        welcomeText = `Znalazłem ${total} świadczeń dla Ciebie`;
+        if (pewne > 0 && mozliwe > 0) welcomeText += ` (${pewne} pewnych, ${mozliwe} do weryfikacji)`;
+        else if (pewne > 0) welcomeText += ` (${pewne} pewnych)`;
+        else if (mozliwe > 0) welcomeText += ` (${mozliwe} do weryfikacji)`;
+        welcomeText += '.\n\n';
 
-        welcomeText += 'Poniżej znajdziesz listę -- kliknij dowolne świadczenie, żeby zobaczyć jak złożyć wniosek krok po kroku.\n\n';
+        welcomeText += 'Przejdź do zakładki "Świadczenia" żeby zobaczyć listę. Kliknij dowolne świadczenie żeby zobaczyć jak złożyć wniosek krok po kroku.\n\n';
 
-        welcomeText += 'Jestem Twoim asystentem AI. Mogę Ci pomóc:\n\n';
-        welcomeText += '>>> Przeprowadzić Cię przez składanie wniosku\n';
-        welcomeText += '>>> Wyjaśnić warunki i wymagane dokumenty\n';
-        welcomeText += '>>> Odpowiedzieć na pytania o terminy i procedury\n';
-        welcomeText += '>>> Sprawdzić dodatkowe świadczenia\n\n';
-        welcomeText += 'Napisz pytanie poniżej -- jestem tutaj żeby pomóc.';
+        welcomeText += 'Jestem Twoim asystentem AI. Oto co mogę dla Ciebie zrobić:\n\n';
+        welcomeText += '>>> Przeprowadzę Cię przez składanie wniosku krok po kroku\n';
+        welcomeText += '>>> Wyjaśnię warunki, wymagane dokumenty i terminy\n';
+        welcomeText += '>>> Odpowiem na pytania o dowolne świadczenie\n';
+        welcomeText += '>>> Pomogę ocenić czy dane świadczenie jest dla Ciebie opłacalne\n\n';
+        welcomeText += 'Napisz pytanie -- jestem tutaj żeby pomóc.';
       } else {
         welcomeText = 'Nie znalazłem świadczeń pasujących do Twojego profilu.\n\n';
         welcomeText += 'Opisz mi swoją sytuację, a sprawdzę czy czegoś nie przeoczyłem. Mogę też odpowiedzieć na pytania o dowolne świadczenie w Polsce.';
@@ -560,16 +571,7 @@ export default function Home() {
   // CHAT
   return (
     <div className="h-dvh flex flex-col">
-      <TopBar theme={theme} onToggle={toggleTheme}>
-        {results.length > 0 && (
-          <span className="text-[11px] sm:text-[13px] text-green font-bold">
-            {results.filter((r) => r.status === 'PRZYSLUGUJE').length} pewnych
-            {results.filter((r) => r.status === 'MOZLIWE').length > 0 &&
-              ` / ${results.filter((r) => r.status === 'MOZLIWE').length} do weryf.`
-            }
-          </span>
-        )}
-      </TopBar>
+      <TopBar theme={theme} onToggle={toggleTheme} />
 
       <ChatWindow
         messages={messages}

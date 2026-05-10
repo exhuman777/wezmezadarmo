@@ -24,9 +24,9 @@ export function StepByStepGuide({ benefit, onClose }: StepByStepGuideProps) {
         </div>
         <button
           onClick={onClose}
-          className="text-text-3 hover:text-text-1 text-[18px] leading-none px-2 py-1 cursor-pointer rounded-lg hover:bg-bg-2 transition-colors"
+          className="text-[12px] font-semibold text-text-3 hover:text-text-1 px-2.5 py-1.5 cursor-pointer rounded-lg hover:bg-bg-2 transition-colors border border-border"
         >
-          x
+          &larr; Wróć
         </button>
       </div>
 
