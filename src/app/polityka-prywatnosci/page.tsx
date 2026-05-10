@@ -24,8 +24,8 @@ export default function PolitykaPage() {
         <div className="space-y-8 text-[14px] sm:text-[15px] leading-[1.7] text-text-2">
 
           <Section n="1" title="Administrator danych osobowych">
-            <P>1.1. Administratorem danych osobowych jest Exhuman, adres e-mail: balthus.delarola@gmail.com (dalej: &quot;Administrator&quot;).</P>
-            <P>1.2. We wszelkich sprawach dotyczących ochrony danych osobowych można kontaktować się pod adresem: balthus.delarola@gmail.com.</P>
+            <P>1.1. Administratorem danych osobowych jest Kamil Sobkowicz, adres e-mail: sobkowicz.kamil@gmail.com (dalej: &quot;Administrator&quot;).</P>
+            <P>1.2. We wszelkich sprawach dotyczących ochrony danych osobowych można kontaktować się pod adresem: sobkowicz.kamil@gmail.com.</P>
           </Section>
 
           <Section n="2" title="Zakres przetwarzanych danych">
@@ -92,7 +92,7 @@ export default function PolitykaPage() {
           </Section>
 
           <Section n="12" title="Kontakt">
-            <P>12.1. We wszelkich sprawach dotyczących ochrony danych osobowych prosimy o kontakt pod adresem: balthus.delarola@gmail.com.</P>
+            <P>12.1. We wszelkich sprawach dotyczących ochrony danych osobowych prosimy o kontakt pod adresem: sobkowicz.kamil@gmail.com.</P>
           </Section>
 
         </div>

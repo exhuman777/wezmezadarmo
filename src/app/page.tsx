@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { IntakeForm } from '@/components/IntakeForm';
 import { ChatWindow, ChatMessage } from '@/components/ChatWindow';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import { PeselInfoModal } from '@/components/PeselInfoModal';
 import { useTheme } from '@/hooks/useTheme';
 import { MatchResult, UserProfile } from '@/engine/types';
 import { CeidgBusinessData } from '@/lib/ceidg';
@@ -176,6 +177,7 @@ export default function Home() {
   const [isStreaming, setIsStreaming] = useState(false);
   const [guideBenefitId, setGuideBenefitId] = useState<string | null>(null);
   const [loadingMsgIndex, setLoadingMsgIndex] = useState(0);
+  const [showPeselInfo, setShowPeselInfo] = useState(false);
 
   // Rotate loading messages
   useEffect(() => {
@@ -429,17 +431,38 @@ export default function Home() {
 
           {/* Header content */}
           <div className="px-4 sm:px-6 pt-5 sm:pt-6 pb-3 sm:pb-4">
-            <h1 className="text-[20px] sm:text-[22px] font-bold text-text-1 mb-1.5">
+            <h1 className="text-[22px] sm:text-[26px] font-bold text-text-1 mb-1.5 leading-tight">
               Sprawdź co Ci się należy
             </h1>
-            <p className="text-text-2 text-[14px] sm:text-[15px] mb-5 sm:mb-6">
+            <p className="text-text-2 text-[14px] sm:text-[15px] mb-4 sm:mb-5">
               Zasiłki, ulgi, badania, dotacje -- sprawdź w 2 minuty
             </p>
+
+            {/* Trust badges */}
+            <div className="flex flex-wrap gap-2 mb-5 sm:mb-6">
+              <span className="text-[11px] sm:text-[12px] font-semibold px-2.5 py-1 rounded-lg" style={{ background: 'var(--color-green-bg)', color: 'var(--color-green)', border: '1px solid var(--color-green-border)' }}>
+                {'\u2713'} PESEL nie opuszcza przeglądarki
+              </span>
+              <span className="text-[11px] sm:text-[12px] font-semibold px-2.5 py-1 rounded-lg" style={{ background: 'var(--color-green-bg)', color: 'var(--color-green)', border: '1px solid var(--color-green-border)' }}>
+                {'\u2713'} Brak bazy danych
+              </span>
+              <span className="text-[11px] sm:text-[12px] font-semibold px-2.5 py-1 rounded-lg" style={{ background: 'var(--color-green-bg)', color: 'var(--color-green)', border: '1px solid var(--color-green-border)' }}>
+                {'\u2713'} Szyfrowanie HTTPS
+              </span>
+            </div>
           </div>
 
           {/* Form section */}
-          <div className="px-4 sm:px-6 pb-5 sm:pb-6">
+          <div className="px-4 sm:px-6 pb-4 sm:pb-5">
             <IntakeForm onSubmit={handleIntakeSubmit} isLoading={isLoading} />
+
+            {/* PESEL safety link */}
+            <button
+              onClick={() => setShowPeselInfo(true)}
+              className="mt-3 text-[12px] sm:text-[13px] text-accent hover:underline cursor-pointer bg-transparent border-none font-medium"
+            >
+              Czy podanie PESEL jest bezpieczne? {'\u2192'}
+            </button>
           </div>
 
           {/* Disclaimer footer */}
@@ -450,6 +473,50 @@ export default function Home() {
           </div>
         </div>
 
+        {/* OKI Section */}
+        <div
+          className="w-full max-w-lg mt-5 rounded-2xl overflow-hidden bg-bg-1 p-4 sm:p-5"
+          style={{
+            border: '1px solid var(--color-border-light)',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
+          }}
+        >
+          <div className="text-[11px] sm:text-[12px] font-bold tracking-wider text-accent uppercase mb-2">Czy wiesz?</div>
+          <h3 className="text-[16px] sm:text-[18px] font-bold text-text-1 mb-2">
+            OKI -- 100 000 PLN wolne od podatku
+          </h3>
+          <p className="text-[13px] sm:text-[14px] text-text-2 leading-relaxed mb-3">
+            Ogólnopolskie Konto Inwestycyjne (OKI) to sposób na inwestowanie bez płacenia podatku Belki (19% od zysków kapitałowych). Możesz zainwestować do 100 000 PLN rocznie i nie zapłacisz ani złotówki podatku od zysków.
+          </p>
+          <div className="space-y-2 mb-3">
+            <div className="flex gap-2 text-[13px] sm:text-[14px] text-text-2">
+              <span className="text-accent font-bold shrink-0">{'\u2192'}</span>
+              <span>Kup ETF-y na Bitcoin, złoto, S&P 500 lub inne aktywa</span>
+            </div>
+            <div className="flex gap-2 text-[13px] sm:text-[14px] text-text-2">
+              <span className="text-accent font-bold shrink-0">{'\u2192'}</span>
+              <span>Możesz otworzyć OKI na platformie XTB -- bez prowizji od polskich i zagranicznych ETF-ów</span>
+            </div>
+            <div className="flex gap-2 text-[13px] sm:text-[14px] text-text-2">
+              <span className="text-accent font-bold shrink-0">{'\u2192'}</span>
+              <span>Zyski z inwestycji są całkowicie zwolnione z podatku</span>
+            </div>
+          </div>
+          <a
+            href="#"
+            className="inline-block text-[13px] sm:text-[14px] font-semibold px-4 py-2 rounded-lg transition-all cursor-pointer"
+            style={{
+              background: 'linear-gradient(135deg, var(--color-accent), var(--color-accent-2))',
+              color: '#fff',
+            }}
+          >
+            Otwórz OKI na XTB {'\u2192'}
+          </a>
+          <p className="mt-2 text-[10px] sm:text-[11px] text-text-3">
+            Link afiliacyjny. Więcej informacji na stronie XTB.
+          </p>
+        </div>
+
         <div className="mt-4 text-[12px] sm:text-[13px] text-text-3 text-center space-y-1">
           <div>Baza: 99 świadczeń | 15 kategorii</div>
           <div>
@@ -458,6 +525,9 @@ export default function Home() {
             <a href="/polityka-prywatnosci" className="text-accent hover:underline">Polityka prywatności</a>
           </div>
         </div>
+
+        {/* PESEL Info Modal */}
+        <PeselInfoModal isOpen={showPeselInfo} onClose={() => setShowPeselInfo(false)} />
       </div>
     );
   }

@@ -25,7 +25,7 @@ export default function RegulaminPage() {
 
           <Section n="1" title="Postanowienia ogólne">
             <P>1.1. Niniejszy Regulamin określa zasady świadczenia usług drogą elektroniczną za pośrednictwem serwisu internetowego wezmezadarmo (dalej: &quot;Serwis&quot;).</P>
-            <P>1.2. Operatorem Serwisu jest Exhuman, adres e-mail: balthus.delarola@gmail.com (dalej: &quot;Operator&quot;).</P>
+            <P>1.2. Operatorem Serwisu jest Kamil Sobkowicz, adres e-mail: sobkowicz.kamil@gmail.com (dalej: &quot;Operator&quot;).</P>
             <P>1.3. Serwis jest narzędziem informacyjnym, które pomaga użytkownikom zidentyfikować świadczenia rządowe, na które mogą się kwalifikować. Serwis nie jest organem administracji publicznej, nie przyznaje świadczeń i nie gwarantuje ich uzyskania.</P>
             <P>1.4. Korzystanie z Serwisu jest bezpłatne i nie wymaga rejestracji ani zakładania konta użytkownika.</P>
           </Section>
@@ -82,7 +82,7 @@ export default function RegulaminPage() {
           </Section>
 
           <Section n="9" title="Reklamacje">
-            <P>9.1. Użytkownik ma prawo złożyć reklamację dotyczącą działania Serwisu na adres e-mail: balthus.delarola@gmail.com.</P>
+            <P>9.1. Użytkownik ma prawo złożyć reklamację dotyczącą działania Serwisu na adres e-mail: sobkowicz.kamil@gmail.com.</P>
             <P>9.2. Reklamacja powinna zawierać opis problemu, datę i godzinę wystąpienia problemu oraz adres e-mail do kontaktu zwrotnego.</P>
             <P>9.3. Operator rozpatrzy reklamację w terminie 14 dni od daty jej otrzymania.</P>
           </Section>
