@@ -2,7 +2,9 @@ import { Benefit } from '../types';
 
 export const BIZNES: Benefit[] = [
   {
-    id: 'ulga-na-start', nazwa: 'Ulga na Start', kategoria: 'BIZNES',
+    id: 'ulga-na-start', nazwa: 'Ulga na Start',
+    opis: 'Ulga na Start to zwolnienie z opłacania składek społecznych ZUS przez pierwszych 6 pełnych miesięcy prowadzenia działalności gospodarczej. Skierowana do osób zakładających firmę po raz pierwszy (lub po przerwie min. 60 miesięcy). Oszczędność wynosi ok. 1927 PLN miesięcznie -- płacisz TYLKO składkę zdrowotną (ok. 381 PLN). Warunki: musisz zarejestrować jednoosobową działalność w CEIDG, nie możesz wykonywać usług na rzecz byłego pracodawcy (u którego pracowałeś w bieżącym lub poprzednim roku kalendarzowym), i nie możesz mieć żadnej działalności gospodarczej w ciągu ostatnich 60 miesięcy (nawet zawieszonej). Częsty błąd: rozpoczęcie w połowie miesiąca -- ten miesiąc nie liczy się do 6 pełnych miesięcy. Praktyczna rada: po Uldze na Start przejdź od razu na Preferencyjny ZUS (24 miesiące), a potem na Mały ZUS Plus -- to daje nawet 5,5 roku niższych składek.',
+    kategoria: 'BIZNES',
     kwota: 'ok. 1 927 PLN/mies. oszczędności (brak składek społecznych)', kwotaMin: 1927, kwotaMax: 1927,
     czestotliwosc: 'miesięcznie (6 pełnych miesięcy)',
     wymagania: { prowadzDzialalnosc: true, pierwszaDzialalnosc: true },
@@ -32,7 +34,9 @@ export const BIZNES: Benefit[] = [
     zrodloNazwa: 'biznes.gov.pl', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'preferencyjny-zus', nazwa: 'Preferencyjny ZUS (mały ZUS)', kategoria: 'BIZNES',
+    id: 'preferencyjny-zus', nazwa: 'Preferencyjny ZUS (mały ZUS)',
+    opis: 'Preferencyjny ZUS (potocznie "mały ZUS") pozwala płacić obniżone składki społeczne przez 24 pełne miesiące. Podstawa wymiaru składek wynosi 30% minimalnego wynagrodzenia (w 2026: 1441,80 PLN), co daje składkę ok. 456 PLN/mies. zamiast ok. 1600 PLN na pełnym ZUS. Skierowany do przedsiębiorców, którzy prowadzą działalność co najmniej 6 miesięcy (po Uldze na Start) lub od razu po rejestracji (jeśli nie korzystali z Ulgi na Start). Warunek: nie możesz świadczyć usług na rzecz byłego pracodawcy. Rejestrujesz się na ZUS ZUA z kodem ubezpieczenia 05 70. Częsty błąd: wybór Preferencyjnego ZUS od razu zamiast Ulgi na Start -- tracisz wtedy 6 miesięcy zwolnienia ze składek społecznych. Optymalna ścieżka: Ulga na Start (6 mies.) -> Preferencyjny ZUS (24 mies.) -> Mały ZUS Plus (36 mies.).',
+    kategoria: 'BIZNES',
     kwota: 'ok. 456 PLN/mies. zamiast ok. 1 600 PLN/mies.', kwotaMin: 456, kwotaMax: 456,
     czestotliwosc: 'miesięcznie (24 pełne miesiące)',
     wymagania: { prowadzDzialalnosc: true, miesiaceDzialalnosci: { min: 6, max: 30 } },
@@ -54,7 +58,9 @@ export const BIZNES: Benefit[] = [
     zrodloNazwa: 'biznes.gov.pl', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'maly-zus-plus', nazwa: 'Mały ZUS Plus', kategoria: 'BIZNES',
+    id: 'maly-zus-plus', nazwa: 'Mały ZUS Plus',
+    opis: 'Mały ZUS Plus umożliwia opłacanie składek społecznych proporcjonalnie do przychodu z poprzedniego roku. Skierowany do przedsiębiorców z przychodem rocznym do 120 000 PLN. Można z niego korzystać maksymalnie 36 miesięcy w ciągu 60 miesięcy kalendarzowych, po czym trzeba przejść na pełny ZUS na co najmniej 24 miesiące. Zgłoszenie do 31 stycznia danego roku -- spóźnienie oznacza czekanie do następnego roku. Nowi uprawnieni mogą zgłosić się w ciągu 7 dni od spełnienia warunków. Wykluczone osoby: świadczące usługi na rzecz byłego pracodawcy, rozliczające się kartą podatkową ze zwolnieniem z VAT. Częsty błąd: przekroczenie limitu 120 000 PLN przychodu rocznego -- wtedy tracisz prawo do Małego ZUS Plus. Praktyczna rada: po wyczerpaniu 36 miesięcy Małego ZUS Plus musisz płacić pełny ZUS przez 24 miesiące, dopiero potem możesz wrócić do Małego ZUS Plus.',
+    kategoria: 'BIZNES',
     kwota: 'składki proporcjonalne do przychodu', czestotliwosc: 'miesięcznie (36 miesięcy w ciągu 60)',
     wymagania: { prowadzDzialalnosc: true },
     wykluczenia: [
@@ -79,7 +85,9 @@ export const BIZNES: Benefit[] = [
     zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'wakacje-skladkowe', nazwa: 'Wakacje składkowe (1 miesiąc wolny od ZUS)', kategoria: 'BIZNES',
+    id: 'wakacje-skladkowe', nazwa: 'Wakacje składkowe (1 miesiąc wolny od ZUS)',
+    opis: 'Wakacje składkowe to prawo do zwolnienia z opłacania składek społecznych ZUS przez 1 wybrany miesiąc w roku. Skierowane do mikroprzedsiębiorców zatrudniających maksymalnie 9 pracowników (wliczając siebie) i z przychodem rocznym do 2 mln EUR. Oszczędność: ok. 1600 PLN jednorazowo. Wniosek RWS składasz przez PUE ZUS w miesiącu POPRZEDZAJĄCYM wybrany miesiąc zwolnienia -- to najczęstszy błąd, bo wiele osób próbuje złożyć wniosek w tym samym miesiącu. W miesiącu wakacji nie płacisz składek społecznych, ale składkę zdrowotną musisz opłacić normalnie. Można skorzystać tylko 1 raz w roku kalendarzowym. Decyzja ZUS zapada w ciągu 40 dni. Praktyczna rada: wybierz miesiąc, w którym masz najwyższe składki (np. grudzień) lub miesiąc z niższymi przychodami.',
+    kategoria: 'BIZNES',
     kwota: 'ok. 1 600 PLN oszczędności (1 miesiąc)', kwotaMin: 1600, kwotaMax: 1600,
     czestotliwosc: 'rocznie (1 miesiąc)',
     wymagania: { prowadzDzialalnosc: true },
@@ -104,7 +112,9 @@ export const BIZNES: Benefit[] = [
     zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'ryczalt', nazwa: 'Ryczałt od przychodów ewidencjonowanych', kategoria: 'BIZNES',
+    id: 'ryczalt', nazwa: 'Ryczałt od przychodów ewidencjonowanych',
+    opis: 'Ryczałt to uproszczona forma opodatkowania działalności gospodarczej, w której płacisz podatek od przychodu (nie od dochodu) wg stawek od 2% do 17% zamiast skali podatkowej 12-32%. Opłacalny dla firm z niskimi kosztami uzyskania przychodu (np. IT, doradztwo, wynajem). Stawki: IT i wolne zawody = 12%, wynajem prywatny = 8,5%, produkcja = 5,5%, handel = 3%, gastronomia = 15%. Wybór ryczałtu zgłaszasz do urzędu skarbowego do 20. dnia miesiąca po pierwszym przychodzie lub przy rejestracji w CEIDG. Częsty błąd: wybór ryczałtu przy wysokich kosztach -- nie odliczysz kosztów uzyskania przychodu, więc jeśli koszty stanowią dużą część przychodu, skala podatkowa lub liniowy 19% mogą być korzystniejsze. Nie wszystkie PKD kwalifikują się do ryczałtu (wykluczone m.in. apteki, lombardy, handel częściami samochodowymi). Zmiana formy opodatkowania możliwa do 20 lutego następnego roku.',
+    kategoria: 'BIZNES',
     kwota: 'stawki 2-17% zamiast 12-32% PIT', czestotliwosc: 'rocznie',
     wymagania: { prowadzDzialalnosc: true },
     wykluczenia: [{ opis: 'Nie można przy niektórych rodzajach działalności (np. apteki, lombardy)', sprawdz: 'pkd_ryczalt' }],
@@ -124,7 +134,9 @@ export const BIZNES: Benefit[] = [
     zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'ulga-robotyzacja', nazwa: 'Ulga na robotyzację', kategoria: 'BIZNES',
+    id: 'ulga-robotyzacja', nazwa: 'Ulga na robotyzację',
+    opis: 'Ulga na robotyzację pozwala przedsiębiorcom odliczyć dodatkowe 50% kosztów nabycia robotów przemysłowych i oprogramowania do ich sterowania od podstawy opodatkowania. Dotyczy robotów przemysłowych w rozumieniu normy ISO 8373 -- automatycznie sterowanych, programowalnych maszyn wielozadaniowych. Program działa do końca 2026 roku. Odliczenie stosuje się w zeznaniu rocznym PIT-36/PIT-36L. Częsty błąd: próba odliczenia zwykłych maszyn CNC lub prostych automatów -- ulga dotyczy wyłącznie robotów spełniających definicję ISO 8373. Koszty kwalifikowane obejmują też: oprogramowanie sterujące, czujniki, urządzenia bezpieczeństwa, szkolenia pracowników obsługujących roboty. Praktyczna rada: przed zakupem skonsultuj z doradcą podatkowym, czy dany robot kwalifikuje się do ulgi.',
+    kategoria: 'BIZNES',
     kwota: 'dodatkowe 50% odliczenia kosztów robotyzacji', czestotliwosc: 'rocznie (do 2026)',
     wymagania: { prowadzDzialalnosc: true },
     wykluczenia: [{ opis: 'Dotyczy robotów przemysłowych i oprogramowania do ich sterowania', sprawdz: 'robot_przemyslowy' }],

@@ -50,11 +50,23 @@ export function buildConversationContext(
 
   const resultsSummary = verifiedResults.map(r => {
     const b = r.benefit;
-    return `[${r.status}] ${b.nazwa}, ${b.kwota}
-  Pewność: ${r.confidence}
-  Źródło: ${b.zrodloUrl}
-  Ostrzeżenia: ${r.warnings.join('; ') || 'brak'}
-  Wniosek: ${b.wniosek.kanal.join(', ')}`;
+    const parts = [
+      `[${r.status}] ${b.nazwa}`,
+      `Kwota: ${b.kwota} (${b.czestotliwosc})`,
+      `Pewność: ${r.confidence}`,
+    ];
+    if (b.opis) parts.push(`Opis: ${b.opis}`);
+    parts.push(`Źródło: ${b.zrodloUrl}`);
+    if (r.warnings.length > 0) parts.push(`Ostrzeżenia: ${r.warnings.join('; ')}`);
+    if (b.wykluczenia.length > 0) parts.push(`Wykluczenia: ${b.wykluczenia.map(w => w.opis).join('; ')}`);
+    parts.push(`Gdzie złożyć: ${b.wniosek.kanal.join(', ')}`);
+    if (b.wniosek.formularz) parts.push(`Formularz: ${b.wniosek.formularz}`);
+    parts.push(`Dokumenty: ${b.wniosek.dokumenty.join('; ')}`);
+    parts.push(`Kroki: ${b.wniosek.kroki.map((k, i) => `${i + 1}. ${k}`).join(' ')}`);
+    parts.push(`Termin: ${b.wniosek.terminRealizacji}`);
+    if (b.wniosek.pulapki.length > 0) parts.push(`Pułapki: ${b.wniosek.pulapki.join('; ')}`);
+    parts.push(`Odwołanie: ${b.wniosek.odwolanie}`);
+    return parts.join('\n  ');
   }).join('\n\n');
 
   return `

@@ -16,7 +16,7 @@ const LOADING_MESSAGES = [
   'Sprawdzamy 99 świadczeń w 15 kategoriach...',
   'Szukam dla Ciebie funduszy...',
   'Analizujemy Twój profil...',
-  'Twoje darmowe pieniądze z Państwa w zasięgu ręki...',
+  'Twoje darmowe pieniądze od Państwa w zasięgu ręki...',
 ];
 
 const EXAMPLE_BENEFITS = [

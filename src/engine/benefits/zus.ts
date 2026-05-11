@@ -2,7 +2,9 @@ import { Benefit } from '../types';
 
 export const ZUS: Benefit[] = [
   {
-    id: 'zasilek-chorobowy', nazwa: 'Zasiłek chorobowy (L4)', kategoria: 'ZUS',
+    id: 'zasilek-chorobowy', nazwa: 'Zasiłek chorobowy (L4)',
+    opis: 'Zasiłek chorobowy to świadczenie wypłacane osobom niezdolnym do pracy z powodu choroby, które posiadają ubezpieczenie chorobowe (obowiązkowe przy umowie o pracę, dobrowolne przy zleceniu i działalności gospodarczej). Wynosi 80% podstawy wymiaru wynagrodzenia, a 100% w przypadku ciąży, wypadku przy pracy, wypadku w drodze do/z pracy lub dla dawców narządów. Uwaga: pierwsze 33 dni choroby w roku kalendarzowym (14 dni dla osób powyżej 50 roku życia) to wynagrodzenie chorobowe płacone przez pracodawcę, nie zasiłek ZUS. Zasiłek chorobowy z ZUS zaczyna się dopiero od 34. dnia (15. dnia dla 50+). Maksymalny okres pobierania to 182 dni, a w przypadku ciąży lub gruźlicy -- 270 dni. Obowiązuje okres wyczekiwania: 30 dni ciągłego ubezpieczenia dla pracowników lub 90 dni dla ubezpieczenia dobrowolnego (zlecenie, działalność). Lekarz wystawia e-ZLA elektronicznie, które automatycznie trafia do ZUS i pracodawcy. Wykonywanie pracy zarobkowej podczas L4 może skutkować utratą zasiłku i obowiązkiem zwrotu -- ZUS przeprowadza kontrole. Na działalności gospodarczej trzeba samodzielnie złożyć ZUS Z-3b przez PUE ZUS.',
+    kategoria: 'ZUS',
     kwota: '80% wynagrodzenia (100% w ciąży, wypadek przy pracy lub badania dawców)',
     czestotliwosc: 'dziennie (max 182 dni, 270 dni w ciąży/gruźlica)',
     wymagania: {
@@ -40,7 +42,9 @@ export const ZUS: Benefit[] = [
     zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'zasilek-macierzynski', nazwa: 'Zasiłek macierzyński', kategoria: 'ZUS',
+    id: 'zasilek-macierzynski', nazwa: 'Zasiłek macierzyński',
+    opis: 'Zasiłek macierzyński przysługuje osobom objętym ubezpieczeniem chorobowym w dniu porodu, przyjęcia dziecka na wychowanie lub przysposobienia. Obejmuje okres urlopu macierzyńskiego (20 tygodni przy jednym dziecku, do 37 tygodni przy pięcioraczku i więcej) oraz urlopu rodzicielskiego (do 32-34 tygodni). Kluczowy termin: jeśli w ciągu 21 dni po porodzie złożysz wniosek o zasiłek za cały okres (macierzyński + rodzicielski), stawka wyniesie 81,5% wynagrodzenia przez cały czas. Jeśli nie zmieścisz się w 21 dniach, za urlop macierzyński dostaniesz 100%, ale za rodzicielski tylko 70%. Ojciec może przejąć część urlopu rodzicielskiego, przy czym 9 tygodni jest zarezerwowanych wyłącznie dla drugiego rodzica (nie można ich przenieść). Osoby prowadzące działalność gospodarczą: podstawa zasiłku zależy od opłacanych składek przez minimum 12 miesięcy -- jeśli opłacałeś minimalne składki, zasiłek będzie niski. Zasiłek macierzyński nie może być niższy niż 1000 PLN miesięcznie (w razie potrzeby ZUS dopełnia do kwoty kosiniakowego). Osoby bez ubezpieczenia chorobowego (np. umowa o dzieło, brak pracy) nie kwalifikują się na zasiłek macierzyński, ale mogą ubiegać się o kosiniakowe (1000 PLN/mies.).',
+    kategoria: 'ZUS',
     kwota: '81,5% wynagrodzenia (wniosek do 21 dni po porodzie) lub 100%/70% (bez wcześniejszego wniosku)',
     czestotliwosc: 'miesięcznie (20-37 tygodni urlop macierzyński + do 32-34 tygodni urlop rodzicielski)',
     wymagania: {
@@ -79,7 +83,9 @@ export const ZUS: Benefit[] = [
     zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'zasilek-opiekunczy', nazwa: 'Zasiłek opiekuńczy', kategoria: 'ZUS',
+    id: 'zasilek-opiekunczy', nazwa: 'Zasiłek opiekuńczy',
+    opis: 'Zasiłek opiekuńczy to świadczenie w wysokości 80% wynagrodzenia za czas opieki nad chorym dzieckiem lub innym członkiem rodziny. Przysługuje osobom objętym ubezpieczeniem chorobowym. Limity roczne: 60 dni na chore dziecko do 14 lat, 30 dni na niepełnosprawne dziecko w wieku 14-18 lat, 14 dni na innego członka rodziny (małżonka, rodzica). Uwaga: limit 60 dni dotyczy łącznie obojga rodziców, nie na każde dziecko osobno. Na zdrowe dziecko do 8 lat zasiłek przysługuje tylko w wyjątkowych sytuacjach: niespodziewane zamknięcie żłobka, przedszkola lub szkoły, choroba lub poród małżonka stale opiekującego się dzieckiem. Warunek: inny członek rodziny zamieszkujący w tym samym gospodarstwie domowym nie może zapewnić opieki (ten warunek nie dotyczy opieki nad chorym dzieckiem do lat 2). Nie obowiązuje okres wyczekiwania -- prawo do zasiłku przysługuje od pierwszego dnia ubezpieczenia. Lekarz wystawia e-ZLA, a ubezpieczony wypełnia formularz ZUS Z-15A (opieka nad dzieckiem) lub ZUS Z-15B (opieka nad innym członkiem rodziny).',
+    kategoria: 'ZUS',
     kwota: '80% wynagrodzenia',
     czestotliwosc: 'dziennie (max 60 dni/rok, dziecko do 14 lat; 14 dni/rok, inny członek rodziny)',
     wymagania: {
@@ -116,7 +122,9 @@ export const ZUS: Benefit[] = [
     zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'swiadczenie-rehabilitacyjne', nazwa: 'Świadczenie rehabilitacyjne', kategoria: 'ZUS',
+    id: 'swiadczenie-rehabilitacyjne', nazwa: 'Świadczenie rehabilitacyjne',
+    opis: 'Świadczenie rehabilitacyjne przysługuje osobom, które wyczerpały okres zasiłku chorobowego (182 lub 270 dni) i nadal są niezdolne do pracy, ale dalsze leczenie lub rehabilitacja rokuje odzyskanie zdolności do pracy. Wypłacane przez maksymalnie 12 miesięcy: 90% wynagrodzenia przez pierwsze 3 miesiące, 75% przez pozostały okres, 100% w przypadku ciąży lub wypadku przy pracy. Wniosek (ZUS Np-7) najlepiej złożyć 6 tygodni przed końcem zasiłku chorobowego, żeby uniknąć przerwy w wypłatach. Lekarz orzecznik ZUS bada ubezpieczonego i wydaje orzeczenie. Świadczenie nie przysługuje osobom, które mają ustalone prawo do emerytury, renty z tytułu niezdolności do pracy lub zasiłku dla bezrobotnych. Praca zarobkowa w trakcie pobierania świadczenia rehabilitacyjnego oznacza jego utratę. Odmowa poddania się badaniu lekarskiemu lub rehabilitacji również skutkuje utratą prawa do świadczenia. Od orzeczenia lekarza orzecznika ZUS przysługuje sprzeciw do Komisji Lekarskiej ZUS w ciągu 14 dni, a od decyzji ZUS -- odwołanie do Sądu Pracy.',
+    kategoria: 'ZUS',
     kwota: '90% wynagrodzenia (pierwsze 3 mies.), 75% (pozostały okres), 100% (ciąża/wypadek przy pracy)',
     czestotliwosc: 'miesięcznie (max 12 miesięcy)',
     wymagania: {
@@ -155,7 +163,9 @@ export const ZUS: Benefit[] = [
     zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'zasilek-pogrzebowy', nazwa: 'Zasiłek pogrzebowy', kategoria: 'ZUS',
+    id: 'zasilek-pogrzebowy', nazwa: 'Zasiłek pogrzebowy',
+    opis: 'Zasiłek pogrzebowy to jednorazowe świadczenie w kwocie 7000 PLN (od 1 stycznia 2026, wcześniej 4000 PLN) na pokrycie kosztów pogrzebu. Przysługuje osobie, która poniosła koszty pogrzebu ubezpieczonego, emeryta, rencisty lub członka ich rodziny. Dla członka rodziny zmarłego (małżonek, rodzic, dziecko, wnuk, rodzeństwo) kwota wynosi 7000 PLN ryczałtem, niezależnie od faktycznych kosztów. Dla osób spoza rodziny lub instytucji -- zwrot udokumentowanych kosztów, ale nie więcej niż 7000 PLN. O kwocie decyduje data śmierci, nie data złożenia wniosku. Wniosek (formularz ZUS Z-12) trzeba złożyć w ciągu 12 miesięcy od dnia pogrzebu -- po tym terminie prawo wygasa bezpowrotnie. Do wniosku dołącza się akt zgonu, rachunki/faktury za pogrzeb oraz dokument potwierdzający pokrewieństwo. Jeśli pogrzeb organizował zakład pogrzebowy na zlecenie rodziny, zasiłek przysługuje osobie, która faktycznie poniosła koszty, nie zakładowi pogrzebowemu. Wniosek można złożyć w oddziale ZUS lub przez PUE ZUS.',
+    kategoria: 'ZUS',
     kwota: '7000 PLN jednorazowo (od 1 stycznia 2026; osobom spoza rodziny, do wysokości poniesionych kosztów, max 7000 PLN)',
     kwotaMin: 7000, kwotaMax: 7000,
     czestotliwosc: 'jednorazowo',
@@ -192,7 +202,9 @@ export const ZUS: Benefit[] = [
     zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'renta-socjalna', nazwa: 'Renta socjalna', kategoria: 'ZUS',
+    id: 'renta-socjalna', nazwa: 'Renta socjalna',
+    opis: 'Renta socjalna to comiesięczne świadczenie w wysokości 1978,49 PLN brutto (od marca 2026, równa najniższej rencie) dla osób całkowicie niezdolnych do pracy, u których niezdolność powstała przed ukończeniem 18 roku życia, w trakcie nauki w szkole lub na uczelni (do 25 lat) albo w trakcie studiów doktoranckich. Samo posiadanie orzeczenia o umiarkowanym lub znacznym stopniu niepełnosprawności nie wystarczy -- lekarz orzecznik ZUS musi stwierdzić całkowitą niezdolność do pracy. Renta socjalna nie przysługuje osobom, które mają ustalone prawo do emerytury, renty z tytułu niezdolności do pracy, renty strukturalnej lub pobierają świadczenie rentowe z zagranicy. Można dorabiać do 6438,50 PLN brutto miesięcznie (70% przeciętnego wynagrodzenia, od marca 2026) bez wpływu na wysokość renty. Przekroczenie tego progu powoduje zawieszenie renty. Wniosek (ZUS ERN) składa się w oddziale ZUS lub przez PUE ZUS, z dokumentacją medyczną i zaświadczeniem OL-9 od lekarza prowadzącego. Od orzeczenia lekarza orzecznika przysługuje sprzeciw do Komisji Lekarskiej ZUS w ciągu 14 dni.',
+    kategoria: 'ZUS',
     kwota: '1978,49 PLN brutto miesięcznie (od marca 2026, równa najniższej rencie)',
     kwotaMin: 1978, kwotaMax: 1978,
     czestotliwosc: 'miesięcznie',
@@ -235,7 +247,9 @@ export const ZUS: Benefit[] = [
     zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'emerytura-pomostowa', nazwa: 'Emerytura pomostowa', kategoria: 'ZUS',
+    id: 'emerytura-pomostowa', nazwa: 'Emerytura pomostowa',
+    opis: 'Emerytura pomostowa to wcześniejsze świadczenie emerytalne dla osób, które pracowały w szczególnych warunkach lub o szczególnym charakterze (wykaz zawodów w załącznikach 1 i 2 do ustawy o emeryturach pomostowych). Dotyczy m.in. hutników, górników, ratowników, pilotów, kierowców komunikacji publicznej, pracowników w warunkach podwyższonego ciśnienia, narażonych na działanie promieniowania. Minimalna kwota to 1978,49 PLN brutto (od marca 2026), ale rzeczywista wysokość obliczana jest indywidualnie na podstawie zgromadzonych składek. Warunki: wiek co najmniej 55 lat (kobiety) lub 60 lat (mężczyźni), staż ubezpieczeniowy co najmniej 20 lat (kobiety) lub 25 lat (mężczyźni), w tym odpowiedni okres pracy w szczególnych warunkach. Od 2024 roku zniesiono wymóg pracy w szczególnych warunkach przed 31.12.1998, co otworzyło dostęp także dla młodszych pracowników. Nie trzeba rozwiązywać stosunku pracy przed złożeniem wniosku, ale trzeba to zrobić przed przyznaniem emerytury. Emerytura pomostowa jest bezterminowa -- przysługuje do osiągnięcia powszechnego wieku emerytalnego (60/65 lat). Można dorabiać, ale po przekroczeniu progu przychodu ZUS zmniejszy lub zawiesi świadczenie.',
+    kategoria: 'ZUS',
     kwota: 'Obliczana indywidualnie, minimalna 1978,49 PLN brutto (od marca 2026)',
     kwotaMin: 1978, kwotaMax: 3200,
     czestotliwosc: 'miesięcznie',
@@ -278,7 +292,9 @@ export const ZUS: Benefit[] = [
     zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'swiadczenie-przedemerytalne', nazwa: 'Świadczenie przedemerytalne', kategoria: 'ZUS',
+    id: 'swiadczenie-przedemerytalne', nazwa: 'Świadczenie przedemerytalne',
+    opis: 'Świadczenie przedemerytalne to comiesięczna wypłata 1993,76 PLN brutto (od marca 2026) dla osób, które straciły pracę z przyczyn leżących po stronie pracodawcy (likwidacja zakładu, upadłość, zwolnienia grupowe) i spełniają warunki wiekowe i stażowe. Kluczowy wymóg: trzeba najpierw zarejestrować się w PUP jako bezrobotny i pobierać zasiłek dla bezrobotnych przez co najmniej 180 dni. Po upływie 180 dni PUP wydaje zaświadczenie, a ubezpieczony ma tylko 30 dni na złożenie wniosku ZUS ESP -- po tym terminie prawo przepada bezpowrotnie. Warunki różnią się w zależności od przyczyny utraty pracy, ale ogólnie wymagany jest wiek co najmniej 56 lat (kobiety) lub 61 lat (mężczyźni) i staż ubezpieczeniowy 20 lat (kobiety) lub 25 lat (mężczyźni). Przy likwidacji lub upadłości pracodawcy progi wiekowe mogą być niższe. Umowa musi być rozwiązana z przyczyn pracodawcy -- dyscyplinarka lub odejście z własnej woli dyskwalifikuje. Można dorabiać do 2225,90 PLN brutto miesięcznie (od marca 2026) bez wpływu na świadczenie. Przekroczenie 6232,50 PLN brutto miesięcznie powoduje zawieszenie świadczenia.',
+    kategoria: 'ZUS',
     kwota: '1993,76 PLN brutto miesięcznie (od marca 2026)',
     kwotaMin: 1994, kwotaMax: 1994,
     czestotliwosc: 'miesięcznie',
@@ -321,7 +337,9 @@ export const ZUS: Benefit[] = [
     zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'mama-4-plus', nazwa: 'Rodzicielskie świadczenie uzupełniające (Mama 4+)', kategoria: 'ZUS',
+    id: 'mama-4-plus', nazwa: 'Rodzicielskie świadczenie uzupełniające (Mama 4+)',
+    opis: 'Rodzicielskie świadczenie uzupełniające (potocznie "Mama 4+") to comiesięczne świadczenie uzupełniające dochód do poziomu minimalnej emerytury (1978,49 PLN brutto od marca 2026) dla osób, które wychowały co najmniej czworo dzieci i z tego powodu nie wypracowały wystarczającego stażu emerytalnego. Mimo nazwy, świadczenie przysługuje nie tylko matkom, ale także ojcom, którzy wychowywali dzieci. Warunki wiekowe: 60 lat dla kobiet, 65 lat dla mężczyzn. Jeśli ubezpieczony ma już emeryturę lub rentę niższą niż minimalna, świadczenie uzupełnia do kwoty minimalnej. Jeśli nie ma żadnej emerytury, może otrzymać pełną kwotę 1978,49 PLN brutto. Uwaga: świadczenie jest uznaniowe -- decyzję podejmuje Prezes ZUS i może odmówić, nawet jeśli warunki formalne są spełnione. Pozbawienie lub ograniczenie władzy rodzicielskiej (umieszczenie dziecka w pieczy zastępczej), długotrwałe zaprzestanie wychowania dzieci, tymczasowe aresztowanie lub pozbawienie wolności dyskwalifikują. Wniosek (ZUS ERSU) składa się z aktami urodzenia co najmniej czworga dzieci i oświadczeniem o sytuacji osobistej. Od decyzji Prezesa ZUS przysługuje wniosek o ponowne rozpatrzenie, a następnie skarga do WSA.',
+    kategoria: 'ZUS',
     kwota: 'Do 1978,49 PLN brutto miesięcznie (od marca 2026, uzupełnienie do minimalnej emerytury)',
     kwotaMin: 0, kwotaMax: 1978,
     czestotliwosc: 'miesięcznie',
@@ -368,7 +386,9 @@ export const ZUS: Benefit[] = [
     zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: '13-emerytura', nazwa: '13. emerytura (trzynastka)', kategoria: 'ZUS',
+    id: '13-emerytura', nazwa: '13. emerytura (trzynastka)',
+    opis: 'Trzynasta emerytura (trzynastka) to dodatkowe roczne świadczenie pieniężne wypłacane automatycznie w kwietniu każdego roku wszystkim emerytom i rencistom. Kwota odpowiada minimalnej emeryturze po marcowej waloryzacji -- w 2026 roku wynosi 1978,49 PLN brutto. Nie trzeba składać żadnego wniosku -- ZUS wypłaca trzynastkę z urzędu razem z regularną emeryturą lub rentą. Nie ma progu dochodowego -- przysługuje wszystkim, niezależnie od wysokości emerytury. Jedyny warunek: świadczenie nie może być zawieszone na dzień 31 marca danego roku. Jeśli emerytura jest zawieszona (np. z powodu przekroczenia limitu przychodu), trzynastka nie zostanie wypłacona. Przysługuje nie tylko emerytom, ale również osobom pobierającym rentę socjalną, rentę rodzinną, świadczenie przedemerytalne, zasiłek przedemerytalny, nauczycielskie świadczenie kompensacyjne i emeryturę pomostową. Trzynastka jest opodatkowana podatkiem dochodowym i podlega składce zdrowotnej.',
+    kategoria: 'ZUS',
     kwota: '1978,49 PLN brutto jednorazowo (kwiecień 2026, równa minimalnej emeryturze)',
     kwotaMin: 1978, kwotaMax: 1978,
     czestotliwosc: 'rocznie (wypłata w kwietniu)',
@@ -399,7 +419,9 @@ export const ZUS: Benefit[] = [
     zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: '14-emerytura', nazwa: '14. emerytura (czternastka)', kategoria: 'ZUS',
+    id: '14-emerytura', nazwa: '14. emerytura (czternastka)',
+    opis: 'Czternasta emerytura (czternastka) to dodatkowe roczne świadczenie wypłacane automatycznie we wrześniu. W odróżnieniu od trzynastki, czternastka ma próg dochodowy. Pełna kwota (1978,49 PLN brutto w 2026) przysługuje emerytom i rencistom, których emerytura brutto nie przekracza 2900 PLN. Powyżej tego progu stosowana jest zasada "złotówka za złotówkę" -- każdy złoty emerytury powyżej 2900 PLN zmniejsza czternastkę o złotówkę. Przy emeryturze powyżej 4828,49 PLN brutto czternastka nie przysługuje wcale. Minimalna wypłata to 50 PLN brutto -- jeśli po zastosowaniu pomniejszenia kwota spadnie poniżej 50 PLN, ZUS nie wypłaca nic. Nie trzeba składać wniosku -- ZUS wypłaca świadczenie automatycznie razem z regularną emeryturą/rentą we wrześniu. Świadczenie musi być aktywne (nie zawieszone) w dniu wypłaty. Czternastka przysługuje również rencistom, osobom na rencie socjalnej, świadczeniu przedemerytalnym i rencie rodzinnej. Jest opodatkowana i podlega składce zdrowotnej.',
+    kategoria: 'ZUS',
     kwota: 'Do 1978,49 PLN brutto jednorazowo (pełna kwota przy emeryturze do 2900 PLN brutto; powyżej, pomniejszana o nadwyżkę)',
     kwotaMin: 50, kwotaMax: 1978,
     czestotliwosc: 'rocznie (wypłata we wrześniu)',

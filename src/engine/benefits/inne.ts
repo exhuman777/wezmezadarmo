@@ -2,7 +2,9 @@ import { Benefit } from '../types';
 
 export const INNE: Benefit[] = [
   {
-    id: 'refundacja-okularow-nfz', nazwa: 'Refundacja okularów i soczewek z NFZ', kategoria: 'ZDROWIE',
+    id: 'refundacja-okularow-nfz', nazwa: 'Refundacja okularów i soczewek z NFZ',
+    opis: 'Refundacja soczewek korekcyjnych (nie oprawek) z NFZ. Wady do +-6,00 D: do 25 PLN/szkło (50 PLN za parę). Wady powyżej +-6,25 D: do 350 PLN/szkło (700 PLN za parę). Soczewki kontaktowe twarde/hybrydowe: do 600 PLN/szt. (10% wkład własny). Częstotliwość: dorośli co 2 lata, dzieci co rok (lub częściej przy zmianach wady). Od 2026 zlecenie może wystawić nie tylko okulista, ale też optometrysta. E-zlecenie automatycznie weryfikowane w systemie NFZ. Salon optyczny odlicza refundację od ceny. Oprawki, powłoki i filtry za własne pieniądze. Pracownicy przy komputerze mają DODATKOWE dofinansowanie od pracodawcy (średnio 450 PLN).',
+    kategoria: 'ZDROWIE',
     kwota: '50-700 PLN na okulary, do 600 PLN na soczewki kontaktowe',
     kwotaMin: 50, kwotaMax: 700,
     czestotliwosc: 'co 2 lata (dorośli), co rok (dzieci)',
@@ -38,7 +40,9 @@ export const INNE: Benefit[] = [
     zrodloNazwa: 'NFZ', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'karta-ekuz', nazwa: 'Europejska Karta Ubezpieczenia Zdrowotnego (EKUZ)', kategoria: 'ZDROWIE',
+    id: 'karta-ekuz', nazwa: 'Europejska Karta Ubezpieczenia Zdrowotnego (EKUZ)',
+    opis: 'EKUZ to bezpłatna karta uprawniająca do niezbędnego leczenia w 30 krajach (UE + Islandia, Liechtenstein, Norwegia, Szwajcaria, UK) na zasadach danego kraju. Ważność zależy od statusu: pracujący 3 lata, emeryci 20 lat, dzieci do 18 r.ż., studenci 12 mies. Wniosek najszybciej przez Internetowe Konto Pacjenta (pacjent.gov.pl) lub aplikację mojeIKP. Osobiście w oddziale NFZ: karta od ręki. Od 2026: wniosek na pobyt czasowy TYLKO elektronicznie. Nie zastępuje ubezpieczenia podróżnego: nie pokrywa transportu do Polski, planowanych zabiegów, zaginięcia bagażu. Trzeba okazać razem z dowodem osobistym.',
+    kategoria: 'ZDROWIE',
     kwota: 'bezpłatne leczenie w krajach UE/EFTA (na zasadach danego kraju)',
     kwotaMin: 0, kwotaMax: 0,
     czestotliwosc: 'ważna 3-20 lat (zależy od statusu ubezpieczenia)',
@@ -75,7 +79,9 @@ export const INNE: Benefit[] = [
     zrodloNazwa: 'NFZ / Ministerstwo Zdrowia', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'ulga-na-leki', nazwa: 'Zwrot podatku za leki (ulga rehabilitacyjna na leki)', kategoria: 'PODATKI',
+    id: 'ulga-na-leki', nazwa: 'Zwrot podatku za leki (ulga rehabilitacyjna na leki)',
+    opis: 'Odliczenie od dochodu wydatków na leki powyżej 100 PLN w danym miesiącu. Dotyczy osób z orzeczeniem o niepełnosprawności (dowolny stopień) lub decyzją o rencie. Przykład: wydatki 250 PLN w styczniu = odliczasz 150 PLN od dochodu (realna oszczędność 12-32% zależnie od progu podatkowego). Leki nie muszą być związane z niepełnosprawnością, mogą być na dowolne schorzenie, ale muszą być zalecone przez lekarza jako stałe/długotrwałe. Może odliczyć osoba niepełnosprawna LUB podatnik utrzymujący osobę niepełnosprawną. Zbieraj faktury przez cały rok, zachowaj 5 lat.',
+    kategoria: 'PODATKI',
     kwota: 'odliczenie nadwyżki wydatków ponad 100 PLN/mies. od dochodu',
     kwotaMin: 0, kwotaMax: 0,
     czestotliwosc: 'rocznie (w rozliczeniu PIT)',
@@ -114,7 +120,9 @@ export const INNE: Benefit[] = [
     zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-10', dataWaznosci: '2027-04-30',
   },
   {
-    id: 'bon-turystyczny-regionalny', nazwa: 'Bon turystyczny (regionalny)', kategoria: 'POMOC_SPOLECZNA',
+    id: 'bon-turystyczny-regionalny', nazwa: 'Bon turystyczny (regionalny)',
+    opis: 'Regionalne bony turystyczne to programy wojewodztw dofinansowujace noclegi na ich terenie. Ogolnopolski bon turystyczny (800 PLN na dziecko) zakonczyl sie 30.09.2022. Obecnie dzialaja tylko regionalne programy: Podlaski Bon Turystyczny i Bon Warmia Mazury 2026. Doplata do 500 PLN za minimum 2 noclegi w obiekcie na terenie danego wojewodztwa. Pule bonow wyczerpuja sie w minuty od startu naboru, trzeba byc gotowym. Nie kazde wojewodztwo ma taki program. Rzad rozważa nowy ogolnopolski bon, ale nie ma jeszcze decyzji.',
+    kategoria: 'POMOC_SPOLECZNA',
     kwota: 'do 500 PLN dopłaty do noclegu (zależnie od województwa)',
     kwotaMin: 0, kwotaMax: 500,
     czestotliwosc: 'jednorazowo (turami)',

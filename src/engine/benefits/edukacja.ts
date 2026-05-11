@@ -2,7 +2,9 @@ import { Benefit } from '../types';
 
 export const EDUKACJA: Benefit[] = [
   {
-    id: 'stypendium-socjalne', nazwa: 'Stypendium socjalne', kategoria: 'EDUKACJA',
+    id: 'stypendium-socjalne', nazwa: 'Stypendium socjalne',
+    opis: 'Stypendium socjalne to comiesięczne wsparcie dla studentów z rodzin o niskich dochodach. Próg: 1908,90 PLN netto na osobę w rodzinie (ustawowy, uczelnia nie może go zmienić). Kwota 1000-2500 PLN/mies. przez 10 miesięcy (zależy od uczelni i poziomu dochodu). Przy dochodzie poniżej 600 PLN/os. wymagane zaświadczenie z ośrodka pomocy społecznej o sytuacji rodziny. Łączna kwota stypendium socjalnego + rektora nie może przekroczyć 3560,60 PLN/mies. Nie można pobierać na dwóch kierunkach jednocześnie. Wniosek na początku semestru w dziekanacie lub biurze stypendialnym.',
+    kategoria: 'EDUKACJA',
     kwota: '1000-2500 PLN miesięcznie (zależy od uczelni)', kwotaMin: 1000, kwotaMax: 2500,
     czestotliwosc: 'miesięcznie (10 miesięcy w roku akademickim)',
     wymagania: { student: true, dochodMax: 1908.90 },
@@ -39,7 +41,9 @@ export const EDUKACJA: Benefit[] = [
     zrodloNazwa: 'Ministerstwo Nauki i Szkolnictwa Wyższego', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'stypendium-rektora', nazwa: 'Stypendium rektora', kategoria: 'EDUKACJA',
+    id: 'stypendium-rektora', nazwa: 'Stypendium rektora',
+    opis: 'Stypendium rektora za wyróżniające wyniki w nauce, osiągnięcia naukowe, artystyczne lub sportowe. Kwota 850-1700 PLN/mies. przez 10 miesięcy (zależy od uczelni). Może otrzymać max 10% studentów danego kierunku. Nie przysługuje na I roku studiów I stopnia (wyjątek: laureaci olimpiad międzynarodowych). Każda uczelnia ustala własne progi średniej i kryteria. Łączna kwota z socjalnym max 3560,60 PLN. Urlop dziekański wyklucza z ubiegania się. Wniosek zwykle w październiku.',
+    kategoria: 'EDUKACJA',
     kwota: '850-1700 PLN miesięcznie (zależy od uczelni)', kwotaMin: 850, kwotaMax: 1700,
     czestotliwosc: 'miesięcznie (10 miesięcy w roku akademickim)',
     wymagania: { student: true },
@@ -74,7 +78,9 @@ export const EDUKACJA: Benefit[] = [
     zrodloNazwa: 'Ministerstwo Nauki i Szkolnictwa Wyższego', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'kredyt-studencki', nazwa: 'Kredyt studencki', kategoria: 'EDUKACJA',
+    id: 'kredyt-studencki', nazwa: 'Kredyt studencki',
+    opis: 'Kredyt studencki z dopłatą państwa: student wybiera transzę 400/600/800/1000 PLN miesięcznie, wypłacaną przez 10 mies./rok, max 6 lat studiów. Spłata zaczyna się dopiero 2 lata po ukończeniu studiów. Oprocentowanie preferencyjne (płacisz połowę odsetek, resztę dopłaca BGK). Możliwe umorzenie: 50% dla top 1% absolwentów, 35% top 5%, 20% top 10%. Banki: PKO BP, Pekao SA, Banki Spółdzielcze. Poręczenie BGK dla dochodu poniżej 2500 PLN/os. Wiek do 30 lat (studenci) lub 35 (doktoranci). Próg dochodowy: 4000 PLN/os. Wnioski: 15 lipca-20 października.',
+    kategoria: 'EDUKACJA',
     kwota: '400-1000 PLN miesięcznie (do wyboru: 400, 600, 800 lub 1000 PLN)', kwotaMin: 400, kwotaMax: 1000,
     czestotliwosc: 'miesięcznie (10 miesięcy w roku, maks. 6 lat studiów)',
     wymagania: { student: true, wiekMax: 30, dochodMax: 4000 },
@@ -111,7 +117,9 @@ export const EDUKACJA: Benefit[] = [
     zrodloNazwa: 'Ministerstwo Nauki i Szkolnictwa Wyższego', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'stypendium-szkolne', nazwa: 'Stypendium szkolne', kategoria: 'EDUKACJA',
+    id: 'stypendium-szkolne', nazwa: 'Stypendium szkolne',
+    opis: 'Stypendium szkolne dla uczniów z rodzin o niskich dochodach (do 823 PLN/os.). Kwota 99-248 PLN/mies., max 10 mies. w roku szkolnym, łącznie do 2480 PLN/rok. Najczęściej wypłacane jako zwrot kosztów: musisz kupić podręczniki, przybory, mundurek, opłacić zajęcia dodatkowe i przedstawić rachunki. Termin składania: do 15 września, po tym gmina może odrzucić. Dotyczy uczniów 6-24 lat. Wniosek w urzędzie gminy lub MOPS.',
+    kategoria: 'EDUKACJA',
     kwota: '99,20-248 PLN miesięcznie', kwotaMin: 99.20, kwotaMax: 248,
     czestotliwosc: 'miesięcznie (maks. 10 miesięcy w roku szkolnym)',
     wymagania: { wiekMin: 6, wiekMax: 24, dochodMax: 823 },
@@ -145,7 +153,9 @@ export const EDUKACJA: Benefit[] = [
     zrodloNazwa: 'Ministerstwo Edukacji Narodowej', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'zasilek-szkolny', nazwa: 'Zasiłek szkolny', kategoria: 'EDUKACJA',
+    id: 'zasilek-szkolny', nazwa: 'Zasiłek szkolny',
+    opis: 'Zasiłek szkolny to jednorazowa pomoc (do 620 PLN) dla ucznia, którego rodzina doświadczyła zdarzenia losowego: śmierć rodzica, pożar, powódź, utrata pracy rodzica, ciężka choroba. Nie wymaga spełnienia kryterium dochodowego, liczy się zdarzenie losowe. Wniosek w ciągu 2 miesięcy od zdarzenia, potem przepada. Może być przyznany kilka razy w roku (max 6200 PLN rocznie). Dotyczy uczniów 6-24 lat.',
+    kategoria: 'EDUKACJA',
     kwota: 'do 620 PLN jednorazowo', kwotaMin: 1, kwotaMax: 620,
     czestotliwosc: 'jednorazowo (możliwe kilka razy w roku, łącznie do 6200 PLN)',
     wymagania: { wiekMin: 6, wiekMax: 24 },
@@ -178,7 +188,9 @@ export const EDUKACJA: Benefit[] = [
     zrodloNazwa: 'Ministerstwo Edukacji Narodowej', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'wyprawka-szkolna', nazwa: 'Wyprawka szkolna (dofinansowanie podręczników)', kategoria: 'EDUKACJA',
+    id: 'wyprawka-szkolna', nazwa: 'Wyprawka szkolna (dofinansowanie podręczników)',
+    opis: 'Dofinansowanie zakupu podręczników dla uczniów z orzeczeniem o potrzebie kształcenia specjalnego. Kwota 225-445 PLN jednorazowo, zależy od typu szkoły i rodzaju niepełnosprawności. Brak kryterium dochodowego, liczy się orzeczenie. Termin: do 8 września, wniosek do dyrektora szkoły. Kup podręczniki, zachowaj faktury, gmina zwróci koszty do końca listopada. Dotyczy uczniów ze: znaczną/umiarkowaną niepełnosprawnością intelektualną, niepełnosprawnością wzroku, słuchu, ruchową, autyzmem.',
+    kategoria: 'EDUKACJA',
     kwota: '225-445 PLN jednorazowo (zależy od typu szkoły i niepełnosprawności)', kwotaMin: 225, kwotaMax: 445,
     czestotliwosc: 'jednorazowo (raz w roku szkolnym)',
     wymagania: { wiekMin: 6, wiekMax: 24 },
@@ -213,7 +225,9 @@ export const EDUKACJA: Benefit[] = [
     zrodloNazwa: 'Ministerstwo Edukacji Narodowej', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'stypendium-mnisw', nazwa: 'Stypendium Ministra Nauki za znaczące osiągnięcia', kategoria: 'EDUKACJA',
+    id: 'stypendium-mnisw', nazwa: 'Stypendium Ministra Nauki za znaczące osiągnięcia',
+    opis: 'Jednorazowe stypendium 17 000 PLN za wybitne osiągnięcia naukowe, artystyczne lub sportowe. Rocznie ok. 400 stypendiów w całej Polsce. Wniosek składa rektor uczelni (nie student), musisz się zgłosić do dziekanatu wcześniej. Osiągnięcia muszą dotyczyć ostatniego roku akademickiego: publikacje, patenty, nagrody, wystawy, koncerty, wyniki na zawodach międzynarodowych. Nie dotyczy ostatniego roku studiów II stopnia. Stypendium zwolnione z podatku.',
+    kategoria: 'EDUKACJA',
     kwota: '17 000 PLN jednorazowo', kwotaMin: 17000, kwotaMax: 17000,
     czestotliwosc: 'jednorazowo (raz w roku akademickim)',
     wymagania: { student: true },

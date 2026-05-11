@@ -2,7 +2,9 @@ import { Benefit } from '../types';
 
 export const POMOC_SPOLECZNA: Benefit[] = [
   {
-    id: 'karta-duzej-rodziny', nazwa: 'Karta Dużej Rodziny', kategoria: 'POMOC_SPOLECZNA',
+    id: 'karta-duzej-rodziny', nazwa: 'Karta Dużej Rodziny',
+    opis: 'Karta Dużej Rodziny (KDR) to system zniżek dla rodzin z co najmniej trojgiem dzieci. Przysługuje niezależnie od dochodu. Rodzice otrzymują kartę dożywotnio (nawet gdy dzieci są dorosłe), dzieci do 18 r.ż. (lub 25 jeśli się uczą), dzieci z niepełnosprawnością bezterminowo. Zniżki: 37% na jednorazowe bilety kolejowe, 49% na miesięczne, darmowy wstęp do 23 Parków Narodowych, zniżki w Kaufland, Lidl, Spar, CCC, Deichmann i setkach firm. Karta jest bezpłatna (plastikowa lub w mObywatel). Od 2026: osoby bezrobotne z KDR mają prawo do zasiłku przez 365 dni zamiast 180 i pierwszeństwo w szkoleniach PUP. Można złożyć wniosek elektronicznie przez portal Empatia. Dotyczy też rodzin zastępczych i rodzinnych domów dziecka.',
+    kategoria: 'POMOC_SPOLECZNA',
     kwota: 'zniżki 37-49% na kolej, darmowy wstęp do Parków Narodowych, rabaty w sieciach handlowych',
     kwotaMin: 0, kwotaMax: 0,
     czestotliwosc: 'ciągłe (dożywotnia dla rodziców)',
@@ -42,7 +44,9 @@ export const POMOC_SPOLECZNA: Benefit[] = [
     zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'zasilek-staly-mops', nazwa: 'Zasiłek stały (MOPS)', kategoria: 'POMOC_SPOLECZNA',
+    id: 'zasilek-staly-mops', nazwa: 'Zasiłek stały (MOPS)',
+    opis: 'Zasiłek stały to comiesięczne świadczenie z pomocy społecznej dla osób niezdolnych do pracy z powodu niepełnosprawności (stopień umiarkowany lub znaczny) lub wieku (60+K, 65+M). Kwota: 130% kryterium dochodowego minus dochód, minimum 100 PLN, maximum 1229 PLN. Kryterium dochodowe: 1010 PLN (osoba samotna), 823 PLN/os. (w rodzinie). Osoba samotna bez dochodu ze znacznym stopniem niepełnosprawności otrzyma 1229 PLN. Można łączyć z zasiłkiem pielęgnacyjnym (215,84 PLN). Wymaga wywiadu środowiskowego, pracownik socjalny odwiedzi Cię w domu. Wniosek w MOPS/GOPS.',
+    kategoria: 'POMOC_SPOLECZNA',
     kwota: '100-1229 PLN miesięcznie', kwotaMin: 100, kwotaMax: 1229,
     czestotliwosc: 'miesięcznie',
     wymagania: { niepelnosprawnosc: ['umiarkowany', 'znaczny'] },
@@ -81,7 +85,9 @@ export const POMOC_SPOLECZNA: Benefit[] = [
     zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'zasilek-okresowy-mops', nazwa: 'Zasiłek okresowy (MOPS)', kategoria: 'POMOC_SPOLECZNA',
+    id: 'zasilek-okresowy-mops', nazwa: 'Zasiłek okresowy (MOPS)',
+    opis: 'Zasiłek okresowy to czasowe wsparcie finansowe z MOPS dla osób w trudnej sytuacji: długotrwała choroba, bezrobocie, niepełnosprawność, wielodzietność. Kwota: kryterium dochodowe minus dochód, ale nie mniej niż 50% tej różnicy, minimum 20 PLN. Kryterium: 1010 PLN (samotna), 823 PLN/os. (rodzina). Przyznawany na czas określony (zwykle 1-6 mies.), trzeba odnawiać. Wymaga wywiadu środowiskowego. Różnica od zasiłku stałego: zasiłek okresowy jest czasowy i nie wymaga orzeczenia o niepełnosprawności, wystarczy trudna sytuacja życiowa.',
+    kategoria: 'POMOC_SPOLECZNA',
     kwota: 'min. 20 PLN, max zależny od różnicy kryterium i dochodu',
     kwotaMin: 20, kwotaMax: 1010,
     czestotliwosc: 'miesięcznie (na czas określony)',
@@ -119,7 +125,9 @@ export const POMOC_SPOLECZNA: Benefit[] = [
     zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'zasilek-celowy-mops', nazwa: 'Zasiłek celowy (MOPS)', kategoria: 'POMOC_SPOLECZNA',
+    id: 'zasilek-celowy-mops', nazwa: 'Zasiłek celowy (MOPS)',
+    opis: 'Zasiłek celowy to jednorazowa pomoc na konkretny cel: żywność, leki, opał, odzież, remont, pogrzeb, przedmioty użytku domowego. Kwota ustalana indywidualnie (zwykle 100-1000 PLN). Kryterium dochodowe: 1010 PLN (samotna), 823 PLN/os. (rodzina). W wyjątkowych sytuacjach (klęska żywiołowa, pożar, powódź) przyznawany jest zasiłek celowy specjalny BEZ kryterium dochodowego. Można go otrzymać wielokrotnie w roku, ale nie jest to gwarantowane, zależy od budżetu MOPS. Wymaga wywiadu środowiskowego.',
+    kategoria: 'POMOC_SPOLECZNA',
     kwota: 'kwota ustalana indywidualnie (zwykle 100-1000 PLN)',
     kwotaMin: 100, kwotaMax: 1000,
     czestotliwosc: 'jednorazowo lub doraźnie',
@@ -155,7 +163,9 @@ export const POMOC_SPOLECZNA: Benefit[] = [
     zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'zasilek-celowy-specjalny', nazwa: 'Specjalny zasiłek celowy (MOPS)', kategoria: 'POMOC_SPOLECZNA',
+    id: 'zasilek-celowy-specjalny', nazwa: 'Specjalny zasiłek celowy (MOPS)',
+    opis: 'Specjalny zasiłek celowy to pomoc dla osób z dochodem POWYŻEJ kryterium dochodowego, ale w szczególnie trudnej sytuacji życiowej. Nie wymaga spełnienia kryterium dochodowego, w odróżnieniu od zwykłego zasiłku celowego. Kwota do wysokości kryterium (max 1010 PLN osoba samotna, 823 PLN/os. w rodzinie). Decyzja jest uznaniowa, MOPS ocenia indywidualnie. Nie podlega zwrotowi. Przeznaczony na osoby, które formalnie przekraczają progi dochodowe, ale znalazły się w wyjątkowej sytuacji (np. nagła choroba, zdarzenie losowe).',
+    kategoria: 'POMOC_SPOLECZNA',
     kwota: 'do wysokości kryterium dochodowego (do 1010 PLN osoba samotna, do 823 PLN/os. w rodzinie)',
     kwotaMax: 1010,
     czestotliwosc: 'jednorazowo (w szczególnie uzasadnionych przypadkach)',
@@ -188,7 +198,9 @@ export const POMOC_SPOLECZNA: Benefit[] = [
     zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'schronienie-posilek-ubranie', nazwa: 'Schronienie, posiłek, ubranie (MOPS)', kategoria: 'POMOC_SPOLECZNA',
+    id: 'schronienie-posilek-ubranie', nazwa: 'Schronienie, posiłek, ubranie (MOPS)',
+    opis: 'Pomoc niepieniężna obejmująca schronienie (noclegownia, ogrzewalnia, schronisko), gorący posiłek i odzież. To obowiązkowe zadanie gminy, nie może odmówić osobie potrzebującej. Noclegownia/ogrzewalnia: BEZ wywiadu środowiskowego, BEZ decyzji administracyjnej, BEZ kryterium dochodowego, koszty nie podlegają zwrotowi. Schronisko (wyższy standard): wymaga decyzji, koszty mogą być zwrotne. W nagłych wypadkach pomoc natychmiastowa bez formalności, nawet bez dokumentów. Posiłek dla dzieci w szkole realizowany w programie Posiłek w Szkole i w Domu.',
+    kategoria: 'POMOC_SPOLECZNA',
     kwota: 'bezpłatne (świadczenie niepieniężne)',
     kwotaMin: 0, kwotaMax: 0,
     czestotliwosc: 'doraźnie lub ciągłe',
@@ -222,7 +234,9 @@ export const POMOC_SPOLECZNA: Benefit[] = [
     zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'posilek-w-szkole-i-w-domu', nazwa: 'Program Posiłek w Szkole i w Domu', kategoria: 'POMOC_SPOLECZNA',
+    id: 'posilek-w-szkole-i-w-domu', nazwa: 'Program Posiłek w Szkole i w Domu',
+    opis: 'Program rządowy na lata 2024-2028 (budżet 1,1 mld PLN/rok) zapewniający bezpłatne posiłki dzieciom w przedszkolach i szkołach oraz seniorom i dorosłym w trudnej sytuacji. Bezpłatne posiłki przy dochodzie do 200% kryterium (1646 PLN/os. w rodzinie, 2020 PLN osoba samotna). Przy dochodzie 200-250% kryterium posiłki z 50% odpłatnością. Obejmuje też dofinansowanie stołówek szkolnych (do 80 000 PLN na szkołę). Wniosek w MOPS/GOPS, wymaga wywiadu środowiskowego.',
+    kategoria: 'POMOC_SPOLECZNA',
     kwota: 'bezpłatne posiłki (wartość ok. 200-400 PLN/mies.)',
     kwotaMin: 0, kwotaMax: 0,
     czestotliwosc: 'codziennie w dni szkolne',
@@ -260,7 +274,9 @@ export const POMOC_SPOLECZNA: Benefit[] = [
     zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-10', dataWaznosci: '2028-12-31',
   },
   {
-    id: 'stypendium-sportowe-gminne', nazwa: 'Stypendium sportowe gminne', kategoria: 'POMOC_SPOLECZNA',
+    id: 'stypendium-sportowe-gminne', nazwa: 'Stypendium sportowe gminne',
+    opis: 'Stypendia sportowe przyznawane przez gminy dla młodych sportowców do 21 lat (limit wiekowy zależy od gminy). Kwota 200-400 PLN miesięcznie przez ok. 10 miesięcy. Każda gmina ma własne zasady, kwoty i kryteria, różnią się radykalnie. Wymóg: zameldowanie na terenie gminy i udokumentowane osiągnięcia sportowe (medale, rankingi, powołanie do kadry). Termin naboru zwykle styczeń. Stypendium może być opodatkowane (zwolnienie do 3800 PLN rocznie). Decyzja uznaniowa, zwykle brak trybu odwoławczego.',
+    kategoria: 'POMOC_SPOLECZNA',
     kwota: '200-400 PLN miesięcznie (zależnie od gminy i osiągnięć)',
     kwotaMin: 200, kwotaMax: 400,
     czestotliwosc: 'miesięcznie (zwykle 10 miesięcy)',

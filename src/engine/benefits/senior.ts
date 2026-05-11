@@ -2,7 +2,9 @@ import { Benefit } from '../types';
 
 export const SENIOR: Benefit[] = [
   {
-    id: 'opieka-75-plus', nazwa: 'Program Opieka 75+', kategoria: 'SENIOR',
+    id: 'opieka-75-plus', nazwa: 'Program Opieka 75+',
+    opis: 'Program Opieka 75+ zapewnia bezpłatne lub częściowo odpłatne usługi opiekuńcze w domu dla seniorów w gminach do 60 000 mieszkańców. Opiekun przychodzi do domu i pomaga w codziennych czynnościach: zakupy, gotowanie, sprzątanie, higiena osobista, pomoc w kontaktach z lekarzem. Koszt godziny usługi ustalany przez gminę (ok. 30-50 PLN/h), ale przy dochodzie do 250% kryterium dochodowego (2525 PLN) usługi są bezpłatne. Powyżej tego progu odpłatność ustalana wg uchwały gminy. Procedura: wniosek w GOPS/MOPS, wywiad środowiskowy w domu, decyzja administracyjna o zakresie i odpłatności usług. Częsty błąd: mieszkańcy dużych miast (powyżej 60 000 mieszkańców) szukają tego programu -- duże miasta mają odrębne programy usług opiekuńczych, o które trzeba pytać w miejskim MOPS. Praktyczna rada: nie każda gmina przystąpiła do programu, zadzwoń do GOPS i zapytaj wprost.',
+    kategoria: 'SENIOR',
     kwota: 'bezpłatne lub częściowo odpłatne usługi opiekuńcze (koszt godziny ustala gmina, ok. 30-50 PLN/h)',
     kwotaMin: 0, kwotaMax: 0,
     czestotliwosc: 'ciągłe (usługi opiekuńcze w domu)',
@@ -37,7 +39,9 @@ export const SENIOR: Benefit[] = [
     zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'korpus-wsparcia-seniorow', nazwa: 'Korpus Wsparcia Seniorów (Teleopieka)', kategoria: 'SENIOR',
+    id: 'korpus-wsparcia-seniorow', nazwa: 'Korpus Wsparcia Seniorów (Teleopieka)',
+    opis: 'Korpus Wsparcia Seniorów to program zapewniający osobom 60+ bezpłatną opaskę bezpieczeństwa z przyciskiem SOS, czujnikiem upadków i lokalizacją GPS, połączoną 24/7 z centrum interwencyjnym (Moduł II -- Teleopieka). Wystarczy nacisnąć przycisk lub opaska wykryje upadek, a operator skontaktuje się głosowo i wezwie pomoc. Moduł I to usługi sąsiedzkie -- zorganizowana pomoc sąsiadów w codziennych sprawach. BRAK kryterium dochodowego -- każdy senior 60+ może skorzystać. Dla seniora program jest bezpłatny, gmina pokrywa koszty z dofinansowaniem do 80% z budżetu państwa. Częsty błąd: założenie, że program działa w każdej gminie -- gmina musi sama przystąpić, nie wszystkie to zrobiły. Praktyczna rada: zadzwoń do MOPS/GOPS i zapytaj, czy gmina przystąpiła. Jeśli nie, zgłoś zapotrzebowanie -- im więcej seniorów pyta, tym większa szansa, że gmina przystąpi w następnym naborze.',
+    kategoria: 'SENIOR',
     kwota: 'bezpłatna opaska bezpieczeństwa + dostęp do centrum interwencyjnego 24/7',
     kwotaMin: 0, kwotaMax: 0,
     czestotliwosc: 'ciągłe (cały rok)',
@@ -70,7 +74,9 @@ export const SENIOR: Benefit[] = [
     zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'karta-seniora', nazwa: 'Ogólnopolska Karta Seniora', kategoria: 'SENIOR',
+    id: 'karta-seniora', nazwa: 'Ogólnopolska Karta Seniora',
+    opis: 'Ogólnopolska Karta Seniora to karta zniżkowa dla osób 60+ dająca rabaty 5-30% w ponad 5000 punktach w Polsce: apteki, sanatoria, rehabilitacja, optycy, kina, teatry, restauracje, fryzjerzy, sklepy. Prowadzona przez Stowarzyszenie MANKO. W gminach zrzeszonych w programie Gmina Przyjazna Seniorom (360+ gmin) karta jest BEZPŁATNA. Poza programem gminnym karta kosztuje 35 PLN/1 rok lub 50 PLN/2 lata. Karta zawiera imię, nazwisko i zdjęcie. Okazujesz ją przy płatności w punktach partnerskich (lista na kartaseniora.pl). Częsty błąd: mylenie z lokalnymi kartami seniora -- wiele miast (Warszawa, Kraków, Wrocław) ma WŁASNE karty z innymi zniżkami. Można mieć obie jednocześnie. Praktyczna rada: sprawdź najpierw, czy Twoja gmina jest w programie (bezpłatna karta), a potem porównaj z lokalną kartą seniora -- najczęściej warto mieć obie.',
+    kategoria: 'SENIOR',
     kwota: 'zniżki 5-30% w ponad 5000 punktach w Polsce',
     kwotaMin: 0, kwotaMax: 0,
     czestotliwosc: 'ciągłe (ważna 1-2 lata)',
@@ -103,7 +109,9 @@ export const SENIOR: Benefit[] = [
     zrodloNazwa: 'Stowarzyszenie MANKO', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'zasilek-pielegnacyjny', nazwa: 'Zasiłek pielęgnacyjny', kategoria: 'SENIOR',
+    id: 'zasilek-pielegnacyjny', nazwa: 'Zasiłek pielęgnacyjny',
+    opis: 'Zasiłek pielęgnacyjny wynosi 215,84 PLN miesięcznie i jest wypłacany przez gminę (nie ZUS). Przysługuje: osobom 75+ z mocy prawa, dzieciom z orzeczeniem o niepełnosprawności, dorosłym z orzeczeniem o znacznym stopniu niepełnosprawności, oraz dorosłym z orzeczeniem o umiarkowanym stopniu, jeśli niepełnosprawność powstała przed 21. rokiem życia. BRAK kryterium dochodowego. Wniosek na formularzu SR-5 w urzędzie gminy, MOPS lub elektronicznie przez portal Empatia. Częsty błąd: pobieranie jednocześnie zasiłku pielęgnacyjnego (215,84 PLN z gminy) i dodatku pielęgnacyjnego (348,22 PLN z ZUS) -- to NIEDOZWOLONE, musisz wybrać jedno świadczenie. Dla osób 75+ korzystniejszy jest dodatek pielęgnacyjny z ZUS (wyższa kwota, automatycznie). Waloryzacja co 3 lata, najbliższa w 2027. Praktyczna rada: jeśli masz 75+ i dostajesz emeryturę z ZUS, sprawdź czy nie masz automatycznie dodatku pielęgnacyjnego -- wtedy zasiłek pielęgnacyjny Ci nie przysługuje.',
+    kategoria: 'SENIOR',
     kwota: '215,84 PLN miesięcznie', kwotaMin: 215.84, kwotaMax: 215.84,
     czestotliwosc: 'miesięcznie',
     wymagania: { wiekMin: 75 },
@@ -139,7 +147,9 @@ export const SENIOR: Benefit[] = [
     zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-10', dataWaznosci: '2027-10-31',
   },
   {
-    id: 'swiadczenie-pielegnacyjne', nazwa: 'Świadczenie pielęgnacyjne (nowe zasady 2024+)', kategoria: 'SENIOR',
+    id: 'swiadczenie-pielegnacyjne', nazwa: 'Świadczenie pielęgnacyjne (nowe zasady 2024+)',
+    opis: 'Świadczenie pielęgnacyjne wynosi 3386 PLN miesięcznie (2026) i przysługuje rodzicowi/opiekunowi dziecka z niepełnosprawnością. Od 2024 obowiązują NOWE zasady: opiekun MOŻE pracować zarobkowo bez limitu dochodów, ale świadczenie przysługuje TYLKO do 18. roku życia dziecka. Na drugie i kolejne dziecko z niepełnosprawnością kwota rośnie o 100% (6772 PLN na dwoje dzieci). BRAK kryterium dochodowego. Osoby, które korzystały ze świadczenia na STARYCH zasadach (sprzed 2024), mogą na nich pozostać -- na starych zasadach opiekun NIE może pracować, ale świadczenie nie ma limitu wiekowego dziecka. Wybór między starymi a nowymi zasadami jest kluczowy i zależy od indywidualnej sytuacji. Waloryzacja co roku 1 stycznia. Wniosek SR-5Z w urzędzie gminy, MOPS lub przez Empatię. Częsty błąd: automatyczne przejście na nowe zasady bez kalkulacji -- jeśli dziecko ma np. 16 lat i opiekun nie pracuje, nowe zasady dadzą świadczenie tylko na 2 lata. Praktyczna rada: przed zmianą zasad skonsultuj się z prawnikiem lub pracownikiem MOPS.',
+    kategoria: 'SENIOR',
     kwota: '3386 PLN miesięcznie (2026)', kwotaMin: 3386, kwotaMax: 6772,
     czestotliwosc: 'miesięcznie',
     wymagania: { dzieci: { min: 1 } },
@@ -178,7 +188,9 @@ export const SENIOR: Benefit[] = [
     zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'dzienny-dom-pomocy', nazwa: 'Dzienny Dom Pomocy / Senior+', kategoria: 'SENIOR',
+    id: 'dzienny-dom-pomocy', nazwa: 'Dzienny Dom Pomocy / Senior+',
+    opis: 'Dzienny Dom Pomocy (dawniej Senior+, od 2026 program Aktywni Seniorzy 2026-2030) to placówka dziennego pobytu dla osób 60+, otwarta w dni robocze min. 8 godzin dziennie. Oferuje: ciepłe posiłki, zajęcia edukacyjne i kulturalne, rehabilitację, terapię zajęciową, kontakty społeczne. Wartość usług ok. 1000-2000 PLN/mies., a odpłatność ustalana przez gminę zależnie od dochodu (często bezpłatne dla osób o niskich dochodach). Procedura: wniosek w MOPS/GOPS, wywiad środowiskowy, decyzja o skierowaniu. Częsty błąd: szukanie Dziennego Domu Senior+ pod starą nazwą -- od 2026 program zmienił nazwę na Aktywni Seniorzy. Nie każda gmina ma taką placówkę. Praktyczna rada: jeśli w Twojej gminie nie ma Dziennego Domu Pomocy, sprawdź gminy sąsiednie lub zapytaj w MOPS o Kluby Seniora (prostsza forma, min. 2 dni w tygodniu po 4 godziny).',
+    kategoria: 'SENIOR',
     kwota: 'bezpłatne lub częściowo odpłatne usługi dzienne (wartość ok. 1000-2000 PLN/mies.)',
     kwotaMin: 0, kwotaMax: 0,
     czestotliwosc: 'ciągłe (dni robocze, min. 8h dziennie)',
@@ -212,7 +224,9 @@ export const SENIOR: Benefit[] = [
     zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'refundacja-okulary-nfz', nazwa: 'Refundacja okularów i soczewek z NFZ', kategoria: 'SENIOR',
+    id: 'refundacja-okulary-nfz', nazwa: 'Refundacja okularów i soczewek z NFZ',
+    opis: 'Refundacja okularów z NFZ pokrywa część kosztu szkieł korekcyjnych (NIE oprawek). Limity: wada do +-6 dioptrii -- 50 PLN za parę szkieł (25 PLN/szkło); wada powyżej +-6,25 D -- do 200 PLN za parę; wada powyżej +-10 D -- do 700 PLN za parę. Soczewki kontaktowe: do 600 PLN, ale tylko przy określonych schorzeniach (stożek rogówki, afakia, duża anizometropia). Zlecenie wystawia okulista z kontraktem NFZ (od 2026 także optometrysta). Zlecenie jest elektroniczne (eZWM), automatycznie weryfikowane. Realizujesz je u optyka mającego umowę z NFZ -- dopłata odliczana od razu przy zakupie. Dorośli: raz na 2 lata, dzieci: co rok (lub częściej przy zmianie wady). Częsty błąd: oczekiwanie refundacji oprawek lub powłok (antyrefleks, fotochrom) -- te elementy płacisz z własnej kieszeni. Praktyczna rada: pracownicy przy komputerze mogą uzyskać DODATKOWE dofinansowanie od pracodawcy (średnio 450 PLN) na mocy Kodeksu pracy -- poproś o to w dziale kadr.',
+    kategoria: 'SENIOR',
     kwota: '50-700 PLN na szkła okularowe, do 600 PLN na soczewki kontaktowe',
     kwotaMin: 50, kwotaMax: 700,
     czestotliwosc: 'raz na 2 lata (dorośli)',

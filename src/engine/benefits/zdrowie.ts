@@ -2,7 +2,9 @@ import { Benefit } from '../types';
 
 export const ZDROWIE: Benefit[] = [
   {
-    id: 'moje-zdrowie', nazwa: 'Program Moje Zdrowie', kategoria: 'ZDROWIE',
+    id: 'moje-zdrowie', nazwa: 'Program Moje Zdrowie',
+    opis: 'Program Moje Zdrowie to bezpłatny pakiet badań profilaktycznych finansowany przez NFZ, skierowany do wszystkich dorosłych ubezpieczonych od 20. roku życia. W ramach programu wykonuje się: morfologię krwi obwodowej, stężenie glukozy we krwi na czczo, stężenie kreatyniny, lipidogram (cholesterol całkowity, HDL, LDL, trójglicerydy), badanie ogólne moczu, a u osób 50+ dodatkowo badanie krwi utajonej w kale. Osoby w wieku 20-49 lat mogą skorzystać raz na 5 lat, osoby 50+ raz na 3 lata. Warunkiem jest wypełnienie ankiety zdrowotnej online na pacjent.gov.pl lub w aplikacji Moje IKP -- bez wypełnionej ankiety lekarz POZ nie rozpocznie procedury. Badania wykonuje się w ośrodku POZ, do którego jest się zapisanym. Nie każda przychodnia realizuje program -- listę placówek można sprawdzić na pacjent.gov.pl. Częste nieporozumienie: program nie zastępuje standardowych badań zleconych przez lekarza w ramach leczenia -- to dodatkowy pakiet profilaktyczny. Wyniki są dostępne w ciągu 7-14 dni i omawiane z lekarzem pierwszego kontaktu.',
+    kategoria: 'ZDROWIE',
     kwota: 'bezpłatne badania (wartość ok. 500 PLN)', kwotaMin: 500, kwotaMax: 500,
     czestotliwosc: 'co 3-5 lat',
     wymagania: { wiekMin: 20 },
@@ -29,7 +31,9 @@ export const ZDROWIE: Benefit[] = [
     zrodloNazwa: 'Ministerstwo Zdrowia', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'mammografia', nazwa: 'Mammografia profilaktyczna', kategoria: 'ZDROWIE',
+    id: 'mammografia', nazwa: 'Mammografia profilaktyczna',
+    opis: 'Mammografia profilaktyczna to bezpłatne badanie rentgenowskie piersi finansowane przez NFZ w ramach Programu Profilaktyki Raka Piersi. Skierowane jest do kobiet w wieku 45-74 lat. Badanie polega na wykonaniu zdjęcia RTG obu piersi (po dwa zdjęcia każdej piersi) i trwa około 15 minut. Można z niego skorzystać co 2 lata. Nie wymaga skierowania od lekarza -- wystarczy zadzwonić do placówki realizującej program i umówić termin. Listę placówek można znaleźć na nfz.gov.pl/dla-pacjenta/programy-profilaktyczne lub zadzwonić na infolinię NFZ: 800 190 590. Wynik przychodzi pocztą lub jest do odbioru w placówce w ciągu 2-3 tygodni. Częsty błąd: kobiety leczone z powodu raka piersi nie kwalifikują się do programu profilaktycznego -- one mają badania w ramach leczenia onkologicznego. Kolejne nieporozumienie: wykonanie mammografii prywatnie nie resetuje 2-letniego interwału w programie NFZ. Kobiety z grupy podwyższonego ryzyka (mutacja BRCA1/BRCA2, rak piersi w rodzinie) powinny skonsultować się z lekarzem w sprawie częstszych badań poza programem. Mammografia mobilna (mammobus) jest równoważna z badaniem stacjonarnym.',
+    kategoria: 'ZDROWIE',
     kwota: 'bezpłatne badanie', czestotliwosc: 'co 2 lata',
     wymagania: { wiekMin: 45, wiekMax: 74, plec: 'K' },
     wykluczenia: [{ opis: 'Kobiety leczone z powodu raka piersi', sprawdz: 'leczenie_rak_piersi' }],
@@ -50,7 +54,9 @@ export const ZDROWIE: Benefit[] = [
     zrodloNazwa: 'NFZ', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'cytologia', nazwa: 'Cytologia profilaktyczna', kategoria: 'ZDROWIE',
+    id: 'cytologia', nazwa: 'Cytologia profilaktyczna',
+    opis: 'Cytologia profilaktyczna to bezpłatne badanie przesiewowe w kierunku raka szyjki macicy, finansowane przez NFZ w ramach Programu Profilaktyki Raka Szyjki Macicy. Skierowane jest do kobiet w wieku 25-64 lat. Badanie polega na pobraniu przez ginekologa wymazu z szyjki macicy i kanału szyjki. Trwa kilka minut i jest bezbolesne (może być lekko nieprzyjemne). Można z niego skorzystać co 3 lata. Nie wymaga skierowania -- wystarczy umówić się bezpośrednio w gabinecie ginekologicznym realizującym program. Ważne: nawet jeśli kobieta wykonała cytologię prywatnie, nadal może skorzystać z bezpłatnego programu NFZ (liczy się data ostatniej cytologii w ramach programu, nie prywatnej). Wynik jest dostępny w ciągu 2-4 tygodni. Jeśli wynik jest nieprawidłowy, pacjentka jest kierowana na dalszą diagnostykę -- kolposkopię. Częste nieporozumienie: cytologia nie wykrywa HPV -- to osobne badanie. Kobiety po histerektomii całkowitej (usunięciu macicy z szyjką) nie potrzebują cytologii, chyba że operacja była z powodu stanu przedrakowego. Przed badaniem nie należy stosować globulek dopochwowych ani współżyć przez 24-48 godzin.',
+    kategoria: 'ZDROWIE',
     kwota: 'bezpłatne badanie', czestotliwosc: 'co 3 lata',
     wymagania: { wiekMin: 25, wiekMax: 64, plec: 'K' },
     wykluczenia: [],
@@ -71,7 +77,9 @@ export const ZDROWIE: Benefit[] = [
     zrodloNazwa: 'NFZ', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'kolonoskopia', nazwa: 'Kolonoskopia profilaktyczna', kategoria: 'ZDROWIE',
+    id: 'kolonoskopia', nazwa: 'Kolonoskopia profilaktyczna',
+    opis: 'Kolonoskopia profilaktyczna to bezpłatne badanie wziernikowe jelita grubego finansowane przez NFZ w ramach Programu Badań Przesiewowych Raka Jelita Grubego. Skierowane jest do osób w wieku 50-65 lat (obie płcie). Wyjątek: osoby w wieku 40-49 lat z wywiadem rodzinnym -- jeśli krewny pierwszego stopnia (rodzic, rodzeństwo, dziecko) chorował na raka jelita grubego, kwalifikują się do programu 10 lat wcześniej. Badanie polega na wprowadzeniu giętkiego endoskopu przez odbytnicę i oglądaniu wnętrza jelita grubego. Trwa 20-40 minut. Podczas badania lekarz może usunąć polipy (zmniejsza to ryzyko raka nawet o 80%). Badanie wykonuje się co 10 lat, chyba że lekarz zaleci częstsze kontrole po usunięciu polipów. Nie wymaga skierowania. Wymaga przygotowania: 3 dni przed badaniem dieta lekkostrawna (bez błonnika, owoców, warzyw), dzień przed badaniem przyjęcie środka przeczyszczającego (np. Fortrans). Konieczne są wcześniejsze badania krwi (morfologia, koagulologia). Czas oczekiwania na termin to zazwyczaj 1-3 miesiące. Badanie można wykonać w znieczuleniu (sedacji) -- warto o to zapytać przy rejestracji. Po badaniu w sedacji nie wolno prowadzić samochodu przez 24 godziny.',
+    kategoria: 'ZDROWIE',
     kwota: 'bezpłatne badanie', czestotliwosc: 'co 10 lat',
     wymagania: { wiekMin: 50, wiekMax: 65 },
     wykluczenia: [],
@@ -95,7 +103,9 @@ export const ZDROWIE: Benefit[] = [
     zrodloNazwa: 'NFZ', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'prostata', nazwa: 'Badania prostaty (PSA)', kategoria: 'ZDROWIE',
+    id: 'prostata', nazwa: 'Badania prostaty (PSA)',
+    opis: 'Badanie PSA (antygen swoisty dla prostaty) to bezpłatne badanie krwi finansowane przez NFZ, służące do wczesnego wykrywania raka prostaty. Skierowane jest do mężczyzn od 50. roku życia. Mężczyźni z wywiadem rodzinnym (rak prostaty u ojca lub brata) powinni zacząć badania od 45. roku życia. Badanie polega na pobraniu próbki krwi z żyły i oznaczeniu poziomu PSA. Nie wymaga specjalnego przygotowania, ale przez 48 godzin przed badaniem nie należy jeździć na rowerze, odbywać stosunków seksualnych ani poddawać się badaniu per rectum -- mogą fałszywie podwyższyć wynik. Do badania potrzebne jest skierowanie od lekarza POZ. Wynik jest dostępny w ciągu 3-7 dni. Podwyższony PSA (powyżej 4 ng/ml) nie oznacza automatycznie raka -- może wskazywać na łagodny przerost prostaty lub zapalenie. Lekarz ocenia wynik w kontekście wieku, wielkości prostaty i dynamiki zmian. Częste nieporozumienie: badanie PSA nie jest tym samym co badanie per rectum (badanie palcem przez odbytnicę) -- to dwa różne badania i oba są ważne w diagnostyce. Badanie można powtarzać co rok.',
+    kategoria: 'ZDROWIE',
     kwota: 'bezpłatne badanie', czestotliwosc: 'co rok',
     wymagania: { wiekMin: 50, plec: 'M' },
     wykluczenia: [],
@@ -115,7 +125,9 @@ export const ZDROWIE: Benefit[] = [
     zrodloNazwa: 'NFZ', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'szczepienia-hpv', nazwa: 'Szczepienia przeciwko HPV', kategoria: 'ZDROWIE',
+    id: 'szczepienia-hpv', nazwa: 'Szczepienia przeciwko HPV',
+    opis: 'Bezpłatne szczepienie przeciwko wirusowi brodawczaka ludzkiego (HPV) finansowane przez NFZ w ramach Programu Szczepień Ochronnych. HPV jest główną przyczyną raka szyjki macicy, ale wywołuje też raka gardła, odbytu i prącia. Program obejmuje dziewczęta w wieku 12-13 lat (rocznikowo). Szczepienie składa się z 2 dawek podawanych w odstępie 6 miesięcy. Stosowana jest szczepionka 9-walentna (Gardasil 9), chroniąca przed 9 typami HPV, w tym typami 16 i 18 odpowiedzialnymi za ok. 70% przypadków raka szyjki macicy. Wartość rynkowa szczepienia to ok. 1500 PLN. Szczepienie wykonuje lekarz POZ -- potrzebna jest zgoda rodzica lub opiekuna prawnego oraz książeczka zdrowia dziecka. Kwalifikacja odbywa się przez lekarza (badanie, wywiad). Częste nieporozumienie: program bezpłatny dotyczy dziewcząt -- chłopcy nie są objęci refundacją (choć medycznie szczepienie jest dla nich też zalecane). Kolejny mit: szczepienie nie chroni przed HPV, jeśli do zakażenia już doszło -- dlatego podaje się je przed rozpoczęciem aktywności seksualnej. Szczepienie nie zwalnia z regularnej cytologii w przyszłości, bo nie chroni przed wszystkimi typami HPV onkogennymi.',
+    kategoria: 'ZDROWIE',
     kwota: 'bezpłatne szczepienie (wartość ok. 1500 PLN)', kwotaMin: 1500, kwotaMax: 1500,
     czestotliwosc: 'jednorazowo',
     wymagania: { wiekMin: 12, wiekMax: 13, plec: 'K' },
@@ -136,7 +148,9 @@ export const ZDROWIE: Benefit[] = [
     zrodloNazwa: 'NFZ', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'profilaktyka-krazenia', nazwa: 'Profilaktyka chorób układu krążenia', kategoria: 'ZDROWIE',
+    id: 'profilaktyka-krazenia', nazwa: 'Profilaktyka chorób układu krążenia',
+    opis: 'Program Profilaktyki Chorób Układu Krążenia (CHUK) to bezpłatne badanie przesiewowe finansowane przez NFZ, skierowane do osób w wieku 35-65 lat obu płci. Celem jest wczesne wykrycie czynników ryzyka chorób sercowo-naczyniowych (zawał, udar). W ramach programu wykonuje się: pomiar ciśnienia tętniczego, pomiar masy ciała i wzrostu (BMI), oznaczenie cholesterolu całkowitego i glukozy we krwi na czczo, a lekarz ocenia ryzyko sercowo-naczyniowe za pomocą skali SCORE. Badanie dostępne jest co 5 lat. Wykonuje się je w gabinecie lekarza POZ -- wystarczy zapytać o program CHUK przy rejestracji. Wykluczone są osoby już leczone z powodu chorób układu krążenia (nadciśnienie, choroba wieńcowa, po zawale lub udarze) -- one mają badania w ramach leczenia. Częste nieporozumienie: program CHUK to nie to samo co Program Moje Zdrowie -- to dwa osobne programy i można skorzystać z obu. Wyniki są zazwyczaj dostępne na miejscu (ciśnienie, BMI) lub w ciągu tygodnia (wyniki laboratoryjne). Na podstawie wyniku SCORE lekarz może zalecić zmianę stylu życia, dietę lub skierować do kardiologa.',
+    kategoria: 'ZDROWIE',
     kwota: 'bezpłatne badanie', czestotliwosc: 'co 5 lat',
     wymagania: { wiekMin: 35, wiekMax: 65 },
     wykluczenia: [{ opis: 'Osoby leczone z powodu chorób układu krążenia', sprawdz: 'leczenie_krazenie' }],
@@ -157,7 +171,9 @@ export const ZDROWIE: Benefit[] = [
     zrodloNazwa: 'NFZ', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'rak-pluc', nazwa: 'Wczesne wykrywanie raka płuc', kategoria: 'ZDROWIE',
+    id: 'rak-pluc', nazwa: 'Wczesne wykrywanie raka płuc',
+    opis: 'Program Wczesnego Wykrywania Raka Płuca to bezpłatne badanie przesiewowe finansowane przez NFZ, skierowane do osób w wieku 55-74 lat obu płci z historią palenia tytoniu. Kryterium kwalifikacji: minimum 20 paczkolat palenia (np. 1 paczka dziennie przez 20 lat lub 2 paczki dziennie przez 10 lat) LUB rzucenie palenia w ciągu ostatnich 15 lat przy spełnieniu kryterium paczkolat. Badanie polega na wykonaniu niskodawkowej tomografii komputerowej (LDCT) klatki piersiowej -- trwa kilka minut, jest bezbolesne i nie wymaga podania kontrastu. Dawka promieniowania jest znacznie niższa niż przy standardowej tomografii. Badanie można powtarzać co rok. Nie wymaga skierowania, ale wymaga wypełnienia ankiety kwalifikacyjnej dotyczącej historii palenia. Listę ośrodków realizujących program można znaleźć na nfz.gov.pl. Czas oczekiwania na wynik to 2-3 tygodnie. Częste nieporozumienie: zwykłe RTG klatki piersiowej nie zastępuje LDCT w wykrywaniu raka płuc -- RTG wykrywa guzy dopiero w zaawansowanym stadium. Program nie obejmuje osób, które nigdy nie paliły lub paliły mniej niż 20 paczkolat. Wartość rynkowa tomografii to ok. 400 PLN.',
+    kategoria: 'ZDROWIE',
     kwota: 'bezpłatna tomografia (wartość ok. 400 PLN)', kwotaMin: 400, kwotaMax: 400,
     czestotliwosc: 'co rok',
     wymagania: { wiekMin: 55, wiekMax: 74 },

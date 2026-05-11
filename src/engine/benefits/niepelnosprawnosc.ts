@@ -2,7 +2,9 @@ import { Benefit } from '../types';
 
 export const NIEPELNOSPRAWNOSC: Benefit[] = [
   {
-    id: 'swiadczenie-wspierajace', nazwa: 'Świadczenie wspierające', kategoria: 'NIEPELNOSPRAWNOSC',
+    id: 'swiadczenie-wspierajace', nazwa: 'Świadczenie wspierające',
+    opis: 'Świadczenie wspierające to comiesięczne świadczenie pieniężne wypłacane bezpośrednio osobie z niepełnosprawnością (nie opiekunowi). Kwota zależy od punktacji WZON: 70-74 pkt = 752 PLN, 75-79 pkt = 1130 PLN, 80-84 pkt = 1505 PLN, 85-89 pkt = 1883 PLN, 90-94 pkt = 2636 PLN, 95-100 pkt = 4134 PLN miesięcznie. Procedura dwuetapowa: najpierw składasz wniosek PPW-1 do Wojewódzkiego Zespołu ds. Orzekania o Niepełnosprawności (WZON) o ustalenie poziomu potrzeby wsparcia, wypełniasz kwestionariusz samooceny PPW-K (32 obszary życia), a po uzyskaniu min. 70 pkt składasz wniosek SWP elektronicznie przez PUE ZUS, portal Empatia lub bank. Od stycznia 2026 próg obniżono z 87 do 70 pkt -- jeśli wcześniej odmówiono Ci świadczenia, warto złożyć ponowny wniosek. Częsty błąd: próba złożenia wniosku SWP papierowo -- przyjmowane są WYŁĄCZNIE wnioski elektroniczne. Świadczenie nie zależy od dochodu. Można je łączyć z rentą, emeryturą i innymi świadczeniami.',
+    kategoria: 'NIEPELNOSPRAWNOSC',
     kwota: '752-4134 PLN miesięcznie', kwotaMin: 752, kwotaMax: 4134,
     czestotliwosc: 'miesięcznie',
     wymagania: { niepelnosprawnosc: ['umiarkowany', 'znaczny'] },
@@ -29,7 +31,9 @@ export const NIEPELNOSPRAWNOSC: Benefit[] = [
     zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'dodatek-pielegnacyjny', nazwa: 'Dodatek pielęgnacyjny', kategoria: 'NIEPELNOSPRAWNOSC',
+    id: 'dodatek-pielegnacyjny', nazwa: 'Dodatek pielęgnacyjny',
+    opis: 'Dodatek pielęgnacyjny wynosi 348,22 PLN miesięcznie i jest wypłacany przez ZUS. Dla osób, które ukończyły 75 lat, przyznawany jest automatycznie -- nie trzeba składać wniosku, ZUS dolicza go do emerytury lub renty. Osoby poniżej 75 lat mogą go otrzymać, jeśli lekarz orzecznik ZUS stwierdzi całkowitą niezdolność do pracy oraz niezdolność do samodzielnej egzystencji. Częsty błąd: mylenie dodatku pielęgnacyjnego (z ZUS, 348,22 PLN) z zasiłkiem pielęgnacyjnym (z gminy, 215,84 PLN) -- to dwa różne świadczenia i nie można ich pobierać jednocześnie. Jeśli masz prawo do obu, musisz wybrać jedno. Praktyczna rada: dla osób 75+ dodatek pielęgnacyjny z ZUS jest korzystniejszy (wyższa kwota). Dodatek nie zależy od dochodu. Waloryzowany co roku 1 marca razem z emeryturami.',
+    kategoria: 'NIEPELNOSPRAWNOSC',
     kwota: '348,22 PLN miesięcznie', kwotaMin: 348, kwotaMax: 348,
     czestotliwosc: 'miesięcznie',
     wymagania: { wiekMin: 75 },
@@ -46,7 +50,9 @@ export const NIEPELNOSPRAWNOSC: Benefit[] = [
     zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'dofinansowanie-pfron', nazwa: 'Dofinansowanie PFRON', kategoria: 'NIEPELNOSPRAWNOSC',
+    id: 'dofinansowanie-pfron', nazwa: 'Dofinansowanie PFRON',
+    opis: 'Dofinansowanie PFRON obejmuje szereg programów wsparcia dla osób z niepełnosprawnością, realizowanych przez Powiatowe Centra Pomocy Rodzinie (PCPR) i MOPS. Dostępne formy: likwidacja barier architektonicznych (podjazdy, windy, adaptacja łazienki -- do 95% kosztów), sprzęt rehabilitacyjny i ortopedyczny (wózki, protezy, aparaty słuchowe -- do 80% kosztów), dofinansowanie samochodu (zakup lub przystosowanie -- do kilkunastu tys. PLN), sprzęt komputerowy (dla osób z dysfunkcją wzroku, słuchu -- do 3500 PLN). Wymagane orzeczenie o niepełnosprawności (dowolny stopień). Częsty błąd: składanie wniosku pod koniec roku, gdy budżet powiatu na PFRON jest już wyczerpany. Praktyczna rada: złóż wniosek w styczniu-marcu, gdy pula środków jest największa. Każdy powiat ma własny budżet i priorytety, więc kwoty i dostępność różnią się w zależności od miejsca zamieszkania. Warto zapytać w PCPR o aktualnie dostępne programy.',
+    kategoria: 'NIEPELNOSPRAWNOSC',
     kwota: 'do kilku tysięcy PLN (zależne od rodzaju wsparcia)', czestotliwosc: 'jednorazowo lub rocznie',
     wymagania: { niepelnosprawnosc: ['lekki', 'umiarkowany', 'znaczny'] },
     wykluczenia: [],
@@ -67,7 +73,9 @@ export const NIEPELNOSPRAWNOSC: Benefit[] = [
     zrodloNazwa: 'PFRON', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'turnusy-rehabilitacyjne', nazwa: 'Turnusy rehabilitacyjne', kategoria: 'NIEPELNOSPRAWNOSC',
+    id: 'turnusy-rehabilitacyjne', nazwa: 'Turnusy rehabilitacyjne',
+    opis: 'Turnusy rehabilitacyjne to 14-dniowe pobyty w ośrodkach rehabilitacyjnych, dofinansowane przez PFRON za pośrednictwem PCPR. Dofinansowanie zależy od stopnia niepełnosprawności: znaczny -- do 1449 PLN, umiarkowany -- do 1206 PLN, lekki -- do 906 PLN. Osoby ze znaczną niepełnosprawnością mogą uzyskać dodatkowe dofinansowanie na opiekuna (do 906 PLN). Wymagane: orzeczenie o niepełnosprawności i wniosek lekarza o skierowanie na turnus. Ośrodek musi być wpisany do rejestru ośrodków prowadzących turnusy rehabilitacyjne (sprawdź na empatia.mpips.gov.pl). Częsty błąd: wybór ośrodka spoza rejestru -- PCPR nie zwróci kosztów. Praktyczna rada: złóż wniosek na początku roku (styczeń-marzec), bo pula środków jest ograniczona i kończy się zwykle do połowy roku. Turnus można odbyć 1 raz w roku. Dofinansowanie pokrywa część kosztów, resztę (zwykle 30-50%) pokrywasz samodzielnie.',
+    kategoria: 'NIEPELNOSPRAWNOSC',
     kwota: 'dofinansowanie do 1449 PLN', kwotaMin: 906, kwotaMax: 1449,
     czestotliwosc: 'rocznie',
     wymagania: { niepelnosprawnosc: ['lekki', 'umiarkowany', 'znaczny'] },

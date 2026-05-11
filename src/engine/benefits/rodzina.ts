@@ -2,7 +2,9 @@ import { Benefit } from '../types';
 
 export const RODZINA: Benefit[] = [
   {
-    id: '800-plus', nazwa: 'Świadczenie wychowawcze 800+', kategoria: 'RODZINA',
+    id: '800-plus', nazwa: 'Świadczenie wychowawcze 800+',
+    opis: 'Świadczenie 800 PLN miesięcznie na każde dziecko do ukończenia 18 roku życia, niezależnie od dochodu rodziny. Przysługuje obywatelom polskim oraz cudzoziemcom legalnie przebywającym w Polsce. Nie trzeba być zatrudnionym -- świadczenie dostaje każdy rodzic, opiekun prawny lub opiekun faktyczny dziecka. Wniosek składa się wyłącznie elektronicznie: przez PUE ZUS, bankowość elektroniczną lub portal Empatia. Wypłata następuje co miesiąc na wskazane konto bankowe. Nowy okres świadczeniowy zaczyna się 1 czerwca, a wnioski na nowy okres przyjmowane są od 1 lutego. Jeśli złożysz wniosek po 30 kwietnia, stracisz wypłatę za wcześniejsze miesiące (nie ma wyrównania wstecz). Świadczenie nie jest wliczane do dochodu przy ustalaniu prawa do innych świadczeń. Nie podlega opodatkowaniu PIT. W przypadku rodziców żyjących w rozłączeniu świadczenie przysługuje temu, kto faktycznie sprawuje opiekę nad dzieckiem. Przy opiece naprzemiennej kwota jest dzielona po połowie (400 PLN na każdego rodzica).',
+    kategoria: 'RODZINA',
     kwota: '800 PLN miesięcznie na dziecko', kwotaMin: 800, kwotaMax: 800,
     czestotliwosc: 'miesięcznie',
     wymagania: { dzieci: { min: 1, wiekMax: 18 } },
@@ -29,7 +31,9 @@ export const RODZINA: Benefit[] = [
     zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'becikowe', nazwa: 'Becikowe (jednorazowa zapomoga)', kategoria: 'RODZINA',
+    id: 'becikowe', nazwa: 'Becikowe (jednorazowa zapomoga)',
+    opis: 'Jednorazowa zapomoga w wysokości 1000 PLN z tytułu urodzenia się żywego dziecka. Przysługuje matce, ojcu, opiekunowi prawnemu lub opiekunowi faktycznemu dziecka, pod warunkiem że dochód na osobę w rodzinie nie przekracza 1922 PLN netto miesięcznie. Kluczowy wymóg: matka dziecka musi pozostawać pod opieką medyczną nie później niż od 10 tygodnia ciąży do dnia porodu -- konieczne jest zaświadczenie lekarskie lub od położnej potwierdzające ten fakt. Bez tego zaświadczenia wniosek zostanie odrzucony, nawet jeśli spełniasz kryterium dochodowe. Wniosek składa się w MOPS lub urzędzie gminy w ciągu 12 miesięcy od urodzenia dziecka -- po tym terminie prawo do becikowego przepada bezpowrotnie. Dochód liczony jest na podstawie roku bazowego (najczęściej rok kalendarzowy poprzedzający okres zasiłkowy), z uwzględnieniem zmian z ostatnich miesięcy (utrata/uzyskanie dochodu). Wiele rodzin z dochodem niewiele powyżej progu nie zdaje sobie sprawy, że utrata pracy lub inne zmiany mogą obniżyć dochód poniżej progu i otworzyć prawo do becikowego. Becikowe nie podlega opodatkowaniu.',
+    kategoria: 'RODZINA',
     kwota: '1000 PLN jednorazowo', kwotaMin: 1000, kwotaMax: 1000,
     czestotliwosc: 'jednorazowo',
     wymagania: { dzieci: { min: 1, wiekMax: 1 }, dochodMax: 1922 },
@@ -60,7 +64,9 @@ export const RODZINA: Benefit[] = [
     zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'kosiniakowe', nazwa: 'Świadczenie rodzicielskie (kosiniakowe)', kategoria: 'RODZINA',
+    id: 'kosiniakowe', nazwa: 'Świadczenie rodzicielskie (kosiniakowe)',
+    opis: 'Świadczenie rodzicielskie, potocznie zwane kosiniakowym, wynosi 1000 PLN miesięcznie i jest wypłacane przez 52 tygodnie (12 miesięcy) od urodzenia dziecka. Przy bliźniakach okres wydłuża się do 65 tygodni, przy trojaczkach do 67, przy czworaczkach do 69, a przy pięcioraczkach i więcej do 71 tygodni. Świadczenie jest skierowane do osób, które nie mają prawa do zasiłku macierzyńskiego z ZUS -- czyli do bezrobotnych, studentów, osób na umowach cywilnoprawnych (zlecenie, dzieło) i rolników. Osoby zatrudnione na umowie o pracę dostają zasiłek macierzyński z ZUS i nie mogą pobierać kosiniakowego. Nie obowiązuje żaden próg dochodowy. Wniosek składa się w MOPS lub urzędzie gminy na formularzu SR-7. Kluczowy termin: wniosek trzeba złożyć w ciągu 3 miesięcy od porodu, aby otrzymać wypłatę od dnia narodzin. Po tym terminie wypłata przysługuje dopiero od miesiąca złożenia wniosku -- tracisz pieniądze za wcześniejsze miesiące. Kosiniakowe nie przysługuje osobom pobierającym zasiłek dla bezrobotnych. Świadczenie nie podlega opodatkowaniu PIT. Ojciec dziecka również może złożyć wniosek, jeśli matka nie pobiera tego świadczenia.',
+    kategoria: 'RODZINA',
     kwota: '1000 PLN miesięcznie przez 12 miesięcy', kwotaMin: 1000, kwotaMax: 1000,
     czestotliwosc: 'miesięcznie (12 mies.)',
     wymagania: { ciaza: true, zatrudnienie: ['bezrobotny', 'student', 'umowa_cywilnoprawna', 'rolnik'] },
@@ -89,7 +95,9 @@ export const RODZINA: Benefit[] = [
     zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'ulga-prorodzinna', nazwa: 'Ulga prorodzinna (na dzieci)', kategoria: 'RODZINA',
+    id: 'ulga-prorodzinna', nazwa: 'Ulga prorodzinna (na dzieci)',
+    opis: 'Ulga podatkowa odliczana od podatku PIT przy rozliczeniu rocznym. Przysługuje rodzicom, opiekunom prawnym i rodzicom zastępczym dzieci do 18 roku życia, a w przypadku dzieci uczących się -- do 25 roku życia (pod warunkiem że dziecko nie zarobiło więcej niż 21 371 PLN rocznie). Kwoty roczne na dziecko: 1112,04 PLN za pierwsze i drugie dziecko, 2000,04 PLN za trzecie dziecko, 2700 PLN za czwarte i każde kolejne. Przy jednym dziecku obowiązuje próg dochodowy: 112 000 PLN brutto rocznie dla małżeństw rozliczających się wspólnie lub 56 000 PLN dla osób samotnie wychowujących dziecko. Przy dwójce i więcej dzieci NIE MA żadnego progu dochodowego. Częsty błąd: rodzice jednego dziecka z dochodem powyżej progu tracą prawo do ulgi, ale nie wiedzą że próg dotyczy tylko rodzin z jednym dzieckiem. Ulgę odlicza się w załączniku PIT/O do zeznania PIT-37 lub PIT-36. Jeśli podatek jest zbyt niski, aby odliczyć pełną ulgę, można otrzymać różnicę jako zwrot z urzędu skarbowego (do wysokości zapłaconych składek ZUS i zdrowotnych). Ulga jest dzielona między rodziców proporcjonalnie lub w całości przez jednego z nich -- wymaga to zgodnego oświadczenia. W przypadku rozwodu ulgę rozlicza rodzic sprawujący faktyczną opiekę nad dzieckiem.',
+    kategoria: 'RODZINA',
     kwota: '1112-2700 PLN rocznie na dziecko', kwotaMin: 1112, kwotaMax: 2700,
     czestotliwosc: 'rocznie (odliczenie w PIT)',
     wymagania: { dzieci: { min: 1, wiekMax: 25 } },
@@ -117,7 +125,9 @@ export const RODZINA: Benefit[] = [
     zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'dobry-start', nazwa: 'Dobry Start (300+)', kategoria: 'RODZINA',
+    id: 'dobry-start', nazwa: 'Dobry Start (300+)',
+    opis: 'Jednorazowe świadczenie 300 PLN na każde uczące się dziecko, wypłacane raz w roku przed rozpoczęciem roku szkolnego. Ma na celu pokrycie kosztów wyprawki szkolnej. Przysługuje niezależnie od dochodu rodziny. Obejmuje dzieci uczęszczające do szkoły podstawowej, ponadpodstawowej (liceum, technikum, szkoła branżowa) -- do ukończenia 20 roku życia, a w przypadku dzieci z niepełnosprawnością do 24 roku życia. Nie obejmuje przedszkolaków ani studentów. Wniosek składa się wyłącznie elektronicznie: przez PUE ZUS, bankowość elektroniczną lub portal Empatia. Wnioski przyjmowane są od 1 lipca do 30 listopada każdego roku. Jeśli złożysz wniosek w lipcu lub sierpniu, wypłata nastąpi nie później niż do 30 września. Przy późniejszym złożeniu -- w ciągu 2 miesięcy od daty wniosku. Świadczenie przysługuje na każde dziecko osobno, więc rodzina z trójką dzieci w szkole otrzyma 900 PLN. Nie podlega opodatkowaniu PIT i nie jest wliczane do dochodu przy ustalaniu prawa do innych świadczeń.',
+    kategoria: 'RODZINA',
     kwota: '300 PLN jednorazowo na dziecko', kwotaMin: 300, kwotaMax: 300,
     czestotliwosc: 'rocznie (przed rokiem szkolnym)',
     wymagania: { dzieci: { min: 1, wiekMax: 20 } },
@@ -143,7 +153,9 @@ export const RODZINA: Benefit[] = [
     zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'renta-rodzinna', nazwa: 'Renta rodzinna', kategoria: 'RODZINA',
+    id: 'renta-rodzinna', nazwa: 'Renta rodzinna',
+    opis: 'Renta rodzinna to comiesięczne świadczenie z ZUS wypłacane członkom rodziny po śmierci osoby, która miała prawo do emerytury lub renty (lub spełniała warunki do ich uzyskania). Przysługuje: wdowie/wdowcowi (jeśli ukończyła/ukończył 50 lat lub jest niezdolna/niezdolny do pracy, albo wychowuje dziecko do 16 lat lub uczące się do 18 lat), dzieciom zmarłego (do 16 roku życia, lub do 25 roku życia jeśli się uczą), rodzicom zmarłego (jeśli byli na jego utrzymaniu). Wysokość: dla jednej uprawnionej osoby -- 85% świadczenia zmarłego, dla dwóch osób -- 90%, dla trzech i więcej -- 95%. Renta jest dzielona równo między wszystkich uprawnionych. Minimalna renta rodzinna wynosi 1780,96 PLN brutto (od marca 2025). Częsty błąd: wiele wdów/wdowców nie wie, że mogą wybrać korzystniejszą opcję -- własną emeryturę albo rentę rodzinną po zmarłym małżonku. Warto porównać obie kwoty przed podjęciem decyzji. Wniosek składa się na formularzu ERR w ZUS. Prawo do renty rodzinnej nie wygasa z upływem czasu -- można złożyć wniosek nawet kilka lat po śmierci bliskiego, ale świadczenie będzie wypłacane najwcześniej od miesiąca złożenia wniosku (bez wyrównania za lata wstecz). Renta rodzinna podlega opodatkowaniu PIT.',
+    kategoria: 'RODZINA',
     kwota: '85-95% emerytury zmarłego', czestotliwosc: 'miesięcznie',
     wymagania: { statusWdowiec: true },
     wykluczenia: [],

@@ -60,6 +60,7 @@ export interface ApplicationGuide {
 export interface Benefit {
   id: string;
   nazwa: string;
+  opis?: string;
   kategoria: BenefitCategory;
   kwota: string;
   kwotaMin?: number;

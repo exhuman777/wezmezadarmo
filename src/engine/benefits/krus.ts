@@ -2,7 +2,9 @@ import { Benefit } from '../types';
 
 export const KRUS: Benefit[] = [
   {
-    id: 'emerytura-rolnicza', nazwa: 'Emerytura rolnicza KRUS', kategoria: 'SENIOR',
+    id: 'emerytura-rolnicza', nazwa: 'Emerytura rolnicza KRUS',
+    opis: 'Emerytura rolnicza z KRUS dla rolników z minimum 25 latami ubezpieczenia emerytalno-rentowego. Wiek emerytalny: kobiety 60, mężczyźni 65. Składa się z części składkowej (1% emerytury podstawowej za każdy rok) i uzupełniającej (do 95%). Kwota od marca 2026: min. 1978,49 PLN brutto, po 25 latach ok. 2101 PLN, po 30 latach ok. 2190 PLN. Emerytura podstawowa: 1780,64 PLN. Waloryzacja co roku 1 marca (2026: 5,3%). Wniosek w oddziale KRUS formularzem SR-20.',
+    kategoria: 'SENIOR',
     kwota: '1978,49-2243,60 PLN brutto (od marca 2026, zależnie od stażu)',
     kwotaMin: 1978, kwotaMax: 2243,
     czestotliwosc: 'miesięcznie',
@@ -40,7 +42,9 @@ export const KRUS: Benefit[] = [
     zrodloNazwa: 'KRUS', dataWeryfikacji: '2026-05-10', dataWaznosci: '2027-02-28',
   },
   {
-    id: 'renta-rolnicza', nazwa: 'Renta rolnicza z tytułu niezdolności do pracy', kategoria: 'SENIOR',
+    id: 'renta-rolnicza', nazwa: 'Renta rolnicza z tytułu niezdolności do pracy',
+    opis: 'Renta rolnicza z KRUS dla rolników niezdolnych do pracy w gospodarstwie, orzeczona przez lekarza orzecznika KRUS. Wymagany staż ubezpieczeniowy zależy od wieku. Składa się z części składkowej i uzupełniającej. Renta minimalna od marca 2026: 1978,49 PLN brutto. Renta z tytułu częściowej niezdolności = 75% renty całkowitej. Może być okresowa lub stała. Waloryzacja 1 marca. Wniosek w oddziale KRUS.',
+    kategoria: 'SENIOR',
     kwota: '1978,49 PLN brutto (od marca 2026, całkowita niezdolność)',
     kwotaMin: 1978, kwotaMax: 1978,
     czestotliwosc: 'miesięcznie',
@@ -79,7 +83,9 @@ export const KRUS: Benefit[] = [
     zrodloNazwa: 'KRUS', dataWeryfikacji: '2026-05-10', dataWaznosci: '2027-02-28',
   },
   {
-    id: 'zasilek-macierzynski-krus', nazwa: 'Zasiłek macierzyński KRUS', kategoria: 'RODZINA',
+    id: 'zasilek-macierzynski-krus', nazwa: 'Zasiłek macierzyński KRUS',
+    opis: 'Zasiłek macierzyński KRUS: 1000 PLN/mies. przez 52 tygodnie (1 dziecko) do 71 tygodni (porody mnogie). Kwota stała, niezależna od dochodów. Przysługuje matce, ojcu lub osobie przysposobiającej dziecko. Warunek: ubezpieczenie w KRUS w chwili porodu. Wniosek SR-24A w ciągu 3 mies. od porodu (po terminie tracisz miesiące wstecz). Można złożyć elektronicznie przez ePUAP. Od 2025 możliwość wydłużenia przy wcześniakach.',
+    kategoria: 'RODZINA',
     kwota: '1000 PLN miesięcznie', kwotaMin: 1000, kwotaMax: 1000,
     czestotliwosc: 'miesięcznie (przez 52-71 tygodni)',
     wymagania: { rolnik: true, ciaza: true },
@@ -114,7 +120,9 @@ export const KRUS: Benefit[] = [
     zrodloNazwa: 'KRUS', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'zasilek-chorobowy-krus', nazwa: 'Zasiłek chorobowy KRUS', kategoria: 'ZDROWIE',
+    id: 'zasilek-chorobowy-krus', nazwa: 'Zasiłek chorobowy KRUS',
+    opis: 'Zasiłek chorobowy KRUS: 25 PLN/dzień (od 2025), ale dopiero od 31. dnia niezdolności do pracy (pierwsze 30 dni bez zasiłku). Max 180 dni z możliwością przedłużenia o 360 dni jeśli rokuje wyzdrowienie. Wymagany 1 rok ciągłego ubezpieczenia (wyjątek: wypadek przy pracy rolniczej, wtedy od 1. dnia bez karencji). Przysługuje też domownikom ubezpieczonym w KRUS. Lekarz wysyła e-ZLA elektronicznie do KRUS.',
+    kategoria: 'ZDROWIE',
     kwota: '25 PLN dziennie', kwotaMin: 25, kwotaMax: 25,
     czestotliwosc: 'dziennie (od 31. dnia choroby, max 180 dni + 360 dni przedłużenia)',
     wymagania: { rolnik: true },
@@ -150,7 +158,9 @@ export const KRUS: Benefit[] = [
     zrodloNazwa: 'KRUS', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'odszkodowanie-krus', nazwa: 'Jednorazowe odszkodowanie KRUS (wypadek przy pracy rolniczej)', kategoria: 'ZDROWIE',
+    id: 'odszkodowanie-krus', nazwa: 'Jednorazowe odszkodowanie KRUS (wypadek przy pracy rolniczej)',
+    opis: 'Jednorazowe odszkodowanie za wypadek przy pracy rolniczej: 1431 PLN za każdy 1% uszczerbku na zdrowiu. Dodatkowe 28 620 PLN przy niezdolności do samodzielnej egzystencji. Przy śmierci: 143 100 PLN dla małżonka/dzieci, 71 550 PLN dla innych członków rodziny. Wypadek musi być zgłoszony do KRUS w ciągu 6 miesięcy. KRUS sporządzi protokół, lekarz orzecznik oceni uszczerbek. Obejmuje też drogę do/z pracy rolniczej. Nagłe zdarzenie wywołane przyczyną zewnętrzną podczas pracy w gospodarstwie.',
+    kategoria: 'ZDROWIE',
     kwota: '1431 PLN za 1% uszczerbku na zdrowiu (max 143 100 PLN przy śmierci)',
     kwotaMin: 1431, kwotaMax: 143100,
     czestotliwosc: 'jednorazowo',

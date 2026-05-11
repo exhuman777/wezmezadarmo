@@ -2,7 +2,9 @@ import { Benefit } from '../types';
 
 export const EKOLOGIA: Benefit[] = [
   {
-    id: 'czyste-powietrze', nazwa: 'Czyste Powietrze', kategoria: 'EKOLOGIA',
+    id: 'czyste-powietrze', nazwa: 'Czyste Powietrze',
+    opis: 'Czyste Powietrze to największy w Europie program termomodernizacji budynków jednorodzinnych. Dofinansowanie obejmuje wymianę źródła ciepła (stary piec na pompę ciepła, kocioł na biomasę lub podłączenie do sieci ciepłowniczej) oraz ocieplenie budynku (izolacja ścian, dachu, wymiana okien i drzwi). Trzy poziomy dofinansowania: podstawowy -- dochód roczny do 135 000 PLN, do 40% kosztów (max 66 000 PLN); podwyższony -- dochód do 2250 PLN/os. miesięcznie (wieloosobowe) lub 3150 PLN (jednoosobowe), do 70% (max 99 000 PLN); najwyższy -- dochód do 1300 PLN/os. lub 1800 PLN (jednoosobowe), do 100% (max 135 000 PLN). Od 31.03.2025 obowiązkowy audyt energetyczny budynku i wykluczone kotły gazowe i olejowe. Dotyczy WYŁĄCZNIE istniejących budynków jednorodzinnych (nie mieszkań w blokach). Częsty błąd: ponoszenie kosztów przed złożeniem wniosku -- wydatki sprzed złożenia wniosku nie są refundowane (wyjątek: audyt energetyczny). Praktyczna rada: zacznij od audytu energetycznego, który pokaże optymalne rozwiązania i pozwoli uniknąć przepłacania.',
+    kategoria: 'EKOLOGIA',
     kwota: 'do 66 000 PLN (podstawowy), do 99 000 PLN (podwyższony), do 135 000 PLN (najwyższy)',
     kwotaMin: 0, kwotaMax: 135000,
     czestotliwosc: 'jednorazowo',
@@ -42,7 +44,9 @@ export const EKOLOGIA: Benefit[] = [
     zrodloNazwa: 'NFOŚiGW, Program Czyste Powietrze', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'moj-prad', nazwa: 'Mój Prąd', kategoria: 'EKOLOGIA',
+    id: 'moj-prad', nazwa: 'Mój Prąd',
+    opis: 'Mój Prąd to program dotacji na instalacje fotowoltaiczne i magazyny energii dla osób fizycznych. Dofinansowanie: do 7000 PLN na fotowoltaikę (gdy łączona z magazynem energii lub ciepła), do 6000 PLN na samą fotowoltaikę, do 16 000 PLN na magazyn energii elektrycznej (min. 2 kWh), do 5000 PLN na magazyn ciepła (min. 20 dm3). Łącznie do 28 000 PLN, ale max 50% kosztów kwalifikowanych. Program refundacyjny -- najpierw płacisz za instalację, potem otrzymujesz zwrot na konto. Mikroinstalacja musi mieć moc 2-20 kW. Wymagane zaświadczenie od operatora sieci dystrybucyjnej (OSD) o przyłączeniu instalacji. Wniosek składasz online na mojprad.gov.pl. Częsty błąd: instalacja przed sprawdzeniem dostępności środków -- nabór jest ograniczony budżetem i zamykany po wyczerpaniu puli. Praktyczna rada: magazyn energii znacząco zwiększa kwotę dofinansowania i opłacalność inwestycji, bo pozwala zużywać energię wieczorem zamiast oddawać ją do sieci po niskiej stawce.',
+    kategoria: 'EKOLOGIA',
     kwota: 'do 7000 PLN na fotowoltaikę, do 16 000 PLN na magazyn energii, do 28 000 PLN łącznie',
     kwotaMin: 0, kwotaMax: 28000,
     czestotliwosc: 'jednorazowo',
@@ -81,7 +85,9 @@ export const EKOLOGIA: Benefit[] = [
     zrodloNazwa: 'NFOŚiGW, Program Mój Prąd', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'moje-cieplo', nazwa: 'Moje Ciepło', kategoria: 'EKOLOGIA',
+    id: 'moje-cieplo', nazwa: 'Moje Ciepło',
+    opis: 'Moje Ciepło to program dotacji na pompy ciepła w NOWYCH budynkach jednorodzinnych (pozwolenie na budowę wydane po 01.01.2021). Dofinansowanie: pompa powietrzna (powietrze/woda lub powietrze/powietrze) do 7000 PLN (30% kosztów), pompa gruntowa do 21 000 PLN (30% kosztów). Posiadacze Karty Dużej Rodziny mogą uzyskać do 45% kosztów. Pompa ciepła musi być głównym i jedynym źródłem ciepła w budynku. Budynek musi spełniać podwyższony standard energetyczny (wskaźnik EP nie wyższy niż 63 kWh/m2/rok dla domów do 2020, lub wg aktualnych warunków technicznych). Wniosek online na mojecieplo.gov.pl. Nabór do 31.12.2026 lub wyczerpania budżetu (600 mln PLN). Częsty błąd: zakup pompy do istniejącego budynku -- ten program dotyczy TYLKO nowych budynków; do starych jest program Czyste Powietrze. Praktyczna rada: pompa gruntowa ma wyższe dofinansowanie i niższe koszty eksploatacji, ale wyższy koszt instalacji -- policz TCO na 15 lat.',
+    kategoria: 'EKOLOGIA',
     kwota: 'do 7000 PLN (pompa powietrzna), do 21 000 PLN (pompa gruntowa)',
     kwotaMin: 0, kwotaMax: 21000,
     czestotliwosc: 'jednorazowo',
@@ -120,7 +126,9 @@ export const EKOLOGIA: Benefit[] = [
     zrodloNazwa: 'NFOŚiGW, Program Moje Ciepło', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'cieple-mieszkanie', nazwa: 'Ciepłe Mieszkanie', kategoria: 'EKOLOGIA',
+    id: 'cieple-mieszkanie', nazwa: 'Ciepłe Mieszkanie',
+    opis: 'Ciepłe Mieszkanie to program dofinansowania wymiany źródeł ciepła i termomodernizacji w budynkach wielorodzinnych (blokach, kamienicach). Skierowany do właścicieli lokali mieszkalnych w budynkach wielorodzinnych. Trzy poziomy: podstawowy -- dochód roczny do 135 000 PLN, do 30% kosztów (max 16 500 PLN); podwyższony -- dochód do 1894 PLN/os. (wieloosobowe) lub 2651 PLN (jednoosobowe), do 60% (max 27 500 PLN); najwyższy -- dochód do 1090 PLN/os. lub 1526 PLN (jednoosobowe), do 90% (max 41 000 PLN). Wspólnoty mieszkaniowe mogą uzyskać do 375 000 PLN na cały budynek (z pompą ciepła). Program realizowany przez gminy -- nie każda gmina przystąpiła, więc najpierw sprawdź w swoim urzędzie. Koszty kwalifikowane do 31.12.2025. Częsty błąd: założenie, że program działa wszędzie -- to gmina decyduje o przystąpieniu i składa wniosek do WFOŚiGW. Praktyczna rada: jeśli Twoja gmina nie przystąpiła, napisz do wójta/burmistrza z prośbą o przystąpienie do programu.',
+    kategoria: 'EKOLOGIA',
     kwota: 'do 16 500 PLN (podstawowy), do 27 500 PLN (podwyższony), do 41 000 PLN (najwyższy)',
     kwotaMin: 0, kwotaMax: 41000,
     czestotliwosc: 'jednorazowo',
@@ -159,7 +167,9 @@ export const EKOLOGIA: Benefit[] = [
     zrodloNazwa: 'NFOŚiGW, Program Ciepłe Mieszkanie', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'stop-smog', nazwa: 'Stop Smog', kategoria: 'EKOLOGIA',
+    id: 'stop-smog', nazwa: 'Stop Smog',
+    opis: 'PROGRAM ZAKOŃCZONY z końcem 2024 roku. Stop Smog był programem 100% dofinansowania termomodernizacji budynków jednorodzinnych dla osób ubogich energetycznie w gminach objętych uchwałą antysmogową. Dofinansowanie do 53 000 PLN na budynek, pokrywające pełne koszty wymiany pieca, ocieplenia i wymiany okien. Gmina finansowała 30% ze środków własnych, 70% z budżetu państwa. Warunki: dochód do 2342 PLN netto/os. (jednoosobowe) lub 1873 PLN/os. (wieloosobowe), majątek do 53 000 PLN (bez wartości budynku), co najmniej 50% udziału we własności budynku. Mieszkaniec nie ponosił żadnych kosztów. Obowiązek utrzymania efektów termomodernizacji przez 10 lat. Niewykorzystane środki (ok. 150 mln PLN) przekierowano na termomodernizację budynków wielorodzinnych. Dla osób w podobnej sytuacji materialnej dostępny jest program Czyste Powietrze na poziomie najwyższym (do 135 000 PLN, do 100% kosztów).',
+    kategoria: 'EKOLOGIA',
     kwota: 'do 53 000 PLN na budynek (100% kosztów)',
     kwotaMin: 0, kwotaMax: 53000,
     czestotliwosc: 'jednorazowo',
@@ -198,7 +208,9 @@ export const EKOLOGIA: Benefit[] = [
     zrodloNazwa: 'NFOŚiGW, Program Stop Smog (zakończony)', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'dodatek-oslonowy', nazwa: 'Dodatek osłonowy', kategoria: 'EKOLOGIA',
+    id: 'dodatek-oslonowy', nazwa: 'Dodatek osłonowy',
+    opis: 'PROGRAM ZAKOŃCZONY. Ostatnia edycja w 2024 roku. Dodatek osłonowy był jednorazowym świadczeniem pieniężnym wprowadzonym w odpowiedzi na kryzys energetyczny 2022-2023, mającym złagodzić wzrost cen energii i żywności. Kwoty w ostatniej edycji: 1 osoba 228,80 PLN, 2-3 osoby 343,20 PLN, 4-5 osób 486,20 PLN, 6+ osób 657,80 PLN. Przy ogrzewaniu węglem stawki podwyższone: 1 osoba 286 PLN, 2-3 osoby 429 PLN, 4-5 osób 607,75 PLN, 6+ osób 822,25 PLN. Progi dochodowe: 2500 PLN netto/os. (jednoosobowe), 1700 PLN/os. (wieloosobowe). Rząd nie przedłużył programu na 2025/2026. Osoby w trudnej sytuacji energetycznej mogą rozważyć: bon energetyczny, dodatek mieszkaniowy, zasiłek celowy na opał, lub program Czyste Powietrze (wymiana starego pieca na tańsze źródło ciepła).',
+    kategoria: 'EKOLOGIA',
     kwota: '228,80-822,25 PLN (ostatnia edycja 2024)',
     kwotaMin: 228, kwotaMax: 822,
     czestotliwosc: 'jednorazowo (rocznie, ostatnia edycja 2024)',
