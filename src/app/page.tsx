@@ -494,8 +494,8 @@ export default function Home() {
             <h1 className="text-[22px] sm:text-[26px] font-bold text-text-1 mb-1.5 leading-tight">
               Sprawdź co Ci się należy
             </h1>
-            <p className="text-text-2 text-[14px] sm:text-[15px] mb-4 sm:mb-5">
-              Zasiłki, ulgi, badania, dotacje. Sprawdź w 2 minuty.
+            <p className="text-text-2 text-[14px] sm:text-[15px] mb-2">
+              Polska oferuje jeden z najszerszych systemów świadczeń w Europie. Zasiłki, ulgi podatkowe, darmowe badania, dotacje na mieszkanie, programy dla rodzin, seniorów, przedsiębiorców. W naszej bazie znajdziesz 99 świadczeń z 13 kategorii. Sprawdź w 2 minuty, które Ci przysługują, a nasz asystent AI pomoże Ci złożyć wniosek krok po kroku.
             </p>
 
             {/* Trust badges */}
@@ -514,6 +514,12 @@ export default function Home() {
 
           {/* Form section */}
           <div className="px-4 sm:px-6 pb-4 sm:pb-5">
+            <div className="mb-4 p-3 rounded-xl" style={{ background: 'var(--color-bg-2)', border: '1px solid var(--color-border)' }}>
+              <a href="/swiadczenia" className="flex items-center gap-2 text-[13px] sm:text-[14px] font-semibold text-accent no-underline hover:underline">
+                <span>{'\u2192'}</span>
+                <span>Przeglądaj pełną bazę {99} świadczeń bez wypełniania formularza</span>
+              </a>
+            </div>
             <IntakeForm onSubmit={handleIntakeSubmit} isLoading={isLoading} />
 
             {/* PESEL safety link */}
@@ -706,7 +712,7 @@ export default function Home() {
 
   // CHAT
   return (
-    <div className="h-dvh flex flex-col">
+    <div className="fixed inset-0 flex flex-col bg-bg-0">
       <TopBar theme={theme} onToggle={toggleTheme} />
 
       <ChatWindow

@@ -68,7 +68,7 @@ export function ChatWindow({
 }: ChatWindowProps) {
   const [input, setInput] = useState('');
   const [activeTab, setActiveTab] = useState<Tab>(results.length > 0 ? 'swiadczenia' : 'czat');
-  const bottomRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const chatBottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -79,15 +79,23 @@ export function ChatWindow({
   }, [messages, activeTab]);
 
   useEffect(() => {
-    if (activeTab === 'swiadczenia') {
-      bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (activeTab === 'swiadczenia' && scrollContainerRef.current) {
+      // When opening a guide, scroll to top so the guide header is visible
+      // When closing a guide (guideBenefitId is null), also scroll to top
+      scrollContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }, [guideBenefitId, activeTab]);
 
-  // Switch to chat tab when user sends a message
+  // Switch to chat tab only when a new user message appears (not during streaming)
+  const prevMsgCount = useRef(messages.length);
   useEffect(() => {
-    if (isStreaming) setActiveTab('czat');
-  }, [isStreaming]);
+    const hasNewUserMsg = messages.length > prevMsgCount.current &&
+      messages[messages.length - 2]?.role === 'user';
+    if (hasNewUserMsg) {
+      setActiveTab('czat');
+    }
+    prevMsgCount.current = messages.length;
+  }, [messages.length]);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -111,10 +119,10 @@ export function ChatWindow({
   const możliwe = results.filter((r) => r.status === 'MOZLIWE');
 
   return (
-    <div className="flex flex-col h-full min-h-0">
+    <div className="flex flex-col flex-1 min-h-0">
       {/* Tab bar */}
       {results.length > 0 && (
-        <div className="flex items-center gap-1 px-3 sm:px-4 py-1.5 border-b border-border bg-bg-1">
+        <div className="flex items-center gap-1 px-3 sm:px-4 py-1.5 border-b border-border bg-bg-1 shrink-0">
           <button
             onClick={() => setActiveTab('swiadczenia')}
             className="px-3 py-1.5 rounded-lg text-[12px] sm:text-[13px] font-bold tracking-wide border-none cursor-pointer transition-all"
@@ -170,7 +178,7 @@ export function ChatWindow({
 
       {/* Tab content: Świadczenia */}
       {activeTab === 'swiadczenia' && results.length > 0 && (
-        <div className="flex-1 overflow-y-auto px-3 sm:px-5 py-3 sm:py-4 min-h-0">
+        <div ref={scrollContainerRef} className="flex-1 overflow-y-auto px-3 sm:px-5 py-3 sm:py-4 min-h-0">
           {/* Guide view */}
           {guideBenefit ? (
             <StepByStepGuide benefit={guideBenefit} onClose={onCloseGuide} />
@@ -188,13 +196,13 @@ export function ChatWindow({
               ))}
             </>
           )}
-          <div ref={bottomRef} />
         </div>
       )}
 
       {/* Tab content: Czat */}
       {(activeTab === 'czat' || results.length === 0) && (
-        <div className="flex-1 overflow-y-auto px-3 sm:px-5 py-3 sm:py-4 min-h-0">
+        <div className="flex-1 overflow-y-auto px-3 sm:px-5 py-3 sm:py-4 min-h-0 flex flex-col">
+          <div className="flex-1" />
           {messages.map((msg, i) => (
             <MessageBubble
               key={msg.id}
@@ -210,7 +218,7 @@ export function ChatWindow({
       {/* Input bar */}
       <form
         onSubmit={handleSubmit}
-        className="flex gap-2 px-3 sm:px-4 py-2.5 sm:py-3 border-t border-border bg-bg-1"
+        className="flex gap-2 px-3 sm:px-4 py-2.5 sm:py-3 border-t border-border bg-bg-1 shrink-0"
       >
         <input
           ref={inputRef}
@@ -235,7 +243,10 @@ export function ChatWindow({
       </form>
 
       {/* Disclaimer */}
-      <div className="px-3 sm:px-4 py-1.5 text-[10px] sm:text-[11px] text-text-3 text-center border-t border-border bg-bg-0">
+      <div
+        className="px-3 sm:px-4 py-1.5 text-[10px] sm:text-[11px] text-text-3 text-center border-t border-border bg-bg-0 shrink-0"
+        style={{ paddingBottom: 'max(6px, env(safe-area-inset-bottom))' }}
+      >
         Informacja orientacyjna, nie decyzja urzędowa. Zweryfikuj na stronach źródłowych.
       </div>
     </div>
