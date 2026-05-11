@@ -11,22 +11,40 @@ export default function Icon() {
           width: '100%',
           height: '100%',
           display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          background: '#0a0806',
+          flexDirection: 'column',
           borderRadius: '6px',
+          overflow: 'hidden',
         }}
       >
-        <div
-          style={{
-            fontSize: '22px',
-            fontWeight: 800,
-            color: '#f0a860',
-            letterSpacing: '-1px',
-            lineHeight: 1,
-          }}
-        >
-          W
+        {/* White top half */}
+        <div style={{ flex: 1, background: '#ffffff', display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}>
+          <div
+            style={{
+              fontSize: '15px',
+              fontWeight: 900,
+              color: '#dc143c',
+              letterSpacing: '-0.5px',
+              lineHeight: 1,
+              marginBottom: '-1px',
+            }}
+          >
+            WZ
+          </div>
+        </div>
+        {/* Red bottom half */}
+        <div style={{ flex: 1, background: '#dc143c', display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
+          <div
+            style={{
+              fontSize: '8px',
+              fontWeight: 700,
+              color: '#ffffff',
+              letterSpacing: '0.5px',
+              lineHeight: 1,
+              marginTop: '2px',
+            }}
+          >
+            .COM
+          </div>
         </div>
       </div>
     ),

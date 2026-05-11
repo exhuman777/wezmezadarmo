@@ -3,6 +3,11 @@
 @theme {
   --color-accent: #d4872e;
   --color-accent-2: #e89f3c;
+  --color-pl-red: #dc143c;
+  --color-pl-red-light: #e8304f;
+  --color-pl-red-bg: rgba(220, 20, 60, 0.06);
+  --color-pl-red-border: rgba(220, 20, 60, 0.25);
+  --color-pl-red-glow: rgba(220, 20, 60, 0.15);
   --color-bg-0: #f8f6f3;
   --color-bg-1: #ffffff;
   --color-bg-2: #f3f0eb;
@@ -27,6 +32,11 @@
 html.dark {
   --color-accent: #f0a860;
   --color-accent-2: #ffb56b;
+  --color-pl-red: #e8304f;
+  --color-pl-red-light: #f04060;
+  --color-pl-red-bg: rgba(232, 48, 79, 0.1);
+  --color-pl-red-border: rgba(232, 48, 79, 0.3);
+  --color-pl-red-glow: rgba(232, 48, 79, 0.2);
   --color-bg-0: #111111;
   --color-bg-1: #1a1a1a;
   --color-bg-2: #222222;
@@ -109,4 +119,9 @@ a:hover { text-decoration: underline; }
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(4px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes redPulse {
+  0%, 100% { box-shadow: 0 0 8px var(--color-pl-red-glow), 0 0 20px rgba(220, 20, 60, 0.06); }
+  50% { box-shadow: 0 0 14px var(--color-pl-red-glow), 0 0 30px rgba(220, 20, 60, 0.1); }
 }

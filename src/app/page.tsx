@@ -159,17 +159,23 @@ const QUESTIONS: QualifyingQuestion[] = [
 function TopBar({ theme, onToggle, children }: { theme: 'light' | 'dark'; onToggle: () => void; children?: React.ReactNode }) {
   return (
     <div
-      className="flex items-center gap-2 sm:gap-3 px-3 sm:px-5 py-2.5 sm:py-3 border-b border-border sticky top-0 z-50"
+      className="flex items-center gap-2 sm:gap-3 px-3 sm:px-5 py-2 sm:py-2.5 border-b sticky top-0 z-50"
       style={{
-        background: theme === 'dark' ? 'rgba(17,17,17,0.9)' : 'rgba(255,255,255,0.9)',
+        background: theme === 'dark' ? 'rgba(17,17,17,0.92)' : 'rgba(255,255,255,0.92)',
         backdropFilter: 'blur(12px)',
         WebkitBackdropFilter: 'blur(12px)',
+        borderColor: 'var(--color-pl-red-border)',
       }}
     >
-      <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full shrink-0" style={{ background: 'var(--color-accent)', boxShadow: '0 0 6px var(--color-amber-border)' }} />
-      <span className="text-[12px] sm:text-[14px] font-extrabold tracking-[1.5px] sm:tracking-[2px] text-text-1">
-        wezmezadarmo
+      {/* Polish flag mini stripe */}
+      <div className="flex flex-col gap-0 shrink-0 mr-1" style={{ width: '3px', height: '16px' }}>
+        <div style={{ flex: 1, background: '#ffffff', borderRadius: '1px 1px 0 0', border: '0.5px solid rgba(0,0,0,0.1)' }} />
+        <div style={{ flex: 1, background: '#dc143c', borderRadius: '0 0 1px 1px' }} />
+      </div>
+      <span className="text-[12px] sm:text-[14px] font-extrabold tracking-[1px] sm:tracking-[1.5px] text-text-1 uppercase">
+        wezme za darmo
       </span>
+      <span className="text-[10px] sm:text-[11px] font-bold tracking-wider" style={{ color: 'var(--color-pl-red)' }}>.com</span>
       <span className="flex-1" />
       {children}
       <ThemeToggle theme={theme} onToggle={onToggle} />
@@ -194,13 +200,16 @@ function RotatingExamples() {
 
   return (
     <div className="space-y-2">
-      <div className="text-[11px] sm:text-[12px] font-bold tracking-wider text-accent uppercase mb-2">
-        Przykładowe świadczenia
+      <div className="flex items-center gap-2 mb-2">
+        <span className="text-[11px] sm:text-[12px] font-bold tracking-wider uppercase" style={{ color: 'var(--color-pl-red)' }}>
+          Przykładowe świadczenia
+        </span>
+        <span className="flex-1 border-t border-border" />
       </div>
       {visible.map((b, i) => (
         <div
           key={`${startIndex}-${i}`}
-          className="p-3 rounded-xl transition-opacity duration-500"
+          className="p-2.5 rounded-xl transition-opacity duration-500"
           style={{
             background: 'var(--color-bg-2)',
             border: '1px solid var(--color-border)',
@@ -208,10 +217,10 @@ function RotatingExamples() {
           }}
         >
           <div className="flex justify-between items-start gap-2">
-            <span className="text-[14px] sm:text-[15px] font-semibold text-text-1">{b.nazwa}</span>
-            <span className="text-[13px] sm:text-[14px] font-bold text-accent shrink-0">{b.kwota}</span>
+            <span className="text-[13px] sm:text-[14px] font-semibold text-text-1">{b.nazwa}</span>
+            <span className="text-[13px] sm:text-[14px] font-bold shrink-0" style={{ color: 'var(--color-pl-red)' }}>{b.kwota}</span>
           </div>
-          <p className="text-[12px] sm:text-[13px] text-text-3 mt-1">{b.opis}</p>
+          <p className="text-[11px] sm:text-[12px] text-text-3 mt-0.5">{b.opis}</p>
         </div>
       ))}
     </div>
@@ -477,120 +486,144 @@ export default function Home() {
   // LANDING
   if (phase === 'landing') {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center px-3 sm:px-4 py-6">
+      <div className="min-h-screen flex flex-col items-center px-3 sm:px-4 py-4 sm:py-6">
+
+        {/* ====== MAIN CARD ====== */}
         <div
           className="w-full max-w-lg rounded-2xl overflow-hidden bg-bg-1"
           style={{
-            border: '1px solid var(--color-border-light)',
-            boxShadow: '0 8px 40px rgba(0,0,0,0.08)',
+            border: '1px solid var(--color-pl-red-border)',
+            boxShadow: '0 4px 30px var(--color-pl-red-glow), 0 8px 40px rgba(0,0,0,0.06)',
+            animation: 'redPulse 4s ease-in-out infinite',
           }}
         >
-          <TopBar theme={theme} onToggle={toggleTheme}>
-            <span className="text-[11px] sm:text-[12px] text-text-3 tracking-[1px]">v1.0</span>
-          </TopBar>
+          <TopBar theme={theme} onToggle={toggleTheme} />
 
-          {/* Header content */}
+          {/* Polish flag top stripe accent */}
+          <div className="flex" style={{ height: '3px' }}>
+            <div style={{ flex: 1, background: '#ffffff' }} />
+            <div style={{ flex: 1, background: '#dc143c' }} />
+          </div>
+
+          {/* Hero */}
           <div className="px-4 sm:px-6 pt-5 sm:pt-6 pb-3 sm:pb-4">
-            <h1 className="text-[22px] sm:text-[26px] font-bold text-text-1 mb-1.5 leading-tight">
+            <h1 className="text-[24px] sm:text-[28px] font-extrabold text-text-1 mb-2 leading-tight">
               Sprawdź co Ci się należy
             </h1>
-            <p className="text-text-2 text-[14px] sm:text-[15px] mb-2">
-              Polska oferuje jeden z najszerszych systemów świadczeń w Europie. Zasiłki, ulgi podatkowe, darmowe badania, dotacje na mieszkanie, programy dla rodzin, seniorów, przedsiębiorców. W naszej bazie znajdziesz 99 świadczeń z 13 kategorii. Sprawdź w 2 minuty, które Ci przysługują, a nasz asystent AI pomoże Ci złożyć wniosek krok po kroku.
+
+            {/* Key stats - bold */}
+            <div className="flex flex-wrap gap-x-4 gap-y-1 mb-3">
+              <span className="text-[14px] sm:text-[15px] font-bold" style={{ color: 'var(--color-pl-red)' }}>99 świadczeń</span>
+              <span className="text-[14px] sm:text-[15px] font-bold text-text-3">|</span>
+              <span className="text-[14px] sm:text-[15px] font-bold" style={{ color: 'var(--color-pl-red)' }}>13 kategorii</span>
+              <span className="text-[14px] sm:text-[15px] font-bold text-text-3">|</span>
+              <span className="text-[14px] sm:text-[15px] font-bold" style={{ color: 'var(--color-pl-red)' }}>2 minuty</span>
+            </div>
+
+            <p className="text-text-2 text-[13px] sm:text-[14px] leading-relaxed mb-3">
+              Zasiłki, ulgi podatkowe, darmowe badania, dotacje na mieszkanie, programy dla rodzin, seniorów, przedsiębiorców.
+              Nasz <strong className="text-text-1">asystent AI</strong> sprawdzi które Ci przysługują i pomoże złożyć wniosek krok po kroku.
             </p>
 
-            {/* Trust badges */}
-            <div className="flex flex-wrap gap-2 mb-5 sm:mb-6">
-              <span className="text-[11px] sm:text-[12px] font-semibold px-2.5 py-1 rounded-lg" style={{ background: 'var(--color-green-bg)', color: 'var(--color-green)', border: '1px solid var(--color-green-border)' }}>
-                {'\u2713'} PESEL nie opuszcza Twojej przeglądarki
-              </span>
-              <span className="text-[11px] sm:text-[12px] font-semibold px-2.5 py-1 rounded-lg" style={{ background: 'var(--color-green-bg)', color: 'var(--color-green)', border: '1px solid var(--color-green-border)' }}>
-                {'\u2713'} Brak zapisu danych do zewnętrznej bazy
-              </span>
-              <span className="text-[11px] sm:text-[12px] font-semibold px-2.5 py-1 rounded-lg" style={{ background: 'var(--color-green-bg)', color: 'var(--color-green)', border: '1px solid var(--color-green-border)' }}>
-                {'\u2713'} Połączenie szyfrowane HTTPS
-              </span>
+            {/* Trust badges - compact, inline */}
+            <div className="space-y-1 mb-4">
+              <div className="flex items-start gap-2 text-[12px] sm:text-[13px] text-text-2">
+                <span className="font-bold shrink-0" style={{ color: 'var(--color-green)' }}>[v]</span>
+                <span>PESEL nie opuszcza Twojej przeglądarki</span>
+              </div>
+              <div className="flex items-start gap-2 text-[12px] sm:text-[13px] text-text-2">
+                <span className="font-bold shrink-0" style={{ color: 'var(--color-green)' }}>[v]</span>
+                <span>Brak zapisu Twoich danych do zewnętrznych baz danych</span>
+              </div>
+              <div className="flex items-start gap-2 text-[12px] sm:text-[13px] text-text-2">
+                <span className="font-bold shrink-0" style={{ color: 'var(--color-green)' }}>[v]</span>
+                <span>Połączenie szyfrowane HTTPS</span>
+              </div>
             </div>
           </div>
 
+          {/* Divider */}
+          <div className="mx-4 sm:mx-6 border-t border-border" />
+
           {/* Form section */}
-          <div className="px-4 sm:px-6 pb-4 sm:pb-5">
-            <div className="mb-4 p-3 rounded-xl" style={{ background: 'var(--color-bg-2)', border: '1px solid var(--color-border)' }}>
-              <a href="/swiadczenia" className="flex items-center gap-2 text-[13px] sm:text-[14px] font-semibold text-accent no-underline hover:underline">
-                <span>{'\u2192'}</span>
-                <span>Przeglądaj pełną bazę {99} świadczeń bez wypełniania formularza</span>
-              </a>
-            </div>
+          <div className="px-4 sm:px-6 pt-4 pb-4 sm:pb-5">
             <IntakeForm onSubmit={handleIntakeSubmit} isLoading={isLoading} />
 
-            {/* PESEL safety link */}
-            <button
-              onClick={() => setShowPeselInfo(true)}
-              className="mt-3 text-[12px] sm:text-[13px] text-accent hover:underline cursor-pointer bg-transparent border-none font-medium"
-            >
-              Czy podanie PESEL jest bezpieczne? {'\u2192'}
-            </button>
+            {/* Links row */}
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mt-3">
+              <button
+                onClick={() => setShowPeselInfo(true)}
+                className="text-[12px] sm:text-[13px] text-text-3 hover:text-text-1 cursor-pointer bg-transparent border-none font-medium transition-colors"
+              >
+
+                Bezpieczeństwo PESEL {'->'}
+              </button>
+              <a href="/swiadczenia" className="text-[12px] sm:text-[13px] font-medium no-underline hover:underline" style={{ color: 'var(--color-pl-red)' }}>
+                Przeglądaj bazę bez formularza {'->'}
+              </a>
+            </div>
           </div>
 
           {/* Disclaimer footer */}
-          <div className="px-4 sm:px-6 py-3 text-[11px] sm:text-[12px] text-text-3 leading-relaxed border-t border-border bg-bg-2">
-            To informacja orientacyjna, nie decyzja urzędowa.
-            Twój numer PESEL nie opuszcza Twojej przeglądarki. NIP jest używany jednorazowo
-            do sprawdzenia statusu firmy i nie jest przechowywany.
+          <div className="px-4 sm:px-6 py-2.5 text-[11px] text-text-3 leading-relaxed border-t border-border" style={{ background: 'var(--color-bg-2)' }}>
+            Informacja orientacyjna, nie decyzja urzędowa.
+            PESEL nie opuszcza przeglądarki. NIP używany jednorazowo i nie jest przechowywany.
           </div>
         </div>
 
-        {/* OKI Section (info only, no button) */}
+        {/* ====== OKI SECTION ====== */}
         <div
-          className="w-full max-w-lg mt-5 rounded-2xl overflow-hidden bg-bg-1 p-4 sm:p-5"
+          className="w-full max-w-lg mt-4 rounded-2xl overflow-hidden bg-bg-1 p-4 sm:p-5"
           style={{
             border: '1px solid var(--color-border-light)',
-            boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
+            boxShadow: '0 2px 16px rgba(0,0,0,0.04)',
           }}
         >
-          <div className="text-[11px] sm:text-[12px] font-bold tracking-wider text-accent uppercase mb-2">Czy wiesz?</div>
-          <h3 className="text-[16px] sm:text-[18px] font-bold text-text-1 mb-2">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-[11px] sm:text-[12px] font-bold tracking-wider uppercase" style={{ color: 'var(--color-pl-red)' }}>Czy wiesz?</span>
+            <span className="flex-1 border-t border-border" />
+          </div>
+          <h3 className="text-[15px] sm:text-[17px] font-bold text-text-1 mb-2">
             OKI: 100 000 PLN wolne od podatku
           </h3>
-          <p className="text-[13px] sm:text-[14px] text-text-2 leading-relaxed mb-3">
-            Ogólnopolskie Konto Inwestycyjne (OKI) to sposób na inwestowanie bez płacenia podatku Belki (19% od zysków kapitałowych). Możesz zainwestować do 100 000 PLN rocznie i nie zapłacisz ani złotówki podatku od zysków.
+          <p className="text-[12px] sm:text-[13px] text-text-2 leading-relaxed mb-2">
+            Ogólnopolskie Konto Inwestycyjne -- sposób na inwestowanie bez podatku Belki (19%).
+            Do <strong>100 000 PLN rocznie</strong> bez ani złotówki podatku od zysków.
           </p>
-          <div className="space-y-2">
-            <div className="flex gap-2 text-[13px] sm:text-[14px] text-text-2">
-              <span className="text-accent font-bold shrink-0">{'\u2192'}</span>
-              <span>Kup ETF-y na Bitcoin, złoto, S&P 500 lub inne aktywa</span>
+          <div className="space-y-1">
+            <div className="flex gap-2 text-[12px] sm:text-[13px] text-text-2">
+              <span className="font-bold shrink-0" style={{ color: 'var(--color-pl-red)' }}>{'>'}</span>
+              <span>ETF-y na Bitcoin, złoto, S&P 500 lub inne aktywa</span>
             </div>
-            <div className="flex gap-2 text-[13px] sm:text-[14px] text-text-2">
-              <span className="text-accent font-bold shrink-0">{'\u2192'}</span>
-              <span>Możesz otworzyć OKI na platformie XTB, bez prowizji od polskich i zagranicznych ETF-ów</span>
+            <div className="flex gap-2 text-[12px] sm:text-[13px] text-text-2">
+              <span className="font-bold shrink-0" style={{ color: 'var(--color-pl-red)' }}>{'>'}</span>
+              <span>XTB: bez prowizji od polskich i zagranicznych ETF-ów</span>
             </div>
-            <div className="flex gap-2 text-[13px] sm:text-[14px] text-text-2">
-              <span className="text-accent font-bold shrink-0">{'\u2192'}</span>
-              <span>Zyski z inwestycji są całkowicie zwolnione z podatku</span>
+            <div className="flex gap-2 text-[12px] sm:text-[13px] text-text-2">
+              <span className="font-bold shrink-0" style={{ color: 'var(--color-pl-red)' }}>{'>'}</span>
+              <span>Zyski całkowicie zwolnione z podatku</span>
             </div>
           </div>
         </div>
 
-        {/* Rotating benefit examples */}
+        {/* ====== EXAMPLES ====== */}
         <div
-          className="w-full max-w-lg mt-5 rounded-2xl overflow-hidden bg-bg-1 p-4 sm:p-5"
+          className="w-full max-w-lg mt-4 rounded-2xl overflow-hidden bg-bg-1 p-4 sm:p-5"
           style={{
             border: '1px solid var(--color-border-light)',
-            boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
+            boxShadow: '0 2px 16px rgba(0,0,0,0.04)',
           }}
         >
           <RotatingExamples />
         </div>
 
-        <div className="mt-4 text-[12px] sm:text-[13px] text-text-3 text-center space-y-1">
-          <div>Baza: 99 świadczeń | 15 kategorii</div>
-          <div>
-            <a href="/regulamin" className="text-accent hover:underline">Regulamin</a>
-            <span className="mx-1.5">|</span>
-            <a href="/polityka-prywatnosci" className="text-accent hover:underline">Polityka prywatności</a>
-          </div>
+        {/* Footer links */}
+        <div className="mt-3 text-[11px] sm:text-[12px] text-text-3 text-center">
+          <a href="/regulamin" className="text-text-3 hover:text-text-1 hover:underline">Regulamin</a>
+          <span className="mx-2">|</span>
+          <a href="/polityka-prywatnosci" className="text-text-3 hover:text-text-1 hover:underline">Polityka prywatności</a>
         </div>
 
-        {/* PESEL Info Modal */}
         <PeselInfoModal isOpen={showPeselInfo} onClose={() => setShowPeselInfo(false)} />
       </div>
     );
@@ -609,7 +642,7 @@ export default function Home() {
           }}
         >
           <TopBar theme={theme} onToggle={toggleTheme}>
-            <span className="text-[13px] sm:text-[14px] font-bold tracking-[1px] text-accent">
+            <span className="text-[13px] sm:text-[14px] font-bold tracking-[1px]" style={{ color: 'var(--color-pl-red)' }}>
               {questionIndex + 1}/{QUESTIONS.length}
             </span>
           </TopBar>
@@ -620,7 +653,7 @@ export default function Home() {
               className="h-full transition-all duration-300"
               style={{
                 width: `${((questionIndex + 1) / QUESTIONS.length) * 100}%`,
-                background: 'linear-gradient(90deg, var(--color-accent), var(--color-accent-2))',
+                background: 'linear-gradient(90deg, var(--color-pl-red), var(--color-pl-red-light))',
               }}
             />
           </div>
@@ -687,7 +720,7 @@ export default function Home() {
               className="w-12 h-12 sm:w-14 sm:h-14 rounded-full mb-6 sm:mb-8"
               style={{
                 border: '3px solid var(--color-bg-3)',
-                borderTopColor: 'var(--color-accent)',
+                borderTopColor: 'var(--color-pl-red)',
                 animation: 'spin 0.8s linear infinite',
               }}
             />
