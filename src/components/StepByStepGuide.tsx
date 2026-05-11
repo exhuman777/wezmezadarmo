@@ -11,30 +11,38 @@ export function StepByStepGuide({ benefit, onClose }: StepByStepGuideProps) {
   const w = benefit.wniosek;
 
   return (
-    <div className="w-full rounded-xl p-4 sm:p-5 mb-4 bg-bg-1 border border-border" style={{
-      boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+    <div style={{
+      width: '100%',
+      borderRadius: 'var(--radius-xl)',
+      padding: '24px 28px',
+      marginBottom: 16,
+      background: 'var(--color-surface)',
+      border: '1px solid var(--color-border)',
+      boxShadow: 'var(--shadow-2)',
     }}>
       {/* Header */}
-      <div className="flex justify-between items-start mb-4">
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 24 }}>
         <div>
-          <div className="text-[12px] font-semibold tracking-wide mb-1 uppercase text-accent">
+          <div className="label-eyebrow" style={{ color: 'var(--color-accent)', marginBottom: 8 }}>
             Jak złożyć wniosek
           </div>
-          <h3 className="text-[16px] sm:text-[18px] font-semibold text-text-1">{benefit.nazwa}</h3>
+          <h3 style={{ fontSize: 20, fontWeight: 500, letterSpacing: '-0.02em', color: 'var(--color-text-1)' }}>{benefit.nazwa}</h3>
         </div>
         <button
           onClick={onClose}
-          className="text-[12px] font-semibold text-text-3 hover:text-text-1 px-2.5 py-1.5 cursor-pointer rounded-lg hover:bg-bg-2 transition-colors border border-border"
+          className="btn btn-outline"
+          style={{ height: 36, padding: '0 14px', fontSize: 12 }}
         >
-          &larr; Wróć
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+          Wróć
         </button>
       </div>
 
       <Section title="Co potrzebujesz">
-        <ul className="space-y-1.5">
+        <ul style={{ padding: 0, margin: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 6 }}>
           {w.dokumenty.map((doc, i) => (
-            <li key={i} className="text-[14px] sm:text-[15px] text-text-2 flex gap-2">
-              <span className="font-semibold shrink-0 text-accent">{i + 1}.</span>
+            <li key={i} style={{ display: 'flex', gap: 10, fontSize: 14, color: 'var(--color-text-2)' }}>
+              <span className="mono" style={{ fontWeight: 500, color: 'var(--color-accent)', flexShrink: 0, fontSize: 12, letterSpacing: '0.04em' }}>{String(i + 1).padStart(2, '0')}</span>
               {doc}
             </li>
           ))}
@@ -42,48 +50,55 @@ export function StepByStepGuide({ benefit, onClose }: StepByStepGuideProps) {
       </Section>
 
       <Section title="Gdzie złożyć">
-        <div className="flex flex-wrap gap-1.5">
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
           {w.kanal.map((k) => (
-            <span
-              key={k}
-              className="text-[12px] font-semibold px-2 py-0.5 rounded-md"
-              style={{ background: 'var(--color-amber-bg)', color: 'var(--color-accent)' }}
-            >
+            <span key={k} className="mono" style={{
+              display: 'inline-flex', alignItems: 'center',
+              fontSize: 11, fontWeight: 500, padding: '5px 10px',
+              borderRadius: 999,
+              background: 'var(--color-accent-soft)',
+              color: 'var(--color-accent)',
+              letterSpacing: '0.04em',
+            }}>
               {k.replace(/_/g, ' ')}
             </span>
           ))}
         </div>
         {w.formularz && (
-          <p className="text-[12px] text-text-3 mt-1.5">Formularz: {w.formularz}</p>
+          <p style={{ fontSize: 12, color: 'var(--color-text-3)', marginTop: 8 }}>Formularz: {w.formularz}</p>
         )}
       </Section>
 
       <Section title="Krok po kroku">
-        <ol className="space-y-2.5">
+        <ol style={{ padding: 0, margin: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10 }}>
           {w.kroki.map((krok, i) => (
-            <li key={i} className="flex gap-2.5 text-[14px] sm:text-[15px] text-text-2">
-              <span
-                className="shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-[12px] font-semibold"
-                style={{ background: 'var(--color-amber-bg)', color: 'var(--color-accent)' }}
-              >
+            <li key={i} style={{ display: 'flex', gap: 12, fontSize: 14, color: 'var(--color-text-2)' }}>
+              <span style={{
+                flexShrink: 0, width: 28, height: 28,
+                borderRadius: '50%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: 12, fontWeight: 500,
+                background: 'var(--color-text-1)',
+                color: 'var(--color-bg-0)',
+              }}>
                 {i + 1}
               </span>
-              <span className="pt-0.5">{krok}</span>
+              <span style={{ paddingTop: 4 }}>{krok}</span>
             </li>
           ))}
         </ol>
       </Section>
 
       <Section title="Termin realizacji">
-        <p className="text-[14px] sm:text-[15px] text-text-2">{w.terminRealizacji}</p>
+        <p style={{ fontSize: 14, color: 'var(--color-text-2)' }}>{w.terminRealizacji}</p>
       </Section>
 
       {w.pulapki.length > 0 && (
         <Section title="Na co uważać">
-          <ul className="space-y-1.5">
+          <ul style={{ padding: 0, margin: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 6 }}>
             {w.pulapki.map((p, i) => (
-              <li key={i} className="text-[14px] sm:text-[15px] text-red flex gap-2">
-                <span className="shrink-0 font-semibold">!</span>
+              <li key={i} style={{ display: 'flex', gap: 8, fontSize: 14, color: 'var(--color-red)' }}>
+                <span style={{ fontWeight: 600, flexShrink: 0 }}>!</span>
                 {p}
               </li>
             ))}
@@ -92,18 +107,27 @@ export function StepByStepGuide({ benefit, onClose }: StepByStepGuideProps) {
       )}
 
       <Section title="Co dalej">
-        <p className="text-[14px] sm:text-[15px] text-text-2">{w.odwolanie}</p>
+        <p style={{ fontSize: 14, color: 'var(--color-text-2)' }}>{w.odwolanie}</p>
       </Section>
 
-      <div className="mt-3 pt-2.5 text-[12px] text-text-3 border-t border-border space-y-1">
+      <div style={{
+        marginTop: 16, paddingTop: 16,
+        borderTop: '1px solid var(--color-border)',
+        display: 'flex', flexDirection: 'column', gap: 4,
+        fontSize: 12, color: 'var(--color-text-3)',
+      }}>
         <div>
           Źródło:{' '}
-          <a href={benefit.zrodloUrl} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
-            {benefit.zrodloNazwa} {'->'}
+          <a href={benefit.zrodloUrl} target="_blank" rel="noopener noreferrer" className="link-u" style={{ color: 'var(--color-accent)' }}>
+            {benefit.zrodloNazwa}
           </a>
         </div>
-        <div>Dane zweryfikowane: {benefit.dataWeryfikacji} | Ważne do: {benefit.dataWaznosci}</div>
-        <div>Informacje pochodzą z ręcznie zweryfikowanej bazy danych, nie z AI. Zawsze sprawdź aktualność na stronie źródłowej.</div>
+        <div className="mono" style={{ fontSize: 11, letterSpacing: '0.04em' }}>
+          Dane zweryfikowane: {benefit.dataWeryfikacji} | Ważne do: {benefit.dataWaznosci}
+        </div>
+        <div style={{ color: 'var(--color-text-3)', marginTop: 4 }}>
+          Informacje pochodzą z ręcznie zweryfikowanej bazy danych, nie z AI. Zawsze sprawdź aktualność na stronie źródłowej.
+        </div>
       </div>
     </div>
   );
@@ -111,8 +135,8 @@ export function StepByStepGuide({ benefit, onClose }: StepByStepGuideProps) {
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="mb-3.5">
-      <div className="text-[12px] sm:text-[13px] font-semibold tracking-wide mb-1.5 pb-1 text-accent border-b border-border" style={{ borderBottomStyle: 'dashed' }}>
+    <div style={{ marginBottom: 20 }}>
+      <div className="label-eyebrow" style={{ marginBottom: 10, paddingBottom: 8, borderBottom: '1px solid var(--color-border)' }}>
         {title}
       </div>
       {children}

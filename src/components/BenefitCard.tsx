@@ -13,18 +13,21 @@ const STATUS_CONFIG = {
     bgVar: 'var(--color-green-bg)',
     label: 'Przysługuje',
     colorVar: 'var(--color-green)',
+    dot: 'var(--color-green)',
   },
   MOZLIWE: {
     border: 'var(--color-accent)',
-    bgVar: 'var(--color-amber-bg)',
+    bgVar: 'var(--color-accent-soft)',
     label: 'Do weryfikacji',
     colorVar: 'var(--color-accent)',
+    dot: 'var(--color-accent)',
   },
   NIE_PRZYSLUGUJE: {
     border: 'var(--color-text-3)',
     bgVar: 'transparent',
     label: 'Nie przysługuje',
     colorVar: 'var(--color-text-3)',
+    dot: 'var(--color-text-3)',
   },
 } as const;
 
@@ -40,48 +43,60 @@ export function BenefitCard({ result, onGuide }: BenefitCardProps) {
 
   return (
     <div
-      className="w-full rounded-lg mb-2 cursor-pointer transition-all active:scale-[0.99] hover:shadow-sm overflow-hidden"
+      className="hover-lift"
+      onClick={() => onGuide(b.id)}
       style={{
-        background: 'var(--color-bg-1)',
+        width: '100%',
+        marginBottom: 8,
+        cursor: 'pointer',
+        overflow: 'hidden',
+        background: 'var(--color-surface)',
         border: '1px solid var(--color-border)',
         borderLeft: `3px solid ${s.border}`,
+        borderRadius: 'var(--radius-lg)',
+        transition: 'all 320ms cubic-bezier(.2,.7,.1,1)',
       }}
-      onClick={() => onGuide(b.id)}
     >
-      <div className="p-3 sm:p-3.5">
-        {/* Top row: name + status badge */}
-        <div className="flex justify-between items-start gap-2 mb-1.5">
-          <h3 className="text-[14px] sm:text-[15px] font-semibold text-text-1 leading-snug flex-1 min-w-0">
+      <div style={{ padding: '16px 18px' }}>
+        {/* Top row */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12, marginBottom: 8 }}>
+          <h3 style={{ fontSize: 15, fontWeight: 500, color: 'var(--color-text-1)', lineHeight: 1.3, flex: 1, letterSpacing: '-0.01em' }}>
             {b.nazwa}
           </h3>
-          <span
-            className="text-[10px] sm:text-[11px] font-bold px-2 py-0.5 rounded shrink-0"
-            style={{ background: s.bgVar, color: s.colorVar }}
-          >
+          <span style={{
+            display: 'inline-flex', alignItems: 'center', gap: 6,
+            fontSize: 11, fontWeight: 500, padding: '4px 10px',
+            borderRadius: 999,
+            background: s.bgVar, color: s.colorVar,
+            fontFamily: 'var(--font-mono)',
+            letterSpacing: '0.04em',
+          }}>
             {s.label}
           </span>
         </div>
 
         {/* Amount */}
-        <div className="text-[17px] sm:text-[19px] font-bold text-text-1 mb-1">
-          {b.kwota}
-          <span className="text-[11px] sm:text-[12px] font-normal text-text-3 ml-1.5">
+        <div style={{ marginBottom: 8 }}>
+          <span className="mono" style={{ fontSize: 20, fontWeight: 500, letterSpacing: '-0.02em', color: 'var(--color-text-1)' }}>
+            {b.kwota}
+          </span>
+          <span style={{ fontSize: 12, color: 'var(--color-text-3)', marginLeft: 8 }}>
             {b.czestotliwosc}
           </span>
         </div>
 
-        {/* Confidence + matching method */}
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-1.5 text-[10px] sm:text-[11px] text-text-3">
-          <span>{CONFIDENCE_LABELS[result.confidence] ?? result.confidence}</span>
+        {/* Confidence */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 12, marginBottom: 10, fontSize: 11, color: 'var(--color-text-3)' }}>
+          <span className="mono" style={{ letterSpacing: '0.04em' }}>{CONFIDENCE_LABELS[result.confidence] ?? result.confidence}</span>
           <span>Dopasowanie: algorytm + weryfikacja AI</span>
         </div>
 
         {/* Matched criteria */}
         {result.matchedCriteria.length > 0 && (
-          <div className="text-[11px] sm:text-[12px] text-text-3 leading-relaxed mb-1.5">
+          <div style={{ marginBottom: 10 }}>
             {result.matchedCriteria.map((c, i) => (
-              <div key={i} className="flex gap-1.5">
-                <span className="shrink-0 font-bold" style={{ color: 'var(--color-green)' }}>[v]</span>
+              <div key={i} style={{ display: 'flex', gap: 8, fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.5 }}>
+                <span style={{ color: 'var(--color-green)', fontWeight: 600, flexShrink: 0 }}>[v]</span>
                 <span>{c}</span>
               </div>
             ))}
@@ -90,10 +105,10 @@ export function BenefitCard({ result, onGuide }: BenefitCardProps) {
 
         {/* Warnings */}
         {result.warnings.length > 0 && (
-          <div className="text-[11px] sm:text-[12px] text-red leading-relaxed mb-1.5">
+          <div style={{ marginBottom: 10 }}>
             {result.warnings.map((w, i) => (
-              <div key={i} className="flex gap-1.5">
-                <span className="shrink-0 font-bold">!</span>
+              <div key={i} style={{ display: 'flex', gap: 8, fontSize: 12, color: 'var(--color-red)', lineHeight: 1.5 }}>
+                <span style={{ fontWeight: 600, flexShrink: 0 }}>!</span>
                 <span>{w}</span>
               </div>
             ))}
@@ -101,33 +116,41 @@ export function BenefitCard({ result, onGuide }: BenefitCardProps) {
         )}
 
         {/* Footer */}
-        <div className="flex justify-between items-center pt-2 border-t border-border mt-1.5">
-          <div className="flex flex-col gap-0.5 min-w-0 flex-1 mr-2">
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: 12, borderTop: '1px solid var(--color-border)', marginTop: 4 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 2, minWidth: 0, flex: 1, marginRight: 12 }}>
             <a
               href={b.zrodloUrl}
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="text-[10px] sm:text-[11px] text-accent truncate hover:underline"
+              className="link-u"
+              style={{ fontSize: 11, color: 'var(--color-accent)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
             >
-              Źródło: {b.zrodloNazwa} {'->'}
+              Źródło: {b.zrodloNazwa}
             </a>
-            <span className="text-[9px] sm:text-[10px] text-text-3">
-              Dane zweryfikowane: {b.dataWeryfikacji}
+            <span className="mono" style={{ fontSize: 10, color: 'var(--color-text-3)', letterSpacing: '0.04em' }}>
+              {b.dataWeryfikacji}
             </span>
           </div>
           <button
-            onClick={(e) => {
-              e.stopPropagation();
-              onGuide(b.id);
-            }}
-            className="text-[12px] sm:text-[13px] font-semibold px-2.5 py-1 rounded-lg transition-colors cursor-pointer shrink-0"
+            onClick={(e) => { e.stopPropagation(); onGuide(b.id); }}
             style={{
-              background: 'linear-gradient(135deg, var(--color-accent), var(--color-accent-2))',
-              color: '#fff',
+              padding: '8px 16px',
+              borderRadius: 999,
+              border: 'none',
+              background: 'var(--color-text-1)',
+              color: 'var(--color-bg-0)',
+              fontSize: 12, fontWeight: 500,
+              cursor: 'pointer',
+              transition: 'background 200ms',
+              flexShrink: 0,
+              display: 'inline-flex', alignItems: 'center', gap: 6,
             }}
+            onMouseEnter={e => e.currentTarget.style.background = 'var(--color-accent)'}
+            onMouseLeave={e => e.currentTarget.style.background = 'var(--color-text-1)'}
           >
-            Jak złożyć &rarr;
+            Jak złożyć
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </button>
         </div>
       </div>

@@ -11,21 +11,21 @@ function renderMarkdown(text: string): React.ReactNode[] {
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
 
-    // Empty line = paragraph break
     if (line.trim() === '') {
-      elements.push(<div key={i} className="h-2" />);
+      elements.push(<div key={i} style={{ height: 8 }} />);
       continue;
     }
 
-    // Process inline formatting
     const formatted = formatInline(line);
 
     // Arrow item with >>> prefix
     if (line.trimStart().startsWith('>>> ')) {
       elements.push(
-        <div key={i} className="flex gap-2 py-1 pl-1">
-          <span className="text-accent shrink-0 font-bold text-[14px]">{'\u2192'}</span>
-          <span className="font-medium">{formatInline(line.trimStart().slice(4))}</span>
+        <div key={i} style={{ display: 'flex', gap: 10, padding: '4px 0 4px 4px' }}>
+          <span style={{ color: 'var(--color-accent)', flexShrink: 0, fontWeight: 500 }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+          <span style={{ fontWeight: 500 }}>{formatInline(line.trimStart().slice(4))}</span>
         </div>
       );
       continue;
@@ -34,8 +34,8 @@ function renderMarkdown(text: string): React.ReactNode[] {
     // List item with - prefix
     if (line.trimStart().startsWith('- ')) {
       elements.push(
-        <div key={i} className="flex gap-2 py-0.5 pl-1">
-          <span className="text-accent shrink-0 font-medium">{'\u2022'}</span>
+        <div key={i} style={{ display: 'flex', gap: 8, padding: '2px 0 2px 4px' }}>
+          <span style={{ color: 'var(--color-accent)', flexShrink: 0 }}>--</span>
           <span>{formatInline(line.trimStart().slice(2))}</span>
         </div>
       );
@@ -46,31 +46,27 @@ function renderMarkdown(text: string): React.ReactNode[] {
     const numberedMatch = line.trimStart().match(/^(\d+)\.\s+(.+)/);
     if (numberedMatch) {
       elements.push(
-        <div key={i} className="flex gap-2 py-0.5 pl-1">
-          <span className="text-accent shrink-0 font-semibold min-w-[1.2em]">{numberedMatch[1]}.</span>
+        <div key={i} style={{ display: 'flex', gap: 8, padding: '2px 0 2px 4px' }}>
+          <span className="mono" style={{ color: 'var(--color-accent)', flexShrink: 0, fontWeight: 500, minWidth: '1.2em', fontSize: 13 }}>{numberedMatch[1]}.</span>
           <span>{formatInline(numberedMatch[2])}</span>
         </div>
       );
       continue;
     }
 
-    // Regular line
-    elements.push(<div key={i} className="py-0.5">{formatted}</div>);
+    elements.push(<div key={i} style={{ padding: '2px 0' }}>{formatted}</div>);
   }
 
   return elements;
 }
 
 function formatInline(text: string): React.ReactNode {
-  // Process **bold** and URLs
   const parts: React.ReactNode[] = [];
   let remaining = text;
   let key = 0;
 
   while (remaining.length > 0) {
-    // Bold
     const boldMatch = remaining.match(/\*\*(.+?)\*\*/);
-    // URL
     const urlMatch = remaining.match(/(https?:\/\/[^\s,)]+)/);
 
     if (!boldMatch && !urlMatch) {
@@ -84,7 +80,7 @@ function formatInline(text: string): React.ReactNode {
     if (boldIndex <= urlIndex && boldMatch) {
       if (boldIndex > 0) parts.push(remaining.slice(0, boldIndex));
       parts.push(
-        <strong key={key++} className="font-semibold text-text-1">
+        <strong key={key++} style={{ fontWeight: 600, color: 'var(--color-text-1)' }}>
           {boldMatch[1]}
         </strong>
       );
@@ -97,7 +93,8 @@ function formatInline(text: string): React.ReactNode {
           href={urlMatch[1]}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-accent underline underline-offset-2 break-all"
+          className="link-u"
+          style={{ color: 'var(--color-accent)', wordBreak: 'break-all' }}
         >
           {urlMatch[1].replace(/^https?:\/\/(www\.)?/, '').split('/').slice(0, 2).join('/')}
         </a>
@@ -113,31 +110,37 @@ export function MessageBubble({ role, content, isStreaming }: MessageBubbleProps
   const isUser = role === 'user';
 
   return (
-    <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-3`}>
-      <div
-        className={`max-w-[92%] sm:max-w-[85%] px-4 py-3 text-[15px] leading-[1.6] ${
-          isUser
-            ? 'bg-bg-2 border border-border rounded-2xl rounded-br-md text-text-1'
-            : 'text-text-2 rounded-2xl rounded-bl-md'
-        }`}
-        style={!isUser ? {
-          background: 'var(--color-bg-1)',
-          border: '1px solid var(--color-border)',
-          boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
-        } : undefined}
-      >
+    <div style={{ display: 'flex', justifyContent: isUser ? 'flex-end' : 'flex-start', marginBottom: 12 }}>
+      <div style={{
+        maxWidth: '85%',
+        padding: '14px 18px',
+        fontSize: 15,
+        lineHeight: 1.6,
+        borderRadius: isUser ? '18px 18px 6px 18px' : '18px 18px 18px 6px',
+        background: isUser ? 'var(--color-surface-2)' : 'var(--color-surface)',
+        border: `1px solid var(--color-border)`,
+        color: isUser ? 'var(--color-text-1)' : 'var(--color-text-2)',
+        boxShadow: isUser ? 'none' : 'var(--shadow-1)',
+      }}>
         {/* AI label */}
         {!isUser && (
-          <div className="flex items-center gap-1.5 mb-1.5 text-[10px] sm:text-[11px] text-text-3">
-            <span className="font-bold tracking-wider uppercase" style={{ color: 'var(--color-accent)' }}>AI</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 8, fontSize: 11, color: 'var(--color-text-3)' }}>
+            <span className="mono" style={{ fontWeight: 600, letterSpacing: '0.08em', color: 'var(--color-accent)' }}>AI</span>
             <span>Odpowiedź wygenerowana przez model AI</span>
           </div>
         )}
-        <div className="break-words">
+        <div style={{ overflowWrap: 'break-word' }}>
           {isUser ? content : renderMarkdown(content)}
         </div>
         {isStreaming && (
-          <span className="inline-block w-1.5 h-4 bg-accent rounded-sm animate-pulse ml-0.5 align-middle" />
+          <span style={{
+            display: 'inline-block', width: 6, height: 16,
+            background: 'var(--color-accent)',
+            borderRadius: 2,
+            marginLeft: 2,
+            verticalAlign: 'middle',
+            animation: 'fade 800ms ease-in-out infinite alternate',
+          }} />
         )}
       </div>
     </div>

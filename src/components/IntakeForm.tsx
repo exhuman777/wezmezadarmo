@@ -8,6 +8,20 @@ interface IntakeFormProps {
   isLoading: boolean;
 }
 
+const fieldStyle: React.CSSProperties = {
+  width: '100%',
+  height: 50,
+  padding: '0 16px',
+  background: 'var(--color-surface)',
+  border: '1px solid var(--color-border)',
+  borderRadius: 12,
+  fontSize: 15,
+  letterSpacing: '0.02em',
+  color: 'var(--color-text-1)',
+  fontFamily: 'var(--font-mono)',
+  transition: 'border-color 200ms, box-shadow 200ms',
+};
+
 export function IntakeForm({ onSubmit, isLoading }: IntakeFormProps) {
   const [mode, setMode] = useState<'pesel' | 'manual'>('pesel');
   const [pesel, setPesel] = useState('');
@@ -15,7 +29,6 @@ export function IntakeForm({ onSubmit, isLoading }: IntakeFormProps) {
   const [peselError, setPeselError] = useState('');
   const [decoded, setDecoded] = useState<{ wiek: number; plec: 'K' | 'M' } | null>(null);
 
-  // Manual mode state
   const [manualAge, setManualAge] = useState('');
   const [manualPlec, setManualPlec] = useState<'K' | 'M' | ''>('');
 
@@ -67,159 +80,158 @@ export function IntakeForm({ onSubmit, isLoading }: IntakeFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-md space-y-4 sm:space-y-5">
-      {/* Mode toggle */}
-      <div className="flex gap-2">
-        <button
-          type="button"
-          onClick={() => setMode('pesel')}
-          className="flex-1 py-2 rounded-lg text-[13px] sm:text-[14px] font-semibold border cursor-pointer transition-all"
-          style={mode === 'pesel' ? {
-            background: 'linear-gradient(135deg, var(--color-accent), var(--color-accent-2))',
-            color: '#fff',
-            borderColor: 'transparent',
-          } : {
-            background: 'var(--color-bg-2)',
-            color: 'var(--color-text-2)',
-            borderColor: 'var(--color-border)',
-          }}
-        >
-          Mam PESEL
-        </button>
-        <button
-          type="button"
-          onClick={() => setMode('manual')}
-          className="flex-1 py-2 rounded-lg text-[13px] sm:text-[14px] font-semibold border cursor-pointer transition-all"
-          style={mode === 'manual' ? {
-            background: 'linear-gradient(135deg, var(--color-accent), var(--color-accent-2))',
-            color: '#fff',
-            borderColor: 'transparent',
-          } : {
-            background: 'var(--color-bg-2)',
-            color: 'var(--color-text-2)',
-            borderColor: 'var(--color-border)',
-          }}
-        >
-          Podam wiek i płeć
-        </button>
+    <form onSubmit={handleSubmit}>
+      {/* Segmented control */}
+      <div style={{
+        display: 'grid', gridTemplateColumns: '1fr 1fr',
+        background: 'var(--color-surface-2)',
+        borderRadius: 999,
+        padding: 4,
+        marginBottom: 22,
+        position: 'relative',
+      }}>
+        <div style={{
+          position: 'absolute',
+          top: 4, bottom: 4,
+          left: mode === 'pesel' ? 4 : 'calc(50%)',
+          width: 'calc(50% - 4px)',
+          background: 'var(--color-text-1)',
+          borderRadius: 999,
+          transition: 'left 320ms cubic-bezier(.2,.7,.1,1)',
+          boxShadow: '0 1px 3px rgba(0,0,0,0.08)',
+        }} />
+        {[
+          { id: 'pesel' as const, label: 'Mam PESEL' },
+          { id: 'manual' as const, label: 'Wiek i płeć' },
+        ].map(({ id, label }) => (
+          <button key={id} type="button" onClick={() => setMode(id)} style={{
+            position: 'relative', zIndex: 1,
+            background: 'none', border: 'none',
+            padding: '10px 12px',
+            fontWeight: 500, fontSize: 13,
+            color: mode === id ? 'var(--color-bg-0)' : 'var(--color-text-2)',
+            transition: 'color 280ms',
+            cursor: 'pointer',
+          }}>{label}</button>
+        ))}
       </div>
 
       {mode === 'pesel' ? (
-        /* PESEL input */
-        <div>
-          <label className="block text-[13px] sm:text-[14px] font-semibold text-text-2 mb-1.5">
-            PESEL
-          </label>
-          <input
-            type="text"
-            inputMode="numeric"
-            value={pesel}
-            onChange={(e) => handlePeselChange(e.target.value)}
-            placeholder="00000000000"
-            className="w-full px-3.5 py-3 bg-bg-2 border border-border rounded-xl text-text-1 text-[16px] outline-none transition-colors focus:border-accent placeholder:text-text-3"
-            disabled={isLoading}
-          />
+        <>
+          <Field label="PESEL" hint="11 cyfr -- dekodowane lokalnie">
+            <input
+              type="text"
+              inputMode="numeric"
+              value={pesel}
+              onChange={(e) => handlePeselChange(e.target.value)}
+              placeholder="00000000000"
+              style={fieldStyle}
+              disabled={isLoading}
+              onFocus={e => e.currentTarget.style.borderColor = 'var(--color-accent)'}
+              onBlur={e => e.currentTarget.style.borderColor = 'var(--color-border)'}
+            />
+          </Field>
           {peselError && (
-            <p className="mt-1.5 text-[13px] text-red">{peselError}</p>
+            <p style={{ fontSize: 13, color: 'var(--color-red)', marginTop: -8, marginBottom: 14 }}>{peselError}</p>
           )}
           {decoded && (
-            <div className="mt-2 flex gap-3 text-[14px] font-medium">
-              <span className="text-green font-semibold">Wiek: {decoded.wiek} lat</span>
-              <span className="text-accent font-semibold">{decoded.plec === 'K' ? 'Kobieta' : 'Mężczyzna'}</span>
+            <div style={{ display: 'flex', gap: 12, marginTop: -8, marginBottom: 14, fontSize: 14, fontWeight: 500 }}>
+              <span style={{ color: 'var(--color-green)' }}>Wiek: {decoded.wiek} lat</span>
+              <span style={{ color: 'var(--color-accent)' }}>{decoded.plec === 'K' ? 'Kobieta' : 'Mężczyzna'}</span>
             </div>
           )}
-        </div>
+          <Field label="NIP" hint="Opcjonalnie -- dla świadczeń firmowych">
+            <input
+              type="text"
+              inputMode="numeric"
+              value={nip}
+              onChange={(e) => setNip(e.target.value.replace(/\D/g, '').slice(0, 10))}
+              placeholder="0000000000"
+              style={fieldStyle}
+              disabled={isLoading}
+              onFocus={e => e.currentTarget.style.borderColor = 'var(--color-accent)'}
+              onBlur={e => e.currentTarget.style.borderColor = 'var(--color-border)'}
+            />
+          </Field>
+        </>
       ) : (
-        /* Manual age + gender */
-        <div className="space-y-3">
-          <div>
-            <label className="block text-[13px] sm:text-[14px] font-semibold text-text-2 mb-1.5">
-              Wiek (liczba lat)
-            </label>
+        <>
+          <Field label="Wiek">
             <input
               type="text"
               inputMode="numeric"
               value={manualAge}
               onChange={(e) => setManualAge(e.target.value.replace(/\D/g, '').slice(0, 3))}
-              placeholder="np. 35"
-              className="w-full px-3.5 py-3 bg-bg-2 border border-border rounded-xl text-text-1 text-[16px] outline-none transition-colors focus:border-accent placeholder:text-text-3"
+              placeholder="np. 34"
+              style={fieldStyle}
               disabled={isLoading}
+              onFocus={e => e.currentTarget.style.borderColor = 'var(--color-accent)'}
+              onBlur={e => e.currentTarget.style.borderColor = 'var(--color-border)'}
             />
-          </div>
-          <div>
-            <label className="block text-[13px] sm:text-[14px] font-semibold text-text-2 mb-1.5">
-              Płeć
-            </label>
-            <div className="flex gap-2">
-              <button
-                type="button"
-                onClick={() => setManualPlec('K')}
-                disabled={isLoading}
-                className="flex-1 py-3 rounded-xl text-[15px] font-semibold border cursor-pointer transition-all"
-                style={manualPlec === 'K' ? {
-                  background: 'var(--color-amber-bg)',
-                  borderColor: 'var(--color-accent)',
-                  color: 'var(--color-text-1)',
-                } : {
-                  background: 'var(--color-bg-2)',
-                  borderColor: 'var(--color-border)',
-                  color: 'var(--color-text-2)',
-                }}
-              >
-                Kobieta
-              </button>
-              <button
-                type="button"
-                onClick={() => setManualPlec('M')}
-                disabled={isLoading}
-                className="flex-1 py-3 rounded-xl text-[15px] font-semibold border cursor-pointer transition-all"
-                style={manualPlec === 'M' ? {
-                  background: 'var(--color-amber-bg)',
-                  borderColor: 'var(--color-accent)',
-                  color: 'var(--color-text-1)',
-                } : {
-                  background: 'var(--color-bg-2)',
-                  borderColor: 'var(--color-border)',
-                  color: 'var(--color-text-2)',
-                }}
-              >
-                Mężczyzna
-              </button>
+          </Field>
+          <Field label="Płeć">
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+              {[
+                { id: 'K' as const, label: 'Kobieta' },
+                { id: 'M' as const, label: 'Mężczyzna' },
+              ].map(({ id, label }) => (
+                <button key={id} type="button" onClick={() => setManualPlec(id)}
+                  disabled={isLoading}
+                  style={{
+                    ...fieldStyle,
+                    padding: '14px 12px', height: 50,
+                    textAlign: 'left' as const,
+                    background: manualPlec === id ? 'var(--color-text-1)' : 'var(--color-surface)',
+                    color: manualPlec === id ? 'var(--color-bg-0)' : 'var(--color-text-1)',
+                    borderColor: manualPlec === id ? 'var(--color-text-1)' : 'var(--color-border)',
+                    cursor: 'pointer',
+                    display: 'flex', alignItems: 'center',
+                    fontFamily: 'var(--font-sans)',
+                  }}>{label}</button>
+              ))}
             </div>
-          </div>
-        </div>
+          </Field>
+        </>
       )}
 
-      {/* NIP */}
-      <div>
-        <label className="block text-[13px] sm:text-[14px] font-semibold text-text-2 mb-1.5">
-          NIP <span className="font-normal text-text-3 text-[12px]">(opcjonalnie, dla świadczeń firmowych)</span>
-        </label>
-        <input
-          type="text"
-          inputMode="numeric"
-          value={nip}
-          onChange={(e) => setNip(e.target.value.replace(/\D/g, '').slice(0, 10))}
-          placeholder="0000000000"
-          className="w-full px-3.5 py-3 bg-bg-2 border border-border rounded-xl text-text-1 text-[16px] outline-none transition-colors focus:border-accent placeholder:text-text-3"
-          disabled={isLoading}
-        />
-      </div>
-
-      {/* Submit */}
       <button
         type="submit"
         disabled={isLoading || !canSubmit}
-        className="w-full py-3.5 rounded-xl font-semibold text-[15px] transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer active:scale-[0.98]"
         style={{
-          background: canSubmit ? 'linear-gradient(135deg, var(--color-accent), var(--color-accent-2))' : 'var(--color-bg-3)',
-          color: canSubmit ? '#fff' : 'var(--color-text-3)',
-          border: '1px solid transparent',
-          boxShadow: canSubmit ? '0 2px 12px var(--color-amber-border)' : 'none',
+          width: '100%',
+          height: 56,
+          marginTop: 8,
+          background: canSubmit ? 'var(--color-text-1)' : 'var(--color-surface-2)',
+          color: canSubmit ? 'var(--color-bg-0)' : 'var(--color-muted-2)',
+          border: 'none',
+          borderRadius: 14,
+          fontSize: 15, fontWeight: 500, letterSpacing: '-0.01em',
+          display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 10,
+          cursor: canSubmit ? 'pointer' : 'not-allowed',
+          transition: 'all 220ms cubic-bezier(.2,.7,.1,1)',
         }}
+        onMouseEnter={e => canSubmit && (e.currentTarget.style.background = 'var(--color-accent)')}
+        onMouseLeave={e => canSubmit && (e.currentTarget.style.background = 'var(--color-text-1)')}
       >
         {isLoading ? 'Sprawdzam...' : 'Sprawdź co Ci się należy'}
+        {!isLoading && (
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        )}
       </button>
     </form>
+  );
+}
+
+function Field({ label, hint, children }: { label: string; hint?: string; children: React.ReactNode }) {
+  return (
+    <div style={{ marginBottom: 14 }}>
+      <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 8 }}>
+        <label style={{ fontSize: 12, fontWeight: 500, color: 'var(--color-text-2)', letterSpacing: '-0.005em' }}>{label}</label>
+        {hint && <span style={{ fontSize: 11, color: 'var(--color-text-3)' }}>{hint}</span>}
+      </div>
+      {children}
+    </div>
   );
 }
