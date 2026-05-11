@@ -201,7 +201,7 @@ function RotatingExamples() {
   return (
     <div className="space-y-2">
       <div className="flex items-center gap-2 mb-2">
-        <span className="text-[11px] sm:text-[12px] font-bold tracking-wider uppercase" style={{ color: 'var(--color-pl-red)' }}>
+        <span className="text-[11px] sm:text-[12px] font-bold tracking-wider uppercase text-accent">
           Przykładowe świadczenia
         </span>
         <span className="flex-1 border-t border-border" />
@@ -218,7 +218,7 @@ function RotatingExamples() {
         >
           <div className="flex justify-between items-start gap-2">
             <span className="text-[13px] sm:text-[14px] font-semibold text-text-1">{b.nazwa}</span>
-            <span className="text-[13px] sm:text-[14px] font-bold shrink-0" style={{ color: 'var(--color-pl-red)' }}>{b.kwota}</span>
+            <span className="text-[13px] sm:text-[14px] font-bold shrink-0 text-accent">{b.kwota}</span>
           </div>
           <p className="text-[11px] sm:text-[12px] text-text-3 mt-0.5">{b.opis}</p>
         </div>
@@ -513,16 +513,18 @@ export default function Home() {
 
             {/* Key stats - bold */}
             <div className="flex flex-wrap gap-x-4 gap-y-1 mb-3">
-              <span className="text-[14px] sm:text-[15px] font-bold" style={{ color: 'var(--color-pl-red)' }}>99 świadczeń</span>
+              <span className="text-[14px] sm:text-[15px] font-bold text-accent">99 świadczeń</span>
               <span className="text-[14px] sm:text-[15px] font-bold text-text-3">|</span>
-              <span className="text-[14px] sm:text-[15px] font-bold" style={{ color: 'var(--color-pl-red)' }}>13 kategorii</span>
+              <span className="text-[14px] sm:text-[15px] font-bold text-accent">13 kategorii</span>
               <span className="text-[14px] sm:text-[15px] font-bold text-text-3">|</span>
-              <span className="text-[14px] sm:text-[15px] font-bold" style={{ color: 'var(--color-pl-red)' }}>2 minuty</span>
+              <span className="text-[14px] sm:text-[15px] font-bold text-accent">2 minuty</span>
             </div>
 
             <p className="text-text-2 text-[13px] sm:text-[14px] leading-relaxed mb-3">
               Zasiłki, ulgi podatkowe, darmowe badania, dotacje na mieszkanie, programy dla rodzin, seniorów, przedsiębiorców.
-              Nasz <strong className="text-text-1">asystent AI</strong> sprawdzi które Ci przysługują i pomoże złożyć wniosek krok po kroku.
+              Wiele osób nie wie, że przysługuje im nawet kilka tysięcy złotych rocznie -- wystarczy złożyć wniosek.
+              Nasz <strong className="text-text-1">asystent AI</strong> przeanalizuje Twoją sytuację, sprawdzi które świadczenia Ci przysługują
+              i przeprowadzi Cię przez składanie wniosku krok po kroku -- od wymaganych dokumentów po terminy.
             </p>
 
             {/* Trust badges - compact, inline */}
@@ -558,7 +560,7 @@ export default function Home() {
 
                 Bezpieczeństwo PESEL {'->'}
               </button>
-              <a href="/swiadczenia" className="text-[12px] sm:text-[13px] font-medium no-underline hover:underline" style={{ color: 'var(--color-pl-red)' }}>
+              <a href="/swiadczenia" className="text-[12px] sm:text-[13px] font-medium text-accent no-underline hover:underline">
                 Przeglądaj bazę bez formularza {'->'}
               </a>
             </div>
@@ -580,7 +582,7 @@ export default function Home() {
           }}
         >
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-[11px] sm:text-[12px] font-bold tracking-wider uppercase" style={{ color: 'var(--color-pl-red)' }}>Czy wiesz?</span>
+            <span className="text-[11px] sm:text-[12px] font-bold tracking-wider uppercase text-accent">Czy wiesz?</span>
             <span className="flex-1 border-t border-border" />
           </div>
           <h3 className="text-[15px] sm:text-[17px] font-bold text-text-1 mb-2">
@@ -592,15 +594,15 @@ export default function Home() {
           </p>
           <div className="space-y-1">
             <div className="flex gap-2 text-[12px] sm:text-[13px] text-text-2">
-              <span className="font-bold shrink-0" style={{ color: 'var(--color-pl-red)' }}>{'>'}</span>
+              <span className="font-bold shrink-0 text-accent">{'>'}</span>
               <span>ETF-y na Bitcoin, złoto, S&P 500 lub inne aktywa</span>
             </div>
             <div className="flex gap-2 text-[12px] sm:text-[13px] text-text-2">
-              <span className="font-bold shrink-0" style={{ color: 'var(--color-pl-red)' }}>{'>'}</span>
+              <span className="font-bold shrink-0 text-accent">{'>'}</span>
               <span>XTB: bez prowizji od polskich i zagranicznych ETF-ów</span>
             </div>
             <div className="flex gap-2 text-[12px] sm:text-[13px] text-text-2">
-              <span className="font-bold shrink-0" style={{ color: 'var(--color-pl-red)' }}>{'>'}</span>
+              <span className="font-bold shrink-0 text-accent">{'>'}</span>
               <span>Zyski całkowicie zwolnione z podatku</span>
             </div>
           </div>
@@ -642,7 +644,7 @@ export default function Home() {
           }}
         >
           <TopBar theme={theme} onToggle={toggleTheme}>
-            <span className="text-[13px] sm:text-[14px] font-bold tracking-[1px]" style={{ color: 'var(--color-pl-red)' }}>
+            <span className="text-[13px] sm:text-[14px] font-bold tracking-[1px] text-accent">
               {questionIndex + 1}/{QUESTIONS.length}
             </span>
           </TopBar>
@@ -653,7 +655,7 @@ export default function Home() {
               className="h-full transition-all duration-300"
               style={{
                 width: `${((questionIndex + 1) / QUESTIONS.length) * 100}%`,
-                background: 'linear-gradient(90deg, var(--color-pl-red), var(--color-pl-red-light))',
+                background: 'linear-gradient(90deg, var(--color-accent), var(--color-accent-2))',
               }}
             />
           </div>
@@ -720,7 +722,7 @@ export default function Home() {
               className="w-12 h-12 sm:w-14 sm:h-14 rounded-full mb-6 sm:mb-8"
               style={{
                 border: '3px solid var(--color-bg-3)',
-                borderTopColor: 'var(--color-pl-red)',
+                borderTopColor: 'var(--color-accent)',
                 animation: 'spin 0.8s linear infinite',
               }}
             />
