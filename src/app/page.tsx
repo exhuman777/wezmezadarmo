@@ -19,6 +19,17 @@ const LOADING_MESSAGES = [
   'Twoje darmowe pieniądze z Państwa w zasięgu ręki...',
 ];
 
+const EXAMPLE_BENEFITS = [
+  { nazwa: 'Świadczenie 800+', kwota: '800 PLN/mies.', opis: 'Na każde dziecko do 18 roku życia, bez progu dochodowego' },
+  { nazwa: 'Bon energetyczny', kwota: 'do 1200 PLN', opis: 'Jednorazowe wsparcie na rachunki za prąd i gaz' },
+  { nazwa: 'Ulga na dziecko (PIT)', kwota: 'do 2700 PLN/rok', opis: 'Odliczenie od podatku za każde dziecko' },
+  { nazwa: 'Dodatek mieszkaniowy', kwota: 'do 1500 PLN/mies.', opis: 'Dopłata do czynszu przy niskim dochodzie' },
+  { nazwa: 'Refundacja okularów (NFZ)', kwota: 'do 500 PLN', opis: 'Dofinansowanie do soczewek i oprawek' },
+  { nazwa: 'Zasiłek pogrzebowy', kwota: '4000 PLN', opis: 'Jednorazowe świadczenie na pokrycie kosztów pogrzebu' },
+  { nazwa: 'Trzynasta emerytura', kwota: '1780 PLN', opis: 'Dodatkowe roczne świadczenie dla emerytów i rencistów' },
+  { nazwa: 'Becikowe', kwota: '1000 PLN', opis: 'Jednorazowa zapomoga z tytułu urodzenia dziecka' },
+];
+
 interface QualifyingQuestion {
   id: string;
   question: string;
@@ -166,6 +177,47 @@ function TopBar({ theme, onToggle, children }: { theme: 'light' | 'dark'; onTogg
   );
 }
 
+function RotatingExamples() {
+  const [startIndex, setStartIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setStartIndex((prev) => (prev + 3) % EXAMPLE_BENEFITS.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const visible = [];
+  for (let i = 0; i < 3; i++) {
+    visible.push(EXAMPLE_BENEFITS[(startIndex + i) % EXAMPLE_BENEFITS.length]);
+  }
+
+  return (
+    <div className="space-y-2">
+      <div className="text-[11px] sm:text-[12px] font-bold tracking-wider text-accent uppercase mb-2">
+        Przykładowe świadczenia
+      </div>
+      {visible.map((b, i) => (
+        <div
+          key={`${startIndex}-${i}`}
+          className="p-3 rounded-xl transition-opacity duration-500"
+          style={{
+            background: 'var(--color-bg-2)',
+            border: '1px solid var(--color-border)',
+            animation: 'fadeIn 0.5s ease',
+          }}
+        >
+          <div className="flex justify-between items-start gap-2">
+            <span className="text-[14px] sm:text-[15px] font-semibold text-text-1">{b.nazwa}</span>
+            <span className="text-[13px] sm:text-[14px] font-bold text-accent shrink-0">{b.kwota}</span>
+          </div>
+          <p className="text-[12px] sm:text-[13px] text-text-3 mt-1">{b.opis}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function Home() {
   const { theme, toggle: toggleTheme } = useTheme();
   const [phase, setPhase] = useState<Phase>('landing');
@@ -210,7 +262,7 @@ export default function Home() {
           }));
         }
       } catch {
-        // CEIDG lookup failed -- continue without business data
+        // CEIDG lookup failed, continue without business data
       }
       setIsLoading(false);
     }
@@ -243,6 +295,14 @@ export default function Home() {
       setQuestionIndex(questionIndex + 1);
     } else {
       runVerification(updated as UserProfile);
+    }
+  }
+
+  function handleQuestionBack() {
+    if (questionIndex > 0) {
+      setQuestionIndex(questionIndex - 1);
+    } else {
+      setPhase('landing');
     }
   }
 
@@ -307,7 +367,7 @@ export default function Home() {
         welcomeText += '>>> Wyjaśnię warunki, wymagane dokumenty i terminy\n';
         welcomeText += '>>> Odpowiem na pytania o dowolne świadczenie\n';
         welcomeText += '>>> Pomogę ocenić czy dane świadczenie jest dla Ciebie opłacalne\n\n';
-        welcomeText += 'Napisz pytanie -- jestem tutaj żeby pomóc.';
+        welcomeText += 'Napisz pytanie, jestem tutaj żeby pomóc.';
       } else {
         welcomeText = 'Nie znalazłem świadczeń pasujących do Twojego profilu.\n\n';
         welcomeText += 'Opisz mi swoją sytuację, a sprawdzę czy czegoś nie przeoczyłem. Mogę też odpowiedzieć na pytania o dowolne świadczenie w Polsce.';
@@ -435,19 +495,19 @@ export default function Home() {
               Sprawdź co Ci się należy
             </h1>
             <p className="text-text-2 text-[14px] sm:text-[15px] mb-4 sm:mb-5">
-              Zasiłki, ulgi, badania, dotacje -- sprawdź w 2 minuty
+              Zasiłki, ulgi, badania, dotacje. Sprawdź w 2 minuty.
             </p>
 
             {/* Trust badges */}
             <div className="flex flex-wrap gap-2 mb-5 sm:mb-6">
               <span className="text-[11px] sm:text-[12px] font-semibold px-2.5 py-1 rounded-lg" style={{ background: 'var(--color-green-bg)', color: 'var(--color-green)', border: '1px solid var(--color-green-border)' }}>
-                {'\u2713'} PESEL nie opuszcza przeglądarki
+                {'\u2713'} PESEL nie opuszcza Twojej przeglądarki
               </span>
               <span className="text-[11px] sm:text-[12px] font-semibold px-2.5 py-1 rounded-lg" style={{ background: 'var(--color-green-bg)', color: 'var(--color-green)', border: '1px solid var(--color-green-border)' }}>
-                {'\u2713'} Brak bazy danych
+                {'\u2713'} Brak zapisu danych do zewnętrznej bazy
               </span>
               <span className="text-[11px] sm:text-[12px] font-semibold px-2.5 py-1 rounded-lg" style={{ background: 'var(--color-green-bg)', color: 'var(--color-green)', border: '1px solid var(--color-green-border)' }}>
-                {'\u2713'} Szyfrowanie HTTPS
+                {'\u2713'} Połączenie szyfrowane HTTPS
               </span>
             </div>
           </div>
@@ -467,13 +527,13 @@ export default function Home() {
 
           {/* Disclaimer footer */}
           <div className="px-4 sm:px-6 py-3 text-[11px] sm:text-[12px] text-text-3 leading-relaxed border-t border-border bg-bg-2">
-            Nie jestem urzędnikiem -- to informacja orientacyjna, nie decyzja urzędowa.
+            To informacja orientacyjna, nie decyzja urzędowa.
             Twój numer PESEL nie opuszcza Twojej przeglądarki. NIP jest używany jednorazowo
             do sprawdzenia statusu firmy i nie jest przechowywany.
           </div>
         </div>
 
-        {/* OKI Section */}
+        {/* OKI Section (info only, no button) */}
         <div
           className="w-full max-w-lg mt-5 rounded-2xl overflow-hidden bg-bg-1 p-4 sm:p-5"
           style={{
@@ -483,38 +543,36 @@ export default function Home() {
         >
           <div className="text-[11px] sm:text-[12px] font-bold tracking-wider text-accent uppercase mb-2">Czy wiesz?</div>
           <h3 className="text-[16px] sm:text-[18px] font-bold text-text-1 mb-2">
-            OKI -- 100 000 PLN wolne od podatku
+            OKI: 100 000 PLN wolne od podatku
           </h3>
           <p className="text-[13px] sm:text-[14px] text-text-2 leading-relaxed mb-3">
             Ogólnopolskie Konto Inwestycyjne (OKI) to sposób na inwestowanie bez płacenia podatku Belki (19% od zysków kapitałowych). Możesz zainwestować do 100 000 PLN rocznie i nie zapłacisz ani złotówki podatku od zysków.
           </p>
-          <div className="space-y-2 mb-3">
+          <div className="space-y-2">
             <div className="flex gap-2 text-[13px] sm:text-[14px] text-text-2">
               <span className="text-accent font-bold shrink-0">{'\u2192'}</span>
               <span>Kup ETF-y na Bitcoin, złoto, S&P 500 lub inne aktywa</span>
             </div>
             <div className="flex gap-2 text-[13px] sm:text-[14px] text-text-2">
               <span className="text-accent font-bold shrink-0">{'\u2192'}</span>
-              <span>Możesz otworzyć OKI na platformie XTB -- bez prowizji od polskich i zagranicznych ETF-ów</span>
+              <span>Możesz otworzyć OKI na platformie XTB, bez prowizji od polskich i zagranicznych ETF-ów</span>
             </div>
             <div className="flex gap-2 text-[13px] sm:text-[14px] text-text-2">
               <span className="text-accent font-bold shrink-0">{'\u2192'}</span>
               <span>Zyski z inwestycji są całkowicie zwolnione z podatku</span>
             </div>
           </div>
-          <a
-            href="#"
-            className="inline-block text-[13px] sm:text-[14px] font-semibold px-4 py-2 rounded-lg transition-all cursor-pointer"
-            style={{
-              background: 'linear-gradient(135deg, var(--color-accent), var(--color-accent-2))',
-              color: '#fff',
-            }}
-          >
-            Otwórz OKI na XTB {'\u2192'}
-          </a>
-          <p className="mt-2 text-[10px] sm:text-[11px] text-text-3">
-            Link afiliacyjny. Więcej informacji na stronie XTB.
-          </p>
+        </div>
+
+        {/* Rotating benefit examples */}
+        <div
+          className="w-full max-w-lg mt-5 rounded-2xl overflow-hidden bg-bg-1 p-4 sm:p-5"
+          style={{
+            border: '1px solid var(--color-border-light)',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
+          }}
+        >
+          <RotatingExamples />
         </div>
 
         <div className="mt-4 text-[12px] sm:text-[13px] text-text-3 text-center space-y-1">
@@ -590,6 +648,14 @@ export default function Home() {
                 </button>
               ))}
             </div>
+
+            {/* Back button */}
+            <button
+              onClick={handleQuestionBack}
+              className="mt-4 text-[13px] sm:text-[14px] font-semibold text-text-3 hover:text-text-1 cursor-pointer bg-transparent border-none transition-colors"
+            >
+              {'\u2190'} {questionIndex === 0 ? 'Wróć do formularza' : 'Poprzednie pytanie'}
+            </button>
           </div>
         </div>
       </div>

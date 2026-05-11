@@ -31,19 +31,8 @@ function renderMarkdown(text: string): React.ReactNode[] {
       continue;
     }
 
-    // List item with -- prefix
-    if (line.trimStart().startsWith('-- ')) {
-      elements.push(
-        <div key={i} className="flex gap-2 py-0.5 pl-1">
-          <span className="text-accent shrink-0 font-medium">{'\u2192'}</span>
-          <span>{formatInline(line.trimStart().slice(3))}</span>
-        </div>
-      );
-      continue;
-    }
-
     // List item with - prefix
-    if (line.trimStart().startsWith('- ') && !line.trimStart().startsWith('-- ')) {
+    if (line.trimStart().startsWith('- ')) {
       elements.push(
         <div key={i} className="flex gap-2 py-0.5 pl-1">
           <span className="text-accent shrink-0 font-medium">{'\u2022'}</span>

@@ -41,7 +41,7 @@ export function PeselInfoModal({ isOpen, onClose }: PeselInfoModalProps) {
           <div className="p-3.5 rounded-xl" style={{ background: 'var(--color-green-bg)', border: '1px solid var(--color-green-border)' }}>
             <div className="text-[12px] font-bold tracking-wide text-green uppercase mb-1.5">Krótko</div>
             <p className="text-text-1 font-medium text-[14px] sm:text-[15px]">
-              Twój PESEL nie opuszcza Twojej przeglądarki. Nie przesyłamy go na żaden serwer. Dekodujemy z niego tylko wiek i płeć -- lokalnie, na Twoim urządzeniu.
+              Twój PESEL nie opuszcza Twojej przeglądarki. Nie przesyłamy go na żaden serwer. Dekodujemy z niego tylko wiek i płeć, lokalnie, na Twoim urządzeniu.
             </p>
           </div>
 
@@ -54,7 +54,7 @@ export function PeselInfoModal({ isOpen, onClose }: PeselInfoModalProps) {
               Strach przed podaniem numeru PESEL w internecie wynika z przekonania, że jest on uniwersalnym kluczem do naszej tożsamości. To nieprawda.
             </p>
             <p className="mt-2">
-              Sam ciąg 11 cyfr to jedynie identyfikator -- jak numer na liście. Bez dodatkowych dokumentów i systemów weryfikacji jest bezużyteczny.
+              Sam ciąg 11 cyfr to jedynie identyfikator, jak numer na liście. Bez dodatkowych dokumentów i systemów weryfikacji jest bezużyteczny.
             </p>
           </div>
 
@@ -79,7 +79,7 @@ export function PeselInfoModal({ isOpen, onClose }: PeselInfoModalProps) {
               <div className="flex gap-2.5">
                 <span className="text-accent font-bold shrink-0 mt-0.5">{'\u2192'}</span>
                 <div>
-                  <span className="font-semibold text-text-1">Nie potwierdzisz tożsamości samym PESEL-em.</span> Każdy system wymaga wieloskładnikowej weryfikacji -- hasło, SMS, dokument lub biometria.
+                  <span className="font-semibold text-text-1">Nie potwierdzisz tożsamości samym PESEL-em.</span> Każdy system wymaga wieloskładnikowej weryfikacji: hasło, SMS, dokument lub biometria.
                 </div>
               </div>
             </div>
@@ -96,7 +96,7 @@ export function PeselInfoModal({ isOpen, onClose }: PeselInfoModalProps) {
             <div className="space-y-2">
               <div className="flex gap-2.5">
                 <span className="text-red font-bold shrink-0">!</span>
-                <span>Wysyłanie skanów dowodu osobistego -- zawierają zdjęcie, serię, numer i wzór podpisu</span>
+                <span>Wysyłanie skanów dowodu osobistego (zawierają zdjęcie, serię, numer i wzór podpisu)</span>
               </div>
               <div className="flex gap-2.5">
                 <span className="text-red font-bold shrink-0">!</span>
@@ -115,7 +115,7 @@ export function PeselInfoModal({ isOpen, onClose }: PeselInfoModalProps) {
           {/* Section 4: Zastrzeżenie PESEL */}
           <div className="p-3.5 rounded-xl" style={{ background: 'var(--color-amber-bg)', border: '1px solid var(--color-amber-border)' }}>
             <h3 className="text-[15px] sm:text-[16px] font-bold text-text-1 mb-2">
-              Zastrzeż swój PESEL -- dodatkowa warstwa ochrony
+              Zastrzeż swój PESEL. Dodatkowa warstwa ochrony
             </h3>
             <p>
               Od 2024 roku każdy obywatel może zastrzec swój numer PESEL. Zastrzeżony PESEL blokuje możliwość użycia go do:
@@ -153,7 +153,7 @@ export function PeselInfoModal({ isOpen, onClose }: PeselInfoModalProps) {
             <div className="space-y-2">
               <div className="flex gap-2.5">
                 <span className="text-green font-bold shrink-0">{'\u2713'}</span>
-                <span>PESEL jest przetwarzany wyłącznie w Twojej przeglądarce -- nigdy nie trafia na nasz serwer</span>
+                <span>PESEL jest przetwarzany wyłącznie w Twojej przeglądarce i nigdy nie trafia na nasz serwer</span>
               </div>
               <div className="flex gap-2.5">
                 <span className="text-green font-bold shrink-0">{'\u2713'}</span>
@@ -161,11 +161,11 @@ export function PeselInfoModal({ isOpen, onClose }: PeselInfoModalProps) {
               </div>
               <div className="flex gap-2.5">
                 <span className="text-green font-bold shrink-0">{'\u2713'}</span>
-                <span>Po zamknięciu strony dane znikają -- nic nie jest zapisywane</span>
+                <span>Po zamknięciu strony dane znikają. Nic nie jest zapisywane</span>
               </div>
               <div className="flex gap-2.5">
                 <span className="text-green font-bold shrink-0">{'\u2713'}</span>
-                <span>Nie mamy bazy danych użytkowników -- nie ma czego wykraść</span>
+                <span>Nie mamy bazy danych użytkowników, nie ma czego wykraść</span>
               </div>
               <div className="flex gap-2.5">
                 <span className="text-green font-bold shrink-0">{'\u2713'}</span>

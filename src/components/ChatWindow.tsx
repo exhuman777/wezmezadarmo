@@ -207,7 +207,7 @@ export function ChatWindow({
         </div>
       )}
 
-      {/* Input bar -- always visible */}
+      {/* Input bar */}
       <form
         onSubmit={handleSubmit}
         className="flex gap-2 px-3 sm:px-4 py-2.5 sm:py-3 border-t border-border bg-bg-1"

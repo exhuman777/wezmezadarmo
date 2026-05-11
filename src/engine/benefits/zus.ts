@@ -21,7 +21,7 @@ export const ZUS: Benefit[] = [
         'Dowód osobisty',
       ],
       kroki: [
-        'Lekarz wystawia e-ZLA -- trafia automatycznie do ZUS i pracodawcy',
+        'Lekarz wystawia e-ZLA, trafia automatycznie do ZUS i pracodawcy',
         'Pracodawca wypełnia ZUS Z-3 i przekazuje do ZUS (jeśli zasiłek wypłaca ZUS)',
         'Pierwsze 33 dni choroby w roku (14 dni dla osób 50+) płaci pracodawca jako wynagrodzenie chorobowe',
         'Od 34. dnia (15. dnia dla 50+) zasiłek chorobowy wypłaca ZUS',
@@ -29,10 +29,10 @@ export const ZUS: Benefit[] = [
       ],
       terminRealizacji: '30 dni od złożenia kompletnej dokumentacji',
       pulapki: [
-        'Pierwsze 33 dni to wynagrodzenie chorobowe od pracodawcy -- nie zasiłek ZUS',
+        'Pierwsze 33 dni to wynagrodzenie chorobowe od pracodawcy, nie zasiłek ZUS',
         'Okres wyczekiwania: 30 dni ciągłego ubezpieczenia (pracownik) lub 90 dni (dobrowolne)',
         'Maksymalnie 182 dni zasiłku (270 dni przy ciąży lub gruźlicy)',
-        'Kontrola ZUS może skutkować utratą zasiłku -- nie wykonuj pracy zarobkowej na L4',
+        'Kontrola ZUS może skutkować utratą zasiłku. Nie wykonuj pracy zarobkowej na L4',
       ],
       odwolanie: 'Sprzeciw do Komisji Lekarskiej ZUS w ciągu 14 dni, potem odwołanie do Sądu Pracy',
     },
@@ -49,7 +49,7 @@ export const ZUS: Benefit[] = [
     },
     wykluczenia: [
       { opis: 'Brak ubezpieczenia chorobowego w dniu porodu', sprawdz: 'ubezpieczenie_chorobowe_porod' },
-      { opis: 'Osoby bez tytułu do ubezpieczenia -- mogą ubiegać się o kosiniakowe zamiast zasiłku macierzyńskiego', sprawdz: 'brak_ubezpieczenia' },
+      { opis: 'Osoby bez tytułu do ubezpieczenia mogą ubiegać się o kosiniakowe zamiast zasiłku macierzyńskiego', sprawdz: 'brak_ubezpieczenia' },
     ],
     wniosek: {
       kanal: ['PUE_ZUS'],

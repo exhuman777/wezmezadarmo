@@ -2,7 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Regulamin -- wezmezadarmo',
+  title: 'Regulamin | wezmezadarmo',
   description: 'Regulamin świadczenia usług drogą elektroniczną serwisu wezmezadarmo.',
 };
 
@@ -31,17 +31,17 @@ export default function RegulaminPage() {
           </Section>
 
           <Section n="2" title="Definicje">
-            <P>2.1. Użytkownik -- każda osoba fizyczna korzystająca z Serwisu.</P>
-            <P>2.2. Usługa -- udostępnienie narzędzia do analizy kwalifikowalności Użytkownika do świadczeń rządowych na podstawie podanych przez niego danych demograficznych i sytuacyjnych.</P>
-            <P>2.3. PESEL -- Powszechny Elektroniczny System Ewidencji Ludności, jedenastocyfrowy numer identyfikacyjny.</P>
-            <P>2.4. NIP -- Numer Identyfikacji Podatkowej, dziesięciocyfrowy numer identyfikacyjny dla podmiotów gospodarczych.</P>
-            <P>2.5. AI -- sztuczna inteligencja wykorzystywana w Serwisie do weryfikacji wyników dopasowania świadczeń.</P>
+            <P>2.1. Użytkownik - każda osoba fizyczna korzystająca z Serwisu.</P>
+            <P>2.2. Usługa - udostępnienie narzędzia do analizy kwalifikowalności Użytkownika do świadczeń rządowych na podstawie podanych przez niego danych demograficznych i sytuacyjnych.</P>
+            <P>2.3. PESEL - Powszechny Elektroniczny System Ewidencji Ludności, jedenastocyfrowy numer identyfikacyjny.</P>
+            <P>2.4. NIP - Numer Identyfikacji Podatkowej, dziesięciocyfrowy numer identyfikacyjny dla podmiotów gospodarczych.</P>
+            <P>2.5. AI - sztuczna inteligencja wykorzystywana w Serwisie do weryfikacji wyników dopasowania świadczeń.</P>
           </Section>
 
           <Section n="3" title="Rodzaj i zakres usług">
             <P>3.1. Serwis świadczy następujące usługi drogą elektroniczną:</P>
-            <P className="pl-4">a) dekodowanie numeru PESEL w celu ustalenia wieku i płci Użytkownika -- przetwarzanie odbywa się wyłącznie w przeglądarce Użytkownika (po stronie klienta), numer PESEL nie jest przesyłany na serwer Operatora ani do jakichkolwiek podmiotów trzecich;</P>
-            <P className="pl-4">b) opcjonalna weryfikacja numeru NIP w rejestrze CEIDG w celu potwierdzenia statusu działalności gospodarczej -- numer NIP jest przesyłany do publicznego API Centralnej Ewidencji i Informacji o Działalności Gospodarczej (CEIDG) prowadzonego przez Ministerstwo Rozwoju i Technologii; numer NIP nie jest zapisywany przez Operatora;</P>
+            <P className="pl-4">a) dekodowanie numeru PESEL w celu ustalenia wieku i płci Użytkownika - przetwarzanie odbywa się wyłącznie w przeglądarce Użytkownika (po stronie klienta), numer PESEL nie jest przesyłany na serwer Operatora ani do jakichkolwiek podmiotów trzecich;</P>
+            <P className="pl-4">b) opcjonalna weryfikacja numeru NIP w rejestrze CEIDG w celu potwierdzenia statusu działalności gospodarczej - numer NIP jest przesyłany do publicznego API Centralnej Ewidencji i Informacji o Działalności Gospodarczej (CEIDG) prowadzonego przez Ministerstwo Rozwoju i Technologii; numer NIP nie jest zapisywany przez Operatora;</P>
             <P className="pl-4">c) analiza kwalifikowalności do świadczeń rządowych na podstawie anonimowych danych demograficznych (wiek, płeć, stan cywilny, dochód, liczba dzieci, zatrudnienie, województwo i inne parametry podane w formularzu);</P>
             <P className="pl-4">d) weryfikacja wyników dopasowania z wykorzystaniem modelu sztucznej inteligencji (Claude Haiku, dostarczanego przez OpenRouter) w celu eliminacji błędnych dopasowań;</P>
             <P className="pl-4">e) prezentacja wyników w formie listy świadczeń z informacjami o wymaganiach, kwotach, procedurze składania wniosków oraz źródłach prawnych.</P>
@@ -52,10 +52,10 @@ export default function RegulaminPage() {
             <P>4.1. Serwis wykorzystuje model sztucznej inteligencji Claude Haiku (dostarczany przez OpenRouter, Inc.) jako element procesu weryfikacji wyników dopasowania świadczeń.</P>
             <P>4.2. Użytkownik jest niniejszym informowany, że:</P>
             <P className="pl-4">a) wyniki generowane z udziałem AI mają charakter wyłącznie informacyjny i orientacyjny;</P>
-            <P className="pl-4">b) AI może popełniać błędy -- wyniki nie stanowią porady prawnej, podatkowej ani finansowej;</P>
+            <P className="pl-4">b) AI może popełniać błędy - wyniki nie stanowią porady prawnej, podatkowej ani finansowej;</P>
             <P className="pl-4">c) ostateczna decyzja o kwalifikowalności do danego świadczenia należy wyłącznie do właściwego organu administracji publicznej;</P>
             <P className="pl-4">d) Operator nie ponosi odpowiedzialności za decyzje podjęte na podstawie wyników wygenerowanych przez Serwis;</P>
-            <P className="pl-4">e) dane przesyłane do modelu AI nie zawierają numeru PESEL, NIP, imienia, nazwiska ani żadnych innych danych umożliwiających bezpośrednią identyfikację Użytkownika -- przesyłane są wyłącznie zanonimizowane dane demograficzne.</P>
+            <P className="pl-4">e) dane przesyłane do modelu AI nie zawierają numeru PESEL, NIP, imienia, nazwiska ani żadnych innych danych umożliwiających bezpośrednią identyfikację Użytkownika - przesyłane są wyłącznie zanonimizowane dane demograficzne.</P>
             <P>4.3. Zgodnie z art. 50 Rozporządzenia Parlamentu Europejskiego i Rady (UE) 2024/1689 (Akt o Sztucznej Inteligencji), Operator informuje, że Użytkownik wchodzi w interakcję z systemem wykorzystującym sztuczną inteligencję, a nie z człowiekiem.</P>
           </Section>
 
