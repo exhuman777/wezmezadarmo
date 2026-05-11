@@ -44,7 +44,7 @@ export default function OProjekciePage() {
               </p>
               <p>
                 Projekt jest w pełni darmowy. Nie zarabiamy na Twoich danych, nie wyświetlamy reklam,
-                nie sprzedajemy niczego. Jedynym celem jest pomóc ludziom odebrać to, co im się należy.
+                nie sprzedajemy niczego. Jedynym celem jest pomóc ludziom sprawdzić, z jakich świadczeń mogą skorzystać.
               </p>
             </div>
           </section>
@@ -56,37 +56,37 @@ export default function OProjekciePage() {
             </h2>
             <div className="space-y-3">
               <p>
-                Narzędzie jest dla każdego mieszkańca Polski -- niezależnie od wieku,
+                Narzędzie jest dla każdego mieszkańca Polski, niezależnie od wieku,
                 statusu zatrudnienia czy sytuacji rodzinnej. W szczególności może pomóc:
               </p>
               <ul className="space-y-2 pl-1">
                 <li className="flex gap-2">
                   <span className="text-accent font-bold shrink-0">{'>'}</span>
-                  <span><strong className="text-text-1">Rodzinom z dziećmi</strong> -- 800+, becikowe, ulga na dziecko, kosiniakowe, zasiłek rodzinny i wiele innych</span>
+                  <span><strong className="text-text-1">Rodzinom z dziećmi</strong>: 800+, becikowe, ulga na dziecko, kosiniakowe, zasiłek rodzinny i wiele innych</span>
                 </li>
                 <li className="flex gap-2">
                   <span className="text-accent font-bold shrink-0">{'>'}</span>
-                  <span><strong className="text-text-1">Seniorom i emerytom</strong> -- trzynastka, czternastka, dodatek osłonowy, ulgi podatkowe, refundacja leków</span>
+                  <span><strong className="text-text-1">Seniorom i emerytom</strong>: trzynastka, czternastka, dodatek osłonowy, ulgi podatkowe, refundacja leków</span>
                 </li>
                 <li className="flex gap-2">
                   <span className="text-accent font-bold shrink-0">{'>'}</span>
-                  <span><strong className="text-text-1">Osobom z niepełnosprawnością</strong> -- świadczenie wspierające, dofinansowanie do rehabilitacji, ulga rehabilitacyjna</span>
+                  <span><strong className="text-text-1">Osobom z niepełnosprawnością</strong>: świadczenie wspierające, dofinansowanie do rehabilitacji, ulga rehabilitacyjna</span>
                 </li>
                 <li className="flex gap-2">
                   <span className="text-accent font-bold shrink-0">{'>'}</span>
-                  <span><strong className="text-text-1">Przedsiębiorcom</strong> -- ulga na start, mały ZUS plus, dotacje z urzędu pracy, preferencyjny ZUS</span>
+                  <span><strong className="text-text-1">Przedsiębiorcom</strong>: ulga na start, mały ZUS plus, dotacje z urzędu pracy, preferencyjny ZUS</span>
                 </li>
                 <li className="flex gap-2">
                   <span className="text-accent font-bold shrink-0">{'>'}</span>
-                  <span><strong className="text-text-1">Osobom bezrobotnym</strong> -- zasiłek dla bezrobotnych, szkolenia, staże, bon na zasiedlenie</span>
+                  <span><strong className="text-text-1">Osobom bezrobotnym</strong>: zasiłek dla bezrobotnych, szkolenia, staże, bon na zasiedlenie</span>
                 </li>
                 <li className="flex gap-2">
                   <span className="text-accent font-bold shrink-0">{'>'}</span>
-                  <span><strong className="text-text-1">Studentom</strong> -- stypendium socjalne, naukowe, kredyt studencki, ulgi na transport</span>
+                  <span><strong className="text-text-1">Studentom</strong>: stypendium socjalne, naukowe, kredyt studencki, ulgi na transport</span>
                 </li>
                 <li className="flex gap-2">
                   <span className="text-accent font-bold shrink-0">{'>'}</span>
-                  <span><strong className="text-text-1">Rolnikom</strong> -- dopłaty KRUS, emerytura rolnicza, dotacje na modernizację</span>
+                  <span><strong className="text-text-1">Rolnikom</strong>: dopłaty KRUS, emerytura rolnicza, dotacje na modernizację</span>
                 </li>
               </ul>
             </div>
@@ -106,7 +106,7 @@ export default function OProjekciePage() {
                     <strong className="text-text-1">Podajesz podstawowe dane</strong>
                     <p className="text-[13px] text-text-3 mt-0.5">
                       PESEL (lub wiek i płeć) oraz opcjonalnie NIP. PESEL jest dekodowany lokalnie
-                      w Twojej przeglądarce -- nigdy nie opuszcza Twojego urządzenia i nie jest
+                      w Twojej przeglądarce i nigdy nie opuszcza Twojego urządzenia i nie jest
                       wysyłany na żaden serwer.
                     </p>
                   </div>
@@ -127,7 +127,7 @@ export default function OProjekciePage() {
                   <div>
                     <strong className="text-text-1">Dostajesz spersonalizowaną listę</strong>
                     <p className="text-[13px] text-text-3 mt-0.5">
-                      System pokazuje świadczenia, które Ci przysługują lub mogą przysługiwać.
+                      System pokazuje świadczenia, które mogą Ci przysługiwać na podstawie podanych danych.
                       Przy każdym znajdziesz kwotę, wymagane dokumenty, kroki do złożenia wniosku
                       i pułapki, na które trzeba uważać. Asystent AI jest dostępny do zadawania pytań
                       i prowadzenia przez cały proces.
@@ -148,19 +148,19 @@ export default function OProjekciePage() {
               <ul className="space-y-2 pl-1">
                 <li className="flex gap-2">
                   <span className="font-bold shrink-0" style={{ color: 'var(--color-green)' }}>[v]</span>
-                  <span><strong className="text-text-1">PESEL nie opuszcza przeglądarki</strong> -- dekodowanie odbywa się lokalnie w JavaScript, numer nigdy nie jest wysyłany na serwer</span>
+                  <span><strong className="text-text-1">PESEL nie opuszcza przeglądarki</strong>: dekodowanie odbywa się lokalnie w JavaScript, numer nigdy nie jest wysyłany na serwer</span>
                 </li>
                 <li className="flex gap-2">
                   <span className="font-bold shrink-0" style={{ color: 'var(--color-green)' }}>[v]</span>
-                  <span><strong className="text-text-1">Brak bazy danych</strong> -- nie zapisujemy żadnych danych osobowych, nie tworzymy kont, nie przechowujemy historii</span>
+                  <span><strong className="text-text-1">Brak bazy danych</strong>: nie zapisujemy żadnych danych osobowych, nie tworzymy kont, nie przechowujemy historii</span>
                 </li>
                 <li className="flex gap-2">
                   <span className="font-bold shrink-0" style={{ color: 'var(--color-green)' }}>[v]</span>
-                  <span><strong className="text-text-1">NIP jednorazowo</strong> -- jeśli podasz NIP, jest używany tylko do jednorazowego sprawdzenia statusu firmy w CEIDG i nie jest przechowywany</span>
+                  <span><strong className="text-text-1">NIP jednorazowo</strong>: jeśli podasz NIP, jest używany tylko do jednorazowego sprawdzenia statusu firmy w CEIDG i nie jest przechowywany</span>
                 </li>
                 <li className="flex gap-2">
                   <span className="font-bold shrink-0" style={{ color: 'var(--color-green)' }}>[v]</span>
-                  <span><strong className="text-text-1">HTTPS</strong> -- całe połączenie jest szyfrowane</span>
+                  <span><strong className="text-text-1">HTTPS</strong>: całe połączenie jest szyfrowane</span>
                 </li>
               </ul>
             </div>
@@ -178,23 +178,23 @@ export default function OProjekciePage() {
               <ul className="space-y-1 pl-1">
                 <li className="flex gap-2">
                   <span className="text-accent font-bold shrink-0">{'>'}</span>
-                  <span><strong className="text-text-1">Next.js</strong> -- framework React do budowy aplikacji webowych</span>
+                  <span><strong className="text-text-1">Next.js</strong>: framework React do budowy aplikacji webowych</span>
                 </li>
                 <li className="flex gap-2">
                   <span className="text-accent font-bold shrink-0">{'>'}</span>
-                  <span><strong className="text-text-1">TypeScript</strong> -- typy statyczne dla bezpieczeństwa kodu</span>
+                  <span><strong className="text-text-1">TypeScript</strong>: typy statyczne dla bezpieczeństwa kodu</span>
                 </li>
                 <li className="flex gap-2">
                   <span className="text-accent font-bold shrink-0">{'>'}</span>
-                  <span><strong className="text-text-1">AI (LLM)</strong> -- asystent czatowy do odpowiadania na pytania o świadczenia</span>
+                  <span><strong className="text-text-1">AI (LLM)</strong>: asystent czatowy do odpowiadania na pytania o świadczenia (<Link href="/regulamin" className="text-accent hover:underline">transparentność AI</Link>)</span>
                 </li>
                 <li className="flex gap-2">
                   <span className="text-accent font-bold shrink-0">{'>'}</span>
-                  <span><strong className="text-text-1">Silnik dopasowań</strong> -- autorski algorytm weryfikujący kwalifikowalność na podstawie profilu użytkownika</span>
+                  <span><strong className="text-text-1">Silnik dopasowań</strong>: autorski algorytm weryfikujący kwalifikowalność na podstawie profilu użytkownika</span>
                 </li>
                 <li className="flex gap-2">
                   <span className="text-accent font-bold shrink-0">{'>'}</span>
-                  <span><strong className="text-text-1">Baza 99 świadczeń</strong> -- ręcznie zweryfikowana baza z oficjalnych źródeł rządowych, aktualizowana na bieżąco</span>
+                  <span><strong className="text-text-1">Baza 99 świadczeń</strong>: ręcznie zweryfikowana baza z oficjalnych źródeł rządowych, aktualizowana na bieżąco</span>
                 </li>
               </ul>
             </div>
@@ -207,7 +207,7 @@ export default function OProjekciePage() {
             </h2>
             <div className="space-y-3">
               <p>
-                Projekt stworzył <strong className="text-text-1">Kamil Sobkowicz</strong> --
+                Projekt stworzył <strong className="text-text-1">Kamil Sobkowicz</strong>,
                 programista i przedsiębiorca z Polski. wezmezadarmo to projekt społeczny,
                 zbudowany w wolnym czasie, bez komercyjnego celu.
               </p>

@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
       return new Response(
         JSON.stringify({
           error: 'limit',
-          message: 'Osiągnąłeś dzienny limit 3 pytań do asystenta AI. wezmezadarmo.com jest projektem pro bono, utrzymywanym ze środków własnych -- limity pozwalają na to, żeby każdy mógł skorzystać z narzędzia. Limit resetuje się po 24 godzinach.',
+          message: 'Osiągnąłeś dzienny limit 3 pytań do asystenta AI. wezmezadarmo.com jest projektem pro bono, utrzymywanym ze środków własnych. Limity pozwalają na to, żeby każdy mógł skorzystać z narzędzia. Limit resetuje się po 24 godzinach.',
         }),
         {
           status: 429,

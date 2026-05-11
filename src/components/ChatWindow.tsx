@@ -112,8 +112,9 @@ export function ChatWindow({
             <div>
               <div className="label-eyebrow" style={{ marginBottom: 6 }}>WYNIK ANALIZY</div>
               <h2 style={{ fontSize: 24, letterSpacing: '-0.025em', fontWeight: 500 }}>
-                Należy Ci się <span style={{ color: 'var(--color-accent)' }}>{results.length}</span> świadczeń.
+                Znaleźliśmy <span style={{ color: 'var(--color-accent)' }}>{results.length}</span> świadczeń dla Ciebie.
               </h2>
+              <p style={{ fontSize: 13, color: 'var(--color-text-3)', marginTop: 4 }}>Teoretycznie możesz skorzystać z co najmniej {results.length} świadczeń. Sprawdź dokładnie wymagania.</p>
             </div>
             <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
               {pewne.length > 0 && (
@@ -408,7 +409,7 @@ export function ChatWindow({
         background: 'var(--color-bg-0)',
         flexShrink: 0,
       }}>
-        Informacja orientacyjna, nie decyzja urzędowa. Zweryfikuj na stronach źródłowych.
+        Informacja orientacyjna, nie decyzja urzędowa. Zweryfikuj na <a href="/o-projekcie" className="link-u" style={{ color: 'var(--color-accent)' }}>stronach źródłowych</a>. Odpowiedzi AI generowane przez model językowy zgodnie z <a href="/regulamin" className="link-u" style={{ color: 'var(--color-accent)' }}>regulaminem</a>.
       </div>
     </div>
   );

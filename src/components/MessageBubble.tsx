@@ -35,7 +35,7 @@ function renderMarkdown(text: string): React.ReactNode[] {
     if (line.trimStart().startsWith('- ')) {
       elements.push(
         <div key={i} style={{ display: 'flex', gap: 8, padding: '2px 0 2px 4px' }}>
-          <span style={{ color: 'var(--color-accent)', flexShrink: 0 }}>--</span>
+          <span style={{ color: 'var(--color-accent)', flexShrink: 0 }}>&#x2022;</span>
           <span>{formatInline(line.trimStart().slice(2))}</span>
         </div>
       );

@@ -478,7 +478,7 @@ export default function Home() {
 
       let welcomeText: string;
       if (total > 0) {
-        welcomeText = `Znalazłem ${total} świadczeń dla Ciebie`;
+        welcomeText = `Znalazłem ${total} świadczeń, z których teoretycznie możesz skorzystać`;
         if (pewne > 0 && mozliwe > 0) welcomeText += ` (${pewne} pewnych, ${mozliwe} do weryfikacji)`;
         else if (pewne > 0) welcomeText += ` (${pewne} pewnych)`;
         else if (mozliwe > 0) welcomeText += ` (${mozliwe} do weryfikacji)`;
@@ -492,6 +492,7 @@ export default function Home() {
           welcomeText += '>>> Krok 2: Wyniki nie zostały zweryfikowane przez AI (weryfikator niedostępny)\n';
         }
         welcomeText += '>>> Każde świadczenie ma link do oficjalnego źródła rządowego\n\n';
+        welcomeText += 'Sprawdź dokładnie wymagania każdego świadczenia. Nie wszystkie muszą dotyczyć Twojej sytuacji.\n\n';
 
         welcomeText += 'Przejdź do zakładki "Świadczenia" żeby zobaczyć listę. Kliknij dowolne świadczenie żeby zobaczyć jak złożyć wniosek krok po kroku.\n\n';
 
@@ -503,7 +504,7 @@ export default function Home() {
       } else {
         welcomeText = 'Nie znalazłem świadczeń pasujących do Twojego profilu.\n\n';
         welcomeText += 'Algorytm przeszukał 99 świadczeń z 13 kategorii. Opisz mi swoją sytuację, a sprawdzę czy czegoś nie przeoczyłem.\n\n';
-        welcomeText += 'Jestem asystentem AI -- moje odpowiedzi opierają się na zweryfikowanej bazie danych, ale zawsze sprawdź informacje na stronach źródłowych.';
+        welcomeText += 'Jestem asystentem AI. Moje odpowiedzi opierają się na zweryfikowanej bazie danych, ale zawsze sprawdź informacje na stronach źródłowych.';
       }
 
       setMessages([{
@@ -634,7 +635,7 @@ export default function Home() {
             {/* Eyebrow row */}
             <div className="rise" style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 36 }}>
               <FlagStripe width={28} thickness={3} />
-              <span className="label-eyebrow">Niezależne narzędzie -- 2026 -- bez rejestracji</span>
+              <span className="label-eyebrow">Niezależne narzędzie | 2026 | bez rejestracji</span>
               <span style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
               <span className="label-eyebrow" style={{ color: 'var(--color-muted-2)' }}>zaktualizowano 11.05.2026</span>
             </div>
@@ -660,9 +661,9 @@ export default function Home() {
                 }}>
                   Polska ma 99 świadczeń, ulg i dotacji wartych miliardy złotych rocznie.
                   Większość ludzi nie wie, że im przysługują.{' '}
-                  <span className="serif" style={{ fontSize: 20 }}>Sprawdź to teraz</span> -- w dwie minuty, bez logowania, bez wysyłania danych.
-                  Wiele osób nie wie, że przysługuje im nawet kilka tysięcy złotych rocznie -- wystarczy złożyć wniosek.
-                  Nasz asystent AI przeanalizuje Twoją sytuację i przeprowadzi Cię przez składanie wniosku krok po kroku -- od wymaganych dokumentów po terminy.
+                  <span className="serif" style={{ fontSize: 20 }}>Sprawdź to teraz.</span> W dwie minuty, bez logowania, bez wysyłania danych.
+                  Wiele osób nie wie, że przysługuje im nawet kilka tysięcy złotych rocznie. Wystarczy złożyć wniosek.
+                  Nasz asystent AI przeanalizuje Twoją sytuację i przeprowadzi Cię przez składanie wniosku krok po kroku: od wymaganych dokumentów po terminy.
                 </p>
 
                 {/* Stat counters */}
@@ -701,10 +702,10 @@ export default function Home() {
                     { label: 'Brak bazy danych', icon: <IconShield /> },
                     { label: 'Połączenie HTTPS', icon: <IconCheck /> },
                   ].map((item, i) => (
-                    <span key={i} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 13, color: 'var(--color-text-2)' }}>
+                    <a key={i} href="/o-projekcie" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 13, color: 'var(--color-text-2)', textDecoration: 'none' }}>
                       <span style={{ color: 'var(--color-green)', display: 'inline-flex' }}>{item.icon}</span>
                       {item.label}
-                    </span>
+                    </a>
                   ))}
                 </div>
               </div>
@@ -727,7 +728,7 @@ export default function Home() {
                   </div>
 
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 28 }}>
-                    <span className="label-eyebrow">Formularz -- krok 1 / 3</span>
+                    <span className="label-eyebrow">Formularz | krok 1 / 3</span>
                     <Chip tone="success" mono>ANONIMOWO</Chip>
                   </div>
 
@@ -774,7 +775,7 @@ export default function Home() {
                 <h2 style={{ fontSize: 32, letterSpacing: '-0.025em' }}>
                   13 kategorii. <span className="serif" style={{ color: 'var(--color-text-3)' }}>Jedno miejsce.</span>
                 </h2>
-                <span className="label-eyebrow">Przeglądaj bazę</span>
+                <a href="/swiadczenia" className="label-eyebrow link-u" style={{ color: 'var(--color-accent)' }}>Przeglądaj bazę</a>
               </div>
               <div style={{
                 display: 'grid',
@@ -782,7 +783,7 @@ export default function Home() {
                 gap: 8,
               }}>
                 {CATEGORIES.map((c) => (
-                  <div key={c.id} className="hover-lift" style={{
+                  <a key={c.id} href="/swiadczenia" className="hover-lift" style={{
                     background: 'var(--color-surface)',
                     border: '1px solid var(--color-border)',
                     borderRadius: 16,
@@ -792,10 +793,12 @@ export default function Home() {
                     flexDirection: 'column',
                     justifyContent: 'flex-end',
                     cursor: 'pointer',
+                    textDecoration: 'none',
+                    color: 'inherit',
                   }}>
                     <div style={{ fontSize: 12, fontWeight: 500, letterSpacing: '-0.01em', lineHeight: 1.15, marginBottom: 4 }}>{c.label}</div>
                     <div className="mono" style={{ fontSize: 10, color: 'var(--color-text-3)' }}>{c.count} świadczeń</div>
-                  </div>
+                  </a>
                 ))}
               </div>
             </div>
@@ -808,12 +811,13 @@ export default function Home() {
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
                 {EXAMPLE_BENEFITS.slice(0, 3).map((b, i) => (
-                  <div key={i} className="hover-lift" style={{
+                  <a key={i} href="/swiadczenia" className="hover-lift" style={{
                     background: 'var(--color-surface)',
                     border: '1px solid var(--color-border)',
                     borderRadius: 16,
                     padding: '22px',
                     display: 'flex', flexDirection: 'column', gap: 10,
+                    textDecoration: 'none', color: 'inherit', cursor: 'pointer',
                   }}>
                     <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
                       <div style={{ fontSize: 17, fontWeight: 500, letterSpacing: '-0.015em' }}>{b.nazwa}</div>
@@ -824,8 +828,9 @@ export default function Home() {
                       <div>
                         <div className="mono" style={{ fontSize: 22, fontWeight: 500, letterSpacing: '-0.02em', color: 'var(--color-text-1)' }}>{b.kwota}</div>
                       </div>
+                      <span className="label-eyebrow" style={{ color: 'var(--color-accent)' }}>Sprawdź <IconArrowRight /></span>
                     </div>
-                  </div>
+                  </a>
                 ))}
               </div>
             </div>
@@ -847,7 +852,7 @@ export default function Home() {
                   OKI: 100 000 PLN wolne od podatku
                 </h3>
                 <p style={{ fontSize: 15, color: 'var(--color-text-2)', lineHeight: 1.55, marginBottom: 16, maxWidth: 680 }}>
-                  Ogólnopolskie Konto Inwestycyjne -- sposób na inwestowanie bez podatku Belki (19%).
+                  Ogólnopolskie Konto Inwestycyjne: sposób na inwestowanie bez podatku Belki (19%).
                   Do <strong>100 000 PLN rocznie</strong> bez ani złotówki podatku od zysków.
                 </p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -890,14 +895,14 @@ export default function Home() {
                 ['Projekt', [
                   { label: 'O projekcie', href: '/o-projekcie' },
                   { label: 'Aktualizacje', href: '/o-projekcie' },
-                  { label: 'Zgłoś błąd', href: 'mailto:balthus.delarola@gmail.com' },
+                  { label: 'Zgłoś błąd', href: 'mailto:sobkowicz.kamil@gmail.com' },
                   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/kamil-sobkowicz/', external: true },
                 ]],
                 ['Prawne', [
                   { label: 'Regulamin', href: '/regulamin' },
                   { label: 'Polityka prywatności', href: '/polityka-prywatnosci' },
                   { label: 'Cookies', href: '/polityka-prywatnosci' },
-                  { label: 'Kontakt', href: 'mailto:balthus.delarola@gmail.com' },
+                  { label: 'Kontakt', href: 'mailto:sobkowicz.kamil@gmail.com' },
                 ]],
               ].map(([h, items], i) => (
                 <div key={i}>
@@ -913,7 +918,7 @@ export default function Home() {
               ))}
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: 24, borderTop: '1px solid var(--color-border)', fontSize: 12, color: 'var(--color-text-3)' }}>
-              <span>2026 wezmezadarmo.com -- projekt społeczny Kamila Sobkowicza</span>
+              <span>2026 wezmezadarmo.com | projekt społeczny Kamila Sobkowicza</span>
               <span className="mono" style={{ letterSpacing: '0.1em' }}>MADE IN POLAND</span>
             </div>
           </div>
@@ -1054,7 +1059,7 @@ export default function Home() {
 
                 <p style={{ fontSize: 17, color: 'var(--color-text-2)', maxWidth: 480, marginBottom: 32, lineHeight: 1.5 }}>
                   Dopasowujemy 99 świadczeń z 13 kategorii do Twojej sytuacji.
-                  Wszystko dzieje się w Twojej przeglądarce -- żadne dane nie opuszczają urządzenia.
+                  Wszystko dzieje się w Twojej przeglądarce. Żadne dane nie opuszczają urządzenia.
                 </p>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 24 }}>

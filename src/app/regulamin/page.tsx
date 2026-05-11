@@ -57,12 +57,15 @@ export default function RegulaminPage() {
             <P className="pl-4">d) Operator nie ponosi odpowiedzialności za decyzje podjęte na podstawie wyników wygenerowanych przez Serwis;</P>
             <P className="pl-4">e) dane przesyłane do modelu AI nie zawierają numeru PESEL, NIP, imienia, nazwiska ani żadnych innych danych umożliwiających bezpośrednią identyfikację Użytkownika - przesyłane są wyłącznie zanonimizowane dane demograficzne.</P>
             <P>4.3. Zgodnie z art. 50 Rozporządzenia Parlamentu Europejskiego i Rady (UE) 2024/1689 (Akt o Sztucznej Inteligencji), Operator informuje, że Użytkownik wchodzi w interakcję z systemem wykorzystującym sztuczną inteligencję, a nie z człowiekiem.</P>
+            <P>4.4. Transparentność AI: wszystkie treści wygenerowane przez model AI są wyraźnie oznaczone etykietą &quot;AI&quot; w interfejsie użytkownika. Baza 99 świadczeń jest ręcznie zweryfikowana przez człowieka. AI pełni wyłącznie rolę pomocniczą (weryfikacja dopasowań, asystent czatowy).</P>
+            <P>4.5. Wyjaśnialność wyników: Użytkownik może zapytać asystenta AI o uzasadnienie każdego dopasowania. Przy każdym świadczeniu podane są kryteria dopasowania, źródło prawne i data weryfikacji. Funkcja ta ma charakter informacyjny i nie stanowi realizacji prawa z art. 22 RODO, ponieważ system nie podejmuje zautomatyzowanych decyzji wywołujących skutki prawne.</P>
+            <P>4.6. System AI wykorzystywany w Serwisie nie podejmuje zautomatyzowanych decyzji wywołujących skutki prawne wobec Użytkownika. Wyniki mają charakter wyłącznie informacyjny.</P>
           </Section>
 
           <Section n="5" title="Warunki techniczne">
             <P>5.1. Korzystanie z Serwisu wymaga urządzenia z dostępem do internetu oraz przeglądarki obsługującej JavaScript (Chrome 90+, Firefox 90+, Safari 15+, Edge 90+).</P>
             <P>5.2. Serwis nie wymaga instalacji dodatkowego oprogramowania.</P>
-            <P>5.3. Serwis nie wykorzystuje plików cookie śledzących, nie stosuje pikseli śledzących ani analogicznych technologii profilowania.</P>
+            <P>5.3. Serwis wykorzystuje Google Analytics do zbierania anonimowych statystyk odwiedzin (liczba wejść, czas na stronie, typ urządzenia). Pliki cookie analityczne są instalowane wyłącznie po wyrażeniu zgody przez Użytkownika. Dane analityczne nie są łączone z danymi z formularza i nie są sprzedawane. Serwis nie stosuje pikseli śledzących, fingerprintingu ani technologii profilowania.</P>
           </Section>
 
           <Section n="6" title="Zawarcie i rozwiązanie umowy">
@@ -71,30 +74,35 @@ export default function RegulaminPage() {
             <P>6.3. Użytkownik może w każdej chwili zaprzestać korzystania z Serwisu bez podawania przyczyny.</P>
           </Section>
 
-          <Section n="7" title="Zakaz dostarczania treści bezprawnych">
-            <P>7.1. Użytkownik zobowiązuje się do niepodawania danych nieprawdziwych, cudzych ani sfabrykowanych w celu uzyskania informacji o świadczeniach przysługujących innym osobom.</P>
-            <P>7.2. Zabronione jest korzystanie z Serwisu w sposób naruszający przepisy prawa, prawa osób trzecich lub dobre obyczaje.</P>
+          <Section n="7" title="Prawo odstąpienia od umowy">
+            <P>7.1. Zgodnie z art. 38 pkt 1 ustawy o prawach konsumenta, prawo odstąpienia od umowy zawartej na odległość nie przysługuje w odniesieniu do umów o świadczenie usług, za które konsument nie jest zobowiązany do zapłaty.</P>
+            <P>7.2. Usługa jest w pełni bezpłatna i wykonywana natychmiast po wypełnieniu formularza. Użytkownik może w każdej chwili zaprzestać korzystania z Serwisu bez podawania przyczyny i bez jakichkolwiek konsekwencji.</P>
           </Section>
 
-          <Section n="8" title="Odpowiedzialność">
-            <P>8.1. Serwis dostarcza informacje o charakterze orientacyjnym. Operator dokłada staranności, aby informacje były aktualne i zgodne z obowiązującym stanem prawnym, jednak nie gwarantuje ich kompletności, dokładności ani aktualności.</P>
-            <P>8.2. Operator nie ponosi odpowiedzialności za decyzje podjęte przez Użytkownika na podstawie informacji uzyskanych z Serwisu, odmowę przyznania świadczenia przez właściwy organ, ani przerwy w działaniu Serwisu wynikające z przyczyn technicznych.</P>
+          <Section n="8" title="Zakaz dostarczania treści bezprawnych">
+            <P>8.1. Użytkownik zobowiązuje się do niepodawania danych nieprawdziwych, cudzych ani sfabrykowanych w celu uzyskania informacji o świadczeniach przysługujących innym osobom.</P>
+            <P>8.2. Zabronione jest korzystanie z Serwisu w sposób naruszający przepisy prawa, prawa osób trzecich lub dobre obyczaje.</P>
           </Section>
 
-          <Section n="9" title="Reklamacje">
-            <P>9.1. Użytkownik ma prawo złożyć reklamację dotyczącą działania Serwisu na adres e-mail: sobkowicz.kamil@gmail.com.</P>
-            <P>9.2. Reklamacja powinna zawierać opis problemu, datę i godzinę wystąpienia problemu oraz adres e-mail do kontaktu zwrotnego.</P>
-            <P>9.3. Operator rozpatrzy reklamację w terminie 14 dni od daty jej otrzymania.</P>
+          <Section n="9" title="Odpowiedzialność">
+            <P>9.1. Serwis dostarcza informacje o charakterze orientacyjnym. Operator dokłada staranności, aby informacje były aktualne i zgodne z obowiązującym stanem prawnym, jednak nie gwarantuje ich kompletności, dokładności ani aktualności.</P>
+            <P>9.2. Operator nie ponosi odpowiedzialności za decyzje podjęte przez Użytkownika na podstawie informacji uzyskanych z Serwisu, odmowę przyznania świadczenia przez właściwy organ, ani przerwy w działaniu Serwisu wynikające z przyczyn technicznych.</P>
           </Section>
 
-          <Section n="10" title="Pozasądowe rozwiązywanie sporów">
-            <P>10.1. Konsument ma prawo skorzystać z pozasądowych sposobów rozwiązywania sporów, w tym mediacji prowadzonej przez wojewódzkich inspektorów Inspekcji Handlowej oraz platformy ODR dostępnej pod adresem: https://ec.europa.eu/consumers/odr/</P>
+          <Section n="10" title="Reklamacje">
+            <P>10.1. Użytkownik ma prawo złożyć reklamację dotyczącą działania Serwisu na adres e-mail: sobkowicz.kamil@gmail.com.</P>
+            <P>10.2. Reklamacja powinna zawierać opis problemu, datę i godzinę wystąpienia problemu oraz adres e-mail do kontaktu zwrotnego.</P>
+            <P>10.3. Operator rozpatrzy reklamację w terminie 14 dni od daty jej otrzymania.</P>
           </Section>
 
-          <Section n="11" title="Postanowienia końcowe">
-            <P>11.1. Regulamin wchodzi w życie z dniem opublikowania w Serwisie.</P>
-            <P>11.2. Operator zastrzega sobie prawo do zmiany Regulaminu. Dalsze korzystanie z Serwisu po opublikowaniu zmian oznacza akceptację nowego brzmienia Regulaminu.</P>
-            <P>11.3. W sprawach nieuregulowanych niniejszym Regulaminem zastosowanie mają przepisy prawa polskiego, w szczególności Kodeksu cywilnego, Ustawy o świadczeniu usług drogą elektroniczną oraz Ustawy o prawach konsumenta.</P>
+          <Section n="11" title="Pozasądowe rozwiązywanie sporów">
+            <P>11.1. Konsument ma prawo skorzystać z pozasądowych sposobów rozwiązywania sporów, w tym mediacji prowadzonej przez wojewódzkich inspektorów Inspekcji Handlowej oraz platformy ODR dostępnej pod adresem: <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">ec.europa.eu/consumers/odr</a></P>
+          </Section>
+
+          <Section n="12" title="Postanowienia końcowe">
+            <P>12.1. Regulamin wchodzi w życie z dniem opublikowania w Serwisie.</P>
+            <P>12.2. Operator zastrzega sobie prawo do zmiany Regulaminu. Dalsze korzystanie z Serwisu po opublikowaniu zmian oznacza akceptację nowego brzmienia Regulaminu.</P>
+            <P>12.3. W sprawach nieuregulowanych niniejszym Regulaminem zastosowanie mają przepisy prawa polskiego, w szczególności Kodeksu cywilnego, Ustawy o świadczeniu usług drogą elektroniczną oraz Ustawy o prawach konsumenta.</P>
           </Section>
 
         </div>

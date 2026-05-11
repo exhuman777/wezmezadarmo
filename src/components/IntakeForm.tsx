@@ -118,7 +118,7 @@ export function IntakeForm({ onSubmit, isLoading }: IntakeFormProps) {
 
       {mode === 'pesel' ? (
         <>
-          <Field label="PESEL" hint="11 cyfr -- dekodowane lokalnie">
+          <Field label="PESEL" hint="11 cyfr, dekodowane lokalnie">
             <input
               type="text"
               inputMode="numeric"
@@ -140,7 +140,7 @@ export function IntakeForm({ onSubmit, isLoading }: IntakeFormProps) {
               <span style={{ color: 'var(--color-accent)' }}>{decoded.plec === 'K' ? 'Kobieta' : 'Mężczyzna'}</span>
             </div>
           )}
-          <Field label="NIP" hint="Opcjonalnie -- dla świadczeń firmowych">
+          <Field label="NIP" hint="Opcjonalnie, dla świadczeń firmowych">
             <input
               type="text"
               inputMode="numeric"

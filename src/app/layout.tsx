@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
+import { CookieConsent } from '@/components/CookieConsent';
 import './globals.css';
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-57R2TFXNH7';
@@ -32,17 +33,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {GA_ID && (
           <>
+            <Script id="ga-consent-default" strategy="beforeInteractive">
+              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{'analytics_storage':'denied'});`}
+            </Script>
             <Script
               src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
               strategy="afterInteractive"
             />
             <Script id="google-analytics" strategy="afterInteractive">
-              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');`}
+              {`gtag('js',new Date());gtag('config','${GA_ID}',{anonymize_ip:true});if(typeof localStorage!=='undefined'&&localStorage.getItem('wzd_cookie_consent')==='accepted'){gtag('consent','update',{'analytics_storage':'granted'});}`}
             </Script>
           </>
         )}
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <CookieConsent />
+      </body>
     </html>
   );
 }
