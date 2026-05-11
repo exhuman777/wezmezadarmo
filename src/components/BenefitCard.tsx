@@ -28,6 +28,12 @@ const STATUS_CONFIG = {
   },
 } as const;
 
+const CONFIDENCE_LABELS: Record<string, string> = {
+  WYSOKA: 'Pewność: wysoka',
+  SREDNIA: 'Pewność: średnia',
+  NISKA: 'Pewność: niska',
+};
+
 export function BenefitCard({ result, onGuide }: BenefitCardProps) {
   const s = STATUS_CONFIG[result.status];
   const b = result.benefit;
@@ -64,6 +70,24 @@ export function BenefitCard({ result, onGuide }: BenefitCardProps) {
           </span>
         </div>
 
+        {/* Confidence + matching method */}
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-1.5 text-[10px] sm:text-[11px] text-text-3">
+          <span>{CONFIDENCE_LABELS[result.confidence] ?? result.confidence}</span>
+          <span>Dopasowanie: algorytm + weryfikacja AI</span>
+        </div>
+
+        {/* Matched criteria */}
+        {result.matchedCriteria.length > 0 && (
+          <div className="text-[11px] sm:text-[12px] text-text-3 leading-relaxed mb-1.5">
+            {result.matchedCriteria.map((c, i) => (
+              <div key={i} className="flex gap-1.5">
+                <span className="shrink-0 font-bold" style={{ color: 'var(--color-green)' }}>[v]</span>
+                <span>{c}</span>
+              </div>
+            ))}
+          </div>
+        )}
+
         {/* Warnings */}
         {result.warnings.length > 0 && (
           <div className="text-[11px] sm:text-[12px] text-red leading-relaxed mb-1.5">
@@ -78,15 +102,26 @@ export function BenefitCard({ result, onGuide }: BenefitCardProps) {
 
         {/* Footer */}
         <div className="flex justify-between items-center pt-2 border-t border-border mt-1.5">
-          <span className="text-[10px] sm:text-[11px] text-text-3 truncate max-w-[45%]">
-            {b.zrodloNazwa}
-          </span>
+          <div className="flex flex-col gap-0.5 min-w-0 flex-1 mr-2">
+            <a
+              href={b.zrodloUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="text-[10px] sm:text-[11px] text-accent truncate hover:underline"
+            >
+              Źródło: {b.zrodloNazwa} {'->'}
+            </a>
+            <span className="text-[9px] sm:text-[10px] text-text-3">
+              Dane zweryfikowane: {b.dataWeryfikacji}
+            </span>
+          </div>
           <button
             onClick={(e) => {
               e.stopPropagation();
               onGuide(b.id);
             }}
-            className="text-[12px] sm:text-[13px] font-semibold px-2.5 py-1 rounded-lg transition-colors cursor-pointer"
+            className="text-[12px] sm:text-[13px] font-semibold px-2.5 py-1 rounded-lg transition-colors cursor-pointer shrink-0"
             style={{
               background: 'linear-gradient(135deg, var(--color-accent), var(--color-accent-2))',
               color: '#fff',

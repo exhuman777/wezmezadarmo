@@ -355,6 +355,7 @@ export default function Home() {
 
       const data = await res.json();
       const matchedResults: MatchResult[] = data.results ?? [];
+      const aiVerified: boolean = data.aiVerified ?? false;
       setResults(matchedResults);
 
       const pewne = matchedResults.filter((r) => r.status === 'PRZYSLUGUJE').length;
@@ -369,17 +370,27 @@ export default function Home() {
         else if (mozliwe > 0) welcomeText += ` (${mozliwe} do weryfikacji)`;
         welcomeText += '.\n\n';
 
+        // Transparency: explain how results were generated
+        welcomeText += 'Jak to działa:\n';
+        welcomeText += '>>> Krok 1: Algorytm dopasował świadczenia do Twojego profilu na podstawie kryteriów (wiek, dochód, status)\n';
+        if (aiVerified) {
+          welcomeText += '>>> Krok 2: AI zweryfikowała wyniki i oznaczyła wątpliwe pozycje do samodzielnego sprawdzenia\n';
+        } else {
+          welcomeText += '>>> Krok 2: Wyniki nie zostały zweryfikowane przez AI (weryfikator niedostępny)\n';
+        }
+        welcomeText += '>>> Każde świadczenie ma link do oficjalnego źródła rządowego\n\n';
+
         welcomeText += 'Przejdź do zakładki "Świadczenia" żeby zobaczyć listę. Kliknij dowolne świadczenie żeby zobaczyć jak złożyć wniosek krok po kroku.\n\n';
 
-        welcomeText += 'Jestem Twoim asystentem AI. Oto co mogę dla Ciebie zrobić:\n\n';
-        welcomeText += '>>> Przeprowadzę Cię przez składanie wniosku krok po kroku\n';
-        welcomeText += '>>> Wyjaśnię warunki, wymagane dokumenty i terminy\n';
-        welcomeText += '>>> Odpowiem na pytania o dowolne świadczenie\n';
-        welcomeText += '>>> Pomogę ocenić czy dane świadczenie jest dla Ciebie opłacalne\n\n';
+        welcomeText += 'Jestem asystentem AI. Moje odpowiedzi opierają się na zweryfikowanej bazie danych, ale nie jestem urzędnikiem. Mogę:\n\n';
+        welcomeText += '>>> Przeprowadzić Cię przez składanie wniosku krok po kroku\n';
+        welcomeText += '>>> Wyjaśnić warunki, wymagane dokumenty i terminy\n';
+        welcomeText += '>>> Odpowiedzieć na pytania o dowolne świadczenie\n\n';
         welcomeText += 'Napisz pytanie, jestem tutaj żeby pomóc.';
       } else {
         welcomeText = 'Nie znalazłem świadczeń pasujących do Twojego profilu.\n\n';
-        welcomeText += 'Opisz mi swoją sytuację, a sprawdzę czy czegoś nie przeoczyłem. Mogę też odpowiedzieć na pytania o dowolne świadczenie w Polsce.';
+        welcomeText += 'Algorytm przeszukał 99 świadczeń z 13 kategorii. Opisz mi swoją sytuację, a sprawdzę czy czegoś nie przeoczyłem.\n\n';
+        welcomeText += 'Jestem asystentem AI -- moje odpowiedzi opierają się na zweryfikowanej bazie danych, ale zawsze sprawdź informacje na stronach źródłowych.';
       }
 
       setMessages([{
@@ -582,7 +593,7 @@ export default function Home() {
 
           {/* Disclaimer footer */}
           <div className="px-4 sm:px-6 py-2.5 text-[11px] text-text-3 leading-relaxed border-t border-border" style={{ background: 'var(--color-bg-2)' }}>
-            Informacja orientacyjna, nie decyzja urzędowa.
+            Wyniki generowane algorytmem + weryfikacja AI. Informacja orientacyjna, nie decyzja urzędowa.
             PESEL nie opuszcza przeglądarki. NIP używany jednorazowo i nie jest przechowywany.
           </div>
         </div>

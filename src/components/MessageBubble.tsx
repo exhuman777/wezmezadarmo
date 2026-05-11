@@ -126,6 +126,13 @@ export function MessageBubble({ role, content, isStreaming }: MessageBubbleProps
           boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
         } : undefined}
       >
+        {/* AI label */}
+        {!isUser && (
+          <div className="flex items-center gap-1.5 mb-1.5 text-[10px] sm:text-[11px] text-text-3">
+            <span className="font-bold tracking-wider uppercase" style={{ color: 'var(--color-accent)' }}>AI</span>
+            <span>Odpowiedź wygenerowana przez model AI</span>
+          </div>
+        )}
         <div className="break-words">
           {isUser ? content : renderMarkdown(content)}
         </div>

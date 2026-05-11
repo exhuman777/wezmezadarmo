@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
 
     // Pass 2: Adversarial verification (graceful degradation if no API key)
     if (!process.env.OPENROUTER_API_KEY || process.env.OPENROUTER_API_KEY === 'your-key-here') {
-      return NextResponse.json({ results: matches });
+      return NextResponse.json({ results: matches, aiVerified: false });
     }
 
     try {
@@ -33,10 +33,10 @@ export async function POST(request: NextRequest) {
       const verifierResponse = await chatCompletion(verifierMessages, 'verifier');
       const verifierResults = parseVerifierResponse(verifierResponse);
       const verifiedResults = applyVerification(matches, verifierResults);
-      return NextResponse.json({ results: verifiedResults });
+      return NextResponse.json({ results: verifiedResults, aiVerified: true });
     } catch {
       // Verifier failed, return unverified matches
-      return NextResponse.json({ results: matches });
+      return NextResponse.json({ results: matches, aiVerified: false });
     }
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Blad weryfikacji';

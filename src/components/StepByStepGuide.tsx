@@ -95,11 +95,15 @@ export function StepByStepGuide({ benefit, onClose }: StepByStepGuideProps) {
         <p className="text-[14px] sm:text-[15px] text-text-2">{w.odwolanie}</p>
       </Section>
 
-      <div className="mt-3 pt-2.5 text-[12px] text-text-3 border-t border-border">
-        Źródło:{' '}
-        <a href={benefit.zrodloUrl} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
-          {benefit.zrodloNazwa}
-        </a>
+      <div className="mt-3 pt-2.5 text-[12px] text-text-3 border-t border-border space-y-1">
+        <div>
+          Źródło:{' '}
+          <a href={benefit.zrodloUrl} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
+            {benefit.zrodloNazwa} {'->'}
+          </a>
+        </div>
+        <div>Dane zweryfikowane: {benefit.dataWeryfikacji} | Ważne do: {benefit.dataWaznosci}</div>
+        <div>Informacje pochodzą z ręcznie zweryfikowanej bazy danych, nie z AI. Zawsze sprawdź aktualność na stronie źródłowej.</div>
       </div>
     </div>
   );

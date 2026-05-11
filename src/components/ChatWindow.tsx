@@ -247,7 +247,7 @@ export function ChatWindow({
         className="px-3 sm:px-4 py-1.5 text-[10px] sm:text-[11px] text-text-3 text-center border-t border-border bg-bg-0 shrink-0"
         style={{ paddingBottom: 'max(6px, env(safe-area-inset-bottom))' }}
       >
-        Informacja orientacyjna, nie decyzja urzędowa. Zweryfikuj na stronach źródłowych.
+        Wyniki dopasowane algorytmem + zweryfikowane przez AI. Informacja orientacyjna, nie decyzja urzędowa. Zawsze zweryfikuj na stronach źródłowych.
       </div>
     </div>
   );
