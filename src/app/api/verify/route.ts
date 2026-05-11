@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
       const verifiedResults = applyVerification(matches, verifierResults);
       return NextResponse.json({ results: verifiedResults });
     } catch {
-      // Verifier failed -- return unverified matches
+      // Verifier failed, return unverified matches
       return NextResponse.json({ results: matches });
     }
   } catch (error) {

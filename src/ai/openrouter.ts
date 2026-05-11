@@ -1,13 +1,20 @@
 import OpenAI from 'openai';
 
-const openrouter = new OpenAI({
-  baseURL: 'https://openrouter.ai/api/v1',
-  apiKey: process.env.OPENROUTER_API_KEY,
-  defaultHeaders: {
-    'HTTP-Referer': 'https://wezmezadarmo.com',
-    'X-Title': 'wezmezadarmo',
-  },
-});
+let _client: OpenAI | null = null;
+
+function getClient(): OpenAI {
+  if (!_client) {
+    _client = new OpenAI({
+      baseURL: 'https://openrouter.ai/api/v1',
+      apiKey: process.env.OPENROUTER_API_KEY,
+      defaultHeaders: {
+        'HTTP-Referer': 'https://wezmezadarmo.com',
+        'X-Title': 'wezmezadarmo',
+      },
+    });
+  }
+  return _client;
+}
 
 export const MODELS = {
   conversation: 'anthropic/claude-haiku-4.5',
@@ -18,7 +25,7 @@ export async function chatCompletion(
   messages: OpenAI.Chat.ChatCompletionMessageParam[],
   model: keyof typeof MODELS = 'conversation',
 ): Promise<string> {
-  const response = await openrouter.chat.completions.create({
+  const response = await getClient().chat.completions.create({
     model: MODELS[model],
     messages,
     temperature: 0.3,
@@ -31,7 +38,7 @@ export async function chatStream(
   messages: OpenAI.Chat.ChatCompletionMessageParam[],
   model: keyof typeof MODELS = 'conversation',
 ) {
-  return openrouter.chat.completions.create({
+  return getClient().chat.completions.create({
     model: MODELS[model],
     messages,
     temperature: 0.3,
@@ -40,4 +47,4 @@ export async function chatStream(
   });
 }
 
-export { openrouter };
+export { getClient as openrouter };

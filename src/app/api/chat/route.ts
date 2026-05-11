@@ -5,6 +5,13 @@ import { UserProfile, MatchResult } from '@/engine/types';
 
 export async function POST(request: NextRequest) {
   try {
+    if (!process.env.OPENROUTER_API_KEY || process.env.OPENROUTER_API_KEY === 'your-key-here') {
+      return new Response(JSON.stringify({ error: 'Brak klucza API OpenRouter' }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
     const {
       messages,
       profile,
