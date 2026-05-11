@@ -430,6 +430,20 @@ export default function Home() {
         }),
       });
 
+      if (res.status === 429) {
+        const data = await res.json();
+        setMessages((prev) => {
+          const updated = [...prev];
+          const last = updated[updated.length - 1];
+          if (last.id === assistantMsg.id) {
+            updated[updated.length - 1] = { ...last, content: data.message };
+          }
+          return updated;
+        });
+        setIsStreaming(false);
+        return;
+      }
+
       if (!res.ok || !res.body) throw new Error('Błąd czatu');
 
       const reader = res.body.getReader();

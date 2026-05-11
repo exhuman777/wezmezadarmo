@@ -2,9 +2,31 @@ import { NextRequest } from 'next/server';
 import { chatStream } from '@/ai/openrouter';
 import { SYSTEM_PROMPT, buildConversationContext } from '@/ai/systemPrompt';
 import { UserProfile, MatchResult } from '@/engine/types';
+import { checkRateLimit } from '@/lib/rateLimit';
 
 export async function POST(request: NextRequest) {
   try {
+    // Rate limit by IP
+    const forwarded = request.headers.get('x-forwarded-for');
+    const ip = forwarded?.split(',')[0]?.trim() ?? request.headers.get('x-real-ip') ?? 'unknown';
+
+    const { allowed, remaining } = checkRateLimit(ip);
+    if (!allowed) {
+      return new Response(
+        JSON.stringify({
+          error: 'limit',
+          message: 'Osiągnąłeś dzienny limit 3 pytań do asystenta AI. wezmezadarmo.com jest projektem pro bono, utrzymywanym ze środków własnych -- limity pozwalają na to, żeby każdy mógł skorzystać z narzędzia. Limit resetuje się po 24 godzinach.',
+        }),
+        {
+          status: 429,
+          headers: {
+            'Content-Type': 'application/json',
+            'X-RateLimit-Remaining': '0',
+          },
+        },
+      );
+    }
+
     if (!process.env.OPENROUTER_API_KEY || process.env.OPENROUTER_API_KEY === 'your-key-here') {
       return new Response(JSON.stringify({ error: 'Brak klucza API OpenRouter' }), {
         status: 500,
@@ -63,6 +85,7 @@ export async function POST(request: NextRequest) {
         'Content-Type': 'text/event-stream',
         'Cache-Control': 'no-cache',
         Connection: 'keep-alive',
+        'X-RateLimit-Remaining': String(remaining),
       },
     });
   } catch (error) {
