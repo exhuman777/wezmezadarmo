@@ -841,7 +841,7 @@ export default function Home() {
         {/* Footer */}
         <footer style={{ borderTop: '1px solid var(--color-border)', padding: '60px 0 40px', marginTop: 60 }}>
           <div className="container">
-            <div className="grid-footer" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 40, marginBottom: 48 }}>
+            <div className="grid-footer" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: 40, marginBottom: 48 }}>
               <div>
                 <Logo />
                 <p style={{ fontSize: 14, color: 'var(--color-text-3)', marginTop: 16, maxWidth: 360, lineHeight: 1.6 }}>
@@ -851,37 +851,22 @@ export default function Home() {
                   <FlagStripe width={36} thickness={4} />
                 </div>
               </div>
-              {[
-                ['Narzędzie', [
-                  { label: 'Sprawdź świadczenia', href: '/' },
-                  { label: 'Baza świadczeń', href: '/swiadczenia' },
-                  { label: 'Czat AI', href: '/' },
-                  { label: 'Bezpieczeństwo PESEL', href: '/' },
-                ]],
-                ['Projekt', [
-                  { label: 'O projekcie', href: '/o-projekcie' },
-                  { label: 'Aktualizacje', href: '/o-projekcie' },
-                  { label: 'Zgłoś błąd', href: 'mailto:sobkowicz.kamil@gmail.com' },
-                  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/kamil-sobkowicz/', external: true },
-                ]],
-                ['Prawne', [
-                  { label: 'Regulamin', href: '/regulamin' },
-                  { label: 'Polityka prywatności', href: '/polityka-prywatnosci' },
-                  { label: 'Cookies', href: '/polityka-prywatnosci' },
-                  { label: 'Kontakt', href: 'mailto:sobkowicz.kamil@gmail.com' },
-                ]],
-              ].map(([h, items], i) => (
-                <div key={i}>
-                  <div className="label-eyebrow" style={{ marginBottom: 14 }}>{h as string}</div>
-                  <ul style={{ padding: 0, margin: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10 }}>
-                    {(items as { label: string; href: string; external?: boolean }[]).map(it => (
-                      <li key={it.label}>
-                        <a className="link-u" href={it.href} {...(it.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})} style={{ fontSize: 13, color: 'var(--color-text-2)' }}>{it.label}</a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+              <div>
+                <div className="label-eyebrow" style={{ marginBottom: 14 }}>Nawigacja</div>
+                <ul style={{ padding: 0, margin: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10 }}>
+                  <li><a className="link-u" href="/swiadczenia" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Baza świadczeń</a></li>
+                  <li><a className="link-u" href="/o-projekcie" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>O projekcie</a></li>
+                  <li><a className="link-u" href="https://www.linkedin.com/in/kamil-sobkowicz/" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Kontakt / LinkedIn</a></li>
+                </ul>
+              </div>
+              <div>
+                <div className="label-eyebrow" style={{ marginBottom: 14 }}>Prawne</div>
+                <ul style={{ padding: 0, margin: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10 }}>
+                  <li><a className="link-u" href="/regulamin" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Regulamin</a></li>
+                  <li><a className="link-u" href="/polityka-prywatnosci" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Polityka prywatności</a></li>
+                  <li><a className="link-u" href="/polityka-prywatnosci" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Cookies</a></li>
+                </ul>
+              </div>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: 24, borderTop: '1px solid var(--color-border)', fontSize: 12, color: 'var(--color-text-3)' }}>
               <span>2026 wezmezadarmo.com | projekt społeczny Kamila Sobkowicza</span>
