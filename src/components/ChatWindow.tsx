@@ -181,7 +181,7 @@ export function ChatWindow({
 
       {/* Content: Split-panel benefits */}
       {activeTab === 'list' && results.length > 0 && (
-        <div style={{
+        <div className={guideBenefitId ? '' : 'grid-split'} style={{
           flex: 1, minHeight: 0,
           display: 'grid',
           gridTemplateColumns: guideBenefitId ? '1fr' : '360px 1fr',
@@ -263,7 +263,7 @@ export function ChatWindow({
                     </div>
 
                     {/* Detail blocks in 2-col grid */}
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
+                    <div className="grid-detail" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
                       <DetailBlock title="Co potrzebujesz">
                         <ol style={{ paddingLeft: 18, margin: 0, fontSize: 14, lineHeight: 1.6, color: 'var(--color-text-2)' }}>
                           {selectedBenefit.wniosek.dokumenty.map((d, i) => <li key={i}>{d}</li>)}

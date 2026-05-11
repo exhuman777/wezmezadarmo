@@ -637,11 +637,11 @@ export default function Home() {
               <FlagStripe width={28} thickness={3} />
               <span className="label-eyebrow">Niezależne narzędzie | 2026 | bez rejestracji</span>
               <span style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
-              <span className="label-eyebrow" style={{ color: 'var(--color-muted-2)' }}>zaktualizowano 11.05.2026</span>
+              <span className="label-eyebrow hide-mobile" style={{ color: 'var(--color-muted-2)' }}>zaktualizowano 11.05.2026</span>
             </div>
 
             {/* Split: hero left + form right */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1.15fr 1fr', gap: 64, alignItems: 'start' }}>
+            <div className="grid-hero" style={{ display: 'grid', gridTemplateColumns: '1.15fr 1fr', gap: 64, alignItems: 'start' }}>
 
               {/* LEFT */}
               <div>
@@ -667,7 +667,7 @@ export default function Home() {
                 </p>
 
                 {/* Stat counters */}
-                <div className="rise" style={{
+                <div className="rise grid-stats" style={{
                   display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)',
                   gap: 0, marginBottom: 44, animationDelay: '180ms',
                   borderTop: '1px solid var(--color-border)',
@@ -769,47 +769,13 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Category grid */}
-            <div className="rise" style={{ marginTop: 96, animationDelay: '360ms' }}>
-              <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 28 }}>
-                <h2 style={{ fontSize: 32, letterSpacing: '-0.025em' }}>
-                  13 kategorii. <span className="serif" style={{ color: 'var(--color-text-3)' }}>Jedno miejsce.</span>
-                </h2>
-                <a href="/swiadczenia" className="label-eyebrow link-u" style={{ color: 'var(--color-accent)' }}>Przeglądaj bazę</a>
-              </div>
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(85px, 1fr))',
-                gap: 8,
-              }}>
-                {CATEGORIES.map((c) => (
-                  <a key={c.id} href="/swiadczenia" className="hover-lift" style={{
-                    background: 'var(--color-surface)',
-                    border: '1px solid var(--color-border)',
-                    borderRadius: 16,
-                    padding: 14,
-                    aspectRatio: '1',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'flex-end',
-                    cursor: 'pointer',
-                    textDecoration: 'none',
-                    color: 'inherit',
-                  }}>
-                    <div style={{ fontSize: 12, fontWeight: 500, letterSpacing: '-0.01em', lineHeight: 1.15, marginBottom: 4 }}>{c.label}</div>
-                    <div className="mono" style={{ fontSize: 10, color: 'var(--color-text-3)' }}>{c.count} świadczeń</div>
-                  </a>
-                ))}
-              </div>
-            </div>
-
             {/* Example benefits */}
             <div className="rise" style={{ marginTop: 80, animationDelay: '420ms' }}>
               <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 20 }}>
                 <span className="label-eyebrow">Przykładowe świadczenia</span>
                 <span className="label-eyebrow" style={{ color: 'var(--color-muted-2)' }}>3 z 99</span>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+              <div className="grid-benefits" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
                 {EXAMPLE_BENEFITS.slice(0, 3).map((b, i) => (
                   <a key={i} href="/swiadczenia" className="hover-lift" style={{
                     background: 'var(--color-surface)',
@@ -875,7 +841,7 @@ export default function Home() {
         {/* Footer */}
         <footer style={{ borderTop: '1px solid var(--color-border)', padding: '60px 0 40px', marginTop: 60 }}>
           <div className="container">
-            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 40, marginBottom: 48 }}>
+            <div className="grid-footer" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 40, marginBottom: 48 }}>
               <div>
                 <Logo />
                 <p style={{ fontSize: 14, color: 'var(--color-text-3)', marginTop: 16, maxWidth: 360, lineHeight: 1.6 }}>
@@ -1042,7 +1008,7 @@ export default function Home() {
         <section style={{ position: 'relative', minHeight: 'calc(100vh - 65px)', display: 'flex', alignItems: 'center' }}>
           <div className="grain-bg" />
           <div className="container" style={{ position: 'relative' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center' }}>
+            <div className="grid-hero" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center' }}>
 
               {/* LEFT: status */}
               <div>
