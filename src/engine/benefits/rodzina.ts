@@ -15,12 +15,12 @@ export const RODZINA: Benefit[] = [
         'Wypełnij wniosek SW-1 (świadczenie wychowawcze)',
         'Podaj PESEL dziecka/dzieci i numer konta',
         'Wyślij wniosek elektronicznie',
-        'ZUS wyda decyzję w ciągu 30 dni -- pieniądze przyjdą na konto',
+        'ZUS wyda decyzję w ciągu 30 dni, pieniądze przyjdą na konto',
       ],
       terminRealizacji: '30 dni od złożenia wniosku',
       pulapki: [
         'Wniosek na nowy okres świadczeniowy składa się od 1 lutego',
-        'Brak progu dochodowego -- przysługuje wszystkim',
+        'Brak progu dochodowego, przysługuje wszystkim',
         'Jeśli złożysz po terminie, możesz stracić wypłatę za wcześniejsze miesiące',
       ],
       odwolanie: 'Odwołanie do Prezesa ZUS w ciągu 14 dni od decyzji',
@@ -50,7 +50,7 @@ export const RODZINA: Benefit[] = [
       ],
       terminRealizacji: '30 dni od złożenia kompletnego wniosku',
       pulapki: [
-        'Próg dochodowy: 1922 PLN netto na osobę -- wiele rodzin jest tuż nad progiem',
+        'Próg dochodowy: 1922 PLN netto na osobę, wiele rodzin jest tuż nad progiem',
         'MUSISZ mieć zaświadczenie o opiece medycznej od 10 tygodnia ciąży',
         'Wniosek trzeba złożyć w ciągu 12 miesięcy od narodzin',
       ],
@@ -80,7 +80,7 @@ export const RODZINA: Benefit[] = [
       terminRealizacji: '30 dni od złożenia wniosku',
       pulapki: [
         'Nie przysługuje osobom na umowie o pracę (one dostają zasiłek macierzyński z ZUS)',
-        'Złóż w ciągu 3 miesięcy od porodu -- potem tracisz wypłatę za wcześniejsze miesiące',
+        'Złóż w ciągu 3 miesięcy od porodu, potem tracisz wypłatę za wcześniejsze miesiące',
         'Brak progu dochodowego',
       ],
       odwolanie: 'Odwołanie do SKO w ciągu 14 dni',
@@ -131,9 +131,9 @@ export const RODZINA: Benefit[] = [
         'Wypełnij wniosek o świadczenie Dobry Start',
         'Podaj PESEL uczącego się dziecka',
       ],
-      terminRealizacji: 'Wypłata w ciągu 30 dni (jeśli złożysz w lipcu -- wypłata we wrześniu)',
+      terminRealizacji: 'Wypłata w ciągu 30 dni (jeśli złożysz w lipcu, wypłata we wrześniu)',
       pulapki: [
-        'Składaj od 1 lipca -- wcześniej system nie przyjmuje',
+        'Składaj od 1 lipca, wcześniej system nie przyjmuje',
         'Dziecko musi uczestniczyć w roku szkolnym (nie dotyczy przedszkolaków)',
         'Brak progu dochodowego',
       ],
@@ -163,7 +163,7 @@ export const RODZINA: Benefit[] = [
       ],
       terminRealizacji: '30 dni od złożenia kompletnego wniosku',
       pulapki: [
-        'Wielu wdowców/wdów nie wie że im przysługuje -- warto sprawdzić',
+        'Wielu wdowców/wdów nie wie że im przysługuje, warto sprawdzić',
         'Można wybrać korzystniejszą rentę: własną lub rodzinną',
         'Przysługuje też dzieciom zmarłego (do 25 roku życia jeśli się uczą)',
       ],

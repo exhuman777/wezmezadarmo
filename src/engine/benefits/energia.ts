@@ -20,7 +20,7 @@ export const ENERGIA: Benefit[] = [
       pulapki: [
         'Progi dochodowe: 2500 PLN/os. (jednoosobowe) lub 1700 PLN/os. (wieloosobowe)',
         'Kwota zależy od źródła ogrzewania: gaz, prąd, olej = różne stawki',
-        'Bon nie podlega opodatkowaniu -- nie wykazujesz go w PIT',
+        'Bon nie podlega opodatkowaniu, nie wykazujesz go w PIT',
       ],
       odwolanie: 'Odwołanie do SKO w ciągu 14 dni',
     },
@@ -42,7 +42,7 @@ export const ENERGIA: Benefit[] = [
         'Złóż wniosek z fakturą za ciepło',
       ],
       terminRealizacji: '30-60 dni',
-      pulapki: ['Dotyczy TYLKO ciepła systemowego -- nie dotyczy gazu, oleju czy prądu', 'Kwota zależy od cen ciepła w danym okresie'],
+      pulapki: ['Dotyczy TYLKO ciepła systemowego, nie dotyczy gazu, oleju czy prądu', 'Kwota zależy od cen ciepła w danym okresie'],
       odwolanie: 'Odwołanie do SKO',
     },
     zrodloUrl: 'https://www.gov.pl/web/energia/informacje-o-bonie-cieplowniczym',

@@ -222,7 +222,7 @@ export const EKOLOGIA: Benefit[] = [
       ],
       terminRealizacji: 'Program zakończony, brak nowych naborów',
       pulapki: [
-        'Program zakończony z końcem 2024 -- nowe wnioski nie są przyjmowane',
+        'Program zakończony z końcem 2024, nowe wnioski nie są przyjmowane',
         'Progi dochodowe w ostatniej edycji: do 2500 PLN netto/os. (jednoosobowe) lub 1700 PLN/os. (wieloosobowe)',
         'Kwota minimalna wypłaty wynosiła 20 PLN. Poniżej tej kwoty świadczenie nie przysługiwało',
         'Dodatek nie podlegał opodatkowaniu, nie wykazywany w PIT',

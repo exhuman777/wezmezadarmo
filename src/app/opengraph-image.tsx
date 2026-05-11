@@ -2,7 +2,7 @@ import { ImageResponse } from 'next/og';
 
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
-export const alt = 'wezmezadarmo -- Sprawdz co Ci sie nalezy';
+export const alt = 'wezmezadarmo, Sprawdz co Ci sie nalezy';
 
 export default function OGImage() {
   return new ImageResponse(
@@ -100,7 +100,7 @@ export default function OGImage() {
               marginBottom: '32px',
             }}
           >
-            Zasilki, ulgi, dotacje, badania -- w 2 minuty
+            Zasilki, ulgi, dotacje, badania, w 2 minuty
           </div>
 
           {/* Stats */}

@@ -61,14 +61,14 @@ export const ZUS: Benefit[] = [
       ],
       kroki: [
         'Złóż wniosek o urlop macierzyński u pracodawcy',
-        'W ciągu 21 dni po porodzie złóż wniosek o zasiłek za cały okres (macierzyński + rodzicielski) -- stawka 81,5%',
+        'W ciągu 21 dni po porodzie złóż wniosek o zasiłek za cały okres (macierzyński + rodzicielski), stawka 81,5%',
         'Jeśli nie złożysz w 21 dni: 100% za urlop macierzyński, potem 70% za rodzicielski',
         'Pracodawca przekazuje ZUS Z-3 do ZUS',
         'ZUS wypłaca zasiłek co miesiąc',
       ],
       terminRealizacji: '30 dni od złożenia wniosku',
       pulapki: [
-        'Termin 21 dni po porodzie jest kluczowy -- decyduje o stawce 81,5% vs 100%/70%',
+        'Termin 21 dni po porodzie jest kluczowy, decyduje o stawce 81,5% vs 100%/70%',
         'Ojciec może przejąć część urlopu rodzicielskiego (9 tygodni zarezerwowane wyłącznie dla drugiego rodzica)',
         'Na działalności: podstawa zasiłku zależy od opłacanych składek przez min. 12 miesięcy',
         'Zasiłek macierzyński nie może być niższy niż 1000 PLN miesięcznie (dopełnienie do kosiniakowego)',
@@ -81,7 +81,7 @@ export const ZUS: Benefit[] = [
   {
     id: 'zasilek-opiekunczy', nazwa: 'Zasiłek opiekuńczy', kategoria: 'ZUS',
     kwota: '80% wynagrodzenia',
-    czestotliwosc: 'dziennie (max 60 dni/rok -- dziecko do 14 lat; 14 dni/rok -- inny członek rodziny)',
+    czestotliwosc: 'dziennie (max 60 dni/rok, dziecko do 14 lat; 14 dni/rok, inny członek rodziny)',
     wymagania: {
       zatrudnienie: ['umowa_o_prace', 'umowa_zlecenie', 'dzialalnosc'],
     },
@@ -105,9 +105,9 @@ export const ZUS: Benefit[] = [
       ],
       terminRealizacji: '30 dni od złożenia kompletnych dokumentów',
       pulapki: [
-        'Limit 60 dni na dziecko do 14 lat dotyczy łącznie obojga rodziców -- nie na każde dziecko osobno',
-        'Na chore dziecko 14-18 lat (niepełnosprawne) -- limit 30 dni',
-        'Na innego członka rodziny (np. małżonka, rodzica) -- limit 14 dni',
+        'Limit 60 dni na dziecko do 14 lat dotyczy łącznie obojga rodziców, nie na każde dziecko osobno',
+        'Na chore dziecko 14-18 lat (niepełnosprawne), limit 30 dni',
+        'Na innego członka rodziny (np. małżonka, rodzica), limit 14 dni',
         'Zdrowe dziecko do lat 8: zasiłek przysługuje tylko w wyjątkowych sytuacjach (np. zamknięcie żłobka, szkoły)',
       ],
       odwolanie: 'Odwołanie do Sądu Pracy w ciągu 30 dni od decyzji ZUS',
@@ -140,11 +140,11 @@ export const ZUS: Benefit[] = [
         'Lekarz prowadzący wypełnia zaświadczenie OL-9',
         'Pracodawca wypełnia wywiad zawodowy N-10',
         'Lekarz orzecznik ZUS bada i wydaje orzeczenie',
-        'ZUS wydaje decyzję -- wypłata świadczenia co miesiąc',
+        'ZUS wydaje decyzję, wypłata świadczenia co miesiąc',
       ],
       terminRealizacji: '60 dni od złożenia wniosku (badanie przez lekarza orzecznika)',
       pulapki: [
-        'Złóż wniosek 6 tygodni przed końcem zasiłku chorobowego -- żeby nie było przerwy w wypłatach',
+        'Złóż wniosek 6 tygodni przed końcem zasiłku chorobowego, żeby nie było przerwy w wypłatach',
         'Świadczenie przysługuje tylko jeśli dalsze leczenie rokuje odzyskanie zdolności do pracy',
         'Praca zarobkowa w trakcie pobierania = utrata świadczenia',
         'Odmowa poddania się badaniu lub rehabilitacji = utrata prawa do świadczenia',
@@ -156,7 +156,7 @@ export const ZUS: Benefit[] = [
   },
   {
     id: 'zasilek-pogrzebowy', nazwa: 'Zasiłek pogrzebowy', kategoria: 'ZUS',
-    kwota: '7000 PLN jednorazowo (od 1 stycznia 2026; osobom spoza rodziny -- do wysokości poniesionych kosztów, max 7000 PLN)',
+    kwota: '7000 PLN jednorazowo (od 1 stycznia 2026; osobom spoza rodziny, do wysokości poniesionych kosztów, max 7000 PLN)',
     kwotaMin: 7000, kwotaMax: 7000,
     czestotliwosc: 'jednorazowo',
     wymagania: {},
@@ -182,9 +182,9 @@ export const ZUS: Benefit[] = [
       terminRealizacji: '30 dni od złożenia kompletnego wniosku',
       pulapki: [
         'Od 1 stycznia 2026 kwota wzrosła z 4000 PLN do 7000 PLN',
-        'Data śmierci decyduje o kwocie -- nie data złożenia wniosku',
+        'Data śmierci decyduje o kwocie, nie data złożenia wniosku',
         'Wniosek trzeba złożyć w ciągu 12 miesięcy od dnia pogrzebu',
-        'Jeśli pogrzeb opłacił zakład pogrzebowy na zlecenie -- zasiłek przysługuje tej osobie, która poniosła koszty',
+        'Jeśli pogrzeb opłacił zakład pogrzebowy na zlecenie, zasiłek przysługuje tej osobie, która poniosła koszty',
       ],
       odwolanie: 'Odwołanie do Sądu Pracy w ciągu 30 dni od decyzji ZUS',
     },
@@ -224,7 +224,7 @@ export const ZUS: Benefit[] = [
       ],
       terminRealizacji: '30-60 dni od złożenia wniosku (w tym badanie przez lekarza orzecznika)',
       pulapki: [
-        'Renta socjalna wymaga całkowitej niezdolności do pracy -- umiarkowany stopień niepełnosprawności nie zawsze wystarcza',
+        'Renta socjalna wymaga całkowitej niezdolności do pracy, umiarkowany stopień niepełnosprawności nie zawsze wystarcza',
         'Niezdolność musi powstać przed 18 r.ż., w trakcie nauki (do 25 lat) lub na studiach doktoranckich',
         'Można dorabiać do 6438,50 PLN brutto miesięcznie (od marca 2026) bez wpływu na świadczenie',
         'Przekroczenie granicy przychodu powoduje zawieszenie renty',
@@ -236,7 +236,7 @@ export const ZUS: Benefit[] = [
   },
   {
     id: 'emerytura-pomostowa', nazwa: 'Emerytura pomostowa', kategoria: 'ZUS',
-    kwota: 'Obliczana indywidualnie -- minimalna 1978,49 PLN brutto (od marca 2026)',
+    kwota: 'Obliczana indywidualnie, minimalna 1978,49 PLN brutto (od marca 2026)',
     kwotaMin: 1978, kwotaMax: 3200,
     czestotliwosc: 'miesięcznie',
     wymagania: {
@@ -267,9 +267,9 @@ export const ZUS: Benefit[] = [
       ],
       terminRealizacji: '30 dni od złożenia kompletnego wniosku',
       pulapki: [
-        'Od 2024 r. zniesiono wymóg pracy w szczególnych warunkach przed 31.12.1998 -- teraz dostępna także dla młodszych pracowników',
+        'Od 2024 r. zniesiono wymóg pracy w szczególnych warunkach przed 31.12.1998, teraz dostępna także dla młodszych pracowników',
         'Nie musisz rozwiązywać stosunku pracy przed złożeniem wniosku, ale musisz to zrobić przed przyznaniem emerytury pomostowej',
-        'Emerytura pomostowa jest bezterminowa -- przysługuje do osiągnięcia powszechnego wieku emerytalnego',
+        'Emerytura pomostowa jest bezterminowa, przysługuje do osiągnięcia powszechnego wieku emerytalnego',
         'Można dorabiać, ale po przekroczeniu progu ZUS zmniejszy lub zawiesi świadczenie',
       ],
       odwolanie: 'Odwołanie do Sądu Pracy w ciągu 30 dni od decyzji ZUS',
@@ -289,7 +289,7 @@ export const ZUS: Benefit[] = [
     wykluczenia: [
       { opis: 'Brak 180-dniowego okresu pobierania zasiłku dla bezrobotnych', sprawdz: 'zasilek_bezrobotnych_180' },
       { opis: 'Rozwiązanie umowy z winy pracownika (dyscyplinarka)', sprawdz: 'przyczyna_rozwiazania' },
-      { opis: 'Niespełnienie warunków stażowych (20/25 lat) i wiekowych (56/61 lat) -- różne progi w zależności od przyczyny utraty pracy', sprawdz: 'warunki_staz_wiek' },
+      { opis: 'Niespełnienie warunków stażowych (20/25 lat) i wiekowych (56/61 lat), różne progi w zależności od przyczyny utraty pracy', sprawdz: 'warunki_staz_wiek' },
     ],
     wniosek: {
       kanal: ['PUE_ZUS'],
@@ -310,7 +310,7 @@ export const ZUS: Benefit[] = [
       ],
       terminRealizacji: '30 dni od złożenia kompletnego wniosku',
       pulapki: [
-        'Termin 30 dni od zaświadczenia PUP jest bezwzględny -- po nim tracisz prawo',
+        'Termin 30 dni od zaświadczenia PUP jest bezwzględny, po nim tracisz prawo',
         'Umowa musi być rozwiązana z przyczyn leżących po stronie pracodawcy (likwidacja, upadłość, zwolnienia grupowe)',
         'Można dorabiać do 2225,90 PLN brutto miesięcznie bez wpływu na świadczenie (od marca 2026)',
         'Przekroczenie 6232,50 PLN brutto miesięcznie = zawieszenie świadczenia',
@@ -356,10 +356,10 @@ export const ZUS: Benefit[] = [
       ],
       terminRealizacji: '30 dni od złożenia wniosku (decyzja Prezesa ZUS)',
       pulapki: [
-        'Świadczenie jest uznaniowe -- Prezes ZUS może odmówić',
+        'Świadczenie jest uznaniowe, Prezes ZUS może odmówić',
         'Dla kobiet wiek minimalny to 60 lat, dla mężczyzn 65 lat',
-        'Jeśli masz już emeryturę lub rentę niższą niż minimalna -- świadczenie uzupełnia do kwoty minimalnej',
-        'Jeśli nie masz żadnej emerytury -- możesz dostać pełną kwotę 1978,49 PLN brutto',
+        'Jeśli masz już emeryturę lub rentę niższą niż minimalna, świadczenie uzupełnia do kwoty minimalnej',
+        'Jeśli nie masz żadnej emerytury, możesz dostać pełną kwotę 1978,49 PLN brutto',
         'Mężczyźni też mogą się ubiegać (mimo nazwy "Mama 4+")',
       ],
       odwolanie: 'Wniosek o ponowne rozpatrzenie sprawy do Prezesa ZUS, potem skarga do WSA',
@@ -380,15 +380,15 @@ export const ZUS: Benefit[] = [
     ],
     wniosek: {
       kanal: ['PUE_ZUS'],
-      dokumenty: ['Brak -- świadczenie wypłacane automatycznie (nie trzeba składać wniosku)'],
+      dokumenty: ['Brak, świadczenie wypłacane automatycznie (nie trzeba składać wniosku)'],
       kroki: [
-        'Świadczenie jest wypłacane z urzędu -- nie trzeba składać wniosku',
+        'Świadczenie jest wypłacane z urzędu, nie trzeba składać wniosku',
         'ZUS wypłaca trzynastkę razem z emeryturą lub rentą w kwietniu',
         'Sprawdź czy Twoje świadczenie nie jest zawieszone na dzień 31 marca',
       ],
       terminRealizacji: 'Automatyczna wypłata w kwietniu każdego roku',
       pulapki: [
-        'Brak progu dochodowego -- przysługuje wszystkim emerytom i rencistom',
+        'Brak progu dochodowego, przysługuje wszystkim emerytom i rencistom',
         'Świadczenie musi być aktywne (nie zawieszone) na 31 marca',
         'Przysługuje również osobom pobierającym rentę socjalną, świadczenie przedemerytalne, rentę rodzinną',
         'Kwota odpowiada minimalnej emeryturze po marcowej waloryzacji',
@@ -400,7 +400,7 @@ export const ZUS: Benefit[] = [
   },
   {
     id: '14-emerytura', nazwa: '14. emerytura (czternastka)', kategoria: 'ZUS',
-    kwota: 'Do 1978,49 PLN brutto jednorazowo (pełna kwota przy emeryturze do 2900 PLN brutto; powyżej -- pomniejszana o nadwyżkę)',
+    kwota: 'Do 1978,49 PLN brutto jednorazowo (pełna kwota przy emeryturze do 2900 PLN brutto; powyżej, pomniejszana o nadwyżkę)',
     kwotaMin: 50, kwotaMax: 1978,
     czestotliwosc: 'rocznie (wypłata we wrześniu)',
     wymagania: {
@@ -412,18 +412,18 @@ export const ZUS: Benefit[] = [
     ],
     wniosek: {
       kanal: ['PUE_ZUS'],
-      dokumenty: ['Brak -- świadczenie wypłacane automatycznie (nie trzeba składać wniosku)'],
+      dokumenty: ['Brak, świadczenie wypłacane automatycznie (nie trzeba składać wniosku)'],
       kroki: [
-        'Świadczenie jest wypłacane z urzędu -- nie trzeba składać wniosku',
+        'Świadczenie jest wypłacane z urzędu, nie trzeba składać wniosku',
         'ZUS wypłaca czternastkę razem z emeryturą/rentą we wrześniu',
         'Pełna kwota przysługuje przy emeryturze do 2900 PLN brutto',
-        'Powyżej 2900 PLN -- stosowana zasada "złotówka za złotówkę" (każdy złoty powyżej progu zmniejsza czternastkę)',
+        'Powyżej 2900 PLN, stosowana zasada "złotówka za złotówkę" (każdy złoty powyżej progu zmniejsza czternastkę)',
       ],
       terminRealizacji: 'Automatyczna wypłata we wrześniu każdego roku',
       pulapki: [
-        'Próg dochodowy 2900 PLN brutto -- powyżej tej kwoty czternastka jest pomniejszana',
+        'Próg dochodowy 2900 PLN brutto, powyżej tej kwoty czternastka jest pomniejszana',
         'Przy emeryturze powyżej 4828,49 PLN brutto czternastka nie przysługuje wcale',
-        'Minimalna wypłata to 50 PLN brutto -- poniżej ZUS nie wypłaca',
+        'Minimalna wypłata to 50 PLN brutto, poniżej ZUS nie wypłaca',
         'W odróżnieniu od trzynastki, czternastka MA próg dochodowy',
         'Czternastka przysługuje również rencistom, osobom na świadczeniu przedemerytalnym',
       ],
