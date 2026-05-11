@@ -621,6 +621,8 @@ export default function Home() {
 
         {/* Footer links */}
         <div className="mt-3 text-[11px] sm:text-[12px] text-text-3 text-center">
+          <a href="/o-projekcie" className="text-text-3 hover:text-text-1 hover:underline">O projekcie</a>
+          <span className="mx-2">|</span>
           <a href="/regulamin" className="text-text-3 hover:text-text-1 hover:underline">Regulamin</a>
           <span className="mx-2">|</span>
           <a href="/polityka-prywatnosci" className="text-text-3 hover:text-text-1 hover:underline">Polityka prywatności</a>
