@@ -881,16 +881,31 @@ export default function Home() {
                 </div>
               </div>
               {[
-                ['Narzędzie', ['Sprawdź świadczenia', 'Baza świadczeń', 'Czat AI', 'Bezpieczeństwo PESEL']],
-                ['Projekt', ['O projekcie', 'Aktualizacje', 'Zgłoś błąd', 'LinkedIn']],
-                ['Prawne', ['Regulamin', 'Polityka prywatności', 'Cookies', 'Kontakt']],
+                ['Narzędzie', [
+                  { label: 'Sprawdź świadczenia', href: '/' },
+                  { label: 'Baza świadczeń', href: '/swiadczenia' },
+                  { label: 'Czat AI', href: '/' },
+                  { label: 'Bezpieczeństwo PESEL', href: '/' },
+                ]],
+                ['Projekt', [
+                  { label: 'O projekcie', href: '/o-projekcie' },
+                  { label: 'Aktualizacje', href: '/o-projekcie' },
+                  { label: 'Zgłoś błąd', href: 'mailto:balthus.delarola@gmail.com' },
+                  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/kamil-sobkowicz/', external: true },
+                ]],
+                ['Prawne', [
+                  { label: 'Regulamin', href: '/regulamin' },
+                  { label: 'Polityka prywatności', href: '/polityka-prywatnosci' },
+                  { label: 'Cookies', href: '/polityka-prywatnosci' },
+                  { label: 'Kontakt', href: 'mailto:balthus.delarola@gmail.com' },
+                ]],
               ].map(([h, items], i) => (
                 <div key={i}>
                   <div className="label-eyebrow" style={{ marginBottom: 14 }}>{h as string}</div>
                   <ul style={{ padding: 0, margin: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10 }}>
-                    {(items as string[]).map(it => (
-                      <li key={it}>
-                        <a className="link-u" href={it === 'O projekcie' ? '/o-projekcie' : '#'} style={{ fontSize: 13, color: 'var(--color-text-2)' }}>{it}</a>
+                    {(items as { label: string; href: string; external?: boolean }[]).map(it => (
+                      <li key={it.label}>
+                        <a className="link-u" href={it.href} {...(it.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})} style={{ fontSize: 13, color: 'var(--color-text-2)' }}>{it.label}</a>
                       </li>
                     ))}
                   </ul>
