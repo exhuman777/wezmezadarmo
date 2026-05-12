@@ -75,7 +75,6 @@ export function ChatWindow({
     }
   }, [guideBenefitId]);
 
-  // Reset mobile detail when switching to list tab
   useEffect(() => {
     if (activeTab === 'list') {
       setMobileShowDetail(false);
@@ -117,10 +116,10 @@ export function ChatWindow({
   function downloadMd() {
     const allBenefits = getAllBenefits();
     const lines: string[] = [
-      '# Moje swiadczenia i ulgi -- wezmezadarmo.com',
+      '# Moje świadczenia i ulgi -- wezmezadarmo.com',
       '',
       `Wygenerowano: ${new Date().toLocaleDateString('pl-PL')}`,
-      `Lacznie: ${results.length} swiadczen`,
+      `Łącznie: ${results.length} świadczeń`,
       '',
       '---',
     ];
@@ -130,7 +129,7 @@ export function ChatWindow({
       lines.push('');
       lines.push(`## ${b.nazwa}`);
       lines.push('');
-      lines.push(`**Status:** ${r.status === 'PRZYSLUGUJE' ? 'Pewne (przysluguje)' : 'Mozliwe (do weryfikacji)'}`);
+      lines.push(`**Status:** ${r.status === 'PRZYSLUGUJE' ? 'Pewne (przysługuje)' : 'Możliwe (do weryfikacji)'}`);
       lines.push(`**Kwota:** ${b.kwota}`);
       lines.push(`**Termin realizacji:** ${b.wniosek.terminRealizacji}`);
       if (b.wniosek.formularz) {
@@ -140,20 +139,20 @@ export function ChatWindow({
       lines.push('### Wymagane dokumenty');
       b.wniosek.dokumenty.forEach(d => lines.push(`- ${d}`));
       lines.push('');
-      lines.push('### Jak zlozyc wniosek');
+      lines.push('### Jak złożyć wniosek');
       b.wniosek.kroki.forEach((k, i) => lines.push(`${i + 1}. ${k}`));
       if (b.wniosek.pulapki.length > 0) {
         lines.push('');
-        lines.push('### Na co uwazac');
+        lines.push('### Na co uważać');
         b.wniosek.pulapki.forEach(p => lines.push(`- ${p}`));
       }
       if (r.matchedCriteria.length > 0) {
         lines.push('');
-        lines.push('### Spelnioncriteria');
+        lines.push('### Spełnione kryteria');
         r.matchedCriteria.forEach(c => lines.push(`- [x] ${c}`));
       }
       lines.push('');
-      lines.push(`**Zrodlo:** [${b.zrodloNazwa}](${b.zrodloUrl})`);
+      lines.push(`**Źródło:** [${b.zrodloNazwa}](${b.zrodloUrl})`);
       lines.push('');
       lines.push('---');
     }
@@ -174,16 +173,16 @@ export function ChatWindow({
       const b = allBenefits.find(x => x.id === r.benefit.id);
       if (!b) return '';
       const statusClass = r.status === 'PRZYSLUGUJE' ? 'status-pewne' : 'status-mozliwe';
-      const statusText = r.status === 'PRZYSLUGUJE' ? 'PEWNE' : 'MOZLIWE';
+      const statusText = r.status === 'PRZYSLUGUJE' ? 'PEWNE' : 'MOŻLIWE';
       return `<div class="benefit">
 <h2>${b.nazwa}</h2>
 <span class="${statusClass}">${statusText}</span> <span class="kwota">${b.kwota}</span>
 <h3>Wymagane dokumenty</h3>
 <ul>${b.wniosek.dokumenty.map(d => `<li>${d}</li>`).join('')}</ul>
-<h3>Jak zlozyt wniosek</h3>
+<h3>Jak złożyć wniosek</h3>
 <ol>${b.wniosek.kroki.map(k => `<li>${k}</li>`).join('')}</ol>
-${b.wniosek.pulapki.length > 0 ? `<h3>Na co uwazac</h3><ul>${b.wniosek.pulapki.map(p => `<li>${p}</li>`).join('')}</ul>` : ''}
-<div class="source">Zrodlo: <a href="${b.zrodloUrl}">${b.zrodloNazwa}</a> &mdash; zweryfikowano: ${b.dataWeryfikacji}</div>
+${b.wniosek.pulapki.length > 0 ? `<h3>Na co uważać</h3><ul>${b.wniosek.pulapki.map(p => `<li>${p}</li>`).join('')}</ul>` : ''}
+<div class="source">Źródło: <a href="${b.zrodloUrl}">${b.zrodloNazwa}</a> &mdash; zweryfikowano: ${b.dataWeryfikacji}</div>
 </div>`;
     }).join('');
 
@@ -191,7 +190,7 @@ ${b.wniosek.pulapki.length > 0 ? `<h3>Na co uwazac</h3><ul>${b.wniosek.pulapki.m
 <html lang="pl">
 <head>
 <meta charset="utf-8">
-<title>Moje swiadczenia - wezmezadarmo.com</title>
+<title>Moje świadczenia - wezmezadarmo.com</title>
 <style>
 body{font-family:system-ui,sans-serif;max-width:820px;margin:0 auto;padding:20px 32px;color:#111;font-size:14px}
 h1{font-size:22px;margin-bottom:4px}
@@ -209,8 +208,8 @@ ul,ol{margin:0;padding-left:20px;line-height:1.6}
 </style>
 </head>
 <body>
-<h1>Moje swiadczenia i ulgi</h1>
-<div class="meta">wezmezadarmo.com &mdash; ${new Date().toLocaleDateString('pl-PL')} &mdash; Lacznie: ${results.length} swiadczen<br>Informacja orientacyjna, nie decyzja urzedowa. Zweryfikuj na stronach zrodlowych.</div>
+<h1>Moje świadczenia i ulgi</h1>
+<div class="meta">wezmezadarmo.com &mdash; ${new Date().toLocaleDateString('pl-PL')} &mdash; Łącznie: ${results.length} świadczeń<br>Informacja orientacyjna, nie decyzja urzędowa. Zweryfikuj na stronach źródłowych przed złożeniem wniosku.</div>
 ${benefitsHtml}
 </body></html>`;
 
@@ -247,7 +246,7 @@ ${benefitsHtml}
             <div>
               <div className="label-eyebrow" style={{ marginBottom: 6 }}>WYNIK ANALIZY</div>
               <h2 style={{ fontSize: isMobile ? 18 : 24, letterSpacing: '-0.025em', fontWeight: 500 }}>
-                Znalezlismy <span style={{ color: 'var(--color-accent)' }}>{results.length}</span> swiadczen dla Ciebie.
+                Znaleźliśmy <span style={{ color: 'var(--color-accent)' }}>{results.length}</span> świadczeń dla Ciebie.
               </h2>
             </div>
             <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
@@ -258,10 +257,9 @@ ${benefitsHtml}
               )}
               {mozliwe.length > 0 && (
                 <span className="mono" style={{ fontSize: 11, fontWeight: 500, padding: '5px 10px', borderRadius: 999, background: 'var(--color-accent-soft)', color: 'var(--color-accent)', letterSpacing: '0.04em' }}>
-                  {mozliwe.length} MOZLIWYCH
+                  {mozliwe.length} MOŻLIWYCH
                 </span>
               )}
-              {/* Download buttons */}
               <button onClick={downloadMd} title="Pobierz jako Markdown" style={{
                 background: 'transparent', border: '1px solid var(--color-border)',
                 borderRadius: 8, padding: '5px 10px', fontSize: 11,
@@ -286,7 +284,7 @@ ${benefitsHtml}
           {/* Tabs + filters */}
           <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 16 : 24, flexWrap: 'wrap' }}>
             {[
-              { id: 'list' as Tab, label: 'Swiadczenia', count: results.length },
+              { id: 'list' as Tab, label: 'Świadczenia', count: results.length },
               { id: 'chat' as Tab, label: 'Czat AI', count: null },
             ].map(item => (
               <button key={item.id} onClick={() => setActiveTab(item.id)} style={{
@@ -312,7 +310,7 @@ ${benefitsHtml}
                 {[
                   { id: 'all' as const, label: 'Wszystkie' },
                   { id: 'pewne' as const, label: 'Pewne' },
-                  { id: 'mozliwe' as const, label: 'Mozliwe' },
+                  { id: 'mozliwe' as const, label: 'Możliwe' },
                 ].map(f => (
                   <button key={f.id} onClick={() => setFilter(f.id)} className="mono" style={{
                     background: filter === f.id ? 'var(--color-text-1)' : 'transparent',
@@ -332,7 +330,7 @@ ${benefitsHtml}
         </div>
       )}
 
-      {/* Content: Split-panel (desktop) or single-panel (mobile) */}
+      {/* Content: Split-panel (desktop) lub single-panel (mobile) */}
       {activeTab === 'list' && results.length > 0 && (
         <div style={{
           flex: 1, minHeight: 0,
@@ -343,14 +341,14 @@ ${benefitsHtml}
           background: 'var(--color-surface)',
           overflow: 'hidden',
         }}>
-          {/* Guide view (full width) */}
+          {/* Pełny przewodnik (full width) */}
           {guideBenefitId && guideBenefit ? (
             <div className="no-scrollbar" style={{ overflowY: 'auto', padding: isMobile ? 16 : 32 }}>
               <StepByStepGuide benefit={guideBenefit} onClose={onCloseGuide} />
             </div>
           ) : (
             <>
-              {/* LEFT: Sidebar list -- hidden on mobile when detail is shown */}
+              {/* LEWA: lista -- ukryta na mobile gdy widoczny szczegół */}
               {(!isMobile || !mobileShowDetail) && (
                 <div ref={listRef} className="no-scrollbar" style={{
                   borderRight: isMobile ? 'none' : '1px solid var(--color-border)',
@@ -398,10 +396,9 @@ ${benefitsHtml}
                 </div>
               )}
 
-              {/* RIGHT: Detail -- on mobile, only when mobileShowDetail */}
+              {/* PRAWA: szczegół -- na mobile tylko gdy mobileShowDetail */}
               {(!isMobile || mobileShowDetail) && (
                 <div className="no-scrollbar" style={{ overflowY: 'auto', padding: isMobile ? '16px 16px' : 32 }}>
-                  {/* Mobile back button */}
                   {isMobile && (
                     <button onClick={() => setMobileShowDetail(false)} style={{
                       display: 'flex', alignItems: 'center', gap: 6,
@@ -411,14 +408,14 @@ ${benefitsHtml}
                       fontFamily: 'var(--font-sans)',
                     }}>
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
-                      Wróc do listy
+                      Wróć do listy
                     </button>
                   )}
                   {selectedResult && selectedBenefit ? (
                     <div>
                       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 28, flexWrap: 'wrap', gap: 16 }}>
                         <div>
-                          <div className="label-eyebrow" style={{ color: 'var(--color-accent)', marginBottom: 12 }}>JAK ZLOZYC WNIOSEK</div>
+                          <div className="label-eyebrow" style={{ color: 'var(--color-accent)', marginBottom: 12 }}>JAK ZŁOŻYĆ WNIOSEK</div>
                           <h2 style={{ fontSize: isMobile ? 22 : 32, letterSpacing: '-0.03em', lineHeight: 1.1 }}>{selectedBenefit.nazwa}</h2>
                           <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginTop: 14, flexWrap: 'wrap' }}>
                             <div className="mono" style={{ fontSize: isMobile ? 15 : 18, color: 'var(--color-text-1)' }}>{selectedBenefit.kwota}</div>
@@ -429,24 +426,23 @@ ${benefitsHtml}
                               color: selectedResult.status === 'PRZYSLUGUJE' ? 'var(--color-green)' : 'var(--color-accent)',
                               letterSpacing: '0.04em',
                             }}>
-                              {selectedResult.status === 'PRZYSLUGUJE' ? 'PEWNE' : 'MOZLIWE'}
+                              {selectedResult.status === 'PRZYSLUGUJE' ? 'PEWNE' : 'MOŻLIWE'}
                             </span>
                           </div>
                         </div>
                         <button onClick={() => onGuide(selectedBenefit.id)} className="btn btn-primary" style={{ height: 40, padding: '0 18px', fontSize: 13 }}>
-                          Pelny przewodnik
+                          Pełny przewodnik
                           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
                         </button>
                       </div>
 
-                      {/* Detail blocks */}
                       <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: 24 }}>
                         <DetailBlock title="Co potrzebujesz">
                           <ol style={{ paddingLeft: 18, margin: 0, fontSize: 14, lineHeight: 1.6, color: 'var(--color-text-2)' }}>
                             {selectedBenefit.wniosek.dokumenty.map((d, i) => <li key={i}>{d}</li>)}
                           </ol>
                         </DetailBlock>
-                        <DetailBlock title="Gdzie zlozyc">
+                        <DetailBlock title="Gdzie złożyć">
                           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                             {selectedBenefit.wniosek.kanal.map(k => (
                               <span key={k} className="mono" style={{ fontSize: 11, padding: '5px 10px', borderRadius: 999, background: 'var(--color-surface-2)', border: '1px solid var(--color-border)', letterSpacing: '0.04em' }}>
@@ -467,7 +463,7 @@ ${benefitsHtml}
                           <p style={{ fontSize: 14, color: 'var(--color-text-2)' }}>{selectedBenefit.wniosek.terminRealizacji}</p>
                         </DetailBlock>
                         {selectedBenefit.wniosek.pulapki.length > 0 && (
-                          <DetailBlock title="Na co uwazac" span={isMobile ? 1 : 2} tone="red">
+                          <DetailBlock title="Na co uważać" span={isMobile ? 1 : 2} tone="red">
                             <ul style={{ paddingLeft: 18, margin: 0, fontSize: 14, lineHeight: 1.6, color: 'var(--color-red)' }}>
                               {selectedBenefit.wniosek.pulapki.map((p, i) => <li key={i}>{p}</li>)}
                             </ul>
@@ -478,7 +474,6 @@ ${benefitsHtml}
                         </DetailBlock>
                       </div>
 
-                      {/* Matched criteria + warnings */}
                       {(selectedResult.matchedCriteria.length > 0 || selectedResult.warnings.length > 0) && (
                         <div style={{ marginTop: 24, paddingTop: 20, borderTop: '1px solid var(--color-border)' }}>
                           {selectedResult.matchedCriteria.map((c, i) => (
@@ -494,10 +489,9 @@ ${benefitsHtml}
                         </div>
                       )}
 
-                      {/* Source footer */}
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 24, paddingTop: 16, borderTop: '1px solid var(--color-border)' }}>
                         <span style={{ fontSize: 12, color: 'var(--color-text-3)' }}>
-                          Zrodlo: <a href={selectedBenefit.zrodloUrl} target="_blank" rel="noopener noreferrer" className="link-u" style={{ color: 'var(--color-accent)' }}>{selectedBenefit.zrodloNazwa}</a>
+                          Źródło: <a href={selectedBenefit.zrodloUrl} target="_blank" rel="noopener noreferrer" className="link-u" style={{ color: 'var(--color-accent)' }}>{selectedBenefit.zrodloNazwa}</a>
                           <span className="mono" style={{ marginLeft: 8, fontSize: 11 }}>{selectedBenefit.dataWeryfikacji}</span>
                         </span>
                       </div>
@@ -505,7 +499,7 @@ ${benefitsHtml}
                   ) : (
                     !isMobile && (
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'var(--color-text-3)', fontSize: 14 }}>
-                        Wybierz swiadczenie z listy
+                        Wybierz świadczenie z listy
                       </div>
                     )
                   )}
@@ -519,7 +513,6 @@ ${benefitsHtml}
       {/* Content: Chat */}
       {(activeTab === 'chat' || results.length === 0) && (
         <div style={{ flex: 1, overflowY: 'auto', padding: '16px 24px', minHeight: 0, display: 'flex', flexDirection: 'column' }}>
-          {/* localStorage notice */}
           <div style={{
             display: 'flex', alignItems: 'center', justifyContent: 'space-between',
             padding: '8px 12px', borderRadius: 8,
@@ -527,7 +520,7 @@ ${benefitsHtml}
             marginBottom: 16, flexShrink: 0, flexWrap: 'wrap', gap: 8,
           }}>
             <span style={{ fontSize: 11, color: 'var(--color-text-3)', fontFamily: 'var(--font-mono)' }}>
-              Historia czatu przechowywana lokalnie w przegladarce (localStorage) -- nie wysylamy jej na serwer.
+              Historia czatu przechowywana lokalnie w przeglądarce (localStorage) -- nie wysyłamy jej na serwer.
             </span>
             {onClearHistory && (
               <button onClick={onClearHistory} style={{
@@ -609,7 +602,7 @@ ${benefitsHtml}
             flexShrink: 0,
           }}
         >
-          Wyslij
+          Wyślij
         </button>
       </form>
 
@@ -623,7 +616,7 @@ ${benefitsHtml}
         background: 'var(--color-bg-0)',
         flexShrink: 0,
       }}>
-        Informacja orientacyjna, nie decyzja urzedowa. Zweryfikuj na <a href="/o-projekcie" className="link-u" style={{ color: 'var(--color-accent)' }}>stronach zrodlowych</a>. Odpowiedzi AI generowane przez model jezykowy zgodnie z <a href="/regulamin" className="link-u" style={{ color: 'var(--color-accent)' }}>regulaminem</a>.
+        Informacja orientacyjna, nie decyzja urzędowa. Zweryfikuj na <a href="/o-projekcie" className="link-u" style={{ color: 'var(--color-accent)' }}>stronach źródłowych</a>. Odpowiedzi AI generowane przez model językowy zgodnie z <a href="/regulamin" className="link-u" style={{ color: 'var(--color-accent)' }}>regulaminem</a>.
       </div>
     </div>
   );
