@@ -13,7 +13,7 @@ type Phase = 'landing' | 'questions' | 'loading' | 'chat';
 
 const LOADING_MESSAGES = [
   'Szukamy pieniędzy dla Twojej rodziny...',
-  'Sprawdzamy 99 świadczeń w 15 kategoriach...',
+  'Sprawdzamy 104 świadczenia w 13 kategoriach...',
   'Szukam dla Ciebie funduszy...',
   'Analizujemy Twój profil...',
   'Twoje darmowe pieniądze od Państwa w zasięgu ręki...',
@@ -554,7 +554,7 @@ export default function Home() {
         welcomeText += 'Napisz pytanie, jestem tutaj żeby pomóc.';
       } else {
         welcomeText = 'Nie znalazłem świadczeń pasujących do Twojego profilu.\n\n';
-        welcomeText += 'Algorytm przeszukał 99 świadczeń z 13 kategorii. Opisz mi swoją sytuację, a sprawdzę czy czegoś nie przeoczyłem.\n\n';
+        welcomeText += 'Algorytm przeszukał 104 świadczenia z 13 kategorii. Opisz mi swoją sytuację, a sprawdzę czy czegoś nie przeoczyłem.\n\n';
         welcomeText += 'Jestem asystentem AI. Moje odpowiedzi opierają się na zweryfikowanej bazie danych, ale zawsze sprawdź informacje na stronach źródłowych.';
       }
 
@@ -710,7 +710,7 @@ export default function Home() {
                   marginBottom: 40,
                   animationDelay: '120ms',
                 }}>
-                  Polska ma 99 świadczeń, ulg i dotacji wartych miliardy złotych rocznie.
+                  Polska ma ponad 100 świadczeń, ulg i dotacji wartych miliardy złotych rocznie.
                   Większość ludzi nie wie, że im przysługują.{' '}
                   <span className="serif" style={{ fontSize: 20 }}>Sprawdź to teraz.</span> W dwie minuty, bez logowania, bez wysyłania danych.
                   Wiele osób nie wie, że przysługuje im nawet kilka tysięcy złotych rocznie. Czasem wystarczy po prostu złożyć wniosek lub się gdzieś zgłosić. Zero większych wymagań. Liczy się to, czy o tym wiesz. AI chat na stronie dobrze zna te ulgi i programy, więc jak coś jest niejasne, śmiało go pytaj.
@@ -725,7 +725,7 @@ export default function Home() {
                   padding: '20px 0',
                 }}>
                   {[
-                    { n: 99, suf: '', lbl: 'świadczeń w bazie' },
+                    { n: 104, suf: '', lbl: 'świadczeń w bazie' },
                     { n: 13, suf: '', lbl: 'kategorii życiowych' },
                     { n: 2, suf: ' min', lbl: 'średni czas analizy' },
                   ].map((s, i) => (
@@ -823,7 +823,7 @@ export default function Home() {
             <div className="rise" style={{ marginTop: 80, animationDelay: '420ms' }}>
               <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 20 }}>
                 <span className="label-eyebrow">Przykładowe świadczenia</span>
-                <span className="label-eyebrow" style={{ color: 'var(--color-muted-2)' }}>3 z 99</span>
+                <span className="label-eyebrow" style={{ color: 'var(--color-muted-2)' }}>3 z 104</span>
               </div>
               <div className="grid-benefits" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
                 {EXAMPLE_BENEFITS.slice(0, 3).map((b, i) => (
@@ -895,7 +895,7 @@ export default function Home() {
               <div>
                 <Logo />
                 <p style={{ fontSize: 14, color: 'var(--color-text-3)', marginTop: 16, maxWidth: 360, lineHeight: 1.6 }}>
-                  Sprawdź czy należą Ci się świadczenia od państwa. 99 świadczeń, 13 kategorii. Strona przygotowana i dostępna również w wersji dla agentów AI w pliku <a href="/llm.md" style={{ color: 'var(--color-accent)' }}>llm.md</a>.
+                  Sprawdź czy należą Ci się świadczenia od państwa. 104 świadczenia, 13 kategorii. Strona przygotowana i dostępna również w wersji dla agentów AI w pliku <a href="/llm.md" style={{ color: 'var(--color-accent)' }}>llm.md</a>.
                 </p>
                 <div style={{ marginTop: 20 }}>
                   <FlagStripe width={36} thickness={4} />
@@ -1028,7 +1028,7 @@ export default function Home() {
 
   // ===================== LOADING =====================
   if (phase === 'loading') {
-    const counted = Math.round(loadingProgress * 99);
+    const counted = Math.round(loadingProgress * 104);
     const pct = Math.round(loadingProgress * 100);
     const segments = 13;
     const ringR = 130;
@@ -1055,12 +1055,12 @@ export default function Home() {
 
                 <h1 className="display" style={{ fontSize: 'clamp(40px, 6vw, 80px)', marginBottom: 36 }}>
                   Sprawdzamy<br />
-                  <span style={{ color: 'var(--color-accent)' }}>{counted}/99</span>
+                  <span style={{ color: 'var(--color-accent)' }}>{counted}/104</span>
                   <span style={{ color: 'var(--color-text-3)' }}> świadczeń</span>
                 </h1>
 
                 <p style={{ fontSize: 17, color: 'var(--color-text-2)', maxWidth: 480, marginBottom: 32, lineHeight: 1.5 }}>
-                  Dopasowujemy 99 świadczeń z 13 kategorii do Twojej sytuacji.
+                  Dopasowujemy 104 świadczenia z 13 kategorii do Twojej sytuacji.
                   Wszystko dzieje się w Twojej przeglądarce. Żadne dane nie opuszczają urządzenia.
                 </p>
 
@@ -1118,8 +1118,8 @@ export default function Home() {
                       );
                     })}
                     {/* Inner tick ring */}
-                    {Array.from({ length: 99 }).map((_, i) => {
-                      const a = (i / 99) * Math.PI * 2 - Math.PI / 2;
+                    {Array.from({ length: 104 }).map((_, i) => {
+                      const a = (i / 104) * Math.PI * 2 - Math.PI / 2;
                       const r1 = innerR - 4, r2 = innerR - 12;
                       const tickActive = i < counted;
                       return (

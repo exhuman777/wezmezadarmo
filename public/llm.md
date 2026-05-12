@@ -1,14 +1,14 @@
 # wezmezadarmo.com -- LLM Agent Guide
 
 > Ten plik jest przeznaczony dla agentów AI i modeli językowych.
-> Opisuje baze 99 polskich swiadczen, ulg i dotacji oraz jak z niej korzystac.
+> Opisuje bazie 104 polskich swiadczen, ulg i dotacji oraz jak z niej korzystac.
 > Humans: see wezmezadarmo.com
 
 ---
 
 ## Co to jest
 
-**wezmezadarmo.com** to niezalezne narzedzie, które przeszukuje baze 99 polskich swiadczen socjalnych, ulg podatkowych i dotacji, dopasowuje je do profilu uzytkownika i wyswietla instrukcje krok po kroku jak zlozyc wniosek.
+**wezmezadarmo.com** to niezalezne narzedzie, które przeszukuje bazie 104 polskich swiadczen socjalnych, ulg podatkowych i dotacji, dopasowuje je do profilu uzytkownika i wyswietla instrukcje krok po kroku jak zlozyc wniosek.
 
 Dane: oficjalne zrodla rzadowe (gov.pl), zweryfikowane 2026-05-09.
 Brak bazy danych uzytkownikow -- wszystko przetwarzane lokalnie lub na serwerze bez zapisu.
@@ -19,7 +19,7 @@ Brak bazy danych uzytkownikow -- wszystko przetwarzane lokalnie lub na serwerze 
 
 ### POST /api/verify
 
-Dopasowuje profile uzytkownika do bazy 99 swiadczen.
+Dopasowuje profile uzytkownika do bazy 104 swiadczen.
 
 **Request:**
 ```json
@@ -149,7 +149,7 @@ Czat z AI w kontekscie profilu i wynikow.
 
 ---
 
-## Kategorie swiadczen (13 kategorii, 99 swiadczen)
+## Kategorie swiadczen (13 kategorii, 104 swiadczenia)
 
 | Kategoria | Opis | Przykladowe swiadczenia |
 |-----------|------|-------------------------|
