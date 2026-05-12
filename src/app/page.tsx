@@ -316,6 +316,9 @@ const IconArrowLeft = () => (
   </svg>
 );
 
+const SESSION_KEY = 'wzd_session_v1';
+const SESSION_TTL = 7 * 24 * 60 * 60 * 1000;
+
 export default function Home() {
   const { theme, toggle: toggleTheme } = useTheme();
   const [phase, setPhase] = useState<Phase>('landing');
@@ -332,6 +335,54 @@ export default function Home() {
   // Loading progress for ring animation
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [loadingCatIdx, setLoadingCatIdx] = useState(0);
+
+  // Load session from localStorage on mount
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      const raw = localStorage.getItem(SESSION_KEY);
+      if (!raw) return;
+      const data = JSON.parse(raw);
+      if (!data.savedAt || Date.now() - data.savedAt > SESSION_TTL) {
+        localStorage.removeItem(SESSION_KEY);
+        return;
+      }
+      if (Array.isArray(data.messages) && data.messages.length > 0) {
+        setMessages(data.messages);
+        setResults(data.results ?? []);
+        setProfile(data.profile ?? {});
+        setPhase('chat');
+      }
+    } catch {
+      // corrupted session data, ignore
+    }
+  }, []);
+
+  // Save session to localStorage when in chat phase
+  useEffect(() => {
+    if (phase !== 'chat' || typeof window === 'undefined') return;
+    if (messages.length === 0) return;
+    try {
+      localStorage.setItem(SESSION_KEY, JSON.stringify({
+        messages,
+        results,
+        profile,
+        savedAt: Date.now(),
+      }));
+    } catch {
+      // storage quota exceeded, ignore
+    }
+  }, [phase, messages, results, profile]);
+
+  function handleClearHistory() {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem(SESSION_KEY);
+    }
+    setMessages([]);
+    setResults([]);
+    setProfile({});
+    setPhase('landing');
+  }
 
   useEffect(() => {
     if (phase !== 'loading') return;
@@ -856,6 +907,7 @@ export default function Home() {
                 <ul style={{ padding: 0, margin: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10 }}>
                   <li><a className="link-u" href="/swiadczenia" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Baza świadczeń</a></li>
                   <li><a className="link-u" href="/o-projekcie" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>O projekcie</a></li>
+                  <li><a className="link-u" href="/llm.md" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Dla agentów AI</a></li>
                   <li><a className="link-u" href="https://www.linkedin.com/in/kamil-sobkowicz/" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Kontakt / LinkedIn</a></li>
                 </ul>
               </div>
@@ -1118,6 +1170,7 @@ export default function Home() {
         onGuide={setGuideBenefitId}
         guideBenefitId={guideBenefitId}
         onCloseGuide={() => setGuideBenefitId(null)}
+        onClearHistory={handleClearHistory}
       />
     </div>
   );
