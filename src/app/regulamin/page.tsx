@@ -70,7 +70,7 @@ export default function RegulaminPage() {
 
           <Section n="6" title="Zawarcie i rozwiązanie umowy">
             <P>6.1. Umowa o świadczenie usług drogą elektroniczną zostaje zawarta z chwilą rozpoczęcia korzystania z Serwisu przez Użytkownika (wejście na stronę i wypełnienie formularza).</P>
-            <P>6.2. Umowa zostaje rozwiązana z chwilą opuszczenia Serwisu przez Użytkownika. Żadne dane Użytkownika nie są przechowywane po zakończeniu sesji.</P>
+            <P>6.2. Umowa zostaje rozwiązana z chwilą opuszczenia Serwisu przez Użytkownika. Historia czatu z asystentem AI oraz wyniki analizy świadczeń są zapisywane wyłącznie lokalnie w pamięci przeglądarki Użytkownika (localStorage) na jego urządzeniu i wygasają automatycznie po 7 dniach. Dane te nie są w żadnym momencie przesyłane ani przechowywane na serwerze Operatora. Użytkownik może usunąć te dane w dowolnym momencie klikając przycisk &quot;Zacznij od nowa&quot; w Serwisie lub czyszcząc dane lokalnego magazynu przeglądarki.</P>
             <P>6.3. Użytkownik może w każdej chwili zaprzestać korzystania z Serwisu bez podawania przyczyny.</P>
           </Section>
 

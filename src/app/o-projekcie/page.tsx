@@ -200,6 +200,62 @@ export default function OProjekciePage() {
             </div>
           </section>
 
+          {/* Źródła danych */}
+          <section>
+            <h2 className="text-[16px] sm:text-[18px] font-bold text-text-1 mb-3">
+              Źródła danych
+            </h2>
+            <div className="space-y-3">
+              <p>
+                Baza 99 świadczeń została opracowana na podstawie ogólnodostępnych, oficjalnych
+                źródeł rządowych i publicznych. Każde świadczenie w bazie ma przypisane źródło
+                z datą weryfikacji. Główne instytucje, z których danych korzystamy:
+              </p>
+              <ul className="space-y-2 pl-1">
+                <li className="flex gap-2">
+                  <span className="text-accent font-bold shrink-0">{'>'}</span>
+                  <span><strong className="text-text-1">gov.pl</strong> (Ministerstwo Rodziny i Polityki Społecznej) - świadczenia rodzinne: 800+, becikowe, kosiniakowe, zasiłek rodzinny, Rodzinny Kapitał Opiekuńczy</span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-accent font-bold shrink-0">{'>'}</span>
+                  <span><strong className="text-text-1">zus.pl</strong> (Zakład Ubezpieczeń Społecznych) - zasiłki chorobowe, macierzyński, ojcowski, opiekuńczy, świadczenie rehabilitacyjne, trzynasta i czternasta emerytura</span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-accent font-bold shrink-0">{'>'}</span>
+                  <span><strong className="text-text-1">podatki.gov.pl</strong> (Ministerstwo Finansów) - ulgi podatkowe: ulga na dziecko, prorodzinna, rehabilitacyjna, termomodernizacyjna, na internet</span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-accent font-bold shrink-0">{'>'}</span>
+                  <span><strong className="text-text-1">pfron.org.pl</strong> (Państwowy Fundusz Rehabilitacji Osób Niepełnosprawnych) - dofinansowania dla osób z niepełnosprawnością, PFRON, turnusy rehabilitacyjne</span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-accent font-bold shrink-0">{'>'}</span>
+                  <span><strong className="text-text-1">nfz.gov.pl</strong> (Narodowy Fundusz Zdrowia) - refundacja leków, bon na okulary, leczenie uzdrowiskowe, rehabilitacja NFZ</span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-accent font-bold shrink-0">{'>'}</span>
+                  <span><strong className="text-text-1">praca.gov.pl</strong> (Ministerstwo Rodziny / Urzędy Pracy) - zasiłek dla bezrobotnych, szkolenia, staże, bony, dofinansowania z PUP</span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-accent font-bold shrink-0">{'>'}</span>
+                  <span><strong className="text-text-1">gov.pl/klimat</strong> i <strong className="text-text-1">nfosigw.gov.pl</strong> (Ministerstwo Klimatu / NFOŚiGW / WFOŚiGW) - Czyste Powietrze, Mój Prąd, bon energetyczny, dofinansowanie OZE</span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-accent font-bold shrink-0">{'>'}</span>
+                  <span><strong className="text-text-1">krus.gov.pl</strong> (Kasa Rolniczego Ubezpieczenia Społecznego) - świadczenia dla rolników, emerytura rolnicza, zasiłki KRUS</span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-accent font-bold shrink-0">{'>'}</span>
+                  <span><strong className="text-text-1">biznes.gov.pl / CEIDG</strong> (Ministerstwo Rozwoju i Technologii) - ulga na start, mały ZUS plus, preferencyjny ZUS dla nowych firm</span>
+                </li>
+              </ul>
+              <p className="text-[13px] text-text-3 mt-2">
+                Dane są weryfikowane ręcznie. Przy każdym świadczeniu widoczna jest data ostatniej weryfikacji.
+                Jeśli zauważysz nieaktualną informację, zgłoś to przez LinkedIn.
+              </p>
+            </div>
+          </section>
+
           {/* Kto za tym stoi */}
           <section>
             <h2 className="text-[16px] sm:text-[18px] font-bold text-text-1 mb-3">

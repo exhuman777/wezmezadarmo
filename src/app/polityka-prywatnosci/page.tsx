@@ -34,6 +34,7 @@ export default function PolitykaPage() {
             <P className="pl-4">b) Numer NIP (opcjonalnie) - jeżeli Użytkownik poda numer NIP, jest on przesyłany do publicznego rejestru CEIDG (API pod adresem https://dane.biznes.gov.pl/api/ceidg/v2/firmy) w celu weryfikacji statusu działalności gospodarczej. Numer NIP nie jest zapisywany na serwerze Administratora. Przetwarzanie NIP ma charakter tranzytowy - numer jest przekazywany do API CEIDG i natychmiast usuwany z pamięci serwera po uzyskaniu odpowiedzi.</P>
             <P className="pl-4">c) Dane demograficzne i sytuacyjne podane w formularzu: wiek, płeć, stan cywilny, liczba dzieci, dochód miesięcznie i na osobę, forma zatrudnienia, stopień niepełnosprawności, forma własności mieszkania, województwo, status działalności gospodarczej, ciąża, status studenta, emeryta, rolnika, osoby bezrobotnej. Dane te są przetwarzane w pamięci operacyjnej serwera wyłącznie na czas trwania zapytania (kilka sekund) i nie są nigdzie zapisywane ani przechowywane.</P>
             <P className="pl-4">d) Adres IP - przetwarzany wyłącznie w celu ograniczenia liczby zapytań do asystenta AI (3 zapytania na 24 godziny na adres IP). Adres IP jest przechowywany w pamięci operacyjnej serwera i usuwany automatycznie po 24 godzinach lub po restarcie serwera. Nie jest zapisywany w bazie danych ani logach. Podstawa prawna: art. 6 ust. 1 lit. f) RODO (prawnie uzasadniony interes Administratora polegający na zapewnieniu dostępności Usługi dla wszystkich Użytkowników i ochronie przed nadużyciami).</P>
+            <P className="pl-4">e) Historia czatu i wyniki analizy (localStorage) - Serwis automatycznie zapisuje historię rozmów z asystentem AI oraz wyniki analizy świadczeń w lokalnym magazynie przeglądarki (localStorage) na urządzeniu Użytkownika. Dane te obejmują: treść wiadomości w czacie, listę dopasowanych świadczeń oraz anonimowe dane demograficzne podane w formularzu. Są przechowywane wyłącznie lokalnie na urządzeniu Użytkownika i wygasają automatycznie po 7 dniach. Administrator nie ma dostępu do danych przechowywanych w localStorage. Użytkownik może usunąć te dane w dowolnym momencie klikając &quot;Zacznij od nowa&quot; w Serwisie lub czyszcząc localStorage w ustawieniach przeglądarki. Podstawa prawna: art. 6 ust. 1 lit. b) RODO (niezbędność do wykonania umowy - zachowanie ciągłości sesji po odświeżeniu strony).</P>
           </Section>
 
           <Section n="3" title="Cele i podstawy prawne przetwarzania">
@@ -58,11 +59,12 @@ export default function PolitykaPage() {
           </Section>
 
           <Section n="6" title="Okres przechowywania danych">
-            <P>6.1. Serwis nie przechowuje danych osobowych Użytkowników.</P>
+            <P>6.1. Serwis nie przechowuje danych osobowych Użytkowników na serwerach Administratora.</P>
             <P className="pl-4">a) Numer PESEL - przetwarzany wyłącznie w pamięci przeglądarki Użytkownika na czas sesji; usuwany po zamknięciu lub odświeżeniu strony.</P>
             <P className="pl-4">b) Numer NIP - przetwarzany tranzytowo w pamięci operacyjnej serwera; usuwany natychmiast po uzyskaniu odpowiedzi z API CEIDG.</P>
-            <P className="pl-4">c) Dane demograficzne - przetwarzane w pamięci operacyjnej serwera wyłącznie na czas trwania zapytania; usuwane natychmiast po zwróceniu odpowiedzi Użytkownikowi.</P>
-            <P>6.2. Administrator nie prowadzi bazy danych Użytkowników. Nie istnieje możliwość odtworzenia danych po zakończeniu sesji.</P>
+            <P className="pl-4">c) Dane demograficzne przesyłane do serwera - przetwarzane w pamięci operacyjnej serwera wyłącznie na czas trwania zapytania; usuwane natychmiast po zwróceniu odpowiedzi Użytkownikowi.</P>
+            <P className="pl-4">d) Historia czatu i wyniki analizy (localStorage) - przechowywane wyłącznie lokalnie w przeglądarce Użytkownika przez maksymalnie 7 dni. Administrator nie ma dostępu do tych danych. Użytkownik usuwa je klikając &quot;Zacznij od nowa&quot; lub czyszcząc localStorage przeglądarki.</P>
+            <P>6.2. Administrator nie prowadzi bazy danych Użytkowników na serwerze. Dane przechowywane lokalnie w przeglądarce (localStorage) są dostępne wyłącznie dla Użytkownika na jego urządzeniu.</P>
           </Section>
 
           <Section n="7" title="Prawa Użytkownika">
