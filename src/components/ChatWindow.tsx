@@ -520,7 +520,7 @@ ${benefitsHtml}
             marginBottom: 16, flexShrink: 0, flexWrap: 'wrap', gap: 8,
           }}>
             <span style={{ fontSize: 11, color: 'var(--color-text-3)', fontFamily: 'var(--font-mono)' }}>
-              Historia czatu przechowywana lokalnie w przeglądarce (localStorage) -- nie wysyłamy jej na serwer.
+              Historia czatu przechowywana lokalnie w przeglądarce (localStorage), nie wysyłamy jej na serwer.
             </span>
             {onClearHistory && (
               <button onClick={onClearHistory} style={{

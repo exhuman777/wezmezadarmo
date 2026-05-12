@@ -713,7 +713,7 @@ export default function Home() {
                   Polska ma 99 świadczeń, ulg i dotacji wartych miliardy złotych rocznie.
                   Większość ludzi nie wie, że im przysługują.{' '}
                   <span className="serif" style={{ fontSize: 20 }}>Sprawdź to teraz.</span> W dwie minuty, bez logowania, bez wysyłania danych.
-                  Wiele osób nie wie, że przysługuje im nawet kilka tysięcy złotych rocznie. Czasem wystarczy po prostu złożyć wniosek lub się gdzieś zgłosić. Zero większych wymagań. Liczy się to, czy o tym wiesz. AI chat na stronie dobrze zna te ulgi i programy, więc jak coś jest niejasne -- śmiało go pytaj.
+                  Wiele osób nie wie, że przysługuje im nawet kilka tysięcy złotych rocznie. Czasem wystarczy po prostu złożyć wniosek lub się gdzieś zgłosić. Zero większych wymagań. Liczy się to, czy o tym wiesz. AI chat na stronie dobrze zna te ulgi i programy, więc jak coś jest niejasne, śmiało go pytaj.
                 </p>
 
                 {/* Stat counters */}
