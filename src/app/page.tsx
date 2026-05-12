@@ -895,7 +895,7 @@ export default function Home() {
               <div>
                 <Logo />
                 <p style={{ fontSize: 14, color: 'var(--color-text-3)', marginTop: 16, maxWidth: 360, lineHeight: 1.6 }}>
-                  Sprawdź czy należą Ci się świadczenia od państwa. 99 świadczeń, 13 kategorii. Bez rejestracji, bez opłat.
+                  Sprawdź czy należą Ci się świadczenia od państwa. 99 świadczeń, 13 kategorii. Strona przygotowana i dostępna również w wersji dla agentów AI w pliku <a href="/llm.md" style={{ color: 'var(--color-accent)' }}>llm.md</a>.
                 </p>
                 <div style={{ marginTop: 20 }}>
                   <FlagStripe width={36} thickness={4} />
