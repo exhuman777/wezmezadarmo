@@ -281,6 +281,26 @@ ${benefitsHtml}
             </div>
           </div>
 
+          {/* Źródła danych */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '6px 0', flexWrap: 'wrap', borderTop: '1px solid var(--color-border)' }}>
+            <span style={{ fontSize: 10, color: 'var(--color-text-3)', fontFamily: 'var(--font-mono)', letterSpacing: '0.06em', textTransform: 'uppercase', flexShrink: 0 }}>Źródła:</span>
+            {[
+              { label: 'gov.pl', url: 'https://www.gov.pl/web/rodzina' },
+              { label: 'zus.pl', url: 'https://www.zus.pl' },
+              { label: 'nfz.gov.pl', url: 'https://www.nfz.gov.pl' },
+              { label: 'podatki.gov.pl', url: 'https://www.podatki.gov.pl' },
+              { label: 'pfron.org.pl', url: 'https://www.pfron.org.pl' },
+              { label: 'praca.gov.pl', url: 'https://www.praca.gov.pl' },
+              { label: 'krus.gov.pl', url: 'https://www.krus.gov.pl' },
+            ].map(s => (
+              <a key={s.label} href={s.url} target="_blank" rel="noopener noreferrer" style={{ fontSize: 10, color: 'var(--color-accent)', fontFamily: 'var(--font-mono)', textDecoration: 'none', letterSpacing: '0.02em' }}
+                onMouseEnter={e => e.currentTarget.style.textDecoration = 'underline'}
+                onMouseLeave={e => e.currentTarget.style.textDecoration = 'none'}
+              >{s.label}</a>
+            ))}
+            <span style={{ fontSize: 10, color: 'var(--color-text-3)', fontFamily: 'var(--font-mono)' }}>· baza ręcznie zweryfikowana {new Date().getFullYear()}</span>
+          </div>
+
           {/* Tabs + filters */}
           <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 16 : 24, flexWrap: 'wrap' }}>
             {[
