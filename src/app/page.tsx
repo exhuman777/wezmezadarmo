@@ -393,15 +393,20 @@ export default function Home() {
     return () => clearInterval(interval);
   }, [phase]);
 
-  // Animated progress for loading ring
+  // Animated progress for loading ring (throttled to integer pct changes to avoid 60fps re-renders)
   useEffect(() => {
     if (phase !== 'loading') return;
     let raf: number;
+    let lastPct = -1;
     const t0 = performance.now();
     const total = 4200;
     const tick = (t: number) => {
       const p = Math.min(1, (t - t0) / total);
-      setLoadingProgress(p);
+      const pct = Math.round(p * 100);
+      if (pct !== lastPct) {
+        lastPct = pct;
+        setLoadingProgress(p);
+      }
       if (p < 1) raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
@@ -1055,7 +1060,7 @@ export default function Home() {
 
                 <h1 className="display" style={{ fontSize: 'clamp(40px, 6vw, 80px)', marginBottom: 36 }}>
                   Sprawdzamy<br />
-                  <span style={{ color: 'var(--color-accent)' }}>{counted}/104</span>
+                  <span style={{ color: 'var(--color-accent)', fontVariantNumeric: 'tabular-nums' }}>{counted}/104</span>
                   <span style={{ color: 'var(--color-text-3)' }}> świadczeń</span>
                 </h1>
 
@@ -1097,7 +1102,7 @@ export default function Home() {
               {/* RIGHT: ring visualization */}
               <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <div style={{ position: 'relative', width: 360, height: 360 }}>
-                  <svg viewBox="0 0 320 320" style={{ width: '100%', height: '100%' }}>
+                  <svg viewBox="0 0 320 320" style={{ width: '100%', height: '100%', willChange: 'transform' }}>
                     {/* 13-segment ring */}
                     {Array.from({ length: segments }).map((_, i) => {
                       const a0 = (i / segments) * Math.PI * 2 - Math.PI / 2 + 0.012;
