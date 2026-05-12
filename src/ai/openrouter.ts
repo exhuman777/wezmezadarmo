@@ -17,8 +17,8 @@ function getClient(): OpenAI {
 }
 
 export const MODELS = {
-  conversation: 'anthropic/claude-haiku-4.5',
-  verifier: 'anthropic/claude-haiku-4.5',
+  conversation: 'google/gemini-2.0-flash-001',
+  verifier: 'google/gemini-2.0-flash-lite-001',
 } as const;
 
 export async function chatCompletion(
