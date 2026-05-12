@@ -18,7 +18,7 @@ export default function RegulaminPage() {
           Regulamin
         </h1>
         <p className="text-[13px] text-text-3 mb-8">
-          Ostatnia aktualizacja: 10 maja 2026 r.
+          Ostatnia aktualizacja: 12 maja 2026 r.
         </p>
 
         <div className="space-y-8 text-[14px] sm:text-[15px] leading-[1.7] text-text-2">
