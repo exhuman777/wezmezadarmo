@@ -60,6 +60,7 @@ export function ChatWindow({
   const [chatFocusBenefitId, setChatFocusBenefitId] = useState<string | null>(null);
   const chatBottomRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
+  const detailRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -97,6 +98,12 @@ export function ChatWindow({
       setMobileShowDetail(false);
     }
   }, [activeTab]);
+
+  useEffect(() => {
+    if (mobileShowDetail && detailRef.current) {
+      detailRef.current.scrollTop = 0;
+    }
+  }, [mobileShowDetail, selectedId]);
 
   function resetTextareaHeight() {
     if (textareaRef.current) {
@@ -494,7 +501,7 @@ ${benefitsHtml}
 
               {/* PRAWA: szczegół -- na mobile tylko gdy mobileShowDetail */}
               {(!isMobile || mobileShowDetail) && (
-                <div className="no-scrollbar" style={{ overflowY: 'auto', padding: isMobile ? '16px 16px' : 32 }}>
+                <div ref={detailRef} className="no-scrollbar" style={{ overflowY: 'auto', padding: isMobile ? '16px 16px' : 32, paddingBottom: isMobile ? 'max(32px, env(safe-area-inset-bottom))' : 32 }}>
                   {isMobile && (
                     <button onClick={() => setMobileShowDetail(false)} style={{
                       display: 'flex', alignItems: 'center', gap: 6,
@@ -667,11 +674,11 @@ ${benefitsHtml}
         </div>
       )}
 
-      {/* Input bar */}
+      {/* Input bar -- hidden on mobile when viewing benefit detail */}
       <form
         onSubmit={handleSubmit}
         style={{
-          display: 'flex', flexDirection: 'column', gap: 8,
+          display: isMobile && mobileShowDetail ? 'none' : 'flex', flexDirection: 'column', gap: 8,
           padding: '12px 24px',
           borderTop: '1px solid var(--color-border)',
           background: 'var(--color-surface)',
@@ -756,8 +763,9 @@ ${benefitsHtml}
         </div>
       </form>
 
-      {/* Disclaimer */}
+      {/* Disclaimer -- hidden on mobile when viewing benefit detail */}
       <div style={{
+        display: isMobile && mobileShowDetail ? 'none' : 'block',
         padding: '8px 24px',
         paddingBottom: 'max(8px, env(safe-area-inset-bottom))',
         fontSize: 11, color: 'var(--color-text-3)',
