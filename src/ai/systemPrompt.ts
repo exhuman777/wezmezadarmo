@@ -1,4 +1,5 @@
 import { MatchResult, UserProfile } from '@/engine/types';
+import { BENEFIT_KNOWLEDGE } from './benefitKnowledge';
 
 export const SYSTEM_PROMPT = `Jesteś asystentem pomagającym Polakom odkryć świadczenia rządowe, na które się kwalifikują. Nazywasz się "wezmezadarmo".
 
@@ -91,12 +92,20 @@ Działalność: ${profile.prowadzDzialalnosc ? 'tak' : 'nie'}`;
       ? rest.map(r => `[${r.status}] ${r.benefit.nazwa} -- ${r.benefit.kwota}`).join('\n')
       : 'Brak innych świadczeń.';
 
+    const extraKnowledge = BENEFIT_KNOWLEDGE[focused.benefit.id];
+    const knowledgeSection = extraKnowledge ? `
+SZCZEGOLOWA WIEDZA O TYM SWIADCZENIU (zrodla urzedowe):
+${extraKnowledge.formularzOpis ? `-- FORMULARZ I POLA:\n${extraKnowledge.formularzOpis}` : ''}
+${extraKnowledge.szczegolyKwalifikacji ? `-- SZCZEGOLY KWALIFIKACJI:\n${extraKnowledge.szczegolyKwalifikacji}` : ''}
+${extraKnowledge.faq ? `-- CZESTE PYTANIA:\n${extraKnowledge.faq}` : ''}
+` : '';
+
     return `
 ${profileSection}
 
 UWAGA: UŻYTKOWNIK PYTA KONKRETNIE O TO ŚWIADCZENIE -- odpowiadaj przede wszystkim w kontekście tego świadczenia:
 ${formatBenefitEntry(focused)}
-
+${knowledgeSection}
 POZOSTAŁE DOPASOWANE ŚWIADCZENIA (dodatkowy kontekst, nie główny temat):
 ${restSummary}
 
