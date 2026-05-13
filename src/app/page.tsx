@@ -862,11 +862,11 @@ export default function Home() {
                   <span style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
                 </div>
                 <h3 style={{ fontSize: 24, letterSpacing: '-0.025em', marginBottom: 12 }}>
-                  OKI: 100 000 PLN wolne od podatku
+                  OKI: 100{'\u00A0'}000 PLN wolne od podatku
                 </h3>
                 <p style={{ fontSize: 15, color: 'var(--color-text-2)', lineHeight: 1.55, marginBottom: 16, maxWidth: 680 }}>
                   Ogólnopolskie Konto Inwestycyjne: sposób na inwestowanie bez podatku Belki (19%).
-                  Do <strong>100 000 PLN rocznie</strong> bez ani złotówki podatku od zysków.
+                  Do <strong>100{'\u00A0'}000{'\u00A0'}PLN rocznie</strong> bez ani złotówki podatku od zysków.
                 </p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                   {[
