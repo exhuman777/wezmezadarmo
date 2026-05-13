@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from 'react';
 import { IntakeForm } from '@/components/IntakeForm';
 import { ChatWindow, ChatMessage } from '@/components/ChatWindow';
 import { ThemeToggle } from '@/components/ThemeToggle';
-import { PeselInfoModal } from '@/components/PeselInfoModal';
 import { useTheme } from '@/hooks/useTheme';
 import { MatchResult, UserProfile } from '@/engine/types';
 import { CeidgBusinessData } from '@/lib/ceidg';
@@ -330,7 +329,6 @@ export default function Home() {
   const [isStreaming, setIsStreaming] = useState(false);
   const [guideBenefitId, setGuideBenefitId] = useState<string | null>(null);
   const [loadingMsgIndex, setLoadingMsgIndex] = useState(0);
-  const [showPeselInfo, setShowPeselInfo] = useState(false);
 
   // Loading progress for ring animation
   const [loadingProgress, setLoadingProgress] = useState(0);
@@ -420,7 +418,7 @@ export default function Home() {
     return () => clearInterval(id);
   }, [phase]);
 
-  async function handleIntakeSubmit(data: { pesel: string; wiek: number; plec: 'K' | 'M'; nip?: string }) {
+  async function handleIntakeSubmit(data: { wiek: number; plec: 'K' | 'M'; nip?: string }) {
     setProfile((prev) => ({ ...prev, wiek: data.wiek, plec: data.plec }));
 
     if (data.nip) {
@@ -790,21 +788,14 @@ export default function Home() {
 
                   <h3 style={{ fontSize: 22, marginBottom: 6, letterSpacing: '-0.02em' }}>Podaj swoje dane</h3>
                   <p style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 24 }}>
-                    PESEL jest dekodowany lokalnie. Nie wysyłamy go nigdzie.
+                    Wiek i plec wystarczaja do dopasowania swiadczen.
                   </p>
 
                   <IntakeForm onSubmit={handleIntakeSubmit} isLoading={isLoading} />
 
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 18, fontSize: 13 }}>
-                    <button
-                      onClick={() => setShowPeselInfo(true)}
-                      className="link-u"
-                      style={{ color: 'var(--color-text-3)', background: 'none', border: 'none', cursor: 'pointer', fontSize: 13 }}
-                    >
-                      Bezpieczeństwo PESEL <IconArrowRight />
-                    </button>
+                  <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 18, fontSize: 13 }}>
                     <a className="link-u" href="/swiadczenia" style={{ color: 'var(--color-accent)' }}>
-                      Przeglądaj bazę <IconArrowRight />
+                      Przegladaj baze <IconArrowRight />
                     </a>
                   </div>
                 </div>
@@ -932,7 +923,6 @@ export default function Home() {
           </div>
         </footer>
 
-        <PeselInfoModal isOpen={showPeselInfo} onClose={() => setShowPeselInfo(false)} />
       </div>
     );
   }
