@@ -583,6 +583,537 @@ WYZSZE KWOTY (2x) sa dla gospodarstw gdzie zrodlem ogrzewania jest: pompa ciepla
     zrodlo: 'https://www.gov.pl/web/klimat/bon-energetyczny -- pobrano 2026-05-13',
   },
 
+  // ---- BATCH B ----
+
+  'zasilek-dla-bezrobotnych': {
+    formularzOpis: `
+Wniosek o zasilek skladany osobiście w Powiatowym Urzedzie Pracy (PUP) w miejscu zameldowania lub zamieszkania.
+Mozna tez przez portal praca.gov.pl (profil zaufany wymagany).
+
+DOKUMENTY PRZY REJESTRACJI W PUP:
+- Dowod osobisty lub paszport
+- Swiadectwa pracy (oryginaly lub kopie potwierdzone przez pracodawce) -- za ostatnie 10 lat
+- Dyplom ukonczenia szkoly lub uczelni (jesli brak stazu pracy)
+- Dokumenty potwierdzajace inne okresy ubezpieczenia (zaswiadczenia z ZUS, KRUS)
+- Zaswiadczenie z urzedu skarbowego o dochodach z dzialalnosci (jesli prowadzilo sie firme)
+
+PRZY REJESTRACJI PRZEZ INTERNET (praca.gov.pl):
+- Formularz PKK-01 wypelniany online
+- Skany dokumentow (swiadectwa pracy, dyplom)
+- Podpis profilem zaufanym
+
+UWAGA: w ciagu 7 dni od rejestracji nalezy obowiazkowa wizyta w PUP (wezwanie wysyla PUP).
+`,
+    szczegolyKwalifikacji: `
+Warunki do zasilku:
+1. Rejestracja w PUP jako bezrobotny
+2. Przepracowanie co najmniej 365 dni w ciagu 18 miesiecy przed zarejestrowaniem (na umowie o prace lub zlecenie z pelnym ZUS)
+3. Utrata pracy z przyczyn lezacych po stronie pracodawcy LUB wyganieciem umowy na czas okreslony
+
+UWAGA -- kiedy zasilek NIE przyslugi:
+- Rozwiazanie umowy przez pracownika (chyba ze w trybie art. 55 KP - mobbing/zaleglosci)
+- Zwolnienie dyscyplinarne (art. 52 KP)
+- W ciagu 6 miesiecy przepracowanie mniej niz 365 dni
+
+WYSOKOSC 2026:
+- Podstawowy (do 5 lat stazu): 1361,37 PLN brutto
+- Wyzszy (5-20 lat stazu): 1701,73 PLN brutto
+- Najwyzszy (powyzej 20 lat): 2042,09 PLN brutto
+
+OKRES POBIERANIA:
+- 6 miesiecy na obszarach o stopie bezrobocia do 150% sredniej krajowej
+- 12 miesiecy na obszarach o wyzszej stopie bezrobocia (mozna sprawdzic w PUP)
+- Wydluzony do 12 mies: wiek 50+ i 20+ lat stazu, lub rodzic samotnie wychowujacy dziecko do lat 15
+`,
+    faq: `
+P: Czy moge pobierac zasilek i jednoczesnie szukac pracy w innym miescie?
+O: Tak, ale co miesiac musisz stawiac sie w PUP na wyznaczony dzien (aktywizacja). Niestawienie sie powoduje wykreslenie z listy.
+
+P: Rozwiazalem umowe za porozumieniem stron -- czy dostane zasilek?
+O: W wiekszosci przypadkow TAK, ale z 90-dniowym odroczeniem wyplaty. Zasilek zacznie sie po 90 dniach od rejestracji.
+
+P: Czy zasilek dla bezrobotnych podlega podatkowi?
+O: TAK, jest opodatkowany PIT i odprowadzana skladka zdrowotna.
+`,
+    zrodlo: 'https://psz.praca.gov.pl/dla-bezrobotnych-i-poszukujacych-pracy/swiadczenia-pieniezne/zasilek-dla-osob-bezrobotnych -- pobrano 2026-05-13',
+  },
+
+  'karta-duzej-rodziny': {
+    formularzOpis: `
+Wniosek o Karte Duzej Rodziny (KDR) -- przez portal Emp@tia (empatia.mpips.gov.pl) lub w gminie/urzedzie.
+
+WNIOSEK ONLINE (Emp@tia):
+1. Zaloguj sie profilem zaufanym
+2. Wybierz "Karta Duzej Rodziny" --> "Zloz wniosek"
+3. Wypelnij dane wszystkich czlonkow rodziny (imiona, PESEL, daty urodzenia)
+4. Dla dzieci powyzej 18 lat -- dolacz zaswiadczenie ze szkoly/uczelni (do 25 roku zycia)
+5. Karta wysylana jest automatycznie lub mozna wybrac karte fizyczna (za oplate 9,21 PLN za plastikowa karte)
+
+POLA WNIOSKU:
+- Dane malzonkow/rodzicow: imie, nazwisko, PESEL, adres
+- Dane dzieci: imie, nazwisko, PESEL, data urodzenia, typ (biolog., adoptowane, w rodzinie zastepczej)
+- Jesli dziecko niepelnosprawne: numer orzeczenia o niepelnosprawnosci (brak wiekowego limitu)
+
+DOKUMENTY (rzadko potrzebne, system weryfikuje automatycznie z PESEL):
+- Zaswiadczenie ze szkoly lub uczelni (dla dzieci 18-25 lat)
+- Orzeczenie o niepelnosprawnosci (dla doroslych dzieci bez limitu wieku)
+`,
+    szczegolyKwalifikacji: `
+Karta przyslugi rodzicom (lub opiekunom) z co najmniej 3 dzieci:
+- Dzieci do 18 lat (bez kryterium dochodowego)
+- Dzieci do 25 lat jesli sie ucza
+- Dzieci niepelnosprawne bez limitu wieku
+- Rodziny zastecze i adopcyjne rowniez sie kwalifikuja
+
+ZBIOROWE RABATY 2026 -- przykladowe:
+- PKP/PKS: 37% znizki (rodzice i male dzieci), 49% (dzieci do 18 lat)
+- Muzea panstwowe: bezplatny wstep
+- Parki narodowe: bezplatny wstep
+- Apteki: rabaty na leki (nieobjete refundacja)
+- Cinema City, Helios, Multikino: rabaty na bilety
+- Petla benzyn, sklepy: rabaty u partnerow (lista na aplikacji Karta Duzej Rodziny)
+
+Karta jest BEZPLATNA (wersja elektroniczna na tel. lub plastikowa za 9,21 PLN).
+`,
+    zrodlo: 'https://www.gov.pl/web/rodzina/karta-duzej-rodziny-ogolne -- pobrano 2026-05-13',
+  },
+
+  'dobry-start': {
+    formularzOpis: `
+Wniosek o swiadczenie Dobry Start (300 PLN) -- wyacznie elektronicznie:
+- PUE ZUS (pue.zus.pl)
+- Bankowosc elektroniczna (wiekszosc bankow)
+- Portal Empatia
+
+TERMIN SKLADANIA: od 1 lipca do 30 listopada kazdego roku.
+Wyplata: do 30 dni od zlozenia wniosku w lipcu/sierpniu, pozniej do 2 miesiecy.
+
+POLA:
+- Dane rodzica/opiekuna: imie, nazwisko, PESEL, numer konta bankowego
+- Dane dziecka: imie, nazwisko, PESEL, rok szkolny do ktorego idzie
+- Potwierdzenie, ze dziecko bedzie uczestniczylo w zajociach szkolnych w nowym roku szkolnym
+`,
+    szczegolyKwalifikacji: `
+300 PLN raz w roku na kazde dziecko uczone sie w szkole (nie w przedszkolu ani zerowej).
+Wiek: do ukonczenia 20 roku zycia, lub 24 lata jesli dziecko niepelnosprawne.
+Brak kryterium dochodowego.
+
+NIE PRZYSLUGI:
+- Na dzieci w zerowej (roczne przygotowanie przedszkolne)
+- Na studentow wyzszych uczelni
+- Na dzieci w szkole dla doroslych (wieczorowkach) -- PRZYSLUGI jesli uczen ma < 20 lat
+
+UWAGA: wniosek do 30 listopada -- po tym terminie prawa sie nie nabywa w tym roku szkolnym.
+`,
+    zrodlo: 'https://www.gov.pl/web/rodzina/dobry-start -- pobrano 2026-05-13',
+  },
+
+  'ulga-dla-mlodych': {
+    formularzOpis: `
+BRAK OSOBNEGO FORMULARZA -- ulga dziala automatycznie.
+Pracodawca NIE pobiera zaliczki na PIT od wynagrodzenia osoby do 26 lat (do limitu 85.528 PLN rocznie).
+
+Przy rocznym rozliczeniu (PIT-36 lub PIT-37):
+- W polu "Przychody zwolnione od podatku na podstawie art. 21" wpisuje sie przychody z pracy do limitu
+- e-PIT (usuga podatki.gov.pl) wypelnia to automatycznie na podstawie danych od pracodawcy
+
+JESLI MASZ KILKU PRACODAWCOW: kazdy aplikuje ulge osobno, mozna przekroczyc limit.
+Przy przekroczeniu 85.528 PLN -- trzeba doplaci podatek w rocznym PIT.
+`,
+    szczegolyKwalifikacji: `
+Ulga dla mlodych (art. 21 ust. 1 pkt 148 ustawy PIT):
+- Dotyczy: umowy o prace, umowy zlecenie, staze uczniowskie, praktyki absolwenckie
+- NIE dotyczy: dzialalnosci gospodarczej, umow o dzielo, najmu, kapitalow
+
+Limit 2026: 85.528 PLN rocznie.
+Zwolnione sa: podatek PIT (17%/32%).
+NIE sa zwolnione: skladki ZUS i NFZ (nadal pobierane).
+
+Przy ukonczeniu 26 lat w trakcie roku: ulga obowiazuje za miesiace przed urodzinami.
+Pracodawca automatycznie przestaje stosowac ulge od miesiaca, w ktorym pracownik konczy 26 lat.
+`,
+    faq: `
+P: Mam 25 lat i pracuje na B2B -- czy dostane ulge?
+O: NIE. Ulga dla mlodych dotyczy wylacznie umow o prace i zlecenie, nie dzialalnosci gospodarczej.
+
+P: Zarabiam 90.000 PLN rocznie i mam 24 lata -- ile zaplace podatku?
+O: Od 85.528 PLN: 0 PLN podatku. Od nadwyzki 4.472 PLN: 12% = ok. 536 PLN.
+`,
+    zrodlo: 'https://www.podatki.gov.pl/pit/ulgi-odliczenia-i-zwolnienia/ulga-dla-mlodych/ -- pobrano 2026-05-13',
+  },
+
+  'wspolne-rozliczenie': {
+    formularzOpis: `
+WSPOLNE ROZLICZENIE MALZONKOW -- w PIT-36 lub PIT-37 zaznacza sie opcje "Wspolne rozliczenie malzonkow".
+
+POLA DO WYPELNIENIA:
+- Dane obojga malzonkow: imie, nazwisko, PESEL
+- Przychody kazdego z malzonkow osobno (w odpowiednich rubrykach)
+- Ulgi i odliczenia (laczone)
+- Podpisy obojga malzonkow (w e-PIT: autoryzacja profilem zaufanym lub danymi z zeznania)
+
+KIEDY SIE OPLACA:
+- Gdy jedno z malzonkow zarabia znacznie wiecej niz drugie (duza roznica dochodow)
+- Gdy jedno z malzonkow nie osiaga zadnych dochodow lub ma bardzo niskie dochody
+- Gdy malzonkowie razem mieszcza sie w 12% progu (do 120.000 PLN lacznie)
+`,
+    szczegolyKwalifikacji: `
+Warunki wspolnego rozliczenia:
+- Zwiazek malzenski przez caly rok podatkowy (lub od slubu do konca roku, przy slubie w ciagu roku)
+- Brak wspolnoty majatkowej nie przeszkadza (ale musi byc zwiazek malzenski)
+- Oboje musza miec nieograniczony obowiazek podatkowy w Polsce
+- Jedno z malzonkow moze byc na ryczalcie -- ALE tylko pod warunkiem ze tylko z najmu
+
+MECHANIZM:
+Lacza sie dochody, dziela na pol, od kazdej polowy liczy sie podatek, mnozy x 2.
+Efekt: jesli jedno zarabia 0, a drugie 200.000 PLN -- podatek jak od dwojga po 100.000 PLN (tylko 12% zamiast 32% od nadwyzki).
+
+Mozna rozliczac sie wspolnie rowniez jako:
+- Wdowiec/wdowa: jesli malzonek zmarl w trakcie roku podatkowego
+`,
+    zrodlo: 'https://www.podatki.gov.pl/pit/ -- pobrano 2026-05-13',
+  },
+
+  'opp-1-5-procent': {
+    formularzOpis: `
+1,5% PODATKU DLA OPP -- brak osobnego formularza.
+W PIT-36 lub PIT-37 (lub e-PIT) wypelnia sie pole "Wniosek o przekazanie 1,5% podatku naleznego":
+- Numer KRS wybranej Organizacji Pozytku Publicznego (OPP)
+- Kwota: system oblicza automatycznie (1,5% podatku naleznego)
+- Opcjonalnie: cel szczegolowy (np. imie podopiecznego lub konkretny projekt)
+- Opcjonalnie: zgoda na udostepnienie danych OPP (imie, nazwisko, kwota)
+
+WAZNE: mozna podac wylacznie OPP ktora ma status OPP nadany przez sad. Lista na podatki.gov.pl.
+`,
+    szczegolyKwalifikacji: `
+1,5% nie zmniejsza TWOJEGO zobowiazania podatkowego -- to pieniadze ktore i tak trafi do budzetu, a ty decydujesz gdzie.
+Jesli zaplaciles za duzy podatek w ciagu roku (zaliczki), US zwraca nadplate + przekazuje 1,5% wybranej OPP.
+
+Termin zlozenia wniosku: do 30 KWETNIA (razem z PIT). Po tym terminie nie mozna wskazac OPP na dany rok.
+
+Jesli zloze wniosek po terminie (korekta PIT): 1,5% przepada na budzet.
+`,
+    zrodlo: 'https://www.podatki.gov.pl/pit/1-5-procent/ -- pobrano 2026-05-13',
+  },
+
+  'ulga-termomodernizacyjna': {
+    formularzOpis: `
+Formularz PIT/O -- zalacznik do PIT-36 lub PIT-37.
+Czesc B.1 -- Ulga termomodernizacyjna:
+- Kwota wydatkow na termomodernizacje (maksymalnie 53.000 PLN na podatnika)
+- Typ wydatkow: ocieplenie, wymiana okien, nowe zrodlo ciepla (pompa ciepla, kociol gazowy, etc.), panele fotowoltaiczne
+
+DOKUMENTY DO ZACHOWANIA (nie dolacza sie do PIT, ale trzeba miec na wezwanie US):
+- Faktury VAT od wykonawcow (musza zawierac NIP wykonawcy, opis roboty)
+- Umowy z wykonawcami
+
+UWAGA: trzeba byc WLASCICIELEM lub WSPOLWLASCICIELEM budynku jednorodzinnego.
+Najem lub spoldzielcze lokatorskie prawo do lokalu: ulga NIE przyslugi.
+`,
+    szczegolyKwalifikacji: `
+Limit: 53.000 PLN na podatnika (jezeli malzenstwo rozlicza sie wspolnie, kazdy ma limit 53.000 PLN = 106.000 PLN lacznie).
+
+Mozna odliczac wydatki na:
+- Ocieplenie scian, stropow, dachow
+- Wymiane okien, drzwi zewnetrznych
+- Nowe zrodlo ciepla (pompa ciepla, kociol gazowy/olejowy klasy 5, kociol na pelet klasy 5, ogrzewanie elektryczne)
+- Panele fotowoltaiczne
+- Wentylacja mechaniczna z odzyskiem ciepla
+
+NIE mozna odliczac:
+- Remontu (tynkowanie, malowanie) bez zwiazku z termomodernizacja
+- Kotlow weglowych (nawet nowych)
+
+Ulga moze byc rozliczana przez kilka lat, jesli nie zmiesci sie w jednym roku (nie ma terminu wyczerpania).
+`,
+    zrodlo: 'https://www.podatki.gov.pl/pit/ulgi-odliczenia-i-zwolnienia/ulga-termomodernizacyjna/ -- pobrano 2026-05-13',
+  },
+
+  'ulga-rehabilitacyjna': {
+    formularzOpis: `
+Formularz PIT/O -- zalacznik do PIT-36 lub PIT-37.
+Czesc B -- Inne odliczenia, pozycja: "Wydatki na cele rehabilitacyjne".
+
+KATEGORIE WYDATKOW (wybrane najwazniejsze):
+A) Limitowane (max 2280 PLN rocznie):
+- Leki (powyzej 100 PLN/mies. -- odlicza sie nadwyzke powyzej 100 PLN)
+- Uzytkowanie samochodu osobowego do celow rehabilitacyjnych
+- Kolonie i obozy dla dzieci niepelnosprawnych
+
+B) Nielimitowane (cala kwota):
+- Zakup i naprawa sprzetu rehabilitacyjnego (wzki, lozka, aparaty sluchowe)
+- Odpoczatek i kuracje rehabilitacyjne (turnusy rehabilitacyjne)
+- Dofinansowanie do protezy, ortezy, wozka
+- Adaptacja mieszkania na potrzeby niepelnosprawnosci (podjazd, uchwyt)
+- Tlumacz jezyka migowego
+
+DOKUMENTY: faktury VAT ze swoim imieniem i nazwiskiem (lub PESEL). Dla lekow -- recepta + paragon (urzad skarbowy akceptuje paragon jesli mamy recepte).
+`,
+    szczegolyKwalifikacji: `
+Ulga przyslugi:
+- Osobie z orzeczeniem o niepelnosprawnosci (lub rencie z tytulu niezdolnosci do pracy)
+- Podatnikowi, ktory utrzymuje finansowo osobe niepelnosprawna (malzonek, dzieci, rodzice, rodzenstwo) pod warunkiem ze roczny dochod tej osoby nie przekracza 19.061,28 PLN
+
+Przy lekach: odlicza sie tylko nadwyzke ponad 100 PLN MIESIECZNE (jesli w danym miesiacu wydales 80 PLN -- nic nie odliczasz; jesli 250 PLN -- odliczasz 150 PLN).
+
+Samochod: ryczalt 2280 PLN rocznie (bez potrzeby zbierania paragonow za paliwo), pod warunkiem ze auto uzywane jest do rehabilitacji lub leczenia.
+`,
+    zrodlo: 'https://www.podatki.gov.pl/pit/ulgi-odliczenia-i-zwolnienia/ulga-rehabilitacyjna/ -- pobrano 2026-05-13',
+  },
+
+  'ulga-internetowa': {
+    formularzOpis: `
+Formularz PIT/O -- czesc B -- "Wydatki z tytulu uzytkowania sieci Internet".
+Limit: 760 PLN rocznie (staly, nie zmieniany od lat).
+
+DOKUMENTY: faktury za internet od dostawcy (imie/nazwisko lub PESEL podatnika musi byc na fakturze).
+Przy faktuurze na malzonka/rodzica -- trudniej udowodnic prawo do odliczenia. Lepiej miec umowe na siebie.
+
+UWAGA: ulge mozna stosowac tylko przez 2 KOLEJNE lata podatkowe (nie musi byc bez przerwy -- chodzi o 2 lata korzystania z ulgi lacznie). Nie mozna uzywac ulgi co roku bez ograniczen.
+`,
+    szczegolyKwalifikacji: `
+Ograniczenie "2 kolejne lata" -- interpretacja:
+Mozna skorzystac z ulgi internetowej lacznie przez 2 lata podatkowe. Jesli w 2020 i 2021 juz z niej skorzystales -- w 2022 juz nie mozesz. Ale jesli skorzystales tylko w 2021 -- mozesz jeszcze w jednym roku.
+
+Warto sprawdzic PIT z lat ubieglych czy ulga byla stosowana.
+`,
+    zrodlo: 'https://www.podatki.gov.pl/pit/ulgi-odliczenia-i-zwolnienia/ulga-na-internet/ -- pobrano 2026-05-13',
+  },
+
+  'ulga-ikze': {
+    formularzOpis: `
+Formularz PIT/O -- czesc B -- "Wplaty na Indywidualne Konto Zabezpieczenia Emerytalnego (IKZE)".
+
+POLA:
+- Kwota wplacona na IKZE w roku podatkowym (potwierdzona przez instytucje finansowa)
+- Limit odliczenia: 9.388,80 PLN w 2025 (lub 14.083,20 PLN dla prowadzacych DG)
+
+DOKUMENT: PIT-11A lub zaswiadczenie z banku/towarzystwa funduszy o wysokosci wplat na IKZE.
+`,
+    szczegolyKwalifikacji: `
+IKZE vs. IKE:
+- IKZE: wplaty odlicza sie od dochodu TERAZ (oszczednosc podatkowa), przy wyplacie po 65. roku zycia placi sie 10% podatku zryczaltowanego
+- IKE: brak odliczenia na wejsciu, wyplata po 60 latach CALKOWICIE zwolniona z podatku
+
+Limit wplat IKZE 2026: 9.388,80 PLN (pracownicy/zleceniobiorcy), 14.083,20 PLN (prowadzacy DG).
+Limit IKE 2026: 23.472 PLN.
+
+Mozna miec jednoczesnie IKE i IKZE (i PPK i PPE).
+`,
+    zrodlo: 'https://www.podatki.gov.pl/pit/ulgi-odliczenia-i-zwolnienia/ -- pobrano 2026-05-13',
+  },
+
+  'ulga-na-start': {
+    formularzOpis: `
+ULGA NA START -- brak osobnego formularza, dziala automatycznie przez pierwsze 6 miesiecy dzialalnosci.
+
+Przy rejestracji DG w CEIDG: domyslnie stosuje sie ulge na start.
+Rejestracja ubezpieczenia: tylko ZUS ZZA (ubezpieczenie zdrowotne), BEZ spolecznych.
+
+PRZY PRZEJSCIU NA PREFERENCYJNY ZUS (po 6 mies.):
+- Formularz ZUS ZUA -- zgloszenie do ubezpieczen spolecznych na preferencyjnych skladkach
+- Termin: w ciagu 7 dni od zakonczenia 6-miesecznego okresu ulgi na start
+
+UWAGA: dlugosc okresu ulgi na start liczy sie w MIESIACACH od dnia rozpoczecia dzialalnosci, nie od rejestracji w CEIDG.
+`,
+    szczegolyKwalifikacji: `
+Ulga na start -- 6 pelnych miesiecy calendarowych od rozpoczecia dzialalnosci:
+- Brak skladek spolecznych ZUS (emerytalnej, rentowej, wypadkowej, chorobowej)
+- Tylko skladka zdrowotna (9% dochodu, min. 381,78 PLN w 2026)
+- Brak ubezpieczenia chorobowego = brak prawa do zasilku chorobowego i macierzynskiego
+
+Po 6 mies.: przejscie na preferencyjny ZUS (nizsze skladki przez kolejne 24 miesiace).
+
+Ulga NIE przyslugi jesli:
+- Przynajmniej w ciagu ostatnich 60 miesiecy prowadzilo sie DG
+- Nowa DG jest swiadczeniem uslug na rzecz bylego pracodawcy (w tym samym zakresie)
+`,
+    zrodlo: 'https://www.biznes.gov.pl/pl/portal/00271 -- pobrano 2026-05-13',
+  },
+
+  'preferencyjny-zus': {
+    formularzOpis: `
+Formularz ZUS ZUA -- zgloszenie do ubezpieczen spolecznych (preferencyjne skladki).
+Sklada sie w ZUS (oddzial, PUE ZUS) w ciagu 7 dni od rozpoczecia preferencyjnego okresu.
+
+POLA ZUS ZUA:
+- Dane platnika (przedsiebiorcy): NIP, REGON, imie, nazwisko, PESEL, adres
+- Kod tytulu ubezpieczenia: 05 70 (preferencyjny ZUS -- pierwszy)
+- Daty ubezpieczenia: od kiedy stosuje sie preferencyjne skladki
+- Wymiar ubezpieczenia: pelne ubezpieczenie spoleczne
+
+Dodatkowo ZUS DRA -- deklaracja rozliczeniowa: skladana co miesiac do 20. dnia kolejnego miesiaca.
+`,
+    szczegolyKwalifikacji: `
+PREFERENCYJNY ZUS -- przez 24 miesiace (po 6 mies. ulgi na start LUB od razu po zarejestrowaniu DG jesli nie korzystalo sie z ulgi na start):
+
+Podstawa wymiaru 2026: 1272 PLN (30% minimalnego wynagrodzenia)
+Skladki przyblizone (2026):
+- Emerytalna 19,52%: 248,39 PLN
+- Rentowa 8%: 101,76 PLN
+- Chorobowa 2,45% (dobrowolna): 31,16 PLN
+- Wypadkowa 1,67%: 21,24 PLN
+- Zdrowotna: 9% dochodu (min. 381,78 PLN)
+
+Po 24 mies.: pelny ZUS (podstawa = 60% przecietnego wynagrodzenia, ok. 2547 PLN w 2026 --> skladki ~1400 PLN/mies).
+Mozliwosci dalej: Maly ZUS Plus (jesli przychod do 120.000 PLN rocznie).
+`,
+    zrodlo: 'https://www.biznes.gov.pl/pl/portal/00126 -- pobrano 2026-05-13',
+  },
+
+  'maly-zus-plus': {
+    formularzOpis: `
+Formularz ZUS DRA czesc II lub ZUS RCA czesc II -- deklaracja przy skladaniu miesiecznej rozliczenia.
+Rejestracja: formularz ZUS ZUA z kodem tytulu ubezpieczenia 05 90 (Maly ZUS Plus).
+
+TERMIN REJESTRACJI: w ciagu 7 dni od 1 lutego (Maly ZUS Plus mozna stosowac od 1 stycznia, ale zgloszenie musi byc do 8 lutego).
+Mozna tez przystapic po zakonczeniu preferencyjnego ZUS.
+
+DOKUMENTY:
+- Ewidencja przychodow za poprzedni rok (lub KPiR)
+- Obliczenie podstawy: (roczny przychod / 365 * 30 * 0.5), min. 1272 PLN, max. 60% przecietnego wynagrodzenia
+`,
+    szczegolyKwalifikacji: `
+Warunek: roczny przychod z DG za poprzedni rok nie wiekszy niz 120.000 PLN.
+
+MALY ZUS PLUS -- podstawa wymiaru:
+= (roczny przychod / liczba dni DG) x 30 x 0.5
+Przyklad: przychod 60.000 PLN, pelny rok (365 dni):
+= (60.000/365) x 30 x 0.5 = 2465 PLN podstawa
+Skladki od 2465 PLN (nizsze niz pelny ZUS, wyzsze niz preferencyjny).
+
+Limit: max 5 lat stosowania Malego ZUS Plus (niekoniecznie kolejnych).
+Jesli w jednym roku przychod przekroczy 120.000 PLN -- w nastepnym wychodzi sie z Malego ZUS Plus.
+
+Uwaga: Maly ZUS Plus nie dotyczy skladki zdrowotnej (ona jest od dochodu, osobno).
+`,
+    zrodlo: 'https://www.zus.pl/firmy/przedsiebiorco-to-ciebie-dotyczy/maly-zus-plus -- pobrano 2026-05-13',
+  },
+
+  'emerytura-rolnicza': {
+    formularzOpis: `
+Formularz KRUS SR-20 -- wniosek o emeryture rolnicza.
+Sklada sie w oddziale KRUS wlasciwym dla miejsca zamieszkania.
+
+POLA:
+- Dane wnioskodawcy: imie, nazwisko, PESEL, numer ewidencyjny KRUS, adres
+- Okresy ubezpieczenia rolniczego: daty od-do, nazwy gospodarstw
+- Ewentualne okresy ubezpieczenia w ZUS (sumowane z KRUS przy ustalaniu stazu)
+- Konto bankowe do wyplaty
+- Oswiadczenie o zaprzestaniu (lub niezaprzestaniu) prowadzenia dzialalnosci rolniczej
+
+DOKUMENTY:
+- Dowod osobisty
+- Zaswiadczenia o pracy w rolnictwie (z KRUS lub zaswiadczenia z gmin)
+- Zaswiadczenie z ZUS o ewentualnych okresach ubezpieczenia spolecznego
+- Dokumenty dot. dzialalnosci rolniczej (akt wlasnosci gruntu, dzierzawa)
+`,
+    szczegolyKwalifikacji: `
+Wiek emerytalny KRUS 2026:
+- Kobiety: 60 lat
+- Mezczyzni: 65 lat
+
+Wymagany staz ubezpieczenia rolniczego: 25 lat (latami ubezpieczenia lacznie z ZUS).
+
+Emerytura rolnicza sklada sie z:
+1. Czesc skladkowa: 1% emerytury podstawowej za kazdy rok ubezpieczenia (1780,64 PLN x 1%)
+2. Czesc uzupelniajaca: do 95% emerytury podstawowej
+
+Minimalna emerytura rolnicza (2026): 1978,49 PLN brutto.
+
+WAZNE: jesli rolnik prowadzi dzialalnosc rolnicza po osiagnieciu wieku emerytalnego -- moze pobierac emeryture, ale czesc uzupelniajaca moze byc zawieszona.
+`,
+    zrodlo: 'https://www.gov.pl/web/krus/waloryzacja-emerytur-i-rent-rolniczych-od-1-marca-2026-r -- pobrano 2026-05-13',
+  },
+
+  'stypendium-socjalne': {
+    formularzOpis: `
+Wniosek o stypendium socjalne -- sklada sie na uczelni (dziekanat lub system USOS/wirtualna uczelnia).
+Formularz jest UCZELNIANY (kazda uczelnia ma wlasny), ale pola sa podobne.
+
+TYPOWE POLA:
+- Dane studenta: imie, nazwisko, PESEL, numer albumu, adres zamieszkania
+- Sklad rodziny: wszystkie osoby we wspolnym gospodarstwie domowym (imiona, stopien pokrewienstwa)
+- Dochody kazdego czlonka rodziny: ze wszystkich zrodel za poprzedni rok rozliczeniowy
+- Konto bankowe studenta
+
+DOKUMENTY:
+- Zaswiadczenia o dochodach (PIT, zaswiadczenie z ZUS o emeryturze, zaswiadczenie z US)
+- Przy utracie dochodu: swiadectwo pracy, decyzja PUP o zasilku
+- Zaswiadczenie ze szkoly dla niepelnoletniego rodzenstwa
+- Jesli student samodzielnie finansowo: oswiadczenie + dokumentacja (trudniejsze do udowodnienia)
+`,
+    szczegolyKwalifikacji: `
+Kryterium dochodowe na 2025/2026: ustalone przez uczelnie, zwykle 1294-1600 PLN netto na osobe w rodzinie.
+Kazda uczelnia SAMA ustala prog (w granicach ustawy Prawo o szkolnictwie wyzszym).
+Sprawdz progi na stronie swojej uczelni.
+
+Przy dochodzie od 0 do 50% progu: mozna wnioskac o stypendium socjalne w zwiekszonej wysokosci (jesli student mieszka poza miejscem zamieszkania rodzicow).
+
+Stypendium moze byc laczone z: stypendium rektora, stypendium ministra, zapomoga.
+NIE MOZE byc laczone z: jednolitym stypendium socjalnym z innej uczelni (nie mozna pobierac z dwoch uczelni jednoczesnie).
+
+Termin skladania: zwykle wrzesien-pazdziernik na nowy rok akademicki. Sprawdz harmonogram swojej uczelni.
+`,
+    zrodlo: 'https://www.gov.pl/web/nauka/swiadczenia-dla-studentow-w-roku-akademickim-2025-2026 -- pobrano 2026-05-13',
+  },
+
+  'refundacja-okularow-nfz': {
+    formularzOpis: `
+Wniosek o refundacje wyrobu medycznego (okulary korekcyjne) -- sklada sie u OPTYKA po zakupie okularow.
+To optyk wystawia zlecenie na wyrob medyczny i wysyla rozliczenie do NFZ.
+
+PROCEDURA:
+1. Wizyta u okulisty (lub optometrysty uprawnionego do wystawiania zlecen)
+2. Lekarz/optometrysta wystawia zlecenie na wyrob medyczny (elektronicznie -- ePUAP lub NFZ)
+3. Udaj sie do optyka MAJACEGO UMOWE Z NFZ (sprawdz na nfz.gov.pl --> znajdz swiadczeniodawce)
+4. Optyk realizuje zlecenie i wystawia fakture
+5. NFZ refunduje cześć kosztow bezposrednio optykowi (pacjent placi tylko doplata)
+
+WAZNE: jesli poidziesz do optyka BEZ umowy z NFZ, pieniadze stracisz. Sprawdz liste kontraktowanych punktow.
+`,
+    szczegolyKwalifikacji: `
+Limity refundacji NFZ (2026):
+- Szka korekcyjne dla doroslych: do 70 PLN za jedna szke (140 PLN za komplet)
+- Oprawki dla doroslych: do 50 PLN
+- Dla dzieci do 16 lat: wyzsze limity (soczewki 120 PLN, oprawki 80 PLN)
+- Soczewki kontaktowe: do 280 PLN rocznie (tylko przy wskazaniach medycznych)
+
+Czestotliwosc: dorosli -- nowe zlecenie co 2 lata (przy pogorszeniu wzroku mozna szybciej).
+
+Badanie okulistyczne NFZ: bezplatne (jako swiadczenie gwarantowane przy skierowaniu od lekarza POZ lub bez skierowania przy jednym bezplatnym badaniu rocznie u okulisty).
+`,
+    zrodlo: 'https://www.nfz.gov.pl/dla-pacjenta/wyroby-medyczne/ -- pobrano 2026-05-13',
+  },
+
+  'karta-ekuz': {
+    formularzOpis: `
+Wniosek o EKUZ (Europejska Karta Ubezpieczenia Zdrowotnego) -- przez internet na pacjent.gov.pl.
+LUB: oddzial NFZ wlasciwy dla miejsca zamieszkania.
+
+WNIOSEK ONLINE (pacjent.gov.pl):
+1. Zaloguj sie profilem zaufanym
+2. Wybierz "EKUZ"
+3. Wypelnij: dane osobowe, cel wyjazdu (turystyczny/zawodowy/studyjny)
+4. Karta wysylana pocztą na adres zamieszkania w ciagu 5-7 dni roboczych (lub odbiór osobisty w NFZ)
+
+UWAGA: mozesz tez pobrac TYMCZASOWY ZASWIADCZENIE ZASTEPUJACE EKUZ (PDA) -- do wydruku, wazne 14 dni.
+`,
+    szczegolyKwalifikacji: `
+EKUZ uprawnia do niezbednej pomocy medycznej w krajach EU/EOG/Szwajcarii na takich samych warunkach jak obywatel danego kraju.
+
+NIE OBEJMUJE:
+- Leczenia planowego (czyli celowo jadac na operacje za granice)
+- Leczenia prywatnego (tylko publiczna sluzba zdrowia w danym kraju)
+- Transportu powrotnego do Polski (to ubezpieczenie turystyczne)
+
+WAZNOSC: zwykle 2 lata. Po wygasnieciu mozna odnowic bezplatnie (bez limitu odnowen).
+
+UWAGA: EKUZ to nie ubezpieczenie turystyczne. Na wyjazdy wakacyjne zaleca sie rowniez wykupienie ubezpieczenia turystycznego (m.in. na transport medyczny powrotny).
+`,
+    zrodlo: 'https://pacjent.gov.pl/ekuz -- pobrano 2026-05-13',
+  },
+
   'czyste-powietrze': {
     formularzOpis: `
 Wniosek o dofinansowanie sklada sie:
