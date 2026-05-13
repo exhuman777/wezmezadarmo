@@ -3,8 +3,24 @@
 import { useRef, useEffect, useState } from 'react';
 import { MessageBubble } from './MessageBubble';
 import { StepByStepGuide } from './StepByStepGuide';
-import { MatchResult } from '@/engine/types';
+import { MatchResult, BenefitCategory } from '@/engine/types';
 import { getAllBenefits } from '@/engine/benefits';
+
+const CATEGORY_LABELS: Record<BenefitCategory, string> = {
+  RODZINA: 'Rodzina i dzieci',
+  ZUS: 'ZUS i zasiłki',
+  PRACA: 'Praca',
+  PODATKI: 'Ulgi podatkowe',
+  ZDROWIE: 'Zdrowie',
+  NIEPELNOSPRAWNOSC: 'Niepełnosprawność',
+  SENIOR: 'Seniorzy',
+  POMOC_SPOLECZNA: 'Pomoc społeczna',
+  MIESZKANIE: 'Mieszkanie',
+  EDUKACJA: 'Edukacja',
+  BIZNES: 'Działalność gospodarcza',
+  ENERGIA: 'Energia',
+  EKOLOGIA: 'Ekologia i środowisko',
+};
 
 export interface ChatMessage {
   id: string;
@@ -375,45 +391,89 @@ ${benefitsHtml}
                   borderRight: isMobile ? 'none' : '1px solid var(--color-border)',
                   overflowY: 'auto',
                 }}>
-                  {filteredResults.map((r, i) => {
-                    const isSel = r.benefit.id === selectedId;
-                    return (
-                      <button key={r.benefit.id} onClick={() => {
-                        setSelectedId(r.benefit.id);
-                        if (isMobile) setMobileShowDetail(true);
-                      }} style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        width: '100%',
-                        padding: isMobile ? '16px 16px' : '14px 20px',
-                        background: isSel && !isMobile ? 'var(--color-surface-2)' : 'transparent',
-                        border: 'none',
-                        borderBottom: i === filteredResults.length - 1 ? 'none' : '1px solid var(--color-border)',
-                        textAlign: 'left',
-                        cursor: 'pointer',
-                        position: 'relative',
-                        transition: 'background 200ms',
-                      }}>
-                        {isSel && !isMobile && <span style={{ position: 'absolute', left: 0, top: 10, bottom: 10, width: 3, background: 'var(--color-accent)', borderRadius: '0 3px 3px 0' }} />}
-                        <div style={{ flex: 1, minWidth: 0 }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-                            <span className="mono" style={{ fontSize: 10, color: 'var(--color-text-3)', letterSpacing: '0.04em' }}>{String(i + 1).padStart(2, '0')}</span>
-                            <span style={{ fontSize: 14, fontWeight: 500, color: 'var(--color-text-1)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{r.benefit.nazwa}</span>
-                          </div>
-                          <div className="mono" style={{ fontSize: 12, color: 'var(--color-text-3)', letterSpacing: '0.02em' }}>{r.benefit.kwota}</div>
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
+                  {(() => {
+                    // Group by category, preserving order of first appearance
+                    const seen: BenefitCategory[] = [];
+                    filteredResults.forEach(r => {
+                      if (!seen.includes(r.benefit.kategoria)) seen.push(r.benefit.kategoria);
+                    });
+                    const groups = seen.map(cat => ({
+                      cat,
+                      items: filteredResults.filter(r => r.benefit.kategoria === cat),
+                    }));
+
+                    let globalIdx = 0;
+                    return groups.map(({ cat, items }) => (
+                      <div key={cat}>
+                        {/* Category header */}
+                        <div style={{
+                          padding: '10px 20px 6px',
+                          background: 'var(--color-surface-2)',
+                          borderBottom: '1px solid var(--color-border)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 8,
+                        }}>
                           <span style={{
-                            width: 6, height: 6, borderRadius: 999,
-                            background: r.status === 'PRZYSLUGUJE' ? 'var(--color-green)' : 'var(--color-accent)',
-                          }} />
-                          {isMobile && (
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-3)" strokeWidth="1.6"><path d="M9 18l6-6-6-6"/></svg>
-                          )}
+                            fontSize: 11,
+                            fontWeight: 600,
+                            letterSpacing: '0.06em',
+                            textTransform: 'uppercase',
+                            color: 'var(--color-text-3)',
+                          }}>{CATEGORY_LABELS[cat] ?? cat}</span>
+                          <span style={{
+                            fontSize: 11,
+                            color: 'var(--color-text-3)',
+                            background: 'var(--color-border)',
+                            borderRadius: 999,
+                            padding: '1px 7px',
+                            fontWeight: 500,
+                          }}>{items.length}</span>
                         </div>
-                      </button>
-                    );
-                  })}
+                        {/* Items */}
+                        {items.map((r, itemIdx) => {
+                          const idx = globalIdx++;
+                          const isSel = r.benefit.id === selectedId;
+                          const isLast = itemIdx === items.length - 1;
+                          return (
+                            <button key={r.benefit.id} onClick={() => {
+                              setSelectedId(r.benefit.id);
+                              if (isMobile) setMobileShowDetail(true);
+                            }} style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              width: '100%',
+                              padding: isMobile ? '14px 16px' : '13px 20px',
+                              background: isSel && !isMobile ? 'var(--color-surface-2)' : 'transparent',
+                              border: 'none',
+                              borderBottom: isLast ? 'none' : '1px solid var(--color-border)',
+                              textAlign: 'left',
+                              cursor: 'pointer',
+                              position: 'relative',
+                              transition: 'background 200ms',
+                            }}>
+                              {isSel && !isMobile && <span style={{ position: 'absolute', left: 0, top: 8, bottom: 8, width: 3, background: 'var(--color-accent)', borderRadius: '0 3px 3px 0' }} />}
+                              <div style={{ flex: 1, minWidth: 0 }}>
+                                <div style={{ fontSize: 15, fontWeight: 500, color: 'var(--color-text-1)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', marginBottom: 3 }}>
+                                  {r.benefit.nazwa}
+                                </div>
+                                <div style={{ fontSize: 13, color: 'var(--color-text-3)' }}>{r.benefit.kwota}</div>
+                              </div>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0, paddingLeft: 8 }}>
+                                <span style={{
+                                  width: 7, height: 7, borderRadius: 999,
+                                  background: r.status === 'PRZYSLUGUJE' ? 'var(--color-green)' : 'var(--color-accent)',
+                                }} />
+                                {isMobile && (
+                                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-3)" strokeWidth="1.6"><path d="M9 18l6-6-6-6"/></svg>
+                                )}
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    ));
+                  })()}
                 </div>
               )}
 
