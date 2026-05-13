@@ -38,10 +38,12 @@ export async function POST(request: NextRequest) {
       messages,
       profile,
       verifiedResults,
+      focusedBenefitId,
     } = await request.json() as {
       messages: { role: 'user' | 'assistant'; content: string }[];
       profile: UserProfile | null;
       verifiedResults: MatchResult[] | null;
+      focusedBenefitId?: string | null;
     };
 
     if (!messages || !Array.isArray(messages)) {
@@ -51,7 +53,7 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    const context = buildConversationContext(profile, verifiedResults);
+    const context = buildConversationContext(profile, verifiedResults, focusedBenefitId);
 
     const systemMessage = SYSTEM_PROMPT + (context ? `\n\n${context}` : '');
 

@@ -42,42 +42,72 @@ STYL:
 - Ciepły ale profesjonalny ton
 - Jeśli ktoś się nie kwalifikuje, powiedz to wprost`;
 
+function formatBenefitEntry(r: MatchResult): string {
+  const b = r.benefit;
+  const parts = [
+    `[${r.status}] ${b.nazwa}`,
+    `Kwota: ${b.kwota} (${b.czestotliwosc})`,
+    `Pewność: ${r.confidence}`,
+  ];
+  if (b.opis) parts.push(`Opis: ${b.opis}`);
+  parts.push(`Źródło: ${b.zrodloUrl}`);
+  if (r.warnings.length > 0) parts.push(`Ostrzeżenia: ${r.warnings.join('; ')}`);
+  if (b.wykluczenia.length > 0) parts.push(`Wykluczenia: ${b.wykluczenia.map(w => w.opis).join('; ')}`);
+  parts.push(`Gdzie złożyć: ${b.wniosek.kanal.join(', ')}`);
+  if (b.wniosek.formularz) parts.push(`Formularz: ${b.wniosek.formularz}`);
+  parts.push(`Dokumenty: ${b.wniosek.dokumenty.join('; ')}`);
+  parts.push(`Kroki: ${b.wniosek.kroki.map((k, i) => `${i + 1}. ${k}`).join(' ')}`);
+  parts.push(`Termin: ${b.wniosek.terminRealizacji}`);
+  if (b.wniosek.pulapki.length > 0) parts.push(`Pułapki: ${b.wniosek.pulapki.join('; ')}`);
+  parts.push(`Odwołanie: ${b.wniosek.odwolanie}`);
+  return parts.join('\n  ');
+}
+
 export function buildConversationContext(
   profile: UserProfile | null,
   verifiedResults: MatchResult[] | null,
+  focusedBenefitId?: string | null,
 ): string {
   if (!profile || !verifiedResults) return '';
 
-  const resultsSummary = verifiedResults.map(r => {
-    const b = r.benefit;
-    const parts = [
-      `[${r.status}] ${b.nazwa}`,
-      `Kwota: ${b.kwota} (${b.czestotliwosc})`,
-      `Pewność: ${r.confidence}`,
-    ];
-    if (b.opis) parts.push(`Opis: ${b.opis}`);
-    parts.push(`Źródło: ${b.zrodloUrl}`);
-    if (r.warnings.length > 0) parts.push(`Ostrzeżenia: ${r.warnings.join('; ')}`);
-    if (b.wykluczenia.length > 0) parts.push(`Wykluczenia: ${b.wykluczenia.map(w => w.opis).join('; ')}`);
-    parts.push(`Gdzie złożyć: ${b.wniosek.kanal.join(', ')}`);
-    if (b.wniosek.formularz) parts.push(`Formularz: ${b.wniosek.formularz}`);
-    parts.push(`Dokumenty: ${b.wniosek.dokumenty.join('; ')}`);
-    parts.push(`Kroki: ${b.wniosek.kroki.map((k, i) => `${i + 1}. ${k}`).join(' ')}`);
-    parts.push(`Termin: ${b.wniosek.terminRealizacji}`);
-    if (b.wniosek.pulapki.length > 0) parts.push(`Pułapki: ${b.wniosek.pulapki.join('; ')}`);
-    parts.push(`Odwołanie: ${b.wniosek.odwolanie}`);
-    return parts.join('\n  ');
-  }).join('\n\n');
+  const focused = focusedBenefitId
+    ? verifiedResults.find(r => r.benefit.id === focusedBenefitId)
+    : null;
+  const rest = focused
+    ? verifiedResults.filter(r => r.benefit.id !== focusedBenefitId)
+    : verifiedResults;
 
-  return `
-PROFIL UŻYTKOWNIKA:
+  const profileSection = `PROFIL UŻYTKOWNIKA:
 Wiek: ${profile.wiek}, Płeć: ${profile.plec === 'K' ? 'kobieta' : 'mężczyzna'}
 Stan cywilny: ${profile.stanCywilny}, Dzieci: ${profile.liczbaDzieci}
 Dochód na osobę: ${profile.dochodNaOsobe} PLN
 Zatrudnienie: ${profile.zatrudnienie}
 Niepełnosprawność: ${profile.niepelnosprawnosc}
 Własność: ${profile.wlasnosc}
-Działalność: ${profile.prowadzDzialalnosc ? 'tak' : 'nie'}
+Działalność: ${profile.prowadzDzialalnosc ? 'tak' : 'nie'}`;
+
+  if (focused) {
+    const restSummary = rest.length > 0
+      ? rest.map(r => `[${r.status}] ${r.benefit.nazwa} -- ${r.benefit.kwota}`).join('\n')
+      : 'Brak innych świadczeń.';
+
+    return `
+${profileSection}
+
+UWAGA: UŻYTKOWNIK PYTA KONKRETNIE O TO ŚWIADCZENIE -- odpowiadaj przede wszystkim w kontekście tego świadczenia:
+${formatBenefitEntry(focused)}
+
+POZOSTAŁE DOPASOWANE ŚWIADCZENIA (dodatkowy kontekst, nie główny temat):
+${restSummary}
+
+ŁĄCZNA LICZBA DOPASOWANYCH ŚWIADCZEŃ: ${verifiedResults.length}
+`;
+  }
+
+  const resultsSummary = verifiedResults.map(formatBenefitEntry).join('\n\n');
+
+  return `
+${profileSection}
 
 ZWERYFIKOWANE ŚWIADCZENIA (TYLKO TE MOŻESZ PREZENTOWAĆ):
 ${resultsSummary}

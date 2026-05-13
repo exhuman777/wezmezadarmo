@@ -580,7 +580,7 @@ export default function Home() {
     setIsLoading(false);
   }
 
-  async function handleSendMessage(text: string) {
+  async function handleSendMessage(text: string, focusedBenefitId?: string | null) {
     const userMsg: ChatMessage = {
       id: `user-${Date.now()}`,
       role: 'user',
@@ -608,6 +608,7 @@ export default function Home() {
           messages: chatMessages,
           profile: profile as UserProfile,
           verifiedResults: results,
+          focusedBenefitId: focusedBenefitId ?? null,
         }),
       });
 

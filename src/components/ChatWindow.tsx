@@ -16,7 +16,7 @@ interface ChatWindowProps {
   messages: ChatMessage[];
   results: MatchResult[];
   isStreaming: boolean;
-  onSendMessage: (text: string) => void;
+  onSendMessage: (text: string, focusedBenefitId?: string | null) => void;
   onGuide: (benefitId: string) => void;
   guideBenefitId: string | null;
   onCloseGuide: () => void;
@@ -41,6 +41,7 @@ export function ChatWindow({
   const [selectedId, setSelectedId] = useState<string | null>(results.length > 0 ? results[0]?.benefit.id ?? null : null);
   const [isMobile, setIsMobile] = useState(false);
   const [mobileShowDetail, setMobileShowDetail] = useState(false);
+  const [chatFocusBenefitId, setChatFocusBenefitId] = useState<string | null>(null);
   const chatBottomRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -100,7 +101,7 @@ export function ChatWindow({
       if (!text || isStreaming) return;
       setInput('');
       resetTextareaHeight();
-      onSendMessage(text);
+      onSendMessage(text, chatFocusBenefitId);
     }
   }
 
@@ -110,7 +111,7 @@ export function ChatWindow({
     if (!text || isStreaming) return;
     setInput('');
     resetTextareaHeight();
-    onSendMessage(text);
+    onSendMessage(text, chatFocusBenefitId);
   }
 
   function downloadMd() {
@@ -450,10 +451,31 @@ ${benefitsHtml}
                             </span>
                           </div>
                         </div>
-                        <button onClick={() => onGuide(selectedBenefit.id)} className="btn btn-primary" style={{ height: 40, padding: '0 18px', fontSize: 13 }}>
-                          Pełny przewodnik
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                        </button>
+                        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                          <button onClick={() => {
+                            setChatFocusBenefitId(selectedBenefit.id);
+                            setActiveTab('chat');
+                          }} style={{
+                            height: 40, padding: '0 14px', fontSize: 13,
+                            background: 'var(--color-surface-2)',
+                            border: '1px solid var(--color-border)',
+                            borderRadius: 10, cursor: 'pointer',
+                            color: 'var(--color-text-2)',
+                            fontFamily: 'var(--font-sans)',
+                            display: 'flex', alignItems: 'center', gap: 6,
+                            transition: 'all 200ms',
+                          }}
+                            onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--color-accent)'; e.currentTarget.style.color = 'var(--color-accent)'; }}
+                            onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--color-border)'; e.currentTarget.style.color = 'var(--color-text-2)'; }}
+                          >
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                            Zapytaj AI
+                          </button>
+                          <button onClick={() => onGuide(selectedBenefit.id)} className="btn btn-primary" style={{ height: 40, padding: '0 18px', fontSize: 13 }}>
+                            Pełny przewodnik
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                          </button>
+                        </div>
                       </div>
 
                       <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: 24 }}>
@@ -574,14 +596,46 @@ ${benefitsHtml}
       <form
         onSubmit={handleSubmit}
         style={{
-          display: 'flex', gap: 8,
+          display: 'flex', flexDirection: 'column', gap: 8,
           padding: '12px 24px',
           borderTop: '1px solid var(--color-border)',
           background: 'var(--color-surface)',
           flexShrink: 0,
-          alignItems: 'flex-end',
         }}
       >
+        {chatFocusBenefitId && (() => {
+          const focused = results.find(r => r.benefit.id === chatFocusBenefitId);
+          if (!focused) return null;
+          return (
+            <div style={{
+              display: 'flex', alignItems: 'center', gap: 8,
+              padding: '6px 10px',
+              background: 'var(--color-accent-soft)',
+              border: '1px solid var(--color-accent)',
+              borderRadius: 8,
+              fontSize: 12,
+              color: 'var(--color-accent)',
+              fontFamily: 'var(--font-mono)',
+            }}>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span style={{ flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                Kontekst: {focused.benefit.nazwa}
+              </span>
+              <button
+                type="button"
+                onClick={() => setChatFocusBenefitId(null)}
+                style={{
+                  background: 'none', border: 'none',
+                  color: 'var(--color-accent)', cursor: 'pointer',
+                  padding: 0, lineHeight: 1, flexShrink: 0,
+                  opacity: 0.7, fontSize: 14,
+                }}
+                title="Usuń kontekst"
+              >x</button>
+            </div>
+          );
+        })()}
+        <div style={{ display: 'flex', gap: 8, alignItems: 'flex-end' }}>
         <textarea
           ref={textareaRef}
           value={input}
@@ -624,6 +678,7 @@ ${benefitsHtml}
         >
           Wyślij
         </button>
+        </div>
       </form>
 
       {/* Disclaimer */}
