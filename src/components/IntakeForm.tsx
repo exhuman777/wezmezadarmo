@@ -25,8 +25,9 @@ export function IntakeForm({ onSubmit, isLoading }: IntakeFormProps) {
   const [age, setAge] = useState('');
   const [plec, setPlec] = useState<'K' | 'M' | ''>('');
   const [nip, setNip] = useState('');
+  const [accepted, setAccepted] = useState(false);
 
-  const canSubmit = age && parseInt(age, 10) > 0 && plec !== '';
+  const canSubmit = age && parseInt(age, 10) > 0 && plec !== '' && accepted;
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -92,6 +93,28 @@ export function IntakeForm({ onSubmit, isLoading }: IntakeFormProps) {
           onBlur={e => e.currentTarget.style.borderColor = 'var(--color-border)'}
         />
       </Field>
+
+      <label style={{
+        display: 'flex', alignItems: 'flex-start', gap: 10, cursor: 'pointer',
+        marginBottom: 14, marginTop: 4,
+      }}>
+        <input
+          type="checkbox"
+          checked={accepted}
+          onChange={e => setAccepted(e.target.checked)}
+          disabled={isLoading}
+          style={{ marginTop: 3, accentColor: 'var(--color-accent)', flexShrink: 0, width: 15, height: 15, cursor: 'pointer' }}
+        />
+        <span style={{ fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.5 }}>
+          Korzystając z serwisu akceptuję{' '}
+          <a href="/regulamin" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)', textDecoration: 'underline' }}>
+            regulamin
+          </a>{' '}i zapoznałem/am się z{' '}
+          <a href="/polityka-prywatnosci" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)', textDecoration: 'underline' }}>
+            polityką prywatności
+          </a>.
+        </span>
+      </label>
 
       <button
         type="submit"

@@ -18,7 +18,7 @@ export default function PolitykaPage() {
           Polityka prywatności
         </h1>
         <p className="text-[13px] text-text-3 mb-8">
-          Ostatnia aktualizacja: 12 maja 2026 r.
+          Ostatnia aktualizacja: 13 maja 2026 r.
         </p>
 
         <div className="space-y-8 text-[14px] sm:text-[15px] leading-[1.7] text-text-2">
@@ -26,79 +26,94 @@ export default function PolitykaPage() {
           <Section n="1" title="Administrator danych osobowych">
             <P>1.1. Administratorem danych osobowych jest Kamil Sobkowicz, adres e-mail: sobkowicz.kamil@gmail.com (dalej: &quot;Administrator&quot;).</P>
             <P>1.2. We wszelkich sprawach dotyczących ochrony danych osobowych można kontaktować się pod adresem: sobkowicz.kamil@gmail.com.</P>
+            <P>1.3. Niniejsza Polityka Prywatności została opracowana zgodnie z Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. (RODO) oraz Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2024/1689 (Akt o Sztucznej Inteligencji).</P>
           </Section>
 
-          <Section n="2" title="Zakres przetwarzanych danych">
-            <P>2.1. Serwis przetwarza następujące dane osobowe:</P>
-            <P className="pl-4">a) Numer PESEL - przetwarzany wyłącznie w przeglądarce Użytkownika (po stronie klienta). Z numeru PESEL dekodowane są: wiek i płeć. Sam numer PESEL nie jest w żadnym momencie przesyłany na serwer Administratora, do bazy danych ani do jakichkolwiek usług zewnętrznych. Po zamknięciu lub odświeżeniu strony dane te są trwale usuwane z pamięci przeglądarki.</P>
-            <P className="pl-4">b) Numer NIP (opcjonalnie) - jeżeli Użytkownik poda numer NIP, jest on przesyłany do publicznego rejestru CEIDG (API pod adresem https://dane.biznes.gov.pl/api/ceidg/v2/firmy) w celu weryfikacji statusu działalności gospodarczej. Numer NIP nie jest zapisywany na serwerze Administratora. Przetwarzanie NIP ma charakter tranzytowy - numer jest przekazywany do API CEIDG i natychmiast usuwany z pamięci serwera po uzyskaniu odpowiedzi.</P>
-            <P className="pl-4">c) Dane demograficzne i sytuacyjne podane w formularzu: wiek, płeć, stan cywilny, liczba dzieci, dochód miesięcznie i na osobę, forma zatrudnienia, stopień niepełnosprawności, forma własności mieszkania, województwo, status działalności gospodarczej, ciąża, status studenta, emeryta, rolnika, osoby bezrobotnej. Dane te są przetwarzane w pamięci operacyjnej serwera wyłącznie na czas trwania zapytania (kilka sekund) i nie są nigdzie zapisywane ani przechowywane.</P>
-            <P className="pl-4">d) Adres IP - przetwarzany wyłącznie w celu ograniczenia liczby zapytań do asystenta AI (3 zapytania na 24 godziny na adres IP). Adres IP jest przechowywany w pamięci operacyjnej serwera i usuwany automatycznie po 24 godzinach lub po restarcie serwera. Nie jest zapisywany w bazie danych ani logach. Podstawa prawna: art. 6 ust. 1 lit. f) RODO (prawnie uzasadniony interes Administratora polegający na zapewnieniu dostępności Usługi dla wszystkich Użytkowników i ochronie przed nadużyciami).</P>
-            <P className="pl-4">e) Historia czatu i wyniki analizy (localStorage) - Serwis automatycznie zapisuje historię rozmów z asystentem AI oraz wyniki analizy świadczeń w lokalnym magazynie przeglądarki (localStorage) na urządzeniu Użytkownika. Dane te obejmują: treść wiadomości w czacie, listę dopasowanych świadczeń oraz anonimowe dane demograficzne podane w formularzu. Są przechowywane wyłącznie lokalnie na urządzeniu Użytkownika i wygasają automatycznie po 7 dniach. Administrator nie ma dostępu do danych przechowywanych w localStorage. Użytkownik może usunąć te dane w dowolnym momencie klikając &quot;Zacznij od nowa&quot; w Serwisie lub czyszcząc localStorage w ustawieniach przeglądarki. Podstawa prawna: art. 6 ust. 1 lit. b) RODO (niezbędność do wykonania umowy - zachowanie ciągłości sesji po odświeżeniu strony).</P>
+          <Section n="2" title="Zasada minimalizacji danych i brak bazy użytkowników">
+            <P>2.1. Serwis stosuje zasadę minimalizacji danych (art. 5 ust. 1 lit. c RODO). Serwis nie zbiera, nie przetwarza ani nie przechowuje numerów PESEL. Użytkownik podaje wyłącznie wiek i płeć bezpośrednio w formularzu -- żadne numery identyfikacyjne nie są wymagane ani akceptowane.</P>
+            <P>2.2. Serwis nie prowadzi żadnej bazy danych użytkowników. Na serwerach Administratora nie są przechowywane żadne profile użytkowników, historia wyszukiwań ani wyniki analiz. Każde zapytanie przetwarzane jest jednorazowo w pamięci operacyjnej serwera i natychmiast usuwane po zwróceniu odpowiedzi.</P>
+            <P>2.3. Serwis nie rejestruje Użytkowników, nie zakłada kont i nie wymaga podania adresu e-mail ani żadnych danych kontaktowych.</P>
           </Section>
 
-          <Section n="3" title="Cele i podstawy prawne przetwarzania">
-            <P>3.1. Dane są przetwarzane w następujących celach i na następujących podstawach prawnych:</P>
-            <P className="pl-4">a) Dekodowanie numeru PESEL (wiek, płeć) - cel: świadczenie Usługi polegającej na analizie kwalifikowalności do świadczeń; podstawa prawna: art. 6 ust. 1 lit. b) RODO (niezbędność do wykonania umowy o świadczenie usługi, którą Użytkownik zawiera poprzez rozpoczęcie korzystania z Serwisu). Przetwarzanie odbywa się wyłącznie w przeglądarce Użytkownika.</P>
-            <P className="pl-4">b) Weryfikacja numeru NIP w rejestrze CEIDG - cel: ustalenie statusu działalności gospodarczej na potrzeby dopasowania świadczeń dla przedsiębiorców; podstawa prawna: art. 6 ust. 1 lit. b) RODO (niezbędność do wykonania umowy, Użytkownik dobrowolnie podaje NIP w celu uzyskania pełniejszej analizy).</P>
-            <P className="pl-4">c) Analiza danych demograficznych i sytuacyjnych - cel: dopasowanie świadczeń rządowych; podstawa prawna: art. 6 ust. 1 lit. b) RODO (niezbędność do wykonania umowy, dane podawane dobrowolnie przez Użytkownika w celu uzyskania wyników analizy).</P>
-            <P className="pl-4">d) Weryfikacja AI wyników dopasowania - cel: eliminacja błędnych dopasowań i poprawa jakości wyników; podstawa prawna: art. 6 ust. 1 lit. b) RODO (niezbędność do wykonania umowy, weryfikacja AI jest integralną częścią Usługi). Do modelu AI przesyłane są wyłącznie dane demograficzne bez identyfikatorów bezpośrednich (bez numeru PESEL, NIP, imienia, nazwiska).</P>
+          <Section n="3" title="Źródła danych o świadczeniach">
+            <P>3.1. Informacje o świadczeniach rządowych prezentowane w Serwisie pochodzą wyłącznie z oficjalnych, publicznych źródeł: gov.pl, zus.pl, nfz.gov.pl, podatki.gov.pl, pfron.org.pl, praca.gov.pl, krus.gov.pl. Linki do tych źródeł są widoczne bezpośrednio w interfejsie Serwisu.</P>
+            <P>3.2. Serwis nie pobiera ani nie przetwarza danych osobowych Użytkownika z publicznych rejestrów. Jedynym wyjątkiem jest opcjonalna weryfikacja numeru NIP w CEIDG na żądanie Użytkownika (sekcja 4.1b).</P>
           </Section>
 
-          <Section n="4" title="Odbiorcy danych">
-            <P>4.1. Dane Użytkownika mogą być przekazywane następującym kategoriom odbiorców:</P>
-            <P className="pl-4">a) CEIDG (Ministerstwo Rozwoju i Technologii) - wyłącznie numer NIP, jeżeli Użytkownik go poda, w celu weryfikacji statusu działalności gospodarczej.</P>
-            <P className="pl-4">b) OpenRouter, Inc. (siedziba: Stany Zjednoczone) - dane demograficzne bez identyfikatorów bezpośrednich (wiek, płeć, stan cywilny, dochód, forma zatrudnienia i podobne parametry sytuacyjne) są przesyłane do API OpenRouter w celu weryfikacji wyników dopasowania z wykorzystaniem modelu Claude Haiku (Anthropic, Inc.). Numer PESEL, NIP, imię, nazwisko ani żadne inne dane umożliwiające bezpośrednią identyfikację nie są przesyłane.</P>
-            <P className="pl-4">c) Google Ireland Limited - anonimowe dane statystyczne o ruchu na stronie (liczba odwiedzin, typ urządzenia, źródło wejścia) zbierane za pośrednictwem Google Analytics, wyłącznie po wyrażeniu zgody przez Użytkownika. Dane te nie zawierają informacji podanych w formularzu.</P>
-            <P>4.2. Dane nie są przekazywane organom reklamowym, brokerom danych ani sieciom społecznościowym. Administrator nie sprzedaje danych Użytkowników.</P>
+          <Section n="4" title="Zakres przetwarzanych danych">
+            <P>4.1. Serwis przetwarza następujące dane:</P>
+            <P className="pl-4">a) Dane demograficzne i sytuacyjne podane ręcznie w formularzu: wiek, płeć, stan cywilny, liczba dzieci (i ich wiek), dochód miesięczny i na osobę, forma zatrudnienia, stopień niepełnosprawności, forma własności mieszkania, województwo, status działalności gospodarczej, ciąża, status studenta, emeryta, rolnika, osoby bezrobotnej. Dane te są przetwarzane w pamięci operacyjnej serwera wyłącznie na czas trwania zapytania (kilka sekund) i usuwane natychmiast po zwróceniu wyników Użytkownikowi. Nie są nigdzie zapisywane na serwerze Administratora.</P>
+            <P className="pl-4">b) Numer NIP (opcjonalnie) -- jeżeli Użytkownik poda numer NIP, jest on przesyłany do publicznego rejestru CEIDG (API dane.biznes.gov.pl) w celu weryfikacji statusu działalności gospodarczej. Numer NIP nie jest zapisywany na serwerze Administratora. Przetwarzanie NIP ma charakter tranzytowy -- numer jest przekazywany do API CEIDG i natychmiast usuwany z pamięci serwera po uzyskaniu odpowiedzi.</P>
+            <P className="pl-4">c) Adres IP -- przetwarzany wyłącznie w celu ograniczenia liczby zapytań do asystenta AI (rate limiting). Adres IP jest przechowywany w pamięci operacyjnej serwera i usuwany automatycznie po 24 godzinach lub po restarcie serwera. Nie jest zapisywany w bazie danych ani logach. Podstawa prawna: art. 6 ust. 1 lit. f) RODO (prawnie uzasadniony interes Administratora polegający na zapewnieniu dostępności Usługi i ochronie przed nadużyciami).</P>
+            <P className="pl-4">d) Historia czatu i wyniki analizy (localStorage) -- Serwis automatycznie zapisuje historię rozmów z asystentem AI oraz wyniki analizy świadczeń w lokalnym magazynie przeglądarki (localStorage) na urządzeniu Użytkownika. Są przechowywane wyłącznie lokalnie i wygasają automatycznie po 7 dniach. Administrator nie ma dostępu do danych przechowywanych w localStorage. Użytkownik może usunąć te dane klikając &quot;Zacznij od nowa&quot; lub czyszcząc localStorage w ustawieniach przeglądarki. Podstawa prawna: art. 6 ust. 1 lit. b) RODO (niezbędność do wykonania umowy -- zachowanie ciągłości sesji).</P>
           </Section>
 
-          <Section n="5" title="Przekazywanie danych do państw trzecich">
-            <P>5.1. Dane demograficzne bez identyfikatorów bezpośrednich są przekazywane do OpenRouter, Inc. z siedzibą w Stanach Zjednoczonych. Przekazanie odbywa się na podstawie art. 49 ust. 1 lit. a) RODO (wyraźna zgoda Użytkownika wyrażona poprzez dobrowolne wypełnienie formularza i rozpoczęcie analizy).</P>
-            <P>5.2. Dane przekazywane do OpenRouter nie zawierają identyfikatorów bezpośrednich (bez PESEL, NIP, imienia, nazwiska). Przesyłane są wyłącznie parametry demograficzne (wiek, płeć, stan cywilny, dochód, forma zatrudnienia), które nie pozwalają na bezpośrednią identyfikację Użytkownika.</P>
+          <Section n="5" title="Cele i podstawy prawne przetwarzania">
+            <P>5.1. Dane są przetwarzane w następujących celach i na następujących podstawach prawnych:</P>
+            <P className="pl-4">a) Analiza danych demograficznych i sytuacyjnych -- cel: dopasowanie świadczeń rządowych do profilu Użytkownika; podstawa prawna: art. 6 ust. 1 lit. b) RODO (niezbędność do wykonania umowy).</P>
+            <P className="pl-4">b) Weryfikacja numeru NIP w rejestrze CEIDG -- cel: ustalenie statusu działalności gospodarczej; podstawa prawna: art. 6 ust. 1 lit. b) RODO (niezbędność do wykonania umowy, Użytkownik dobrowolnie podaje NIP).</P>
+            <P className="pl-4">c) Asystent AI i weryfikacja wyników -- cel: udzielanie odpowiedzi na pytania o świadczenia i eliminacja błędnych dopasowań; podstawa prawna: art. 6 ust. 1 lit. b) RODO. Do modeli AI przesyłane są wyłącznie zanonimizowane dane demograficzne.</P>
+            <P className="pl-4">d) Rate limiting (adres IP) -- cel: ochrona przed nadużyciami i zapewnienie dostępności; podstawa prawna: art. 6 ust. 1 lit. f) RODO (prawnie uzasadniony interes Administratora).</P>
           </Section>
 
-          <Section n="6" title="Okres przechowywania danych">
-            <P>6.1. Serwis nie przechowuje danych osobowych Użytkowników na serwerach Administratora.</P>
-            <P className="pl-4">a) Numer PESEL - przetwarzany wyłącznie w pamięci przeglądarki Użytkownika na czas sesji; usuwany po zamknięciu lub odświeżeniu strony.</P>
-            <P className="pl-4">b) Numer NIP - przetwarzany tranzytowo w pamięci operacyjnej serwera; usuwany natychmiast po uzyskaniu odpowiedzi z API CEIDG.</P>
-            <P className="pl-4">c) Dane demograficzne przesyłane do serwera - przetwarzane w pamięci operacyjnej serwera wyłącznie na czas trwania zapytania; usuwane natychmiast po zwróceniu odpowiedzi Użytkownikowi.</P>
-            <P className="pl-4">d) Historia czatu i wyniki analizy (localStorage) - przechowywane wyłącznie lokalnie w przeglądarce Użytkownika przez maksymalnie 7 dni. Administrator nie ma dostępu do tych danych. Użytkownik usuwa je klikając &quot;Zacznij od nowa&quot; lub czyszcząc localStorage przeglądarki.</P>
-            <P>6.2. Administrator nie prowadzi bazy danych Użytkowników na serwerze. Dane przechowywane lokalnie w przeglądarce (localStorage) są dostępne wyłącznie dla Użytkownika na jego urządzeniu.</P>
+          <Section n="6" title="Modele AI i odbiorcy danych">
+            <P>6.1. Serwis wykorzystuje dwa modele sztucznej inteligencji dostarczane przez Google LLC za pośrednictwem platformy OpenRouter, Inc.:</P>
+            <P className="pl-4">a) Google Gemini 2.0 Flash -- asystent czatowy odpowiadający na pytania Użytkownika o świadczenia;</P>
+            <P className="pl-4">b) Google Gemini 2.0 Flash Lite -- weryfikacja i filtrowanie wyników dopasowania świadczeń.</P>
+            <P>6.2. Do modeli AI przesyłane są wyłącznie zanonimizowane dane demograficzne (wiek, płeć, stan cywilny, dochód, forma zatrudnienia i podobne parametry sytuacyjne). Żadne dane umożliwiające bezpośrednią identyfikację Użytkownika nie są przesyłane.</P>
+            <P>6.3. Dane Użytkownika mogą być przekazywane następującym kategoriom odbiorców:</P>
+            <P className="pl-4">a) CEIDG (Ministerstwo Rozwoju i Technologii) -- wyłącznie numer NIP, jeżeli Użytkownik go poda.</P>
+            <P className="pl-4">b) OpenRouter, Inc. (siedziba: Stany Zjednoczone) / Google LLC -- zanonimizowane dane demograficzne w celu obsługi asystenta AI i weryfikacji wyników.</P>
+            <P className="pl-4">c) Google Ireland Limited -- anonimowe dane statystyczne o ruchu na stronie, wyłącznie po wyrażeniu zgody przez Użytkownika za pośrednictwem baneru cookies.</P>
+            <P>6.4. Dane nie są przekazywane organom reklamowym, brokerom danych ani sieciom społecznościowym. Administrator nie sprzedaje danych Użytkowników.</P>
           </Section>
 
-          <Section n="7" title="Prawa Użytkownika">
-            <P>7.1. Na podstawie RODO Użytkownikowi przysługują następujące prawa: prawo dostępu do danych (art. 15), prawo do sprostowania danych (art. 16), prawo do usunięcia danych (art. 17), prawo do ograniczenia przetwarzania (art. 18), prawo do przenoszenia danych (art. 20), prawo do sprzeciwu wobec przetwarzania (art. 21), prawo do cofnięcia zgody w dowolnym momencie (art. 7 ust. 3).</P>
-            <P>7.2. Ze względu na to, że Serwis nie przechowuje danych osobowych, realizacja powyższych praw jest w praktyce bezprzedmiotowa - nie istnieją dane, do których można uzyskać dostęp, które można sprostować, usunąć, ograniczyć, przenieść lub wobec których można wnieść sprzeciw.</P>
-            <P>7.3. Cofnięcie zgody realizowane jest poprzez zaprzestanie korzystania z Serwisu (zamknięcie strony).</P>
-            <P>7.4. Użytkownikowi przysługuje prawo wniesienia skargi do organu nadzorczego - Prezesa Urzędu Ochrony Danych Osobowych (ul. Stanisława Moniuszki 1A, 00-014 Warszawa, <a href="https://uodo.gov.pl/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">uodo.gov.pl</a>).</P>
+          <Section n="7" title="Przekazywanie danych do państw trzecich">
+            <P>7.1. Zanonimizowane dane demograficzne są przekazywane do OpenRouter, Inc. z siedzibą w Stanach Zjednoczonych w celu obsługi modeli AI Google LLC. Przekazanie odbywa się na podstawie art. 49 ust. 1 lit. a) RODO (wyraźna zgoda Użytkownika wyrażona poprzez dobrowolne wypełnienie formularza i akceptację regulaminu). Przesyłane dane nie pozwalają na bezpośrednią identyfikację Użytkownika.</P>
           </Section>
 
-          <Section n="8" title="Pliki cookie i technologie śledzące">
-            <P>8.1. Serwis wykorzystuje Google Analytics (identyfikator: G-57R2TFXNH7), narzędzie analityczne dostarczane przez Google Ireland Limited (Gordon House, Barrow Street, Dublin 4, Irlandia). Google Analytics wykorzystuje pliki cookie do zbierania anonimowych danych statystycznych o ruchu na stronie, takich jak: liczba odwiedzin, czas spędzony na stronie, źródło wejścia, typ urządzenia i przeglądarki.</P>
-            <P>8.2. Pliki cookie Google Analytics są instalowane wyłącznie po wyrażeniu zgody przez Użytkownika za pośrednictwem baneru cookies wyświetlanego przy pierwszej wizycie. Użytkownik może w każdej chwili wycofać zgodę, usuwając pliki cookie z przeglądarki.</P>
-            <P>8.3. Dane zbierane przez Google Analytics nie są łączone z danymi podawanymi w formularzu (PESEL, NIP, dane demograficzne). Administrator nie sprzedaje, nie udostępnia i nie wykorzystuje danych analitycznych w celach reklamowych ani profilujących.</P>
-            <P>8.4. Podstawa prawna: art. 6 ust. 1 lit. a) RODO (zgoda Użytkownika) oraz art. 173 ust. 1 pkt 2 ustawy Prawo telekomunikacyjne.</P>
-            <P>8.5. Serwis nie stosuje pikseli śledzących, fingerprintingu przeglądarki ani technologii profilowania. Nie korzysta z Facebook Pixel ani podobnych narzędzi reklamowych.</P>
-            <P>8.6. Serwis może wykorzystywać niezbędne techniczne pliki cookie wymagane do prawidłowego działania frameworka Next.js. Pliki te nie służą identyfikacji Użytkownika i nie wymagają zgody.</P>
+          <Section n="8" title="Okres przechowywania danych">
+            <P>8.1. Serwis nie przechowuje danych osobowych Użytkowników na serwerach Administratora.</P>
+            <P className="pl-4">a) Dane demograficzne przesyłane do serwera -- przetwarzane w pamięci operacyjnej wyłącznie na czas trwania zapytania; usuwane natychmiast po zwróceniu odpowiedzi.</P>
+            <P className="pl-4">b) Numer NIP -- tranzytowe przetwarzanie w pamięci operacyjnej; usuwany natychmiast po uzyskaniu odpowiedzi z CEIDG.</P>
+            <P className="pl-4">c) Adres IP -- przechowywany w pamięci operacyjnej przez maksymalnie 24 godziny lub do restartu serwera; nie jest zapisywany w żadnej bazie danych.</P>
+            <P className="pl-4">d) Historia czatu i wyniki analizy (localStorage) -- przechowywane wyłącznie lokalnie w przeglądarce Użytkownika przez maksymalnie 7 dni.</P>
+            <P>8.2. Administrator nie prowadzi bazy danych Użytkowników. Dane przechowywane w przeglądarce (localStorage) są dostępne wyłącznie dla Użytkownika na jego urządzeniu.</P>
           </Section>
 
-          <Section n="9" title="Profilowanie i zautomatyzowane podejmowanie decyzji">
-            <P>9.1. Serwis nie podejmuje decyzji, które wywołują skutki prawne lub w podobny sposób istotnie wpływają na Użytkownika w rozumieniu art. 22 RODO.</P>
-            <P>9.2. Wyniki generowane przez Serwis (w tym z udziałem AI) mają charakter wyłącznie informacyjny i orientacyjny. Nie stanowią decyzji administracyjnej, przyrzeczenia świadczenia ani wiążącej opinii prawnej.</P>
+          <Section n="9" title="Prawa Użytkownika">
+            <P>9.1. Na podstawie RODO Użytkownikowi przysługują następujące prawa: prawo dostępu do danych (art. 15), prawo do sprostowania danych (art. 16), prawo do usunięcia danych (art. 17), prawo do ograniczenia przetwarzania (art. 18), prawo do przenoszenia danych (art. 20), prawo do sprzeciwu wobec przetwarzania (art. 21), prawo do cofnięcia zgody w dowolnym momencie (art. 7 ust. 3).</P>
+            <P>9.2. Ze względu na to, że Serwis nie przechowuje danych osobowych na serwerach Administratora, realizacja powyższych praw jest w praktyce bezprzedmiotowa. Dane przechowywane lokalnie w przeglądarce (localStorage) są dostępne i usuwalne wyłącznie przez Użytkownika na jego własnym urządzeniu.</P>
+            <P>9.3. Cofnięcie zgody na przetwarzanie danych demograficznych -- przez zaprzestanie korzystania z Serwisu (zamknięcie strony). Cofnięcie zgody na Google Analytics -- przez usunięcie plików cookie lub zmianę ustawień zgód w banerze cookie.</P>
+            <P>9.4. Użytkownikowi przysługuje prawo wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych (ul. Stanisława Moniuszki 1A, 00-014 Warszawa, <a href="https://uodo.gov.pl/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">uodo.gov.pl</a>).</P>
           </Section>
 
-          <Section n="10" title="Bezpieczeństwo danych">
-            <P>10.1. Administrator stosuje następujące środki techniczne i organizacyjne w celu ochrony danych: szyfrowanie połączenia za pomocą protokołu TLS (HTTPS), przetwarzanie numeru PESEL wyłącznie po stronie klienta, brak bazy danych przechowującej dane osobowe, minimalizacja danych przesyłanych do modelu AI, tranzytowe przetwarzanie NIP bez logowania ani buforowania.</P>
+          <Section n="10" title="Pliki cookie i technologie śledzące">
+            <P>10.1. Serwis może wykorzystywać Google Analytics (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irlandia) do zbierania anonimowych danych statystycznych o ruchu na stronie (liczba odwiedzin, czas na stronie, typ urządzenia, źródło wejścia).</P>
+            <P>10.2. Pliki cookie Google Analytics są instalowane wyłącznie po wyrażeniu zgody przez Użytkownika za pośrednictwem baneru cookies przy pierwszej wizycie. Domyślnie Analytics jest wyłączony (tryb &quot;denied&quot; zgodnie z Google Consent Mode v2). Użytkownik może wycofać zgodę w dowolnym momencie, usuwając pliki cookie z przeglądarki.</P>
+            <P>10.3. Dane zbierane przez Google Analytics nie są łączone z danymi podawanymi w formularzu. Administrator nie wykorzystuje danych analitycznych w celach reklamowych ani profilujących.</P>
+            <P>10.4. Podstawa prawna: art. 6 ust. 1 lit. a) RODO (zgoda Użytkownika) oraz art. 173 ust. 1 pkt 2 ustawy Prawo telekomunikacyjne.</P>
+            <P>10.5. Serwis nie stosuje pikseli śledzących, fingerprintingu przeglądarki, Facebook Pixel ani podobnych narzędzi reklamowych.</P>
+            <P>10.6. Serwis może wykorzystywać niezbędne techniczne pliki cookie wymagane do prawidłowego działania frameworka Next.js. Pliki te nie służą identyfikacji Użytkownika i nie wymagają zgody.</P>
           </Section>
 
-          <Section n="11" title="Zmiany polityki prywatności">
-            <P>11.1. Administrator zastrzega sobie prawo do wprowadzania zmian w niniejszej Polityce Prywatności.</P>
-            <P>11.2. Aktualna wersja jest zawsze dostępna w Serwisie pod adresem /polityka-prywatnosci.</P>
+          <Section n="11" title="Profilowanie i zautomatyzowane podejmowanie decyzji">
+            <P>11.1. Serwis nie podejmuje decyzji wywołujących skutki prawne w rozumieniu art. 22 RODO.</P>
+            <P>11.2. Wyniki generowane przez Serwis mają charakter wyłącznie informacyjny. Nie stanowią decyzji administracyjnej, przyrzeczenia świadczenia ani wiążącej opinii prawnej.</P>
+            <P>11.3. Zgodnie z art. 50 Rozporządzenia (UE) 2024/1689 (Akt o Sztucznej Inteligencji), Serwis wyraźnie informuje Użytkownika o interakcji z systemem AI w interfejsie aplikacji.</P>
           </Section>
 
-          <Section n="12" title="Kontakt">
-            <P>12.1. We wszelkich sprawach dotyczących ochrony danych osobowych prosimy o kontakt pod adresem: sobkowicz.kamil@gmail.com.</P>
+          <Section n="12" title="Bezpieczeństwo danych">
+            <P>12.1. Administrator stosuje następujące środki ochrony: szyfrowanie TLS/HTTPS, brak zbierania numerów PESEL ani innych krajowych numerów identyfikacyjnych, brak bazy danych przechowującej dane osobowe Użytkowników, minimalizacja danych przesyłanych do modeli AI, tranzytowe przetwarzanie NIP bez logowania ani buforowania, implementacja Google Consent Mode v2 (Analytics wyłączony domyślnie do czasu wyrażenia zgody).</P>
+          </Section>
+
+          <Section n="13" title="Zmiany polityki prywatności">
+            <P>13.1. Administrator zastrzega sobie prawo do wprowadzania zmian w niniejszej Polityce Prywatności.</P>
+            <P>13.2. Aktualna wersja jest zawsze dostępna w Serwisie pod adresem /polityka-prywatnosci. Data ostatniej aktualizacji widoczna jest na górze dokumentu.</P>
+          </Section>
+
+          <Section n="14" title="Kontakt">
+            <P>14.1. We wszelkich sprawach dotyczących ochrony danych osobowych: sobkowicz.kamil@gmail.com.</P>
           </Section>
 
         </div>
