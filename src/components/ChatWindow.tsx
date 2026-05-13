@@ -295,6 +295,21 @@ ${benefitsHtml}
                 onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--color-accent)'; e.currentTarget.style.color = 'var(--color-accent)'; }}
                 onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--color-border)'; e.currentTarget.style.color = 'var(--color-text-3)'; }}
               >PDF</button>
+              {onClearHistory && (
+                <button onClick={onClearHistory} title="Zacznij od nowa" style={{
+                  background: 'transparent', border: '1px solid var(--color-border)',
+                  borderRadius: 8, padding: '5px 12px', fontSize: 12,
+                  color: 'var(--color-text-2)', cursor: 'pointer',
+                  display: 'flex', alignItems: 'center', gap: 6,
+                  transition: 'all 200ms',
+                }}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--color-text-2)'; e.currentTarget.style.color = 'var(--color-text-1)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--color-border)'; e.currentTarget.style.color = 'var(--color-text-2)'; }}
+                >
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                  Zacznij od nowa
+                </button>
+              )}
             </div>
           </div>
 
