@@ -690,7 +690,7 @@ export default function Home() {
             {/* Eyebrow row */}
             <div className="rise" style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 36 }}>
               <FlagStripe width={28} thickness={3} />
-              <span className="label-eyebrow">Niezależne narzędzie | 2026 | bez rejestracji</span>
+              <span className="label-eyebrow">Niezależne narzędzie | Projekt Społeczny | Z miłości do Polski | Z miłości do Polaków</span>
               <span style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
               <span className="label-eyebrow hide-mobile" style={{ color: 'var(--color-muted-2)' }}>zaktualizowano 12.05.2026</span>
             </div>
