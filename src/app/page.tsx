@@ -918,7 +918,7 @@ export default function Home() {
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: 24, borderTop: '1px solid var(--color-border)', fontSize: 12, color: 'var(--color-text-3)' }}>
               <span>2026 wezmezadarmo.com | projekt społeczny Kamila Sobkowicza</span>
-              <span className="mono" style={{ letterSpacing: '0.1em' }}>MADE IN POLAND</span>
+              <span style={{ fontSize: 12 }}>Made with &lt;3 for Poland and Polish people, in Poland</span>
             </div>
           </div>
         </footer>
