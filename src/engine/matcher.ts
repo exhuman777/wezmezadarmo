@@ -105,13 +105,15 @@ export function matchBenefits(profile: UserProfile): MatchResult[] {
     let status: BenefitStatus;
     const warnings: string[] = [];
 
-    if (failed.length === 0) {
+    if (totalCriteria === 0) {
+      // No verifiable criteria -- can't confirm eligibility from profile alone
+      status = 'MOZLIWE';
+      warnings.push('Wymaga indywidualnej weryfikacji -- brak danych do automatycznego sprawdzenia');
+    } else if (failed.length === 0) {
       status = 'PRZYSLUGUJE';
     } else if (failed.length <= 1 && totalCriteria > 2) {
       status = 'MOZLIWE';
       warnings.push(...failed.map(f => `Wymaga weryfikacji: ${f}`));
-    } else if (totalCriteria === 0) {
-      status = 'PRZYSLUGUJE';
     } else {
       status = 'NIE_PRZYSLUGUJE';
     }

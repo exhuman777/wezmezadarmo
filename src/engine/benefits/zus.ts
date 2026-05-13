@@ -169,9 +169,10 @@ export const ZUS: Benefit[] = [
     kwota: '7000 PLN jednorazowo (od 1 stycznia 2026; osobom spoza rodziny, do wysokości poniesionych kosztów, max 7000 PLN)',
     kwotaMin: 7000, kwotaMax: 7000,
     czestotliwosc: 'jednorazowo',
-    wymagania: {},
+    wymagania: { wiekMin: 18 },
     wykluczenia: [
-      { opis: 'Wniosek złożony po upływie 12 miesięcy od dnia śmierci (prawo wygasa)', sprawdz: 'termin_12_miesiecy' },
+      { opis: 'Świadczenie sytuacyjne -- przysługuje tylko gdy poniosłeś koszty pogrzebu osoby ubezpieczonej w ZUS lub członka jej rodziny', sprawdz: 'zdarzenie_smierci' },
+      { opis: 'Wniosek złożony po upływie 12 miesięcy od dnia pogrzebu (prawo wygasa)', sprawdz: 'termin_12_miesiecy' },
     ],
     wniosek: {
       kanal: ['PUE_ZUS'],
