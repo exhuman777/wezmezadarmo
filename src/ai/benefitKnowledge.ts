@@ -1114,6 +1114,226 @@ UWAGA: EKUZ to nie ubezpieczenie turystyczne. Na wyjazdy wakacyjne zaleca sie ro
     zrodlo: 'https://pacjent.gov.pl/ekuz -- pobrano 2026-05-13',
   },
 
+  // ---- BATCH C ----
+
+  'stypendium-rektora': {
+    formularzOpis: `
+Wniosek o stypendium rektora -- sklada sie na uczelni (dziekanat lub system USOS/wirtualna uczelnia).
+Formularz uczelniany. Termin: zwykle pazdziernik (sprawdz harmonogram swojej uczelni).
+
+DOKUMENTY:
+- Zaswiadczenia o osiagnieciach naukowych (publikacje, patenty, nagrody naukowe)
+- Zaswiadczenia o osiagnieciach artystycznych (nagrody, wystawy, spektakle)
+- Dokumenty potwierdzajace osiagniecia sportowe (co najmniej medal mistrzostw Polski)
+- Srednia ocen za poprzedni rok akademicki (lub semestr) -- zwykle wyciagana z USOS automatycznie
+`,
+    szczegolyKwalifikacji: `
+Stypendium rektora przyznawane najlepszym studentom (zwykle top 10% studentow na kierunku):
+- Kryterium naukowe: wysokie osiagniecia naukowe (publikacje, udział w konferencjach, nagrody)
+- Kryterium artystyczne: wybitne osiagniecia artystyczne potwierdzone konkursami/nagrodami
+- Kryterium sportowe: minimum medal mistrzostw Polski (seniorzy lub juniorzy)
+- Srednia ocen: dobra srednia, ale sama srednia nie wystarczy -- potrzebne osiagniecia
+
+Brak kryterium dochodowego.
+Mozna laczyc ze stypendium socjalnym.
+Na I roku: nie mozna ubiegac sie (brak ocen z poprzedniego roku).
+`,
+    zrodlo: 'https://www.gov.pl/web/nauka/swiadczenia-dla-studentow-w-roku-akademickim-2025-2026 -- pobrano 2026-05-13',
+  },
+
+  'stypendium-szkolne': {
+    formularzOpis: `
+Wniosek o stypendium szkolne -- sklada sie w urzedzie gminy lub MOPS w ciagu 15 dni od poczatku roku szkolnego.
+Formularz gminny (rozny w kazdej gminie).
+
+TYPOWE POLA:
+- Dane ucznia: imie, nazwisko, PESEL, klasa, szkola
+- Dane rodzicow/opiekunow: imie, nazwisko, PESEL, adres
+- Sklad rodziny: wszyscy zamieszkali wspolnie
+- Dochody netto: ze wszystkich zrodel, za ostatni miesiac przed zlozeniem wniosku
+- Podpis rodzica/opiekuna lub pelnoletni ucznia
+
+TERMIN: do 15 wrzesnia (rok szkolny 1 wrzesnia - 31 sierpnia).
+Wyjatek: stypendium na semestr zimowy mozna zlozyc do 15 wrzesnia, na letni do 15 lutego.
+`,
+    szczegolyKwalifikacji: `
+Kryterium dochodowe: 600 PLN netto na osobe w rodzinie miesiecznie (tak jak przy zasilku rodzinnym).
+
+Stypendium szkolne przeznaczone na:
+- Zakup podreczinikow, pizornikow, materialy edukacyjne
+- Oplaaty za zajeecia pozaszkolne (muzyczna szkola, jezyki obce)
+- Komputer/tablet do nauki (przy odpowiednim udokumentowaniu)
+- Stroj sportowy na WF
+
+Forma wyplaty: zwykle REFUNDACJA faktur/paragonow (nie gotowka). Trzeba zbierac dokumenty zakupow.
+Niektore gminy wyplacaja jako zapomoga pieniezna lub bony towarowe.
+`,
+    zrodlo: 'https://www.gov.pl/web/edukacja/stypendium-szkolne-oraz-zasilek-szkolny -- pobrano 2026-05-13',
+  },
+
+  'zasilek-szkolny': {
+    formularzOpis: `
+Wniosek o zasilek szkolny -- sklada sie w urzedzie gminy lub MOPS.
+W ciagu 2 MIESIECY od zdarzenia losowego uprawniajacego do zasilku.
+
+POLA: podobne do stypendium szkolnego.
+KLUCZOWE ROZNICE: trzeba opisac zdarzenie losowe (pozar, powodz, wypadek, smiesc w rodzinie, etc.) i dolac dokumentacje (np. zaswiadczenie z policji o poarze, akt zgonu, etc.).
+`,
+    szczegolyKwalifikacji: `
+Zasilek szkolny to jednorazowe swiadczenie (max. 620 PLN) dla uczniow, ktorych sytuacja zyciowa pogorszyła sie z powodu zdarzenia losowego:
+- Pozar, powodz, zdarzenie losowe
+- Smiesc rodzica lub opiekuna
+- Nagla choroba czlonka rodziny
+
+Brak kryterium dochodowego (zdarzenie losowe jest kluczowe, nie dochod).
+Mozna laczyc ze stypendium szkolnym.
+`,
+    zrodlo: 'https://www.gov.pl/web/edukacja/stypendium-szkolne-oraz-zasilek-szkolny -- pobrano 2026-05-13',
+  },
+
+  'zasilek-macierzynski-krus': {
+    formularzOpis: `
+Formularz SR-24A -- wniosek o zasilek macierzynski z KRUS.
+Sklada sie w oddziale KRUS wlasciwym dla miejsca zamieszkania.
+
+POLA:
+- Dane wnioskodawcy: imie, nazwisko, PESEL, numer ewidencyjny KRUS, adres, konto bankowe
+- Data urodzenia dziecka lub data przysposobieniu
+- Oswiadczenie ze wnioskodawca podlega ubezpieczeniu w KRUS i nie pobiera zasilku z ZUS
+
+DOKUMENTY:
+- Skrocony odpis aktu urodzenia dziecka
+- Zaswiadczenie o ubezpieczeniu w KRUS przez wymagany okres
+`,
+    szczegolyKwalifikacji: `
+Zasilek macierzynski z KRUS przyslugi ubezpieczonym rolnikom:
+- Matka: ubezpieczona co najmniej 1 rok przed porodem
+- Ojciec: moze przejac zasilek po 14 tygodniach macierzystwa matki lub przy jej smierci
+
+Wysokosc (2026): 1000 PLN miesiecznie (jednolita kwota, niezalezna od dochodow).
+Czas wyplaty: 52 tygodnie (lub wiecej przy blizniatach i wyzszych multiples).
+
+UWAGA: rolnik pobierajacy zasilek macierzynski z KRUS NIE MOZE jednoczesnie pobierac kosiniakowego z gminy. Wieksze pieniadze sa z KRUS.
+`,
+    zrodlo: 'https://www.gov.pl/web/krus/zasilek-macierzynski -- pobrano 2026-05-13',
+  },
+
+  'wakacje-skladkowe': {
+    formularzOpis: `
+Wakacje skladkowe (przerwa w skladkach ZUS dla samozatrudnionych) -- wniosek przez PUE ZUS lub CEIDG.
+Kod tytulu ubezpieczenia pozostaje taki sam, skladana deklaracja ZUS DRA z zerowym skladkami.
+
+TERMIN WNIOSKU: do konca miesiaca POPRZEDZAJACEGO miesiac wakacji.
+Przyklad: jesli chcesz "wakacje" we wrzesniu -- wniosek do 31 sierpnia.
+
+POLA: data miesiaca ulgi, potwierdzenie ze DG jest aktywna i spelnia warunki.
+`,
+    szczegolyKwalifikacji: `
+Kto moze skorzystac z wakacji skladkowych:
+- Osoby prowadzace DG i oplacajace wlasne skladki ZUS (nie pracodawcy)
+- Przychod za poprzedni rok nie przekroczyl 2 milionow PLN
+- DG nie jest zawieszona
+
+Zasady:
+- RAZ w roku mozna "zawiesic" skladki spoleczne na 1 miesiac (lipiec, sierpien, wrzesien lub grudzien -- wybierasz)
+- W tym miesiacu NIE placi sie: emerytalnej, rentowej, wypadkowej, chorobowej
+- Placi sie nadal: skladke zdrowotna (9% dochodu, min. 381,78 PLN)
+- Za miesiac przerwy: brak ubezpieczenia chorobowego (nie mozna isc na chorobowe)
+
+Wakacje skladkowe SUMUJA sie z innymi ulgami (mozna byc na Malym ZUS Plus i jednoczesnie skorzystac z wakacji).
+`,
+    zrodlo: 'https://www.zus.pl/firmy/wakacje-od-zus -- pobrano 2026-05-13',
+  },
+
+  'opieka-75-plus': {
+    formularzOpis: `
+Wniosek o uslugi opiekuncze w ramach programu Opieka 75+ -- sklada sie w MOPS lub GOPS.
+Formularz gminny/gops (rozny w kazdej jednostce).
+
+POLA:
+- Dane seniora: imie, nazwisko, PESEL, adres, stan zdrowia (krotki opis potrzeb)
+- Dane opiekuna faktycznego (jesli jest): imie, nazwisko, stosunek do seniora
+- Opis potrzeb: jakie czynnosci wymagaja pomocy (toaleta, gotowanie, sprzatanie, zakupy, etc.)
+- Dochod seniora: emerytura/renta (podstawa do ustalenia odplatnosci)
+
+KROK 1: Pracownik MOPS przeprowadza wywiad srodowiskowy w domu seniora.
+KROK 2: Decyzja o przyznaniu uslug i o odplatnosci (lub bezplatnosci).
+`,
+    szczegolyKwalifikacji: `
+Program Opieka 75+ (finansowany z budzetu panstwa, realizowany przez gminy).
+Skierowany do osob samotnych lub samotnie gospoodarczo zamieszkujacych w wieku 75+.
+Uslugi opiekuncze: pomoc w codziennych czynnosci (sprzatanie, gotowanie, zakupy, higiena) + specjalistyczne uslugi opiekuncze (pielegnacja medyczna).
+
+Bezplatne dla samotnych seniorow ponizej progu: 776 PLN netto dochodu.
+Czescowo odplatne: od 776 do ok. 2000 PLN (tabela odplatnosci ustalana przez gmine).
+Powyzej progu: pelna odplatnosc.
+`,
+    zrodlo: 'https://www.gov.pl/web/rodzina/program-opieka-75-na-rok-2026 -- pobrano 2026-05-13',
+  },
+
+  'renta-rolnicza': {
+    formularzOpis: `
+Formularz KRUS SR-20 -- wniosek o rente rolnicza (ten sam co dla emerytury rolniczej).
+Sklada sie w oddziale KRUS.
+
+POLA: analogiczne jak przy emeryturze rolniczej (SR-20), z roznica:
+- Zaznaczenie ze wniosek dotyczy RENTY (nie emerytury)
+- Dokumentacja medyczna: zaswiadczenia lekarskie, historia choroby, orzeczenia o niepelnosprawnosci
+
+DOKUMENTY DODATKOWE:
+- Dokumentacja medyczna potwierdzajaca niezdolnosc do pracy w rolnictwie (co najmniej czescowo)
+- Zaswiadczenia z KRUS o okresach ubezpieczenia
+`,
+    szczegolyKwalifikacji: `
+Renta rolnicza z tytulu niezdolnosci do pracy:
+- Calkowita niezdolnosc do pracy w rolnictwie: renta w pelnej wysokosci
+- Czescowa niezdolnosc: polowa kwoty renty
+
+Wymagany staz ubezpieczenia KRUS: zalez od wieku w chwili powstania niezdolnosci:
+- Do 20 lat: 1 rok ubezpieczenia
+- 20-22 lat: 2 lata
+- 22-25 lat: 3 lata
+- 25-30 lat: 4 lata
+- Powyzel 30 lat: 5 lat w ciagu ostatnich 10 lat
+
+Kwota minimalna renty rolniczej (2026): 1978,49 PLN brutto (zblizona do minimalnej emerytury).
+`,
+    zrodlo: 'https://www.gov.pl/web/krus -- pobrano 2026-05-13',
+  },
+
+  'kredyt-studencki': {
+    formularzOpis: `
+Wniosek o kredyt studencki -- sklada sie w BANKU (nie na uczelni ani nie w Ministerstwie).
+Banki udzielajace kredytow studenckich z doplata panstwa: PKO BP, Pekao, Bank Polskiej Spoldzielczosci (BPS).
+
+PROCEDURA:
+1. Wybierz bank z oferta kredytu studenckiego
+2. Zloz wniosek w banku (osobiscie lub online)
+3. Uczelnia powiadza: student dostarcza zaswiadczenie o studiach z uczelni
+4. Bank sprawdza: status studenta, rokowanie na ukonczenie studiow
+5. Umowa kredytowa -- decyzja w ciagu ok. 30 dni
+
+DOKUMENTY:
+- Zaswiadczenie o statusie studenta (z dziekanatu)
+- Dowod osobisty
+- Ewentualnie: zaswiadczenie o dochodach rodziny (jesli bank wymaga)
+`,
+    szczegolyKwalifikacji: `
+Transza: wyplacana co miesiac w czasie studiow (max. 1000 PLN/mies. z reguły).
+Splata: zaczyna sie 2 lata po ukonczeniu studiow, przez czas rowny dwukrotnemu okresowi korzystania z kredytu.
+
+Korzysci:
+- Oprocentowanie dotowane przez panstwo (znacznie ponizej rynkowego)
+- Przy bezrobociu: mozna zawiesic splate
+- Przy bardzo niskich dochodach: mozna umorzyc czesc kredytu
+
+Limit dochodowy rodziny: ok. 3000 PLN netto na osobe (weryfikuje bank, nieco rozny).
+
+Termin skladania wnioskow: zwykle wrzesien-pazdziernik na nowy rok akademicki.
+`,
+    zrodlo: 'https://www.gov.pl/web/nauka/kredyty-studenckie -- pobrano 2026-05-13',
+  },
+
   'czyste-powietrze': {
     formularzOpis: `
 Wniosek o dofinansowanie sklada sie:
