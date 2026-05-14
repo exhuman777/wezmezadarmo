@@ -16,7 +16,7 @@ export type BenefitCategory =
 export type BenefitStatus = 'PRZYSLUGUJE' | 'MOZLIWE' | 'NIE_PRZYSLUGUJE';
 export type Confidence = 'WYSOKA' | 'SREDNIA' | 'NISKA';
 export type Gender = 'K' | 'M';
-export type ApplicationChannel = 'PUE_ZUS' | 'ePUAP' | 'EMPATIA' | 'BANK' | 'MOPS' | 'URZAD_GMINY' | 'POZ' | 'URZAD_SKARBOWY' | 'PUP' | 'PFRON' | 'KRUS' | 'UCZELNIA' | 'WFOSIGW' | 'NFZ' | 'ONLINE';
+export type ApplicationChannel = 'PUE_ZUS' | 'ePUAP' | 'EMPATIA' | 'BANK' | 'MOPS' | 'URZAD_GMINY' | 'POZ' | 'URZAD_SKARBOWY' | 'PUP' | 'PFRON' | 'KRUS' | 'UCZELNIA' | 'WFOSIGW' | 'NFZ' | 'ONLINE' | 'ARiMR' | 'BGK';
 
 export interface BenefitRequirements {
   wiekMin?: number;

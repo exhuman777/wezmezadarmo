@@ -1361,4 +1361,348 @@ NIE MOZNA finansowac: kotly wegane (nawet nowe), sciagi zewnetrzne bez wymiany k
 `,
     zrodlo: 'https://czystepowietrze.gov.pl -- pobrano 2026-05-13',
   },
+
+  // ---- KRUS -- nowe swiadczenia dla rolnikow ----
+
+  'zwrot-akcyzy-paliwa-rolniczego': {
+    szczegolyKwalifikacji: `
+Zwrot akcyzy za paliwo rolnicze 2026 -- kluczowe fakty:
+
+STAWKA: 1,48 PLN za litr oleju napedowego (ON)
+
+LIMITY ROCZNE (lacznie z I i II polrocza):
+- 162,80 PLN za hektar uzytków rolnych
+- 5,92 PLN na 1 sztuke trzody chlewnej (srednia roczna liczba swini)
+- 59,20 PLN na 1 DJP (duza jednostka przeliczeniowa) bydla, owiec, koz, koni
+
+PRZYKLADOWE KWOTY:
+- 50 ha grunty orne bez zwierzat: 50 x 162,80 = 8140 PLN rocznie
+- 100 ha + 100 krow mlecznych (ok. 100 DJP): 100 x 162,80 + 100 x 59,20 = 22 200 PLN
+
+TERMINY SKLADANIA WNIOSKOW:
+I termin: od 1 lutego do 2 marca (wnioski za polrocze sierpien-styczen) -- wyplata do 30 kwietnia
+II termin: od 1 sierpnia do 31 sierpnia (wnioski za polrocze luty-lipiec) -- wyplata do 31 pazdziernika
+
+GDZIE ZLOZYC: Urzad gminy wlasciwy dla miejsca zamieszkania rolnika (NIE do ARiMR)
+
+CO JEST WYMAGANE:
+- Oryginalne faktury VAT za olej napedowy z wlasciwego okresu (faktura z nazwiskiem/firma rolnika)
+- Zaswiadczenie o sredniej rocznej liczbie zwierzat (generuj sam z IRZplus lub pobierz z ARiMR)
+
+CZEGO NIE OBEJMUJE:
+- Benzyna, LPG, AdBlue
+- Olej napedowy do transportu/samochodow osobowych
+- Zakupy bez faktury VAT (paragony nie wystarczaja)
+`,
+    faq: `
+P: Kupilem paliwo na paragon, czy dostane zwrot?
+O: NIE. Wymagane sa FAKTURY VAT. Same paragony nie uprawniaja do zwrotu. Zadbaj o wystawianie faktur przy zakupie paliwa.
+
+P: Czy moge zlozyc jeden wniosek za caly rok?
+O: NIE. Sa dwa odrebne nabory rocznie. Mozesz zlozyc oba lub tylko jeden -- zwrot obejmuje faktury z danego polrocza.
+
+P: Czy zwrot akcyzy jest opodatkowany?
+O: TAK, stanowi przychod z dzialalnosci rolniczej dla celow podatkowych.
+
+P: Jak wygenerowalem zaswiadczenie o zwierzetach z IRZplus?
+O: Zaloguj sie na www.irz.arimr.gov.pl, przejdz do raportow i wygeneruj "Zaswiadczenie do zwrotu podatku akcyzowego".
+
+P: Czy moge zlozyc wniosek przez internet?
+O: Zalezy od gminy. Wiele gmin przyjmuje wnioski elektronicznie przez ePUAP, ale warto zapytac w urzedzie.
+`,
+    zrodlo: 'https://www.gov.pl/web/rolnictwo/zwrot-podatku-akcyzowego -- pobrano 2026-05-14',
+  },
+
+  'premia-dla-mlodego-rolnika': {
+    szczegolyKwalifikacji: `
+Premia dla mlodego rolnika ARiMR 2026 -- szczegoly:
+
+KWOTY:
+- 200 000 PLN dla gospodarstw bez produkcji zwierzecej lub z produkcja roslinno-zwierzeca
+- 300 000 PLN dla gospodarstw z produkcja zwierzeca jako glownym kierunkiem (NOWOSC 2026)
+Wyplata: 70% po podpisaniu umowy (I transza), 30% po realizacji biznesplanu (II transza)
+
+WARUNKI WIEKOWE:
+- Minimum 18 lat w dniu zlozenia wniosku
+- Maksimum 40 lat (nieukonczone 41 lat) w dniu zlozenia wniosku
+- Data urodzenia: jesli skonczysz 41 lat w trakcie naboru, juz sie NIE kwalifikujesz
+
+WARUNKI DOTYCZACE DZIALALNOSCI:
+- Nie mozes prowadzic dzialalnosci rolniczej dluzej niz 24 miesiace przed zlozeniem wniosku
+- Albo mozesz jeszcze nie prowadzic dzialalnosci, ale musisz ja rozpoczac w ciagu 12 miesiecy od przyznania premii
+- Musisz byc ubezpieczony w KRUS jako rolnik (lub zostac ubezpieczony po przyznaniu premii)
+
+WYMOGI DOTYCZACE GOSPODARSTWA:
+- Minimalna powierzchnia: wieksza niz wartosc referencyjna dla województwa (zazwyczaj od 1 ha)
+- Maksymalna powierzchnia: 300 ha
+- Minimalna wartosc ekonomiczna (SO): 15 000 EUR w punkcie wyjscia
+- Maksymalna wartosc ekonomiczna: 150 000 EUR
+
+BIZNESPLAN:
+- Obowiazkowy, na 5 lat
+- Musi wykazac wzrost wartosci ekonomicznej do minimum 15 000 EUR po 5 latach
+- Minimum 60% przychodow z rolnictwa przez 5 lat od podpisania umowy
+
+KWALIFIKACJE:
+- Wyksztalcenie rolnicze (rolnicza szkola srednia lub wyzsze) LUB
+- Minimum 3 lata stazu pracy w rolnictwie (potwierdzone dokumentami) LUB
+- Zobowiazanie do uzupelnienia kwalifikacji w ciagu 36 miesiecy od zlozenia wniosku
+
+NABOR 2026: Czerwiec -- lipiec 2026
+UWAGA: Moze byc ostatni nabor w perspektywie 2023-2027
+`,
+    faq: `
+P: Mam 41 lat, czy moge zlozyc wniosek?
+O: NIE. Musisz miec nieukonczone 41 lat w DNIU ZLOZENIA wniosku.
+
+P: Prowadze mala dzialalnosc rolnicza od 3 lat. Czy sie kwalifikuje?
+O: NIE. Dzialalnosc rolnicza nie moze byc prowadzona dluzej niz 24 miesiace przed zlozeniem wniosku.
+
+P: Czy moge dostac wiecej niz 200 000 PLN?
+O: TAK, jesli Twoje gospodarstwo zajmuje sie glownie produkcja zwierzeca, kwota wynosi 300 000 PLN (nowos od 2026).
+
+P: Kiedy beda wyplate?
+O: Pierwsza transza (70%) wyplacana po podpisaniu umowy z ARiMR (kilka miesiecy po naborze). Druga transza (30%) po zrealizowaniu biznesplanu.
+
+P: Co sie stanie jesli nie zrealizuje biznesplanu?
+O: Mozesz byc zobowiazany do zwrotu calej lub czesci premii, plus odsetki. ARiMR ma prawo kontrolowac realizacje biznesplanu.
+`,
+    zrodlo: 'https://www.arimr.gov.pl -- pobrano 2026-05-14',
+  },
+
+  'doplaty-bezposrednie-arimr': {
+    szczegolyKwalifikacji: `
+Doplaty bezposrednie ARiMR 2026 -- szacunkowe stawki (ostateczne kwoty jesienia):
+
+PODSTAWOWE PLATNOSCI:
+- Podstawowe wsparcie dochodow (BISS): ~494,54 PLN/ha
+- Platnosc redystrybucyjna (pierwsze 30 ha): ~171,41 PLN/ha
+  >> Lacznie za pierwsze 30 ha: ~665,95 PLN/ha
+- Platnosc dla malych gospodarstw (do 5 ha): ~960,57 PLN/ha (zamiast BISS + redystrybucji)
+- Platnosc dla mlodych rolnikow (do 40 lat, max 75 ha): ~253,76 PLN/ha dodatkowe
+
+EKOSCHEMATY (dodatkowe, dobrowolne):
+- Za przestrzeganie GAEC 2 na TUZ: 581 PLN/ha
+- Za przestrzeganie GAEC 2 na gruntach ornych: 627 PLN/ha
+- Za przeksztalcenie gruntow ornych na uzytki zielone (5 lat): 2387 PLN/ha
+- Za miedzyplony ozime / wsiewki: ~479,64 PLN/ha
+- Rolnictwo weglanowe (zakaz odwadniania torfowisk): ~1200 PLN/ha
+
+PLATNOSCI DO ZWIERZAT:
+- Bydlo (krowy i byki): ~325,31 PLN/sztuke
+- Krowy mleczne: ~416,20 PLN/sztuke (dodatkowa platnosc)
+- Owce: ~111,13 PLN/sztuke
+- Kozy: ~48,54 PLN/sztuke
+
+WARUNEK "AKTYWNY ROLNIK" (nowe od 2026):
+- Rolnicy, ktorzy dostali powyzej 1125 EUR doplat w 2025 r., musza wykazac koszty lub przychody
+- Rolnicy ponizej 1125 EUR zwolnieni z wykazywania
+
+TERMIN 2026: do 1 czerwca (wydluzony ze wzgledu na susze i wichury)
+NORMALNE TERMIN: 15 maja
+
+NOWE GAEC 7 (od 2026): obowiazek różnorodnosci upraw na gruntach ornych >10 ha
+`,
+    faq: `
+P: Kiedy dostane wyplate doplat?
+O: Doplaty wyplacane od listopada/grudnia 2026. Podstawowa czesc od 1 grudnia, reszta do konca roku.
+
+P: Jak zlozyc wniosek o doplaty?
+O: Przez system eWniosekPlus na stronie agencja.arimr.gov.pl. Mozesz tez przez agenta ARiMR (biuro powiatowe).
+
+P: Czy moge zlozyc wniosek po 1 czerwca?
+O: Tak, ale z opoznieniem -- za kazdy dzien po terminie ARiMR odlicza 1% doplaty (do 25 dni po terminie). Po 25 dniach wniosek nie jest przyjmowany.
+
+P: Czym jest GAEC 7 i czy mnie dotyczy?
+O: GAEC 7 to wymog roznorodnosci upraw na gruntach ornych o powierzchni ponad 10 ha. Od 2026 mozliwe sa kontrole. Sprawdz czy Twoje uprawy spelniaja wymogi.
+
+P: Czy powinienem wnioskowac o ekoschematy?
+O: Tak, jezeli spelniasz warunki. Ekoschematy zwieksza dochod z hektara o kilkaset do ponad 2000 PLN/ha. Warto sprawdzic ktory ekoschema spełniasz juz teraz (np. miedzyplony).
+`,
+    zrodlo: 'https://www.arimr.gov.pl/dla-beneficjenta/platnosci-bezposrednie.html -- pobrano 2026-05-14',
+  },
+
+  'zasilek-opiekunczy-krus': {
+    szczegolyKwalifikacji: `
+Zasilek opiekuńczy KRUS -- szczegoly:
+
+STAWKA 2026: 1/30 emerytury podstawowej = 1780,64 PLN / 30 = 59,35 PLN za dzien opieki
+
+KIEDY PRZYSLUGUJE:
+1. Opieka nad zdrowym dzieckiem ponizej 8 lat (zamkniecie zlobka/przedszkola/szkoly)
+2. Opieka nad chorym dzieckiem do 14 lat
+3. Opieka nad chorym dzieckiem do 18 lat z niepelnosprawnoscia
+4. Opieka nad chorym malzonkiem, rodzicami lub teściami
+5. W zwiazku z porodem malzonki (partner)
+
+MAKSYMALNY OKRES:
+- 60 dni w roku kalendarzowym na dzieci do 14 lat
+- 14 dni w roku na doroslich czlonkow rodziny (malzonek, rodzice, teściowie)
+- Dodatkowe 60 dni na dziecko niepelnosprawne do 18 lat
+
+WARUNKI:
+- Minimum 1 rok ciaglego ubezpieczenia wypadkowego, chorobowego i macierzyńskiego w KRUS
+- WYJATKI: przy wypadku przy pracy rolniczej lub naglaej chorobie -- brak okresu karencji
+
+TERMIN ZGLOSZENIA: wniosek nalezy zlozyc do KRUS w ciagu 7 dni od powstania prawa
+
+DOMOWNICY: Osoby ubezpieczone jako domownicy rolnika maja takie same prawa
+`,
+    faq: `
+P: Czy moge dostac zasilek za opieke nad starszym rodzicem?
+O: TAK. Zasilek przysluguje tez za opieke nad chorym malzonkiem, rodzicami i tesciem/tesciowa, ale max 14 dni rocznie.
+
+P: Czy zasilek opiekuńczy KRUS jest wyzszy niz z ZUS?
+O: Zasilek KRUS: 59,35 PLN/dzien (stala stawka). ZUS: 80% dziennej podstawy wymiaru (zalezy od zarobkow). Dla rolnikow ubezpieczonych w KRUS obowiazuje stawka KRUS.
+
+P: Oboje jestesmy ubezpieczeni w KRUS. Czy oboje mozemy wniaskowac?
+O: NIE. Za ten sam dzien zasilek przysluguje tylko JEDNEMU rodzicowi/opiekunowi.
+
+P: Co jesli przedszkole jest zamkniete z powodu epidemii?
+O: TAK, zasilek przysluguje za zamkniecie placowki z powodow sanitarnych, pogody lub strajku.
+`,
+    zrodlo: 'https://www.krus.gov.pl -- pobrano 2026-05-14',
+  },
+
+  'bon-senioralny': {
+    szczegolyKwalifikacji: `
+Bon senioralny 2026 -- szczegoly:
+
+KWOTY (szacunkowe, zaleznie od wieku i stopnia niepelnosprawnosci):
+- Seniorzy 85+, orzeczenie znaczne, samotni: do 2150 PLN/mies. w uslugach
+- Pozostale grupy 75+: kwoty nizsze, ustalane indywidualnie przez MOPS
+- Nie jest to gotowka -- gmina organizuje opiekuna
+
+KRYTERIUM DOCHODOWE:
+- Dochod nie wyzszy niz 3410 PLN brutto miesiecznie
+- Podlega corocznej waloryzacji
+
+WYMOGI:
+- Ukonczony 75. rok zycia
+- Orzeczenie o niepelnosprawnosci (umiarkowany lub znaczny) LUB zaswiadczenie lekarskie
+- Zamieszkiwanie samotnie LUB wylacznie z innymi seniorami (np. oboje malzonkowie 75+)
+- Potrzeba wsparcia w codziennym funkcjonowaniu
+
+USLUGI OBEJETE BONEM:
+- Opieka domowa (pomoc przy codziennych czynnosciach)
+- Rehabilitacja
+- Wsparcie pielegniarskie
+- Fizjoterapia
+- Asystent osoby starszej
+
+HARMONOGRAM WDROZENIA:
+- Pilotaz Q3 2026: woj. mazowieckie, wielkopolskie, dolnoslaskie, pomorskie
+- Pelne wdrozenie w calej Polsce: I kwartal 2027
+- Do tego czasu obowiazuje program Opieka 75+ i Korpus Wsparcia Seniorow
+
+UWAGA: W 2026 (poza pilotem) nadal obowiazuja dotychczasowe programy. Bon senioralny je zastapi.
+`,
+    faq: `
+P: Czy bede musial sam placic za opiekuna?
+O: NIE. Bon senioralny pokrywa koszty uslug opiekuńczych, senior nie placi bezposrednio. Usluga jest finansowana ze srodkow publicznych do wysokosci bonu.
+
+P: Co jesli mieszkam w duzym miescie poza pilotem?
+O: Do uruchomienia pelnego programu (Q1 2027) korzystaj z programu Opieka 75+ (dla gmin do 60 000 mieszkancow) lub z Korpusu Wsparcia Seniorow (opaska SOS, 60+).
+
+P: Czy dochod 3410 PLN to brutto czy netto?
+O: Kryterium dochodowe 3410 PLN dotyczy dochodu brutto miesiecznie.
+
+P: Czy mozna laczyc bon z innymi swiadczeniami?
+O: TAK, bon senioralny nie wyklucza innych swiadczen (np. zasilku pielegnacyjnego, 13/14 emerytury).
+`,
+    zrodlo: 'https://www.infor.pl/twoje-pieniadze/swiadczenia/7516106 -- pobrano 2026-05-14',
+  },
+
+  'fundusz-wsparcia-kredytobiorcow': {
+    szczegolyKwalifikacji: `
+Fundusz Wsparcia Kredytobiorcow (FWK) 2026 -- szczegoly:
+
+KWOTA I CZAS TRWANIA:
+- Do 3000 PLN miesiecznie
+- Maksymalnie 40 miesiecy (lacznie do 120 000 PLN)
+- Kwota ustalana indywidualnie (nie zawsze 3000 PLN)
+
+WARUNKI (wystarczy JEDEN z trzech):
+1. Bezrobocie: wnioskodawca jest zarejestrowany jako bezrobotny
+2. Rata > 40% dochodu: miesieczny koszt obslugi kredytu przekracza 40% miesiecznych dochodow gosp. domowego
+3. Niski dochod po racie:
+   - Gospodarstwo 1-osobowe: dochod netto po odjecia raty < 2525 PLN/mies.
+   - Gospodarstwo wieloosobowe: dochod netto po odjecia raty / liczba czlonkow < 2057,50 PLN/os.
+
+SPOSOB WYPLATY: Pieniadze trafia BEZPOSREDNIO do banku jako czesc raty -- nie na konto wnioskodawcy
+
+SPLACANIE WSPARCIA:
+- Spłata zaczyna sie po 2 latach od ostatniej wyplaty wsparcia
+- 200 rownych, nieoprocentowanych rat
+- Jesli splacisz 134 z 200 rat bez opoznienia --> POZOSTALE RATY UMORZONE (ok. 33% kwoty)
+- Przyklad: Wsparcie 60 000 PLN. Spłata = 200 x 300 PLN = 60 000 PLN, ale po 134 ratach umorzenie --> placisz ok. 40 200 PLN
+
+GDZIE SKLADAC WNIOSEK: W banku, ktory udzielil Ci kredytu hipotecznego (nie w BGK bezposrednio)
+BGK (Bank Gospodarstwa Krajowego) zarzadza funduszem i wydaje ostateczna decyzje.
+
+WYMOGI:
+- Kredyt hipoteczny na mieszkanie lub dom na wlasne potrzeby
+- Nie dotyczy kredytow inwestycyjnych ani na wynajem
+`,
+    faq: `
+P: Czy moge dostac wsparcie jesli mam chwilowe problemy z praca?
+O: TAK, jezeli jestes zarejestrowany jako bezrobotny LUB rata przekracza 40% dochodu.
+
+P: Czy wystarczy ze jeden z malzonkow jest bezrobotny?
+O: Tak, jezeli wspolnie prowadzicie gospodarstwo domowe i razem obslugujecie kredyt.
+
+P: Czy wsparcie z FWK to pozyczka?
+O: Tak, ale specjalnego rodzaju: bez oprocentowania, a 33% mozna umorzyc przy terminowej splacie.
+
+P: Czy bank moze odmowic zlozenia wniosku do FWK?
+O: Nie powinien -- bank ma obowiazek przyjac i przekazac wniosek do BGK. Jesli odmawia, zlosc reklamacje.
+
+P: Co jesli po otrzymaniu wsparcia moja sytuacja sie poprawie?
+O: Poinformuj bank -- wsparcie moze zostac wstrzymane, jesli przyczyna jego przyznania ustala.
+`,
+    zrodlo: 'https://www.bgk.pl/produkty/fundusz-wsparcia-kredytobiorcow/ -- pobrano 2026-05-14',
+  },
+
+  'opieka-wytchnieniowa': {
+    szczegolyKwalifikacji: `
+Opieka wytchnieniowa -- szczegoly programu:
+
+KTO MOZE SKORZYSTAC:
+- Czlonkowie rodziny lub opiekunowie faktyczni osob z orzeczeniem o znacznym stopniu niepelnosprawnosci
+- Opiekunowie dzieci z orzeczeniem o niepelnosprawnosci (bez wskazania stopnia, jezeli wskazano koniecznosc stalej opieki)
+
+LIMIT GODZIN/DNI:
+- Pobyt dzienny: do 240 godzin w roku kalendarzowym
+- Pobyt calodobowy: do 14 dni (336 godzin) w roku kalendarzowym
+- Mozna laczyc obie formy
+
+KOSZT: BEZPLATNY dla uczestnikow -- finansowany z Funduszu Solidarnosciowego (budzetowe)
+
+KOGO MOZNA ZASTEPIC:
+- Opiekuna, ktory sprawuje bezposrednia opieke nad osoba ze znacznym stopniem niepelnosprawnosci
+- Opiekunem moze byc malzonek, rodzic, dziecko, opiekun prawny
+
+FORMY REALIZACJI:
+- Przez dom pomocy spolecznej, osrodek wsparcia (form. dzienna)
+- Przez organizacje pozarzadowe (NGO) z umowa z MOPS
+- Przez asystenta osoby niepelnosprawnej
+- W miejscu zamieszkania lub w placowce
+
+WAZNA UWAGA: Nie kazda gmina przystepuje do programu. Gminy sa wybierane przez Ministerstwo Rodziny w ramach naboru.
+`,
+    faq: `
+P: Czy podczas opieki wytchnieniowej moge gdzies wyjechac?
+O: TAK. Celem programu jest wlasnie danie opiekunowi czasu dla siebie -- na odpoczynek, wizyte u lekarza, sprawy osobiste.
+
+P: Czy moje dziecko niepelnosprawne musi miec stopien "znaczny"?
+O: Dla dzieci wymagane jest orzeczenie o niepelnosprawnosci (ze wskazaniem stalej lub dlugotrwalej opieki), nawet bez stopnia.
+
+P: Co jesli MOPS powie ze nie ma programu?
+O: Zapytaj czy gmina planuje przystapic w nastepnym roku. Mozesz tez sprawdzic inne formy wsparcia: swiadczenie pielegnacyjne (3386 PLN/mies.) lub zasilek dla opiekuna.
+
+P: Czy opieka wytchnieniowa wyklucza swiadczenie pielegnacyjne?
+O: NIE, mozna korzystac z obu. Sa to odrebne programy.
+`,
+    zrodlo: 'https://www.gov.pl/web/rodzina/opieka-wytchnieniowa -- pobrano 2026-05-14',
+  },
 };

@@ -1,14 +1,14 @@
 # wezmezadarmo.com -- LLM Agent Guide
 
 > Ten plik jest przeznaczony dla agentów AI i modeli językowych.
-> Opisuje bazie 104 polskich swiadczen, ulg i dotacji oraz jak z niej korzystac.
+> Opisuje bazie 113 polskich swiadczen, ulg i dotacji oraz jak z niej korzystac.
 > Humans: see wezmezadarmo.com
 
 ---
 
 ## Co to jest
 
-**wezmezadarmo.com** to niezalezne narzedzie, które przeszukuje bazie 104 polskich swiadczen socjalnych, ulg podatkowych i dotacji, dopasowuje je do profilu uzytkownika i wyswietla instrukcje krok po kroku jak zlozyc wniosek.
+**wezmezadarmo.com** to niezalezne narzedzie, które przeszukuje bazie 113 polskich swiadczen socjalnych, ulg podatkowych i dotacji, dopasowuje je do profilu uzytkownika i wyswietla instrukcje krok po kroku jak zlozyc wniosek.
 
 Dane: oficjalne zrodla rzadowe (gov.pl), zweryfikowane 2026-05-09.
 Brak bazy danych uzytkownikow -- wszystko przetwarzane lokalnie lub na serwerze bez zapisu.
@@ -149,23 +149,41 @@ Czat z AI w kontekscie profilu i wynikow.
 
 ---
 
-## Kategorie swiadczen (13 kategorii, 104 swiadczenia)
+## Kategorie swiadczen (13 kategorii, 113 swiadczen)
 
 | Kategoria | Opis | Przykladowe swiadczenia |
 |-----------|------|-------------------------|
 | RODZINA | Swiadczenia rodzinne | 800+, becikowe, rodzinny kapital opiekunczy |
-| ZDROWIE | Opieka zdrowotna, leki | Refundacja lekow, rehabilitacja NFZ, bon na okulary |
+| ZDROWIE | Opieka zdrowotna, leki | Refundacja lekow, rehabilitacja NFZ, bon na okulary, zasilek opiekunczy KRUS |
 | PODATKI | Ulgi podatkowe | Ulga na dziecko, ulga rehabilitacyjna, ulga termomodernizacyjna |
 | BIZNES | Wsparcie przedsiebiorcow | Dofinansowanie z PUP, ulgi ZUS dla nowej firmy, tarczowy |
-| MIESZKANIE | Pomoc mieszkaniowa | Dodatek mieszkaniowy, dofinansowanie z funduszu remontowego |
+| MIESZKANIE | Pomoc mieszkaniowa | Dodatek mieszkaniowy, dofinansowanie z funduszu remontowego, Fundusz Wsparcia Kredytobiorcow |
 | NIEPELNOSPRAWNOSC | Wsparcie osob z niepelnosprawnoscia | Swiadczenie pielegnacyjne, PFRON, ulga na samochod |
 | ENERGIA | Pomoc energetyczna | Bon energetyczny, dodatek weglowy, dofinansowanie OZE |
 | ZUS | Swiadczenia ZUS | Zasilek chorobowy, macierzynski, ojcowski, opiekunczy |
-| PRACA | Wsparcie dla bezrobotnych | Zasilek dla bezrobotnych, szkolenia z PUP, staz |
+| PRACA | Wsparcie dla bezrobotnych i rolnikow | Zasilek dla bezrobotnych, szkolenia z PUP, staz, doplaty bezposrednie ARiMR, zwrot akcyzy paliwa, premia dla mlodego rolnika |
 | EDUKACJA | Wsparcie edukacyjne | Stypendium socjalne, Erasmus+, wparcie dla studentow |
-| SENIOR | Swiadczenia dla seniorow | 13. emerytura, 14. emerytura, senior+, opieka dlugoterminowa |
-| POMOC_SPOLECZNA | Pomoc spoleczna | Zasilek staly, celowy, pomoc rzeczowa z MOPS |
+| SENIOR | Swiadczenia dla seniorow | 13. emerytura, 14. emerytura, senior+, opieka dlugoterminowa, bon senioralny, dodatek pielegnacyjny KRUS |
+| POMOC_SPOLECZNA | Pomoc spoleczna | Zasilek staly, celowy, pomoc rzeczowa z MOPS, opieka wytchnieniowa |
 | EKOLOGIA | Dotacje ekologiczne | Czyste Powietrze, Moj Prad, dofinansowanie fotowoltaiki |
+
+### Swiadczenia dla rolnikow (ubezpieczeni w KRUS / ARiMR)
+
+Profil rolnika: ustaw `rolnik: true` w UserProfile. Zwroci swiadczenia KRUS, doplaty ARiMR i inne.
+
+| ID | Nazwa | Kwota |
+|----|-------|-------|
+| emerytura-rolnicza | Emerytura rolnicza KRUS | 1978-2243 PLN/mies. |
+| renta-rolnicza | Renta rolnicza (niezdolnosc do pracy) | 1978 PLN/mies. |
+| zasilek-macierzynski-krus | Zasilek macierzynski KRUS | 1000 PLN/mies. (52-71 tyg.) |
+| zasilek-chorobowy-krus | Zasilek chorobowy KRUS | 25 PLN/dzien (od 31. dnia) |
+| odszkodowanie-krus | Jednorazowe odszkodowanie KRUS | 1431 PLN/1% uszczerbku |
+| zasilek-opiekunczy-krus | Zasilek opiekunczy KRUS | 59,35 PLN/dzien (do 60 dni/rok) |
+| dodatek-pielegnacyjny-krus | Dodatek pielegnacyjny KRUS | 348,22 PLN/mies. (auto dla 75+) |
+| zwrot-akcyzy-paliwa-rolniczego | Zwrot akcyzy paliwa rolniczego | 1,48 PLN/litr, limit 162,80 PLN/ha |
+| premia-dla-mlodego-rolnika | Premia dla mlodego rolnika | 200 000-300 000 PLN jednorazowo |
+| doplaty-bezposrednie-arimr | Doplaty bezposrednie ARiMR | ~494 PLN/ha + ekoschematy |
+| doplaty-do-ubezpieczen-upraw | Dofinansowanie ubezpieczen upraw | 65% skladki ubezpieczeniowej |
 
 ---
 
@@ -188,6 +206,8 @@ Czat z AI w kontekscie profilu i wynikow.
 | WFOSIGW | Wojewodzki Fundusz Ochrony Srodowiska |
 | NFZ | Narodowy Fundusz Zdrowia |
 | ONLINE | Online (dedykowana strona ministerstwa) |
+| ARiMR | Agencja Restrukturyzacji i Modernizacji Rolnictwa (eWniosekPlus) |
+| BGK | Bank Gospodarstwa Krajowego |
 
 ---
 
