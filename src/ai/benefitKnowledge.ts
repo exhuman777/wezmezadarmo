@@ -1705,4 +1705,266 @@ O: NIE, mozna korzystac z obu. Sa to odrebne programy.
 `,
     zrodlo: 'https://www.gov.pl/web/rodzina/opieka-wytchnieniowa -- pobrano 2026-05-14',
   },
+
+  // ---- PRAWA OBYWATELSKIE ----
+
+  'fundusz-alimentacyjny': {
+    szczegolyKwalifikacji: `
+Fundusz alimentacyjny -- szczegoly 2026:
+
+KWOTA:
+- Max 1000 PLN miesieczne na dziecko
+- Ale nie wiecej niz kwota zasadzonych alimentow (jesli alimenty = 600 PLN, dostaniesz 600 PLN, nie 1000)
+
+KRYTERIUM DOCHODOWE:
+- Do 30 wrzesnia 2026 r.: 1209 PLN netto na osobe w rodzinie
+- Od 1 pazdziernika 2026 r.: 1665 PLN netto na osobe w rodzinie
+
+ZASADA "ZLOTOWKA ZA ZLOTOWKE":
+Jesli przekroczysz prog np. o 100 PLN, swiadczenie zmniejszy sie o 100 PLN (nie do zera)
+Przyklad: dochod na osobe = 1309 PLN (przekroczenie o 100 PLN) --> swiadczenie = 1000 - 100 = 900 PLN
+
+WARUNKI OBOWIAZKOWE:
+1. Zasadzone alimenty: wyrok sadu lub ugoda sadowa
+2. Bezskuteczna egzekucja: zaswiadczenie komornika ze nie moze sciagnac alimentow od dluznika
+
+UPRAWNIONE DZIECI:
+- Do 18 roku zycia
+- Do 25 roku zycia jezeli sie ucza (szkola lub uczelnia)
+- Bez ograniczen wieku jezeli maja orzeczenie o znacznym stopniu niepelnosprawnosci
+
+TERMINY:
+- Elektronicznie (Empatia, PUE ZUS, bank): od 1 lipca
+- W MOPS: od 1 sierpnia
+- Nowy okres swiadczeniowy: od 1 pazdziernika do 30 wrzesnia nastepnego roku
+`,
+    faq: `
+P: Mam alimenty, ale eks czasem placi a czasem nie. Czy moge wniaskowac?
+O: Warunkiem jest bezskutecznosc egzekucji komorniczej. Jesli komornik nie moze sciaganac alimentow (dluznik nie ma majatku, ukrywa dochody), mozesz sie ubiegac.
+
+P: Co jesli moj dochod jest tuz powyzej progu 1209 PLN?
+O: Zasada "zlotowka za zlotowke" -- swiadczenie jest pomniejszane o nadwyzke, nie zerowane. Warto wniaskowac nawet przy niewielkim przekroczeniu progu.
+
+P: Czy fundusz bedzie sciagal pieniadze od mojego eks?
+O: TAK. Panstwo wyplaci Ci swiadczenie, ale jednoczesnie fundusz dochodzi od dluznika zwrotu tych kwot. Twoje alimenty nie znikaja, fundusz je przejmuje.
+
+P: Moje dziecko ma 19 lat i studiuje. Czy moge wniaskowac?
+O: TAK. Dziecko do 25 roku zycia pod warunkiem ze sie uczy (szkola, uczelnia). Wymagane zaswiadczenie z uczelni.
+
+P: Alimenty wynosza 2000 PLN, ale fundusz wyplaca max 1000 PLN. Co z reszta?
+O: Fundusz wyplaca max 1000 PLN. Pozostale 1000 PLN to nadal Twoje alimenty -- mozesz egzekwowac je przez komornika rownolegle.
+`,
+    zrodlo: 'https://www.gov.pl/web/rodzina -- pobrano 2026-05-14',
+  },
+
+  'nieodplatna-pomoc-prawna': {
+    szczegolyKwalifikacji: `
+Nieodplatna pomoc prawna 2026 -- szczegoly:
+
+DOSTEPNOSC:
+- Od 1 stycznia 2026 r.: kazdy kto zlozy oswiadczenie ze nie moze poniesc kosztow
+- Oswiadczenie jest samocertyfikowane -- nikt nie weryfikuje dokumentow dochodowych
+- 1483 punkty w Polsce (co najmniej 1 na kazdy powiat)
+- NOWOS od 2026: mozesz korzystac z DOWOLNEGO punktu w calym kraju
+
+ZAKRES POMOCY:
+1. Porada prawna (co mi przysluguje, jak postapic, co grozi)
+2. Pomoc w sporzadzeniu pisma (odwolanie, wniosek do urzedu, skarga)
+3. Wyjasnienie przepisow (umowy, prawa, obowiazki)
+4. Nieodplatne poradnictwo obywatelskie (w tych samych punktach)
+
+CZEGO NIE OBEJMUJE:
+- Zastepstwo procesowe w sadzie (nie pojdzie za Ciebie do sadu)
+- Sporzadzanie umow handlowych
+- Pomoc prawna dla firm (wyjatkiem jest jednoosobowy przedsiebiorca bez pracownikow)
+
+PRZEDSIEBIORCY:
+- Jednoosobowa dzialalnosc gospodarcza bez pracownikow: moze korzystac z pomocy
+- Firmy zatrudniajace pracownikow: nie sa uprawnione
+
+POMOC ZDALNA:
+- Od 2026 r. telefonicznie lub e-mailem, bez koniecznosci wizyty osobistej
+- Szczegolnie dla osob z ograniczona mobilnoscia lub za granica
+`,
+    faq: `
+P: Czy moge poprosic o pomoc w sporze z pracodawca?
+O: TAK. Prawnik doradzi Ci co Ci przysluguje (odprawa, zwolnienie niezgodne z prawem, mobbing), pomoze sporzadzic pismo do PIP lub pismo przedsadowe.
+
+P: Czy mozna prosic o pomoc w sprawie komornika?
+O: TAK. To jeden z najczestszych tematow w punktach NPP -- prawa dluznika, co komornik moze zajac, jak zaprotestowac.
+
+P: Jak znalezc najblizszy punkt?
+O: Wejdz na nieodplatnapomoc.gov.pl i wpisz swoja miejscowosc. Mozna tez zadzwonic do starostwa powiatowego.
+
+P: Czy moge przyjsc bez umowienia?
+O: Zalezy od punktu. Wiele przyjmuje z umowieniem, niektorych bez. Warto najpierw zadzwonic.
+
+P: Ile razy moge korzystac?
+O: Nie ma limitu wizyt. Mozesz korzystac z pomocy prawnej wielokrotnie w roznych sprawach.
+`,
+    zrodlo: 'https://www.gov.pl/web/nieodplatna-pomoc -- pobrano 2026-05-14',
+  },
+
+  'prawo-do-dokumentacji-medycznej': {
+    szczegolyKwalifikacji: `
+Prawo do dokumentacji medycznej -- szczegoly:
+
+CO JEST OBJETE:
+- Historia choroby (ambulatoryjna i szpitalna)
+- Karty leczenia szpitalnego i wypisowe
+- Wyniki badan laboratoryjnych i obrazowych (RTG, USG, MRI, CT)
+- Opisy zabiegow i operacji
+- Zaswiadczenia lekarskie
+- Recepty i skierowania (historia)
+- Dokumentacja stomatologiczna
+
+BEZPLATNA PIERWSZA KOPIA:
+- Pierwsza kopia kazdego rodzaju dokumentu = BEZPLATNA
+- Podstawa prawna: RODO (art. 15) + ustawa o prawach pacjenta
+- Dotyczy wylacznie KOPII (oryginaly zostaja w placowce)
+
+KOLEJNE KOPIE TEGO SAMEGO DOKUMENTU:
+- Moga byc odplatne
+- Maksymalna stawka uregulowana ustawowo (nie moze byc dowolna)
+
+TERMIN:
+- "Niezwlocznie, nie pozniej niz w ciagu miesiaca" (RODO)
+- W pilnych przypadkach mozna prosic o przyspieszenie
+
+FORMA WNIOSKU:
+- USTNA (np. telefoniczne) -- jest wazna
+- Pisemna
+- Elektroniczna
+- Placowka NIE MOZE zadac pisemnej formy jesli wolisz ustna
+
+ODMOWA:
+- Placowka nie ma prawa odmowic
+- Jesli odmawia: skarga do Rzecznika Praw Pacjenta, tel. 800 190 590 (bezplatna infolinia)
+- RPP moze nalozyc kare finansowa na placowke
+`,
+    faq: `
+P: Szpital chce pobrac oplate za wydanie dokumentacji. Czy musi?
+O: Za PIERWSZA kopie kazdego rodzaju dokumentu -- NIE. Pierwsza kopia jest bezplatna z mocy prawa. Mozna zlozyc skarge do RPP jesli szpital odmawia lub pobiera oplate.
+
+P: Lekarz mowi ze musi wiedziec "po co" potrzebuje dokumentow. Czy musi uzasadniac?
+O: NIE. Placowka nie ma prawa pytac o cel. Wniosek nie wymaga uzasadnienia.
+
+P: Chce uzyskac dokumentacje po smierci mamy. Czy moge?
+O: TAK. Po smierci pacjenta dokumentacje moga uzyskac: malzonek, dzieci, rodzice, rodzenstwo lub osoba przez pacjenta upowazniona za zycia.
+
+P: Jak dlugo placowka musi przechowywac dokumentacje?
+O: Co do zasady 20 lat od ostatniego wpisu (lub do 30 lat po smierci pacjenta). Dzieci: 22 lata od urodzenia.
+
+P: Czy moge dostac dokumentacje z zamknietej przychodni?
+O: TAK. Zamknieta placowka musi przekazac dokumentacje do podmiotu przejmujacego lub do wlasciwego archiwum. Mozna zapytac NFZ gdzie trafi dokumentacja.
+`,
+    zrodlo: 'https://www.gov.pl/web/rpp/prawo-do-dokumentacji-medycznej -- pobrano 2026-05-14',
+  },
+
+  'fundusz-kompensacyjny-zdarzen-medycznych': {
+    szczegolyKwalifikacji: `
+Fundusz Kompensacyjny Zdarzen Medycznych -- szczegoly (od 1 VII 2024):
+
+WAZNA ZMIANA: Komisje Wojewodzkie zlikwidowane od 1 lipca 2024 r.
+Zastapit je Fundusz Kompensacyjny Zdarzen Medycznych przy Rzeczniku Praw Pacjenta.
+
+MAKSYMALNE KWOTY:
+- Zakazenie, uszkodzenie ciala, rozstroj zdrowia: do 100 000 PLN
+- Smierc pacjenta: do 300 000 PLN (lacznie dla wszystkich uprawnionych czlonkow rodziny)
+
+OPIATA ZA WNIOSEK: 300 PLN
+- Zwracana gdy Fundusz uzna zdarzenie medyczne
+- Zatrzymywana gdy odmowi
+
+TERMIN:
+- Rok od dowiedzenia sie o zdarzeniu
+- Nie pozniej niz 3 lata od samego zdarzenia medycznego
+- Po uplywaniu tych terminow prawo wygasa bezpowrotnie
+
+CO TO JEST "ZDARZENIE MEDYCZNE":
+- Zakazenie pacjenta biologicznym czynnikiem chorobotworzym
+- Uszkodzenie ciala lub rozstroj zdrowia pacjenta
+- Smierc pacjenta beda nastepstwem nieprawidlowych dzialan podmiotu leczniczego
+
+CZAS POSTEPOWANIA: 4 miesiace od zlozenia kompletnego wniosku
+
+PO POZYTYWNEJ DECYZJI:
+- Fundusz proponuje kwote odszkodowania
+- Mozesz przyjac propozycje (szybki pieniadz)
+- Mozesz odrzucic i isc do sadu o wyzsza kwote
+- Odrzucenie propozycji funduszu nie zamyka drogi sadowej
+
+DOTYCZY:
+- Podmiotow leczniczych (szpitale, kliniki, centra medyczne)
+- Nie dotyczy drobnych gabinetow nieprowadzonych jako podmiot leczniczy
+`,
+    faq: `
+P: Chce zlozyc wniosek do Komisji Wojewodzkiej. Gdzie to jest?
+O: Komisje Wojewodzkie zostaly ZLIKWIDOWANE od 1 lipca 2024 r. Teraz zglaszasz sie do Funduszu Kompensacyjnego Zdarzen Medycznych przy Rzeczniku Praw Pacjenta (rpp.gov.pl).
+
+P: Leczono mnie w 2022 r. i teraz mam problemy zdrowotne z tym zwiazane. Czy moge wniaskowac?
+O: Tak, jezeli od dowiedzenia sie o zdarzeniu nie uplynelo rok I od samego zdarzenia nie uplynely 3 lata. Jesli zdarzenie bylo w 2022 r., a teraz jest 2026 r. -- 4 lata minelo, termin upadl.
+
+P: Jak wysokie odszkodowanie moge dostac?
+O: Do 100 000 PLN za uszkodzenie ciala lub rozstroj zdrowia, do 300 000 PLN przy smierci pacjenta (lacznie dla calej rodziny). Konkretna kwote ustala Fundusz.
+
+P: Co jesli propozycja funduszu jest za niska?
+O: Mozesz odrzucic propozycje i wytoczyc proces sadowy. Decyzja funduszu nie blokuje drogi sadowej.
+
+P: Czy musze miec adwokata?
+O: Nie jest wymagany, ale przy skomplikowanych sprawach lub wyzszych kwotach warto. Mozesz najpierw skonsultowac sie bezplatnie w punkcie nieodplatnej pomocy prawnej.
+`,
+    zrodlo: 'https://www.gov.pl/web/rpp/fundusz-kompensacyjny-zdarzen-medycznych -- pobrano 2026-05-14',
+  },
+
+  'odprawa-pracownicza': {
+    szczegolyKwalifikacji: `
+Odprawa pracownicza -- szczegoly 2026:
+
+PODSTAWA PRAWNA: Ustawa z 13 marca 2003 r. o szczegolnych zasadach rozwiazywania stosunkow pracy z przyczyn niedotyczacych pracownikow
+
+WARUNKI:
+1. Firma zatrudnia CO NAJMNIEJ 20 pracownikow
+2. Rozwiazanie umowy z PRZYCZYN NIEDOTYCZACYCH PRACOWNIKA:
+   - Likwidacja stanowiska pracy
+   - Restrukturyzacja / redukcja etatow
+   - Trudna sytuacja ekonomiczna pracodawcy
+   - Likwidacja lub upadlosc firmy
+3. NIE przysluguje przy: zwolnieniu dyscyplinarnym, rezygnacji pracownika, uplywie umowy terminowej
+
+WYSOKOSC:
+- Staz < 2 lata: 1x miesieczne wynagrodzenie
+- Staz 2-8 lat: 2x miesieczne wynagrodzenie
+- Staz > 8 lat: 3x miesieczne wynagrodzenie
+Staz liczony u TEGO pracodawcy (nie calkowity staz pracy w zyciu)
+
+MAKSIMUM:
+- 15-krotnosc minimalnego wynagrodzenia
+- W 2026 r.: 15 x 4806 PLN = 72 090 PLN brutto
+
+KIEDY WYPLACANA:
+- W dniu rozwiazania stosunku pracy lub przy ostatniej wyplacie wynagrodzenia
+
+ODPRAWA A OPODATKOWANIE:
+- Odprawa jest opodatkowana PIT (wlaczana do dochodu)
+- Podlega tez skladkom ZUS (inaczej niz odprawa emerytalna)
+`,
+    faq: `
+P: Pracodawca powiedzial ze jestem zwolniony "za porozumieniem stron". Czy dostane odprawa?
+O: TAK, jesli rozwiazanie umowy nastepuje Z PRZYCZYN LEZACYCH PO STRONIE PRACODAWCY i firma ma min. 20 pracownikow. Forma rozwiazania (wypowiedzenie vs. porozumienie) nie wyklucza odprawy -- liczy sie przyczyna.
+
+P: Pracodawca twierdzi ze mnie zwalniam "z winy pracownika". Czy moge sie odwolac?
+O: TAK. Mozesz zaprotestowac do sadu pracy lub zlozyc skarge do PIP. Pracodawca musi udowodnic ze przyczyna lezala po Twojej stronie.
+
+P: Firma ma 15 pracownikow. Czy moge dostac odprawa?
+O: NIE. Odprawa z tej ustawy przysluguje tylko przy firmach zatrudniajacych minimum 20 pracownikow.
+
+P: Pracodawca nie chce wyplacic odprawy. Co robic?
+O: Zloz skarge do Panstwowej Inspekcji Pracy (pip.gov.pl) -- bezplatna i mozliwa anonimowo. Alternatywnie: pozew do sadu pracy -- koszt to 30 PLN lub zero przy niskich zarobkach.
+
+P: Czy odprawa wlicza sie do dochodu przy innych swiadczeniach?
+O: TAK, odprawa jest opodatkowanym przychodem ze stosunku pracy i wlicza sie do dochodu.
+`,
+    zrodlo: 'https://www.pip.gov.pl -- pobrano 2026-05-14',
+  },
 };
