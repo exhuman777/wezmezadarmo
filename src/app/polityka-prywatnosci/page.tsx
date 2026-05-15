@@ -18,7 +18,7 @@ export default function PolitykaPage() {
           Polityka prywatności
         </h1>
         <p className="text-[13px] text-text-3 mb-8">
-          Ostatnia aktualizacja: 13 maja 2026 r.
+          Ostatnia aktualizacja: 15 maja 2026 r.
         </p>
 
         <div className="space-y-8 text-[14px] sm:text-[15px] leading-[1.7] text-text-2">
@@ -105,6 +105,13 @@ export default function PolitykaPage() {
 
           <Section n="12" title="Bezpieczeństwo danych">
             <P>12.1. Administrator stosuje następujące środki ochrony: szyfrowanie TLS/HTTPS, brak zbierania numerów PESEL ani innych krajowych numerów identyfikacyjnych, brak bazy danych przechowującej dane osobowe Użytkowników, minimalizacja danych przesyłanych do modeli AI, tranzytowe przetwarzanie NIP bez logowania ani buforowania, implementacja Google Consent Mode v2 (Analytics wyłączony domyślnie do czasu wyrażenia zgody).</P>
+          </Section>
+
+          <Section n="12a" title="Usługa pomocy w wypełnieniu wniosku -- dane">
+            <P>12a.1. Usługa pomocy w wypełnieniu wniosku (/wnioski) przetwarza informacje opisowe o projekcie lub sytuacji Użytkownika podane przez niego w formularzu (np. nazwa projektu, opis działalności, cele projektu). Dane te nie zawierają numerów PESEL, NIP ani innych identyfikatorów osobowych, chyba że Użytkownik sam je wpisze w polu tekstowym.</P>
+            <P>12a.2. Informacje o projekcie są przesyłane do modelu AI (Google Gemini via OpenRouter) wyłącznie w celu wygenerowania treści odpowiedzi do pól formularza. Treść przesyłana do AI ograniczona jest do minimum niezbędnego do wygenerowania danego pola.</P>
+            <P>12a.3. Administrator nie przechowuje informacji o projekcie podanych w ramach Usługi Wnioskowej na swoich serwerach. Dane przetwarzane są w pamięci operacyjnej serwera wyłącznie na czas trwania zapytania i usuwane natychmiast po zwróceniu odpowiedzi. Wygenerowane treści są przechowywane wyłącznie lokalnie w przeglądarce Użytkownika (RAM / stan aplikacji) i nie są zapisywane w localStorage ani wysyłane do serwera Administratora.</P>
+            <P>12a.4. Podstawa prawna: art. 6 ust. 1 lit. b) RODO -- przetwarzanie niezbędne do wykonania usługi na żądanie Użytkownika.</P>
           </Section>
 
           <Section n="13" title="Zmiany polityki prywatności">

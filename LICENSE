@@ -1,0 +1,33 @@
+GNU AFFERO GENERAL PUBLIC LICENSE
+Version 3, 19 November 2007
+
+Copyright (C) 2026 Kamil Sobkowicz
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+---
+
+ADDITIONAL TERMS (per Section 7 of AGPL-3.0):
+
+1. Attribution: Any public deployment of this software or a derivative work
+   must include a visible attribution: "Powered by WezmeZadarmo
+   (wezmezadarmo.com)" with a link to https://www.wezmezadarmo.com
+
+2. The benefits database (src/engine/benefits/) is a separate copyrighted
+   work. It is included under AGPL-3.0 for open-source purposes, but
+   commercial use of the database alone (outside the software) requires
+   a separate license. Contact: sobkowicz.kamil@gmail.com
+
+3. The name "WezmeZadarmo" and domain "wezmezadarmo.com" are trademarks
+   of Kamil Sobkowicz. Forks must use a different name and domain.

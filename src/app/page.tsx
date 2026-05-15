@@ -762,6 +762,23 @@ export default function Home() {
                   ))}
                 </div>
 
+                {/* Wnioski banner */}
+                <a href="/wnioski" className="rise" style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                  gap: 12, marginBottom: 24, animationDelay: '220ms',
+                  padding: '10px 16px', borderRadius: 8,
+                  border: '1px solid var(--color-accent)',
+                  background: 'color-mix(in srgb, var(--color-accent) 8%, transparent)',
+                  textDecoration: 'none',
+                }}>
+                  <span style={{ fontSize: 13, color: 'var(--color-text-1)', fontWeight: 500 }}>
+                    Potrzebujesz pomocy w wypełnieniu wniosku? Robimy to z AI.
+                  </span>
+                  <span style={{ fontSize: 12, color: 'var(--color-accent)', whiteSpace: 'nowrap', fontWeight: 500 }}>
+                    Pomoc z wnioskami &rarr;
+                  </span>
+                </a>
+
                 {/* Trust row */}
                 <div className="rise" style={{ display: 'flex', flexWrap: 'wrap', gap: 18, marginBottom: 36, animationDelay: '240ms' }}>
                   {[
@@ -1073,6 +1090,7 @@ export default function Home() {
                   <li><a className="link-u" href="/swiadczenia" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Baza świadczeń</a></li>
                   <li><a className="link-u" href="/o-projekcie" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>O projekcie</a></li>
                   <li><a className="link-u" href="/dla-firm" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>API dla firm</a></li>
+                  <li><a className="link-u" href="/wnioski" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Pomoc z wnioskami AI</a></li>
                   <li><a className="link-u" href="/llm.md" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Dla agentów AI</a></li>
                   <li><a className="link-u" href="https://www.linkedin.com/in/kamil-sobkowicz/" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Kontakt / LinkedIn</a></li>
                 </ul>

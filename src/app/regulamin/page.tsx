@@ -21,6 +21,10 @@ export default function RegulaminPage() {
           Ostatnia aktualizacja: 15 maja 2026 r.
         </p>
 
+        <div className="mb-8 p-4 border border-accent/30 bg-accent/5 rounded-[8px] text-[13px] text-text-2">
+          Regulamin obejmuje rowniez usluge pomocy w wypelnieniu wnioskow dostepna pod adresem /wnioski (sekcja 3a).
+        </div>
+
         <div className="space-y-8 text-[14px] sm:text-[15px] leading-[1.7] text-text-2">
 
           <Section n="1" title="Postanowienia ogólne">
@@ -46,6 +50,15 @@ export default function RegulaminPage() {
             <P className="pl-4">e) prezentacja wyników w formie listy świadczeń z informacjami o wymaganiach, kwotach, procedurze składania wniosków oraz źródłach prawnych.</P>
             <P>3.2. Serwis nie świadczy usług doradztwa prawnego, podatkowego ani finansowego.</P>
             <P>3.3. Serwis nie zbiera, nie przetwarza ani nie przechowuje numerów PESEL. Użytkownik podaje wiek i płeć bezpośrednio w formularzu.</P>
+          </Section>
+
+          <Section n="3a" title="Usługa pomocy w wypełnieniu wniosku">
+            <P>3a.1. Serwis świadczy dodatkową usługę pomocy w przygotowaniu treści wniosków o granty i dofinansowania (dalej: &quot;Usługa Wnioskowa&quot;), dostępną pod adresem /wnioski.</P>
+            <P>3a.2. Usługa Wnioskowa polega na generowaniu przez model AI propozycji treści poszczególnych pól formularza wniosku na podstawie informacji opisowych podanych przez Użytkownika. Wygenerowane treści mają charakter wyłącznie pomocniczy i stanowią punkt wyjścia do dalszej edycji przez Użytkownika.</P>
+            <P>3a.3. Usługa Wnioskowa nie jest usługą doradztwa prawnego, podatkowego ani konsultingowego. Operator nie gwarantuje, że wygenerowane treści spełnią wymagania instytucji przyjmującej wniosek.</P>
+            <P>3a.4. Wszystkie dane o projekcie wprowadzone przez Użytkownika w ramach Usługi Wnioskowej są przetwarzane wyłącznie w przeglądarce Użytkownika i przesyłane do modelu AI wyłącznie w zakresie niezbędnym do wygenerowania treści danego pola. Operator nie przechowuje tych danych na serwerze.</P>
+            <P>3a.5. Użytkownik ponosi wyłączną odpowiedzialność za treść ostateczną wniosku, jego zgodność z wymaganiami instytucji i prawdziwość podanych informacji. Operator odpowiada wyłącznie za dostępność techniczną narzędzia.</P>
+            <P>3a.6. Usługa Wnioskowa może być w przyszłości świadczona odpłatnie. O zmianie warunków Operator poinformuje z wyprzedzeniem na stronie Serwisu. Aktualne warunki cenowe są widoczne na stronie /wnioski.</P>
           </Section>
 
           <Section n="4" title="Źródła danych o świadczeniach">
