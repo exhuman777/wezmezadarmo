@@ -6,6 +6,11 @@ export async function OPTIONS() {
   return optionsResponse();
 }
 
+export interface ZusZ15aProfile {
+  powodOpieki: string;
+  relacjaDoZiecka: string;
+}
+
 export interface FormProfile {
   projectName: string;
   websiteUrl: string;
@@ -23,11 +28,11 @@ export interface FormProfile {
 }
 
 interface FormAssistRequest {
-  formType: 'nlnet';
+  formType: 'nlnet' | 'zus-z15a-justification';
   fieldKey: string;
   fieldLabel: string;
   fieldDescription: string;
-  profile: FormProfile;
+  profile: FormProfile | ZusZ15aProfile;
 }
 
 const NLNET_FIELD_PROMPTS: Record<string, string> = {
@@ -94,13 +99,29 @@ export async function POST(request: NextRequest) {
 
   const { formType, fieldKey, profile } = body;
 
-  if (formType !== 'nlnet') {
+  const ft = formType as string;
+  if (ft !== 'nlnet' && ft !== 'zus-z15a-justification') {
     return new Response(JSON.stringify({ error: 'Unsupported form type' }), {
       status: 400,
       headers: { 'Content-Type': 'application/json', ...CORS_HEADERS },
     });
   }
 
+  // ZUS Z-15a: generate justification for why second parent can't care for child
+  if (ft === 'zus-z15a-justification') {
+    const zusProfile = body.profile as ZusZ15aProfile;
+    const { powodOpieki, relacjaDoZiecka } = zusProfile;
+    const result = await chatCompletion([
+      { role: 'system', content: 'Jestes asystentem pomagajacym wypelnic formularz ZUS Z-15a. Pisz po polsku, zwiezle, formalnie.' },
+      { role: 'user', content: `Wygeneruj krotkie oswiadczenie (1-2 zdania) dlaczego wspolmalzonek lub drugi rodzic nie moze sprawowac opieki nad dzieckiem. Powod opieki wnioskodawcy: ${powodOpieki}. Relacja wnioskodawcy do dziecka: ${relacjaDoZiecka}. Napisz oswiadczenie w pierwszej osobie liczby mnogiej (my/wspolmalzonek). Brak cudzysłowow.` },
+    ]);
+    return new Response(JSON.stringify({ result }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json', ...CORS_HEADERS },
+    });
+  }
+
+  const nlnetProfile = body.profile as FormProfile;
   const fieldPrompt = NLNET_FIELD_PROMPTS[fieldKey];
   if (!fieldPrompt) {
     return new Response(JSON.stringify({ error: 'Unknown field' }), {
@@ -115,17 +136,17 @@ If information is missing, write the best possible answer based on what is given
 Write in English. No markdown formatting (no bold, no headers). Use plain paragraphs or numbered lists as appropriate.`;
 
   const profileContext = `PROJECT PROFILE:
-- Project name: ${profile.projectName}
-- Website: ${profile.websiteUrl}
-- Organization: ${profile.organizationName} (${profile.country})
-- Description: ${profile.projectDescription}
-- Problem solved: ${profile.problemSolved}
-- Target users: ${profile.targetUsers}
-- Funding goals: ${profile.fundingGoals}
-- Open source: ${profile.isOpenSource ? 'Yes' : 'No'}${profile.license ? `, license: ${profile.license}` : ''}
-- Amount requested: ${profile.amountRequested}
-- Team: ${profile.teamDescription}
-- Prior funding: ${profile.priorFunding || 'None'}`;
+- Project name: ${nlnetProfile.projectName}
+- Website: ${nlnetProfile.websiteUrl}
+- Organization: ${nlnetProfile.organizationName} (${nlnetProfile.country})
+- Description: ${nlnetProfile.projectDescription}
+- Problem solved: ${nlnetProfile.problemSolved}
+- Target users: ${nlnetProfile.targetUsers}
+- Funding goals: ${nlnetProfile.fundingGoals}
+- Open source: ${nlnetProfile.isOpenSource ? 'Yes' : 'No'}${nlnetProfile.license ? `, license: ${nlnetProfile.license}` : ''}
+- Amount requested: ${nlnetProfile.amountRequested}
+- Team: ${nlnetProfile.teamDescription}
+- Prior funding: ${nlnetProfile.priorFunding || 'None'}`;
 
   const userPrompt = `${profileContext}
 

@@ -181,7 +181,7 @@ export default function NLnetWizardPage() {
         setFields((prev) => ({
           ...prev,
           [fieldKey]: {
-            value: data.result ?? 'Blad generowania -- wpisz recznie.',
+            value: data.result ?? 'Blad generowania: wpisz recznie.',
             status: data.result ? 'done' : 'error',
             editing: false,
           },
@@ -277,7 +277,7 @@ function ProfileStep({ profile, amountRequested, updateProfile, setAmount, onNex
         <div className="mb-2 text-[12px] text-text-3 font-mono">NLnet NGI Zero Commons Fund</div>
         <h1 className="text-[22px] sm:text-[26px] font-bold text-text-1 mb-2">Opisz swój projekt</h1>
         <p className="text-[13px] text-text-3 mb-8">
-          Deadline: <span className="text-amber-400 font-medium">1 czerwca 2026, 12:00 CEST</span>. Wypełnij pola ponizej -- AI wygeneruje wszystkie sekcje formularza.
+          Deadline: <span className="text-amber-400 font-medium">1 czerwca 2026, 12:00 CEST</span>. Wypełnij pola ponizej: AI wygeneruje wszystkie sekcje formularza.
         </p>
 
         <div className="space-y-6">
@@ -329,7 +329,7 @@ function ProfileStep({ profile, amountRequested, updateProfile, setAmount, onNex
             />
           </Field>
 
-          <Field label="Co zrobisz z grantem? *" hint="Konkretne funkcje, rozszerzenia, dokumentacja, API -- co sfinansujesz?">
+          <Field label="Co zrobisz z grantem? *" hint="Konkretne funkcje, rozszerzenia, dokumentacja, API: co sfinansujesz?">
             <textarea
               className={TEXTAREA_CLS}
               rows={3}
@@ -353,7 +353,7 @@ function ProfileStep({ profile, amountRequested, updateProfile, setAmount, onNex
               className={INPUT_CLS}
               value={profile.priorFunding}
               onChange={(e) => updateProfile('priorFunding', e.target.value)}
-              placeholder="None -- self-funded since inception"
+              placeholder="None: self-funded since inception"
             />
           </Field>
 
@@ -495,7 +495,7 @@ function ReviewStep({ fields, setFields, currentIdx, setCurrentIdx, copied, onCo
     <div className="min-h-screen bg-bg-0 py-8 sm:py-12 px-4 sm:px-6">
       <div className="max-w-2xl mx-auto">
         <div className="mb-4 flex items-center justify-between">
-          <div className="text-[12px] text-text-3 font-mono">NLnet NGI Zero -- Przeglad</div>
+          <div className="text-[12px] text-text-3 font-mono">NLnet NGI Zero: Przeglad</div>
           <div className="text-[12px] text-text-3">
             {currentIdx + 1} / {NLNET_FIELDS.length}
           </div>
@@ -662,7 +662,7 @@ function DoneStep({ onDownload, onCopyAll, copied, onRestart }: {
               'Repozytorium GitHub otwarte z licencja AGPL-3.0',
               'README.md po angielsku widoczny publicznie',
               'Strona projektu dziala (wezmezadarmo.com lub inna)',
-              'Abstract przeczytany na glos -- brzmi przekonujaco?',
+              'Abstract przeczytany na glos: brzmi przekonujaco?',
               'Budget breakdown sumuje sie do wnioskowanej kwoty',
               'Generative AI disclosure wypelniony uczciwie',
               'Formularz wyslany przed 1 czerwca 2026, 12:00 CEST',
