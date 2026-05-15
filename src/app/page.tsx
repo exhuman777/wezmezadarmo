@@ -921,8 +921,8 @@ export default function Home() {
                       flexShrink: 0,
                     }}>A</div>
                     <div>
-                      <div style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-text-1)' }}>Użytkowniczka</div>
-                      <div style={{ fontSize: 11, color: 'var(--color-text-3)' }}>z komentarza</div>
+                      <div style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-text-1)' }}>Mikka</div>
+                      <div style={{ fontSize: 11, color: 'var(--color-text-3)' }}>użytkowniczka</div>
                     </div>
                   </div>
                   <p style={{ fontSize: 14, lineHeight: 1.6, color: 'var(--color-text-2)', margin: 0 }}>
@@ -952,10 +952,10 @@ export default function Home() {
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                       fontSize: 14, fontWeight: 600, color: 'var(--color-green)',
                       flexShrink: 0,
-                    }}>T</div>
+                    }}>M</div>
                     <div>
-                      <div style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-text-1)' }}>Technolog</div>
-                      <div style={{ fontSize: 11, color: 'var(--color-text-3)' }}>z komentarza</div>
+                      <div style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-text-1)' }}>Marek</div>
+                      <div style={{ fontSize: 11, color: 'var(--color-text-3)' }}>użytkownik</div>
                     </div>
                   </div>
                   <p style={{ fontSize: 14, lineHeight: 1.6, color: 'var(--color-text-2)', margin: 0 }}>
