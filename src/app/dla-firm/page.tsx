@@ -299,16 +299,63 @@ export default function DlaFirmPage() {
             </div>
           </section>
 
+          {/* Wycena */}
+          <section>
+            <h2 className="text-[16px] sm:text-[18px] font-bold text-text-1 mb-4">
+              Wycena i warunki współpracy
+            </h2>
+            <div className="space-y-3">
+              <p>
+                Każde wykorzystanie API przez podmiot zewnętrzny jest uzgadniane
+                indywidualnie. Nie ma jednej stałej stawki -- warunki zależą od
+                charakteru organizacji, liczby zapytań miesięcznie i sposobu użycia.
+              </p>
+              <p>
+                Dla <strong className="text-text-1">fundacji i organizacji pozarządowych (NGO)</strong>{' '}
+                działających na rzecz osób wykluczonych, seniorów, osób z niepełnosprawnościami
+                lub rodzin w trudnej sytuacji -- dostęp do API może być całkowicie bezpłatny.
+                Decyzja jest podejmowana indywidualnie po zapoznaniu się z działalnością organizacji.
+              </p>
+              <p>
+                Dla firm komercyjnych warunki finansowe są negocjowane w zależności od skali
+                i przeznaczenia integracji.
+              </p>
+            </div>
+          </section>
+
+          {/* Zakaz nieuprawnionego uzycia */}
+          <section>
+            <h2 className="text-[16px] sm:text-[18px] font-bold text-text-1 mb-4">
+              Niedozwolone użycie
+            </h2>
+            <div className="space-y-3">
+              <p>
+                Korzystanie z API wezmezadarmo.com przez podmioty zewnętrzne bez uprzedniej
+                pisemnej zgody autora jest <strong className="text-text-1">zabronione</strong>.
+                Dotyczy to zarówno użycia komercyjnego, jak i integracyjnego.
+              </p>
+              <p>
+                Zabronione jest również automatyczne pobieranie treści serwisu (web scraping,
+                crawlowanie, skrypty masowe). Baza świadczeń, jej struktura i opisy stanowią
+                autorskie dzieło Kamila Sobkowicza w rozumieniu ustawy o prawie autorskim
+                i prawach pokrewnych.
+              </p>
+              <p>
+                Szczegółowe postanowienia zawiera{' '}
+                <a href="/regulamin" className="text-accent hover:underline">Regulamin serwisu (§ 9)</a>.
+              </p>
+            </div>
+          </section>
+
           {/* Kontakt */}
           <section>
             <h2 className="text-[16px] sm:text-[18px] font-bold text-text-1 mb-4">
-              Kontakt i wycena
+              Kontakt
             </h2>
             <div className="space-y-4">
               <p>
                 Napisz na adres poniżej z krótkim opisem przypadku użycia i szacowaną
-                liczbą zapytań miesięcznie. Wycena jest indywidualna. Odpisuję
-                w ciągu jednego dnia roboczego.
+                liczbą zapytań miesięcznie. Odpisuję w ciągu jednego dnia roboczego.
               </p>
               <div className="border border-border rounded-lg p-5 space-y-3">
                 <div className="font-mono text-[11px] text-text-3 tracking-widest uppercase">Kontakt</div>

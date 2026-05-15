@@ -18,7 +18,7 @@ export default function RegulaminPage() {
           Regulamin
         </h1>
         <p className="text-[13px] text-text-3 mb-8">
-          Ostatnia aktualizacja: 13 maja 2026 r.
+          Ostatnia aktualizacja: 15 maja 2026 r.
         </p>
 
         <div className="space-y-8 text-[14px] sm:text-[15px] leading-[1.7] text-text-2">
@@ -84,9 +84,12 @@ export default function RegulaminPage() {
             <P>8.2. Usługa jest w pełni bezpłatna i wykonywana natychmiast po wypełnieniu formularza. Użytkownik może w każdej chwili zaprzestać korzystania z Serwisu bez podawania przyczyny i bez jakichkolwiek konsekwencji.</P>
           </Section>
 
-          <Section n="9" title="Zakaz dostarczania treści bezprawnych">
+          <Section n="9" title="Zakaz dostarczania treści bezprawnych i niedozwolone użycie automatyczne">
             <P>9.1. Użytkownik zobowiązuje się do niepodawania danych nieprawdziwych, cudzych ani sfabrykowanych w celu uzyskania informacji o świadczeniach przysługujących innym osobom.</P>
             <P>9.2. Zabronione jest korzystanie z Serwisu w sposób naruszający przepisy prawa, prawa osób trzecich lub dobre obyczaje.</P>
+            <P>9.3. Bez uprzedniej pisemnej zgody Operatora zabronione jest automatyczne pobieranie treści Serwisu za pomocą skryptów, botów, crawlerów lub innych narzędzi scrapingowych (tzw. web scraping). Baza świadczeń, jej struktura, opisy i instrukcje stanowią autorskie dzieło Operatora w rozumieniu ustawy z dnia 4 lutego 1994 r. o prawie autorskim i prawach pokrewnych.</P>
+            <P>9.4. Bez uprzedniej pisemnej zgody Operatora zabronione jest korzystanie z interfejsu API Serwisu (w tym endpointów /api/verify, /api/chat i innych) przez podmioty zewnętrzne w celach komercyjnych lub integracyjnych. Korzystanie z API przez osoby trzecie wymaga zawarcia indywidualnej umowy licencyjnej z Operatorem. Zapytania o licencję należy kierować na adres: sobkowicz.kamil@gmail.com.</P>
+            <P>9.5. Naruszenie postanowień punktów 9.3 i 9.4 uprawnia Operatora do dochodzenia roszczeń na podstawie przepisów o prawie autorskim oraz ustawy o zwalczaniu nieuczciwej konkurencji, a także blokowania dostępu do Serwisu i API.</P>
           </Section>
 
           <Section n="10" title="Odpowiedzialność">
