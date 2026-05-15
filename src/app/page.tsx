@@ -959,8 +959,7 @@ export default function Home() {
                     </div>
                   </div>
                   <p style={{ fontSize: 14, lineHeight: 1.6, color: 'var(--color-text-2)', margin: 0 }}>
-                    &ldquo;Tworzę nowoczesne technologie dla małych, dużych i bardzo dużych&hellip;
-                    Ooo, przysługuje mi: Refundacja okularów i soczewek z NFZ
+                    &ldquo;Ooo, przysługuje mi: Refundacja okularów i soczewek z NFZ
                     50&ndash;700 PLN na okulary, do 600 PLN na soczewki kontaktowe.&rdquo;
                   </p>
                   <div style={{ display: 'flex', gap: 6, alignItems: 'center', marginTop: 'auto', paddingTop: 10, borderTop: '1px solid var(--color-border)' }}>
