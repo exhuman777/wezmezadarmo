@@ -703,7 +703,7 @@ export default function Home() {
               <FlagStripe width={28} thickness={3} />
               <span className="label-eyebrow">Niezależne narzędzie | Projekt Społeczny | Z miłości do Polski | Z miłości do Polaków</span>
               <span style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
-              <span className="label-eyebrow hide-mobile" style={{ color: 'var(--color-muted-2)' }}>zaktualizowano 12.05.2026</span>
+              <span className="label-eyebrow hide-mobile" style={{ color: 'var(--color-muted-2)' }}>zaktualizowano 15.05.2026</span>
             </div>
 
             {/* Split: hero left + form right */}
