@@ -90,7 +90,7 @@ export function matchBenefits(profile: UserProfile): MatchResult[] {
     const { matched, failed } = checkRequirements(benefit, profile);
     const totalCriteria = matched.length + failed.length;
 
-    // Skip benefits with hard failures on gender or age
+    // Skip benefits with hard failures -- binary flags and demographic criteria
     const req = benefit.wymagania;
     if (req.plec && req.plec !== 'dowolna' && profile.plec !== req.plec) continue;
     if (req.wiekMin !== undefined && profile.wiek < req.wiekMin) continue;
@@ -101,6 +101,11 @@ export function matchBenefits(profile: UserProfile): MatchResult[] {
         : profile.liczbaDzieci;
       if (qualifyingKids < req.dzieci.min) continue;
     }
+    if (req.rolnik && !profile.rolnik) continue;
+    if (req.emeryt && !profile.emeryt) continue;
+    if (req.student && !profile.student) continue;
+    if (req.bezrobotnyZarejestrowany && !profile.bezrobotnyZarejestrowany) continue;
+    if (req.ciaza && !profile.ciaza) continue;
 
     let status: BenefitStatus;
     const warnings: string[] = [];
