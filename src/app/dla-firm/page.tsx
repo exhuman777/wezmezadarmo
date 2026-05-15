@@ -49,7 +49,7 @@ const EXAMPLE_RESPONSE = `{
             "Zaloguj się do portalu Emp@tia (empatia.mrpips.gov.pl)",
             "Wybierz wniosek SW-1",
             "Wypełnij dane dzieci i konto bankowe",
-            "Prześlij elektronicznie -- nie musisz iść do urzędu"
+            "Prześlij elektronicznie (nie musisz iść do urzędu)"
           ],
           "terminRealizacji": "do 3 miesięcy od złożenia wniosku"
         },
@@ -68,7 +68,7 @@ const EXAMPLE_RESPONSE = `{
 
 const PROFILE_FIELDS = [
   { pole: 'wiek', typ: 'number', opis: 'Wiek w latach', przyklad: '35' },
-  { pole: 'plec', typ: '"K" | "M"', opis: 'Płeć (K -- kobieta, M -- mężczyzna)', przyklad: '"K"' },
+  { pole: 'plec', typ: '"K" | "M"', opis: 'Płeć: K = kobieta, M = mężczyzna', przyklad: '"K"' },
   { pole: 'stanCywilny', typ: 'string', opis: '"wolny" | "malzenstwo" | "rozwiedziony" | "wdowiec"', przyklad: '"malzenstwo"' },
   { pole: 'liczbaDzieci', typ: 'number', opis: 'Liczba dzieci poniżej 18 roku życia', przyklad: '2' },
   { pole: 'wiekDzieci', typ: 'number[]', opis: 'Wiek każdego dziecka (tablica)', przyklad: '[3, 7]' },
@@ -103,7 +103,7 @@ export default function DlaFirmPage() {
           </h1>
           <p className="text-[15px] text-text-2 leading-relaxed">
             117 zweryfikowanych świadczeń socjalnych, ulg podatkowych i dotacji z oficjalnych
-            źródeł rządowych -- dostępnych przez jedno wywołanie API. Twoja aplikacja pyta,
+            źródeł rządowych, dostępnych przez jedno wywołanie API. Twoja aplikacja pyta,
             my odpowiadamy, co danemu użytkownikowi przysługuje i jak to dostać.
           </p>
         </div>
@@ -121,7 +121,7 @@ export default function DlaFirmPage() {
                 <div className="font-mono text-[11px] text-accent tracking-widest uppercase mb-2">Oprogramowanie kadrowe i HR</div>
                 <p className="text-[14px] leading-relaxed">
                   Przy onboardingu nowego pracownika Twój system może automatycznie sprawdzić,
-                  jakie świadczenia mu przysługują -- świadczenie 800+ na dzieci, ulga
+                  jakie świadczenia mu przysługują: świadczenie 800+ na dzieci, ulga
                   prorodzinna w PIT, dofinansowanie do żłobka z budżetu gminy, becikowe.
                   HR dostaje gotową listę zamiast odsyłać pracownika na rządowe strony.
                 </p>
@@ -131,7 +131,7 @@ export default function DlaFirmPage() {
                 <div className="font-mono text-[11px] text-accent tracking-widest uppercase mb-2">Aplikacje bankowe i fintech</div>
                 <p className="text-[14px] leading-relaxed">
                   Klient składa wniosek kredytowy. Twoja aplikacja w tle sprawdza, na jakie
-                  regularne świadczenia się kwalifikuje -- 800+, trzynasta emerytura, renta.
+                  regularne świadczenia się kwalifikuje: 800+, trzynasta emerytura, renta.
                   To realny, stały dochód, który powinien wchodzić do scoringu. Dodatkowo
                   doradztwo finansowe zyskuje nowy wymiar: "przysługuje Ci X, możesz to
                   przeznaczyć na nadpłatę kredytu".
@@ -142,7 +142,7 @@ export default function DlaFirmPage() {
                 <div className="font-mono text-[11px] text-accent tracking-widest uppercase mb-2">Ośrodki Pomocy Społecznej i NGO</div>
                 <p className="text-[14px] leading-relaxed">
                   Pracownik socjalny obsługuje klienta. Zamiast ręcznie sprawdzać kilkadziesiąt
-                  stron rządowych -- jedno zapytanie do API i gotowa lista świadczeń, do których
+                  stron rządowych. Jedno zapytanie do API i gotowa lista świadczeń, do których
                   dana osoba się kwalifikuje, z instrukcją gdzie i jak złożyć wniosek.
                   Oszczędność czasu, mniej błędów, lepsza obsługa.
                 </p>
@@ -196,7 +196,7 @@ export default function DlaFirmPage() {
               Pola profilu użytkownika
             </h2>
             <p className="mb-4 text-[14px]">
-              Wszystkie pola są opcjonalne -- im więcej podasz, tym dokładniejsze dopasowanie.
+              Wszystkie pola są opcjonalne. Im więcej podasz, tym dokładniejsze dopasowanie.
               Minimalne zapytanie wystarczy z samym <code className="font-mono text-[13px] bg-bg-2 px-1 rounded border border-border text-accent">wiek</code> i <code className="font-mono text-[13px] bg-bg-2 px-1 rounded border border-border text-accent">plec</code>.
             </p>
             <div className="border border-border rounded-lg overflow-hidden">
@@ -227,13 +227,13 @@ export default function DlaFirmPage() {
               <p>Każde świadczenie w odpowiedzi zawiera:</p>
               <ul className="space-y-2 pl-1">
                 {[
-                  ['status', '"PRZYSLUGUJE" | "MOZLIWE" | "NIE_PRZYSLUGUJE" -- pewność dopasowania'],
-                  ['confidence', '"WYSOKA" | "SREDNIA" | "NISKA" -- jakość danych wejściowych'],
+                  ['status', '"PRZYSLUGUJE" | "MOZLIWE" | "NIE_PRZYSLUGUJE" (pewność dopasowania)'],
+                  ['confidence', '"WYSOKA" | "SREDNIA" | "NISKA" (jakość danych wejściowych)'],
                   ['matchedCriteria', 'lista warunków, które zostały spełnione'],
-                  ['warnings', 'ostrzeżenia -- np. "dochód blisko progu, sprawdź dokładnie"'],
+                  ['warnings', 'ostrzeżenia, np. "dochód blisko progu, sprawdź dokładnie"'],
                   ['wniosek.kroki', 'instrukcja krok po kroku jak złożyć wniosek'],
                   ['wniosek.dokumenty', 'lista wymaganych dokumentów'],
-                  ['wniosek.kanal', 'gdzie złożyć -- ePUAP, Emp@tia, ZUS, urząd gminy itd.'],
+                  ['wniosek.kanal', 'gdzie złożyć: ePUAP, Emp@tia, ZUS, urząd gminy itd.'],
                   ['zrodloUrl', 'link do oficjalnego źródła rządowego'],
                   ['dataWeryfikacji', 'data ostatniej weryfikacji danych'],
                 ].map(([pole, opis]) => (
@@ -255,10 +255,10 @@ export default function DlaFirmPage() {
               {[
                 ['Autoryzacja', 'Nagłówek X-API-Key lub Authorization: Bearer <klucz>'],
                 ['Format', 'JSON / REST (HTTPS)'],
-                ['CORS', 'Włączony -- możesz wywoływać z frontendu lub backendu'],
-                ['Opóźnienie (p50)', 'ok. 200 ms (samo dopasowanie, bez AI); ok. 1,5 s (z weryfikacją AI)'],
-                ['Dane użytkownika', 'Nie zapisywane -- przetwarzane in-memory i usuwane po odpowiedzi'],
-                ['Baza danych', 'Brak po naszej stronie -- żadnych kont, żadnych logów'],
+                ['CORS', 'Włączony (możesz wywoływać z frontendu lub backendu)'],
+                ['Opóźnienie (p50)', 'ok. 200 ms samo dopasowanie; ok. 1,5 s z weryfikacją AI'],
+                ['Dane użytkownika', 'Nie zapisywane, przetwarzane in-memory i usuwane po odpowiedzi'],
+                ['Baza danych', 'Brak po naszej stronie; żadnych kont, żadnych logów'],
                 ['Dostępność', 'Vercel Edge Network (hostowany w UE)'],
               ].map(([para, wartosc], i) => (
                 <div
@@ -285,9 +285,9 @@ export default function DlaFirmPage() {
                 użytkowników ani logów zapytań.
               </p>
               <p>
-                Dane wejściowe -- wiek, dochód, sytuacja rodzinna -- są danymi anonimowymi.
+                Dane wejściowe (wiek, dochód, sytuacja rodzinna) są danymi anonimowymi.
                 Nie wymagamy PESEL ani żadnych danych identyfikujących. Administratorem
-                danych osobowych końcowego użytkownika pozostaje Twoja firma (integrator) --
+                danych osobowych końcowego użytkownika pozostaje Twoja firma jako integrator,
                 nie przenosimy tej odpowiedzialności na siebie.
               </p>
               <p>
@@ -307,13 +307,13 @@ export default function DlaFirmPage() {
             <div className="space-y-3">
               <p>
                 Każde wykorzystanie API przez podmiot zewnętrzny jest uzgadniane
-                indywidualnie. Nie ma jednej stałej stawki -- warunki zależą od
+                indywidualnie. Nie ma jednej stałej stawki. Warunki zależą od
                 charakteru organizacji, liczby zapytań miesięcznie i sposobu użycia.
               </p>
               <p>
                 Dla <strong className="text-text-1">fundacji i organizacji pozarządowych (NGO)</strong>{' '}
                 działających na rzecz osób wykluczonych, seniorów, osób z niepełnosprawnościami
-                lub rodzin w trudnej sytuacji -- dostęp do API może być całkowicie bezpłatny.
+                lub rodzin w trudnej sytuacji: dostęp do API może być całkowicie bezpłatny.
                 Decyzja jest podejmowana indywidualnie po zapoznaniu się z działalnością organizacji.
               </p>
               <p>
@@ -369,7 +369,7 @@ export default function DlaFirmPage() {
                   </a>
                 </div>
                 <div className="text-[13px] text-text-3">
-                  Kamil Sobkowicz -- autor projektu wezmezadarmo.com
+                  Kamil Sobkowicz, autor projektu wezmezadarmo.com
                 </div>
               </div>
               <p className="text-[13px] text-text-3">

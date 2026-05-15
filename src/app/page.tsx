@@ -342,6 +342,7 @@ export default function Home() {
 
   // Loading progress for ring animation
   const [loadingProgress, setLoadingProgress] = useState(0);
+  const [copyDone, setCopyDone] = useState(false);
   const [loadingCatIdx, setLoadingCatIdx] = useState(0);
 
   // Load session from localStorage on mount
@@ -724,10 +725,12 @@ export default function Home() {
                   marginBottom: 40,
                   animationDelay: '120ms',
                 }}>
-                  Polska ma ponad 100 świadczeń, ulg i dotacji wartych miliardy złotych rocznie.
+                  Polska ma ponad 110 świadczeń, ulg i dotacji wartych miliardy złotych rocznie.
                   Większość ludzi nie wie, że im przysługują.{' '}
-                  <span className="serif" style={{ fontSize: 20 }}>Sprawdź to teraz.</span> W dwie minuty, bez logowania, bez wysyłania danych.
-                  Wiele osób nie wie, że przysługuje im nawet kilka tysięcy złotych rocznie. Czasem wystarczy po prostu złożyć wniosek lub się gdzieś zgłosić. Zero większych wymagań. Liczy się to, czy o tym wiesz. AI chat na stronie dobrze zna te ulgi i programy, więc jak coś jest niejasne, śmiało go pytaj.
+                  <span className="serif" style={{ fontSize: 20 }}>Na tej stronie sprawdzisz to szybko i za darmo.</span>{' '}
+                  W dwie minuty, bez zakładania konta.
+                  Wiele osób nie wie, że przysługuje im nawet kilka tysięcy złotych rocznie w ulgach, dopłatach i przywilejach. Czasem wystarczy po prostu złożyć wniosek lub się gdzieś zgłosić. Zero większych wymagań. Liczy się to, czy o tym wiesz.{' '}
+                  Na stronie WezmeZaDarmo wbudowany jest asystent AI, który przez chat odpowie na Twoje pytania i pomoże potwierdzić, czy dane świadczenie Ci przysługuje oraz co zrobić, by je uzyskać. Asystent dobrze zna polskie ulgi i programy rządowe, więc jeśli coś jest niejasne, śmiało pytaj.
                 </p>
 
                 {/* Stat counters */}
@@ -798,7 +801,7 @@ export default function Home() {
 
                   <h3 style={{ fontSize: 22, marginBottom: 6, letterSpacing: '-0.02em' }}>Podaj swoje dane</h3>
                   <p style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 24 }}>
-                    Wiek i plec wystarczaja do dopasowania swiadczen.
+                    Wiek i płeć wystarczą do dopasowania świadczeń.
                   </p>
 
                   <IntakeForm onSubmit={handleIntakeSubmit} isLoading={isLoading} />
@@ -892,6 +895,163 @@ export default function Home() {
                 </div>
               </div>
             </div>
+            {/* Testimonials */}
+            <div className="rise" style={{ marginTop: 80, animationDelay: '540ms' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
+                <span className="label-eyebrow">Co mówią użytkownicy</span>
+                <span style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
+
+                {/* Testimonial 1 */}
+                <div style={{
+                  background: 'var(--color-surface)',
+                  border: '1px solid var(--color-border)',
+                  borderRadius: 16,
+                  padding: '20px 22px',
+                  display: 'flex', flexDirection: 'column', gap: 14,
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <div style={{
+                      width: 36, height: 36, borderRadius: '50%',
+                      background: 'var(--color-accent-soft)',
+                      border: '1px solid var(--color-border)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontSize: 14, fontWeight: 600, color: 'var(--color-accent)',
+                      flexShrink: 0,
+                    }}>A</div>
+                    <div>
+                      <div style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-text-1)' }}>Użytkowniczka</div>
+                      <div style={{ fontSize: 11, color: 'var(--color-text-3)' }}>z komentarza</div>
+                    </div>
+                  </div>
+                  <p style={{ fontSize: 14, lineHeight: 1.6, color: 'var(--color-text-2)', margin: 0 }}>
+                    &ldquo;Byłam wczoraj służbowo w takim stowarzyszeniu i poleciłam im wezmezadarmo.com.
+                    I koleś który tam pracuje był tak wdzięczny, że trudno opisać.
+                    Polecam polecać.&rdquo;
+                  </p>
+                  <div style={{ display: 'flex', gap: 6, alignItems: 'center', marginTop: 'auto', paddingTop: 10, borderTop: '1px solid var(--color-border)' }}>
+                    <span style={{ fontSize: 11, color: 'var(--color-text-3)' }}>3 polubienia</span>
+                    <span style={{ fontSize: 11, color: 'var(--color-muted-2)' }}>08:12</span>
+                  </div>
+                </div>
+
+                {/* Testimonial 2 */}
+                <div style={{
+                  background: 'var(--color-surface)',
+                  border: '1px solid var(--color-border)',
+                  borderRadius: 16,
+                  padding: '20px 22px',
+                  display: 'flex', flexDirection: 'column', gap: 14,
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <div style={{
+                      width: 36, height: 36, borderRadius: '50%',
+                      background: 'var(--color-green-bg)',
+                      border: '1px solid var(--color-green-border)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontSize: 14, fontWeight: 600, color: 'var(--color-green)',
+                      flexShrink: 0,
+                    }}>T</div>
+                    <div>
+                      <div style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-text-1)' }}>Technolog</div>
+                      <div style={{ fontSize: 11, color: 'var(--color-text-3)' }}>z komentarza</div>
+                    </div>
+                  </div>
+                  <p style={{ fontSize: 14, lineHeight: 1.6, color: 'var(--color-text-2)', margin: 0 }}>
+                    &ldquo;Tworzę nowoczesne technologie dla małych, dużych i bardzo dużych&hellip;
+                    Ooo, przysługuje mi: Refundacja okularów i soczewek z NFZ
+                    50&ndash;700 PLN na okulary, do 600 PLN na soczewki kontaktowe.&rdquo;
+                  </p>
+                  <div style={{ display: 'flex', gap: 6, alignItems: 'center', marginTop: 'auto', paddingTop: 10, borderTop: '1px solid var(--color-border)' }}>
+                    <span style={{ fontSize: 11, color: 'var(--color-green)', fontWeight: 500 }}>Znalazł świadczenie</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            {/* Share section */}
+            <div className="rise" style={{ marginTop: 64, animationDelay: '600ms' }}>
+              <div style={{
+                background: 'var(--color-surface)',
+                border: '1px solid var(--color-border)',
+                borderRadius: 'var(--radius-xl)',
+                padding: '32px',
+                textAlign: 'center',
+              }}>
+                <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-text-3)', marginBottom: 12 }}>
+                  Ta strona działa, jeśli ją udostępniasz
+                </div>
+                <h3 style={{ fontSize: 22, letterSpacing: '-0.02em', marginBottom: 12 }}>
+                  Podziel się z bliskimi
+                </h3>
+                <p style={{ fontSize: 15, color: 'var(--color-text-2)', lineHeight: 1.6, maxWidth: 520, margin: '0 auto 28px' }}>
+                  Ta strona walczy z niewiedzą. Im więcej osób o niej wie, tym więcej ludzi
+                  dostaje pieniądze, które im się należą. Podziel się z rodziną, znajomymi,
+                  kolegami z pracy, sąsiadami. Jeden link może komuś pomóc znaleźć kilka
+                  tysięcy złotych rocznie.
+                </p>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'center' }}>
+                  <a
+                    href={`https://wa.me/?text=${encodeURIComponent('Sprawdź co Ci się należy od państwa! wezmezadarmo.com – 117 świadczeń, ulg i dotacji. Bez logowania, za darmo, w 2 minuty.')}`}
+                    target="_blank" rel="noopener noreferrer"
+                    style={{
+                      display: 'inline-flex', alignItems: 'center', gap: 8,
+                      padding: '10px 18px', borderRadius: 999,
+                      background: '#25D366', color: '#fff',
+                      fontSize: 14, fontWeight: 500, textDecoration: 'none',
+                    }}
+                  >
+                    WhatsApp
+                  </a>
+                  <a
+                    href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://wezmezadarmo.com')}`}
+                    target="_blank" rel="noopener noreferrer"
+                    style={{
+                      display: 'inline-flex', alignItems: 'center', gap: 8,
+                      padding: '10px 18px', borderRadius: 999,
+                      background: '#1877F2', color: '#fff',
+                      fontSize: 14, fontWeight: 500, textDecoration: 'none',
+                    }}
+                  >
+                    Facebook
+                  </a>
+                  <a
+                    href={`https://x.com/intent/tweet?text=${encodeURIComponent('Sprawdź co Ci się należy od państwa!')}&url=${encodeURIComponent('https://wezmezadarmo.com')}`}
+                    target="_blank" rel="noopener noreferrer"
+                    style={{
+                      display: 'inline-flex', alignItems: 'center', gap: 8,
+                      padding: '10px 18px', borderRadius: 999,
+                      background: 'var(--color-text-1)', color: 'var(--color-bg-0)',
+                      fontSize: 14, fontWeight: 500, textDecoration: 'none',
+                    }}
+                  >
+                    X (Twitter)
+                  </a>
+                  <button
+                    onClick={() => {
+                      navigator.clipboard.writeText('https://wezmezadarmo.com').then(() => {
+                        setCopyDone(true);
+                        setTimeout(() => setCopyDone(false), 2500);
+                      });
+                    }}
+                    style={{
+                      display: 'inline-flex', alignItems: 'center', gap: 8,
+                      padding: '10px 18px', borderRadius: 999,
+                      background: copyDone ? 'var(--color-green-bg)' : 'var(--color-surface-2)',
+                      color: copyDone ? 'var(--color-green)' : 'var(--color-text-1)',
+                      border: `1px solid ${copyDone ? 'var(--color-green-border)' : 'var(--color-border)'}`,
+                      fontSize: 14, fontWeight: 500, cursor: 'pointer',
+                      transition: 'all 200ms',
+                    }}
+                  >
+                    {copyDone ? 'Skopiowano!' : 'Kopiuj link'}
+                  </button>
+                </div>
+              </div>
+            </div>
+
           </div>
         </section>
 
