@@ -2,13 +2,14 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'API dla firm | wezmezadarmo',
-  description: 'Baza 117 polskich swiadczen jako API dla software house\'ow, fintechow i instytucji. Licencjonowanie B2B, integracja REST, brak danych uzytkownikow.',
+  title: 'Współpraca B2B | wezmezadarmo.com',
+  description:
+    'Baza 117 polskich świadczeń socjalnych, ulg i dotacji dostępna jako API REST dla firm, NGO i instytucji. Bez przechowywania danych użytkowników. Integracja w jeden dzień.',
 };
 
 const EXAMPLE_REQUEST = `curl -X POST https://wezmezadarmo.com/api/verify \\
   -H "Content-Type: application/json" \\
-  -H "X-API-Key: TWOJ_KLUCZ" \\
+  -H "X-API-Key: TWOJ_KLUCZ_API" \\
   -d '{
     "profile": {
       "wiek": 35,
@@ -37,25 +38,54 @@ const EXAMPLE_RESPONSE = `{
     {
       "benefit": {
         "id": "800-plus",
-        "nazwa": "Swiadczenie wychowawcze 800+",
+        "nazwa": "Świadczenie wychowawcze 800+",
         "kategoria": "RODZINA",
         "kwota": "800 PLN/mies.",
+        "czestotliwosc": "miesięcznie",
         "wniosek": {
           "kanal": ["EMPATIA", "ePUAP"],
-          "dokumenty": ["Dowod osobisty", "Akty urodzenia dzieci"],
-          "kroki": ["Zaloguj sie do Emp@tia", "Wypelnij wniosek SW-1", "..."],
-          "terminRealizacji": "do 3 miesiecy od zlozenia wniosku"
-        }
+          "dokumenty": ["Dowód osobisty", "Akty urodzenia dzieci"],
+          "kroki": [
+            "Zaloguj się do portalu Emp@tia (empatia.mrpips.gov.pl)",
+            "Wybierz wniosek SW-1",
+            "Wypełnij dane dzieci i konto bankowe",
+            "Prześlij elektronicznie -- nie musisz iść do urzędu"
+          ],
+          "terminRealizacji": "do 3 miesięcy od złożenia wniosku"
+        },
+        "zrodloUrl": "https://www.gov.pl/web/rodzina/800plus",
+        "dataWeryfikacji": "2026-05-09"
       },
       "status": "PRZYSLUGUJE",
       "confidence": "WYSOKA",
-      "matchedCriteria": ["Ma 2 dzieci ponizej 18 lat"],
+      "matchedCriteria": ["Ma 2 dzieci poniżej 18 lat"],
       "failedCriteria": [],
       "warnings": []
     }
   ],
   "aiVerified": true
 }`;
+
+const PROFILE_FIELDS = [
+  { pole: 'wiek', typ: 'number', opis: 'Wiek w latach', przyklad: '35' },
+  { pole: 'plec', typ: '"K" | "M"', opis: 'Płeć (K -- kobieta, M -- mężczyzna)', przyklad: '"K"' },
+  { pole: 'stanCywilny', typ: 'string', opis: '"wolny" | "malzenstwo" | "rozwiedziony" | "wdowiec"', przyklad: '"malzenstwo"' },
+  { pole: 'liczbaDzieci', typ: 'number', opis: 'Liczba dzieci poniżej 18 roku życia', przyklad: '2' },
+  { pole: 'wiekDzieci', typ: 'number[]', opis: 'Wiek każdego dziecka (tablica)', przyklad: '[3, 7]' },
+  { pole: 'dochodMiesiecznie', typ: 'number', opis: 'Łączny dochód netto gospodarstwa (PLN/mies.)', przyklad: '4500' },
+  { pole: 'dochodNaOsobe', typ: 'number', opis: 'Dochód netto na osobę w gospodarstwie (PLN/mies.)', przyklad: '1500' },
+  { pole: 'zatrudnienie', typ: 'string', opis: '"umowa_o_prace" | "dzialalnosc" | "umowa_zlecenie" | "bezrobotny" | "emeryt"', przyklad: '"umowa_o_prace"' },
+  { pole: 'niepelnosprawnosc', typ: 'string', opis: '"brak" | "lekki" | "umiarkowany" | "znaczny"', przyklad: '"brak"' },
+  { pole: 'wlasnosc', typ: 'string', opis: '"mieszkanie" | "dom" | "wynajem" | "rodzina"', przyklad: '"mieszkanie"' },
+  { pole: 'wojewodztwo', typ: 'string', opis: 'Nazwa województwa (małymi literami, z myślnikami)', przyklad: '"mazowieckie"' },
+  { pole: 'prowadzDzialalnosc', typ: 'boolean', opis: 'Czy prowadzi działalność gospodarczą', przyklad: 'false' },
+  { pole: 'pierwszaDzialalnosc', typ: 'boolean', opis: 'Czy to pierwsza działalność gospodarcza', przyklad: 'false' },
+  { pole: 'ciaza', typ: 'boolean', opis: 'Czy w ciąży (dotyczy kobiet)', przyklad: 'false' },
+  { pole: 'student', typ: 'boolean', opis: 'Czy jest studentem', przyklad: 'false' },
+  { pole: 'emeryt', typ: 'boolean', opis: 'Czy pobiera emeryturę lub rentę', przyklad: 'false' },
+  { pole: 'rolnik', typ: 'boolean', opis: 'Czy jest rolnikiem ubezpieczonym w KRUS', przyklad: 'false' },
+  { pole: 'bezrobotnyZarejestrowany', typ: 'boolean', opis: 'Czy jest zarejestrowany w urzędzie pracy (PUP)', przyklad: 'false' },
+];
 
 export default function DlaFirmPage() {
   return (
@@ -65,84 +95,83 @@ export default function DlaFirmPage() {
           &larr; Wróć do strony głównej
         </Link>
 
-        <div className="mb-8">
-          <div className="text-[11px] font-mono tracking-widest text-text-3 uppercase mb-3">API / B2B</div>
-          <h1 className="text-[24px] sm:text-[28px] font-bold text-text-1 mb-2">
-            Baza świadczeń jako API
+        {/* Nagłówek */}
+        <div className="mb-10">
+          <div className="text-[11px] font-mono tracking-widest text-text-3 uppercase mb-3">Współpraca B2B</div>
+          <h1 className="text-[24px] sm:text-[30px] font-bold text-text-1 mb-4 leading-tight">
+            Baza polskich świadczeń<br />dla Twojej aplikacji
           </h1>
-          <p className="text-[14px] text-text-3">
-            wezmezadarmo.com &mdash; licencjonowanie dla firm
+          <p className="text-[15px] text-text-2 leading-relaxed">
+            117 zweryfikowanych świadczeń socjalnych, ulg podatkowych i dotacji z oficjalnych
+            źródeł rządowych -- dostępnych przez jedno wywołanie API. Twoja aplikacja pyta,
+            my odpowiadamy, co danemu użytkownikowi przysługuje i jak to dostać.
           </p>
         </div>
 
-        <div className="space-y-10 text-[14px] sm:text-[15px] leading-[1.7] text-text-2">
+        <div className="space-y-12 text-[14px] sm:text-[15px] leading-[1.7] text-text-2">
 
-          {/* Oferta */}
-          <section>
-            <h2 className="text-[16px] sm:text-[18px] font-bold text-text-1 mb-3">
-              Co udostępniamy
-            </h2>
-            <div className="space-y-3">
-              <p>
-                Zbudowaliśmy bazę{' '}
-                <strong className="text-text-1">117 polskich świadczeń socjalnych, ulg podatkowych i dotacji</strong>
-                {' '}z oficjalnych źródeł rządowych (gov.pl, ZUS, NFZ, ARiMR, KRUS). Każde świadczenie ma
-                zweryfikowane warunki kwalifikowalności, instrukcję krok po kroku i link do źródła.
-              </p>
-              <p>
-                API udostępniamy na licencji B2B. Integracja REST, bez bazy danych użytkowników po
-                naszej stronie -- dane wejściowe nie są zapisywane ani logowane.
-              </p>
-            </div>
-          </section>
-
-          {/* Przypadki uzycia */}
+          {/* Dla kogo */}
           <section>
             <h2 className="text-[16px] sm:text-[18px] font-bold text-text-1 mb-4">
-              Kto korzysta
+              Dla kogo to jest
             </h2>
-            <div className="space-y-4">
+            <div className="space-y-3">
+
               <div className="border border-border rounded-lg p-4">
-                <div className="font-mono text-[11px] text-accent tracking-widest uppercase mb-2">Oprogramowanie HR</div>
-                <p className="text-[14px]">
-                  Systemy kadrowe (np. przy onboardingu pracownika) mogą wyświetlać listę świadczeń,
-                  do których kwalifikuje się nowy zatrudniony -- 500+, becikowe, ulga prorodzinna,
-                  dofinansowanie do żłobka. Bez konieczności ręcznego sprawdzania przez HR.
+                <div className="font-mono text-[11px] text-accent tracking-widest uppercase mb-2">Oprogramowanie kadrowe i HR</div>
+                <p className="text-[14px] leading-relaxed">
+                  Przy onboardingu nowego pracownika Twój system może automatycznie sprawdzić,
+                  jakie świadczenia mu przysługują -- świadczenie 800+ na dzieci, ulga
+                  prorodzinna w PIT, dofinansowanie do żłobka z budżetu gminy, becikowe.
+                  HR dostaje gotową listę zamiast odsyłać pracownika na rządowe strony.
                 </p>
               </div>
+
               <div className="border border-border rounded-lg p-4">
-                <div className="font-mono text-[11px] text-accent tracking-widest uppercase mb-2">Fintech / bankowość</div>
-                <p className="text-[14px]">
-                  Aplikacje bankowe i fintechowe mogą wzbogacić profil klienta o informacje
-                  o należnych mu świadczeniach -- przydatne przy scoringu kredytowym, onboardingu
-                  i doradztwie finansowym. Klient wie, że ma stałe dochody ze świadczeń.
+                <div className="font-mono text-[11px] text-accent tracking-widest uppercase mb-2">Aplikacje bankowe i fintech</div>
+                <p className="text-[14px] leading-relaxed">
+                  Klient składa wniosek kredytowy. Twoja aplikacja w tle sprawdza, na jakie
+                  regularne świadczenia się kwalifikuje -- 800+, trzynasta emerytura, renta.
+                  To realny, stały dochód, który powinien wchodzić do scoringu. Dodatkowo
+                  doradztwo finansowe zyskuje nowy wymiar: "przysługuje Ci X, możesz to
+                  przeznaczyć na nadpłatę kredytu".
                 </p>
               </div>
+
               <div className="border border-border rounded-lg p-4">
-                <div className="font-mono text-[11px] text-accent tracking-widest uppercase mb-2">OPS / instytucje pomocy spolecznej</div>
-                <p className="text-[14px]">
-                  Pracownicy Ośrodków Pomocy Społecznej i NGO mogą zintegrować bazę z wewnętrznym
-                  systemem do obsługi klientów. Automatyczna weryfikacja kwalifikowalności zastępuje
-                  ręczne sprawdzanie kilkudziesięciu stron rządowych.
+                <div className="font-mono text-[11px] text-accent tracking-widest uppercase mb-2">Ośrodki Pomocy Społecznej i NGO</div>
+                <p className="text-[14px] leading-relaxed">
+                  Pracownik socjalny obsługuje klienta. Zamiast ręcznie sprawdzać kilkadziesiąt
+                  stron rządowych -- jedno zapytanie do API i gotowa lista świadczeń, do których
+                  dana osoba się kwalifikuje, z instrukcją gdzie i jak złożyć wniosek.
+                  Oszczędność czasu, mniej błędów, lepsza obsługa.
                 </p>
               </div>
+
             </div>
           </section>
 
-          {/* API - jak dziala */}
+          {/* Jak to dziala */}
           <section>
-            <h2 className="text-[16px] sm:text-[18px] font-bold text-text-1 mb-3">
-              Jak działa API
+            <h2 className="text-[16px] sm:text-[18px] font-bold text-text-1 mb-4">
+              Jak to działa
             </h2>
             <div className="space-y-4">
               <p>
-                Jeden endpoint: <code className="font-mono text-[13px] bg-surface-2 px-1.5 py-0.5 rounded text-accent">POST /api/verify</code>.
-                Wysyłasz profil użytkownika (wiek, dochód, sytuacja rodzinna), otrzymujesz listę
-                pasujących świadczeń ze statusem kwalifikowalności i instrukcją aplikacji.
+                Jeden endpoint REST:{' '}
+                <code className="font-mono text-[13px] bg-bg-2 px-1.5 py-0.5 rounded text-accent border border-border">
+                  POST /api/verify
+                </code>
+                . Wysyłasz profil użytkownika w formacie JSON, otrzymujesz listę
+                świadczeń posortowaną według pewności dopasowania. Każde świadczenie
+                zawiera kwotę, jak często jest wypłacane, jakie dokumenty są potrzebne
+                i dokładną instrukcję składania wniosku krok po kroku.
               </p>
               <p>
-                Pełna dokumentacja w formacie LLM-friendly:{' '}
-                <a href="/llm.md" className="text-accent hover:underline">wezmezadarmo.com/llm.md</a>
+                Dopasowanie działa dwuetapowo: najpierw deterministyczny algorytm
+                sprawdza twarde warunki (wiek, dochód, liczba dzieci itd.), a następnie
+                model językowy AI weryfikuje przypadki graniczne i dodaje ostrzeżenia
+                tam, gdzie kwalifikowalność nie jest jednoznaczna.
               </p>
 
               <div>
@@ -153,73 +182,152 @@ export default function DlaFirmPage() {
               </div>
 
               <div>
-                <div className="font-mono text-[11px] text-text-3 tracking-widest uppercase mb-2">Przykładowa odpowiedź (skrócona)</div>
+                <div className="font-mono text-[11px] text-text-3 tracking-widest uppercase mb-2">Przykładowa odpowiedź (jedno świadczenie ze skróconej listy)</div>
                 <pre className="bg-bg-2 border border-border rounded-lg p-4 text-[12px] font-mono text-text-2 overflow-x-auto whitespace-pre leading-relaxed">
                   {EXAMPLE_RESPONSE}
                 </pre>
               </div>
-
-              <div className="border border-border rounded-lg p-4 space-y-2">
-                <div className="font-mono text-[11px] text-text-3 tracking-widest uppercase mb-3">Parametry techniczne</div>
-                <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-[13px]">
-                  <span className="text-text-3">Autoryzacja</span>
-                  <span className="font-mono text-text-1">X-API-Key: &lt;klucz&gt;</span>
-                  <span className="text-text-3">Format</span>
-                  <span className="font-mono text-text-1">JSON (REST)</span>
-                  <span className="text-text-3">Protokół</span>
-                  <span className="font-mono text-text-1">HTTPS</span>
-                  <span className="text-text-3">CORS</span>
-                  <span className="font-mono text-text-1">Wlaczony (*)</span>
-                  <span className="text-text-3">Dane uzytkownika</span>
-                  <span className="font-mono text-text-1">Nie zapisywane</span>
-                  <span className="text-text-3">SLA</span>
-                  <span className="font-mono text-text-1">Do ustalenia</span>
-                </div>
-              </div>
             </div>
           </section>
 
-          {/* GDPR */}
+          {/* Pola profilu */}
           <section>
-            <h2 className="text-[16px] sm:text-[18px] font-bold text-text-1 mb-3">
+            <h2 className="text-[16px] sm:text-[18px] font-bold text-text-1 mb-4">
+              Pola profilu użytkownika
+            </h2>
+            <p className="mb-4 text-[14px]">
+              Wszystkie pola są opcjonalne -- im więcej podasz, tym dokładniejsze dopasowanie.
+              Minimalne zapytanie wystarczy z samym <code className="font-mono text-[13px] bg-bg-2 px-1 rounded border border-border text-accent">wiek</code> i <code className="font-mono text-[13px] bg-bg-2 px-1 rounded border border-border text-accent">plec</code>.
+            </p>
+            <div className="border border-border rounded-lg overflow-hidden">
+              <div className="grid grid-cols-[1fr_1fr_2fr] bg-bg-2 border-b border-border px-4 py-2 font-mono text-[10px] tracking-widest uppercase text-text-3">
+                <span>Pole</span>
+                <span>Typ</span>
+                <span>Opis</span>
+              </div>
+              {PROFILE_FIELDS.map((f, i) => (
+                <div
+                  key={f.pole}
+                  className={`grid grid-cols-[1fr_1fr_2fr] px-4 py-2.5 text-[12px] border-b border-border last:border-0 ${i % 2 === 0 ? '' : 'bg-bg-2'}`}
+                >
+                  <code className="font-mono text-accent">{f.pole}</code>
+                  <code className="font-mono text-text-3 text-[11px]">{f.typ}</code>
+                  <span className="text-text-2 text-[12px]">{f.opis}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Odpowiedź */}
+          <section>
+            <h2 className="text-[16px] sm:text-[18px] font-bold text-text-1 mb-4">
+              Co zwraca API
+            </h2>
+            <div className="space-y-3">
+              <p>Każde świadczenie w odpowiedzi zawiera:</p>
+              <ul className="space-y-2 pl-1">
+                {[
+                  ['status', '"PRZYSLUGUJE" | "MOZLIWE" | "NIE_PRZYSLUGUJE" -- pewność dopasowania'],
+                  ['confidence', '"WYSOKA" | "SREDNIA" | "NISKA" -- jakość danych wejściowych'],
+                  ['matchedCriteria', 'lista warunków, które zostały spełnione'],
+                  ['warnings', 'ostrzeżenia -- np. "dochód blisko progu, sprawdź dokładnie"'],
+                  ['wniosek.kroki', 'instrukcja krok po kroku jak złożyć wniosek'],
+                  ['wniosek.dokumenty', 'lista wymaganych dokumentów'],
+                  ['wniosek.kanal', 'gdzie złożyć -- ePUAP, Emp@tia, ZUS, urząd gminy itd.'],
+                  ['zrodloUrl', 'link do oficjalnego źródła rządowego'],
+                  ['dataWeryfikacji', 'data ostatniej weryfikacji danych'],
+                ].map(([pole, opis]) => (
+                  <li key={pole} className="flex gap-3 text-[14px]">
+                    <code className="font-mono text-accent text-[12px] shrink-0 mt-0.5">{pole}</code>
+                    <span className="text-text-2">{opis}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+
+          {/* Parametry techniczne */}
+          <section>
+            <h2 className="text-[16px] sm:text-[18px] font-bold text-text-1 mb-4">
+              Parametry techniczne
+            </h2>
+            <div className="border border-border rounded-lg overflow-hidden">
+              {[
+                ['Autoryzacja', 'Nagłówek X-API-Key lub Authorization: Bearer <klucz>'],
+                ['Format', 'JSON / REST (HTTPS)'],
+                ['CORS', 'Włączony -- możesz wywoływać z frontendu lub backendu'],
+                ['Opóźnienie (p50)', 'ok. 200 ms (samo dopasowanie, bez AI); ok. 1,5 s (z weryfikacją AI)'],
+                ['Dane użytkownika', 'Nie zapisywane -- przetwarzane in-memory i usuwane po odpowiedzi'],
+                ['Baza danych', 'Brak po naszej stronie -- żadnych kont, żadnych logów'],
+                ['Dostępność', 'Vercel Edge Network (hostowany w UE)'],
+              ].map(([para, wartosc], i) => (
+                <div
+                  key={para}
+                  className={`grid grid-cols-[1fr_2fr] px-4 py-3 text-[13px] border-b border-border last:border-0 ${i % 2 === 0 ? '' : 'bg-bg-2'}`}
+                >
+                  <span className="text-text-3 font-medium">{para}</span>
+                  <span className="text-text-1 font-mono text-[12px]">{wartosc}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* RODO */}
+          <section>
+            <h2 className="text-[16px] sm:text-[18px] font-bold text-text-1 mb-4">
               RODO i ochrona danych
             </h2>
             <div className="space-y-3">
               <p>
-                API nie przechowuje danych osobowych. Profil użytkownika wysłany w zapytaniu
-                jest przetwarzany w pamięci (in-memory) i natychmiast usuwany po zwróceniu odpowiedzi.
-                Nie prowadzimy bazy użytkowników, nie logujemy danych wejściowych.
+                API nie przechowuje żadnych danych osobowych. Profil użytkownika wysłany
+                w zapytaniu jest przetwarzany wyłącznie w pamięci operacyjnej serwera
+                i usuwany natychmiast po zwróceniu odpowiedzi. Nie prowadzimy bazy
+                użytkowników ani logów zapytań.
               </p>
               <p>
-                Dane wejściowe to dane anonimowe (wiek, dochód, sytuacja rodzinna) -- nie
-                wymagamy PESEL ani żadnych danych identyfikujących. Administrator danych osobowych
-                końcowego użytkownika pozostaje po stronie integratora (Twojej firmy).
+                Dane wejściowe -- wiek, dochód, sytuacja rodzinna -- są danymi anonimowymi.
+                Nie wymagamy PESEL ani żadnych danych identyfikujących. Administratorem
+                danych osobowych końcowego użytkownika pozostaje Twoja firma (integrator) --
+                nie przenosimy tej odpowiedzialności na siebie.
+              </p>
+              <p>
+                Dane dot. dochodu, sytuacji rodzinnej i niepełnosprawności mogą być
+                uznane za dane wrażliwe w rozumieniu RODO art. 9, jeśli są powiązane
+                z konkretną osobą po stronie integratora. Zalecamy ich anonimizację
+                przed przesłaniem do API.
               </p>
             </div>
           </section>
 
           {/* Kontakt */}
           <section>
-            <h2 className="text-[16px] sm:text-[18px] font-bold text-text-1 mb-3">
-              Licencjonowanie i kontakt
+            <h2 className="text-[16px] sm:text-[18px] font-bold text-text-1 mb-4">
+              Kontakt i wycena
             </h2>
-            <div className="space-y-3">
+            <div className="space-y-4">
               <p>
-                Oferujemy licencje miesięczne dla organizacji. Cena zależy od liczby zapytań
-                i przypadku użycia. Napisz do nas -- wrócimy w ciągu 24 godzin roboczych.
+                Napisz na adres poniżej z krótkim opisem przypadku użycia i szacowaną
+                liczbą zapytań miesięcznie. Wycena jest indywidualna. Odpisuję
+                w ciągu jednego dnia roboczego.
               </p>
-              <div className="pt-2">
-                <a
-                  href="mailto:kontakt@wezmezadarmo.com"
-                  className="inline-block bg-accent text-bg-0 font-semibold text-[14px] px-5 py-2.5 rounded-lg hover:bg-accent-hover transition-colors"
-                >
-                  Napisz do nas
-                </a>
+              <div className="border border-border rounded-lg p-5 space-y-3">
+                <div className="font-mono text-[11px] text-text-3 tracking-widest uppercase">Kontakt</div>
+                <div className="text-[15px]">
+                  <span className="text-text-3 text-[13px]">e-mail: </span>
+                  <a
+                    href="mailto:sobkowicz.kamil@gmail.com"
+                    className="text-accent hover:underline font-mono text-[14px]"
+                  >
+                    sobkowicz.kamil@gmail.com
+                  </a>
+                </div>
+                <div className="text-[13px] text-text-3">
+                  Kamil Sobkowicz -- autor projektu wezmezadarmo.com
+                </div>
               </div>
-              <p className="text-[13px] text-text-3 pt-1">
-                Możesz też sprawdzić dokumentację techniczną:{' '}
-                <a href="/llm.md" className="text-accent hover:underline">llm.md</a>
-                {' '}lub przetestować API bezpośrednio bez klucza (limity dotyczą pełnego ruchu produkcyjnego).
+              <p className="text-[13px] text-text-3">
+                Dokumentacja techniczna w formacie czytelnym dla modeli AI:{' '}
+                <a href="/llm.md" className="text-accent hover:underline">wezmezadarmo.com/llm.md</a>
               </p>
             </div>
           </section>
