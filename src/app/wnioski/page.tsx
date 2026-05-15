@@ -21,13 +21,15 @@ interface Form {
 interface Category {
   id: string;
   label: string;
+  icon: string;
   forms: Form[];
 }
 
 const CATEGORIES: Category[] = [
   {
     id: 'zus',
-    label: 'ZUS: Zakład Ubezpieczeń Społecznych',
+    label: 'ZUS',
+    icon: '01',
     forms: [
       {
         slug: 'zus-z15a',
@@ -96,7 +98,8 @@ const CATEGORIES: Category[] = [
   },
   {
     id: 'pfron',
-    label: 'PFRON: Fundusz Rehabilitacji Niepełnosprawnych',
+    label: 'PFRON',
+    icon: '02',
     forms: [
       {
         slug: 'pfron-as1',
@@ -126,7 +129,8 @@ const CATEGORIES: Category[] = [
   },
   {
     id: 'mops',
-    label: 'MOPS / Gmina: świadczenia społeczne',
+    label: 'MOPS / Gmina',
+    icon: '03',
     forms: [
       {
         slug: 'mops-800plus',
@@ -172,7 +176,8 @@ const CATEGORIES: Category[] = [
   },
   {
     id: 'pracagov',
-    label: 'Urząd Pracy: praca.gov.pl',
+    label: 'Urząd Pracy',
+    icon: '04',
     forms: [
       {
         slug: 'pup-jednorazowe',
@@ -202,7 +207,7 @@ const CATEGORIES: Category[] = [
         slug: 'pup-staz',
         name: 'Wniosek o staż z urzędu pracy',
         institution: 'Powiatowy Urząd Pracy',
-        amount: 'stypendium ~1901 PLN',
+        amount: 'stypendium ok. 1901 PLN',
         description: 'Dla pracodawców i bezrobotnych chcących zorganizować staż finansowany przez PUP. Czas trwania: 3-6 miesięcy.',
         available: false,
       },
@@ -210,7 +215,8 @@ const CATEGORIES: Category[] = [
   },
   {
     id: 'nfz',
-    label: 'NFZ: refundacje i dofinansowania zdrowotne',
+    label: 'NFZ',
+    icon: '05',
     forms: [
       {
         slug: 'nfz-okulary',
@@ -232,21 +238,22 @@ const CATEGORIES: Category[] = [
   },
   {
     id: 'granty',
-    label: 'Granty i dofinansowania: przedsiębiorcy i projekty',
+    label: 'Granty',
+    icon: '06',
     forms: [
       {
         slug: 'nlnet',
         name: 'NLnet NGI Zero Commons Fund',
         institution: 'NLnet Foundation / UE Horizon Europe',
-        amount: 'do €50 000',
+        amount: 'do 50 000 EUR',
         deadline: '1 czerwca 2026, 12:00',
         deadlineUrgent: true,
-        description: 'Grant dla projektów open-source z impaktem społecznym. Dla civic tech, narzędzi AI, infrastruktury cyfrowej.',
+        description: 'Grant dla projektów open-source z impaktem społecznym. Dla civic tech, narzędzi AI, infrastruktury cyfrowej. Bez wymogu spółki, solo-founder OK.',
         available: true,
       },
       {
         slug: 'step',
-        name: 'NCBiR STEP Ścieżka A',
+        name: 'NCBiR STEP Sciezka A',
         institution: 'NCBiR / FENG 2021-2027',
         amount: 'do 18 mln PLN',
         deadline: '17 czerwca 2026',
@@ -257,7 +264,7 @@ const CATEGORIES: Category[] = [
         slug: 'eic',
         name: 'EIC Accelerator',
         institution: 'European Innovation Council',
-        amount: 'do €2,5 mln',
+        amount: 'do 2,5 mln EUR',
         deadline: '8 lipca 2026',
         description: 'Europejski program dla startupów z przełomowymi innowacjami i globalnym potencjałem.',
         available: false,
@@ -274,44 +281,152 @@ const CATEGORIES: Category[] = [
   },
 ];
 
+const STEPS = [
+  { n: '01', text: 'Wybierz formularz i wpisz swoje dane. AI wyjaśni co znaczy każde pole.' },
+  { n: '02', text: 'AI automatycznie generuje treść wszystkich pól na podstawie tego co podałeś.' },
+  { n: '03', text: 'Przechodzisz pole po polu, czytasz, poprawiasz i akceptujesz.' },
+  { n: '04', text: 'Pobierasz gotowy tekst i wklejasz do oryginalnego formularza lub drukujesz.' },
+];
+
 export default function WnioskiPage() {
   const totalForms = CATEGORIES.reduce((s, c) => s + c.forms.length, 0);
   const availableForms = CATEGORIES.reduce((s, c) => s + c.forms.filter(f => f.available).length, 0);
 
   return (
-    <div className="min-h-screen bg-bg-0 py-8 sm:py-12 px-4 sm:px-6">
-      <div className="max-w-2xl mx-auto">
-        <Link href="/" className="text-[13px] text-accent hover:underline mb-6 inline-block">
-          &larr; Wróć do strony głównej
-        </Link>
+    <div style={{ minHeight: '100vh', background: 'var(--color-bg-0)' }}>
 
-        <h1 className="text-[24px] sm:text-[28px] font-bold text-text-1 mb-3">
-          Pomoc w wypełnieniu wniosku z AI
-        </h1>
-        <p className="text-[15px] text-text-2 mb-2 leading-[1.7]">
-          Podaj swoje dane. AI automatycznie wypełni formularz, ty przeglądasz pole po polu i pobierasz gotowy tekst. Działa dla wniosków ZUS, PFRON, MOPS, urzędu pracy i grantów.
-        </p>
-        <div className="flex items-center gap-4 mb-8">
-          <span className="text-[13px] text-text-3">{totalForms} formularzy w bazie</span>
-          <span className="text-[12px] text-text-3">|</span>
-          <span className="text-[13px] text-accent font-medium">{availableForms} dostępne teraz</span>
-          <span className="text-[12px] text-text-3">|</span>
-          <span className="text-[13px] text-text-3">Twoje dane nie wychodzą poza przeglądarkę</span>
+      {/* Header */}
+      <header style={{
+        position: 'sticky', top: 0, zIndex: 50,
+        background: 'rgba(250,248,242,0.85)',
+        backdropFilter: 'saturate(140%) blur(14px)',
+        WebkitBackdropFilter: 'saturate(140%) blur(14px)',
+        borderBottom: '1px solid var(--color-border)',
+      }}>
+        <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
+            <span style={{
+              display: 'inline-block', width: 9, height: 9,
+              background: 'var(--color-pl-red)', borderRadius: '50%',
+            }} />
+            <span style={{ fontWeight: 600, fontSize: 17, letterSpacing: '-0.02em', color: 'var(--color-text-1)' }}>
+              wezmezadarmo
+              <span className="mono" style={{ color: 'var(--color-text-3)', fontWeight: 400, fontSize: 11 }}>.com</span>
+            </span>
+          </Link>
+          <Link href="/" style={{
+            fontSize: 13, color: 'var(--color-text-2)',
+            display: 'flex', alignItems: 'center', gap: 6,
+          }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M19 12H5M11 6l-6 6 6 6"/>
+            </svg>
+            Strona główna
+          </Link>
         </div>
+      </header>
 
-        <div className="mb-6 p-4 border border-accent/30 bg-accent/5 rounded-[8px]">
-          <p className="text-[13px] text-text-2 leading-[1.6]">
-            Usługa w fazie beta: aktualnie bezpłatna. Pomagamy w przygotowaniu wniosku, nie w jego złożeniu. Wypełniony tekst kopiujesz lub pobierasz i wklejasz do oryginalnego formularza instytucji.
-          </p>
+      {/* Hero */}
+      <section style={{ position: 'relative', paddingTop: 64, paddingBottom: 64, overflow: 'hidden' }}>
+        <div className="grain-bg" />
+        <div className="container" style={{ position: 'relative' }}>
+
+          <div className="rise" style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 32 }}>
+            <span className="label-eyebrow">Narzędzie obywatelskie</span>
+            <span style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
+            <span className="label-eyebrow" style={{ color: 'var(--color-muted-2)' }}>Beta: bezpłatne</span>
+          </div>
+
+          <div style={{ maxWidth: 720 }}>
+            <h1 className="display rise" style={{ fontSize: 'clamp(40px, 6vw, 80px)', marginBottom: 24, animationDelay: '60ms' }}>
+              Wypełnij wniosek<br />
+              <span style={{ color: 'var(--color-accent)' }}>z pomocą AI</span>
+            </h1>
+            <p className="rise" style={{
+              fontSize: 18, lineHeight: 1.6,
+              color: 'var(--color-text-2)',
+              marginBottom: 20,
+              maxWidth: 580,
+              animationDelay: '120ms',
+            }}>
+              Podaj swoje dane. AI automatycznie wypełnia formularz.
+              Ty przeglądasz pole po polu i pobierasz gotowy tekst.
+              {' '}<span className="serif" style={{ fontSize: 19 }}>Twoje dane nie wychodzą poza przeglądarkę.</span>
+            </p>
+
+            {/* Stats row */}
+            <div className="rise" style={{
+              display: 'grid', gridTemplateColumns: 'repeat(3, auto)',
+              gap: 0, marginTop: 40, marginBottom: 0,
+              borderTop: '1px solid var(--color-border)',
+              borderBottom: '1px solid var(--color-border)',
+              padding: '20px 0',
+              animationDelay: '180ms',
+              width: 'fit-content',
+              minWidth: 480,
+            }}>
+              {[
+                { n: totalForms, label: 'formularzy w bazie' },
+                { n: availableForms, label: 'dostępnych teraz' },
+                { n: 6, label: 'kategorii wniosków' },
+              ].map((s, i) => (
+                <div key={i} style={{ paddingLeft: i ? 36 : 0, paddingRight: 36, borderLeft: i ? '1px solid var(--color-border)' : 'none' }}>
+                  <div className="mono" style={{ fontSize: 10, color: 'var(--color-text-3)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 6 }}>
+                    {String(i + 1).padStart(2, '0')}
+                  </div>
+                  <div style={{ fontSize: 48, fontWeight: 400, letterSpacing: '-0.04em', lineHeight: 1, color: 'var(--color-text-1)', fontVariantNumeric: 'tabular-nums' }}>
+                    {s.n}
+                  </div>
+                  <div style={{ fontSize: 12, color: 'var(--color-text-3)', marginTop: 6 }}>{s.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
         </div>
+      </section>
 
-        <div className="space-y-10">
+      {/* Beta notice */}
+      <div className="container" style={{ paddingBottom: 16 }}>
+        <div style={{
+          display: 'flex', alignItems: 'center', gap: 12,
+          padding: '12px 16px',
+          background: 'var(--color-accent-soft)',
+          border: '1px solid var(--color-amber-border)',
+          borderRadius: 10,
+          fontSize: 13,
+          color: 'var(--color-text-2)',
+          lineHeight: 1.6,
+        }}>
+          <span style={{ color: 'var(--color-accent)', fontSize: 16, lineHeight: 1 }}>i</span>
+          <span>
+            Usługa w fazie beta: aktualnie bezpłatna. Pomagamy w przygotowaniu wniosku, nie w jego złożeniu.
+            Wypełniony tekst kopiujesz lub pobierasz i wklejasz do oryginalnego formularza instytucji.
+          </span>
+        </div>
+      </div>
+
+      {/* Form categories */}
+      <main className="container" style={{ paddingTop: 48, paddingBottom: 80 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 56 }}>
           {CATEGORIES.map((cat) => (
             <section key={cat.id}>
-              <h2 className="text-[13px] font-mono font-medium text-text-3 uppercase tracking-wider mb-3 pb-2 border-b border-border">
-                {cat.label}
-              </h2>
-              <div className="space-y-3">
+              {/* Category header */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 20 }}>
+                <span className="mono" style={{ fontSize: 11, color: 'var(--color-text-3)', letterSpacing: '0.1em' }}>
+                  {cat.icon}
+                </span>
+                <h2 className="label-eyebrow" style={{ color: 'var(--color-text-2)', letterSpacing: '0.06em' }}>
+                  {cat.label}
+                </h2>
+                <span style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
+                <span style={{ fontSize: 12, color: 'var(--color-text-3)' }}>
+                  {cat.forms.length} {cat.forms.length === 1 ? 'formularz' : 'formularzy'}
+                </span>
+              </div>
+
+              {/* Form cards */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {cat.forms.map((form) => (
                   <FormCard key={form.slug} form={form} />
                 ))}
@@ -320,76 +435,178 @@ export default function WnioskiPage() {
           ))}
         </div>
 
-        <div className="mt-12 pt-8 border-t border-border">
-          <h2 className="text-[15px] font-bold text-text-1 mb-4">Jak to działa</h2>
-          <ol className="space-y-3 text-[14px] text-text-2">
-            <li className="flex gap-3">
-              <span className="text-accent font-mono font-bold shrink-0">1.</span>
-              <span>Wybierz formularz i wpisz swoje dane: AI wyjaśni co znaczy każde pole.</span>
-            </li>
-            <li className="flex gap-3">
-              <span className="text-accent font-mono font-bold shrink-0">2.</span>
-              <span>AI automatycznie generuje treść wszystkich pól na podstawie tego co podałeś.</span>
-            </li>
-            <li className="flex gap-3">
-              <span className="text-accent font-mono font-bold shrink-0">3.</span>
-              <span>Przechodzisz pole po polu, czytasz, poprawiasz i akceptujesz.</span>
-            </li>
-            <li className="flex gap-3">
-              <span className="text-accent font-mono font-bold shrink-0">4.</span>
-              <span>Pobierasz gotowy tekst i wklejasz do oryginalnego formularza lub drukujesz.</span>
-            </li>
-          </ol>
+        {/* How it works */}
+        <div style={{
+          marginTop: 80,
+          paddingTop: 48,
+          borderTop: '1px solid var(--color-border)',
+        }}>
+          <div style={{ marginBottom: 40 }}>
+            <span className="label-eyebrow">Jak to działa</span>
+          </div>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(4, 1fr)',
+            gap: 24,
+          }}>
+            {STEPS.map((s) => (
+              <div key={s.n} style={{
+                padding: '24px 20px',
+                background: 'var(--color-bg-1)',
+                border: '1px solid var(--color-border)',
+                borderRadius: 12,
+                boxShadow: 'var(--shadow-card)',
+              }}>
+                <div className="mono" style={{ fontSize: 11, color: 'var(--color-text-3)', letterSpacing: '0.1em', marginBottom: 16 }}>
+                  {s.n}
+                </div>
+                <p style={{ fontSize: 14, color: 'var(--color-text-2)', lineHeight: 1.65 }}>
+                  {s.text}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
 
-        <div className="mt-8 p-4 bg-bg-1 rounded-[8px] text-[13px] text-text-3 leading-[1.7]">
-          <p className="mb-1 font-medium text-text-2">Prywatność</p>
-          <p>Twoje dane (PESEL, imię, adres) są wpisywane bezpośrednio w przeglądarce i nie są nigdy wysyłane na serwer. Do AI trafia tylko tyle ile potrzeba by wypełnić dane pole: bez identyfikatorów. Nic nie jest zapisywane.</p>
+        {/* Privacy */}
+        <div style={{
+          marginTop: 40,
+          padding: '24px 28px',
+          background: 'var(--color-bg-1)',
+          border: '1px solid var(--color-border)',
+          borderRadius: 12,
+          boxShadow: 'var(--shadow-1)',
+        }}>
+          <p style={{ fontSize: 12, color: 'var(--color-text-3)', marginBottom: 4, fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase' }}>
+            Prywatność
+          </p>
+          <p style={{ fontSize: 14, color: 'var(--color-text-2)', lineHeight: 1.7 }}>
+            Twoje dane osobowe (PESEL, imię, adres) są wpisywane bezpośrednio w przeglądarce i nie są nigdy wysyłane na serwer.
+            Do AI trafia tylko tyle ile potrzeba by wypełnić dane pole: bez identyfikatorów. Nic nie jest zapisywane po Twojej stronie.
+          </p>
         </div>
 
-        <div className="mt-6 text-[13px] text-text-3">
-          Brakuje wniosku który potrzebujesz? Napisz: <a href="mailto:sobkowicz.kamil@gmail.com" className="text-accent hover:underline">sobkowicz.kamil@gmail.com</a>
+        {/* Contact */}
+        <div style={{ marginTop: 24, fontSize: 13, color: 'var(--color-text-3)' }}>
+          Brakuje wniosku który potrzebujesz? Napisz:{' '}
+          <a href="mailto:sobkowicz.kamil@gmail.com" style={{ color: 'var(--color-accent)' }}>sobkowicz.kamil@gmail.com</a>
         </div>
-      </div>
+      </main>
+
     </div>
   );
 }
 
 function FormCard({ form }: { form: Form }) {
+  const isAvailable = form.available;
+
+  const cardStyle: React.CSSProperties = {
+    display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    gap: 20,
+    padding: '20px 24px',
+    borderRadius: 12,
+    border: `1px solid ${isAvailable ? 'var(--color-accent)' : 'var(--color-border)'}`,
+    background: isAvailable ? 'var(--color-bg-1)' : 'var(--color-bg-0)',
+    boxShadow: isAvailable ? 'var(--shadow-card)' : 'none',
+    transition: 'transform 320ms cubic-bezier(.2,.7,.1,1), box-shadow 320ms cubic-bezier(.2,.7,.1,1)',
+    opacity: isAvailable ? 1 : 0.75,
+  };
+
   return (
-    <div className={`border rounded-[8px] p-4 transition-colors ${form.available ? 'border-accent/40 bg-bg-1' : 'border-border bg-bg-0'}`}>
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 flex-wrap mb-0.5">
-            {form.symbol && (
-              <span className="text-[11px] font-mono text-accent bg-accent/10 px-1.5 py-0.5 rounded-[4px] shrink-0">{form.symbol}</span>
-            )}
-            <h3 className={`text-[14px] font-medium leading-snug ${form.available ? 'text-text-1' : 'text-text-2'}`}>{form.name}</h3>
-            {!form.available && (
-              <span className="text-[10px] text-text-3 border border-border rounded-[4px] px-1.5 py-0.5 shrink-0">wkrótce</span>
-            )}
-          </div>
-          <p className="text-[11px] text-text-3 mb-1">{form.institution}</p>
-          <p className="text-[12px] text-text-2 leading-[1.6]">{form.description}</p>
-          {form.deadline && (
-            <p className="mt-1 text-[11px]">
-              <span className="text-text-3">Termin: </span>
-              <span className={form.deadlineUrgent ? 'text-amber-400 font-medium' : 'text-text-2'}>{form.deadline}</span>
-              {form.deadlineUrgent && <span className="ml-1 text-amber-400 font-medium">PILNE</span>}
-            </p>
+    <div style={cardStyle} className={isAvailable ? 'hover-lift' : ''}>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 8, marginBottom: 6 }}>
+          {form.symbol && (
+            <span className="mono" style={{
+              fontSize: 11, color: 'var(--color-accent)',
+              background: 'var(--color-accent-soft)',
+              padding: '3px 8px', borderRadius: 6,
+              fontWeight: 500,
+            }}>
+              {form.symbol}
+            </span>
+          )}
+          <h3 style={{
+            fontSize: 15, fontWeight: 500,
+            color: isAvailable ? 'var(--color-text-1)' : 'var(--color-text-2)',
+            letterSpacing: '-0.01em',
+            lineHeight: 1.3,
+          }}>
+            {form.name}
+          </h3>
+          {!isAvailable && (
+            <span style={{
+              fontSize: 10, color: 'var(--color-text-3)',
+              border: '1px solid var(--color-border)',
+              padding: '2px 7px', borderRadius: 4,
+              letterSpacing: '0.04em', textTransform: 'uppercase',
+            }}>
+              wkrótce
+            </span>
           )}
         </div>
-        <div className="shrink-0 flex flex-col items-end gap-2">
-          <span className="text-[13px] font-mono font-bold text-accent whitespace-nowrap">{form.amount}</span>
-          {form.available ? (
-            <Link
-              href={`/wnioski/${form.slug}`}
-              className="text-[12px] font-medium text-bg-0 bg-accent hover:bg-accent/90 px-3 py-1.5 rounded-[5px] transition-colors whitespace-nowrap"
-            >
-              Wypełnij z AI
-            </Link>
-          ) : null}
-        </div>
+
+        <p style={{ fontSize: 12, color: 'var(--color-text-3)', marginBottom: 8 }}>
+          {form.institution}
+        </p>
+
+        <p style={{ fontSize: 13, color: 'var(--color-text-2)', lineHeight: 1.65 }}>
+          {form.description}
+        </p>
+
+        {form.deadline && (
+          <p style={{ marginTop: 10, fontSize: 12, display: 'flex', alignItems: 'center', gap: 6 }}>
+            <span style={{ color: 'var(--color-text-3)' }}>Termin:</span>
+            <span style={{
+              color: form.deadlineUrgent ? 'var(--color-warn)' : 'var(--color-text-2)',
+              fontWeight: form.deadlineUrgent ? 600 : 400,
+            }}>
+              {form.deadline}
+            </span>
+            {form.deadlineUrgent && (
+              <span style={{
+                fontSize: 10, fontWeight: 600, color: 'var(--color-warn)',
+                background: 'rgba(184,116,26,0.1)',
+                padding: '2px 7px', borderRadius: 4,
+                letterSpacing: '0.04em', textTransform: 'uppercase',
+              }}>
+                Pilne
+              </span>
+            )}
+          </p>
+        )}
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 12, flexShrink: 0 }}>
+        <span className="mono" style={{
+          fontSize: 13, fontWeight: 600,
+          color: 'var(--color-accent)',
+          whiteSpace: 'nowrap',
+          letterSpacing: '-0.01em',
+        }}>
+          {form.amount}
+        </span>
+
+        {isAvailable ? (
+          <Link
+            href={`/wnioski/${form.slug}`}
+            className="btn btn-primary"
+            style={{ height: 38, padding: '0 16px', borderRadius: 999, fontSize: 13 }}
+          >
+            Wypełnij z AI
+          </Link>
+        ) : (
+          <span style={{
+            fontSize: 12, color: 'var(--color-text-3)',
+            padding: '6px 14px',
+            border: '1px solid var(--color-border)',
+            borderRadius: 999,
+          }}>
+            Wkrótce
+          </span>
+        )}
       </div>
     </div>
   );

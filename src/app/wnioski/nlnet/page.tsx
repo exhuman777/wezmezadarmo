@@ -260,6 +260,43 @@ export default function NLnetWizardPage() {
 
 // ---- SUB-COMPONENTS ----
 
+function WizardShell({ children, step, total }: { children: React.ReactNode; step?: number; total?: number }) {
+  return (
+    <div style={{ minHeight: '100vh', background: 'var(--color-bg-0)' }}>
+      <header style={{
+        position: 'sticky', top: 0, zIndex: 50,
+        background: 'rgba(250,248,242,0.85)',
+        backdropFilter: 'saturate(140%) blur(14px)',
+        WebkitBackdropFilter: 'saturate(140%) blur(14px)',
+        borderBottom: '1px solid var(--color-border)',
+      }}>
+        <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
+            <span style={{ display: 'inline-block', width: 9, height: 9, background: 'var(--color-pl-red)', borderRadius: '50%' }} />
+            <span style={{ fontWeight: 600, fontSize: 17, letterSpacing: '-0.02em', color: 'var(--color-text-1)' }}>
+              wezmezadarmo<span className="mono" style={{ color: 'var(--color-text-3)', fontWeight: 400, fontSize: 11 }}>.com</span>
+            </span>
+          </Link>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
+            {step !== undefined && total !== undefined && (
+              <span className="mono" style={{ fontSize: 12, color: 'var(--color-text-3)' }}>
+                {step} / {total}
+              </span>
+            )}
+            <Link href="/wnioski" style={{ fontSize: 13, color: 'var(--color-text-2)', display: 'flex', alignItems: 'center', gap: 6 }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M19 12H5M11 6l-6 6 6 6"/>
+              </svg>
+              Wnioski
+            </Link>
+          </div>
+        </div>
+      </header>
+      {children}
+    </div>
+  );
+}
+
 function ProfileStep({ profile, amountRequested, updateProfile, setAmount, onNext, valid }: {
   profile: FormProfile;
   amountRequested: string;
@@ -269,18 +306,19 @@ function ProfileStep({ profile, amountRequested, updateProfile, setAmount, onNex
   valid: boolean;
 }) {
   return (
-    <div className="min-h-screen bg-bg-0 py-8 sm:py-12 px-4 sm:px-6">
-      <div className="max-w-2xl mx-auto">
-        <Link href="/wnioski" className="text-[13px] text-accent hover:underline mb-6 inline-block">
-          &larr; Wróć do listy formularzy
-        </Link>
-        <div className="mb-2 text-[12px] text-text-3 font-mono">NLnet NGI Zero Commons Fund</div>
-        <h1 className="text-[22px] sm:text-[26px] font-bold text-text-1 mb-2">Opisz swój projekt</h1>
-        <p className="text-[13px] text-text-3 mb-8">
-          Deadline: <span className="text-amber-400 font-medium">1 czerwca 2026, 12:00 CEST</span>. Wypełnij pola ponizej: AI wygeneruje wszystkie sekcje formularza.
+    <WizardShell>
+      <div style={{ maxWidth: 680, margin: '0 auto', padding: '48px 24px 80px' }}>
+        <div style={{ marginBottom: 8 }}>
+          <span className="label-eyebrow">NLnet NGI Zero Commons Fund</span>
+        </div>
+        <h1 className="display" style={{ fontSize: 'clamp(28px, 4vw, 42px)', marginBottom: 12, marginTop: 16 }}>Opisz swój projekt</h1>
+        <p style={{ fontSize: 14, color: 'var(--color-text-2)', marginBottom: 40, lineHeight: 1.65 }}>
+          Deadline:{' '}
+          <span style={{ color: 'var(--color-warn)', fontWeight: 600 }}>1 czerwca 2026, 12:00 CEST</span>
+          {' '}. Wypełnij pola poniżej: AI wygeneruje wszystkie sekcje formularza.
         </p>
 
-        <div className="space-y-6">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
           <Field label="Nazwa projektu *" hint="np. WezmeZadarmo, OpenBudget, ClimateDashboard">
             <input
               className={INPUT_CLS}
@@ -366,7 +404,7 @@ function ProfileStep({ profile, amountRequested, updateProfile, setAmount, onNex
             />
           </Field>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
             <Field label="Kraj">
               <input
                 className={INPUT_CLS}
@@ -403,20 +441,21 @@ function ProfileStep({ profile, amountRequested, updateProfile, setAmount, onNex
           </Field>
         </div>
 
-        <div className="mt-10 flex items-center gap-4">
+        <div style={{ marginTop: 40, display: 'flex', alignItems: 'center', gap: 16 }}>
           <button
             onClick={onNext}
             disabled={!valid}
-            className="px-6 py-3 bg-accent text-bg-0 font-medium rounded-[6px] disabled:opacity-40 disabled:cursor-not-allowed hover:bg-accent/90 transition-colors text-[14px]"
+            className="btn btn-primary btn-lg"
+            style={{ borderRadius: 999, opacity: valid ? 1 : 0.4, cursor: valid ? 'pointer' : 'not-allowed' }}
           >
             Generuj wniosek z AI
           </button>
           {!valid && (
-            <span className="text-[12px] text-text-3">Wypelnij pola oznaczone *</span>
+            <span style={{ fontSize: 12, color: 'var(--color-text-3)' }}>Wypełnij pola oznaczone *</span>
           )}
         </div>
       </div>
-    </div>
+    </WizardShell>
   );
 }
 
@@ -429,31 +468,33 @@ function GeneratingStep({ generatingIdx, total, fields }: {
   const progress = Math.round((doneCount / (total + 3)) * 100); // +3 for fixed fields
 
   return (
-    <div className="min-h-screen bg-bg-0 py-8 sm:py-12 px-4 sm:px-6">
-      <div className="max-w-2xl mx-auto">
-        <div className="mb-2 text-[12px] text-text-3 font-mono">NLnet NGI Zero Commons Fund</div>
-        <h1 className="text-[22px] font-bold text-text-1 mb-6">Generuje wniosek...</h1>
+    <WizardShell step={doneCount} total={total + 3}>
+      <div style={{ maxWidth: 680, margin: '0 auto', padding: '48px 24px 80px' }}>
+        <span className="label-eyebrow">NLnet NGI Zero Commons Fund</span>
+        <h1 className="display" style={{ fontSize: 'clamp(28px, 4vw, 42px)', margin: '16px 0 32px' }}>Generuje wniosek...</h1>
 
-        <div className="w-full bg-bg-1 rounded-full h-2 mb-6">
-          <div
-            className="bg-accent h-2 rounded-full transition-all duration-500"
-            style={{ width: `${progress}%` }}
-          />
+        {/* Progress bar */}
+        <div style={{ height: 4, background: 'var(--color-border)', borderRadius: 2, marginBottom: 32, overflow: 'hidden' }}>
+          <div style={{ height: '100%', background: 'var(--color-accent)', borderRadius: 2, width: `${progress}%`, transition: 'width 500ms ease' }} />
         </div>
 
-        <div className="space-y-2">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
           {NLNET_FIELDS.map((f) => {
             const state = fields[f.key];
             const status = state?.status ?? 'idle';
             return (
-              <div key={f.key} className="flex items-center gap-3 py-2">
-                <div className="w-4 h-4 flex items-center justify-center shrink-0">
-                  {status === 'done' && <span className="text-green-400 text-[16px]">+</span>}
-                  {status === 'generating' && <span className="text-accent text-[16px] animate-pulse">...</span>}
-                  {status === 'idle' && <span className="text-text-3 text-[12px]">--</span>}
-                  {status === 'error' && <span className="text-red-400 text-[16px]">!</span>}
+              <div key={f.key} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 0', borderBottom: '1px solid var(--color-border)' }}>
+                <div style={{ width: 20, flexShrink: 0, textAlign: 'center' }}>
+                  {status === 'done' && <span style={{ color: 'var(--color-green)', fontSize: 14, fontWeight: 600 }}>+</span>}
+                  {status === 'generating' && <span style={{ color: 'var(--color-accent)', fontSize: 14 }}>...</span>}
+                  {status === 'idle' && <span style={{ color: 'var(--color-text-3)', fontSize: 10 }}>o</span>}
+                  {status === 'error' && <span style={{ color: 'var(--color-red)', fontSize: 14 }}>!</span>}
                 </div>
-                <span className={`text-[13px] ${status === 'done' ? 'text-text-2' : status === 'generating' ? 'text-text-1 font-medium' : 'text-text-3'}`}>
+                <span style={{
+                  fontSize: 13,
+                  color: status === 'done' ? 'var(--color-text-2)' : status === 'generating' ? 'var(--color-text-1)' : 'var(--color-text-3)',
+                  fontWeight: status === 'generating' ? 500 : 400,
+                }}>
                   {f.label}
                 </span>
               </div>
@@ -461,11 +502,11 @@ function GeneratingStep({ generatingIdx, total, fields }: {
           })}
         </div>
 
-        <p className="mt-6 text-[12px] text-text-3">
-          Generuje pole {generatingIdx + 1} z {total}. Prosze czekac...
+        <p style={{ marginTop: 24, fontSize: 12, color: 'var(--color-text-3)' }}>
+          Generuje pole {generatingIdx + 1} z {total}. Proszę czekać...
         </p>
       </div>
-    </div>
+    </WizardShell>
   );
 }
 
@@ -492,30 +533,31 @@ function ReviewStep({ fields, setFields, currentIdx, setCurrentIdx, copied, onCo
   };
 
   return (
-    <div className="min-h-screen bg-bg-0 py-8 sm:py-12 px-4 sm:px-6">
-      <div className="max-w-2xl mx-auto">
-        <div className="mb-4 flex items-center justify-between">
-          <div className="text-[12px] text-text-3 font-mono">NLnet NGI Zero: Przeglad</div>
-          <div className="text-[12px] text-text-3">
-            {currentIdx + 1} / {NLNET_FIELDS.length}
-          </div>
-        </div>
-
+    <WizardShell step={currentIdx + 1} total={NLNET_FIELDS.length}>
+      <div style={{ maxWidth: 680, margin: '0 auto', padding: '48px 24px 80px' }}>
         {/* Progress dots */}
-        <div className="flex gap-1 mb-6">
+        <div style={{ display: 'flex', gap: 4, marginBottom: 32 }}>
           {NLNET_FIELDS.map((_, i) => (
             <button
               key={i}
               onClick={() => setCurrentIdx(i)}
-              className={`h-1.5 rounded-full transition-all ${i === currentIdx ? 'bg-accent w-6' : 'bg-border w-3 hover:bg-text-3'}`}
+              style={{
+                height: 4, borderRadius: 2, border: 'none', cursor: 'pointer', transition: 'all 200ms',
+                background: i === currentIdx ? 'var(--color-accent)' : 'var(--color-border)',
+                width: i === currentIdx ? 24 : 12,
+                padding: 0,
+              }}
             />
           ))}
         </div>
 
         {/* Current field */}
-        <div className="mb-6">
-          <h2 className="text-[18px] font-bold text-text-1 mb-1">{currentField.label}</h2>
-          <p className="text-[12px] text-text-3 mb-4">{currentField.description}</p>
+        <div style={{ marginBottom: 32 }}>
+          <span className="label-eyebrow" style={{ display: 'block', marginBottom: 12 }}>Pole {currentIdx + 1} z {NLNET_FIELDS.length}</span>
+          <h2 style={{ fontSize: 22, fontWeight: 500, letterSpacing: '-0.02em', color: 'var(--color-text-1)', marginBottom: 8 }}>
+            {currentField.label}
+          </h2>
+          <p style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 20, lineHeight: 1.6 }}>{currentField.description}</p>
 
           {currentState.editing ? (
             <div>
@@ -527,26 +569,39 @@ function ReviewStep({ fields, setFields, currentIdx, setCurrentIdx, copied, onCo
               />
               <button
                 onClick={() => setEditing(currentField.key, false)}
-                className="mt-2 text-[13px] text-accent hover:underline"
+                style={{ marginTop: 8, fontSize: 13, color: 'var(--color-accent)', background: 'none', border: 'none', cursor: 'pointer' }}
               >
                 Zapisz zmiany
               </button>
             </div>
           ) : (
-            <div className="relative">
-              <div className="bg-bg-1 border border-border rounded-[8px] p-4 text-[13px] text-text-2 leading-[1.8] whitespace-pre-wrap min-h-[120px]">
-                {currentState.value || <span className="text-text-3 italic">Brak treści</span>}
+            <div>
+              <div style={{
+                background: 'var(--color-bg-1)',
+                border: '1px solid var(--color-border)',
+                borderRadius: 10,
+                padding: '16px 20px',
+                fontSize: 13,
+                color: 'var(--color-text-2)',
+                lineHeight: 1.8,
+                whiteSpace: 'pre-wrap',
+                minHeight: 120,
+                boxShadow: 'var(--shadow-1)',
+              }}>
+                {currentState.value || <span style={{ color: 'var(--color-text-3)', fontStyle: 'italic' }}>Brak treści</span>}
               </div>
-              <div className="flex gap-3 mt-3">
+              <div style={{ display: 'flex', gap: 10, marginTop: 12 }}>
                 <button
                   onClick={() => setEditing(currentField.key, true)}
-                  className="text-[12px] text-text-3 hover:text-text-1 border border-border rounded-[5px] px-3 py-1.5 transition-colors"
+                  className="btn btn-outline"
+                  style={{ height: 34, padding: '0 14px', borderRadius: 6, fontSize: 12 }}
                 >
                   Edytuj
                 </button>
                 <button
                   onClick={() => onCopy(currentField.key, currentState.value)}
-                  className="text-[12px] text-text-3 hover:text-text-1 border border-border rounded-[5px] px-3 py-1.5 transition-colors"
+                  className="btn btn-outline"
+                  style={{ height: 34, padding: '0 14px', borderRadius: 6, fontSize: 12 }}
                 >
                   {copied === currentField.key ? 'Skopiowano!' : 'Kopiuj'}
                 </button>
@@ -556,64 +611,68 @@ function ReviewStep({ fields, setFields, currentIdx, setCurrentIdx, copied, onCo
         </div>
 
         {/* Navigation */}
-        <div className="flex items-center justify-between mt-8">
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 32, paddingTop: 24, borderTop: '1px solid var(--color-border)' }}>
           <button
             onClick={() => setCurrentIdx(Math.max(0, currentIdx - 1))}
             disabled={currentIdx === 0}
-            className="text-[13px] text-text-3 hover:text-text-1 disabled:opacity-30 disabled:cursor-not-allowed px-4 py-2 border border-border rounded-[6px]"
+            className="btn btn-ghost"
+            style={{ borderRadius: 6, opacity: currentIdx === 0 ? 0.3 : 1, fontSize: 13 }}
           >
             Poprzednie
           </button>
 
           {isLast ? (
-            <button
-              onClick={onDone}
-              className="text-[13px] font-medium text-bg-0 bg-accent hover:bg-accent/90 px-6 py-2 rounded-[6px] transition-colors"
-            >
+            <button onClick={onDone} className="btn btn-primary" style={{ borderRadius: 999, fontSize: 13 }}>
               Pobierz wniosek
             </button>
           ) : (
-            <button
-              onClick={() => setCurrentIdx(currentIdx + 1)}
-              className="text-[13px] font-medium text-bg-0 bg-accent hover:bg-accent/90 px-6 py-2 rounded-[6px] transition-colors"
-            >
-              Nastepne pole
+            <button onClick={() => setCurrentIdx(currentIdx + 1)} className="btn btn-primary" style={{ borderRadius: 999, fontSize: 13 }}>
+              Następne pole
             </button>
           )}
         </div>
 
         {/* All fields overview */}
-        <div className="mt-12 pt-6 border-t border-border">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-[14px] font-medium text-text-1">Wszystkie pola</h3>
-            <div className="flex gap-2">
+        <div style={{ marginTop: 56, paddingTop: 32, borderTop: '1px solid var(--color-border)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
+            <span className="label-eyebrow">Wszystkie pola</span>
+            <div style={{ display: 'flex', gap: 8 }}>
               <button
                 onClick={onCopyAll}
-                className="text-[12px] text-text-3 hover:text-text-1 border border-border rounded-[5px] px-3 py-1.5"
+                className="btn btn-ghost"
+                style={{ height: 32, padding: '0 12px', fontSize: 12, borderRadius: 6 }}
               >
                 Kopiuj wszystko
               </button>
               <button
                 onClick={onDownload}
-                className="text-[12px] text-text-3 hover:text-text-1 border border-border rounded-[5px] px-3 py-1.5"
+                className="btn btn-outline"
+                style={{ height: 32, padding: '0 12px', fontSize: 12, borderRadius: 6 }}
               >
                 Pobierz .txt
               </button>
             </div>
           </div>
-          <div className="space-y-2">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
             {NLNET_FIELDS.map((f, i) => {
               const state = fields[f.key];
               return (
                 <button
                   key={f.key}
                   onClick={() => setCurrentIdx(i)}
-                  className={`w-full text-left flex items-center gap-3 px-3 py-2 rounded-[6px] border transition-colors ${i === currentIdx ? 'border-accent/50 bg-accent/5' : 'border-border hover:border-border/80 hover:bg-bg-1'}`}
+                  style={{
+                    width: '100%', textAlign: 'left',
+                    display: 'flex', alignItems: 'center', gap: 12,
+                    padding: '10px 14px', borderRadius: 8,
+                    border: `1px solid ${i === currentIdx ? 'var(--color-accent)' : 'var(--color-border)'}`,
+                    background: i === currentIdx ? 'var(--color-accent-soft)' : 'transparent',
+                    cursor: 'pointer', transition: 'all 150ms',
+                  }}
                 >
-                  <span className="text-[11px] text-text-3 font-mono w-5 shrink-0">{i + 1}</span>
-                  <span className="text-[13px] text-text-2 flex-1 truncate">{f.label}</span>
-                  <span className="text-[11px] text-text-3 shrink-0">
-                    {state?.value ? `${state.value.length} zn.` : '--'}
+                  <span className="mono" style={{ fontSize: 11, color: 'var(--color-text-3)', width: 20, flexShrink: 0 }}>{i + 1}</span>
+                  <span style={{ fontSize: 13, color: 'var(--color-text-2)', flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{f.label}</span>
+                  <span className="mono" style={{ fontSize: 11, color: 'var(--color-text-3)', flexShrink: 0 }}>
+                    {state?.value ? `${state.value.length} zn.` : 'brak'}
                   </span>
                 </button>
               );
@@ -621,7 +680,7 @@ function ReviewStep({ fields, setFields, currentIdx, setCurrentIdx, copied, onCo
           </div>
         </div>
       </div>
-    </div>
+    </WizardShell>
   );
 }
 
@@ -632,73 +691,93 @@ function DoneStep({ onDownload, onCopyAll, copied, onRestart }: {
   onRestart: () => void;
 }) {
   return (
-    <div className="min-h-screen bg-bg-0 py-8 sm:py-12 px-4 sm:px-6">
-      <div className="max-w-2xl mx-auto">
-        <div className="mb-2 text-[12px] text-text-3 font-mono">NLnet NGI Zero Commons Fund</div>
-        <h1 className="text-[22px] font-bold text-text-1 mb-3">Wniosek gotowy</h1>
-        <p className="text-[14px] text-text-2 mb-8 leading-[1.7]">
-          Pobierz plik .txt lub skopiuj wszystko do schowka. Nastepnie przejdz na <a href="https://nlnet.nl/propose/" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">nlnet.nl/propose</a> i wklej kazde pole z osobna.
+    <WizardShell>
+      <div style={{ maxWidth: 680, margin: '0 auto', padding: '48px 24px 80px' }}>
+        <span className="label-eyebrow">NLnet NGI Zero Commons Fund</span>
+        <h1 className="display" style={{ fontSize: 'clamp(28px, 4vw, 42px)', margin: '16px 0 12px' }}>Wniosek gotowy</h1>
+        <p style={{ fontSize: 14, color: 'var(--color-text-2)', marginBottom: 40, lineHeight: 1.65 }}>
+          Pobierz plik .txt lub skopiuj wszystko do schowka. Następnie przejdź na{' '}
+          <a href="https://nlnet.nl/propose/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)' }}>
+            nlnet.nl/propose
+          </a>{' '}
+          i wklej każde pole z osobna.
         </p>
 
-        <div className="space-y-3 mb-10">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 40 }}>
           <button
             onClick={onDownload}
-            className="w-full py-3 text-[14px] font-medium bg-accent text-bg-0 rounded-[8px] hover:bg-accent/90 transition-colors"
+            className="btn btn-primary"
+            style={{ width: '100%', height: 50, borderRadius: 10, fontSize: 14 }}
           >
             Pobierz wniosek (.txt)
           </button>
           <button
             onClick={onCopyAll}
-            className="w-full py-3 text-[13px] text-text-2 bg-bg-1 border border-border rounded-[8px] hover:border-accent/40 transition-colors"
+            className="btn btn-outline"
+            style={{ width: '100%', height: 44, borderRadius: 10, fontSize: 13 }}
           >
             {copied ? 'Skopiowano!' : 'Kopiuj wszystko do schowka'}
           </button>
         </div>
 
-        <div className="bg-bg-1 border border-border rounded-[8px] p-5 mb-8">
-          <h3 className="text-[13px] font-medium text-text-1 mb-3">Checklist przed zlozeniem</h3>
-          <ul className="space-y-2 text-[13px] text-text-2">
+        <div style={{
+          background: 'var(--color-bg-1)',
+          border: '1px solid var(--color-border)',
+          borderRadius: 12,
+          padding: '24px 28px',
+          marginBottom: 32,
+          boxShadow: 'var(--shadow-1)',
+        }}>
+          <span className="label-eyebrow" style={{ display: 'block', marginBottom: 16 }}>Checklist przed złożeniem</span>
+          <ul style={{ display: 'flex', flexDirection: 'column', gap: 10, listStyle: 'none', padding: 0, margin: 0 }}>
             {[
-              'Repozytorium GitHub otwarte z licencja AGPL-3.0',
+              'Repozytorium GitHub otwarte z licencją AGPL-3.0',
               'README.md po angielsku widoczny publicznie',
-              'Strona projektu dziala (wezmezadarmo.com lub inna)',
-              'Abstract przeczytany na glos: brzmi przekonujaco?',
-              'Budget breakdown sumuje sie do wnioskowanej kwoty',
-              'Generative AI disclosure wypelniony uczciwie',
-              'Formularz wyslany przed 1 czerwca 2026, 12:00 CEST',
+              'Strona projektu działa (wezmezadarmo.com lub inna)',
+              'Abstract przeczytany na głos: brzmi przekonująco?',
+              'Budget breakdown sumuje się do wnioskowanej kwoty',
+              'Generative AI disclosure wypełniony uczciwie',
+              'Formularz wysłany przed 1 czerwca 2026, 12:00 CEST',
             ].map((item) => (
-              <li key={item} className="flex items-start gap-2">
-                <span className="text-text-3 shrink-0 mt-0.5">[ ]</span>
+              <li key={item} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, fontSize: 13, color: 'var(--color-text-2)' }}>
+                <span className="mono" style={{ color: 'var(--color-text-3)', flexShrink: 0, marginTop: 2 }}>[ ]</span>
                 <span>{item}</span>
               </li>
             ))}
           </ul>
         </div>
 
-        <div className="flex gap-3">
+        <div style={{ display: 'flex', gap: 12 }}>
           <Link
             href="https://nlnet.nl/propose/"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 text-center py-2.5 text-[13px] font-medium bg-accent text-bg-0 rounded-[6px] hover:bg-accent/90 transition-colors"
+            className="btn btn-primary"
+            style={{ flex: 1, borderRadius: 999, fontSize: 13 }}
           >
-            Przejdz do formularza NLnet
+            Przejdź do formularza NLnet
           </Link>
           <button
             onClick={onRestart}
-            className="px-4 py-2.5 text-[13px] text-text-3 border border-border rounded-[6px] hover:text-text-1 transition-colors"
+            className="btn btn-ghost"
+            style={{ fontSize: 13, borderRadius: 999 }}
           >
             Zacznij od nowa
           </button>
         </div>
       </div>
-    </div>
+    </WizardShell>
   );
 }
 
 // ---- SHARED STYLES ----
 
-const INPUT_CLS = 'w-full bg-bg-1 border border-border rounded-[6px] px-3 py-2 text-[13px] text-text-1 placeholder:text-text-3 focus:outline-none focus:border-accent/50 transition-colors';
+const INPUT_CLS = [
+  'w-full',
+  'bg-bg-1 border border-border rounded-[8px] px-3 py-2.5',
+  'text-[13px] text-text-1 placeholder:text-text-3',
+  'focus:outline-none focus:border-accent/60 transition-colors',
+].join(' ');
 const TEXTAREA_CLS = `${INPUT_CLS} resize-vertical`;
 
 function Field({ label, hint, children }: {
@@ -708,8 +787,8 @@ function Field({ label, hint, children }: {
 }) {
   return (
     <div>
-      <label className="block text-[13px] font-medium text-text-1 mb-1">{label}</label>
-      {hint && <p className="text-[11px] text-text-3 mb-2">{hint}</p>}
+      <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 4 }}>{label}</label>
+      {hint && <p style={{ fontSize: 11, color: 'var(--color-text-3)', marginBottom: 8, lineHeight: 1.5 }}>{hint}</p>}
       {children}
     </div>
   );

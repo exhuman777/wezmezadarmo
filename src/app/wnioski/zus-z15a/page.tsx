@@ -127,34 +127,72 @@ export default function ZusZ15aPage() {
   };
 
   return (
-    <div className="min-h-screen bg-bg-0 py-8 sm:py-12 px-4 sm:px-6">
-      <div className="max-w-xl mx-auto">
-        <Link href="/wnioski" className="text-[13px] text-accent hover:underline mb-6 inline-block">
-          &larr; Wróc do listy formularzy
-        </Link>
-
-        <div className="mb-1 flex items-center gap-2">
-          <span className="text-[11px] font-mono text-accent bg-accent/10 px-1.5 py-0.5 rounded-[4px]">Z-15a</span>
-          <span className="text-[12px] text-text-3">Zakład Ubezpieczen Społecznych</span>
+    <div style={{ minHeight: '100vh', background: 'var(--color-bg-0)' }}>
+      {/* Header */}
+      <header style={{
+        position: 'sticky', top: 0, zIndex: 50,
+        background: 'rgba(250,248,242,0.85)',
+        backdropFilter: 'saturate(140%) blur(14px)',
+        WebkitBackdropFilter: 'saturate(140%) blur(14px)',
+        borderBottom: '1px solid var(--color-border)',
+      }}>
+        <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
+            <span style={{ display: 'inline-block', width: 9, height: 9, background: 'var(--color-pl-red)', borderRadius: '50%' }} />
+            <span style={{ fontWeight: 600, fontSize: 17, letterSpacing: '-0.02em', color: 'var(--color-text-1)' }}>
+              wezmezadarmo<span className="mono" style={{ color: 'var(--color-text-3)', fontWeight: 400, fontSize: 11 }}>.com</span>
+            </span>
+          </Link>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
+            {step !== 'done' && (
+              <span className="mono" style={{ fontSize: 12, color: 'var(--color-text-3)' }}>
+                Krok {stepIdx + 1} / {STEPS.length}
+              </span>
+            )}
+            <Link href="/wnioski" style={{ fontSize: 13, color: 'var(--color-text-2)', display: 'flex', alignItems: 'center', gap: 6 }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M19 12H5M11 6l-6 6 6 6"/>
+              </svg>
+              Wnioski
+            </Link>
+          </div>
         </div>
-        <h1 className="text-[20px] sm:text-[24px] font-bold text-text-1 mb-1">
-          Zasiłek opiekuńczy
-        </h1>
-        <p className="text-[13px] text-text-3 mb-6">Opieka nad chorym dzieckiem lub zamkniecie placowki</p>
+      </header>
+
+      <div style={{ maxWidth: 600, margin: '0 auto', padding: '48px 24px 80px' }}>
+
+        {/* Title */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
+          <span className="mono" style={{ fontSize: 11, color: 'var(--color-accent)', background: 'var(--color-accent-soft)', padding: '3px 8px', borderRadius: 6, fontWeight: 500 }}>Z-15a</span>
+          <span style={{ fontSize: 12, color: 'var(--color-text-3)' }}>Zakład Ubezpieczeń Społecznych</span>
+        </div>
+        <h1 className="display" style={{ fontSize: 'clamp(26px, 4vw, 38px)', marginBottom: 8 }}>Zasiłek opiekuńczy</h1>
+        <p style={{ fontSize: 14, color: 'var(--color-text-3)', marginBottom: 32 }}>Opieka nad chorym dzieckiem lub zamknięcie placówki</p>
 
         {/* Info block */}
-        <div className="mb-6 p-4 bg-bg-1 border border-border rounded-[8px] text-[13px] text-text-2 leading-[1.7]">
-          <p className="font-medium text-text-1 mb-1">Komu przysługuje</p>
-          <p>Pracownicy i zleceniobiorcy opłacający składkę chorobową, gdy opiekują się chorym dzieckiem do 14 lat lub gdy zamknięto żłobek, przedszkole albo szkołę dziecka do lat 8. Zasiłek wynosi 80% wynagrodzenia, wypłacany przez ZUS lub pracodawcę. Limit: 60 dni w roku na chore dziecko do 14 lat.</p>
-          <p className="mt-2 font-medium text-text-1 mb-1">Jak złożyć</p>
-          <p>Ten wniosek składasz u pracodawcy (nie bezposrednio w ZUS). Pracodawca przesyła go do ZUS elektronicznie przez PUE ZUS. Jesli nie masz pracodawcy (działalność gospodarcza), złoz bezposrednio w ZUS.</p>
+        <div style={{
+          marginBottom: 32, padding: '20px 24px',
+          background: 'var(--color-bg-1)',
+          border: '1px solid var(--color-border)',
+          borderRadius: 12, fontSize: 13,
+          color: 'var(--color-text-2)', lineHeight: 1.7,
+          boxShadow: 'var(--shadow-1)',
+        }}>
+          <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 6, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Komu przysługuje</p>
+          <p style={{ marginBottom: 14 }}>Pracownicy i zleceniobiorcy opłacający składkę chorobową, gdy opiekują się chorym dzieckiem do 14 lat lub gdy zamknięto żłobek, przedszkole albo szkołę dziecka do lat 8. Zasiłek wynosi 80% wynagrodzenia. Limit: 60 dni w roku.</p>
+          <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 6, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Jak złożyć</p>
+          <p>Ten wniosek składasz u pracodawcy (nie bezpośrednio w ZUS). Pracodawca przesyła go do ZUS elektronicznie przez PUE ZUS.</p>
         </div>
 
-        {/* Step indicator */}
+        {/* Step progress bar */}
         {step !== 'done' && (
-          <div className="flex gap-1 mb-8">
+          <div style={{ display: 'flex', gap: 4, marginBottom: 40 }}>
             {STEPS.map((s, i) => (
-              <div key={s.key} className={`h-1 flex-1 rounded-full transition-colors ${i < stepIdx ? 'bg-accent' : i === stepIdx ? 'bg-accent/60' : 'bg-border'}`} />
+              <div key={s.key} style={{
+                height: 3, flex: 1, borderRadius: 2,
+                background: i < stepIdx ? 'var(--color-accent)' : i === stepIdx ? 'color-mix(in srgb, var(--color-accent) 50%, transparent)' : 'var(--color-border)',
+                transition: 'background 300ms',
+              }} />
             ))}
           </div>
         )}
@@ -189,12 +227,12 @@ function StepWnioskodawca({ data, update, onNext }: { data: Z15aData; update: (k
   const valid = data.imieNazwisko.trim().length > 3 && data.pesel.trim().length === 11;
   return (
     <div>
-      <h2 className="text-[16px] font-bold text-text-1 mb-5">Twoje dane</h2>
-      <div className="space-y-4">
+      <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 24, letterSpacing: '-0.01em' }}>Twoje dane</h2>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         <Field label="Imię i nazwisko *">
           <input className={IC} value={data.imieNazwisko} onChange={e => update('imieNazwisko', e.target.value)} placeholder="Jan Kowalski" />
         </Field>
-        <Field label="PESEL *" hint="Wpisywany tylko lokalnie w przegladarce, nie wysyłany na serwer">
+        <Field label="PESEL *" hint="Wpisywany tylko lokalnie w przeglądarce, nie wysyłany na serwer">
           <input className={IC} value={data.pesel} onChange={e => update('pesel', e.target.value)} placeholder="00000000000" maxLength={11} />
         </Field>
         <Field label="Adres zamieszkania">
@@ -220,8 +258,8 @@ function StepDziecko({ data, update, onBack, onNext }: { data: Z15aData; update:
   const valid = data.imieNazwiskoDziecka.trim().length > 2 && data.peselDziecka.trim().length === 11;
   return (
     <div>
-      <h2 className="text-[16px] font-bold text-text-1 mb-5">Dane dziecka</h2>
-      <div className="space-y-4">
+      <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 24, letterSpacing: '-0.01em' }}>Dane dziecka</h2>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         <Field label="Imię i nazwisko dziecka *">
           <input className={IC} value={data.imieNazwiskoDziecka} onChange={e => update('imieNazwiskoDziecka', e.target.value)} placeholder="Anna Kowalska" />
         </Field>
@@ -231,8 +269,8 @@ function StepDziecko({ data, update, onBack, onNext }: { data: Z15aData; update:
         <Field label="Data urodzenia dziecka" hint="W formacie DD.MM.RRRR">
           <input className={IC} value={data.dataUrodzeniaDziecka} onChange={e => update('dataUrodzeniaDziecka', e.target.value)} placeholder="15.03.2018" />
         </Field>
-        <div className="p-3 bg-bg-1 border border-border rounded-[6px] text-[12px] text-text-3 leading-[1.6]">
-          Zasilek opiekuńczy przysluguje na dziecko do 14 lat (lub do 18 lat przy niepelnosprawnosci). Po ukonczeniu 14 lat dziecka nalezy zlozyc formularz Z-15b.
+        <div style={{ padding: '12px 16px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 8, fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.6 }}>
+          Zasiłek opiekuńczy przysługuje na dziecko do 14 lat (lub do 18 lat przy niepełnosprawności). Po ukończeniu 14 lat dziecka należy złożyć formularz Z-15b.
         </div>
       </div>
       <NavButtons onBack={onBack} onNext={onNext} nextDisabled={!valid} />
@@ -248,16 +286,16 @@ function StepOpieka({ data, update, onBack, onNext, generating, onGenerate }: {
   const valid = data.dataOd.trim().length > 0 && data.dataDo.trim().length > 0;
   return (
     <div>
-      <h2 className="text-[16px] font-bold text-text-1 mb-5">Szczegoly opieki</h2>
-      <div className="space-y-4">
-        <Field label="Powod sprawowania opieki *">
+      <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 24, letterSpacing: '-0.01em' }}>Szczegóły opieki</h2>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+        <Field label="Powód sprawowania opieki *">
           <select className={IC} value={data.powodOpieki} onChange={e => update('powodOpieki', e.target.value as Powod)}>
             {(Object.entries(POWOD_LABELS) as [Powod, string][]).map(([k, v]) => (
               <option key={k} value={k}>{v}</option>
             ))}
           </select>
         </Field>
-        <div className="grid grid-cols-2 gap-3">
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
           <Field label="Data od *" hint="DD.MM.RRRR">
             <input className={IC} value={data.dataOd} onChange={e => update('dataOd', e.target.value)} placeholder="01.05.2026" />
           </Field>
@@ -265,26 +303,27 @@ function StepOpieka({ data, update, onBack, onNext, generating, onGenerate }: {
             <input className={IC} value={data.dataDo} onChange={e => update('dataDo', e.target.value)} placeholder="05.05.2026" />
           </Field>
         </div>
-        <Field label="Dlaczego drugi rodzic nie moze sprawowac opieki?" hint="Krotkie oswiadczenie. Mozesz wygenerowac z AI lub wpisac samodzielnie.">
-          <div className="space-y-2">
+        <Field label="Dlaczego drugi rodzic nie może sprawować opieki?" hint="Krótkie oświadczenie. Możesz wygenerować z AI lub wpisać samodzielnie.">
+          <div>
             <textarea
-              className={`${IC} min-h-[80px] resize-none`}
+              className={IC}
+              style={{ minHeight: 80, resize: 'none', display: 'block', width: '100%', marginBottom: 8 }}
               value={data.drugirodzicNieMoze}
               onChange={e => update('drugirodzicNieMoze', e.target.value)}
-              placeholder="Drugi rodzic nie moze sprawowac opieki poniewaz..."
+              placeholder="Drugi rodzic nie może sprawować opieki ponieważ..."
             />
             <button
               onClick={onGenerate}
               disabled={generating}
-              className="text-[12px] text-accent hover:underline disabled:opacity-50 disabled:cursor-wait"
+              style={{ fontSize: 12, color: 'var(--color-accent)', background: 'none', border: 'none', cursor: generating ? 'wait' : 'pointer', opacity: generating ? 0.5 : 1 }}
             >
               {generating ? 'Generuje...' : 'Wygeneruj z AI'}
             </button>
           </div>
         </Field>
-        <div className="p-3 bg-bg-1 border border-border rounded-[6px] text-[12px] text-text-3 leading-[1.6]">
-          <p className="font-medium text-text-2 mb-1">Przykladowe uzasadnienia</p>
-          <p>Pracuje zawodowo i nie moze wziąc urlopu bez waznej przyczyny. / Przebywa w delegacji sluzbowej. / Nie ma prawa do zasilku opiekuńczego (prowadzi działalnosc gospodarcza bez ubezpieczenia chorobowego).</p>
+        <div style={{ padding: '12px 16px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 8, fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.6 }}>
+          <p style={{ fontWeight: 600, color: 'var(--color-text-2)', marginBottom: 4 }}>Przykładowe uzasadnienia</p>
+          <p>Pracuje zawodowo i nie może wziąć urlopu bez ważnej przyczyny. / Przebywa w delegacji służbowej. / Nie ma prawa do zasiłku opiekuńczego (prowadzi działalność bez ubezpieczenia chorobowego).</p>
         </div>
       </div>
       <NavButtons onBack={onBack} onNext={onNext} nextDisabled={!valid} />
@@ -295,9 +334,9 @@ function StepOpieka({ data, update, onBack, onNext, generating, onGenerate }: {
 function StepPracodawca({ data, update, onBack, onNext }: { data: Z15aData; update: (k: keyof Z15aData, v: string) => void; onBack: () => void; onNext: () => void }) {
   return (
     <div>
-      <h2 className="text-[16px] font-bold text-text-1 mb-2">Dane pracodawcy</h2>
-      <p className="text-[13px] text-text-3 mb-5">Znajdziesz na umowie o prace lub pasku wynagrodzenia.</p>
-      <div className="space-y-4">
+      <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 8, letterSpacing: '-0.01em' }}>Dane pracodawcy</h2>
+      <p style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 24 }}>Znajdziesz na umowie o pracę lub pasku wynagrodzenia.</p>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         <Field label="Nazwa pracodawcy">
           <input className={IC} value={data.nazwaPracodawcy} onChange={e => update('nazwaPracodawcy', e.target.value)} placeholder="XYZ Sp. z o.o." />
         </Field>
@@ -310,11 +349,11 @@ function StepPracodawca({ data, update, onBack, onNext }: { data: Z15aData; upda
         <Field label="Numer rachunku bankowego do wypłaty" hint="Format: PL00 0000 0000 0000 0000 0000 0000">
           <input className={IC} value={data.nrKonta} onChange={e => update('nrKonta', e.target.value)} placeholder="PL00 0000 0000 0000 0000 0000 0000" />
         </Field>
-        <div className="p-3 bg-bg-1 border border-border rounded-[6px] text-[12px] text-text-3 leading-[1.6]">
-          Jesli pracujesz u małego pracodawcy (do 20 osob), zasilek wypłaca ZUS bezposrednio. Jesli u duzego (ponad 20 osob), wypłaca pracodawca i rozlicza sie z ZUS. W obu przypadkach wniosek składasz u pracodawcy.
+        <div style={{ padding: '12px 16px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 8, fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.6 }}>
+          Jeśli pracujesz u małego pracodawcy (do 20 osób), zasiłek wypłaca ZUS bezpośrednio. Jeśli u dużego (ponad 20 osób), wypłaca pracodawca i rozlicza się z ZUS. W obu przypadkach wniosek składasz u pracodawcy.
         </div>
       </div>
-      <NavButtons onBack={onBack} onNext={onNext} nextLabel="Podglad wniosku" />
+      <NavButtons onBack={onBack} onNext={onNext} nextLabel="Podgląd wniosku" />
     </div>
   );
 }
@@ -325,30 +364,41 @@ function StepPodglad({ data, onBack, onDone, onDownload, onCopy, copied }: {
 }) {
   return (
     <div>
-      <h2 className="text-[16px] font-bold text-text-1 mb-5">Podglad wniosku Z-15a</h2>
-      <div className="bg-bg-1 border border-border rounded-[8px] p-5 text-[13px] text-text-2 leading-[1.8] whitespace-pre-wrap font-mono">
+      <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 24, letterSpacing: '-0.01em' }}>Podgląd wniosku Z-15a</h2>
+      <div className="mono" style={{
+        background: 'var(--color-bg-1)', border: '1px solid var(--color-border)',
+        borderRadius: 10, padding: '20px 24px',
+        fontSize: 12, color: 'var(--color-text-2)',
+        lineHeight: 1.8, whiteSpace: 'pre-wrap',
+        boxShadow: 'var(--shadow-1)',
+      }}>
         {buildOutput(data)}
       </div>
-      <div className="mt-4 flex gap-3 flex-wrap">
-        <button onClick={onDownload} className="text-[13px] font-medium px-4 py-2 bg-accent text-bg-0 rounded-[6px] hover:bg-accent/90 transition-colors">
+      <div style={{ marginTop: 16, display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+        <button onClick={onDownload} className="btn btn-primary" style={{ borderRadius: 8, fontSize: 13 }}>
           Pobierz .txt
         </button>
-        <button onClick={onCopy} className="text-[13px] px-4 py-2 border border-border rounded-[6px] text-text-2 hover:border-accent/40 transition-colors">
+        <button onClick={onCopy} className="btn btn-outline" style={{ borderRadius: 8, fontSize: 13 }}>
           {copied ? 'Skopiowano!' : 'Kopiuj do schowka'}
         </button>
       </div>
 
-      <div className="mt-6 p-4 bg-bg-1 border border-border rounded-[8px] text-[13px] text-text-2">
-        <p className="font-medium text-text-1 mb-2">Co zrobic dalej</p>
-        <ol className="space-y-1.5 list-decimal list-inside text-text-2">
-          <li>Pobierz oryginalny formularz Z-15a ze strony <a href="https://www.zus.pl/wzory-formularzy" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">zus.pl/wzory-formularzy</a></li>
+      <div style={{
+        marginTop: 24, padding: '20px 24px',
+        background: 'var(--color-bg-1)', border: '1px solid var(--color-border)',
+        borderRadius: 10, fontSize: 13, color: 'var(--color-text-2)',
+        boxShadow: 'var(--shadow-1)',
+      }}>
+        <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 12, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Co zrobić dalej</p>
+        <ol style={{ paddingLeft: 20, margin: 0, display: 'flex', flexDirection: 'column', gap: 8, lineHeight: 1.65 }}>
+          <li>Pobierz oryginalny formularz Z-15a ze strony <a href="https://www.zus.pl/wzory-formularzy" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)' }}>zus.pl/wzory-formularzy</a></li>
           <li>Przepisz dane z pobranego pliku do oryginalnego formularza PDF</li>
-          <li>Dołącz zwolnienie lekarskie dziecka (e-ZLA) lub zaswiadczenie o zamknieciu placowki</li>
-          <li>Złoz wniosek u swojego pracodawcy (nie bezposrednio w ZUS)</li>
-          <li>Pracodawca przesle wniosek do ZUS przez PUE ZUS</li>
-          <li>Zasilek zostanie wypłacony w terminie wynagrodzenia lub przez ZUS (do 30 dni)</li>
+          <li>Dołącz zwolnienie lekarskie dziecka (e-ZLA) lub zaświadczenie o zamknięciu placówki</li>
+          <li>Złóż wniosek u swojego pracodawcy (nie bezpośrednio w ZUS)</li>
+          <li>Pracodawca prześle wniosek do ZUS przez PUE ZUS</li>
+          <li>Zasiłek zostanie wypłacony w terminie wynagrodzenia lub przez ZUS (do 30 dni)</li>
         </ol>
-        <p className="mt-3 text-text-3">Potrzebne dokumenty: e-ZLA (zwolnienie lekarskie wystawione elektronicznie przez lekarza) lub zaswiadczenie ze zamkniecia placowki.</p>
+        <p style={{ marginTop: 12, fontSize: 12, color: 'var(--color-text-3)' }}>Potrzebne dokumenty: e-ZLA lub zaświadczenie o zamknięciu placówki.</p>
       </div>
 
       <NavButtons onBack={onBack} onNext={onDone} nextLabel="Gotowe" />
@@ -359,28 +409,30 @@ function StepPodglad({ data, onBack, onDone, onDownload, onCopy, copied }: {
 function StepDone({ onDownload, onCopy, copied, onRestart }: { onDownload: () => void; onCopy: () => void; copied: boolean; onRestart: () => void }) {
   return (
     <div>
-      <h2 className="text-[20px] font-bold text-text-1 mb-3">Wniosek przygotowany</h2>
-      <p className="text-[14px] text-text-2 mb-6 leading-[1.7]">
-        Oryginalny formularz Z-15a pobierz ze strony zus.pl, przepisz dane z pliku i zlozone go u pracodawcy. Do wniosku dolacz e-ZLA od lekarza lub zaswiadczenie o zamknieciu placowki.
+      <span className="label-eyebrow" style={{ display: 'block', marginBottom: 12 }}>Gotowe</span>
+      <h2 style={{ fontSize: 28, fontWeight: 500, letterSpacing: '-0.02em', color: 'var(--color-text-1)', marginBottom: 12 }}>Wniosek przygotowany</h2>
+      <p style={{ fontSize: 14, color: 'var(--color-text-2)', marginBottom: 32, lineHeight: 1.7 }}>
+        Oryginalny formularz Z-15a pobierz ze strony zus.pl, przepisz dane z pliku i złóż go u pracodawcy. Do wniosku dołącz e-ZLA od lekarza lub zaświadczenie o zamknięciu placówki.
       </p>
-      <div className="space-y-3 mb-8">
-        <button onClick={onDownload} className="w-full py-3 text-[14px] font-medium bg-accent text-bg-0 rounded-[8px] hover:bg-accent/90 transition-colors">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 32 }}>
+        <button onClick={onDownload} className="btn btn-primary" style={{ width: '100%', height: 50, borderRadius: 10, fontSize: 14 }}>
           Pobierz Z-15a (.txt)
         </button>
-        <button onClick={onCopy} className="w-full py-3 text-[13px] text-text-2 bg-bg-1 border border-border rounded-[8px] hover:border-accent/40 transition-colors">
+        <button onClick={onCopy} className="btn btn-outline" style={{ width: '100%', height: 44, borderRadius: 10, fontSize: 13 }}>
           {copied ? 'Skopiowano!' : 'Kopiuj do schowka'}
         </button>
         <a
           href="https://www.zus.pl/wzory-formularzy"
           target="_blank"
           rel="noopener noreferrer"
-          className="w-full py-3 text-[13px] text-accent border border-accent/40 rounded-[8px] hover:bg-accent/5 transition-colors block text-center"
+          className="btn"
+          style={{ width: '100%', height: 44, borderRadius: 10, fontSize: 13, color: 'var(--color-accent)', border: '1px solid var(--color-accent)', justifyContent: 'center' }}
         >
           Oryginalny formularz Z-15a na zus.pl
         </a>
       </div>
-      <button onClick={onRestart} className="text-[13px] text-text-3 hover:text-text-1">
-        Wypelnij nowy wniosek
+      <button onClick={onRestart} style={{ fontSize: 13, color: 'var(--color-text-3)', background: 'none', border: 'none', cursor: 'pointer' }}>
+        Wypełnij nowy wniosek
       </button>
     </div>
   );
@@ -448,14 +500,19 @@ function NavButtons({ onBack, onNext, nextLabel = 'Dalej', nextDisabled = false 
   onBack?: () => void; onNext?: () => void; nextLabel?: string; nextDisabled?: boolean;
 }) {
   return (
-    <div className="flex justify-between mt-8">
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 40, paddingTop: 24, borderTop: '1px solid var(--color-border)' }}>
       {onBack ? (
-        <button onClick={onBack} className="text-[13px] px-4 py-2 border border-border rounded-[6px] text-text-3 hover:text-text-1 transition-colors">
+        <button onClick={onBack} className="btn btn-ghost" style={{ borderRadius: 8, fontSize: 13 }}>
           Wstecz
         </button>
       ) : <div />}
       {onNext && (
-        <button onClick={onNext} disabled={nextDisabled} className="text-[13px] font-medium px-5 py-2 bg-accent text-bg-0 rounded-[6px] hover:bg-accent/90 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
+        <button
+          onClick={onNext}
+          disabled={nextDisabled}
+          className="btn btn-primary"
+          style={{ borderRadius: 999, fontSize: 13, opacity: nextDisabled ? 0.4 : 1, cursor: nextDisabled ? 'not-allowed' : 'pointer' }}
+        >
           {nextLabel}
         </button>
       )}
@@ -466,11 +523,15 @@ function NavButtons({ onBack, onNext, nextLabel = 'Dalej', nextDisabled = false 
 function Field({ label, hint, children }: { label: string; hint?: string; children: React.ReactNode }) {
   return (
     <div>
-      <label className="block text-[13px] font-medium text-text-1 mb-1">{label}</label>
-      {hint && <p className="text-[11px] text-text-3 mb-1.5">{hint}</p>}
+      <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 4 }}>{label}</label>
+      {hint && <p style={{ fontSize: 11, color: 'var(--color-text-3)', marginBottom: 8, lineHeight: 1.5 }}>{hint}</p>}
       {children}
     </div>
   );
 }
 
-const IC = 'w-full bg-bg-0 border border-border rounded-[6px] px-3 py-2 text-[13px] text-text-1 placeholder:text-text-3 focus:outline-none focus:border-accent/50 transition-colors';
+const IC = [
+  'w-full bg-bg-1 border border-border rounded-[8px] px-3 py-2.5',
+  'text-[13px] text-text-1 placeholder:text-text-3',
+  'focus:outline-none focus:border-accent/60 transition-colors',
+].join(' ');
