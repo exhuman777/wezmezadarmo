@@ -12,7 +12,7 @@ type Phase = 'landing' | 'questions' | 'loading' | 'chat';
 
 const LOADING_MESSAGES = [
   'Szukamy pieniędzy dla Twojej rodziny...',
-  'Sprawdzamy 104 świadczenia w 13 kategoriach...',
+  'Sprawdzamy 117 świadczeń w 13 kategoriach...',
   'Szukam dla Ciebie funduszy...',
   'Analizujemy Twój profil...',
   'Twoje darmowe pieniądze od Państwa w zasięgu ręki...',
@@ -567,7 +567,7 @@ export default function Home() {
         welcomeText += 'Napisz pytanie, jestem tutaj żeby pomóc.';
       } else {
         welcomeText = 'Nie znalazłem świadczeń pasujących do Twojego profilu.\n\n';
-        welcomeText += 'Algorytm przeszukał 104 świadczenia z 13 kategorii. Opisz mi swoją sytuację, a sprawdzę czy czegoś nie przeoczyłem.\n\n';
+        welcomeText += 'Algorytm przeszukał 117 świadczeń z 13 kategorii. Opisz mi swoją sytuację, a sprawdzę czy czegoś nie przeoczyłem.\n\n';
         welcomeText += 'Jestem asystentem AI. Moje odpowiedzi opierają się na zweryfikowanej bazie danych, ale zawsze sprawdź informacje na stronach źródłowych.';
       }
 
@@ -739,7 +739,7 @@ export default function Home() {
                   padding: '20px 0',
                 }}>
                   {[
-                    { n: 104, suf: '', lbl: 'świadczeń w bazie' },
+                    { n: 117, suf: '', lbl: 'świadczeń w bazie' },
                     { n: 13, suf: '', lbl: 'kategorii życiowych' },
                     { n: 2, suf: ' min', lbl: 'średni czas analizy' },
                   ].map((s, i) => (
@@ -830,7 +830,7 @@ export default function Home() {
             <div className="rise" style={{ marginTop: 80, animationDelay: '420ms' }}>
               <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 20 }}>
                 <span className="label-eyebrow">Przykładowe świadczenia</span>
-                <span className="label-eyebrow" style={{ color: 'var(--color-muted-2)' }}>3 z 104</span>
+                <span className="label-eyebrow" style={{ color: 'var(--color-muted-2)' }}>3 z 117</span>
               </div>
               <div className="grid-benefits" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
                 {EXAMPLE_BENEFITS.slice(0, 3).map((b, i) => (
@@ -902,7 +902,7 @@ export default function Home() {
               <div>
                 <Logo />
                 <p style={{ fontSize: 14, color: 'var(--color-text-3)', marginTop: 16, maxWidth: 360, lineHeight: 1.6 }}>
-                  Sprawdź czy należą Ci się świadczenia od państwa. 104 świadczenia, 13 kategorii. Strona przygotowana i dostępna również w wersji dla agentów AI w pliku <a href="/llm.md" style={{ color: 'var(--color-accent)' }}>llm.md</a>.
+                  Sprawdź czy należą Ci się świadczenia od państwa. 117 świadczeń, 13 kategorii. Strona przygotowana i dostępna również w wersji dla agentów AI w pliku <a href="/llm.md" style={{ color: 'var(--color-accent)' }}>llm.md</a>.
                 </p>
                 <div style={{ marginTop: 20 }}>
                   <FlagStripe width={36} thickness={4} />
@@ -913,6 +913,7 @@ export default function Home() {
                 <ul style={{ padding: 0, margin: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10 }}>
                   <li><a className="link-u" href="/swiadczenia" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Baza świadczeń</a></li>
                   <li><a className="link-u" href="/o-projekcie" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>O projekcie</a></li>
+                  <li><a className="link-u" href="/dla-firm" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>API dla firm</a></li>
                   <li><a className="link-u" href="/llm.md" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Dla agentów AI</a></li>
                   <li><a className="link-u" href="https://www.linkedin.com/in/kamil-sobkowicz/" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Kontakt / LinkedIn</a></li>
                 </ul>
@@ -1034,7 +1035,7 @@ export default function Home() {
 
   // ===================== LOADING =====================
   if (phase === 'loading') {
-    const counted = Math.round(loadingProgress * 104);
+    const counted = Math.round(loadingProgress * 117);
     const pct = Math.round(loadingProgress * 100);
     const segments = 13;
     const ringR = 130;
@@ -1061,12 +1062,12 @@ export default function Home() {
 
                 <h1 className="display" style={{ fontSize: 'clamp(40px, 6vw, 80px)', marginBottom: 36 }}>
                   Sprawdzamy<br />
-                  <span style={{ color: 'var(--color-accent)', fontVariantNumeric: 'tabular-nums' }}>{counted}/104</span>
+                  <span style={{ color: 'var(--color-accent)', fontVariantNumeric: 'tabular-nums' }}>{counted}/117</span>
                   <span style={{ color: 'var(--color-text-3)' }}> świadczeń</span>
                 </h1>
 
                 <p style={{ fontSize: 17, color: 'var(--color-text-2)', maxWidth: 480, marginBottom: 32, lineHeight: 1.5 }}>
-                  Dopasowujemy 104 świadczenia z 13 kategorii do Twojej sytuacji.
+                  Dopasowujemy 117 świadczeń z 13 kategorii do Twojej sytuacji.
                   Wszystko dzieje się w Twojej przeglądarce. Żadne dane nie opuszczają urządzenia.
                 </p>
 
@@ -1124,8 +1125,8 @@ export default function Home() {
                       );
                     })}
                     {/* Inner tick ring */}
-                    {Array.from({ length: 104 }).map((_, i) => {
-                      const a = (i / 104) * Math.PI * 2 - Math.PI / 2;
+                    {Array.from({ length: 117 }).map((_, i) => {
+                      const a = (i / 117) * Math.PI * 2 - Math.PI / 2;
                       const r1 = innerR - 4, r2 = innerR - 12;
                       const tickActive = i < counted;
                       return (

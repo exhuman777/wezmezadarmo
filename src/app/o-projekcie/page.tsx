@@ -38,7 +38,7 @@ export default function OProjekciePage() {
               </p>
               <p>
                 wezmezadarmo powstało, żeby rozwiązać ten konkretny problem: zebrać w jednym miejscu
-                <strong className="text-text-1"> 104 świadczenia z 13 kategorii</strong> i dać
+                <strong className="text-text-1"> 117 świadczeń z 13 kategorii</strong> i dać
                 każdemu możliwość sprawdzenia w 2 minuty, na co się kwalifikuje.
                 Bez rejestracji, bez opłat, bez zbędnych kroków.
               </p>
@@ -194,7 +194,7 @@ export default function OProjekciePage() {
                 </li>
                 <li className="flex gap-2">
                   <span className="text-accent font-bold shrink-0">{'>'}</span>
-                  <span><strong className="text-text-1">Baza 104 świadczenia</strong>: ręcznie zweryfikowana baza z oficjalnych źródeł rządowych, aktualizowana na bieżąco</span>
+                  <span><strong className="text-text-1">Baza 117 świadczeń</strong>: ręcznie zweryfikowana baza z oficjalnych źródeł rządowych, aktualizowana na bieżąco</span>
                 </li>
               </ul>
             </div>
@@ -207,7 +207,7 @@ export default function OProjekciePage() {
             </h2>
             <div className="space-y-3">
               <p>
-                Baza 104 świadczenia została opracowana na podstawie ogólnodostępnych, oficjalnych
+                Baza 117 świadczeń została opracowana na podstawie ogólnodostępnych, oficjalnych
                 źródeł rządowych i publicznych. Każde świadczenie w bazie ma przypisane źródło
                 z datą weryfikacji. Główne instytucje, z których danych korzystamy:
               </p>
