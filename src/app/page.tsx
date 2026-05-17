@@ -966,7 +966,7 @@ export default function Home() {
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 12 }}>
 
-                {/* Card: Wnioski AI */}
+                {/* Card: Wnioski ZUS */}
                 <a href="/wnioski" className="hover-lift" style={{
                   background: 'var(--color-surface)',
                   border: '1px solid var(--color-border)',
@@ -978,17 +978,17 @@ export default function Home() {
                   <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
                     <div>
                       <div className="mono" style={{ fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 6 }}>
-                        Formularze ZUS z AI
+                        Formularze ZUS
                       </div>
                       <div style={{ fontSize: 17, fontWeight: 500, letterSpacing: '-0.015em', color: 'var(--color-text-1)' }}>
-                        Wniosek w 5 minut
+                        Wypełnij wniosek ZUS
                       </div>
                     </div>
                     <Chip tone="primary" mono>12 formularzy</Chip>
                   </div>
                   <p style={{ fontSize: 13, color: 'var(--color-text-3)', lineHeight: 1.55, flex: 1, margin: 0 }}>
-                    Kreatory Z-15a, Z-15b, Z-3, ERPO, PEL i innych. Asystent AI zadaje pytania,
-                    wypełnia formularz, generuje PDF gotowy do złożenia.
+                    Kreator pyta o Twoje dane krok po kroku i wypełnia formularz ZUS.
+                    Na końcu generuje PDF, który drukujesz i składasz osobiście lub wysyłasz pocztą.
                   </p>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                     {['Z-15a', 'Z-15b', 'Z-3', 'ERPO', 'ZAS-53', 'PEL'].map(sym => (
@@ -1019,17 +1019,18 @@ export default function Home() {
                         Automatyzacje AI
                       </div>
                       <div style={{ fontSize: 17, fontWeight: 500, letterSpacing: '-0.015em', color: 'var(--color-text-1)' }}>
-                        Faktury, raporty, oferty -- na autopilocie
+                        Faktury zagraniczne z maila do arkusza
                       </div>
                     </div>
                     <Chip tone="ghost" mono>JDG / firma</Chip>
                   </div>
                   <p style={{ fontSize: 13, color: 'var(--color-text-3)', lineHeight: 1.55, flex: 1, margin: 0 }}>
-                    Automat Fakturowy -- faktura przychodzi mailem i wpisuje się do arkusza sama.
-                    Konkretne wdrożenie, nie kurs. Gwarancja zwrotu.
+                    Polskie faktury trafiają do KSeF automatycznie. Ale faktury z USA i spoza UE
+                    (np. Stripe, OpenAI, Notion) przychodzą mailem i łatwo je przegapić.
+                    System czyta skrzynkę, wyciąga kwoty i wpisuje je do arkusza.
                   </p>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-                    {['Automat Fakturowy', 'Wdrożenie 5 dni', '1200 PLN'].map(tag => (
+                    {['Faktury spoza UE', 'KSeF nie obejmuje', '1200 PLN wdrożenie'].map(tag => (
                       <span key={tag} className="mono" style={{
                         fontSize: 10, padding: '3px 8px',
                         border: '1px solid var(--color-border)',
@@ -1038,7 +1039,7 @@ export default function Home() {
                     ))}
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', borderTop: '1px solid var(--color-border)', paddingTop: 14 }}>
-                    <span className="label-eyebrow" style={{ color: 'var(--color-accent)' }}>Oszczędź czas <IconArrowRight /></span>
+                    <span className="label-eyebrow" style={{ color: 'var(--color-accent)' }}>Zobacz szczegóły <IconArrowRight /></span>
                   </div>
                 </a>
 
@@ -1054,7 +1055,7 @@ export default function Home() {
                   <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
                     <div>
                       <div className="mono" style={{ fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 6 }}>
-                        Agent AI -- dotacje
+                        Agent AI dotacje
                       </div>
                       <div style={{ fontSize: 17, fontWeight: 500, letterSpacing: '-0.015em', color: 'var(--color-text-1)' }}>
                         Monitoring dotacji dla Twojej firmy
@@ -1063,8 +1064,9 @@ export default function Home() {
                     <Chip tone="primary" mono>25 PLN/mies.</Chip>
                   </div>
                   <p style={{ fontSize: 13, color: 'var(--color-text-3)', lineHeight: 1.55, flex: 1, margin: 0 }}>
-                    Agent zna Twój NIP i profil firmy. Monitoruje KFS, PUP, PFRON, KPO i programy
-                    samorządowe. Email gdy otworzy się nabór pasujący do Twojej firmy.
+                    Podajesz NIP i branżę. Agent sprawdza otwarte nabory z KFS, PUP, PFRON, KPO
+                    i programów samorządowych. Gdy pojawi się nabór pasujący do Twojego profilu,
+                    dostajesz maila z linkiem i terminem.
                   </p>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                     {['KFS', 'PFRON', 'KPO', 'PARP', '16 województw'].map(tag => (

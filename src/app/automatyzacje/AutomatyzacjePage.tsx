@@ -3,10 +3,10 @@
 import { SiteHeader } from '@/components/SiteHeader';
 
 const PROBLEMY = [
-  { obszar: 'Faktury', opis: 'Ręczne przepisywanie danych z maili do programu -- 3-5 godz. miesięcznie na każdego handlowca.' },
-  { obszar: 'Oferty', opis: 'Kopiowanie szablonu, ręczna edycja kwot, wysyłka -- każda oferta to 20-40 minut pracy.' },
+  { obszar: 'Faktury zagraniczne', opis: 'Polskie faktury trafiają do KSeF. Ale rachunki z USA i spoza UE (Stripe, OpenAI, AWS, Notion) przychodzą mailem i można je przegapić. Trzeba je ręcznie przepisywać do ewidencji.' },
+  { obszar: 'Oferty', opis: 'Kopiowanie szablonu, ręczna edycja kwot, wysyłka. Każda oferta to 20-40 minut pracy.' },
   { obszar: 'Raporty', opis: 'Zbieranie danych z arkuszy na koniec miesiąca, formatowanie, wysyłka do zarządu lub księgowej.' },
-  { obszar: 'Maile do klientów', opis: 'Potwierdzenia zamówień, przypomnienia o płatnościach, follow-up po spotkaniu -- pisane od nowa za każdym razem.' },
+  { obszar: 'Maile do klientów', opis: 'Potwierdzenia zamówień, przypomnienia o płatnościach, follow-up po spotkaniu. Pisane od nowa za każdym razem.' },
   { obszar: 'Dane z ZUS/US', opis: 'Pilnowanie terminów, generowanie druków, przepisywanie do arkusza ewidencji.' },
 ];
 
@@ -17,12 +17,12 @@ const KROKI = [
 ];
 
 const PRODUKT_FEATURES = [
-  'Automatyczne odczytywanie zamówień z maili klientów',
-  'Generowanie faktury w Twoim systemie (np. Fakturownia, wFirma, arkusz Google)',
-  'Powiadomienie na maila lub WhatsApp gdy faktura jest gotowa',
-  'Archiwizacja w chmurze -- szukasz faktury z marca? 3 sekundy',
-  'Raport tygodniowy: kto zapłacił, kto zalega, ile wpłynęło',
-  'Wdrożenie w ciągu 5 dni roboczych, instrukcja obsługi, 30 dni wsparcia',
+  'Skanuje wskazaną skrzynkę mailową w poszukiwaniu faktur i rachunków spoza UE (PDF, e-mail od Stripe, AWS, OpenAI, Notion i innych)',
+  'Wyciąga z nich: datę, kwotę, walutę, nazwę dostawcy i numer dokumentu',
+  'Wpisuje dane do arkusza Google lub Excela, który wskazujesz',
+  'Wysyła powiadomienie, gdy pojawi się nowy dokument do zaksięgowania',
+  'Nie obsługuje polskich faktur krajowych: te trafiają do KSeF automatycznie i nie wymagają osobnego narzędzia',
+  'Wdrożenie zajmuje do 5 dni roboczych, dostajesz instrukcję obsługi',
 ];
 
 export default function AutomatyzacjePage() {
@@ -45,28 +45,19 @@ export default function AutomatyzacjePage() {
             marginBottom: 24,
             animationDelay: '60ms',
           }}>
-            Twoja firma traci kilkanaście godzin<br />
-            miesięcznie na rzeczy, które<br />
-            <span style={{ color: 'var(--color-accent)' }}>system może zrobić sam.</span>
+            Faktury spoza UE przychodzą mailem.<br />
+            <span style={{ color: 'var(--color-accent)' }}>Łatwo je przegapić.</span>
           </h1>
 
           <p className="rise" style={{
             fontSize: 18, lineHeight: 1.65,
             color: 'var(--color-text-2)',
-            maxWidth: 620, marginBottom: 12,
+            maxWidth: 620, marginBottom: 40,
             animationDelay: '120ms',
           }}>
-            Faktury, oferty, raporty, maile do klientów.
-            Budujemy konkretne automatyzacje, które działają w Twoim środowisku pracy.
-          </p>
-          <p className="rise" style={{
-            fontSize: 18, lineHeight: 1.65,
-            color: 'var(--color-text-2)',
-            maxWidth: 620, marginBottom: 40,
-            animationDelay: '140ms',
-          }}>
-            Nie kurs. Nie konsulting.{' '}
-            <strong style={{ color: 'var(--color-text-1)' }}>Gotowe narzędzia.</strong>
+            Polskie faktury trafiają do KSeF automatycznie. Ale rachunki z USA i spoza UE
+            przychodzą mailem i łatwo je przegapić. Budujemy system, który czyta skrzynkę
+            i wpisuje te dokumenty do Twojego arkusza, zanim trafią do szuflady.
           </p>
 
           <div className="rise" style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 64, animationDelay: '180ms' }}>
@@ -132,8 +123,9 @@ export default function AutomatyzacjePage() {
                 Automat Fakturowy
               </h2>
               <p style={{ fontSize: 16, color: 'var(--color-text-2)', lineHeight: 1.7, maxWidth: 560, marginBottom: 32 }}>
-                System, który sam odczytuje zamówienia z maili klientów i wystawia
-                faktury bez żadnego ręcznego przepisywania. Działa 24/7.
+                System, który skanuje wskazaną skrzynkę mailową i wyciąga dane z faktur
+                od zagranicznych dostawców (spoza UE). Wpisuje je do arkusza, który wskazujesz.
+                Polskich faktur krajowych nie obsługuje, bo te trafiają do KSeF automatycznie.
               </p>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 36 }}>
@@ -196,7 +188,7 @@ export default function AutomatyzacjePage() {
             </div>
           </div>
 
-          {/* GWARANCJA */}
+          {/* JAK ROZLICZAMY */}
           <div className="rise" style={{ marginBottom: 64, animationDelay: '340ms' }}>
             <div style={{
               background: 'var(--color-surface)',
@@ -205,12 +197,12 @@ export default function AutomatyzacjePage() {
               padding: '28px 32px',
             }}>
               <h3 style={{ fontSize: 22, fontWeight: 700, color: 'var(--color-text-1)', marginBottom: 12 }}>
-                Jeśli nie działa -- nie płacisz
+                Jak wygląda wdrożenie
               </h3>
               <p style={{ fontSize: 16, color: 'var(--color-text-2)', lineHeight: 1.75 }}>
-                Zanim wystawię fakturę, testujemy system na Twoich prawdziwych danych.
-                Jeśli automatyzacja nie robi tego, co uzgodniliśmy -- zwrot 100% wpłaty.
-                Bez klauzul, bez gwiazdek.
+                Przed startem omawiamy dokładnie, jakie dokumenty mają być zbierane i gdzie mają
+                trafiać. Testujesz system na realnych danych przed finalnym odbiorem.
+                Faktura wystawiana jest po potwierdzeniu, że wszystko działa zgodnie z ustaleniami.
               </p>
             </div>
           </div>
