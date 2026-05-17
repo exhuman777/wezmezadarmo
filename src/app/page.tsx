@@ -816,7 +816,7 @@ export default function Home() {
                 <div className="rise" style={{ display: 'flex', flexWrap: 'wrap', gap: 18, marginBottom: 36, animationDelay: '240ms' }}>
                   {[
                     { label: 'PESEL nie opuszcza przeglądarki', icon: <IconLock /> },
-                    { label: 'Brak bazy danych', icon: <IconShield /> },
+                    { label: 'Kalkulator świadczeń bez bazy danych', icon: <IconShield /> },
                     { label: 'Połączenie HTTPS', icon: <IconCheck /> },
                   ].map((item, i) => (
                     <a key={i} href="/o-projekcie" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 13, color: 'var(--color-text-2)', textDecoration: 'none' }}>
