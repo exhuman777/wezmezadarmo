@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { DateInput } from '@/components/DateInput';
 
 // ---- TYPES ----
 
@@ -263,11 +264,11 @@ function StepSytuacja({ data, update, onBack, onNext }: {
             <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 8 }}>
               <div>
                 <label style={{ fontSize: 11, color: 'var(--color-text-3)' }}>Od</label>
-                <input className={IC} style={inputStyle} value={o.od} onChange={e => updateOkresAreszt(i, 'od', e.target.value)} placeholder="dd/mm/rrrr" />
+                <DateInput className={IC} style={inputStyle} value={o.od} onChange={v => updateOkresAreszt(i, 'od', v)} placeholder="dd.mm.rrrr" />
               </div>
               <div>
                 <label style={{ fontSize: 11, color: 'var(--color-text-3)' }}>Do</label>
-                <input className={IC} style={inputStyle} value={o.do} onChange={e => updateOkresAreszt(i, 'do', e.target.value)} placeholder="dd/mm/rrrr" />
+                <DateInput className={IC} style={inputStyle} value={o.do} onChange={v => updateOkresAreszt(i, 'do', v)} placeholder="dd.mm.rrrr" />
               </div>
             </div>
           ))}
@@ -292,11 +293,11 @@ function StepSytuacja({ data, update, onBack, onNext }: {
             <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 8 }}>
               <div>
                 <label style={{ fontSize: 11, color: 'var(--color-text-3)' }}>Od</label>
-                <input className={IC} style={inputStyle} value={o.od} onChange={e => updateOkresPozaRp(i, 'od', e.target.value)} placeholder="dd/mm/rrrr" />
+                <DateInput className={IC} style={inputStyle} value={o.od} onChange={v => updateOkresPozaRp(i, 'od', v)} placeholder="dd.mm.rrrr" />
               </div>
               <div>
                 <label style={{ fontSize: 11, color: 'var(--color-text-3)' }}>Do</label>
-                <input className={IC} style={inputStyle} value={o.do} onChange={e => updateOkresPozaRp(i, 'do', e.target.value)} placeholder="dd/mm/rrrr" />
+                <DateInput className={IC} style={inputStyle} value={o.do} onChange={v => updateOkresPozaRp(i, 'do', v)} placeholder="dd.mm.rrrr" />
               </div>
             </div>
           ))}
@@ -330,11 +331,11 @@ function StepPrzerwy({ data, update, onBack, onNext }: {
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 10 }}>
             <div>
               <label style={{ fontSize: 11, color: 'var(--color-text-3)' }}>Od</label>
-              <input className={IC} style={inputStyle} value={p.od} onChange={e => updatePrzerwa(i, 'od', e.target.value)} placeholder="dd/mm/rrrr" />
+              <DateInput className={IC} style={inputStyle} value={p.od} onChange={v => updatePrzerwa(i, 'od', v)} placeholder="dd.mm.rrrr" />
             </div>
             <div>
               <label style={{ fontSize: 11, color: 'var(--color-text-3)' }}>Do</label>
-              <input className={IC} style={inputStyle} value={p.do} onChange={e => updatePrzerwa(i, 'do', e.target.value)} placeholder="dd/mm/rrrr" />
+              <DateInput className={IC} style={inputStyle} value={p.do} onChange={v => updatePrzerwa(i, 'do', v)} placeholder="dd.mm.rrrr" />
             </div>
           </div>
           <div>
@@ -368,7 +369,7 @@ function StepOjciec({ data, update, onBack, onNext }: {
       />
       {data.ojciec_smierc && (
         <Field label="Data smierci matki">
-          <input className={IC} style={inputStyle} value={data.ojciec_smierc_data} onChange={e => update('ojciec_smierc_data', e.target.value)} placeholder="dd/mm/rrrr" />
+          <DateInput className={IC} style={inputStyle} value={data.ojciec_smierc_data} onChange={v => update('ojciec_smierc_data', v)} placeholder="dd.mm.rrrr" />
         </Field>
       )}
 
@@ -379,7 +380,7 @@ function StepOjciec({ data, update, onBack, onNext }: {
       />
       {data.ojciec_porzucenie && (
         <Field label="Data porzucenia przez matke">
-          <input className={IC} style={inputStyle} value={data.ojciec_porzucenie_data} onChange={e => update('ojciec_porzucenie_data', e.target.value)} placeholder="dd/mm/rrrr" />
+          <DateInput className={IC} style={inputStyle} value={data.ojciec_porzucenie_data} onChange={v => update('ojciec_porzucenie_data', v)} placeholder="dd.mm.rrrr" />
         </Field>
       )}
 
@@ -390,7 +391,7 @@ function StepOjciec({ data, update, onBack, onNext }: {
       />
       {data.ojciec_zaprzestanie && (
         <Field label="Data poczatkowa zaprzestania przez matke">
-          <input className={IC} style={inputStyle} value={data.ojciec_zaprzestanie_data} onChange={e => update('ojciec_zaprzestanie_data', e.target.value)} placeholder="dd/mm/rrrr" />
+          <DateInput className={IC} style={inputStyle} value={data.ojciec_zaprzestanie_data} onChange={v => update('ojciec_zaprzestanie_data', v)} placeholder="dd.mm.rrrr" />
         </Field>
       )}
 
@@ -398,7 +399,7 @@ function StepOjciec({ data, update, onBack, onNext }: {
         <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-text-2)', marginBottom: 16, textTransform: 'uppercase', letterSpacing: '0.04em' }}>Dane matki dzieci</p>
         <Field label="Imie matki dzieci"><input style={inputStyle} value={data.matka_imie} onChange={e => update('matka_imie', e.target.value)} /></Field>
         <Field label="Nazwisko matki dzieci"><input style={inputStyle} value={data.matka_nazwisko} onChange={e => update('matka_nazwisko', e.target.value)} /></Field>
-        <Field label="Data urodzenia matki dzieci"><input className={IC} style={inputStyle} value={data.matka_dataUrodzenia} onChange={e => update('matka_dataUrodzenia', e.target.value)} placeholder="dd/mm/rrrr" /></Field>
+        <Field label="Data urodzenia matki dzieci"><DateInput className={IC} style={inputStyle} value={data.matka_dataUrodzenia} onChange={v => update('matka_dataUrodzenia', v)} placeholder="dd.mm.rrrr" /></Field>
       </div>
 
       <NavButtons onBack={onBack} onNext={onNext} />

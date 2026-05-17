@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { DateInput } from '@/components/DateInput';
 
 // Z-3 to zaswiadczenie wypelniane przez pracodawce, nie pracownika.
 // Ten wizard pomaga pracownikowi:
@@ -187,10 +188,10 @@ export default function ZusZ3Page() {
               </Field>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
                 <Field label="Okres L4 od" hint="DD.MM.RRRR">
-                  <input className={IC} value={data.dataOd} onChange={e => update('dataOd', e.target.value)} placeholder="01.05.2026" />
+                  <DateInput className={IC} value={data.dataOd} onChange={v => update('dataOd', v)} placeholder="01.05.2026" />
                 </Field>
                 <Field label="Okres L4 do" hint="DD.MM.RRRR">
-                  <input className={IC} value={data.dataDo} onChange={e => update('dataDo', e.target.value)} placeholder="15.05.2026" />
+                  <DateInput className={IC} value={data.dataDo} onChange={v => update('dataDo', v)} placeholder="15.05.2026" />
                 </Field>
               </div>
               <Field label="Twoje srednie wynagrodzenie brutto (PLN/mies.)" hint="Orientacyjna podstawa wymiaru zasilku -- sprawdzisz na paskach plac">

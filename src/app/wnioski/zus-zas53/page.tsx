@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { DateInput } from '@/components/DateInput';
+import { FormChatWidget } from '@/components/FormChatWidget';
 
 // ---- TYPES ----
 
@@ -196,6 +198,7 @@ export default function ZusZas53Page() {
             onCopy={copyAll} copied={copied} onRestart={() => { setData(EMPTY); setStep('wnioskodawca'); }} />
         )}
       </div>
+      <FormChatWidget formType="zus-zas53" />
     </div>
   );
 }
@@ -265,10 +268,10 @@ function StepZasilek({ data, update, onBack, onNext }: { data: Zas53Data; update
         {/* Okres */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
           <Field label="Niezdolnosc od *" hint="DD.MM.RRRR">
-            <input className={IC} value={data.dataOd} onChange={e => update('dataOd', e.target.value)} placeholder="01.05.2026" />
+            <DateInput className={IC} value={data.dataOd} onChange={v => update('dataOd', v)} placeholder="01.05.2026" />
           </Field>
           <Field label="Niezdolnosc do *" hint="DD.MM.RRRR">
-            <input className={IC} value={data.dataDo} onChange={e => update('dataDo', e.target.value)} placeholder="14.05.2026" />
+            <DateInput className={IC} value={data.dataDo} onChange={v => update('dataDo', v)} placeholder="14.05.2026" />
           </Field>
         </div>
 
@@ -302,7 +305,7 @@ function StepZasilek({ data, update, onBack, onNext }: { data: Zas53Data; update
 
         {data.okresUbezpieczenia === 'po-ustaniu' && (
           <Field label="Data ustania tytulu ubezpieczenia" hint="DD.MM.RRRR -- data do ktorej byłes ubezpieczony">
-            <input className={IC} value={data.dataUstaniaUbezpieczenia} onChange={e => update('dataUstaniaUbezpieczenia', e.target.value)} placeholder="30.04.2026" />
+            <DateInput className={IC} value={data.dataUstaniaUbezpieczenia} onChange={v => update('dataUstaniaUbezpieczenia', v)} placeholder="30.04.2026" />
           </Field>
         )}
 

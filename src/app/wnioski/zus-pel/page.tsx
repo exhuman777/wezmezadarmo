@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { DateInput } from '@/components/DateInput';
+import { FormChatWidget } from '@/components/FormChatWidget';
 
 // ---- TYPES ----
 
@@ -160,6 +162,7 @@ export default function ZusPelPage() {
         {step === 'podglad' && <StepPodglad data={data} onBack={() => setStep('zakres')} onDone={() => setStep('done')} onDownload={downloadTxt} onCopy={copyAll} copied={copied} />}
         {step === 'done' && <StepDone onDownload={downloadTxt} onCopy={copyAll} copied={copied} onRestart={() => { setData(EMPTY); setStep('mocodawca'); }} />}
       </div>
+      <FormChatWidget formType="zus-pel" />
     </div>
   );
 }
@@ -310,10 +313,10 @@ function StepZakres({ data, update, onBack, onNext }: { data: PelData; update: (
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
           <Field label="Pelnomocnictwo od" hint="DD.MM.RRRR -- jesli puste: od dnia doreczenia do ZUS">
-            <input className={IC} value={data.dataOd} onChange={e => update('dataOd', e.target.value)} placeholder="17.05.2026" />
+            <DateInput className={IC} value={data.dataOd} onChange={v => update('dataOd', v)} placeholder="17.05.2026" />
           </Field>
           <Field label="Pelnomocnictwo do" hint="DD.MM.RRRR -- jesli puste: bezterminowe">
-            <input className={IC} value={data.dataDo} onChange={e => update('dataDo', e.target.value)} placeholder="31.12.2026" />
+            <DateInput className={IC} value={data.dataDo} onChange={v => update('dataDo', v)} placeholder="31.12.2026" />
           </Field>
         </div>
 

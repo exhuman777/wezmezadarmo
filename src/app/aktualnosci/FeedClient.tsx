@@ -162,8 +162,30 @@ export default function FeedClient({ items, active, failed, fetchedAt }: Props) 
 
       {/* Feed items */}
       {filtered.length === 0 ? (
-        <div className="border border-border rounded-lg px-5 py-10 text-center text-[14px] text-text-3">
-          Brak wyników dla wybranych filtrów.
+        <div className="border border-border rounded-lg px-5 py-8 text-center">
+          {items.length === 0 ? (
+            <div className="space-y-4">
+              <p className="text-[14px] text-text-2 font-medium">Nie udalo sie pobrac aktualnosci.</p>
+              <p className="text-[12px] text-text-3">
+                Zrodla RSS moga byc chwilowo niedostepne. Sprawdz bezposrednio:
+              </p>
+              <div className="flex flex-wrap gap-2 justify-center mt-3">
+                {FEEDS.map(f => (
+                  <a
+                    key={f.id}
+                    href={f.url.replace('/rss', '').replace('/rss.html', '').replace('/rss.php', '').replace('/rss.xsp', '').replace('/kanal-rss', '')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono text-[11px] px-2.5 py-1 rounded border border-border text-text-3 hover:text-accent hover:border-accent transition-colors"
+                  >
+                    {f.name}
+                  </a>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <p className="text-[14px] text-text-3">Brak wynikow dla wybranych filtrow.</p>
+          )}
         </div>
       ) : (
         <div className="space-y-0 border border-border rounded-lg divide-y divide-border overflow-hidden">

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { DateInput } from '@/components/DateInput';
 
 // ---- TYPES ----
 
@@ -275,7 +276,7 @@ function StepEmerytura({ data, update, wiekEmerytalny, minStaz, onBack, onNext }
           </select>
         </Field>
         <Field label="Data urodzenia" hint="DD.MM.RRRR -- do weryfikacji wieku emerytalnego">
-          <input className={IC} value={data.dataUrodzenia} onChange={e => update('dataUrodzenia', e.target.value)} placeholder="15.03.1964" />
+          <DateInput className={IC} value={data.dataUrodzenia} onChange={v => update('dataUrodzenia', v)} placeholder="15.03.1964" />
         </Field>
         <Field label="Glowna forma zatrudnienia przez wiekszosc kariery">
           <select className={IC} value={data.formaZatrudnienia} onChange={e => update('formaZatrudnienia', e.target.value as FormaZatrudnienia)}>

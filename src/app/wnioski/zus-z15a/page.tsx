@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { DateInput } from '@/components/DateInput';
+import { FormChatWidget } from '@/components/FormChatWidget';
 
 // ---- TYPES ----
 
@@ -256,6 +258,7 @@ export default function ZusZ15aPage() {
           />
         )}
       </div>
+      <FormChatWidget formType="zus-z15a" />
     </div>
   );
 }
@@ -341,10 +344,10 @@ function StepEzla({ data, update, onBack, onNext }: { data: Z15aData; update: (k
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
           <Field label="Data od *" hint="DD.MM.RRRR">
-            <input className={IC} value={data.dataOd} onChange={e => update('dataOd', e.target.value)} placeholder="01.05.2026" />
+            <DateInput className={IC} value={data.dataOd} onChange={v => update('dataOd', v)} placeholder="01.05.2026" />
           </Field>
           <Field label="Data do *" hint="DD.MM.RRRR">
-            <input className={IC} value={data.dataDo} onChange={e => update('dataDo', e.target.value)} placeholder="07.05.2026" />
+            <DateInput className={IC} value={data.dataDo} onChange={v => update('dataDo', v)} placeholder="07.05.2026" />
           </Field>
         </div>
         <Field label="Seria i numer e-ZLA" hint="Opcjonalne -- jesli pamietasz. Zaswiadczenie lekarskie wystawione elektronicznie trafia do ZUS automatycznie.">
@@ -378,7 +381,7 @@ function StepDziecko({ data, update, onBack, onNext }: { data: Z15aData; update:
           </Field>
         </div>
         <Field label="Data urodzenia dziecka *" hint="DD.MM.RRRR">
-          <input className={IC} value={data.dataUrodzDziecka} onChange={e => update('dataUrodzDziecka', e.target.value)} placeholder="15.03.2020" />
+          <DateInput className={IC} value={data.dataUrodzDziecka} onChange={v => update('dataUrodzDziecka', v)} placeholder="15.03.2020" />
         </Field>
 
         <OswiadczenieBlock

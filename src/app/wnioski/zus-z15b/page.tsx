@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { DateInput } from '@/components/DateInput';
+import { FormChatWidget } from '@/components/FormChatWidget';
 
 // ---- TYPES ----
 
@@ -254,6 +256,7 @@ export default function ZusZ15bPage() {
           />
         )}
       </div>
+      <FormChatWidget formType="zus-z15b" />
     </div>
   );
 
@@ -342,10 +345,10 @@ function StepEzla({ data, update, onBack, onNext }: { data: Z15bData; update: (k
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
           <Field label="Opieka od *" hint="DD.MM.RRRR">
-            <input className={IC} value={data.dataOd} onChange={e => update('dataOd', e.target.value)} placeholder="01.05.2026" />
+            <DateInput className={IC} value={data.dataOd} onChange={v => update('dataOd', v)} placeholder="01.05.2026" />
           </Field>
           <Field label="Opieka do *" hint="DD.MM.RRRR">
-            <input className={IC} value={data.dataDo} onChange={e => update('dataDo', e.target.value)} placeholder="07.05.2026" />
+            <DateInput className={IC} value={data.dataDo} onChange={v => update('dataDo', v)} placeholder="07.05.2026" />
           </Field>
         </div>
         <Field label="Seria i numer e-ZLA" hint="Opcjonalne. Jesli lekarz wystawil elektroniczne zwolnienie (e-ZLA) -- podaj serie i numer jesli go pamietasz. Trafia automatycznie do ZUS.">
@@ -386,7 +389,7 @@ function StepChory({ data, update, onBack, onNext }: { data: Z15bData; update: (
           <input className={IC} value={data.peselChory} onChange={e => update('peselChory', e.target.value)} placeholder="00000000000" maxLength={11} />
         </Field>
         <Field label="Data urodzenia" hint="DD.MM.RRRR -- podaj jesli brak PESEL">
-          <input className={IC} value={data.dataUrodzChory} onChange={e => update('dataUrodzChory', e.target.value)} placeholder="15.03.1950" />
+          <DateInput className={IC} value={data.dataUrodzChory} onChange={v => update('dataUrodzChory', v)} placeholder="15.03.1950" />
         </Field>
         <div style={{ padding: '12px 16px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 8, fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.6 }}>
           Czlonkami rodziny objety wnioskiem Z-15b sa: malzonek, rodzice, rodzic dziecka, ojczym, macocha, rodzice adopcyjni, tesciowie, dziadkowie, wnuki, rodzenstwo. Muszą prowadzic z Toba wspolne gospodarstwo domowe w okresie sprawowania opieki.
