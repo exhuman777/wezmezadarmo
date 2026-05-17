@@ -2,13 +2,13 @@ import type { Metadata } from 'next';
 import AutomatyzacjePage from './AutomatyzacjePage';
 
 export const metadata: Metadata = {
-  title: 'Automatyzacje AI dla firm | wezmezadarmo',
+  title: 'Automatyzacje AI dla firm i JDG | wezmezadarmo',
   description:
-    'Gotowe automatyzacje AI dla polskich JDG i malych spolek. Kalkulator ZUS, 10 darmowych promptow, Automat Fakturowy za 1200 PLN. Konkretne narzedzia, nie consulting.',
+    'Gotowe automatyzacje AI dla polskich firm i JDG. Automat Fakturowy za 1200 PLN -- faktury wystawiane automatycznie z maili klientów. Bez abonamentu, wdrożenie 5 dni.',
   openGraph: {
-    title: 'Automatyzacje AI dla polskiego przedsiebiorcy',
+    title: 'Automatyzacje AI dla polskiej firmy -- konkretne narzędzia',
     description:
-      'Kalkulator ZUS + 10 gotowych promptow AI za darmo. Automat Fakturowy: faktury same wpisuja sie do arkusza. 1200 PLN, bez abonamentu.',
+      'Nie kursy, nie konsulting. Działające automatyzacje: faktury, oferty, raporty. Automat Fakturowy 1200 PLN, gwarancja zwrotu jeśli nie działa.',
     locale: 'pl_PL',
     type: 'website',
   },
