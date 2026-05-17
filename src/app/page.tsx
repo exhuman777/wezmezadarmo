@@ -762,22 +762,45 @@ export default function Home() {
                   ))}
                 </div>
 
-                {/* Wnioski banner */}
-                <a href="/wnioski" className="rise" style={{
-                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                  gap: 12, marginBottom: 24, animationDelay: '220ms',
-                  padding: '10px 16px', borderRadius: 8,
-                  border: '1px solid var(--color-accent)',
-                  background: 'color-mix(in srgb, var(--color-accent) 8%, transparent)',
-                  textDecoration: 'none',
-                }}>
-                  <span style={{ fontSize: 13, color: 'var(--color-text-1)', fontWeight: 500 }}>
-                    Potrzebujesz pomocy w wypełnieniu wniosku? Robimy to z AI.
-                  </span>
-                  <span style={{ fontSize: 12, color: 'var(--color-accent)', whiteSpace: 'nowrap', fontWeight: 500 }}>
-                    Pomoc z wnioskami &rarr;
-                  </span>
-                </a>
+                {/* Quick links row */}
+                <div className="rise" style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 24, animationDelay: '220ms' }}>
+                  <a href="/wnioski" style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                    gap: 12, padding: '10px 16px', borderRadius: 8,
+                    border: '1px solid var(--color-accent)',
+                    background: 'color-mix(in srgb, var(--color-accent) 8%, transparent)',
+                    textDecoration: 'none',
+                  }}>
+                    <span style={{ fontSize: 13, color: 'var(--color-text-1)', fontWeight: 500 }}>
+                      Wypełnij wniosek ZUS z AI -- Z-15a, Z-3, ERPO i inne
+                    </span>
+                    <span style={{ fontSize: 12, color: 'var(--color-accent)', whiteSpace: 'nowrap', fontWeight: 500 }}>
+                      12 formularzy &rarr;
+                    </span>
+                  </a>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+                    <a href="/automatyzacje" style={{
+                      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                      gap: 8, padding: '9px 14px', borderRadius: 8,
+                      border: '1px solid var(--color-border)',
+                      background: 'var(--color-surface)',
+                      textDecoration: 'none',
+                    }}>
+                      <span style={{ fontSize: 12, color: 'var(--color-text-2)' }}>AI dla firm / JDG</span>
+                      <span style={{ fontSize: 11, color: 'var(--color-accent)', fontWeight: 500 }}>Automatyzacje &rarr;</span>
+                    </a>
+                    <a href="/aktualnosci" style={{
+                      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                      gap: 8, padding: '9px 14px', borderRadius: 8,
+                      border: '1px solid var(--color-border)',
+                      background: 'var(--color-surface)',
+                      textDecoration: 'none',
+                    }}>
+                      <span style={{ fontSize: 12, color: 'var(--color-text-2)' }}>ZUS, GUS, NBP...</span>
+                      <span style={{ fontSize: 11, color: 'var(--color-accent)', fontWeight: 500 }}>Aktualnosci &rarr;</span>
+                    </a>
+                  </div>
+                </div>
 
                 {/* Trust row */}
                 <div className="rise" style={{ display: 'flex', flexWrap: 'wrap', gap: 18, marginBottom: 36, animationDelay: '240ms' }}>
@@ -875,6 +898,93 @@ export default function Home() {
                     </div>
                   </a>
                 ))}
+              </div>
+            </div>
+
+            {/* ---- Narzedzia dla firm i JDG ---- */}
+            <div className="rise" style={{ marginTop: 80, animationDelay: '460ms' }}>
+              <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 20 }}>
+                <span className="label-eyebrow">Narzedzia dla firm i JDG</span>
+                <span className="label-eyebrow" style={{ color: 'var(--color-muted-2)' }}>2 moduły</span>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 12 }}>
+
+                {/* Card: Wnioski AI */}
+                <a href="/wnioski" className="hover-lift" style={{
+                  background: 'var(--color-surface)',
+                  border: '1px solid var(--color-border)',
+                  borderRadius: 16,
+                  padding: '24px',
+                  display: 'flex', flexDirection: 'column', gap: 14,
+                  textDecoration: 'none', color: 'inherit',
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
+                    <div>
+                      <div className="mono" style={{ fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 6 }}>
+                        Formularze ZUS z AI
+                      </div>
+                      <div style={{ fontSize: 17, fontWeight: 500, letterSpacing: '-0.015em', color: 'var(--color-text-1)' }}>
+                        Wniosek w 5 minut
+                      </div>
+                    </div>
+                    <Chip tone="primary" mono>12 formularzy</Chip>
+                  </div>
+                  <p style={{ fontSize: 13, color: 'var(--color-text-3)', lineHeight: 1.55, flex: 1, margin: 0 }}>
+                    Kreatory Z-15a, Z-15b, Z-3, ERPO, PEL i innych. Asystent AI zadaje pytania,
+                    wypełnia formularz, generuje PDF gotowy do złożenia.
+                  </p>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                    {['Z-15a', 'Z-15b', 'Z-3', 'ERPO', 'ZAS-53', 'PEL'].map(sym => (
+                      <span key={sym} className="mono" style={{
+                        fontSize: 10, padding: '3px 8px',
+                        border: '1px solid var(--color-border)',
+                        borderRadius: 999, color: 'var(--color-text-3)',
+                      }}>{sym}</span>
+                    ))}
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', borderTop: '1px solid var(--color-border)', paddingTop: 14 }}>
+                    <span className="label-eyebrow" style={{ color: 'var(--color-accent)' }}>Wypełnij wniosek <IconArrowRight /></span>
+                  </div>
+                </a>
+
+                {/* Card: Automatyzacje */}
+                <a href="/automatyzacje" className="hover-lift" style={{
+                  background: 'var(--color-surface)',
+                  border: '1px solid var(--color-border)',
+                  borderRadius: 16,
+                  padding: '24px',
+                  display: 'flex', flexDirection: 'column', gap: 14,
+                  textDecoration: 'none', color: 'inherit',
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
+                    <div>
+                      <div className="mono" style={{ fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 6 }}>
+                        Automatyzacje AI
+                      </div>
+                      <div style={{ fontSize: 17, fontWeight: 500, letterSpacing: '-0.015em', color: 'var(--color-text-1)' }}>
+                        Faktury, raporty, oferty -- na autopilocie
+                      </div>
+                    </div>
+                    <Chip tone="ghost" mono>JDG / firma</Chip>
+                  </div>
+                  <p style={{ fontSize: 13, color: 'var(--color-text-3)', lineHeight: 1.55, flex: 1, margin: 0 }}>
+                    Kalkulator ZUS, 10 gotowych promptów AI do skopiowania i Automat Fakturowy
+                    -- faktura przychodzi mailem, wpisuje sie do arkusza sama.
+                  </p>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                    {['Kalkulator ZUS', '10 promptów AI', 'Automat Fakturowy'].map(tag => (
+                      <span key={tag} className="mono" style={{
+                        fontSize: 10, padding: '3px 8px',
+                        border: '1px solid var(--color-border)',
+                        borderRadius: 999, color: 'var(--color-text-3)',
+                      }}>{tag}</span>
+                    ))}
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', borderTop: '1px solid var(--color-border)', paddingTop: 14 }}>
+                    <span className="label-eyebrow" style={{ color: 'var(--color-accent)' }}>Oszczedz czas <IconArrowRight /></span>
+                  </div>
+                </a>
+
               </div>
             </div>
 
@@ -984,6 +1094,77 @@ export default function Home() {
                   </div>
                 </div>
 
+              </div>
+            </div>
+
+            {/* ---- Aktualnosci rzadowe ---- */}
+            <div className="rise" style={{ marginTop: 80, animationDelay: '580ms' }}>
+              <div style={{
+                background: 'var(--color-surface)',
+                border: '1px solid var(--color-border)',
+                borderRadius: 'var(--radius-xl)',
+                padding: '32px',
+                boxShadow: 'var(--shadow-2)',
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
+                  <span className="label-eyebrow" style={{ color: 'var(--color-accent)' }}>Agregator RSS</span>
+                  <span style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
+                  <span className="mono" style={{ fontSize: 10, color: 'var(--color-muted-2)' }}>odswiezane co 30 min</span>
+                </div>
+                <h3 style={{ fontSize: 22, letterSpacing: '-0.025em', marginBottom: 10 }}>
+                  Aktualnosci z ZUS, GUS, NBP i 5 innych instytucji
+                </h3>
+                <p style={{ fontSize: 14, color: 'var(--color-text-2)', lineHeight: 1.55, marginBottom: 20, maxWidth: 620 }}>
+                  Wszystkie wazne komunikaty rzadowe w jednym miejscu -- dopasowane do Twojego profilu.
+                  Filtruj po: JDG, firma lub wszyscy. Bez szukania po 8 osobnych stronach.
+                </p>
+
+                {/* Source badges */}
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 24 }}>
+                  {[
+                    { id: 'zus', name: 'ZUS', color: '#003874', for: 'wszyscy' },
+                    { id: 'gus', name: 'GUS', color: '#004B8D', for: 'wszyscy' },
+                    { id: 'nbp', name: 'NBP', color: '#CC0000', for: 'firmy' },
+                    { id: 'uokik', name: 'UOKiK', color: '#1B5E20', for: 'wszyscy' },
+                    { id: 'fundusze', name: 'Fundusze EU', color: '#6A0DAD', for: 'JDG/firmy' },
+                    { id: 'ezdrowie', name: 'e-Zdrowie', color: '#00695C', for: 'wszyscy' },
+                    { id: 'sejm', name: 'Sejm', color: '#8B0000', for: 'wszyscy' },
+                    { id: 'arimr', name: 'ARiMR', color: '#4E342E', for: 'JDG' },
+                  ].map(s => (
+                    <span key={s.id} title={`Dla: ${s.for}`} style={{
+                      display: 'inline-flex', alignItems: 'center', gap: 5,
+                      padding: '4px 10px', borderRadius: 999,
+                      background: s.color, color: '#fff',
+                      fontSize: 11, fontFamily: 'var(--font-mono)',
+                      letterSpacing: '0.06em', textTransform: 'uppercase',
+                    }}>{s.name}</span>
+                  ))}
+                </div>
+
+                {/* Filter preview pills */}
+                <div style={{ display: 'flex', gap: 8, marginBottom: 24, flexWrap: 'wrap' }}>
+                  {['Wszystkie', 'Dla wszystkich', 'JDG', 'Firmy'].map((label, i) => (
+                    <span key={label} style={{
+                      padding: '6px 14px', borderRadius: 999,
+                      border: `1px solid ${i === 0 ? 'var(--color-text-1)' : 'var(--color-border)'}`,
+                      background: i === 0 ? 'var(--color-text-1)' : 'transparent',
+                      color: i === 0 ? 'var(--color-bg-0)' : 'var(--color-text-3)',
+                      fontSize: 12, fontFamily: 'var(--font-mono)',
+                      letterSpacing: '0.04em',
+                    }}>{label}</span>
+                  ))}
+                </div>
+
+                <a href="/aktualnosci" style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 8,
+                  padding: '10px 20px', borderRadius: 999,
+                  background: 'var(--color-accent)', color: 'var(--color-bg-0)',
+                  fontSize: 14, fontWeight: 500, textDecoration: 'none',
+                  fontFamily: 'var(--font-mono)', letterSpacing: '0.02em',
+                  transition: 'opacity 200ms',
+                }}>
+                  Otworz agregator <IconArrowRight />
+                </a>
               </div>
             </div>
 
