@@ -1,84 +1,80 @@
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const { renderToBuffer } = require('@react-pdf/renderer')
-import React from 'react'
-import { Z15aPdf, type Z15aData } from '@/lib/pdf/z15a'
-import { Z15bPdf, type Z15bData } from '@/lib/pdf/z15b'
-import { Zas53Pdf, type Zas53Data } from '@/lib/pdf/zas53'
-import { ErpoPdf, type ErpoData } from '@/lib/pdf/erpo'
+/**
+ * POST /api/pdf
+ * Fills official ZUS PDF forms by injecting data into the XFA datasets stream.
+ * Uses PDF incremental update -- no external dependencies, no re-rendering.
+ * Returns the original ZUS PDF with user data baked in, ready to print and sign.
+ */
 
-export const runtime = 'nodejs'
-export const dynamic = 'force-dynamic'
+import { buildZas53Pdf, type Zas53WizardData } from '@/lib/forms/zas53-filler';
+import { buildZ15bPdf, type Z15bWizardData } from '@/lib/forms/z15b-filler';
+import { buildZ15aPdf, type Z15aWizardData } from '@/lib/forms/z15a-filler';
+import { buildPelPdf, type PelWizardData } from '@/lib/forms/pel-filler';
 
-function todayPl() {
-  return new Date().toLocaleDateString('pl-PL', {
-    day: '2-digit', month: '2-digit', year: 'numeric',
-  })
-}
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 
 export async function POST(request: Request) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let body: { formType: string; data: any }
+  let body: { formType: string; data: any };
 
   try {
-    body = await request.json()
+    body = await request.json();
   } catch {
     return new Response(JSON.stringify({ error: 'Invalid JSON' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    })
+      status: 400, headers: { 'Content-Type': 'application/json' },
+    });
   }
 
-  const { formType, data } = body
+  const { formType, data } = body;
   if (!formType || !data) {
     return new Response(JSON.stringify({ error: 'Missing formType or data' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    })
-  }
-
-  const date = todayPl()
-  let element: React.ReactElement
-  let filename: string
-
-  switch (formType) {
-    case 'zus-z15a':
-      element = React.createElement(Z15aPdf, { data: data as Z15aData, date })
-      filename = `Z-15a-${(data.imieNazwisko ?? 'wniosek').replace(/\s+/g, '-')}.pdf`
-      break
-    case 'zus-z15b':
-      element = React.createElement(Z15bPdf, { data: data as Z15bData, date })
-      filename = `Z-15b-${(data.imieNazwisko ?? 'wniosek').replace(/\s+/g, '-')}.pdf`
-      break
-    case 'zus-zas53':
-      element = React.createElement(Zas53Pdf, { data: data as Zas53Data, date })
-      filename = `ZAS-53-${(data.imieNazwisko ?? 'wniosek').replace(/\s+/g, '-')}.pdf`
-      break
-    case 'zus-erpo':
-      element = React.createElement(ErpoPdf, { data: data as ErpoData, date })
-      filename = `ERPO-${(data.imieNazwisko ?? 'wniosek').replace(/\s+/g, '-')}.pdf`
-      break
-    default:
-      return new Response(JSON.stringify({ error: `Unknown formType: ${formType}` }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      })
+      status: 400, headers: { 'Content-Type': 'application/json' },
+    });
   }
 
   try {
-    const buffer: Buffer = await renderToBuffer(element)
-    return new Response(new Uint8Array(buffer), {
+    let pdfBuffer: Buffer;
+    let filename: string;
+
+    switch (formType) {
+      case 'zus-zas53':
+        pdfBuffer = buildZas53Pdf(data as Zas53WizardData);
+        filename = `ZAS-53-${slug(data.imie, data.nazwisko)}.pdf`;
+        break;
+      case 'zus-z15b':
+        pdfBuffer = buildZ15bPdf(data as Z15bWizardData);
+        filename = `Z-15B-${slug(data.imie, data.nazwisko)}.pdf`;
+        break;
+      case 'zus-z15a':
+        pdfBuffer = buildZ15aPdf(data as Z15aWizardData);
+        filename = `Z-15A-${slug(data.imie, data.nazwisko)}.pdf`;
+        break;
+      case 'zus-pel':
+        pdfBuffer = buildPelPdf(data as PelWizardData);
+        filename = `PEL-${slug(data.imie, data.nazwisko)}.pdf`;
+        break;
+      default:
+        return new Response(JSON.stringify({ error: `Unknown formType: ${formType}` }), {
+          status: 400, headers: { 'Content-Type': 'application/json' },
+        });
+    }
+
+    return new Response(new Uint8Array(pdfBuffer), {
       status: 200,
       headers: {
         'Content-Type': 'application/pdf',
         'Content-Disposition': `attachment; filename="${filename}"`,
         'Cache-Control': 'no-store',
       },
-    })
+    });
   } catch (err) {
-    console.error('[api/pdf] renderToBuffer error:', err)
-    return new Response(JSON.stringify({ error: 'PDF generation failed' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    })
+    console.error('[api/pdf] error:', err);
+    return new Response(JSON.stringify({ error: 'PDF generation failed', detail: String(err) }), {
+      status: 500, headers: { 'Content-Type': 'application/json' },
+    });
   }
+}
+
+function slug(imie: string, nazwisko: string): string {
+  return `${imie || 'X'}-${nazwisko || 'X'}`.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9-]/g, '');
 }
