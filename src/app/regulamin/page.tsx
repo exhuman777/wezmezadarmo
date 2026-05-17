@@ -18,11 +18,11 @@ export default function RegulaminPage() {
           Regulamin
         </h1>
         <p className="text-[13px] text-text-3 mb-8">
-          Ostatnia aktualizacja: 15 maja 2026 r.
+          Ostatnia aktualizacja: 17 maja 2026 r.
         </p>
 
         <div className="mb-8 p-4 border border-accent/30 bg-accent/5 rounded-[8px] text-[13px] text-text-2">
-          Regulamin obejmuje rowniez usluge pomocy w wypelnieniu wnioskow dostepna pod adresem /wnioski (sekcja 3a).
+          Regulamin obejmuje również usługę pomocy w wypełnieniu wniosków dostępną pod adresem /wnioski (sekcja 3a), narzędzie automatyzacji dla przedsiębiorców dostępne pod adresem /automatyzacje (sekcja 3b) oraz agregator aktualności rządowych dostępny pod adresem /aktualnosci (sekcja 3c).
         </div>
 
         <div className="space-y-8 text-[14px] sm:text-[15px] leading-[1.7] text-text-2">
@@ -59,6 +59,22 @@ export default function RegulaminPage() {
             <P>3a.4. Wszystkie dane o projekcie wprowadzone przez Użytkownika w ramach Usługi Wnioskowej są przetwarzane wyłącznie w przeglądarce Użytkownika i przesyłane do modelu AI wyłącznie w zakresie niezbędnym do wygenerowania treści danego pola. Operator nie przechowuje tych danych na serwerze.</P>
             <P>3a.5. Użytkownik ponosi wyłączną odpowiedzialność za treść ostateczną wniosku, jego zgodność z wymaganiami instytucji i prawdziwość podanych informacji. Operator odpowiada wyłącznie za dostępność techniczną narzędzia.</P>
             <P>3a.6. Usługa Wnioskowa może być w przyszłości świadczona odpłatnie. O zmianie warunków Operator poinformuje z wyprzedzeniem na stronie Serwisu. Aktualne warunki cenowe są widoczne na stronie /wnioski.</P>
+          </Section>
+
+          <Section n="3b" title="Usługa narzędzi automatyzacji">
+            <P>3b.1. Serwis udostępnia bezpłatne narzędzie dla przedsiębiorców pomagające w ocenie kwalifikowalności do ulg ZUS, generowaniu gotowych poleceń AI do zadań biznesowych oraz informacji o usłudze Automat Fakturowy (dalej: &quot;Usługa Automatyzacji&quot;), dostępne pod adresem /automatyzacje.</P>
+            <P>3b.2. Kalkulator składek ZUS w ramach Usługi Automatyzacji działa wyłącznie po stronie przeglądarki Użytkownika. Żadne dane wprowadzone przez Użytkownika nie są przesyłane ani zapisywane na serwerach Operatora.</P>
+            <P>3b.3. Gotowe polecenia AI (prompt pack) stanowią materiały informacyjno-edukacyjne i mogą być swobodnie kopiowane i używane przez Użytkownika.</P>
+            <P>3b.4. Usługa Automat Fakturowy jest usługą płatną świadczoną na podstawie odrębnej umowy zawieranej po kontakcie z Operatorem. Warunki cenowe i zakres usługi są określone w indywidualnej umowie.</P>
+            <P>3b.5. Operator nie gwarantuje, że wyniki kalkulatora składek ZUS są zgodne z aktualnie obowiązującymi przepisami. Użytkownik powinien weryfikować wyniki w ZUS lub u właściwego doradcy.</P>
+          </Section>
+
+          <Section n="3c" title="Agregator aktualności rządowych">
+            <P>3c.1. Serwis udostępnia bezpłatny agregator aktualności z publicznych kanałów RSS instytucji rządowych Rzeczypospolitej Polskiej (dalej: &quot;Usługa Aktualności&quot;), dostępny pod adresem /aktualnosci.</P>
+            <P>3c.2. Usługa Aktualności pobiera dane wyłącznie z oficjalnych, publicznych kanałów RSS instytucji takich jak ZUS, GUS, NBP, UOKiK, Fundusze Europejskie, e-Zdrowie, Sejm RP i ARiMR. Operator nie jest autorem ani redaktorem treści pobieranych z tych źródeł.</P>
+            <P>3c.3. Strona odświeżana jest automatycznie co 30 minut (ISR). Operator nie gwarantuje aktualności ani kompletności treści w czasie rzeczywistym.</P>
+            <P>3c.4. Usługa Aktualności nie przetwarza ani nie zapisuje żadnych danych Użytkownika. Filtry wyboru profilu (JDG, firma, wszyscy) działają wyłącznie po stronie przeglądarki.</P>
+            <P>3c.5. Odpowiedzialność za treść aktualności ponoszą wyłącznie instytucje będące ich źródłem.</P>
           </Section>
 
           <Section n="4" title="Źródła danych o świadczeniach">
@@ -101,7 +117,7 @@ export default function RegulaminPage() {
             <P>9.1. Użytkownik zobowiązuje się do niepodawania danych nieprawdziwych, cudzych ani sfabrykowanych w celu uzyskania informacji o świadczeniach przysługujących innym osobom.</P>
             <P>9.2. Zabronione jest korzystanie z Serwisu w sposób naruszający przepisy prawa, prawa osób trzecich lub dobre obyczaje.</P>
             <P>9.3. Bez uprzedniej pisemnej zgody Operatora zabronione jest automatyczne pobieranie treści Serwisu za pomocą skryptów, botów, crawlerów lub innych narzędzi scrapingowych (tzw. web scraping). Baza świadczeń, jej struktura, opisy i instrukcje stanowią autorskie dzieło Operatora w rozumieniu ustawy z dnia 4 lutego 1994 r. o prawie autorskim i prawach pokrewnych.</P>
-            <P>9.4. Bez uprzedniej pisemnej zgody Operatora zabronione jest korzystanie z interfejsu API Serwisu (w tym endpointów /api/verify, /api/chat i innych) przez podmioty zewnętrzne w celach komercyjnych lub integracyjnych. Korzystanie z API przez osoby trzecie wymaga zawarcia indywidualnej umowy licencyjnej z Operatorem. Zapytania o licencję należy kierować na adres: sobkowicz.kamil@gmail.com.</P>
+            <P>9.4. Bez uprzedniej pisemnej zgody Operatora zabronione jest korzystanie z interfejsu API Serwisu (w tym endpointów /api/verify, /api/chat, /api/form-assist, /api/pdf i innych) przez podmioty zewnętrzne w celach komercyjnych lub integracyjnych. Korzystanie z API przez osoby trzecie wymaga zawarcia indywidualnej umowy licencyjnej z Operatorem. Zapytania o licencję należy kierować na adres: sobkowicz.kamil@gmail.com.</P>
             <P>9.5. Naruszenie postanowień punktów 9.3 i 9.4 uprawnia Operatora do dochodzenia roszczeń na podstawie przepisów o prawie autorskim oraz ustawy o zwalczaniu nieuczciwej konkurencji, a także blokowania dostępu do Serwisu i API.</P>
           </Section>
 

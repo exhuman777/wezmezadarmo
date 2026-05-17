@@ -22,74 +22,62 @@ const ZUS_RESULTS: Record<NonNullable<ZusVariant>, ZusResult> = {
   preferencyjny: {
     variant: 'preferencyjny',
     label: 'Preferencyjny ZUS',
-    opis: 'Pierwsze 24 miesiace prowadzenia pierwszej dzialalnosci. Podstawa wymiaru to 30% minimalnego wynagrodzenia.',
-    szacunkowe_oszczednosci: 'ok. 800-1100 PLN/mies. mniej niz Duzy ZUS',
-    uwaga: 'Dotyczy tylko pierwszej dzialalnosci. Po 24 mies. sprawdz czy kwalifikujesz sie na Maly ZUS Plus.',
-    next_step: 'Zloz DRA za miesiac po rejestracji -- ZUS wyliczy sk ladki automatycznie. Weryfikuj na zus.pl.',
+    opis: 'Pierwsze 24 miesiące prowadzenia pierwszej działalności. Podstawa wymiaru to 30% minimalnego wynagrodzenia.',
+    szacunkowe_oszczednosci: 'ok. 800–1100 PLN/mies. mniej niż Duży ZUS',
+    uwaga: 'Dotyczy tylko pierwszej działalności. Po 24 mies. sprawdź czy kwalifikujesz się na Mały ZUS Plus.',
+    next_step: 'Złóż DRA za miesiąc po rejestracji -- ZUS wyliczy składki automatycznie. Weryfikuj na zus.pl.',
   },
   maly_zus_plus: {
     variant: 'maly_zus_plus',
-    label: 'Maly ZUS Plus',
-    opis: 'Dla JDG ktore w poprzednim roku osiagnely przychod ponizej obowiazujacego limitu (sprawdz aktualny limit na zus.pl). Podstawa wymiaru to czesd dochodu z poprzedniego roku.',
-    szacunkowe_oszczednosci: 'ok. 200-700 PLN/mies. mniej niz Duzy ZUS (zalezne od dochodu)',
-    uwaga: 'Limit przychodu zmienia sie co roku. Weryfikuj z ksiegowym lub na zus.pl przed zlozeniem.',
-    next_step: 'Zloz odpowiednie druki ZUS (ZZA, ZUA lub DRA z kodem 05 70) do konca stycznia. Terminy sa nieprzekraczalne.',
+    label: 'Mały ZUS Plus',
+    opis: 'Dla JDG które w poprzednim roku osiągnęły przychód poniżej obowiązującego limitu (sprawdź aktualny limit na zus.pl). Podstawa wymiaru to część dochodu z poprzedniego roku.',
+    szacunkowe_oszczednosci: 'ok. 200–700 PLN/mies. mniej niż Duży ZUS (zależne od dochodu)',
+    uwaga: 'Limit przychodu zmienia się co roku. Weryfikuj z księgowym lub na zus.pl przed złożeniem.',
+    next_step: 'Złóż odpowiednie druki ZUS (ZZA, ZUA lub DRA z kodem 05 70) do końca stycznia. Terminy są nieprzekraczalne.',
   },
   duzy_zus: {
     variant: 'duzy_zus',
-    label: 'Duzy ZUS (pelne skladki)',
-    opis: 'Standardowe sk ladki spoleczne. Podstawa to min. 60% przecietnego wynagrodzenia. Dotyczy wiekszosci przedsiebiorców po preferencyjnym okresie i przy wyzszych dochodach.',
-    szacunkowe_oszczednosci: 'Mozliwa optymalizacja przez zmiane formy zatrudnienia lub spolki -- konsultuj z ksiegowym.',
-    uwaga: 'Sprawdz czy nie kwalifikujesz sie na Maly ZUS Plus -- wielu przedsiebiorców nie sklada drukow na czas i placi wiecej niz powinni.',
-    next_step: 'Weryfikuj swoj przychod z poprzedniego roku i sprawdz limit Malego ZUS Plus na zus.pl.',
+    label: 'Duży ZUS (pełne składki)',
+    opis: 'Standardowe składki społeczne. Podstawa to min. 60% przeciętnego wynagrodzenia. Dotyczy większości przedsiębiorców po preferencyjnym okresie i przy wyższych dochodach.',
+    szacunkowe_oszczednosci: 'Możliwa optymalizacja przez zmianę formy zatrudnienia lub spółki -- konsultuj z księgowym.',
+    uwaga: 'Sprawdź czy nie kwalifikujesz się na Mały ZUS Plus -- wielu przedsiębiorców nie składa druków na czas i płaci więcej niż powinni.',
+    next_step: 'Zweryfikuj swój przychód z poprzedniego roku i sprawdź limit Małego ZUS Plus na zus.pl.',
   },
 };
 
 function ZusKalkulator() {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState({
-    pierwsza: '',     // first business ever?
-    wiek_firmy: '',   // how long running
-    przychod: '',     // revenue range
+    pierwsza: '',
+    wiek_firmy: '',
+    przychod: '',
   });
   const [result, setResult] = useState<ZusResult | null>(null);
-
-  function oblicz(): ZusResult {
-    // First business + under 24 months = preferencyjny
-    if (answers.pierwsza === 'tak' && answers.wiek_firmy === 'ponizej_24') {
-      return ZUS_RESULTS.preferencyjny;
-    }
-    // Low revenue = potentially Maly ZUS Plus
-    if (answers.przychod === 'ponizej_limitu') {
-      return ZUS_RESULTS.maly_zus_plus;
-    }
-    return ZUS_RESULTS.duzy_zus;
-  }
 
   const questions = [
     {
       id: 'pierwsza',
-      pytanie: 'Czy to Twoja pierwsza dzialalnosc gospodarcza?',
+      pytanie: 'Czy to Twoja pierwsza działalność gospodarcza?',
       opcje: [
-        { value: 'tak', label: 'Tak -- pierwsza w zyciu' },
-        { value: 'nie', label: 'Nie -- prowadzilam/em wczesniej' },
+        { value: 'tak', label: 'Tak -- pierwsza w życiu' },
+        { value: 'nie', label: 'Nie -- prowadziłam/em wcześniej' },
       ],
     },
     {
       id: 'wiek_firmy',
-      pytanie: 'Jak dlugo prowadzisz aktualna dzialalnosc?',
+      pytanie: 'Jak długo prowadzisz aktualną działalność?',
       opcje: [
-        { value: 'ponizej_24', label: 'Mniej niz 24 miesiace' },
-        { value: 'od_24_do_60', label: '24-60 miesiecy' },
+        { value: 'ponizej_24', label: 'Mniej niż 24 miesiące' },
+        { value: 'od_24_do_60', label: '24–60 miesięcy' },
         { value: 'powyzej_60', label: 'Ponad 5 lat' },
       ],
     },
     {
       id: 'przychod',
-      pytanie: 'Jaki byl Twoj przychod z dzialalnosci w poprzednim roku kalendarzowym?',
+      pytanie: 'Jaki był Twój przychód z działalności w poprzednim roku kalendarzowym?',
       opcje: [
-        { value: 'ponizej_limitu', label: 'Ponizej limitu Malego ZUS Plus (ok. 120 000 PLN -- sprawdz aktualny na zus.pl)' },
-        { value: 'powyzej_limitu', label: 'Powyzej tego limitu lub nie wiem' },
+        { value: 'ponizej_limitu', label: 'Poniżej limitu Małego ZUS Plus (ok. 120 000 PLN -- sprawdź aktualny na zus.pl)' },
+        { value: 'powyzej_limitu', label: 'Powyżej tego limitu lub nie wiem' },
       ],
     },
   ];
@@ -103,15 +91,9 @@ function ZusKalkulator() {
     if (step < questions.length - 1) {
       setStep(step + 1);
     } else {
-      // Recalculate with updated answers
-      const final = {
-        pierwsza: newAnswers.pierwsza,
-        wiek_firmy: newAnswers.wiek_firmy,
-        przychod: newAnswers.przychod,
-      };
-      if (final.pierwsza === 'tak' && final.wiek_firmy === 'ponizej_24') {
+      if (newAnswers.pierwsza === 'tak' && newAnswers.wiek_firmy === 'ponizej_24') {
         setResult(ZUS_RESULTS.preferencyjny);
-      } else if (final.przychod === 'ponizej_limitu') {
+      } else if (newAnswers.przychod === 'ponizej_limitu') {
         setResult(ZUS_RESULTS.maly_zus_plus);
       } else {
         setResult(ZUS_RESULTS.duzy_zus);
@@ -135,7 +117,7 @@ function ZusKalkulator() {
     <div className="border border-border rounded-lg overflow-hidden">
       <div className="bg-bg-2 border-b border-border px-5 py-3 flex items-center justify-between">
         <div className="font-mono text-[11px] text-text-3 tracking-widest uppercase">
-          Kalkulator ZUS dla JDG -- bezplatny
+          Kalkulator ZUS dla JDG -- bezpłatny
         </div>
         {(step > 0 || result) && (
           <button onClick={reset} className="text-[12px] text-accent hover:underline font-mono">
@@ -147,7 +129,6 @@ function ZusKalkulator() {
       <div className="p-5">
         {!result ? (
           <div className="space-y-4">
-            {/* Progress */}
             <div className="flex gap-1.5 mb-5">
               {questions.map((_, i) => (
                 <div
@@ -158,7 +139,6 @@ function ZusKalkulator() {
                 />
               ))}
             </div>
-
             <div className="font-mono text-[11px] text-text-3 tracking-widest uppercase mb-2">
               Pytanie {step + 1} z {questions.length}
             </div>
@@ -190,20 +170,20 @@ function ZusKalkulator() {
             <div className="border border-border rounded-lg px-5 py-4 space-y-3">
               <div>
                 <div className="font-mono text-[10px] text-text-3 tracking-widest uppercase mb-1">
-                  Szacunkowe oszczednosci
+                  Szacunkowe oszczędności
                 </div>
                 <p className="text-[14px] text-text-1 font-medium">{result.szacunkowe_oszczednosci}</p>
               </div>
               <div>
                 <div className="font-mono text-[10px] text-text-3 tracking-widest uppercase mb-1">
-                  Nastepny krok
+                  Następny krok
                 </div>
                 <p className="text-[13px] text-text-2 leading-relaxed">{result.next_step}</p>
               </div>
               <div className="border-t border-border pt-3">
                 <p className="text-[12px] text-text-3 leading-relaxed">
                   <span className="text-warn font-medium">Uwaga: </span>
-                  {result.uwaga} To narzedzie nie zastepuje porady ksiegowego ani ZUS. Weryfikuj zawsze przed zlozeniem drukow.
+                  {result.uwaga} To narzędzie nie zastępuje porady księgowego ani ZUS. Weryfikuj zawsze przed złożeniem druków.
                 </p>
               </div>
             </div>
@@ -213,21 +193,15 @@ function ZusKalkulator() {
                 Masz pytania? Napisz do nas.
               </div>
               <p className="text-[13px] text-text-2 mb-3">
-                Pomagamy tez zautomatyzowac faktury, raporty i inne powtarzalne zadania -- zeby ZUS to byl Twoj jedyny problem.
+                Pomagamy też zautomatyzować faktury, raporty i inne powtarzalne zadania -- żeby ZUS był Twoim jedynym problemem.
               </p>
-              <a
-                href="#kontakt"
-                className="inline-block text-[13px] font-mono text-accent hover:underline"
-              >
+              <a href="#kontakt" className="inline-block text-[13px] font-mono text-accent hover:underline">
                 Napisz do nas --&gt;
               </a>
             </div>
 
-            <button
-              onClick={reset}
-              className="text-[12px] text-text-3 hover:text-text-2 hover:underline font-mono"
-            >
-              Sprawdz ponownie
+            <button onClick={reset} className="text-[12px] text-text-3 hover:text-text-2 hover:underline font-mono">
+              Sprawdź ponownie
             </button>
           </div>
         )}
@@ -248,10 +222,9 @@ function KontaktForm() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSending(true);
-    // Simple mailto fallback -- no backend required for MVP
     const subject = encodeURIComponent(`Automatyzacja AI -- zapytanie od ${form.imie} (${form.firma})`);
     const body = encodeURIComponent(
-      `Imie: ${form.imie}\nEmail: ${form.email}\nFirma: ${form.firma}\n\nOpis:\n${form.opis}`
+      `Imię: ${form.imie}\nEmail: ${form.email}\nFirma: ${form.firma}\n\nOpis:\n${form.opis}`
     );
     window.location.href = `mailto:sobkowicz.kamil@gmail.com?subject=${subject}&body=${body}`;
     setSending(false);
@@ -263,7 +236,7 @@ function KontaktForm() {
       <div className="border border-green-border bg-green-bg rounded-lg px-5 py-6 text-center">
         <div className="font-mono text-[11px] text-green tracking-widest uppercase mb-2">Gotowe</div>
         <p className="text-[14px] text-text-2">
-          Otworzyl sie Twoj klient pocztowy z gotowa wiadomoscia. Wyslij ja i odezwiemy sie w ciagu jednego dnia roboczego.
+          Otworzył się Twój klient pocztowy z gotową wiadomością. Wyślij ją i odezwiemy się w ciągu jednego dnia roboczego.
         </p>
       </div>
     );
@@ -274,7 +247,7 @@ function KontaktForm() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="font-mono text-[11px] text-text-3 tracking-widest uppercase block mb-1.5">
-            Imie i nazwisko
+            Imię i nazwisko
           </label>
           <input
             type="text"
@@ -315,7 +288,7 @@ function KontaktForm() {
 
       <div>
         <label className="font-mono text-[11px] text-text-3 tracking-widest uppercase block mb-1.5">
-          Co chcesz zautomatyzowac?
+          Co chcesz zautomatyzować?
         </label>
         <textarea
           required
@@ -323,7 +296,7 @@ function KontaktForm() {
           onChange={e => setForm({ ...form, opis: e.target.value })}
           rows={4}
           className="w-full bg-bg-2 border border-border rounded-lg px-3 py-2.5 text-[14px] text-text-1 font-mono placeholder:text-text-3 focus:outline-none focus:border-accent transition-colors resize-none"
-          placeholder="Np. co tydzien reczne przepisuje faktury do arkusza... albo odpisuje na te same pytania w mailach..."
+          placeholder="Np. co tydzień ręcznie przepisuję faktury do arkusza... albo odpisuję na te same pytania w mailach..."
         />
       </div>
 
@@ -332,80 +305,80 @@ function KontaktForm() {
         disabled={sending}
         className="w-full sm:w-auto bg-accent text-bg-0 font-mono text-[13px] tracking-wide px-6 py-3 rounded-lg hover:bg-accent-hover transition-colors disabled:opacity-50"
       >
-        {sending ? 'Otwieranie...' : 'Wyslij zapytanie'}
+        {sending ? 'Otwieranie...' : 'Wyślij zapytanie'}
       </button>
 
       <p className="text-[12px] text-text-3">
-        Odpowiedz w ciagu jednego dnia roboczego. Bez sprzedazy, bez dripsowania -- tylko konkretna rozmowa o Twojej sytuacji.
+        Odpowiedź w ciągu jednego dnia roboczego. Bez sprzedaży, bez dripsowania -- tylko konkretna rozmowa o Twojej sytuacji.
       </p>
     </form>
   );
 }
 
 // ---------------------------------------------------------------------------
-// Prompt Pack -- free downloadable section
+// Prompt Pack
 // ---------------------------------------------------------------------------
 
 const PROMPTS = [
   {
-    tytul: 'Odpowiedz na zapytanie ofertowe',
-    kontekst: 'Klient pyta o cene i termin',
-    prompt: `Jestes ekspertem w branzy [TWOJA BRANŻA]. Napisz profesjonalna odpowiedz na ponizsze zapytanie ofertowe. Ton: rzeczowy, konkretny, bez sprzedazowej scemy. Zawrz: krotkie potwierdzenie rozumienia potrzeby, wycena w przedziale [MIN PLN]-[MAX PLN] z uzasadnieniem, proponowany termin realizacji, nastepny krok (np. krotka rozmowa 15 min). Max 180 slow.
+    tytul: 'Odpowiedź na zapytanie ofertowe',
+    kontekst: 'Klient pyta o cenę i termin',
+    prompt: `Jesteś ekspertem w branży [TWOJA BRANŻA]. Napisz profesjonalną odpowiedź na poniższe zapytanie ofertowe. Ton: rzeczowy, konkretny, bez sprzedażowej ściemy. Zawrzyj: krótkie potwierdzenie rozumienia potrzeby, wycenę w przedziale [MIN PLN]–[MAX PLN] z uzasadnieniem, proponowany termin realizacji, następny krok (np. krótka rozmowa 15 min). Maksymalnie 180 słów.
 
-Zapytanie: [WKLEJ TRESC MAILA]`,
+Zapytanie: [WKLEJ TREŚĆ MAILA]`,
   },
   {
-    tytul: 'Odpowiedz na negatywna recenzje',
-    kontekst: 'Klient zostawil 1-2 gwiazdki w Google',
-    prompt: `Napisz profesjonalna odpowiedz na ponizszą recenzje w imieniu firmy [NAZWA FIRMY]. Zasady: nie bronij sie, przyjmij feedback, zaproponuj konkretne dzialanie naprawcze, zakonc zaproszeniem do kontaktu. Max 80 slow. Bez przepraszania po 3 razy.
+    tytul: 'Odpowiedź na negatywną recenzję',
+    kontekst: 'Klient zostawił 1–2 gwiazdki w Google',
+    prompt: `Napisz profesjonalną odpowiedź na poniższą recenzję w imieniu firmy [NAZWA FIRMY]. Zasady: nie broń się, przyjmij feedback, zaproponuj konkretne działanie naprawcze, zakończ zaproszeniem do kontaktu. Maksymalnie 80 słów. Bez trzykrotnego przepraszania.
 
-Recenzja: [WKLEJ RECENZJE]`,
+Recenzja: [WKLEJ RECENZJĘ]`,
   },
   {
     tytul: 'Instrukcja dla nowego pracownika',
     kontekst: 'Onboarding, powtarzalne zadania',
-    prompt: `Na podstawie ponizszego opisu stanowiska i zadan napisz clear, krokow-po-kroku instrukcje dla nowego pracownika ktory zaczyna w poniedzia lek. Format: numerowana lista, max 3 linijki na krok, bez zbednych slow. Jezyk: polski, nieformalny ale profesjonalny.
+    prompt: `Na podstawie poniższego opisu stanowiska i zadań napisz klarowną, krok po kroku instrukcję dla nowego pracownika który zaczyna w poniedziałek. Format: lista numerowana, maksymalnie 3 linijki na krok, bez zbędnych słów. Język: polski, nieformalny, ale profesjonalny.
 
 Stanowisko i zadania: [OPISZ]`,
   },
   {
     tytul: 'Podsumowanie spotkania',
-    kontekst: 'Po call z klientem lub zespolem',
-    prompt: `Przeksztalc ponizsze notatki ze spotkania w profesjonalne podsumowanie do wyslania uczestnikom. Struktura: 1) Ustalenia (lista), 2) Kto co robi i do kiedy (tabela), 3) Nastepne spotkanie (jesli ustalone). Max 200 slow.
+    kontekst: 'Po call z klientem lub zespołem',
+    prompt: `Przekształć poniższe notatki ze spotkania w profesjonalne podsumowanie do wysłania uczestnikom. Struktura: 1) Ustalenia (lista), 2) Kto co robi i do kiedy (tabela), 3) Następne spotkanie (jeśli ustalone). Maksymalnie 200 słów.
 
 Notatki: [WKLEJ LUB PODYKTUJ]`,
   },
   {
-    tytul: 'Opis produktu/uslugi na strone',
-    kontekst: 'Copywriting bez platnej agencji',
-    prompt: `Napisz opis [PRODUKTU/USLUGI] na strone internetowa. Grupа docelowa: [OPIS KLIENTA]. Glowna korzysc: [CO KLIENT ZYSKUJE]. Format: naglowek (max 8 slow) + 3 zdania opisu + 3 punktorowe korzysci + CTA (1 zdanie). Jezyk: konkretny, bez "najwyzszej jakosci" i "kompleksowych rozwiazan".`,
+    tytul: 'Opis produktu/usługi na stronę',
+    kontekst: 'Copywriting bez płatnej agencji',
+    prompt: `Napisz opis [PRODUKTU/USŁUGI] na stronę internetową. Grupa docelowa: [OPIS KLIENTA]. Główna korzyść: [CO KLIENT ZYSKUJE]. Format: nagłówek (maks. 8 słów) + 3 zdania opisu + 3 korzyści w punktach + CTA (1 zdanie). Język: konkretny, bez "najwyższej jakości" i "kompleksowych rozwiązań".`,
   },
   {
-    tytul: 'Windykacja -- przypomnienie o platnosci',
-    kontekst: 'Faktura przeterminowana 7-30 dni',
-    prompt: `Napisz grzeczne ale stanowcze przypomnienie o nieuregulowanej platnosci. Dane: faktura nr [NR], kwota [SUMA PLN], termin platnosci [DATA]. Ton: profesjonalny, nie agresywny, ale bez przepraszania za wysylanie przypomnienia. Max 60 slow. Zakonc konkretnym dzialaniem do podjecia.`,
+    tytul: 'Windykacja -- przypomnienie o płatności',
+    kontekst: 'Faktura przeterminowana 7–30 dni',
+    prompt: `Napisz grzeczne, ale stanowcze przypomnienie o nieuregulowanej płatności. Dane: faktura nr [NR], kwota [SUMA PLN], termin płatności [DATA]. Ton: profesjonalny, nie agresywny, ale bez przepraszania za wysłanie przypomnienia. Maksymalnie 60 słów. Zakończ konkretnym działaniem do podjęcia.`,
   },
   {
     tytul: 'Analiza umowy -- czerwone flagi',
-    kontekst: 'Przed podpisaniem z klientem lub dostawca',
-    prompt: `Przeanalizuj ponizszą umowe i wylistuj: 1) Klauzule niekorzystne dla [MOJA STRONA: klient/wykonawca], 2) Brakujace zabezpieczenia, 3) Niejasne zapisy ktore wymagaja doprecyzowania. Format: numerowana lista, 1-2 zdania na punkt. Nie jestem prawnikiem -- weryfikuje potem z adwokatem.
+    kontekst: 'Przed podpisaniem z klientem lub dostawcą',
+    prompt: `Przeanalizuj poniższą umowę i wylistuj: 1) Klauzule niekorzystne dla [MOJA STRONA: klient/wykonawca], 2) Brakujące zabezpieczenia, 3) Niejasne zapisy wymagające doprecyzowania. Format: lista numerowana, 1–2 zdania na punkt. Nie jestem prawnikiem -- weryfikuję potem z adwokatem.
 
 Umowa: [WKLEJ TEKST]`,
   },
   {
     tytul: 'Post na LinkedIn -- case study klienta',
-    kontekst: 'Marketing bez platnego copywritera',
-    prompt: `Napisz post na LinkedIn o tym jak pomoglam/em klientowi [KROTKI OPIS PROBLEMU] osiagnac [KONKRETNY WYNIK]. Format: hook (1 zdanie, bez "Jestem podekscytowany"), historia (3-4 zdania), lesson learned (1 zdanie), CTA (pytanie do czytelnikow). Bez banalnych hastagow. Max 200 slow.`,
+    kontekst: 'Marketing bez płatnego copywritera',
+    prompt: `Napisz post na LinkedIn o tym jak pomogłam/em klientowi [KRÓTKI OPIS PROBLEMU] osiągnąć [KONKRETNY WYNIK]. Format: hook (1 zdanie, bez "Jestem podekscytowany"), historia (3–4 zdania), lesson learned (1 zdanie), CTA (pytanie do czytelników). Bez banalnych hashtagów. Maksymalnie 200 słów.`,
   },
   {
-    tytul: 'Warunki wspolpracy -- wersja robocza',
-    kontekst: 'Zanim zaangazujesz prawnika',
-    prompt: `Przygotuj wersje robocza warunkow wspolpracy (term sheet) dla projektu [OPIS]. Strony: [TWOJA FIRMA] i [KLIENT]. Uwzglednij: zakres prac, termin, platnosci i harmonogram, prawa autorskie, kary umowne, zasady zmian w projekcie. Format: krotkie punkty, jezyk prosty. To szkic do weryfikacji przez prawnika.`,
+    tytul: 'Warunki współpracy -- wersja robocza',
+    kontekst: 'Zanim zaangażujesz prawnika',
+    prompt: `Przygotuj wersję roboczą warunków współpracy (term sheet) dla projektu [OPIS]. Strony: [TWOJA FIRMA] i [KLIENT]. Uwzględnij: zakres prac, termin, płatności i harmonogram, prawa autorskie, kary umowne, zasady zmian w projekcie. Format: krótkie punkty, język prosty. To szkic do weryfikacji przez prawnika.`,
   },
   {
     tytul: 'Oferta handlowa jako PDF-ready dokument',
     kontekst: 'Profesjonalna oferta w 10 minut',
-    prompt: `Przygotuj profesjonalna oferte handlowa dla klienta [NAZWA/BRANZA]. Projekt: [OPIS]. Struktura: streszczenie (2 zdania), zakres prac (lista), harmonogram (tabela: etap / czas / koszt), warunki platnosci, gwarancja i wsparcie, nastepny krok. Ton: ekspercki, bez zbednych pochlebstw. Dane do wstawienia: [PODAJ WARTOSCI].`,
+    prompt: `Przygotuj profesjonalną ofertę handlową dla klienta [NAZWA/BRANŻA]. Projekt: [OPIS]. Struktura: streszczenie (2 zdania), zakres prac (lista), harmonogram (tabela: etap / czas / koszt), warunki płatności, gwarancja i wsparcie, następny krok. Ton: ekspercki, bez zbędnych pochlebstw. Dane do wstawienia: [PODAJ WARTOŚCI].`,
   },
 ];
 
@@ -471,28 +444,28 @@ export default function AutomatyzacjePage() {
         {/* Hero */}
         <div className="mb-12">
           <div className="font-mono text-[11px] tracking-widest text-text-3 uppercase mb-4">
-            AI dla polskiego przedsiebiorcy
+            AI dla polskiego przedsiębiorcy
           </div>
           <h1 className="text-[26px] sm:text-[32px] font-bold text-text-1 leading-tight mb-4">
-            Twoja firma traci kilkanascie godzin miesiecznie na powtarzalne zadania.
-            <span className="text-accent"> Mozna to naprawic.</span>
+            Twoja firma traci kilkanaście godzin miesięcznie na powtarzalne zadania.
+            <span className="text-accent"> Można to naprawić.</span>
           </h1>
           <p className="text-[15px] sm:text-[16px] text-text-2 leading-relaxed mb-6">
             Faktury, raporty, oferty, maile -- to nie wymaga Twoich godzin. Wymaga dobrego systemu.
-            Budujemy konkrente automatyzacje AI dla polskich JDG i malych spolek. Nie "consulting". Dzialajace narzedzia.
+            Budujemy konkretne automatyzacje AI dla polskich JDG i małych spółek. Nie &quot;consulting&quot;. Działające narzędzia.
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
             <a
               href="#kalkulator-zus"
               className="inline-block bg-bg-2 border border-border text-text-1 font-mono text-[13px] tracking-wide px-5 py-3 rounded-lg hover:border-accent hover:text-accent transition-colors text-center"
             >
-              Kalkulator ZUS -- bezplatnie
+              Kalkulator ZUS -- bezpłatnie
             </a>
             <a
               href="#kontakt"
               className="inline-block bg-accent text-bg-0 font-mono text-[13px] tracking-wide px-5 py-3 rounded-lg hover:bg-accent-hover transition-colors text-center"
             >
-              Zamow automatyzacje -- 1200 PLN
+              Zamów automatyzację -- 1200 PLN
             </a>
           </div>
         </div>
@@ -500,10 +473,10 @@ export default function AutomatyzacjePage() {
         {/* Problem statement */}
         <div className="mb-12 border border-border rounded-lg divide-y divide-border">
           {[
-            ['Faktury', '4-6 godz./tyg. na reczne przepisywanie danych do arkuszy i programow ksiegowych.'],
-            ['Oferty', 'Kazde zapytanie ofertowe -- od nowa. Te same pytania, te same odpowiedzi, inny klient.'],
-            ['Raporty', 'Poniedzialek rano zbierasz dane z pieciu miejsc zeby zrobic raport co bylo w poprzednim tygodniu.'],
-            ['ZUS / ksiegowosc', 'Kazdy miesiąc: czy juz zmienic wariant ZUS? Czy sie kwalifikuje? Ile zaplacic?'],
+            ['Faktury', '4–6 godz./tyg. na ręczne przepisywanie danych do arkuszy i programów księgowych.'],
+            ['Oferty', 'Każde zapytanie ofertowe -- od nowa. Te same pytania, te same odpowiedzi, inny klient.'],
+            ['Raporty', 'Poniedziałek rano: zbierasz dane z pięciu miejsc żeby zrobić raport o poprzednim tygodniu.'],
+            ['ZUS / księgowość', 'Każdy miesiąc: czy już zmienić wariant ZUS? Czy się kwalifikuję? Ile zapłacić?'],
           ].map(([tytul, opis]) => (
             <div key={tytul} className="px-5 py-4 grid grid-cols-[1fr_3fr] gap-4">
               <div className="font-mono text-[12px] text-accent font-medium pt-0.5">{tytul}</div>
@@ -515,13 +488,13 @@ export default function AutomatyzacjePage() {
         {/* FREE: ZUS Kalkulator */}
         <section id="kalkulator-zus" className="mb-12 scroll-mt-8">
           <div className="font-mono text-[11px] tracking-widest text-text-3 uppercase mb-2">
-            Bezplatne narzedzie #1
+            Bezpłatne narzędzie nr 1
           </div>
           <h2 className="text-[20px] sm:text-[24px] font-bold text-text-1 mb-2">
-            Kalkulator ZUS -- ktory wariant Ci przysluguje?
+            Kalkulator ZUS -- który wariant Ci przysługuje?
           </h2>
           <p className="text-[14px] text-text-2 mb-5 leading-relaxed">
-            3 pytania. Dowiesz sie czy placisz za duzo i co z tym zrobic. Zadnych danych osobowych, zadnego rejestrowania sie.
+            3 pytania. Dowiesz się czy płacisz za dużo i co z tym zrobić. Żadnych danych osobowych, żadnego rejestrowania się.
           </p>
           <ZusKalkulator />
         </section>
@@ -529,18 +502,18 @@ export default function AutomatyzacjePage() {
         {/* FREE: Prompt Pack */}
         <section id="prompty" className="mb-12 scroll-mt-8">
           <div className="font-mono text-[11px] tracking-widest text-text-3 uppercase mb-2">
-            Bezplatny zestaw #2 -- do pobrania / skopiowania
+            Bezpłatny zestaw nr 2 -- do skopiowania
           </div>
           <h2 className="text-[20px] sm:text-[24px] font-bold text-text-1 mb-2">
-            10 gotowych promptow AI dla polskiej firmy
+            10 gotowych promptów AI dla polskiej firmy
           </h2>
           <p className="text-[14px] text-text-2 mb-5 leading-relaxed">
-            Kopiuj, wklej do Claude lub ChatGPT, podmien dane w nawiasach. Kazdy zaoszczedza 30-90 minut roboty.
-            Bez rejestracji, bez maila -- po prostu uzyj.
+            Kopiuj, wklej do Claude lub ChatGPT, podmień dane w nawiasach. Każdy oszczędza 30–90 minut roboty.
+            Bez rejestracji, bez maila -- po prostu użyj.
           </p>
           <PromptPack />
           <p className="mt-4 text-[12px] text-text-3">
-            Te prompty to punkt wyjscia. Jezeli chcesz zeby caly przeply wal dzia lal automatycznie -- bez kopiowania, bez recznej pracy -- to jest to, co robimy platnie.
+            Te prompty to punkt wyjścia. Jeżeli chcesz żeby cały przepływ działał automatycznie -- bez kopiowania, bez ręcznej pracy -- to jest właśnie to, co robimy płatnie.
           </p>
         </section>
 
@@ -553,10 +526,9 @@ export default function AutomatyzacjePage() {
             Automat Fakturowy
           </h2>
           <p className="text-[14px] text-text-2 mb-6 leading-relaxed">
-            Faktura przychodzi mailem. Automat czyta ja, wyciaga dane, wpisuje do arkusza (lub do iFirmy / Fakturowni) i wysyla Ci tygodniowe podsumowanie. Bez dotykania. Raz skonfigurowany, dziala sam.
+            Faktura przychodzi mailem. Automat czyta ją, wyciąga dane, wpisuje do arkusza (lub do iFirmy / Fakturowni) i wysyła Ci tygodniowe podsumowanie. Bez dotykania. Raz skonfigurowany, działa sam.
           </p>
 
-          {/* Before / After */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
             <div className="border border-border rounded-lg p-4">
               <div className="font-mono text-[10px] text-text-3 tracking-widest uppercase mb-3">Teraz</div>
@@ -565,13 +537,13 @@ export default function AutomatyzacjePage() {
                 <div className="text-text-3">       v</div>
                 <div>  [otwierasz PDF]</div>
                 <div className="text-text-3">       v</div>
-                <div>  [przepisujesz rucznie]</div>
+                <div>  [przepisujesz ręcznie]</div>
                 <div className="text-text-3">       v</div>
                 <div>  [wpisujesz do arkusza]</div>
                 <div className="text-text-3">       v</div>
-                <div>  [zapomniales o jednej]</div>
+                <div>  [zapomniałeś o jednej]</div>
                 <div className="text-text-3">       v</div>
-                <div className="text-red">  [30-90 min stracone]</div>
+                <div className="text-red">  [30–90 min stracone]</div>
               </div>
             </div>
             <div className="border border-green-border rounded-lg p-4">
@@ -581,7 +553,7 @@ export default function AutomatyzacjePage() {
                 <div className="text-text-3">       v</div>
                 <div>  [automat czyta PDF]</div>
                 <div className="text-text-3">       v</div>
-                <div>  [wyciaga: nr faktury,</div>
+                <div>  [wyciąga: nr faktury,</div>
                 <div>   kwota, NIP, termin]</div>
                 <div className="text-text-3">       v</div>
                 <div>  [wpisuje do arkusza]</div>
@@ -591,17 +563,16 @@ export default function AutomatyzacjePage() {
             </div>
           </div>
 
-          {/* What's included */}
           <div className="border border-border rounded-lg divide-y divide-border mb-6">
             <div className="px-5 py-3 bg-bg-2">
               <div className="font-mono text-[10px] text-text-3 tracking-widest uppercase">Co zawiera</div>
             </div>
             {[
-              ['Konfiguracja', 'Ustawiam automat pod Twoj e-mail i typ faktur (PDF, skany, faktury elektroniczne). Czas: 5-7 dni roboczych.'],
-              ['Integracja', 'Arkusz Google Sheets (standardowo) lub iFirma / Fakturownia (jezeli masz konto). Bez instalowania czegokolwiek na Twoim komputerze.'],
-              ['Podsumowania', 'Tygodniowy raport mailowy: co wplyneelo, co jest do zaplaty, co juz zaplacone.'],
-              ['Wsparcie', '30 dni wsparcia w cenie. Jezeli cos nie dziala -- naprawiam.'],
-              ['Szkolenie', '30-minutowa rozm owa przez Zoom: pokazuje jak to sprawdzic i jak zglaszac bledy.'],
+              ['Konfiguracja', 'Ustawiam automat pod Twój e-mail i typ faktur (PDF, skany, faktury elektroniczne). Czas: 5–7 dni roboczych.'],
+              ['Integracja', 'Arkusz Google Sheets (standardowo) lub iFirma / Fakturownia (jeżeli masz konto). Bez instalowania czegokolwiek na Twoim komputerze.'],
+              ['Podsumowania', 'Tygodniowy raport mailowy: co wpłynęło, co jest do zapłaty, co już zapłacone.'],
+              ['Wsparcie', '30 dni wsparcia w cenie. Jeżeli coś nie działa -- naprawiam.'],
+              ['Szkolenie', '30-minutowa rozmowa przez Zoom: pokazuję jak to sprawdzić i jak zgłaszać błędy.'],
             ].map(([k, v]) => (
               <div key={k} className="px-5 py-3.5 grid grid-cols-[1fr_3fr] gap-4">
                 <div className="font-mono text-[12px] text-accent font-medium">{k}</div>
@@ -610,7 +581,6 @@ export default function AutomatyzacjePage() {
             ))}
           </div>
 
-          {/* Price */}
           <div className="border border-accent-soft bg-accent-soft rounded-lg px-5 py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
               <div className="font-mono text-[11px] text-text-3 tracking-widest uppercase mb-1">Cena</div>
@@ -621,20 +591,20 @@ export default function AutomatyzacjePage() {
               href="#kontakt"
               className="inline-block bg-accent text-bg-0 font-mono text-[13px] tracking-wide px-6 py-3 rounded-lg hover:bg-accent-hover transition-colors text-center"
             >
-              Zamow automatyzacje
+              Zamów automatyzację
             </a>
           </div>
         </section>
 
         {/* How it works */}
         <section className="mb-12">
-          <div className="font-mono text-[11px] tracking-widest text-text-3 uppercase mb-2">Jak wyglada wspolpraca</div>
+          <div className="font-mono text-[11px] tracking-widest text-text-3 uppercase mb-2">Jak wygląda współpraca</div>
           <h2 className="text-[20px] font-bold text-text-1 mb-5">3 kroki</h2>
           <div className="space-y-3">
             {[
-              ['01', 'Rozmowa', '30 minut. Pokazujesz mi jak wyglada Twoj e-mail, jakie faktury dostajesz, gdzie chcesz miec dane. Ustalamy co dokladnie ma robic automat.'],
-              ['02', 'Konfiguracja', '5-7 dni roboczych. Buduję i testuję na prawdziwych fakturach (anonimizujemy jesli wolisz). Przez caly czas masz dostep do postepow.'],
-              ['03', 'Przekazanie', 'Zoom 30 minut: pokaz tego co zbuawalem, szkolenie jak to sprawdzac, 30 dni wsparcia w razie pytan.'],
+              ['01', 'Rozmowa', '30 minut. Pokazujesz mi jak wygląda Twój e-mail, jakie faktury dostajesz, gdzie chcesz mieć dane. Ustalamy co dokładnie ma robić automat.'],
+              ['02', 'Konfiguracja', '5–7 dni roboczych. Buduję i testuję na prawdziwych fakturach (anonimizujemy jeśli wolisz). Przez cały czas masz dostęp do postępów.'],
+              ['03', 'Przekazanie', 'Zoom 30 minut: pokaz tego co zbudowałem, szkolenie jak to sprawdzać, 30 dni wsparcia w razie pytań.'],
             ].map(([nr, tytul, opis]) => (
               <div key={nr} className="border border-border rounded-lg px-5 py-4 grid grid-cols-[2rem_1fr] gap-4">
                 <div className="font-mono text-[18px] font-bold text-accent">{nr}</div>
@@ -652,11 +622,11 @@ export default function AutomatyzacjePage() {
           <div className="font-mono text-[11px] tracking-widest text-text-3 uppercase mb-2">FAQ</div>
           <div className="border border-border rounded-lg divide-y divide-border">
             {[
-              ['Czy potrzebuję programisty lub technicznej wiedzy?', 'Nie. Konfiguruje wszystko za Ciebie. Ty tylko pokazujesz e-mail i mowisz co chcesz osiagnac.'],
-              ['Co jesli faktury sa w roznych formatach?', 'AI radzi sobie z wiekszosc ia formatow PDF. Przy skanach o niskiej jakosci moze byc problem -- omawiam to na rozmowie wstepnej.'],
-              ['Czy moje dane sa bezpieczne?', 'Automat dziala na Twoim koncie Google (Sheets) lub koncie ksiegowym. Nie przechowuje faktur u mnie ani na zewnetrznych serwerach.'],
-              ['Co jesli coś przestanie działac po 30 dniach wsparcia?', 'Oferuje plany wsparcia po 199 PLN/mies. lub naprawy ad-hoc. Ale wikszość automatyzacji dziala bezobsługowo przez miesiaće.'],
-              ['Czy mozna zautomatyzowac tez inne rzeczy?', 'Tak. Raporty tygodniowe, odpowiedzi na maile, generowanie ofert, windykacja -- pytaj na rozmowie co Cie boli najbardziej.'],
+              ['Czy potrzebuję programisty lub wiedzy technicznej?', 'Nie. Konfiguruję wszystko za Ciebie. Ty tylko pokazujesz e-mail i mówisz co chcesz osiągnąć.'],
+              ['Co jeśli faktury są w różnych formatach?', 'AI radzi sobie z większością formatów PDF. Przy skanach o niskiej jakości może być problem -- omawiam to na rozmowie wstępnej.'],
+              ['Czy moje dane są bezpieczne?', 'Automat działa na Twoim koncie Google (Sheets) lub koncie księgowym. Nie przechowuję faktur u siebie ani na zewnętrznych serwerach.'],
+              ['Co jeśli coś przestanie działać po 30 dniach wsparcia?', 'Oferuję plany wsparcia po 199 PLN/mies. lub naprawy ad-hoc. Ale większość automatyzacji działa bezobsługowo przez miesiące.'],
+              ['Czy można zautomatyzować też inne rzeczy?', 'Tak. Raporty tygodniowe, odpowiedzi na maile, generowanie ofert, windykacja -- pytaj na rozmowie co Cię boli najbardziej.'],
             ].map(([q, a]) => (
               <div key={q} className="px-5 py-4">
                 <div className="font-medium text-[14px] text-text-1 mb-1.5">{q}</div>
@@ -669,9 +639,9 @@ export default function AutomatyzacjePage() {
         {/* Contact */}
         <section id="kontakt" className="scroll-mt-8">
           <div className="font-mono text-[11px] tracking-widest text-text-3 uppercase mb-2">Kontakt</div>
-          <h2 className="text-[20px] font-bold text-text-1 mb-2">Napisz co chcesz zautomatyzowac</h2>
+          <h2 className="text-[20px] font-bold text-text-1 mb-2">Napisz co chcesz zautomatyzować</h2>
           <p className="text-[14px] text-text-2 mb-6 leading-relaxed">
-            Opisz w kilku zdaniach ktore zadanie zjada Ci najwiecej czasu. Odpiszemy z konkretna propozycja -- bez sprzedazowej sciemy.
+            Opisz w kilku zdaniach które zadanie zjada Ci najwięcej czasu. Odpiszemy z konkretną propozycją -- bez sprzedażowej ściemy.
           </p>
           <KontaktForm />
           <div className="mt-6 border-t border-border pt-6">
@@ -682,7 +652,7 @@ export default function AutomatyzacjePage() {
               </a>
               <span className="mx-2 text-border">|</span>
               <a href="/dla-firm" className="text-accent hover:underline">
-                API dla deweloperow i firm --&gt;
+                API dla deweloperów i firm --&gt;
               </a>
             </p>
           </div>

@@ -7,13 +7,13 @@ import FeedClient from './FeedClient';
 export const revalidate = 1800;
 
 export const metadata: Metadata = {
-  title: 'Aktualnosci z polskich instytucji | wezmezadarmo',
+  title: 'Aktualności z polskich instytucji | wezmezadarmo',
   description:
     'ZUS, GUS, NBP, UOKiK, Fundusze EU, NFZ, Sejm i ARiMR w jednym miejscu. Filtruj po profilu: JDG, firma lub obywatel.',
   openGraph: {
-    title: 'Aktualnosci rzadowe dla JDG, firm i obywateli',
+    title: 'Aktualności rządowe dla JDG, firm i obywateli',
     description:
-      'Agregator RSS z 8 polskich instytucji rzadowych. Filtruj po profilu: JDG, firma lub wszyscy.',
+      'Agregator RSS z 8 polskich instytucji rządowych. Filtruj po profilu: JDG, firma lub wszyscy.',
     locale: 'pl_PL',
     type: 'website',
   },
@@ -35,11 +35,11 @@ export default async function AktualnosciPage() {
             Agregator RSS
           </div>
           <h1 className="text-[24px] sm:text-[30px] font-bold text-text-1 mb-3 leading-tight">
-            Aktualnosci z polskich instytucji
+            Aktualności z polskich instytucji
           </h1>
           <p className="text-[14px] sm:text-[15px] text-text-2 leading-relaxed mb-5">
             ZUS, GUS, NBP, UOKiK, Fundusze EU, e-Zdrowie, Sejm, ARiMR -- wszystko w jednym miejscu,
-            dopasowane do Twojego profilu. Strona odswiezana co 30 minut.
+            dopasowane do Twojego profilu. Strona odświeżana co 30 minut.
           </p>
 
           {/* Source legend */}
