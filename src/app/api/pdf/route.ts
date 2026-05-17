@@ -1,8 +1,8 @@
 /**
  * POST /api/pdf
- * Fills official ZUS PDF forms by injecting data into the XFA datasets stream.
- * Uses PDF incremental update -- no external dependencies, no re-rendering.
- * Returns the original ZUS PDF with user data baked in, ready to print and sign.
+ * Fills official ZUS PDF forms using coordinate-based text stamping via pdf-lib.
+ * Loads the original ZUS PDF and draws user data text at exact field positions.
+ * Works in any PDF viewer: Chrome, Preview, Firefox, Adobe Reader.
  */
 
 import { buildZas53Pdf, type Zas53WizardData } from '@/lib/forms/zas53-filler';
@@ -38,19 +38,19 @@ export async function POST(request: Request) {
 
     switch (formType) {
       case 'zus-zas53':
-        pdfBuffer = buildZas53Pdf(data as Zas53WizardData);
+        pdfBuffer = await buildZas53Pdf(data as Zas53WizardData);
         filename = `ZAS-53-${slug(data.imie, data.nazwisko)}.pdf`;
         break;
       case 'zus-z15b':
-        pdfBuffer = buildZ15bPdf(data as Z15bWizardData);
+        pdfBuffer = await buildZ15bPdf(data as Z15bWizardData);
         filename = `Z-15B-${slug(data.imie, data.nazwisko)}.pdf`;
         break;
       case 'zus-z15a':
-        pdfBuffer = buildZ15aPdf(data as Z15aWizardData);
+        pdfBuffer = await buildZ15aPdf(data as Z15aWizardData);
         filename = `Z-15A-${slug(data.imie, data.nazwisko)}.pdf`;
         break;
       case 'zus-pel':
-        pdfBuffer = buildPelPdf(data as PelWizardData);
+        pdfBuffer = await buildPelPdf(data as PelWizardData);
         filename = `PEL-${slug(data.imie, data.nazwisko)}.pdf`;
         break;
       default:
