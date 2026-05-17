@@ -869,6 +869,53 @@ export default function Home() {
               </div>
             </div>
 
+            {/* Photo strip */}
+            <div className="rise" style={{ marginTop: 64, animationDelay: '380ms' }}>
+              <div className="grid-photos" style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1.35fr 1fr',
+                gap: 12,
+                alignItems: 'flex-end',
+              }}>
+                <div style={{ position: 'relative', height: 220, borderRadius: 14, overflow: 'hidden', flexShrink: 0 }}>
+                  <img
+                    src="/foto-rodzina.png"
+                    alt="Seniorka z pomocą bliskich sprawdza przysługujące świadczenia"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.62) saturate(0.7)' }}
+                  />
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(13,11,10,0.7) 0%, transparent 50%)' }} />
+                  <div style={{ position: 'absolute', bottom: 14, left: 14, right: 14 }}>
+                    <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 4 }}>Dla seniorów i rodzin</div>
+                    <div style={{ fontSize: 13, color: '#fff', lineHeight: 1.4 }}>Każde pokolenie może skorzystać</div>
+                  </div>
+                </div>
+                <div style={{ position: 'relative', height: 260, borderRadius: 14, overflow: 'hidden', flexShrink: 0 }}>
+                  <img
+                    src="/foto-biuro.jpg"
+                    alt="Zespół w pracy sprawdza dostępne świadczenia i ulgi"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.6) saturate(0.65)' }}
+                  />
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(13,11,10,0.72) 0%, transparent 55%)' }} />
+                  <div style={{ position: 'absolute', bottom: 14, left: 14, right: 14 }}>
+                    <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 4 }}>Dla firm i pracowników</div>
+                    <div style={{ fontSize: 13, color: '#fff', lineHeight: 1.4 }}>Świadczenia, do których pracownicy mają prawo</div>
+                  </div>
+                </div>
+                <div style={{ position: 'relative', height: 220, borderRadius: 14, overflow: 'hidden', flexShrink: 0 }}>
+                  <img
+                    src="/foto-ekspert.png"
+                    alt="Ekspert przy komputerze korzysta z asystenta AI"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.6) saturate(0.65)' }}
+                  />
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(13,11,10,0.72) 0%, transparent 55%)' }} />
+                  <div style={{ position: 'absolute', bottom: 14, left: 14, right: 14 }}>
+                    <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 4 }}>Asystent AI</div>
+                    <div style={{ fontSize: 13, color: '#fff', lineHeight: 1.4 }}>Odpowie na każde pytanie o świadczenia</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {/* Example benefits */}
             <div className="rise" style={{ marginTop: 80, animationDelay: '420ms' }}>
               <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 20 }}>

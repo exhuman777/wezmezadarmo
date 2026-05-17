@@ -231,6 +231,8 @@ input:focus, textarea:focus { outline: none; }
   .grid-hero { grid-template-columns: 1fr !important; gap: 32px !important; }
   .grid-stats { grid-template-columns: repeat(3, 1fr) !important; }
   .grid-benefits { grid-template-columns: 1fr !important; }
+  .grid-photos { grid-template-columns: 1fr !important; gap: 10px !important; }
+  .grid-photos > div { height: 200px !important; margin-top: 0 !important; }
   .grid-footer { grid-template-columns: 1fr 1fr !important; gap: 24px !important; }
   .grid-split { grid-template-columns: 1fr !important; }
   .grid-detail { grid-template-columns: 1fr !important; }
