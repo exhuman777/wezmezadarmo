@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/dotacje/cron/weekly-check",
+      "schedule": "0 8 * * 1"
+    }
+  ]
+}
