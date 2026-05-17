@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { SiteHeader } from '@/components/SiteHeader';
 
 export const metadata: Metadata = {
   title: 'O projekcie | wezmezadarmo',
@@ -8,11 +9,10 @@ export const metadata: Metadata = {
 
 export default function OProjekciePage() {
   return (
-    <div className="min-h-screen bg-bg-0 py-8 sm:py-12 px-4 sm:px-6">
+    <div className="min-h-screen bg-bg-0">
+      <SiteHeader />
+      <div className="py-10 sm:py-14 px-4 sm:px-6">
       <div className="max-w-2xl mx-auto">
-        <Link href="/" className="text-[13px] text-accent hover:underline mb-6 inline-block">
-          &larr; Wróć do strony głównej
-        </Link>
 
         <h1 className="text-[24px] sm:text-[28px] font-bold text-text-1 mb-2">
           O projekcie
@@ -325,6 +325,7 @@ export default function OProjekciePage() {
           <Link href="/regulamin" className="text-accent hover:underline">Regulamin</Link>
           <Link href="/polityka-prywatnosci" className="text-accent hover:underline">Polityka prywatności</Link>
         </div>
+      </div>
       </div>
     </div>
   );

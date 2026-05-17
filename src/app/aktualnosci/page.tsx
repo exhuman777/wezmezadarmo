@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { fetchAllFeeds, FEEDS } from './rss';
 import FeedClient from './FeedClient';
+import { SiteHeader } from '@/components/SiteHeader';
 
 // Revalidate every 30 minutes -- ISR
 export const revalidate = 1800;
@@ -23,11 +23,10 @@ export default async function AktualnosciPage() {
   const { items, active, failed } = await fetchAllFeeds();
 
   return (
-    <div className="min-h-screen bg-bg-0 py-8 sm:py-12 px-4 sm:px-6">
+    <div className="min-h-screen bg-bg-0">
+      <SiteHeader />
+      <div className="py-10 sm:py-14 px-4 sm:px-6">
       <div className="max-w-2xl mx-auto">
-        <Link href="/" className="text-[13px] text-accent hover:underline mb-6 inline-block font-mono">
-          &larr; wezmezadarmo.com
-        </Link>
 
         {/* Header */}
         <div className="mb-8">
@@ -78,6 +77,7 @@ export default async function AktualnosciPage() {
           failed={failed}
           fetchedAt={new Date().toISOString()}
         />
+      </div>
       </div>
     </div>
   );
