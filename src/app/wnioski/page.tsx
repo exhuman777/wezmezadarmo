@@ -47,7 +47,7 @@ const CATEGORIES: Category[] = [
         institution: 'ZUS / pracodawca',
         amount: '80% wynagrodzenia',
         description: 'Przysługuje gdy opiekujesz się chorym małżonkiem, rodzicem lub innym dorosłym członkiem rodziny powyżej 14 lat.',
-        available: false,
+        available: true,
       },
       {
         slug: 'zus-zas53',
@@ -56,16 +56,43 @@ const CATEGORIES: Category[] = [
         institution: 'ZUS',
         amount: '80% wynagrodzenia (100% w ciąży)',
         description: 'Gdy pracodawca nie wypłaca zasiłku chorobowego lub jesteś osobą prowadzącą działalność.',
-        available: false,
+        available: true,
       },
       {
-        slug: 'zus-emp',
-        symbol: 'EMP',
+        slug: 'zus-z3',
+        symbol: 'Z-3',
+        name: 'Zaświadczenie płatnika składek: przewodnik dla pracownika',
+        institution: 'ZUS / pracodawca',
+        amount: '--',
+        description: 'Zaświadczenie wypełnia pracodawca. Ten kreator pomaga sprawdzić dokument i przygotować pismo do działu kadr.',
+        available: true,
+      },
+      {
+        slug: 'zus-erpo',
+        symbol: 'ERPO',
         name: 'Wniosek o emeryturę',
         institution: 'ZUS',
         amount: 'indywidualnie',
-        description: 'Wniosek dla osób osiągających wiek emerytalny: kobiety 60 lat, mężczyźni 65 lat.',
-        available: false,
+        description: 'Kreator przygotowuje dane do wniosku ERPO. Można złożyć online przez PUE ZUS z profilem zaufanym.',
+        available: true,
+      },
+      {
+        slug: 'zus-pel',
+        symbol: 'PEL',
+        name: 'Pełnomocnictwo do ZUS',
+        institution: 'ZUS',
+        amount: '--',
+        description: 'Upoważnij kogoś do reprezentowania Cię przed ZUS: w sprawach ubezpieczeniowych, PIT lub w eZUS.',
+        available: true,
+      },
+      {
+        slug: 'zus-ersu',
+        symbol: 'ERSU + ERU',
+        name: 'Mama 4+ / Tata 4+: rodzicielskie świadczenie uzupełniające',
+        institution: 'ZUS',
+        amount: '1901 PLN / mies.',
+        description: 'Dla rodziców 4+ dzieci którzy zrezygnowali z pracy by wychowywać dzieci i nie mają prawa do emerytury lub mają ją poniżej minimum.',
+        available: true,
       },
       {
         slug: 'zus-ern',
@@ -74,15 +101,6 @@ const CATEGORIES: Category[] = [
         institution: 'ZUS',
         amount: 'od 1901 PLN',
         description: 'Dla osób które stały się niezdolne do pracy w wyniku choroby lub wypadku i mają odpowiedni staż składkowy.',
-        available: false,
-      },
-      {
-        slug: 'zus-ersu',
-        symbol: 'ERSU',
-        name: 'Mama 4+ / Tata 4+: rodzicielskie świadczenie uzupełniające',
-        institution: 'ZUS',
-        amount: '1901 PLN / mies.',
-        description: 'Dla rodziców 4+ dzieci którzy zrezygnowali z pracy by wychowywać dzieci i nie mają prawa do emerytury lub mają ją poniżej minimum.',
         available: false,
       },
       {
@@ -285,7 +303,7 @@ const STEPS = [
   { n: '01', text: 'Wybierz formularz i wpisz swoje dane. AI wyjaśni co znaczy każde pole.' },
   { n: '02', text: 'AI automatycznie generuje treść wszystkich pól na podstawie tego co podałeś.' },
   { n: '03', text: 'Przechodzisz pole po polu, czytasz, poprawiasz i akceptujesz.' },
-  { n: '04', text: 'Pobierasz gotowy tekst i wklejasz do oryginalnego formularza lub drukujesz.' },
+  { n: '04', text: 'Pobierasz gotowy PDF z wypełnionymi danymi, instrukcją złożenia i wskazówkami. Drukujesz, podpisujesz i składasz.' },
 ];
 
 export default function WnioskiPage() {
@@ -400,8 +418,8 @@ export default function WnioskiPage() {
         }}>
           <span style={{ color: 'var(--color-accent)', fontSize: 16, lineHeight: 1 }}>i</span>
           <span>
-            Usługa w fazie beta: aktualnie bezpłatna. Pomagamy w przygotowaniu wniosku, nie w jego złożeniu.
-            Wypełniony tekst kopiujesz lub pobierasz i wklejasz do oryginalnego formularza instytucji.
+            Usługa w fazie beta: aktualnie bezpłatna. Generujemy PDF z Twoimi danymi, instrukcją złożenia i wskazówkami.
+            Ty podpisujesz i składasz wniosek samodzielnie -- serwis nie działa jako pełnomocnik ani kancelaria.
           </span>
         </div>
       </div>
@@ -481,8 +499,8 @@ export default function WnioskiPage() {
             Prywatność
           </p>
           <p style={{ fontSize: 14, color: 'var(--color-text-2)', lineHeight: 1.7 }}>
-            Twoje dane osobowe (PESEL, imię, adres) są wpisywane bezpośrednio w przeglądarce i nie są nigdy wysyłane na serwer.
-            Do AI trafia tylko tyle ile potrzeba by wypełnić dane pole: bez identyfikatorów. Nic nie jest zapisywane po Twojej stronie.
+            Twoje dane osobowe (PESEL, imię, adres) trafiają tylko do serwera w momencie generowania PDF -- wyłącznie do wypełnienia dokumentu.
+            Nie są zapisywane, nie są przetwarzane do celów marketingowych. PDF generowany jest jednorazowo i nie jest archiwizowany.
           </p>
         </div>
 
