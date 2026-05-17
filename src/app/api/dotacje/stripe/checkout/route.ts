@@ -4,9 +4,8 @@ import { createSupabaseServer } from '@/lib/dotacje/supabase';
 
 export const dynamic = 'force-dynamic';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-
 export async function POST(_request: NextRequest) {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
   const supabase = await createSupabaseServer();
   const { data: { session } } = await supabase.auth.getSession();
 

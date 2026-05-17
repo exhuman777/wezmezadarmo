@@ -778,7 +778,7 @@ export default function Home() {
                       12 formularzy &rarr;
                     </span>
                   </a>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8 }}>
                     <a href="/automatyzacje" style={{
                       display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                       gap: 8, padding: '9px 14px', borderRadius: 8,
@@ -797,7 +797,17 @@ export default function Home() {
                       textDecoration: 'none',
                     }}>
                       <span style={{ fontSize: 12, color: 'var(--color-text-2)' }}>ZUS, GUS, NBP...</span>
-                      <span style={{ fontSize: 11, color: 'var(--color-accent)', fontWeight: 500 }}>Aktualnosci &rarr;</span>
+                      <span style={{ fontSize: 11, color: 'var(--color-accent)', fontWeight: 500 }}>Aktualności &rarr;</span>
+                    </a>
+                    <a href="/dotacje" style={{
+                      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                      gap: 8, padding: '9px 14px', borderRadius: 8,
+                      border: '1px solid var(--color-border)',
+                      background: 'var(--color-surface)',
+                      textDecoration: 'none',
+                    }}>
+                      <span style={{ fontSize: 12, color: 'var(--color-text-2)' }}>KFS, KPO, PFRON...</span>
+                      <span style={{ fontSize: 11, color: 'var(--color-accent)', fontWeight: 500 }}>Dotacje &rarr;</span>
                     </a>
                   </div>
                 </div>
@@ -951,8 +961,8 @@ export default function Home() {
             {/* ---- Narzedzia dla firm i JDG ---- */}
             <div className="rise" style={{ marginTop: 80, animationDelay: '460ms' }}>
               <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 20 }}>
-                <span className="label-eyebrow">Narzedzia dla firm i JDG</span>
-                <span className="label-eyebrow" style={{ color: 'var(--color-muted-2)' }}>2 moduły</span>
+                <span className="label-eyebrow">Narzędzia dla firm i JDG</span>
+                <span className="label-eyebrow" style={{ color: 'var(--color-muted-2)' }}>3 moduły</span>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 12 }}>
 
@@ -1015,11 +1025,11 @@ export default function Home() {
                     <Chip tone="ghost" mono>JDG / firma</Chip>
                   </div>
                   <p style={{ fontSize: 13, color: 'var(--color-text-3)', lineHeight: 1.55, flex: 1, margin: 0 }}>
-                    Kalkulator ZUS, 10 gotowych promptów AI do skopiowania i Automat Fakturowy
-                    -- faktura przychodzi mailem, wpisuje sie do arkusza sama.
+                    Automat Fakturowy -- faktura przychodzi mailem i wpisuje się do arkusza sama.
+                    Konkretne wdrożenie, nie kurs. Gwarancja zwrotu.
                   </p>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-                    {['Kalkulator ZUS', '10 promptów AI', 'Automat Fakturowy'].map(tag => (
+                    {['Automat Fakturowy', 'Wdrożenie 5 dni', '1200 PLN'].map(tag => (
                       <span key={tag} className="mono" style={{
                         fontSize: 10, padding: '3px 8px',
                         border: '1px solid var(--color-border)',
@@ -1028,7 +1038,45 @@ export default function Home() {
                     ))}
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', borderTop: '1px solid var(--color-border)', paddingTop: 14 }}>
-                    <span className="label-eyebrow" style={{ color: 'var(--color-accent)' }}>Oszczedz czas <IconArrowRight /></span>
+                    <span className="label-eyebrow" style={{ color: 'var(--color-accent)' }}>Oszczędź czas <IconArrowRight /></span>
+                  </div>
+                </a>
+
+                {/* Card: Dotacje AI */}
+                <a href="/dotacje" className="hover-lift" style={{
+                  background: 'var(--color-surface)',
+                  border: '1px solid var(--color-border)',
+                  borderRadius: 16,
+                  padding: '24px',
+                  display: 'flex', flexDirection: 'column', gap: 14,
+                  textDecoration: 'none', color: 'inherit',
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
+                    <div>
+                      <div className="mono" style={{ fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 6 }}>
+                        Agent AI -- dotacje
+                      </div>
+                      <div style={{ fontSize: 17, fontWeight: 500, letterSpacing: '-0.015em', color: 'var(--color-text-1)' }}>
+                        Monitoring dotacji dla Twojej firmy
+                      </div>
+                    </div>
+                    <Chip tone="primary" mono>25 PLN/mies.</Chip>
+                  </div>
+                  <p style={{ fontSize: 13, color: 'var(--color-text-3)', lineHeight: 1.55, flex: 1, margin: 0 }}>
+                    Agent zna Twój NIP i profil firmy. Monitoruje KFS, PUP, PFRON, KPO i programy
+                    samorządowe. Email gdy otworzy się nabór pasujący do Twojej firmy.
+                  </p>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                    {['KFS', 'PFRON', 'KPO', 'PARP', '16 województw'].map(tag => (
+                      <span key={tag} className="mono" style={{
+                        fontSize: 10, padding: '3px 8px',
+                        border: '1px solid var(--color-border)',
+                        borderRadius: 999, color: 'var(--color-text-3)',
+                      }}>{tag}</span>
+                    ))}
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', borderTop: '1px solid var(--color-border)', paddingTop: 14 }}>
+                    <span className="label-eyebrow" style={{ color: 'var(--color-accent)' }}>Aktywuj agenta <IconArrowRight /></span>
                   </div>
                 </a>
 
@@ -1320,7 +1368,8 @@ export default function Home() {
                   <li><a className="link-u" href="/dla-firm" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>API dla firm</a></li>
                   <li><a className="link-u" href="/wnioski" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Pomoc z wnioskami AI</a></li>
                   <li><a className="link-u" href="/automatyzacje" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Automatyzacje AI dla firm</a></li>
-                  <li><a className="link-u" href="/aktualnosci" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Aktualnosci rzadowe (RSS)</a></li>
+                  <li><a className="link-u" href="/aktualnosci" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Aktualności rządowe (RSS)</a></li>
+                  <li><a className="link-u" href="/dotacje" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Dotacje dla firm -- agent AI</a></li>
                   <li><a className="link-u" href="/llm.md" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Dla agentów AI</a></li>
                   <li><a className="link-u" href="https://www.linkedin.com/in/kamil-sobkowicz/" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Kontakt / LinkedIn</a></li>
                 </ul>
