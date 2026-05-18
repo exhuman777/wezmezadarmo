@@ -163,7 +163,7 @@ export default function DotacjePage() {
             padding: '6px 12px',
             borderRadius: 'var(--radius-sm)',
           }}>
-            25 PLN / miesiac
+            25 PLN / miesiąc
           </span>
         </div>
         <p style={{
@@ -442,7 +442,7 @@ export default function DotacjePage() {
           </p>
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
             <Link
-              href="/dotacje/panel/aktualnosci"
+              href="/dotacje/rejestracja"
               style={{
                 fontFamily: 'var(--font-mono)',
                 fontSize: '13px',

@@ -40,6 +40,8 @@ export function SiteHeader() {
           {[
             { href: '/automatyzacje', label: 'Automatyzacje' },
             { href: '/dotacje', label: 'Dotacje' },
+            { href: '/aktualnosci', label: 'Aktualności' },
+            { href: '/wnioski', label: 'Wnioski' },
           ].map(({ href, label }) => (
             <Link key={href} href={href} className="nav-link-hover" style={{
               fontFamily: 'var(--font-mono)',
