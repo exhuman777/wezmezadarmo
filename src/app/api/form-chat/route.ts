@@ -143,7 +143,7 @@ ${knowledge}`;
     const stream = await chatStream([
       { role: 'system', content: systemPrompt },
       ...messages,
-    ]);
+    ], 'lite');
 
     const encoder = new TextEncoder();
     const readable = new ReadableStream({

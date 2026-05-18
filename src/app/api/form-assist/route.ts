@@ -119,7 +119,7 @@ export async function POST(request: NextRequest) {
     const result = await chatCompletion([
       { role: 'system', content: 'Jesteś asystentem pomagającym wypełnić formularz ZUS Z-15a. Pisz po polsku, zwięźle, formalnie. Używaj tylko informacji podanych przez użytkownika, nie wymyślaj szczegółów.' },
       { role: 'user', content: `Wygeneruj krótkie oświadczenie (1-2 zdania) dlaczego współmałżonek lub drugi rodzic nie może sprawować opieki nad dzieckiem. Powód opieki wnioskodawcy: ${powodOpieki}. Relacja wnioskodawcy do dziecka: ${relacjaDoZiecka}. Napisz oświadczenie w pierwszej osobie liczby pojedynczej. Brak cudzysłowów.` },
-    ]);
+    ], 'lite');
     return new Response(JSON.stringify({ result }), {
       status: 200,
       headers: { 'Content-Type': 'application/json', ...CORS_HEADERS },
@@ -133,7 +133,7 @@ export async function POST(request: NextRequest) {
     const result = await chatCompletion([
       { role: 'system', content: 'Jesteś asystentem pomagającym wypełnić formularz ZUS Z-15b. Pisz po polsku, zwięźle, formalnie. Używaj tylko informacji podanych przez użytkownika, nie wymyślaj szczegółów.' },
       { role: 'user', content: `Wygeneruj krótkie oświadczenie (1-2 zdania) dlaczego żadna inna osoba z rodziny nie może sprawować opieki nad chorym członkiem rodziny. Powód opieki: ${powodOpieki}. Relacja podopiecznego do wnioskodawcy: ${relacjaDoWnioskodawcy}. Napisz oświadczenie w pierwszej osobie. Brak cudzysłowów.` },
-    ]);
+    ], 'lite');
     return new Response(JSON.stringify({ result }), {
       status: 200,
       headers: { 'Content-Type': 'application/json', ...CORS_HEADERS },

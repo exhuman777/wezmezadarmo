@@ -210,7 +210,7 @@ function parseXml(xml: string, feed: FeedMeta): FeedItem[] {
 // Fetcher
 // ---------------------------------------------------------------------------
 
-const FETCH_TIMEOUT_MS = 6000;
+const FETCH_TIMEOUT_MS = 9000;
 const MAX_ITEMS_PER_FEED = 15;
 
 async function fetchFeed(feed: FeedMeta): Promise<FeedItem[]> {
@@ -221,11 +221,12 @@ async function fetchFeed(feed: FeedMeta): Promise<FeedItem[]> {
     const res = await fetch(feed.url, {
       signal: controller.signal,
       headers: {
-        'User-Agent': 'wezmezadarmo.pl/rss-aggregator (+https://wezmezadarmo.pl)',
-        Accept: 'application/rss+xml, application/atom+xml, text/xml, application/xml',
+        'User-Agent': 'Mozilla/5.0 (compatible; wezmezadarmo-rss/1.0; +https://www.wezmezadarmo.com/llm.md)',
+        Accept: 'application/rss+xml, application/atom+xml, text/xml, application/xml, */*',
       },
-      // no cache in next.js server component -- let our revalidate handle it
-      cache: 'no-store',
+      redirect: 'follow',
+      // Cache for 30 min on Vercel edge -- avoids cold-start timeout hammering all feeds
+      next: { revalidate: 1800 },
     });
     if (!res.ok) return [];
     const text = await res.text();

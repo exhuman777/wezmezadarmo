@@ -1,0 +1,24 @@
+User-agent: *
+Allow: /
+
+# AI crawlers -- full access for beneficial AI indexing
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Gemini-Web
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://www.wezmezadarmo.com/sitemap.xml
+
+# LLM discoverability
+# https://www.wezmezadarmo.com/llm.md
+# https://www.wezmezadarmo.com/agents.md
