@@ -22,105 +22,105 @@ export const BENEFIT_KNOWLEDGE: Record<string, BenefitKnowledge> = {
 
   'zasilek-pogrzebowy': {
     formularzOpis: `
-Formularz ZUS Z-12 -- wniosek o zasilek pogrzebowy.
+Formularz ZUS Z-12: wniosek o zasiłek pogrzebowy.
 
-CZESC I -- Dane osoby wnioskujacej:
-- Imie i nazwisko: pelne imie i nazwisko wnioskodawcy (osoby, ktora poniosla koszty pogrzebu)
+CZĘŚĆ I -- Dane osoby wnioskującej:
+- Imię i nazwisko: pełne imię i nazwisko wnioskodawcy (osoby, która poniosła koszty pogrzebu)
 - PESEL lub NIP: PESEL wnioskodawcy
 - Adres zamieszkania: aktualny adres wnioskodawcy
-- Numer konta bankowego: 26-cyfrowy IBAN, na ktore ma trafic zasilek
+- Numer konta bankowego: 26-cyfrowy IBAN, na które ma trafić zasiłek
 
-CZESC II -- Dane osoby zmarlej:
-- Imie i nazwisko zmarlego
-- PESEL zmarlego (lub data urodzenia jesli brak PESEL)
-- Data smierci: dokladna data zgodna z aktem zgonu
-- Stopien pokrewienstwa z wnioskodawca (malzonek, dziecko, rodzic, etc.)
+CZĘŚĆ II -- Dane osoby zmarłej:
+- Imię i nazwisko zmarłego
+- PESEL zmarłego (lub data urodzenia jeśli brak PESEL)
+- Data śmierci: dokładna data zgodna z aktem zgonu
+- Stopień pokrewieństwa z wnioskodawcą (małżonek, dziecko, rodzic, etc.)
 
-CZESC III -- Informacje o ubezpieczeniu zmarlego:
-- Czy zmarla osoba byla ubezpieczona w ZUS? (pracownik, emeryt, rencista, etc.)
+CZĘŚĆ III -- Informacje o ubezpieczeniu zmarłego:
+- Czy zmarła osoba była ubezpieczona w ZUS? (pracownik, emeryt, rencista, etc.)
 - Ostatnie miejsce pracy lub numer emerytury/renty
 
-DOKUMENTY DOLACZANE DO WNIOSKU:
+DOKUMENTY DOŁĄCZANE DO WNIOSKU:
 1. Akt zgonu (oryginalna kopia)
-2. Dokumenty potwierdzajace poniesione koszty (faktury VAT od zakladu pogrzebowego, za wieniec, urne, itd.)
-3. Dokument potwierdzajacy pokrewienstwo (odpis aktu urodzenia, slubu)
-4. Jesli wnioskuje pracodawca lub instytucja: umowa o organizacje pogrzebu
+2. Dokumenty potwierdzające poniesione koszty (faktury VAT od zakładu pogrzebowego, za wieniec, urnę, itd.)
+3. Dokument potwierdzający pokrewieństwo (odpis aktu urodzenia, ślubu)
+4. Jeśli wnioskuje pracodawca lub instytucja: umowa o organizację pogrzebu
 
-TYPOWE BLEDY:
-- Skladanie wniosku po 12 miesiacach od daty pogrzebu (prawo przepada bezpowrotnie)
-- Brak oryginalnych faktur (kserokopie nie wystarczaja)
-- Wnioskowanie przez zakad pogrzebowy zamiast przez czlonka rodziny (rodzina dostaje wiecej: 7000 PLN ryczalt vs. faktyczne koszty dla firm)
-- Pomylenie daty smierci z data pogrzebu w formularzu
+TYPOWE BŁĘDY:
+- Składanie wniosku po 12 miesiącach od daty pogrzebu (prawo przepada bezpowrotnie)
+- Brak oryginalnych faktur (kserokopie nie wystarczają)
+- Wnioskowanie przez zakład pogrzebowy zamiast przez członka rodziny (rodzina dostaje więcej: 7000 PLN ryczałt vs. faktyczne koszty dla firm)
+- Pomylenie daty śmierci z datą pogrzebu w formularzu
 `,
     szczegolyKwalifikacji: `
-Kwota od 1 stycznia 2026: 7000 PLN (wzrost z 4000 PLN). O kwocie decyduje DATA SMIERCI, nie data zlozenia wniosku.
+Kwota od 1 stycznia 2026: 7000 PLN (wzrost z 4000 PLN). O kwocie decyduje DATA ŚMIERCI, nie data złożenia wniosku.
 
-Kto moze zlozyc wniosek:
-1. Czlonek rodziny (malzonek, dzieci, rodzice, dziadkowie, wnuki, rodzenstwo, teściowie) -- dostaje 7000 PLN ryczaltem niezaleznie od faktycznych kosztow
-2. Pracodawca, gmina, dom pomocy spolecznej, instytucja -- dostaje zwrot faktycznych kosztow, max 7000 PLN
-3. Obca osoba ktora faktycznie poniosla koszty -- zwrot faktycznych kosztow, max 7000 PLN
+Kto może złożyć wniosek:
+1. Członek rodziny (małżonek, dzieci, rodzice, dziadkowie, wnuki, rodzeństwo, teściowie) -- dostaje 7000 PLN ryczałtem niezależnie od faktycznych kosztów
+2. Pracodawca, gmina, dom pomocy społecznej, instytucja -- dostaje zwrot faktycznych kosztów, max 7000 PLN
+3. Obca osoba która faktycznie poniosła koszty -- zwrot faktycznych kosztów, max 7000 PLN
 
-Jesli kilka osob ponioslo koszty: zasilek dzielony proporcjonalnie.
+Jeśli kilka osób poniosło koszty: zasiłek dzielony proporcjonalnie.
 
-Jesli zakad pogrzebowy organizowal pogrzeb na zlecenie rodziny i rodzina zaplacila: wniosek sklada rodzina, dostaje 7000 PLN ryczalt.
+Jeśli zakład pogrzebowy organizował pogrzeb na zlecenie rodziny i rodzina zapłaciła: wniosek składa rodzina, dostaje 7000 PLN ryczałt.
 `,
     faq: `
-P: Czy moge zlozyc wniosek, jesli pogrzeb byl kilka lat temu?
-O: NIE. Termin to 12 miesiecy od dnia pogrzebu. Po tym terminie prawo wygasa.
+P: Czy mogę złożyć wniosek, jeśli pogrzeb był kilka lat temu?
+O: NIE. Termin to 12 miesięcy od dnia pogrzebu. Po tym terminie prawo wygasa.
 
-P: Jak liczyc 12 miesiecy -- od daty smierci czy od daty pogrzebu?
+P: Jak liczyć 12 miesięcy -- od daty śmierci czy od daty pogrzebu?
 O: Od DATY POGRZEBU.
 
-P: Co jesli rodzina czesciowo oplacila pogrzeb, a czesc oplacil zakad pogrzebowy na kredyt?
-O: Zasilek przyslugi temu, kto faktycznie poniosl koszty. Jesli rodzina oplacila czesc -- proporcjonalny zwrot.
+P: Co jeśli rodzina częściowo opłaciła pogrzeb, a część opłacił zakład pogrzebowy na kredyt?
+O: Zasiłek przysługuje temu, kto faktycznie poniósł koszty. Jeśli rodzina opłaciła część -- proporcjonalny zwrot.
 
-P: Czy obowiazuje kryterium dochodowe?
-O: NIE. Zasilek pogrzebowy nie zalezy od dochodu.
+P: Czy obowiązuje kryterium dochodowe?
+O: NIE. Zasiłek pogrzebowy nie zależy od dochodu.
 
-P: Ile dni trwa wyplata?
-O: ZUS wyplaca w ciagu 30 dni od zlozenia kompletnego wniosku.
+P: Ile dni trwa wypłata?
+O: ZUS wypłaca w ciągu 30 dni od złożenia kompletnego wniosku.
 `,
     zrodlo: 'https://www.zus.pl/swiadczenia/zasilki/zasilek-pogrzebowy -- pobrano 2026-05-13',
   },
 
   'zasilek-chorobowy': {
     formularzOpis: `
-E-ZLA (elektroniczne zwolnienie lekarskie) -- wystawiany przez lekarza, trafia automatycznie do ZUS i pracodawcy. Ubezpieczony nie musi go samodzielnie dostarczac.
+E-ZLA (elektroniczne zwolnienie lekarskie) -- wystawiany przez lekarza, trafia automatycznie do ZUS i pracodawcy. Ubezpieczony nie musi go samodzielnie dostarczać.
 
-Formularz ZUS Z-3 -- wypelnia PRACODAWCA (nie pracownik) i przekazuje do ZUS:
-- Dane pracownika: imie, nazwisko, PESEL, adres
-- Wymiar etatu i wynagrodzenie brutto za ostatnie 12 miesiecy
+Formularz ZUS Z-3 -- wypełnia PRACODAWCA (nie pracownik) i przekazuje do ZUS:
+- Dane pracownika: imię, nazwisko, PESEL, adres
+- Wymiar etatu i wynagrodzenie brutto za ostatnie 12 miesięcy
 - Informacja o przerwach w ubezpieczeniu
-- Konto bankowe pracownika (jesli ZUS wyplaca bezposrednio)
+- Konto bankowe pracownika (jeśli ZUS wypłaca bezpośrednio)
 
-ZUS Z-3a -- dla zleceniobiorcow (wypenla zleceniodawca)
-ZUS Z-3b -- dla samozatrudnionych (wypelnia sam ubezpieczony)
+ZUS Z-3a -- dla zleceniobiorców (wypełnia zleceniodawca)
+ZUS Z-3b -- dla samozatrudnionych (wypełnia sam ubezpieczony)
 
-UBEZPIECZONY NIE SKLADA WNIOSKU -- e-ZLA wystawione przez lekarza uruchamia automatycznie procedure.
+UBEZPIECZONY NIE SKŁADA WNIOSKU -- e-ZLA wystawione przez lekarza uruchamia automatycznie procedurę.
 `,
     szczegolyKwalifikacji: `
 Okres wyczekiwania:
-- Pracownicy (umowa o prace): 30 dni ciaglego ubezpieczenia chorobowego
+- Pracownicy (umowa o pracę): 30 dni ciągłego ubezpieczenia chorobowego
 - Zleceniobiorcy: 90 dni
 - Dobrowolne ubezpieczenie (samozatrudnieni): 90 dni
-- BEZ okresu wyczekiwania: ubezpieczeni wczesniej przez minimum 10 lat, absolwenci (6 mies. od studiow), ciazowe zwolnienia
+- BEZ okresu wyczekiwania: ubezpieczeni wcześniej przez minimum 10 lat, absolwenci (6 mies. od studiów), ciążowe zwolnienia
 
-Wysokosc:
-- 80% podstawy (srednie wynagrodzenie z 12 mies.)
-- 70% za pobyt w szpitalu (z wyjatkami)
-- 100% w ciazy, przy wypadku przy pracy, chorobie zawodowej
+Wysokość:
+- 80% podstawy (średnie wynagrodzenie z 12 mies.)
+- 70% za pobyt w szpitalu (z wyjątkami)
+- 100% w ciąży, przy wypadku przy pracy, chorobie zawodowej
 
-Maksymalny okres: 182 dni (6 miesiecy), przy gruzlicy lub ciazy 270 dni.
-Po wyczerpaniu -- swiadczenie rehabilitacyjne (do 12 miesiecy).
+Maksymalny okres: 182 dni (6 miesięcy), przy gruźlicy lub ciąży 270 dni.
+Po wyczerpaniu -- świadczenie rehabilitacyjne (do 12 miesięcy).
 `,
     faq: `
-P: Czy moge isc do lekarza pierwszego dnia choroby?
-O: Tak, ale zwolnienie od lekarza moze byc wystawione "wstecz" tylko o 3 dni (tylko w wyjatkowych sytuacjach).
+P: Czy mogę iść do lekarza pierwszego dnia choroby?
+O: Tak, ale zwolnienie od lekarza może być wystawione "wstecz" tylko o 3 dni (tylko w wyjątkowych sytuacjach).
 
-P: Co jesli pracodawca sam wyplaca zasilek?
-O: Pracodawcy zatrudniajacy powyzej 20 ubezpieczonych sami wyplacaja zasilek i potem rozliczaja z ZUS.
+P: Co jeśli pracodawca sam wypłaca zasiłek?
+O: Pracodawcy zatrudniający powyżej 20 ubezpieczonych sami wypłacają zasiłek i potem rozliczają z ZUS.
 
-P: Czy zasilek chorobowy podlega podatkowi?
+P: Czy zasiłek chorobowy podlega podatkowi?
 O: TAK, jest opodatkowany PIT.
 `,
     zrodlo: 'https://www.zus.pl/swiadczenia/zasilki/zasilek-chorobowy -- pobrano 2026-05-13',
@@ -128,39 +128,39 @@ O: TAK, jest opodatkowany PIT.
 
   'zasilek-macierzynski': {
     formularzOpis: `
-PRACOWNICY: pracodawca sklada ZUS Z-3 do ZUS. Pracownica sklada do pracodawcy wniosek o urlop macierzynski z kopią aktu urodzenia dziecka.
+PRACOWNICY: pracodawca składa ZUS Z-3 do ZUS. Pracownica składa do pracodawcy wniosek o urlop macierzyński z kopią aktu urodzenia dziecka.
 
-ZLECENIOBIORCY / SAMOZATRUDNIENI: skladaja bezposrednio do ZUS:
+ZLECENIOBIORCY / SAMOZATRUDNIENI: składają bezpośrednio do ZUS:
 - ZUS Z-3a (zleceniobiorcy) lub ZUS Z-3b (samozatrudnieni)
-- Wniosek o wyplate zasilku macierzynskiego
-- Skrocony odpis aktu urodzenia dziecka
-- Oswiadczenie o niepobraniu zasilku przez drugiego rodzica
+- Wniosek o wypłatę zasiłku macierzyńskiego
+- Skrócony odpis aktu urodzenia dziecka
+- Oświadczenie o niepobraniu zasiłku przez drugiego rodzica
 
-WNIOSEK O URLOP RODZICIELSKI (jesli chcesz wydluzyc):
-- Termin: nie pozniej niz 21 dni po porodzie (jesli chcesz ciagly urlop)
-- Pozniejszy wniosek: rodzicielski moze byc brany pozniej, ale treba zlozyc 21 dni przed planowanym poczatkiem
+WNIOSEK O URLOP RODZICIELSKI (jeśli chcesz wydłużyć):
+- Termin: nie później niż 21 dni po porodzie (jeśli chcesz ciągły urlop)
+- Późniejszy wniosek: rodzicielski może być brany później, ale trzeba złożyć 21 dni przed planowanym początkiem
 `,
     szczegolyKwalifikacji: `
-ZASILEK MACIERZYNSKI vs. SWIADCZENIE RODZICIELSKIE (kosiniakowe):
-- Zasilek macierzynski: dla osob ubezpieczonych w ZUS (pracownicy, zleceniobiorcy, samozatrudnieni)
-- Kosiniakowe: dla tych, ktorzy NIE maja ubezpieczenia chorobowego (bezrobotni, studenci, etc.)
-NIE MOZNA POBIERAC OBU JEDNOCZESNIE.
+ZASIŁEK MACIERZYŃSKI vs. ŚWIADCZENIE RODZICIELSKIE (kosiniakowe):
+- Zasiłek macierzyński: dla osób ubezpieczonych w ZUS (pracownicy, zleceniobiorcy, samozatrudnieni)
+- Kosiniakowe: dla tych, którzy NIE mają ubezpieczenia chorobowego (bezrobotni, studenci, etc.)
+NIE MOŻNA POBIERAĆ OBU JEDNOCZEŚNIE.
 
 Okresy:
-- Urlop macierzynski: 20 tygodni (przy pojedynczym porodzie), do 37 tyg. przy pietioraczkach
-- Urlop rodzicielski: 41 tygodni (lub 43 przy wieloraczkach) -- moze byc podzielony miedzy rodzicow
-- 9 tygodni urlopu rodzicielskiego jest NIEPRZENOSZALNE na drugiego rodzica (obowiazuje od 2023)
+- Urlop macierzyński: 20 tygodni (przy pojedynczym porodzie), do 37 tyg. przy pięcioraczkach
+- Urlop rodzicielski: 41 tygodni (lub 43 przy wieloraczkach) -- może być podzielony między rodziców
+- 9 tygodni urlopu rodzicielskiego jest NIEPRZENOSZALNE na drugiego rodzica (obowiązuje od 2023)
 
-Wysokosc:
-- 81.5% podstawy za caly czas (jesli wniosek zlozono do 21 dni po porodzie)
-- 100% przez pierwsze 6 tyg. + 60% przez pozostaly czas (jesli wniosek po terminie)
+Wysokość:
+- 81.5% podstawy za cały czas (jeśli wniosek złożono do 21 dni po porodzie)
+- 100% przez pierwsze 6 tyg. + 60% przez pozostały czas (jeśli wniosek po terminie)
 `,
     faq: `
-P: Ojciec dziecka moze wzisc urlop macierzynski?
-O: Tak. Ojciec ma prawo do urlopu ojcowskiego (2 tygodnie do 12 mies. od porodu) i moze przejac czesc urlopu macierzynskiego od matki po 14 tygodniach.
+P: Ojciec dziecka może wziąć urlop macierzyński?
+O: Tak. Ojciec ma prawo do urlopu ojcowskiego (2 tygodnie do 12 mies. od porodu) i może przejąć część urlopu macierzyńskiego od matki po 14 tygodniach.
 
-P: Czy zasilek macierzynski przyslugi przy poronieniu?
-O: Tak, jesli ciaza trwala co najmniej 22 tygodnie -- zasilek za 8 tygodni.
+P: Czy zasiłek macierzyński przysługuje przy poronieniu?
+O: Tak, jeśli ciąża trwała co najmniej 22 tygodnie -- zasiłek za 8 tygodni.
 `,
     zrodlo: 'https://www.zus.pl/swiadczenia/zasilki/zasilek-macierzynski -- pobrano 2026-05-13',
   },
@@ -168,193 +168,193 @@ O: Tak, jesli ciaza trwala co najmniej 22 tygodnie -- zasilek za 8 tygodni.
   'zasilek-opiekunczy': {
     formularzOpis: `
 Formularz ZUS Z-15A -- opieka nad dzieckiem do 14 lat:
-- Czesc I: dane ubezpieczonego (imie, nazwisko, PESEL, adres)
-- Czesc II: dane dziecka (imie, nazwisko, PESEL, stopien pokrewienstwa)
-- Czesc III: informacja o innym opiekunie (czy wspolmieszkajacy czlonek rodziny moze zapewnic opieke? jezeli tak, zasilek nie przyslugi)
-- Czesc IV: powod (choroba dziecka, zamkniecie placowki, choroba nianni, etc.)
-- Podpis: wlasnorecznie lub elektronicznie na PUE ZUS
+- Część I: dane ubezpieczonego (imię, nazwisko, PESEL, adres)
+- Część II: dane dziecka (imię, nazwisko, PESEL, stopień pokrewieństwa)
+- Część III: informacja o innym opiekunie (czy współmieszkający członek rodziny może zapewnić opiekę? jeżeli tak, zasiłek nie przysługuje)
+- Część IV: powód (choroba dziecka, zamknięcie placówki, choroba niani, etc.)
+- Podpis: własnoręcznie lub elektronicznie na PUE ZUS
 
-Formularz ZUS Z-15B -- opieka nad chorym czlonkiem rodziny (malzonek, rodzic, etc.):
+Formularz ZUS Z-15B -- opieka nad chorym członkiem rodziny (małżonek, rodzic, etc.):
 - Podobna struktura jak Z-15A
-- Czesc III: tutaj warunek "brak innego opiekuna" jest BEZWZGLEDNY (nie jak przy dziecku do lat 2)
+- Część III: tutaj warunek "brak innego opiekuna" jest BEZWZGLĘDNY (nie jak przy dziecku do lat 2)
 
-UWAGA: lekarz wystawia e-ZLA -- ubezpieczony nie musi juz dostarczac zaswiadczenia lekarskiego odrebnie.
+UWAGA: lekarz wystawia e-ZLA -- ubezpieczony nie musi już dostarczać zaświadczenia lekarskiego odrębnie.
 `,
     szczegolyKwalifikacji: `
 LIMITY ROCZNE:
-- 60 dni na chore dziecko do 14 lat (laczy sie limit obojga rodzicow)
-- 14 dni na innego chorego czlonka rodziny
-- Przy opiece nad dzieckiem niepelnosprawnym do 18 lat: dodatkowe 30 dni
+- 60 dni na chore dziecko do 14 lat (łączy się limit obojga rodziców)
+- 14 dni na innego chorego członka rodziny
+- Przy opiece nad dzieckiem niepełnosprawnym do 18 lat: dodatkowe 30 dni
 
 WARUNEK "BRAK INNEGO OPIEKUNA":
-- Przy chorym dziecku do lat 2: warunek nie obowiazuje (zawsze przyslugi)
-- Przy chorym dziecku 2-14 lat: jesli inny czlonek rodziny moze zapewnic opieke, zasilek nie przyslugi
-- Przy chorym doroslym czlonku rodziny: zawsze wymagane oswiadczenie ze nie ma innego opiekuna
+- Przy chorym dziecku do lat 2: warunek nie obowiązuje (zawsze przysługuje)
+- Przy chorym dziecku 2-14 lat: jeśli inny członek rodziny może zapewnić opiekę, zasiłek nie przysługuje
+- Przy chorym dorosłym członku rodziny: zawsze wymagane oświadczenie że nie ma innego opiekuna
 
-ZAMKNIECIE PLACOWKI:
-- Szkola, przedszkole, zlobek zamkniety z przyczyn nieprzewidzianych lub epidemicznych
-- Limit 60 dni (wliczany do ogolnego limitu na dziecko)
+ZAMKNIĘCIE PLACÓWKI:
+- Szkoła, przedszkole, żłobek zamknięty z przyczyn nieprzewidzianych lub epidemicznych
+- Limit 60 dni (wliczany do ogólnego limitu na dziecko)
 `,
     zrodlo: 'https://www.zus.pl/swiadczenia/zasilki/zasilek-opiekunczy -- pobrano 2026-05-13',
   },
 
   'swiadczenie-rehabilitacyjne': {
     formularzOpis: `
-Formularz ZUS Np-7 -- wniosek o swiadczenie rehabilitacyjne.
-Sklada ubezpieczony (lub pracodawca w jego imieniu) do ZUS PRZED wyczerpaniem zasilku chorobowego.
+Formularz ZUS Np-7 -- wniosek o świadczenie rehabilitacyjne.
+Składa ubezpieczony (lub pracodawca w jego imieniu) do ZUS PRZED wyczerpaniem zasiłku chorobowego.
 
-Czesc I -- dane ubezpieczonego: imie, nazwisko, PESEL, adres, konto bankowe
-Czesc II -- informacje o chorobie: od kiedy na zwolnieniu, jaki jest powod (czy rokowanie na powrot do pracy jest pozytywne?)
-Czesc III -- dokumentacja medyczna: skierowanie od lekarza prowadzacego na komisje ZUS
+Część I -- dane ubezpieczonego: imię, nazwisko, PESEL, adres, konto bankowe
+Część II -- informacje o chorobie: od kiedy na zwolnieniu, jaki jest powód (czy rokowanie na powrót do pracy jest pozytywne?)
+Część III -- dokumentacja medyczna: skierowanie od lekarza prowadzącego na komisję ZUS
 
-KROK OBOWIAZKOWY: orzeczenie lekarza orzecznika ZUS -- ZUS wzywa ubezpieczonego na badanie.
-Termin zlozenia: najpozniej 6 tygodni przed koncem zasilku chorobowego.
+KROK OBOWIĄZKOWY: orzeczenie lekarza orzecznika ZUS -- ZUS wzywa ubezpieczonego na badanie.
+Termin złożenia: najpóźniej 6 tygodni przed końcem zasiłku chorobowego.
 `,
     szczegolyKwalifikacji: `
-Swiadczenie rehabilitacyjne przyslugi, gdy po 182 dniach zwolnienia:
+Świadczenie rehabilitacyjne przysługuje, gdy po 182 dniach zwolnienia:
 - Ubezpieczony jest nadal niezdolny do pracy
-- Rokowania na powrot do pracy w ciagu kolejnych 12 miesiecy sa pozytywne
+- Rokowania na powrót do pracy w ciągu kolejnych 12 miesięcy są pozytywne
 
-Trwa: do 12 miesiecy (mozna wnioskac o kolejne okresy, kazdy wymaga nowego orzeczenia)
+Trwa: do 12 miesięcy (można wnioskować o kolejne okresy, każdy wymaga nowego orzeczenia)
 
-Wysokosc:
-- 90% podstawy przez pierwsze 3 miesiace
-- 75% podstawy przez kolejne miesiace
-- 100% jesli niezdolnosc wynikla z ciazy lub wypadku przy pracy
+Wysokość:
+- 90% podstawy przez pierwsze 3 miesiące
+- 75% podstawy przez kolejne miesiące
+- 100% jeśli niezdolność wynikła z ciąży lub wypadku przy pracy
 
-UWAGA: pracodawca NIE MOZE zwolnic pracownika w czasie pobierania swiadczenia rehabilitacyjnego.
+UWAGA: pracodawca NIE MOŻE zwolnić pracownika w czasie pobierania świadczenia rehabilitacyjnego.
 `,
     zrodlo: 'https://www.zus.pl/swiadczenia/zasilki/swiadczenie-rehabilitacyjne -- pobrano 2026-05-13',
   },
 
   'renta-socjalna': {
     formularzOpis: `
-Formularz ZUS ERN -- wniosek o rente socjalna.
-Sklada sie w oddziale ZUS lub przez PUE ZUS.
+Formularz ZUS ERN -- wniosek o rentę socjalną.
+Składa się w oddziale ZUS lub przez PUE ZUS.
 
-Czesc I -- dane wnioskodawcy: imie, nazwisko, PESEL, adres, konto bankowe
-Czesc II -- historia choroby: kiedy zostala stwierdzona niezdolnosc, w jakim wieku, dokumentacja medyczna
-Czesc III -- dokumenty:
-- Orzeczenie o niezdolnosci do pracy wydane przez lekarza orzecznika ZUS (lub komisje lekarsko-ZUS)
-- Dokumenty potwierdzajace, ze niezdolnosc powstala przed 18. rokiem zycia (lub podczas studiow, lub w szkole)
-- Dokumentacja medyczna (zaswiadczenia lekarskie, historia choroby)
+Część I -- dane wnioskodawcy: imię, nazwisko, PESEL, adres, konto bankowe
+Część II -- historia choroby: kiedy została stwierdzona niezdolność, w jakim wieku, dokumentacja medyczna
+Część III -- dokumenty:
+- Orzeczenie o niezdolności do pracy wydane przez lekarza orzecznika ZUS (lub komisję lekarsko-ZUS)
+- Dokumenty potwierdzające, że niezdolność powstała przed 18. rokiem życia (lub podczas studiów, lub w szkole)
+- Dokumentacja medyczna (zaświadczenia lekarskie, historia choroby)
 
-KLUCZOWE: trzeba udowodnic, ze niezdolnosc do pracy POWSTALA w caloscii przed 18. urodzinami (lub do 25. roku zycia podczas nauki).
+KLUCZOWE: trzeba udowodnić, że niezdolność do pracy POWSTAŁA w całości przed 18. urodzinami (lub do 25. roku życia podczas nauki).
 `,
     szczegolyKwalifikacji: `
-Komu przyslugi renta socjalna (bez wymogu posiadania stazu):
-- Osobom calkowicie niezdolnym do pracy
-- Niezdolnosc musi powstac przed 18. rokiem zycia
-  LUB w trakcie nauki w szkole/uczelni (do 25. roku zycia)
-  LUB w trakcie studiow doktoranckich
+Komu przysługuje renta socjalna (bez wymogu posiadania stażu):
+- Osobom całkowicie niezdolnym do pracy
+- Niezdolność musi powstać przed 18. rokiem życia
+  LUB w trakcie nauki w szkole/uczelni (do 25. roku życia)
+  LUB w trakcie studiów doktoranckich
 
-Kwota (2026): 1902,71 PLN brutto miesiecznie.
+Kwota (2026): 1902,71 PLN brutto miesięcznie.
 
-UWAGA: renta socjalna jest zawieszana, gdy ubezpieczony osiaga przychod powyzej 70% przecietnego wynagrodzenia (ok. 4460 PLN brutto w 2026).
-Prac dorywcze do tej kwoty: renta wypacana normalnie.
+UWAGA: renta socjalna jest zawieszana, gdy ubezpieczony osiąga przychód powyżej 70% przeciętnego wynagrodzenia (ok. 4460 PLN brutto w 2026).
+Prace dorywcze do tej kwoty: renta wypłacana normalnie.
 `,
     faq: `
-P: Czy mozna pracowac bedac na rencie socjalnej?
-O: Tak, do 70% przecietnego wynagrodzenia (ok. 4460 PLN brutto miesiecznie w 2026). Powyzej tej kwoty renta jest zawieszana w calosci.
+P: Czy można pracować będąc na rencie socjalnej?
+O: Tak, do 70% przeciętnego wynagrodzenia (ok. 4460 PLN brutto miesięcznie w 2026). Powyżej tej kwoty renta jest zawieszana w całości.
 
-P: Czy renta socjalna jest na stale?
-O: Przyznawana na czas okreslony lub nieokreslonej -- zalezy od orzeczenia. Trzeba odnawiac orzeczenie lekarza orzecznika ZUS.
+P: Czy renta socjalna jest na stałe?
+O: Przyznawana na czas określony lub nieokreślony -- zależy od orzeczenia. Trzeba odnawiać orzeczenie lekarza orzecznika ZUS.
 `,
     zrodlo: 'https://www.zus.pl/swiadczenia/renty/renta-socjalna -- pobrano 2026-05-13',
   },
 
   'mama-4-plus': {
     formularzOpis: `
-Formularz ZUS ERSU -- wniosek o rodzicielskie swiadczenie uzupelniajace ("Mama 4+").
-Sklada sie w oddziale ZUS lub przez PUE ZUS.
+Formularz ZUS ERSU -- wniosek o rodzicielskie świadczenie uzupełniające ("Mama 4+").
+Składa się w oddziale ZUS lub przez PUE ZUS.
 
-Czesc I -- dane wnioskodawcy: imie, nazwisko, PESEL, adres, konto bankowe
-Czesc II -- informacja o dzieciach: liczba wychowanych dzieci, imiona, nazwiska, daty urodzenia, czy dzieci zyja
-Czesc III -- historia zatrudnienia: czy wnioskodawca ma jakiekolwiek prawo do emerytury/renty z ZUS lub KRUS
-Czesc IV -- dokumenty dolaczane:
-- Akty urodzenia kazdego z 4 (lub wiecej) dzieci
-- Jesli dzieci juz doroslemu: moze byc potrzebne potwierdzenie, ze to wnioskodawca je wychowywal
-- Jesli ojciec wnioskuje: akt zgonu matki lub wyrok sadu potwierdzajacy opieke
+Część I -- dane wnioskodawcy: imię, nazwisko, PESEL, adres, konto bankowe
+Część II -- informacja o dzieciach: liczba wychowanych dzieci, imiona, nazwiska, daty urodzenia, czy dzieci żyją
+Część III -- historia zatrudnienia: czy wnioskodawca ma jakiekolwiek prawo do emerytury/renty z ZUS lub KRUS
+Część IV -- dokumenty dołączane:
+- Akty urodzenia każdego z 4 (lub więcej) dzieci
+- Jeśli dzieci już dorosłe: może być potrzebne potwierdzenie, że to wnioskodawca je wychowywał
+- Jeśli ojciec wnioskuje: akt zgonu matki lub wyrok sądu potwierdzający opiekę
 
-WAZNE: swiadczenie UZUPELNIA emeryture/rente do kwoty minimalnej (1780,96 PLN brutto), nie zastepuje.
-Jesli masz juz emeryture powyzej minimalnej -- nie dostaniesz nic.
+WAŻNE: świadczenie UZUPEŁNIA emeryturę/rentę do kwoty minimalnej (1780,96 PLN brutto), nie zastępuje.
+Jeśli masz już emeryturę powyżej minimalnej -- nie dostaniesz nic.
 `,
     szczegolyKwalifikacji: `
 Warunki:
-- Matka: urodzila i wychowala co najmniej 4 dzieci
-- Ojciec: wychowywal co najmniej 4 dzieci (matka dzieci nie zyje lub porzucila dzieci)
-- Wiek: kobieta 60+, mezczyzna 65+
-- Brak prawa do emerytury lub renty w wysokosci co najmniej minimalnej emerytury
+- Matka: urodziła i wychowała co najmniej 4 dzieci
+- Ojciec: wychowywał co najmniej 4 dzieci (matka dzieci nie żyje lub porzuciła dzieci)
+- Wiek: kobieta 60+, mężczyzna 65+
+- Brak prawa do emerytury lub renty w wysokości co najmniej minimalnej emerytury
 
-Kwota 2026: uzupelnienie do 1780,96 PLN brutto miesiecznie.
-Jesli masz emeryture 1200 PLN -- dostaniesz dopelnienie 580,96 PLN.
-Jesli masz emeryture 1900 PLN -- swiadczenie ci nie przyslugi.
+Kwota 2026: uzupełnienie do 1780,96 PLN brutto miesięcznie.
+Jeśli masz emeryturę 1200 PLN -- dostaniesz dopełnienie 580,96 PLN.
+Jeśli masz emeryturę 1900 PLN -- świadczenie ci nie przysługuje.
 
-Swiadczenie jest NIEZALEZNE od stazu pracy.
+Świadczenie jest NIEZALEŻNE od stażu pracy.
 `,
     zrodlo: 'https://www.zus.pl/swiadczenia/rodzicielskie-swiadczenie-uzupelniajace -- pobrano 2026-05-13',
   },
 
   'emerytura-pomostowa': {
     formularzOpis: `
-Formularz ZUS EPOM -- wniosek o emeryture pomostowa.
-Sklada sie w oddziale ZUS lub przez PUE ZUS.
+Formularz ZUS EPOM -- wniosek o emeryturę pomostową.
+Składa się w oddziale ZUS lub przez PUE ZUS.
 
-Czesc I -- dane wnioskodawcy: imie, nazwisko, PESEL, adres, konto bankowe
-Czesc II -- historia zatrudnienia w warunkach szczegolnych lub o szczegolnym charakterze:
-  - Nazwy pracodawcow
-  - Okresy pracy w warunkach szczegolnych
-  - Stanowiska (musza byc na liscie z Zal. 1 lub 2 do Ustawy z 2008)
-Czesc III -- dokumenty:
-  - Swiadectwo pracy z okresleniem rodzaju pracy (musi zawierac punkt o warunkach szczegolnych)
-  - Zaswiadczenie pracodawcy (Zal. nr 1 do wniosku EPOM)
-  - Dokumenty potwierdzajace ubezpieczenie przed 1999 rokiem
+Część I -- dane wnioskodawcy: imię, nazwisko, PESEL, adres, konto bankowe
+Część II -- historia zatrudnienia w warunkach szczególnych lub o szczególnym charakterze:
+  - Nazwy pracodawców
+  - Okresy pracy w warunkach szczególnych
+  - Stanowiska (muszą być na liście z Zał. 1 lub 2 do Ustawy z 2008)
+Część III -- dokumenty:
+  - Świadectwo pracy z określeniem rodzaju pracy (musi zawierać punkt o warunkach szczególnych)
+  - Zaświadczenie pracodawcy (Zał. nr 1 do wniosku EPOM)
+  - Dokumenty potwierdzające ubezpieczenie przed 1999 rokiem
 
-UWAGA: swiadectwo pracy MUSI potwierdzac prace w warunkach szczegolnych. Bez tego ZUS odmowi.
-Pracodawca ma obowiazek wydac takie swiadectwo -- jesli odmawia, mozna go przymuszic sadowo.
+UWAGA: świadectwo pracy MUSI potwierdzać pracę w warunkach szczególnych. Bez tego ZUS odmówi.
+Pracodawca ma obowiązek wydać takie świadectwo -- jeśli odmawia, można go przymusić sądownie.
 `,
     szczegolyKwalifikacji: `
-Wymagania LACZNIE:
+Wymagania ŁĄCZNIE:
 1. Urodzony przed 1 stycznia 1969
-2. Co najmniej 15 lat pracy w warunkach szczegolnych lub o szczegolnym charakterze (wykaz w Zal. 1 i 2 do Ustawy)
-3. Staz ubezpieczeniowy: 20 lat kobiety / 25 lat mezczyzni
-4. Rozwiazanie stosunku pracy
-5. Praca w tych warunkach MUSI obejmowac okres po 31 grudnia 2008
+2. Co najmniej 15 lat pracy w warunkach szczególnych lub o szczególnym charakterze (wykaz w Zał. 1 i 2 do Ustawy)
+3. Staż ubezpieczeniowy: 20 lat kobiety / 25 lat mężczyźni
+4. Rozwiązanie stosunku pracy
+5. Praca w tych warunkach MUSI obejmować okres po 31 grudnia 2008
 
-Typowe zawody kwalifikujace: gornicy, kierowcy ciezarowek, piloci, maszynisci, strazy, ratownicy gorscy, praca w narazeniu na halas/zapylenie/substancje toksyczne.
+Typowe zawody kwalifikujące: górnicy, kierowcy ciężarówek, piloci, maszyniści, strażacy, ratownicy górscy, praca w narażeniu na hałas/zapylenie/substancje toksyczne.
 
-Swiadczenie placi pracodawca (Fundusz Emerytur Pomostowych, finansowany ze skladek pracodawcow). Wniosek sklada ubezpieczony do ZUS.
+Świadczenie płaci pracodawca (Fundusz Emerytur Pomostowych, finansowany ze składek pracodawców). Wniosek składa ubezpieczony do ZUS.
 `,
     zrodlo: 'https://www.zus.pl/swiadczenia/emerytury/emerytury-pomostowe -- pobrano 2026-05-13',
   },
 
   'swiadczenie-przedemerytalne': {
     formularzOpis: `
-Formularz ZUS ESP -- wniosek o swiadczenie przedemerytalne.
-Sklada sie w oddziale ZUS lub przez PUE ZUS po uplywie 6 miesiecy od daty rejestracji w urzedzie pracy.
+Formularz ZUS ESP -- wniosek o świadczenie przedemerytalne.
+Składa się w oddziale ZUS lub przez PUE ZUS po upływie 6 miesięcy od daty rejestracji w urzędzie pracy.
 
-Czesc I -- dane wnioskodawcy
-Czesc II -- data rozwiazania stosunku pracy i powod (likwidacja, zwolnienie grupowe, zwolnienie z winy pracodawcy)
-Czesc III -- historia rejestracji w Powiatowym Urzedzie Pracy (PUP):
+Część I -- dane wnioskodawcy
+Część II -- data rozwiązania stosunku pracy i powód (likwidacja, zwolnienie grupowe, zwolnienie z winy pracodawcy)
+Część III -- historia rejestracji w Powiatowym Urzędzie Pracy (PUP):
   - Data rejestracji
-  - Potwierdzenie, ze przez 6 miesiecy pobieralo sie zasilek dla bezrobotnych
-  - Potwierdzenie z PUP ze aktywnie szukano pracy
-Czesc IV -- dokumenty:
-  - Swiadectwo pracy z podaniem przyczyny rozwiazania
-  - Zaswiadczenie z ZUS o okresleniu stazu ubezpieczeniowego
-  - Zaswiadczenie z PUP o 6-miesiecznym pobieraniu zasilku
+  - Potwierdzenie, że przez 6 miesięcy pobierało się zasiłek dla bezrobotnych
+  - Potwierdzenie z PUP że aktywnie szukano pracy
+Część IV -- dokumenty:
+  - Świadectwo pracy z podaniem przyczyny rozwiązania
+  - Zaświadczenie z ZUS o określeniu stażu ubezpieczeniowego
+  - Zaświadczenie z PUP o 6-miesięcznym pobieraniu zasiłku
 
-KLUCZOWY TERMIN: wniosek nalezy zlozyc w ciagu 30 dni od daty wydania przez PUP zaswiadczenia potwierdzajacego 6-miesieczny pobyt na zasilku. Po uplywie 30 dni -- trzeba zaczac procedure od nowa.
+KLUCZOWY TERMIN: wniosek należy złożyć w ciągu 30 dni od daty wydania przez PUP zaświadczenia potwierdzającego 6-miesięczny pobyt na zasiłku. Po upływie 30 dni -- trzeba zacząć procedurę od nowa.
 `,
     szczegolyKwalifikacji: `
-Warunki (musza byc spelnione LACZNIE):
-1. Wiek: kobieta 56+, mezczyzna 61+ w dniu rozwiazania stosunku pracy
-2. Staz: kobieta minimum 20 lat, mezczyzna minimum 25 lat ubezpieczenia
-3. Powod utraty pracy: likwidacja pracodawcy, zwolnienie grupowe, przyczyny lezace po stronie pracodawcy
-4. 6 miesiecy rejestracji w PUP jako bezrobotny i pobierania zasilku dla bezrobotnych
+Warunki (muszą być spełnione ŁĄCZNIE):
+1. Wiek: kobieta 56+, mężczyzna 61+ w dniu rozwiązania stosunku pracy
+2. Staż: kobieta minimum 20 lat, mężczyzna minimum 25 lat ubezpieczenia
+3. Powód utraty pracy: likwidacja pracodawcy, zwolnienie grupowe, przyczyny leżące po stronie pracodawcy
+4. 6 miesięcy rejestracji w PUP jako bezrobotny i pobierania zasiłku dla bezrobotnych
 
-Kwota (2026): 1636,15 PLN brutto miesiecznie (okolo 91% minimalnej emerytury).
-Trwa do osiagniecia wieku emerytalnego (60/65 lat).
+Kwota (2026): 1636,15 PLN brutto miesięcznie (około 91% minimalnej emerytury).
+Trwa do osiągnięcia wieku emerytalnego (60/65 lat).
 `,
     zrodlo: 'https://www.zus.pl/swiadczenia/swiadczenia-przedemerytalne -- pobrano 2026-05-13',
   },
@@ -363,150 +363,150 @@ Trwa do osiagniecia wieku emerytalnego (60/65 lat).
 
   '800-plus': {
     formularzOpis: `
-Wniosek SW-1 -- wyacznie elektronicznie (brak wersji papierowej od 2024):
-- PUE ZUS (pue.zus.pl): zaloguj sie profilem zaufanym, e-Dowodem lub bankowoscia elektroniczna
-- Bankowosc elektroniczna: wiekszosc duzych bankow (PKO, Pekao, mBank, Santander, ING, etc.)
+Wniosek SW-1 -- wyłącznie elektronicznie (brak wersji papierowej od 2024):
+- PUE ZUS (pue.zus.pl): zaloguj się profilem zaufanym, e-Dowodem lub bankowością elektroniczną
+- Bankowość elektroniczna: większość dużych banków (PKO, Pekao, mBank, Santander, ING, etc.)
 - Portal Empatia (empatia.mpips.gov.pl)
 
-POLA DO WYPELNIENIA:
-1. Dane wnioskodawcy: imie, nazwisko, PESEL, adres, numer konta bankowego (IBAN)
-2. Dane dziecka/dzieci: imie, nazwisko, PESEL kazdego dziecka, data urodzenia
-3. Przy opiece naprzemiennej: zaznaczyc i podac PESEL drugiego rodzica
+POLA DO WYPEŁNIENIA:
+1. Dane wnioskodawcy: imię, nazwisko, PESEL, adres, numer konta bankowego (IBAN)
+2. Dane dziecka/dzieci: imię, nazwisko, PESEL każdego dziecka, data urodzenia
+3. Przy opiece naprzemiennej: zaznaczyć i podać PESEL drugiego rodzica
 
 WERYFIKACJA AUTOMATYCZNA:
-ZUS weryfikuje dane z rejestru PESEL -- nie trzeba dolaczac aktu urodzenia jesli dziecko urodzilo sie w Polsce. Przy dzieciach urodzonych zagranica -- akt urodzenia z tumaczeniem.
+ZUS weryfikuje dane z rejestru PESEL -- nie trzeba dołączać aktu urodzenia jeśli dziecko urodziło się w Polsce. Przy dzieciach urodzonych zagranicą -- akt urodzenia z tłumaczeniem.
 `,
     szczegolyKwalifikacji: `
-OKRESY SWIADCZENIOWE: zawsze od 1 czerwca do 31 maja.
+OKRESY ŚWIADCZENIOWE: zawsze od 1 czerwca do 31 maja.
 Wnioski na nowy okres przyjmowane od 1 LUTEGO.
-Jesli zlozy sie wniosek:
-- Od 1 lutego do 30 kwietnia: wyplata od 1 czerwca (bez opoznienia)
-- Od 1 maja do 31 maja: wyplata od 1 czerwca, ale po rozpatrzeniu (moze byc opoznienie do 2 mies.)
-- Po 1 czerwca: wyplata od pierwszego dnia miesiaca zlozenia wniosku (BRAK wyrownania wstecz)
+Jeśli złoży się wniosek:
+- Od 1 lutego do 30 kwietnia: wypłata od 1 czerwca (bez opóźnienia)
+- Od 1 maja do 31 maja: wypłata od 1 czerwca, ale po rozpatrzeniu (może być opóźnienie do 2 mies.)
+- Po 1 czerwca: wypłata od pierwszego dnia miesiąca złożenia wniosku (BRAK wyrównania wstecz)
 
 OPIEKA NAPRZEMIENNA:
-Jesli rodzice rozwiedzeni z oprawieniem o opiece naprzemiennej (co najmniej 50/50): kazdy rodzic sklada wniosek na pol swiadczenia (400 PLN).
+Jeśli rodzice rozwiedzeni z orzeczeniem o opiece naprzemiennej (co najmniej 50/50): każdy rodzic składa wniosek na pół świadczenia (400 PLN).
 
 CUDZOZIEMCY:
-Prawo do 800+ maja cudzoziemcy z prawem pobytu stale lub czasowego jesli zamieszkuja w Polsce i sprawuja opieke nad dzieckiem.
+Prawo do 800+ mają cudzoziemcy z prawem pobytu stałe lub czasowego jeśli zamieszkują w Polsce i sprawują opiekę nad dzieckiem.
 `,
     faq: `
-P: Dziecko ukonczylo 18 lat w sierpniu -- czy dostaje za sierpien?
-O: TAK. Swiadczenie przyslugi do konca miesiaca, w ktorym dziecko ukoncza 18 lat.
+P: Dziecko ukończyło 18 lat w sierpniu -- czy dostaje za sierpień?
+O: TAK. Świadczenie przysługuje do końca miesiąca, w którym dziecko ukończy 18 lat.
 
-P: Co jesli urodzilo sie drugie dziecko w trakcie okresu swiadczeniowego?
-O: Nalezy zlozyc nowy wniosek dla noworodka. ZUS automatycznie wlicza go do swiadczenia.
+P: Co jeśli urodziło się drugie dziecko w trakcie okresu świadczeniowego?
+O: Należy złożyć nowy wniosek dla noworodka. ZUS automatycznie wlicza go do świadczenia.
 
-P: Czy 800+ jest wliczane do dochodu przy innych swiadczeniach?
-O: NIE. Ustawa expressis verbis wylacza 800+ z dochodu przy ocenie kryterium dochodowego innych swiadczen.
+P: Czy 800+ jest wliczane do dochodu przy innych świadczeniach?
+O: NIE. Ustawa expressis verbis wyklucza 800+ z dochodu przy ocenie kryterium dochodowego innych świadczeń.
 `,
     zrodlo: 'https://www.gov.pl/web/rodzina/800plus -- pobrano 2026-05-13',
   },
 
   'becikowe': {
     formularzOpis: `
-Formularz SR-2 -- wniosek o ustalenie prawa do jednorazowej zapomogi z tytulu urodzenia sie dziecka.
-Sklada sie w MOPS lub urzedzie gminy (nie w ZUS) w miejscu zamieszkania.
+Formularz SR-2 -- wniosek o ustalenie prawa do jednorazowej zapomogi z tytułu urodzenia się dziecka.
+Składa się w MOPS lub urzędzie gminy (nie w ZUS) w miejscu zamieszkania.
 
 POLA:
-1. Dane wnioskodawcy: imie, nazwisko, PESEL, adres, konto bankowe
-2. Dane dziecka: imie, nazwisko, PESEL, data urodzenia
-3. Dochod rodziny: dochod netto za rok bazowy (rok poprzedzajacy okres zasilkowy), na kazdego czlonka rodziny
-4. Oswiadczenie o opiece medycznej: zaswiadczenie lekarskie LUB od poloznej ze matka byla pod opieka medyczna od max. 10 tygodnia ciazy
+1. Dane wnioskodawcy: imię, nazwisko, PESEL, adres, konto bankowe
+2. Dane dziecka: imię, nazwisko, PESEL, data urodzenia
+3. Dochód rodziny: dochód netto za rok bazowy (rok poprzedzający okres zasiłkowy), na każdego członka rodziny
+4. Oświadczenie o opiece medycznej: zaświadczenie lekarskie LUB od położnej że matka była pod opieką medyczną od max. 10 tygodnia ciąży
 
 DOKUMENTY:
-- Oryginalna kopia skroconego aktu urodzenia dziecka
-- Zaswiadczenie lekarskie o opiece medycznej od 10. tygodnia ciazy (wystawia lekarz prowadzacy ciaze lub polozna) -- BEZ TEGO WNIOSEK ZOSTANIE ODRZUCONY
-- Dokumenty dochodowe: PIT za rok poprzedni lub zaswiadczenie o dochodach z zakladu pracy
-- Jesli jest zmiana dochodu (np. utrata pracy): zaswiadczenie z PUP, decyzja o zasilku
+- Oryginalna kopia skróconego aktu urodzenia dziecka
+- Zaświadczenie lekarskie o opiece medycznej od 10. tygodnia ciąży (wystawia lekarz prowadzący ciążę lub położna) -- BEZ TEGO WNIOSEK ZOSTANIE ODRZUCONY
+- Dokumenty dochodowe: PIT za rok poprzedni lub zaświadczenie o dochodach z zakładu pracy
+- Jeśli jest zmiana dochodu (np. utrata pracy): zaświadczenie z PUP, decyzja o zasiłku
 
-TERMIN: 12 miesiecy od urodzenia dziecka. Po tym terminie becikowe przepada bezpowrotnie.
+TERMIN: 12 miesięcy od urodzenia dziecka. Po tym terminie becikowe przepada bezpowrotnie.
 `,
     szczegolyKwalifikacji: `
 Kryterium dochodowe 2025/2026: 1922 PLN netto na osobe w rodzinie miesiecznie.
 Dochod liczony z roku bazowego. Przy zmianie dochodu (utrata/uzyskanie) stosuje sie zasade utraty/uzyskania dochodu.
 
-CZESTO POMIJANE:
-- Oboje rodzice moga byc wnioskodawcami -- jesli matka nie zlozy, moze ojciec
-- Opieka medyczna od 10. tygodnia ciazy jest ABSOLUTNYM wymogiem -- nie ma wyjatkow
-- Jesli dziecko urodzilo sie martwe -- becikowe NIE przyslugi
-- Przy adopcji: wniosek w ciagu 12 mies. od przysposobieniu, wymog opieki medycznej nie dotyczy
+CZĘSTO POMIJANE:
+- Oboje rodzice mogą być wnioskodawcami -- jeśli matka nie złoży, może ojciec
+- Opieka medyczna od 10. tygodnia ciąży jest ABSOLUTNYM wymogiem -- nie ma wyjątków
+- Jeśli dziecko urodziło się martwe -- becikowe NIE przysługuje
+- Przy adopcji: wniosek w ciągu 12 mies. od przysposobienia, wymóg opieki medycznej nie dotyczy
 `,
     zrodlo: 'https://www.gov.pl/web/rodzina/becikowe -- pobrano 2026-05-13',
   },
 
   'kosiniakowe': {
     formularzOpis: `
-Formularz SR-7 -- wniosek o swiadczenie rodzicielskie.
-Sklada sie w MOPS lub urzedzie gminy (nie w ZUS).
+Formularz SR-7 -- wniosek o świadczenie rodzicielskie.
+Składa się w MOPS lub urzędzie gminy (nie w ZUS).
 
 POLA:
-1. Dane wnioskodawcy: imie, nazwisko, PESEL, adres, konto bankowe
-2. Dane dziecka/dzieci: imie, nazwisko, PESEL, data urodzenia
-3. Oswiadczenie: ze wnioskodawca jest osoba uprawniona (bezrobotny, student, zleceniobiorca bez ubezp. chorobowego, rolnik)
-4. Oswiadczenie, ze nie pobiera sie zasilku macierzynskiego z ZUS ani KRUS
+1. Dane wnioskodawcy: imię, nazwisko, PESEL, adres, konto bankowe
+2. Dane dziecka/dzieci: imię, nazwisko, PESEL, data urodzenia
+3. Oświadczenie: że wnioskodawca jest osobą uprawnioną (bezrobotny, student, zleceniobiorca bez ubezp. chorobowego, rolnik)
+4. Oświadczenie, że nie pobiera się zasiłku macierzyńskiego z ZUS ani KRUS
 
 TERMIN KRYTYCZNY:
-- Wniosek zlozony w ciagu 3 MIESIECY od porodu --> wyplata od dnia narodzin
-- Wniosek zlozony PO 3 MIESIACACH --> wyplata dopiero od miesiaca zlozenia wniosku (tracisz pieniadze za poprzednie miesiace)
+- Wniosek złożony w ciągu 3 MIESIĘCY od porodu --> wypłata od dnia narodzin
+- Wniosek złożony PO 3 MIESIĄCACH --> wypłata dopiero od miesiąca złożenia wniosku (tracisz pieniądze za poprzednie miesiące)
 
 DOKUMENTY:
-- Skrocony odpis aktu urodzenia dziecka
-- Oswiadczenie o nieuzyskiwaniu zasilku macierzynskiego z ZUS
-- Zaswiadczenie z uczelni (jesli student)
+- Skrócony odpis aktu urodzenia dziecka
+- Oświadczenie o nieuzyskiwaniu zasiłku macierzyńskiego z ZUS
+- Zaświadczenie z uczelni (jeśli student)
 `,
     szczegolyKwalifikacji: `
-KOSINIAKOWE vs. ZASILEK MACIERZYNSKI:
-- Kosiniakowe: dla osob BEZ prawa do zasilku macierzynskiego (bezrobotni, studenci, umowy o dzielo, rolnicy)
-- Zasilek macierzynski: dla osob UBEZPIECZONYCH w ZUS (umowa o prace, zlecenie z ubezpieczeniem, prowadzacy dzialalnosc)
+KOSINIAKOWE vs. ZASIŁEK MACIERZYŃSKI:
+- Kosiniakowe: dla osób BEZ prawa do zasiłku macierzyńskiego (bezrobotni, studenci, umowy o dzieło, rolnicy)
+- Zasiłek macierzyński: dla osób UBEZPIECZONYCH w ZUS (umowa o pracę, zlecenie z ubezpieczeniem, prowadzący działalność)
 
-JESLI masz umowe zlecenie BEZ dobrowolnego ubezpieczenia chorobowego -- masz prawo do kosiniakowego.
-JESLI masz umowe zlecenie Z dobrowolnym ubezpieczeniem chorobowym -- masz prawo do zasilku macierzynskiego (wieksze pieniadze).
+JEŚLI masz umowę zlecenie BEZ dobrowolnego ubezpieczenia chorobowego -- masz prawo do kosiniakowego.
+JEŚLI masz umowę zlecenie Z dobrowolnym ubezpieczeniem chorobowym -- masz prawo do zasiłku macierzyńskiego (większe pieniądze).
 
-Kosiniakowe nie przyslugi osobom pobierajacym zasilek dla bezrobotnych.
+Kosiniakowe nie przysługuje osobom pobierającym zasiłek dla bezrobotnych.
 `,
     zrodlo: 'https://www.gov.pl/web/rodzina/swiadczenie-rodzicielskie -- pobrano 2026-05-13',
   },
 
   'ulga-prorodzinna': {
     formularzOpis: `
-Formularz PIT/O -- zalacznik do PIT-36 lub PIT-37 (rozliczenie roczne).
-Dostepny na podatki.gov.pl lub w uslugach podatki.gov.pl (e-PIT).
+Formularz PIT/O -- załącznik do PIT-36 lub PIT-37 (rozliczenie roczne).
+Dostępny na podatki.gov.pl lub w usługach podatki.gov.pl (e-PIT).
 
-POLA W PIT/O dotyczace ulgi na dziecko:
-Czesc D -- Ulga na dzieci:
+POLA W PIT/O dotyczące ulgi na dziecko:
+Część D -- Ulga na dzieci:
 - Kolumna A: PESEL dziecka
-- Kolumna B: Imie i nazwisko dziecka
-- Kolumna C: Liczba miesiecy, w ktorych korzystalo sie z ulgi (max. 12)
+- Kolumna B: Imię i nazwisko dziecka
+- Kolumna C: Liczba miesięcy, w których korzystało się z ulgi (max. 12)
 - Kolumna D: Kwota odliczenia
 
 KWOTY ULGI (za 2025, wykazywane w PIT za 2025):
 - Na 1 dziecko: 1112,04 PLN rocznie (92,67 PLN/mies.)
-- Na 2 dzieci: lacznie 2224,08 PLN (po 1112,04 na kazde)
+- Na 2 dzieci: łącznie 2224,08 PLN (po 1112,04 na każde)
 - Na 3. dziecko: 2000,04 PLN rocznie (166,67 PLN/mies.)
 - Na 4. i kolejne dziecko: 2700 PLN rocznie (225 PLN/mies.)
-- Na pierwsze dziecko: tylko przy dochodzie powyzej 56.000 PLN (jeden rodzic) lub 112.000 PLN (malzenstwo)
+- Na pierwsze dziecko: tylko przy dochodzie powyżej 56.000 PLN (jeden rodzic) lub 112.000 PLN (małżeństwo)
 
-PRZY OPIECE NAPRZEMIENNEJ: kazdy rodzic odlicza polowe ulgi.
-JESLI ULGA WIEKSZE OD PODATKU: nadwyzke mozna odliczyc od skladek ZUS/NFZ (do wysokosci faktycznie zaplaconych).
+PRZY OPIECE NAPRZEMIENNEJ: każdy rodzic odlicza połowę ulgi.
+JEŚLI ULGA WIĘKSZA OD PODATKU: nadwyżkę można odliczyć od składek ZUS/NFZ (do wysokości faktycznie zapłaconych).
 `,
     szczegolyKwalifikacji: `
-Ulga na dziecko NIE przyslugi:
-- Jesli dziecko ukonczylo 18 lat i nie studiuje
-- Jesli dziecko studiuje, ale ukonczylo 25 lat
-- Jesli dziecko wstapilo w zwiazek malzenski
-- Jesli pelnoletnie dziecko mialo przychody powyżej 19.061,28 PLN (kwota wolna od podatku)
+Ulga na dziecko NIE przysługuje:
+- Jeśli dziecko ukończyło 18 lat i nie studiuje
+- Jeśli dziecko studiuje, ale ukończyło 25 lat
+- Jeśli dziecko wstąpiło w związek małżeński
+- Jeśli pełnoletnie dziecko miało przychody powyżej 19.061,28 PLN (kwota wolna od podatku)
 
-Przy JEDNYM dziecku: ulga tylko jesli dochod wnioskodawcy przekracza 56.000 PLN (lub lacznie malzenstwa 112.000 PLN). Jesli masz nizszy dochod z jednym dzieckiem -- ulga nie przyslugi.
+Przy JEDNYM dziecku: ulga tylko jeśli dochód wnioskodawcy przekracza 56.000 PLN (lub łącznie małżeństwa 112.000 PLN). Jeśli masz niższy dochód z jednym dzieckiem -- ulga nie przysługuje.
 
-Przy dwojgu i wiecej dzieci: brak limitu dochodowego.
+Przy dwojgu i więcej dzieci: brak limitu dochodowego.
 `,
     faq: `
-P: Dziecko ukonczylo 25 lat w maju -- czy mam ulge za styczen-kwiecien?
-O: TAK, za miesiace od stycznia do maja (5 miesiecy). Podajesz 5 w polu "liczba miesiecy".
+P: Dziecko ukończyło 25 lat w maju -- czy mam ulgę za styczeń-kwiecień?
+O: TAK, za miesiące od stycznia do maja (5 miesięcy). Podajesz 5 w polu "liczba miesięcy".
 
-P: Gdzie wykazac nadwyzke ulgi nad podatkiem?
-O: W PIT-36 lub PIT-37 -- pole "Kwota do odliczenia od skladki zdrowotnej". Nie mozna stracic nadwyzki -- zawsze mozna cos odzyskac.
+P: Gdzie wykazać nadwyżkę ulgi nad podatkiem?
+O: W PIT-36 lub PIT-37 -- pole "Kwota do odliczenia od składki zdrowotnej". Nie można stracić nadwyżki -- zawsze można coś odzyskać.
 `,
     zrodlo: 'https://www.podatki.gov.pl/pit/ulgi-odliczenia-i-zwolnienia/ulga-na-dzieci/ -- pobrano 2026-05-13',
   },
@@ -515,18 +515,18 @@ O: W PIT-36 lub PIT-37 -- pole "Kwota do odliczenia od skladki zdrowotnej". Nie 
 
   'swiadczenie-wspierajace': {
     formularzOpis: `
-Formularz SWP -- wniosek o swiadczenie wspierajace.
-Sklada sie elektronicznie przez PUE ZUS, portal Empatia lub w oddziale ZUS.
+Formularz SWP -- wniosek o świadczenie wspierające.
+Składa się elektronicznie przez PUE ZUS, portal Empatia lub w oddziale ZUS.
 
-KROK 1: Uzyskanie decyzji ustalajace poziom potrzeby wsparcia.
-Wniosek o ustalenie poziomu wsparcia sklada sie do WOJEWODZKIEGO ZESPOLU ds. Orzekania o Niepelnosprawnosci (WZON).
-Formularz WZON: imie, nazwisko, PESEL, adres, dokumentacja medyczna.
-Wynik: poziom potrzeby wsparcia w skali 70-100 punktow.
+KROK 1: Uzyskanie decyzji ustalającej poziom potrzeby wsparcia.
+Wniosek o ustalenie poziomu wsparcia składa się do WOJEWÓDZKIEGO ZESPOŁU ds. Orzekania o Niepełnosprawności (WZON).
+Formularz WZON: imię, nazwisko, PESEL, adres, dokumentacja medyczna.
+Wynik: poziom potrzeby wsparcia w skali 70-100 punktów.
 
-KROK 2: Wniosek o swiadczenie do ZUS (formularz SWP):
-- Dane wnioskodawcy: imie, nazwisko, PESEL, adres, konto bankowe
-- Numer decyzji WZON okreslajacy poziom potrzeby wsparcia
-- Oswiadczenie o niekorzystaniu z zasilku pielegnacyjnego lub swiadczenia pielegnacyjnego jednoczesnie
+KROK 2: Wniosek o świadczenie do ZUS (formularz SWP):
+- Dane wnioskodawcy: imię, nazwisko, PESEL, adres, konto bankowe
+- Numer decyzji WZON określający poziom potrzeby wsparcia
+- Oświadczenie o niekorzystaniu z zasiłku pielęgnacyjnego lub świadczenia pielęgnacyjnego jednocześnie
 
 POZIOMY I KWOTY (2026):
 - 95-100 pkt: 3495,84 PLN
@@ -537,18 +537,18 @@ POZIOMY I KWOTY (2026):
 - 70-74 pkt: 436,98 PLN
 `,
     szczegolyKwalifikacji: `
-Swiadczenie wspierajace jest NOWE (od 2024 r.) i ZASTEPUJE stopniowo zasilek pielegnacyjny dla doroslych.
+Świadczenie wspierające jest NOWE (od 2024 r.) i ZASTĘPUJE stopniowo zasiłek pielęgnacyjny dla dorosłych.
 
-KLUCZOWE ROZNICE:
-- Swiadczenie wspierajace: dla DOROSLOSCI (18+), wyplata ZUS bezposrednio do osoby niepelnosprawnej
-- Zasilek pielegnacyjny: dla dzieci i doroslych, wyplaca gmina/MOPS, nizsza kwota (215,84 PLN)
+KLUCZOWE RÓŻNICE:
+- Świadczenie wspierające: dla DOROSŁYCH (18+), wypłata ZUS bezpośrednio do osoby niepełnosprawnej
+- Zasiłek pielęgnacyjny: dla dzieci i dorosłych, wypłaca gmina/MOPS, niższa kwota (215,84 PLN)
 
-HARMONOGRAM WDRAZANIA:
-- 2024: osoby z decyzja na poziomie 87-100 pkt
-- 2025: osoby z decyzja 78-86 pkt
-- 2026: osoby z decyzja 70-77 pkt
+HARMONOGRAM WDRAŻANIA:
+- 2024: osoby z decyzją na poziomie 87-100 pkt
+- 2025: osoby z decyzją 78-86 pkt
+- 2026: osoby z decyzją 70-77 pkt
 
-Warunek: osoba musi samodzielnie zarzadzac swiadczeniem (lub przez opiekuna prawnego).
+Warunek: osoba musi samodzielnie zarządzać świadczeniem (lub przez opiekuna prawnego).
 `,
     zrodlo: 'https://www.gov.pl/web/rodzina/swiadczenie-wspierajace -- pobrano 2026-05-13',
   },
@@ -557,15 +557,15 @@ Warunek: osoba musi samodzielnie zarzadzac swiadczeniem (lub przez opiekuna praw
 
   'bon-energetyczny': {
     formularzOpis: `
-Wniosek o bon energetyczny -- sklada sie w gminie (urzad gminy lub MOPS) do 30 wrzesnia 2025.
-UWAGA: nabor na bon energetyczny 2025 jest zamkniety. Kolejny nabor planowany na polowe 2026 (jesli program bedzie kontynuowany).
+Wniosek o bon energetyczny -- składa się w gminie (urząd gminy lub MOPS) do 30 września 2025.
+UWAGA: nabór na bon energetyczny 2025 jest zamknięty. Kolejny nabór planowany na połowę 2026 (jeśli program będzie kontynuowany).
 
 Pola wniosku:
-- Dane wnioskodawcy: imie, nazwisko, PESEL, adres zameldowania
-- Dane czlonkow gospodarstwa domowego (wszyscy mieszkajacy pod tym samym adresem)
-- Rodzaj zrodla ogrzewania (pradu, gaz, biomasa, etc.) -- musi byc w centralnej ewidencji
-- Kryterium dochodowe: dochod za 2024 rok (rok poprzedni), zaswiadczenie z US lub ZUS
-- Numer konta bankowego do wyplaty
+- Dane wnioskodawcy: imię, nazwisko, PESEL, adres zameldowania
+- Dane członków gospodarstwa domowego (wszyscy mieszkający pod tym samym adresem)
+- Rodzaj źródła ogrzewania (prądu, gaz, biomasa, etc.) -- musi być w centralnej ewidencji
+- Kryterium dochodowe: dochód za 2024 rok (rok poprzedni), zaświadczenie z US lub ZUS
+- Numer konta bankowego do wypłaty
 
 KWOTY:
 - Jednoosobowe: 300 PLN (lub 600 PLN jesli zrodlo ogrzewania w CEEB)
@@ -575,10 +575,10 @@ KWOTY:
 `,
     szczegolyKwalifikacji: `
 Kryterium dochodowe (za 2024):
-- Jednoosobowe: do 2500 PLN netto miesiecznie
-- Wieloosobowe: do 1700 PLN netto na osobe miesiecznie
+- Jednoosobowe: do 2500 PLN netto miesięcznie
+- Wieloosobowe: do 1700 PLN netto na osobę miesięcznie
 
-WYZSZE KWOTY (2x) sa dla gospodarstw gdzie zrodlem ogrzewania jest: pompa ciepla, kociol na pelet drzewny klasy 5, kociol gazowy kondensacyjny, kolektor sloneczny lub ogniwo fotowoltaiczne. Musi byc wpisane do CEEB (Centralna Ewidencja Emisyjnosci Budynkow).
+WYŻSZE KWOTY (2x) są dla gospodarstw gdzie źródłem ogrzewania jest: pompa ciepła, kocioł na pelet drzewny klasy 5, kocioł gazowy kondensacyjny, kolektor słoneczny lub ogniwo fotowoltaiczne. Musi być wpisane do CEEB (Centralna Ewidencja Emisyjności Budynków).
 `,
     zrodlo: 'https://www.gov.pl/web/klimat/bon-energetyczny -- pobrano 2026-05-13',
   },
@@ -587,150 +587,150 @@ WYZSZE KWOTY (2x) sa dla gospodarstw gdzie zrodlem ogrzewania jest: pompa ciepla
 
   'zasilek-dla-bezrobotnych': {
     formularzOpis: `
-Wniosek o zasilek skladany osobiście w Powiatowym Urzedzie Pracy (PUP) w miejscu zameldowania lub zamieszkania.
-Mozna tez przez portal praca.gov.pl (profil zaufany wymagany).
+Wniosek o zasiłek składany osobiście w Powiatowym Urzędzie Pracy (PUP) w miejscu zameldowania lub zamieszkania.
+Można też przez portal praca.gov.pl (profil zaufany wymagany).
 
 DOKUMENTY PRZY REJESTRACJI W PUP:
-- Dowod osobisty lub paszport
-- Swiadectwa pracy (oryginaly lub kopie potwierdzone przez pracodawce) -- za ostatnie 10 lat
-- Dyplom ukonczenia szkoly lub uczelni (jesli brak stazu pracy)
-- Dokumenty potwierdzajace inne okresy ubezpieczenia (zaswiadczenia z ZUS, KRUS)
-- Zaswiadczenie z urzedu skarbowego o dochodach z dzialalnosci (jesli prowadzilo sie firme)
+- Dowód osobisty lub paszport
+- Świadectwa pracy (oryginały lub kopie potwierdzone przez pracodawcę) -- za ostatnie 10 lat
+- Dyplom ukończenia szkoły lub uczelni (jeśli brak stażu pracy)
+- Dokumenty potwierdzające inne okresy ubezpieczenia (zaświadczenia z ZUS, KRUS)
+- Zaświadczenie z urzędu skarbowego o dochodach z działalności (jeśli prowadziło się firmę)
 
 PRZY REJESTRACJI PRZEZ INTERNET (praca.gov.pl):
-- Formularz PKK-01 wypelniany online
-- Skany dokumentow (swiadectwa pracy, dyplom)
+- Formularz PKK-01 wypełniany online
+- Skany dokumentów (świadectwa pracy, dyplom)
 - Podpis profilem zaufanym
 
-UWAGA: w ciagu 7 dni od rejestracji nalezy obowiazkowa wizyta w PUP (wezwanie wysyla PUP).
+UWAGA: w ciągu 7 dni od rejestracji należy obowiązkowa wizyta w PUP (wezwanie wysyła PUP).
 `,
     szczegolyKwalifikacji: `
-Warunki do zasilku:
+Warunki do zasiłku:
 1. Rejestracja w PUP jako bezrobotny
-2. Przepracowanie co najmniej 365 dni w ciagu 18 miesiecy przed zarejestrowaniem (na umowie o prace lub zlecenie z pelnym ZUS)
-3. Utrata pracy z przyczyn lezacych po stronie pracodawcy LUB wyganieciem umowy na czas okreslony
+2. Przepracowanie co najmniej 365 dni w ciągu 18 miesięcy przed zarejestrowaniem (na umowie o pracę lub zlecenie z pełnym ZUS)
+3. Utrata pracy z przyczyn leżących po stronie pracodawcy LUB wygaśnięciem umowy na czas określony
 
-UWAGA -- kiedy zasilek NIE przyslugi:
-- Rozwiazanie umowy przez pracownika (chyba ze w trybie art. 55 KP - mobbing/zaleglosci)
+UWAGA -- kiedy zasiłek NIE przysługuje:
+- Rozwiązanie umowy przez pracownika (chyba że w trybie art. 55 KP - mobbing/zaległości)
 - Zwolnienie dyscyplinarne (art. 52 KP)
-- W ciagu 6 miesiecy przepracowanie mniej niz 365 dni
+- W ciągu 6 miesięcy przepracowanie mniej niż 365 dni
 
-WYSOKOSC 2026:
-- Podstawowy (do 5 lat stazu): 1361,37 PLN brutto
-- Wyzszy (5-20 lat stazu): 1701,73 PLN brutto
-- Najwyzszy (powyzej 20 lat): 2042,09 PLN brutto
+WYSOKOŚĆ 2026:
+- Podstawowy (do 5 lat stażu): 1361,37 PLN brutto
+- Wyższy (5-20 lat stażu): 1701,73 PLN brutto
+- Najwyższy (powyżej 20 lat): 2042,09 PLN brutto
 
 OKRES POBIERANIA:
-- 6 miesiecy na obszarach o stopie bezrobocia do 150% sredniej krajowej
-- 12 miesiecy na obszarach o wyzszej stopie bezrobocia (mozna sprawdzic w PUP)
-- Wydluzony do 12 mies: wiek 50+ i 20+ lat stazu, lub rodzic samotnie wychowujacy dziecko do lat 15
+- 6 miesięcy na obszarach o stopie bezrobocia do 150% średniej krajowej
+- 12 miesięcy na obszarach o wyższej stopie bezrobocia (można sprawdzić w PUP)
+- Wydłużony do 12 mies: wiek 50+ i 20+ lat stażu, lub rodzic samotnie wychowujący dziecko do lat 15
 `,
     faq: `
-P: Czy moge pobierac zasilek i jednoczesnie szukac pracy w innym miescie?
-O: Tak, ale co miesiac musisz stawiac sie w PUP na wyznaczony dzien (aktywizacja). Niestawienie sie powoduje wykreslenie z listy.
+P: Czy mogę pobierać zasiłek i jednocześnie szukać pracy w innym mieście?
+O: Tak, ale co miesiąc musisz stawiać się w PUP na wyznaczony dzień (aktywizacja). Niestawienie się powoduje wykreślenie z listy.
 
-P: Rozwiazalem umowe za porozumieniem stron -- czy dostane zasilek?
-O: W wiekszosci przypadkow TAK, ale z 90-dniowym odroczeniem wyplaty. Zasilek zacznie sie po 90 dniach od rejestracji.
+P: Rozwiązałem umowę za porozumieniem stron -- czy dostanę zasiłek?
+O: W większości przypadków TAK, ale z 90-dniowym odroczeniem wypłaty. Zasiłek zacznie się po 90 dniach od rejestracji.
 
-P: Czy zasilek dla bezrobotnych podlega podatkowi?
-O: TAK, jest opodatkowany PIT i odprowadzana skladka zdrowotna.
+P: Czy zasiłek dla bezrobotnych podlega podatkowi?
+O: TAK, jest opodatkowany PIT i odprowadzana składka zdrowotna.
 `,
     zrodlo: 'https://psz.praca.gov.pl/dla-bezrobotnych-i-poszukujacych-pracy/swiadczenia-pieniezne/zasilek-dla-osob-bezrobotnych -- pobrano 2026-05-13',
   },
 
   'karta-duzej-rodziny': {
     formularzOpis: `
-Wniosek o Karte Duzej Rodziny (KDR) -- przez portal Emp@tia (empatia.mpips.gov.pl) lub w gminie/urzedzie.
+Wniosek o Kartę Dużej Rodziny (KDR) -- przez portal Emp@tia (empatia.mpips.gov.pl) lub w gminie/urzędzie.
 
 WNIOSEK ONLINE (Emp@tia):
-1. Zaloguj sie profilem zaufanym
-2. Wybierz "Karta Duzej Rodziny" --> "Zloz wniosek"
-3. Wypelnij dane wszystkich czlonkow rodziny (imiona, PESEL, daty urodzenia)
-4. Dla dzieci powyzej 18 lat -- dolacz zaswiadczenie ze szkoly/uczelni (do 25 roku zycia)
-5. Karta wysylana jest automatycznie lub mozna wybrac karte fizyczna (za oplate 9,21 PLN za plastikowa karte)
+1. Zaloguj się profilem zaufanym
+2. Wybierz "Karta Dużej Rodziny" --> "Złóż wniosek"
+3. Wypełnij dane wszystkich członków rodziny (imiona, PESEL, daty urodzenia)
+4. Dla dzieci powyżej 18 lat -- dołącz zaświadczenie ze szkoły/uczelni (do 25 roku życia)
+5. Karta wysyłana jest automatycznie lub można wybrać kartę fizyczną (za opłatą 9,21 PLN za plastikową kartę)
 
 POLA WNIOSKU:
-- Dane malzonkow/rodzicow: imie, nazwisko, PESEL, adres
-- Dane dzieci: imie, nazwisko, PESEL, data urodzenia, typ (biolog., adoptowane, w rodzinie zastepczej)
-- Jesli dziecko niepelnosprawne: numer orzeczenia o niepelnosprawnosci (brak wiekowego limitu)
+- Dane małżonków/rodziców: imię, nazwisko, PESEL, adres
+- Dane dzieci: imię, nazwisko, PESEL, data urodzenia, typ (biolog., adoptowane, w rodzinie zastępczej)
+- Jeśli dziecko niepełnosprawne: numer orzeczenia o niepełnosprawności (brak wiekowego limitu)
 
 DOKUMENTY (rzadko potrzebne, system weryfikuje automatycznie z PESEL):
-- Zaswiadczenie ze szkoly lub uczelni (dla dzieci 18-25 lat)
-- Orzeczenie o niepelnosprawnosci (dla doroslych dzieci bez limitu wieku)
+- Zaświadczenie ze szkoły lub uczelni (dla dzieci 18-25 lat)
+- Orzeczenie o niepełnosprawności (dla dorosłych dzieci bez limitu wieku)
 `,
     szczegolyKwalifikacji: `
-Karta przyslugi rodzicom (lub opiekunom) z co najmniej 3 dzieci:
+Karta przysługuje rodzicom (lub opiekunom) z co najmniej 3 dzieci:
 - Dzieci do 18 lat (bez kryterium dochodowego)
-- Dzieci do 25 lat jesli sie ucza
-- Dzieci niepelnosprawne bez limitu wieku
-- Rodziny zastecze i adopcyjne rowniez sie kwalifikuja
+- Dzieci do 25 lat jeśli się uczą
+- Dzieci niepełnosprawne bez limitu wieku
+- Rodziny zastępcze i adopcyjne również się kwalifikują
 
-ZBIOROWE RABATY 2026 -- przykladowe:
-- PKP/PKS: 37% znizki (rodzice i male dzieci), 49% (dzieci do 18 lat)
-- Muzea panstwowe: bezplatny wstep
-- Parki narodowe: bezplatny wstep
-- Apteki: rabaty na leki (nieobjete refundacja)
+ZBIOROWE RABATY 2026 -- przykładowe:
+- PKP/PKS: 37% zniżki (rodzice i małe dzieci), 49% (dzieci do 18 lat)
+- Muzea państwowe: bezpłatny wstęp
+- Parki narodowe: bezpłatny wstęp
+- Apteki: rabaty na leki (nieobjęte refundacją)
 - Cinema City, Helios, Multikino: rabaty na bilety
-- Petla benzyn, sklepy: rabaty u partnerow (lista na aplikacji Karta Duzej Rodziny)
+- Stacje benzynowe, sklepy: rabaty u partnerów (lista na aplikacji Karta Dużej Rodziny)
 
-Karta jest BEZPLATNA (wersja elektroniczna na tel. lub plastikowa za 9,21 PLN).
+Karta jest BEZPŁATNA (wersja elektroniczna na tel. lub plastikowa za 9,21 PLN).
 `,
     zrodlo: 'https://www.gov.pl/web/rodzina/karta-duzej-rodziny-ogolne -- pobrano 2026-05-13',
   },
 
   'dobry-start': {
     formularzOpis: `
-Wniosek o swiadczenie Dobry Start (300 PLN) -- wyacznie elektronicznie:
+Wniosek o świadczenie Dobry Start (300 PLN) -- wyłącznie elektronicznie:
 - PUE ZUS (pue.zus.pl)
-- Bankowosc elektroniczna (wiekszosc bankow)
+- Bankowość elektroniczna (większość banków)
 - Portal Empatia
 
-TERMIN SKLADANIA: od 1 lipca do 30 listopada kazdego roku.
-Wyplata: do 30 dni od zlozenia wniosku w lipcu/sierpniu, pozniej do 2 miesiecy.
+TERMIN SKŁADANIA: od 1 lipca do 30 listopada każdego roku.
+Wypłata: do 30 dni od złożenia wniosku w lipcu/sierpniu, później do 2 miesięcy.
 
 POLA:
-- Dane rodzica/opiekuna: imie, nazwisko, PESEL, numer konta bankowego
-- Dane dziecka: imie, nazwisko, PESEL, rok szkolny do ktorego idzie
-- Potwierdzenie, ze dziecko bedzie uczestniczylo w zajociach szkolnych w nowym roku szkolnym
+- Dane rodzica/opiekuna: imię, nazwisko, PESEL, numer konta bankowego
+- Dane dziecka: imię, nazwisko, PESEL, rok szkolny do którego idzie
+- Potwierdzenie, że dziecko będzie uczestniczyło w zajęciach szkolnych w nowym roku szkolnym
 `,
     szczegolyKwalifikacji: `
-300 PLN raz w roku na kazde dziecko uczone sie w szkole (nie w przedszkolu ani zerowej).
-Wiek: do ukonczenia 20 roku zycia, lub 24 lata jesli dziecko niepelnosprawne.
+300 PLN raz w roku na każde dziecko uczące się w szkole (nie w przedszkolu ani zerówce).
+Wiek: do ukończenia 20 roku życia, lub 24 lata jeśli dziecko niepełnosprawne.
 Brak kryterium dochodowego.
 
-NIE PRZYSLUGI:
-- Na dzieci w zerowej (roczne przygotowanie przedszkolne)
-- Na studentow wyzszych uczelni
-- Na dzieci w szkole dla doroslych (wieczorowkach) -- PRZYSLUGI jesli uczen ma < 20 lat
+NIE PRZYSŁUGUJE:
+- Na dzieci w zerówce (roczne przygotowanie przedszkolne)
+- Na studentów wyższych uczelni
+- Na dzieci w szkole dla dorosłych (wieczorówkach) -- PRZYSŁUGUJE jeśli uczeń ma < 20 lat
 
-UWAGA: wniosek do 30 listopada -- po tym terminie prawa sie nie nabywa w tym roku szkolnym.
+UWAGA: wniosek do 30 listopada -- po tym terminie prawa się nie nabywa w tym roku szkolnym.
 `,
     zrodlo: 'https://www.gov.pl/web/rodzina/dobry-start -- pobrano 2026-05-13',
   },
 
   'ulga-dla-mlodych': {
     formularzOpis: `
-BRAK OSOBNEGO FORMULARZA -- ulga dziala automatycznie.
+BRAK OSOBNEGO FORMULARZA -- ulga działa automatycznie.
 Pracodawca NIE pobiera zaliczki na PIT od wynagrodzenia osoby do 26 lat (do limitu 85.528 PLN rocznie).
 
 Przy rocznym rozliczeniu (PIT-36 lub PIT-37):
-- W polu "Przychody zwolnione od podatku na podstawie art. 21" wpisuje sie przychody z pracy do limitu
-- e-PIT (usuga podatki.gov.pl) wypelnia to automatycznie na podstawie danych od pracodawcy
+- W polu "Przychody zwolnione od podatku na podstawie art. 21" wpisuje się przychody z pracy do limitu
+- e-PIT (usługa podatki.gov.pl) wypełnia to automatycznie na podstawie danych od pracodawcy
 
-JESLI MASZ KILKU PRACODAWCOW: kazdy aplikuje ulge osobno, mozna przekroczyc limit.
-Przy przekroczeniu 85.528 PLN -- trzeba doplaci podatek w rocznym PIT.
+JEŚLI MASZ KILKU PRACODAWCÓW: każdy aplikuje ulgę osobno, można przekroczyć limit.
+Przy przekroczeniu 85.528 PLN -- trzeba dopłacić podatek w rocznym PIT.
 `,
     szczegolyKwalifikacji: `
-Ulga dla mlodych (art. 21 ust. 1 pkt 148 ustawy PIT):
-- Dotyczy: umowy o prace, umowy zlecenie, staze uczniowskie, praktyki absolwenckie
-- NIE dotyczy: dzialalnosci gospodarczej, umow o dzielo, najmu, kapitalow
+Ulga dla młodych (art. 21 ust. 1 pkt 148 ustawy PIT):
+- Dotyczy: umowy o pracę, umowy zlecenie, staże uczniowskie, praktyki absolwenckie
+- NIE dotyczy: działalności gospodarczej, umów o dzieło, najmu, kapitałów
 
 Limit 2026: 85.528 PLN rocznie.
-Zwolnione sa: podatek PIT (17%/32%).
-NIE sa zwolnione: skladki ZUS i NFZ (nadal pobierane).
+Zwolnione są: podatek PIT (17%/32%).
+NIE są zwolnione: składki ZUS i NFZ (nadal pobierane).
 
-Przy ukonczeniu 26 lat w trakcie roku: ulga obowiazuje za miesiace przed urodzinami.
-Pracodawca automatycznie przestaje stosowac ulge od miesiaca, w ktorym pracownik konczy 26 lat.
+Przy ukończeniu 26 lat w trakcie roku: ulga obowiązuje za miesiące przed urodzinami.
+Pracodawca automatycznie przestaje stosować ulgę od miesiąca, w którym pracownik kończy 26 lat.
 `,
     faq: `
 P: Mam 25 lat i pracuje na B2B -- czy dostane ulge?
