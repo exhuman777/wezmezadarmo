@@ -102,7 +102,7 @@ export default function PolitykaPage() {
                 </Tr>
                 <Tr>
                   <Td>Dane płatnicze (karta, adres rozliczeniowy)</Td>
-                  <Td>Obsługa subskrypcji</Td>
+                  <Td>Obsługa płatności za tokeny (jednorazowe zakupy)</Td>
                   <Td>Art. 6 ust. 1 lit. b RODO</Td>
                   <Td>Obsługiwane przez Stripe, Administrator nie przechowuje danych kart</Td>
                 </Tr>
