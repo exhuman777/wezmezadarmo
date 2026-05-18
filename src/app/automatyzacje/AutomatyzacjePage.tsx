@@ -27,16 +27,16 @@ const PRODUKT_FEATURES = [
 
 const CENNIK = [
   {
-    nazwa: 'Automatyzacja KSeF i faktur zagranicznych',
-    cena: '100 zł',
+    nazwa: 'Automatyzacja mailowa',
+    cena: '399 PLN',
     szczegoly: 'wdrożenie w 1 dzień roboczy',
-    opis: 'Gotowy system podłączany do Twojej skrzynki mailowej.',
+    opis: 'Gotowy system podłączany do Twojej skrzynki mailowej. Jeśli nie działa zgodnie z ustaleniami, nie płacisz.',
   },
   {
     nazwa: 'Automatyzacja na zamówienie',
-    cena: '999 zł',
-    szczegoly: 'realizacja 3 do 7 dni roboczych',
-    opis: 'W cenie: 1 poprawka i 1 miesiąc wsparcia technicznego oraz gwarancji.',
+    cena: 'od 599 PLN',
+    szczegoly: 'po wcześniejszym ustaleniu zakresu',
+    opis: 'Zakres i wycena ustalane indywidualnie. Jeśli nie działa zgodnie z ustaleniami, nie płacisz.',
   },
 ];
 
@@ -191,7 +191,7 @@ export default function AutomatyzacjePage() {
               }}>
                 <div>
                   <div className="mono" style={{ fontSize: 44, fontWeight: 500, letterSpacing: '-0.04em', color: 'var(--color-text-1)', lineHeight: 1 }}>
-                    100 zł
+                    399 PLN
                   </div>
                   <div style={{ fontSize: 13, color: 'var(--color-text-3)', marginTop: 6 }}>
                     jednorazowo &bull; bez abonamentu &bull; wdrożenie 1 dzień roboczy
