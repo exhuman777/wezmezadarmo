@@ -48,6 +48,7 @@ Strony publiczne:
 - `/dotacje/` -- B2B SaaS: monitoring dofinansowań, AI agent dopasowujący do profilu firmy
 - `/dla-firm/` -- landing dla firm i JDG
 - `/o-projekcie/`, `/polityka-prywatnosci/`, `/regulamin/` -- strony informacyjne
+- `/agent/` -- Agent AI dla JDG i osób prywatnych (świadczenia, RSS, dzienny e-mail digest)
 
 Panel firmowy (/dotacje/panel/):
 - `/dotacje/panel/` -- dashboard
@@ -56,6 +57,13 @@ Panel firmowy (/dotacje/panel/):
 - `/dotacje/panel/aktualnosci/` -- monitoring RSS per firma + powiadomienia
 - `/dotacje/panel/subskrypcja/` -- zarządzanie subskrypcją
 
+Panel osobisty (/agent/panel/):
+- `/agent/panel/` -- dashboard agenta
+- `/agent/panel/swiadczenia/` -- dopasowane świadczenia i ulgi
+- `/agent/panel/aktualnosci/` -- RSS aktualności i zmiany w prawie
+- `/agent/panel/powiadomienia/` -- ustawienia digestu e-mail
+- `/agent/panel/profil/` -- edycja profilu użytkownika
+
 API:
 - `/api/chat/` -- czat AI dla obywateli (rate limit: 3/dzień)
 - `/api/form-assist/` -- AI wypełnianie pól wniosku
@@ -63,3 +71,5 @@ API:
 - `/api/aktualnosci/` -- RSS feeds per firma
 - `/api/dotacje/` -- auth, company, monitoring, stripe, cron
 - `/api/ceidg/` -- integracja z rejestrem firm CEIDG
+- `/api/agent/` -- auth i profil dla modułu agent
+- `/api/digest/` -- cron endpoint digestu (wywoływany przez Vercel Cron)

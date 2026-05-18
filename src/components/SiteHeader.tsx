@@ -42,6 +42,7 @@ export function SiteHeader() {
             { href: '/dotacje', label: 'Dotacje' },
             { href: '/aktualnosci', label: 'Aktualności' },
             { href: '/wnioski', label: 'Wnioski' },
+            { href: '/agent', label: 'Agent AI' },
           ].map(({ href, label }) => (
             <Link key={href} href={href} className="nav-link-hover" style={{
               fontFamily: 'var(--font-mono)',
