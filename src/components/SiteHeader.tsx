@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useTheme } from '@/hooks/useTheme';
 import { ThemeToggle } from './ThemeToggle';
 
@@ -35,6 +36,24 @@ export function SiteHeader() {
             <span className="mono" style={{ color: 'var(--color-text-3)', fontWeight: 400, fontSize: 12 }}>.com</span>
           </span>
         </a>
+        <nav style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+          {[
+            { href: '/automatyzacje', label: 'Automatyzacje' },
+            { href: '/dotacje', label: 'Dotacje' },
+          ].map(({ href, label }) => (
+            <Link key={href} href={href} style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: 13,
+              color: 'var(--color-text-3)',
+              textDecoration: 'none',
+              padding: '6px 12px',
+              borderRadius: 'var(--radius-sm)',
+              transition: 'color 0.15s',
+            }}>
+              {label}
+            </Link>
+          ))}
+        </nav>
         <ThemeToggle theme={theme} onToggle={toggle} />
       </div>
     </header>

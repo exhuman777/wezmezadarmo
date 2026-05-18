@@ -106,6 +106,14 @@ export default function DlaFirmPage() {
             źródeł rządowych, dostępnych przez jedno wywołanie API. Twoja aplikacja pyta,
             my odpowiadamy, co danemu użytkownikowi przysługuje i jak to dostać.
           </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <a href="/dotacje" className="text-[12px] font-mono text-accent border border-[var(--color-amber-border)] bg-[var(--color-amber-bg)] px-3 py-1.5 rounded hover:underline">
+              Agent dotacyjny dla firm
+            </a>
+            <a href="/automatyzacje" className="text-[12px] font-mono text-text-3 border border-border px-3 py-1.5 rounded hover:underline">
+              Automatyzacje AI
+            </a>
+          </div>
         </div>
 
         <div className="space-y-12 text-[14px] sm:text-[15px] leading-[1.7] text-text-2">

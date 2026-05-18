@@ -152,7 +152,7 @@ export default function DotacjePage() {
               display: 'inline-block',
             }}
           >
-            Zobacz jak dziala
+            Zobacz jak działa
           </Link>
           <span style={{
             fontFamily: 'var(--font-mono)',
@@ -395,6 +395,87 @@ export default function DotacjePage() {
         </div>
       </section>
 
+      {/* Aktualnosci i monitoring */}
+      <section id="aktualnosci" style={{
+        maxWidth: '1100px',
+        margin: '0 auto',
+        padding: '64px 24px',
+      }}>
+        <div style={{ marginBottom: '32px' }}>
+          <span style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '11px',
+            color: 'var(--color-text-3)',
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+          }}>
+            AKTUALNOŚCI I MONITORING
+          </span>
+          <h2 style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '22px',
+            fontWeight: 500,
+            color: 'var(--color-text-1)',
+            margin: '8px 0 0',
+            letterSpacing: '-0.02em',
+          }}>
+            Agent, który czyta zamiast Ciebie
+          </h2>
+        </div>
+        <div style={{
+          border: '1px solid var(--color-border)',
+          borderRadius: 'var(--radius)',
+          background: 'var(--color-bg-1)',
+          padding: '28px 32px',
+          maxWidth: '720px',
+        }}>
+          <p style={{
+            fontFamily: 'var(--font-sans)',
+            fontSize: '15px',
+            lineHeight: 1.75,
+            color: 'var(--color-text-2)',
+            margin: '0 0 24px',
+          }}>
+            Monitorowanie aktualności. Twój agent śledzi rządowe i branżowe RSS, wychwytuje
+            istotne zmiany i przygotowuje wstępne wnioski do Twojej weryfikacji.
+            Żaden dokument nie jest składany bez Twojej akceptacji.
+          </p>
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+            <Link
+              href="/dotacje/panel/aktualnosci"
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '13px',
+                fontWeight: 500,
+                color: 'var(--color-bg-0)',
+                background: 'var(--color-accent)',
+                padding: '9px 18px',
+                borderRadius: 'var(--radius-sm)',
+                textDecoration: 'none',
+                display: 'inline-block',
+              }}
+            >
+              Skonfiguruj monitoring
+            </Link>
+            <Link
+              href="/dotacje/rejestracja"
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '13px',
+                color: 'var(--color-text-2)',
+                border: '1px solid var(--color-border-light)',
+                padding: '9px 18px',
+                borderRadius: 'var(--radius-sm)',
+                textDecoration: 'none',
+                display: 'inline-block',
+              }}
+            >
+              Załóż konto
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Pricing */}
       <section style={{
         maxWidth: '1100px',
@@ -529,6 +610,49 @@ export default function DotacjePage() {
               Ten agent: 25 zł miesięcznie, bez limitu zapytań.
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* Cross-link: automatyzacje */}
+      <section style={{
+        borderTop: '1px solid var(--color-border)',
+        borderBottom: '1px solid var(--color-border)',
+        background: 'var(--color-bg-1)',
+      }}>
+        <div style={{
+          maxWidth: '1100px',
+          margin: '0 auto',
+          padding: '28px 24px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '16px',
+        }}>
+          <p style={{
+            fontFamily: 'var(--font-sans)',
+            fontSize: '13px',
+            color: 'var(--color-text-3)',
+            margin: 0,
+          }}>
+            W ramach konta dostępne są również automatyzacje procesów biurowych.
+          </p>
+          <Link
+            href="/automatyzacje"
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '12px',
+              color: 'var(--color-accent)',
+              textDecoration: 'none',
+              border: '1px solid var(--color-amber-border)',
+              background: 'var(--color-amber-bg)',
+              padding: '6px 14px',
+              borderRadius: 'var(--radius-sm)',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            Poznaj automatyzacje AI
+          </Link>
         </div>
       </section>
 

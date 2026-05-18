@@ -279,6 +279,36 @@ export default function AutomatyzacjePage() {
             </div>
           </div>
 
+          {/* Cross-link: dotacje */}
+          <div className="rise" style={{ marginBottom: 64, animationDelay: '360ms' }}>
+            <div style={{
+              border: '1px solid var(--color-border)',
+              borderRadius: 16,
+              padding: '28px 32px',
+              background: 'var(--color-surface)',
+            }}>
+              <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--color-text-3)', letterSpacing: '0.08em', textTransform: 'uppercase' as const, marginBottom: 12 }}>
+                Kompleksowy system dla firmy
+              </div>
+              <h3 style={{ fontSize: 20, fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 12, letterSpacing: '-0.015em' }}>
+                Połącz automatyzacje z monitorowaniem dofinansowań
+              </h3>
+              <p style={{ fontSize: 15, color: 'var(--color-text-2)', lineHeight: 1.7, maxWidth: 560, marginBottom: 20 }}>
+                Panel WezmeZaDarmo łączy automatyzacje biurowe z agentem śledzącym KFS, PUP, PFRON i KPO.
+                Agent przygotowuje wnioski do Twojej akceptacji. Jeden system, dwa moduły.
+              </p>
+              <a href="/dotacje" style={{
+                display: 'inline-block',
+                padding: '10px 22px',
+                background: 'var(--color-accent)', color: 'var(--color-bg-0)',
+                fontWeight: 600, fontSize: 14, borderRadius: 10,
+                textDecoration: 'none',
+              }}>
+                Sprawdź monitoring dotacji
+              </a>
+            </div>
+          </div>
+
           {/* KONTAKT */}
           <div id="kontakt" className="rise" style={{ marginBottom: 80, animationDelay: '380ms' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
