@@ -81,6 +81,12 @@ export default async function PanelPage() {
       desc: user?.subscription_status === 'active' ? 'Zarządzaj subskrypcją' : 'Aktywuj pełen dostęp',
       icon: '$',
     },
+    {
+      href: '/dotacje/panel/aktualnosci',
+      label: 'Aktualności',
+      desc: 'Monitoruj własne kanały RSS i otrzymuj powiadomienia',
+      icon: '~',
+    },
   ] as const;
 
   return (

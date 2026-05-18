@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { fetchAllFeeds, FEEDS } from './rss';
 import FeedClient from './FeedClient';
 import { SiteHeader } from '@/components/SiteHeader';
+import Link from 'next/link';
 
 // Revalidate every 30 minutes -- ISR
 export const revalidate = 1800;
@@ -68,6 +69,53 @@ export default async function AktualnosciPage() {
               </span>
             ))}
           </div>
+        </div>
+
+        {/* CTA dla firm */}
+        <div
+          style={{
+            background: 'var(--color-bg-1)',
+            border: '1px solid var(--color-border)',
+            borderRadius: '6px',
+            padding: '16px 20px',
+            marginBottom: '24px',
+          }}
+        >
+          <p
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '11px',
+              color: 'var(--color-text-3)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.06em',
+              marginBottom: '6px',
+            }}
+          >
+            Dla firm
+          </p>
+          <p
+            style={{
+              fontFamily: 'var(--font-sans)',
+              fontSize: '13px',
+              color: 'var(--color-text-2)',
+              lineHeight: 1.6,
+              margin: '0 0 12px',
+            }}
+          >
+            Jesteś firmą? Zaloguj się do panelu wezmezadarmo i skonfiguruj własne kanały monitorowania.
+          </p>
+          <Link
+            href="/dotacje/logowanie"
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '12px',
+              color: 'var(--color-accent)',
+              textDecoration: 'none',
+              fontWeight: 600,
+            }}
+          >
+            Przejdź do panelu --&gt;
+          </Link>
         </div>
 
         {/* Client component with all data */}

@@ -165,9 +165,9 @@ export default function FeedClient({ items, active, failed, fetchedAt }: Props) 
         <div className="border border-border rounded-lg px-5 py-8 text-center">
           {items.length === 0 ? (
             <div className="space-y-4">
-              <p className="text-[14px] text-text-2 font-medium">Nie udalo sie pobrac aktualnosci.</p>
+              <p className="text-[14px] text-text-2 font-medium">Nie udało się pobrać aktualności.</p>
               <p className="text-[12px] text-text-3">
-                Zrodla RSS moga byc chwilowo niedostepne. Sprawdz bezposrednio:
+                Źródła RSS mogą być chwilowo niedostępne. Sprawdź bezpośrednio:
               </p>
               <div className="flex flex-wrap gap-2 justify-center mt-3">
                 {FEEDS.map(f => (
@@ -184,7 +184,7 @@ export default function FeedClient({ items, active, failed, fetchedAt }: Props) 
               </div>
             </div>
           ) : (
-            <p className="text-[14px] text-text-3">Brak wynikow dla wybranych filtrow.</p>
+            <p className="text-[14px] text-text-3">Brak wyników dla wybranych filtrów.</p>
           )}
         </div>
       ) : (
