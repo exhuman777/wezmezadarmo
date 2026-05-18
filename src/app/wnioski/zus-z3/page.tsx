@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { DateInput } from '@/components/DateInput';
+import { FormChatWidget } from '@/components/FormChatWidget';
 
 // Z-3 to zaswiadczenie wypelniane przez pracodawce, nie pracownika.
 // Ten wizard pomaga pracownikowi:
@@ -320,6 +321,7 @@ export default function ZusZ3Page() {
           </div>
         )}
       </div>
+      <FormChatWidget formType="zus-z3" />
     </div>
   );
 }

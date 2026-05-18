@@ -11,7 +11,7 @@ interface DateInputProps {
   required?: boolean;
 }
 
-function formatDate(raw: string): string {
+export function formatDate(raw: string): string {
   const digits = raw.replace(/\D/g, '').slice(0, 8);
   if (digits.length <= 2) return digits;
   if (digits.length <= 4) return `${digits.slice(0, 2)}.${digits.slice(2)}`;

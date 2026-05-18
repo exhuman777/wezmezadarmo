@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { DateInput } from '@/components/DateInput';
+import { FormChatWidget } from '@/components/FormChatWidget';
 
 // ---- TYPES ----
 
@@ -675,6 +676,7 @@ export default function ZusErsuPage() {
           <StepDone onCopy={copyAll} copied={copied} onRestart={() => { setData(EMPTY); setStep('wnioskodawca'); }} />
         )}
       </div>
+      <FormChatWidget formType="zus-ersu" />
     </div>
   );
 }

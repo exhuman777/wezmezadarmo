@@ -9,6 +9,7 @@ import { buildZas53Pdf, type Zas53WizardData } from '@/lib/forms/zas53-filler';
 import { buildZ15bPdf, type Z15bWizardData } from '@/lib/forms/z15b-filler';
 import { buildZ15aPdf, type Z15aWizardData } from '@/lib/forms/z15a-filler';
 import { buildPelPdf, type PelWizardData } from '@/lib/forms/pel-filler';
+import { buildErpoPdf, type ErpoWizardData } from '@/lib/forms/erpo-filler';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -52,6 +53,10 @@ export async function POST(request: Request) {
       case 'zus-pel':
         pdfBuffer = await buildPelPdf(data as PelWizardData);
         filename = `PEL-${slug(data.imie, data.nazwisko)}.pdf`;
+        break;
+      case 'zus-erpo':
+        pdfBuffer = await buildErpoPdf(data as ErpoWizardData);
+        filename = `ERPO-${slug(data.imieNazwisko?.split(' ')[0] || '', data.imieNazwisko?.split(' ').slice(1).join('-') || '')}.pdf`;
         break;
       default:
         return new Response(JSON.stringify({ error: `Unknown formType: ${formType}` }), {

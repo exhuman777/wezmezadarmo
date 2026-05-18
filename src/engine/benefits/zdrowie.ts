@@ -209,7 +209,7 @@ export const ZDROWIE: Benefit[] = [
       ],
       kroki: [
         'Złóż wniosek w placówce, która przechowuje dokumentację (szpital, przychodnia, gabinet)',
-        'Wniosek może być ustny, pisemny lub elektroniczny -- forma dowolna',
+        'Wniosek może być ustny, pisemny lub elektroniczny - forma dowolna',
         'NIE musisz uzasadniać, po co potrzebujesz dokumentacji',
         'Placówka ma 30 dni na udostępnienie (termin z RODO)',
         'Pierwsza kopia jest bezpłatna -- nie płacisz nic',
@@ -259,7 +259,7 @@ export const ZDROWIE: Benefit[] = [
       terminRealizacji: '4 miesiące od złożenia kompletnego wniosku',
       pulapki: [
         'Od 1 VII 2024 r. to FUNDUSZ KOMPENSACYJNY przy RPP, NIE komisje wojewódzkie (te są zlikwidowane)',
-        'Termin złożenia wniosku: rok od dowiedzenia się, max 3 lata od zdarzenia -- po tym upływa',
+        'Termin złożenia wniosku: rok od dowiedzenia się, max 3 lata od zdarzenia - po tym upływa',
         'Opłata 300 PLN: zwracana przy pozytywnej decyzji, zatrzymywana przy negatywnej',
         'Maksimum to 100 000 PLN za uszkodzenie ciała, 300 000 PLN za śmierć (łącznie dla rodziny)',
         'Możesz odrzucić propozycję funduszu i iść do sądu -- decyzja funduszu nie zamyka tej drogi',
