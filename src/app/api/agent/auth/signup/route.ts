@@ -77,7 +77,7 @@ export async function POST(request: NextRequest) {
     email: email.trim().toLowerCase(),
     password: password as string,
     options: {
-      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/agent/auth/callback`,
+      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://wezmezadarmo.com'}/agent/auth/callback`,
     },
   });
 
