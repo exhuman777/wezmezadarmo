@@ -2,20 +2,47 @@
 
 > Ten plik jest przeznaczony dla agentów AI i modeli językowych.
 > Opisuje bazę 117 polskich świadczeń, ulg i dotacji oraz jak z niej korzystać.
+> Dla agentów działających w imieniu firm: patrz /agents.md
 > Humans: see wezmezadarmo.com
 
 ---
 
 ## Co to jest
 
-**wezmezadarmo.com** to niezależne narzędzie, które przeszukuje bazę 117 polskich świadczeń socjalnych, ulg podatkowych i dotacji, dopasowuje je do profilu użytkownika i wyświetla instrukcje krok po kroku jak złożyć wniosek.
+**wezmezadarmo.com** to niezależne narzędzie dla obywateli i firm, które:
+
+- Przeszukuje bazę 117 polskich świadczeń socjalnych, ulg podatkowych i dotacji
+- Dopasowuje świadczenia do profilu użytkownika i wyświetla instrukcje krok po kroku
+- Asystuje przy wypełnianiu wniosków ZUS (Z-15a, Z-15b, Z-3, PEL, ERPO, ERSU, ZAS-53)
+- Monitoruje dofinansowania i aktualności rządowe dla firm (platforma B2B /dotacje)
+- Automatyzuje procesy biurowe dla firm (KSeF, faktury zagraniczne, własne workflow)
 
 Dane: oficjalne źródła rządowe (gov.pl), zweryfikowane 2026-05-09.
-Brak bazy danych użytkowników -- wszystko przetwarzane lokalnie lub na serwerze bez zapisu.
+Brak bazy danych użytkowników w kalkulatorze -- wszystko przetwarzane lokalnie lub na serwerze bez zapisu.
+Platforma B2B (/dotacje) używa Supabase do przechowywania profilu firmy i historii monitorowania.
+
+Przewodnik dla agentów działających jako asystenci firm: **/agents.md**
 
 ---
 
-## API dla agentów AI
+## Dwa tryby pracy
+
+### 1. Kalkulator świadczeń (obywatele)
+
+Bezstanowy. Użytkownik podaje profil, system zwraca dopasowane świadczenia. Brak logowania.
+Endpointy: `/api/verify`, `/api/chat`, `/api/form-assist`, `/api/pdf`
+
+### 2. Platforma B2B -- dotacje i monitoring (firmy)
+
+Stanowy. Firmy rejestrują konto, podają profil (NIP, PKD, lokalizacja, potrzeby).
+Agent monitoruje dofinansowania, aktualności RSS, asystuje przy wnioskach.
+Ludzie zawsze zatwierdzają przed złożeniem.
+Endpointy: `/api/dotacje/*`, `/api/aktualnosci/*`
+Szczegoly: **/agents.md**
+
+---
+
+## API dla agentów -- kalkulator świadczeń
 
 ### POST /api/verify
 
@@ -52,7 +79,7 @@ Dopasowuje profil użytkownika do bazy 117 świadczeń.
 {
   "results": [
     {
-      "benefit": { "id": "800-plus", "nazwa": "Świadczenie wychowawcze 800+", ... },
+      "benefit": { "id": "800-plus", "nazwa": "Świadczenie wychowawcze 800+", "kwota": "800 PLN miesięcznie na dziecko" },
       "status": "PRZYSLUGUJE",
       "confidence": "WYSOKA",
       "matchedCriteria": ["Ma dzieci poniżej 18 lat"],
@@ -66,20 +93,56 @@ Dopasowuje profil użytkownika do bazy 117 świadczeń.
 
 ### POST /api/chat
 
-Czat z AI w kontekście profilu i wyników.
+Czat z AI w kontekście profilu i wyników. SSE stream.
 
 **Request:**
 ```json
 {
-  "messages": [
-    { "role": "user", "content": "Jak złożyć wniosek na 800+?" }
-  ],
+  "messages": [{ "role": "user", "content": "Jak złożyć wniosek na 800+?" }],
   "profile": { ... },
   "verifiedResults": [ ... ]
 }
 ```
 
 **Response:** SSE stream -- `data: {"content": "..."}` chunks, kończy się `data: [DONE]`
+
+**Rate limit:** 3 zapytania dziennie na IP dla niezalogowanych. Brak limitu dla firm z API key.
+
+### POST /api/form-assist
+
+Wypełnia pola formularza ZUS na podstawie profilu i pytania.
+
+**Request:**
+```json
+{
+  "formType": "zus-z15a",
+  "field": "data_urodzenia",
+  "userMessage": "Podaj datę urodzenia w formacie DD.MM.RRRR",
+  "profile": { ... }
+}
+```
+
+**Response:**
+```json
+{
+  "value": "15.03.1989",
+  "explanation": "Data urodzenia z podanego profilu."
+}
+```
+
+### POST /api/pdf
+
+Generuje PDF wniosku z wstrzykniętymi danymi (XFA injection do formularzy ZUS).
+
+**Request:**
+```json
+{
+  "formType": "zus-z15a",
+  "data": { "imie": "Anna", "nazwisko": "Kowalska", ... }
+}
+```
+
+**Response:** PDF blob (application/pdf)
 
 ---
 
@@ -114,14 +177,14 @@ Czat z AI w kontekście profilu i wyników.
 
 ```typescript
 {
-  benefit: Benefit;          // pełne dane świadczenia
-  status: "PRZYSLUGUJE"     // pewne -- spełnia kryteria
-         | "MOZLIWE"        // możliwe -- część kryteriów niejasna
+  benefit: Benefit;
+  status: "PRZYSLUGUJE"      // pewne -- spełnia kryteria
+         | "MOZLIWE"         // możliwe -- część kryteriów niejasna
          | "NIE_PRZYSLUGUJE"; // nie spełnia (filtrowane, nie zwracane)
   confidence: "WYSOKA" | "SREDNIA" | "NISKA";
-  matchedCriteria: string[]; // które kryteria pasują
-  failedCriteria: string[];  // które nie pasują
-  warnings: string[];        // ostrzeżenia do sprawdzenia
+  matchedCriteria: string[];
+  failedCriteria: string[];
+  warnings: string[];
 }
 ```
 
@@ -129,21 +192,21 @@ Czat z AI w kontekście profilu i wyników.
 
 ```typescript
 {
-  id: string;               // unikalny identyfikator, np. "800-plus"
-  nazwa: string;            // nazwa, np. "Świadczenie wychowawcze 800+"
-  opis?: string;            // opis
+  id: string;
+  nazwa: string;
+  opis?: string;
   kategoria: BenefitCategory;
-  kwota: string;            // kwota w PLN jako string, np. "800 PLN miesięcznie na dziecko"
-  kwotaMin?: number;        // minimalna kwota (liczba)
-  kwotaMax?: number;        // maksymalna kwota (liczba)
-  czestotliwosc: string;    // "miesięcznie", "jednorazowo", "rocznie"
+  kwota: string;
+  kwotaMin?: number;
+  kwotaMax?: number;
+  czestotliwosc: string;     // "miesięcznie", "jednorazowo", "rocznie"
   wymagania: BenefitRequirements;
   wykluczenia: Exclusion[];
   wniosek: ApplicationGuide;
-  zrodloUrl: string;        // oficjalny link gov.pl
-  zrodloNazwa: string;      // nazwa źródła
-  dataWeryfikacji: string;  // data ostatniej weryfikacji
-  dataWaznosci: string;     // data ważności danych
+  zrodloUrl: string;         // oficjalny link gov.pl
+  zrodloNazwa: string;
+  dataWeryfikacji: string;
+  dataWaznosci: string;
 }
 ```
 
@@ -154,22 +217,24 @@ Czat z AI w kontekście profilu i wyników.
 | Kategoria | Opis | Przykładowe świadczenia |
 |-----------|------|-------------------------|
 | RODZINA | Świadczenia rodzinne | 800+, becikowe, rodzinny kapitał opiekuńczy |
-| ZDROWIE | Opieka zdrowotna, leki | Refundacja leków, rehabilitacja NFZ, bon na okulary, zasiłek opiekuńczy KRUS |
+| ZDROWIE | Opieka zdrowotna, leki | Refundacja leków, rehabilitacja NFZ, bon na okulary |
 | PODATKI | Ulgi podatkowe | Ulga na dziecko, ulga rehabilitacyjna, ulga termomodernizacyjna |
-| BIZNES | Wsparcie przedsiębiorców | Dofinansowanie z PUP, ulgi ZUS dla nowej firmy, tarczowy |
-| MIESZKANIE | Pomoc mieszkaniowa | Dodatek mieszkaniowy, dofinansowanie z funduszu remontowego, Fundusz Wsparcia Kredytobiorców |
+| BIZNES | Wsparcie przedsiębiorców | Dofinansowanie z PUP, ulgi ZUS dla nowej firmy |
+| MIESZKANIE | Pomoc mieszkaniowa | Dodatek mieszkaniowy, Fundusz Wsparcia Kredytobiorców |
 | NIEPELNOSPRAWNOSC | Wsparcie osób z niepełnosprawnością | Świadczenie pielęgnacyjne, PFRON, ulga na samochód |
 | ENERGIA | Pomoc energetyczna | Bon energetyczny, dodatek węglowy, dofinansowanie OZE |
 | ZUS | Świadczenia ZUS | Zasiłek chorobowy, macierzyński, ojcowski, opiekuńczy |
-| PRACA | Wsparcie dla bezrobotnych i rolników | Zasiłek dla bezrobotnych, szkolenia z PUP, staż, dopłaty bezpośrednie ARiMR, zwrot akcyzy paliwa, premia dla młodego rolnika |
+| PRACA | Wsparcie zatrudnienia | Zasiłek dla bezrobotnych, szkolenia z PUP, dopłaty ARiMR |
 | EDUKACJA | Wsparcie edukacyjne | Stypendium socjalne, Erasmus+, wsparcie dla studentów |
-| SENIOR | Świadczenia dla seniorów | 13. emerytura, 14. emerytura, senior+, opieka długoterminowa, bon senioralny, dodatek pielęgnacyjny KRUS |
-| POMOC_SPOLECZNA | Pomoc społeczna | Zasiłek stały, celowy, pomoc rzeczowa z MOPS, opieka wytchnieniowa |
+| SENIOR | Świadczenia dla seniorów | 13. emerytura, 14. emerytura, bon senioralny |
+| POMOC_SPOLECZNA | Pomoc społeczna | Zasiłek stały, celowy, pomoc rzeczowa z MOPS |
 | EKOLOGIA | Dotacje ekologiczne | Czyste Powietrze, Mój Prąd, dofinansowanie fotowoltaiki |
 
-### Świadczenia dla rolników (ubezpieczeni w KRUS / ARiMR)
+---
 
-Profil rolnika: ustaw `rolnik: true` w UserProfile. Zwróci świadczenia KRUS, dopłaty ARiMR i inne.
+## Świadczenia dla rolników (ubezpieczeni w KRUS / ARiMR)
+
+Profil rolnika: ustaw `rolnik: true` w UserProfile.
 
 | ID | Nazwa | Kwota |
 |----|-------|-------|
@@ -179,7 +244,7 @@ Profil rolnika: ustaw `rolnik: true` w UserProfile. Zwróci świadczenia KRUS, d
 | zasilek-chorobowy-krus | Zasiłek chorobowy KRUS | 25 PLN/dzień (od 31. dnia) |
 | odszkodowanie-krus | Jednorazowe odszkodowanie KRUS | 1431 PLN/1% uszczerbku |
 | zasilek-opiekunczy-krus | Zasiłek opiekuńczy KRUS | 59,35 PLN/dzień (do 60 dni/rok) |
-| dodatek-pielegnacyjny-krus | Dodatek pielęgnacyjny KRUS | 348,22 PLN/mies. (auto dla 75+) |
+| dodatek-pielegnacyjny-krus | Dodatek pielęgnacyjny KRUS | 348,22 PLN/mies. |
 | zwrot-akcyzy-paliwa-rolniczego | Zwrot akcyzy paliwa rolniczego | 1,48 PLN/litr, limit 162,80 PLN/ha |
 | premia-dla-mlodego-rolnika | Premia dla młodego rolnika | 200 000-300 000 PLN jednorazowo |
 | doplaty-bezposrednie-arimr | Dopłaty bezpośrednie ARiMR | ~494 PLN/ha + ekoschematy |
@@ -205,39 +270,34 @@ Profil rolnika: ustaw `rolnik: true` w UserProfile. Zwróci świadczenia KRUS, d
 | UCZELNIA | Uczelnia (dziekanat / biuro stypendiów) |
 | WFOSIGW | Wojewódzki Fundusz Ochrony Środowiska |
 | NFZ | Narodowy Fundusz Zdrowia |
-| ONLINE | Online (dedykowana strona ministerstwa) |
-| ARiMR | Agencja Restrukturyzacji i Modernizacji Rolnictwa (eWniosekPlus) |
+| ARiMR | Agencja Restrukturyzacji i Modernizacji Rolnictwa |
 | BGK | Bank Gospodarstwa Krajowego |
 
 ---
 
 ## Jak używać jako agent AI
 
-### Scenariusz 1: Dopasowanie świadczeń do użytkownika
+### Scenariusz 1: Dopasowanie świadczeń do obywatela
 
 ```
-1. Zbierz profil użytkownika (wiek, płeć, stan cywilny, dzieci, dochód, zatrudnienie, itp.)
+1. Zbierz profil (wiek, płeć, stan cywilny, dzieci, dochód, zatrudnienie, itp.)
 2. POST /api/verify z profilem
-3. Otrzymasz listę dopasowanych świadczeń z instrukcjami
-4. Przedstaw wyniki użytkownikowi z podziałem na PEWNE / MOŻLIWE
-5. Dla każdego świadczenia: wyświetl kwotę, dokumenty, kroki i link do gov.pl
+3. Podziel wyniki na PRZYSLUGUJE i MOZLIWE
+4. Dla każdego: wyświetl kwotę, dokumenty, kroki i link do gov.pl
 ```
 
-### Scenariusz 2: Odpowiadanie na pytania o konkretne świadczenie
+### Scenariusz 2: Asystowanie przy wypełnianiu wniosku ZUS
 
 ```
-1. Znajdź świadczenie po ID lub nazwie w wynikach /api/verify
-2. Użyj danych z pola `wniosek` aby odpowiedzieć:
-   - wniosek.dokumenty -- co potrzeba
-   - wniosek.kroki -- jak złożyć
-   - wniosek.kanal -- gdzie złożyć
-   - wniosek.terminRealizacji -- kiedy dostaniesz
-   - wniosek.pulapki -- na co uważać
-   - wniosek.odwolanie -- co jeśli odmówią
-3. Podaj link do źródła: benefit.zrodloUrl
+1. Użytkownik wybiera typ wniosku (/wnioski/zus-z15a itp.)
+2. POST /api/form-assist z typem formularza i pytaniem o pole
+3. AI zwraca gotową wartość pola na podstawie profilu
+4. Użytkownik zatwierdza pole po polu
+5. POST /api/pdf z wypełnionymi danymi -> gotowy PDF do pobrania
+WAŻNE: Użytkownik pobiera i składa PDF samodzielnie. System nie wysyła wniosków.
 ```
 
-### Scenariusz 3: Czat z pełnym kontekstem (przez /api/chat)
+### Scenariusz 3: Czat z pełnym kontekstem
 
 ```
 POST /api/chat z:
@@ -245,8 +305,12 @@ POST /api/chat z:
 - profile: profil użytkownika
 - verifiedResults: wyniki z /api/verify
 
-AI otrzymuje pełny kontekst i może odpowiadać na pytania o konkretne świadczenia.
+AI otrzymuje pełny kontekst i odpowiada na pytania o konkretne świadczenia.
 ```
+
+### Scenariusz 4: Agent firmowy -- dotacje i monitoring
+
+Dla agentów działających w imieniu firm: patrz **/agents.md**
 
 ---
 
@@ -279,7 +343,6 @@ curl -X POST https://wezmezadarmo.com/api/verify \
         "id": "800-plus",
         "nazwa": "Świadczenie wychowawcze 800+",
         "kwota": "800 PLN miesięcznie na dziecko",
-        "kwotaMin": 800,
         "wniosek": {
           "kanal": ["PUE_ZUS", "BANK", "EMPATIA"],
           "formularz": "SW-1",
@@ -291,12 +354,9 @@ curl -X POST https://wezmezadarmo.com/api/verify \
             "Wyślij wniosek online",
             "Oczekuj na decyzję (do 30 dni)"
           ],
-          "terminRealizacji": "30 dni od złożenia wniosku",
-          "pulapki": ["Świadczenie nie jest opodatkowane", "Można pobierać równocześnie dla każdego dziecka"],
-          "odwolanie": "Odwołanie do Prezesa ZUS w ciągu 14 dni od decyzji"
+          "terminRealizacji": "30 dni od złożenia wniosku"
         },
-        "zrodloUrl": "https://www.gov.pl/web/rodzina/800plus",
-        "zrodloNazwa": "Ministerstwo Rodziny"
+        "zrodloUrl": "https://www.gov.pl/web/rodzina/800plus"
       },
       "status": "PRZYSLUGUJE",
       "confidence": "WYSOKA",
@@ -306,26 +366,34 @@ curl -X POST https://wezmezadarmo.com/api/verify \
 }
 ```
 
-**Interpretacja dla użytkownika:**
-```
-Tak, przysługuje Ci 800+ na każde dziecko (łącznie 1600 PLN/mies.).
-Aby złożyć wniosek:
-1. Zaloguj się do PUE ZUS (zus.pl) lub aplikacji bankowej
-2. Wypełnij formularz SW-1
-3. Podaj numer konta bankowego
-Decyzja w ciągu 30 dni. Źródło: gov.pl/web/rodzina/800plus
-```
-
 ---
 
 ## Uwagi dla agentów
 
 1. **Dane są orientacyjne** -- zawsze odsyłaj do oficjalnych źródeł (benefit.zrodloUrl)
 2. **Brak decyzji urzędowej** -- system to narzędzie do wstępnej oceny, nie zastępcze za decyzję urzędu
-3. **Dochód na osobę** -- przy obliczaniu: (dochodMiesiecznie / liczbaOsob w gospodarstwie)
-4. **Progi dochodowe** -- wiele świadczeń ma progi dochodowe (`wymagania.dochodMax`). Sprawdź pole `failedCriteria` w wyniku
-5. **Status MOŻLIWE** -- oznacza że nie można jednoznacznie ocenić na podstawie danych. Wymaga weryfikacji przez urząd
-6. **Ważność danych** -- `dataWaznosci` to data do kiedy dane są aktualne. Sprawdź przed udzieleniem informacji
+3. **Dochód na osobę** -- oblicz: dochodMiesiecznie / liczba osób w gospodarstwie
+4. **Progi dochodowe** -- wiele świadczeń ma progi (`wymagania.dochodMax`). Sprawdź `failedCriteria`
+5. **Status MOŻLIWE** -- wymaga weryfikacji przez urząd. Nie gwarantuj przyznania
+6. **Ważność danych** -- `dataWaznosci` informuje do kiedy dane są aktualne
+7. **Agenci nie składają wniosków** -- system przygotowuje, człowiek zatwierdza i składa
+8. **Wnioski ZUS** -- pełna lista typów: zus-z15a, zus-z15b, zus-z3, zus-pel, zus-erpo, zus-ersu, zus-zas53
+
+---
+
+## Mapa całego systemu
+
+```
+wezmezadarmo.com/
+  /                    -- kalkulator świadczeń (117 świadczeń, dla obywateli)
+  /wnioski/            -- AI-asystowane wypełnianie wniosków ZUS + PDF
+  /aktualnosci/        -- monitoring RSS rządowych i branżowych (publiczny + firmowy)
+  /automatyzacje/      -- AI automatyzacje dla firm (KSeF, faktury, custom workflows)
+  /dotacje/            -- B2B SaaS: monitoring dofinansowań dla firm
+  /dla-firm/           -- landing page dla firm i JDG
+  /llm.md              -- ten plik (kalkulator świadczeń API)
+  /agents.md           -- przewodnik dla agentów firmowych (dotacje, monitoring, automatyzacje)
+```
 
 ---
 

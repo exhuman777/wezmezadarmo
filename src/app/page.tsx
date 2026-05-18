@@ -1372,7 +1372,8 @@ export default function Home() {
                   <li><a className="link-u" href="/automatyzacje" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Automatyzacje AI dla firm</a></li>
                   <li><a className="link-u" href="/aktualnosci" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Aktualności rządowe (RSS)</a></li>
                   <li><a className="link-u" href="/dotacje" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Dotacje dla firm -- agent AI</a></li>
-                  <li><a className="link-u" href="/llm.md" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Dla agentów AI</a></li>
+                  <li><a className="link-u" href="/llm.md" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>LLM -- świadczenia API</a></li>
+                  <li><a className="link-u" href="/agents.md" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Agenci AI -- firmy B2B</a></li>
                   <li><a className="link-u" href="https://www.linkedin.com/in/kamil-sobkowicz/" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Kontakt / LinkedIn</a></li>
                 </ul>
               </div>

@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { SiteHeader } from '@/components/SiteHeader';
 
 const PROBLEMY = [
@@ -52,6 +53,33 @@ const PRZYKLADY = [
 ];
 
 export default function AutomatyzacjePage() {
+  const [form, setForm] = useState({ imie: '', firma: '', email: '', wiadomosc: '' });
+  const [status, setStatus] = useState<'idle' | 'sending' | 'ok' | 'error'>('idle');
+  const [errorMsg, setErrorMsg] = useState('');
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setStatus('sending');
+    setErrorMsg('');
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setErrorMsg(data.error ?? 'Błąd wysyłania.');
+        setStatus('error');
+      } else {
+        setStatus('ok');
+      }
+    } catch {
+      setErrorMsg('Błąd połączenia. Spróbuj ponownie.');
+      setStatus('error');
+    }
+  }
+
   return (
     <div style={{ minHeight: '100vh' }}>
       <SiteHeader />
@@ -317,85 +345,96 @@ export default function AutomatyzacjePage() {
             </div>
             <p style={{ fontSize: 17, color: 'var(--color-text-2)', lineHeight: 1.75, maxWidth: 540, marginBottom: 32 }}>
               Opisz krótko, co w Twojej firmie zajmuje za dużo czasu.
-              Odpiszę w ciągu jednego dnia roboczego. Pierwsza rozmowa jest bezpłatna.
+              Odpiszemy w ciągu jednego dnia roboczego. Pierwsza rozmowa jest bezpłatna.
             </p>
-
-            <div style={{
-              background: 'var(--color-surface)',
-              border: '1px solid var(--color-border)',
-              borderRadius: 16, padding: '28px 32px', marginBottom: 16,
-            }}>
-              <span className="label-eyebrow" style={{ marginBottom: 16, display: 'block' }}>Kontakt bezpośredni</span>
-              <a
-                href="mailto:sobkowicz.kamil@gmail.com?subject=Automatyzacja%20-%20zapytanie"
-                style={{ fontSize: 22, fontFamily: 'var(--font-mono)', color: 'var(--color-accent)', textDecoration: 'none', display: 'block', marginBottom: 8 }}
-              >
-                sobkowicz.kamil@gmail.com
-              </a>
-              <p style={{ fontSize: 14, color: 'var(--color-text-3)' }}>
-                Napisz maila. To najprostszy sposób. Podaj firmę, branżę i opis problemu.
-              </p>
-            </div>
 
             <div style={{
               background: 'var(--color-surface)',
               border: '1px solid var(--color-border)',
               borderRadius: 16, padding: '28px 32px',
             }}>
-              <span className="label-eyebrow" style={{ marginBottom: 20, display: 'block' }}>Lub wyślij wiadomość tutaj</span>
-              <form action="mailto:sobkowicz.kamil@gmail.com" method="post" encType="text/plain" style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                {[
-                  { name: 'imie', label: 'Imię i nazwisko', placeholder: 'Jan Kowalski', type: 'text' },
-                  { name: 'firma', label: 'Nazwa firmy', placeholder: 'Kowalski Sp. z o.o.', type: 'text' },
-                  { name: 'email', label: 'Adres e-mail (do odpowiedzi)', placeholder: 'jan@kowalski.pl', type: 'email' },
-                ].map(f => (
-                  <div key={f.name}>
-                    <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: 'var(--color-text-2)', marginBottom: 8 }}>{f.label}</label>
-                    <input
-                      type={f.type}
-                      name={f.name}
-                      placeholder={f.placeholder}
+              <span className="label-eyebrow" style={{ marginBottom: 20, display: 'block' }}>Wyślij zapytanie</span>
+
+              {status === 'ok' ? (
+                <div style={{
+                  padding: '32px 24px', textAlign: 'center',
+                  border: '1px solid var(--color-accent)', borderRadius: 12,
+                  background: 'var(--color-bg-0)',
+                }}>
+                  <div style={{ fontSize: 22, fontWeight: 700, color: 'var(--color-accent)', marginBottom: 12 }}>Wiadomość wysłana</div>
+                  <p style={{ fontSize: 15, color: 'var(--color-text-2)', lineHeight: 1.7 }}>
+                    Odpiszemy w ciągu jednego dnia roboczego na podany adres e-mail.
+                  </p>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                  {([
+                    { key: 'imie', label: 'Imię i nazwisko', placeholder: 'Jan Kowalski', type: 'text', autocomplete: 'name', required: true },
+                    { key: 'firma', label: 'Nazwa firmy (opcjonalnie)', placeholder: 'Kowalski Sp. z o.o.', type: 'text', autocomplete: 'organization', required: false },
+                    { key: 'email', label: 'Adres e-mail (do odpowiedzi)', placeholder: 'jan@kowalski.pl', type: 'email', autocomplete: 'email', required: true },
+                  ] as const).map(f => (
+                    <div key={f.key}>
+                      <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: 'var(--color-text-2)', marginBottom: 8 }}>{f.label}</label>
+                      <input
+                        type={f.type}
+                        autoComplete={f.autocomplete}
+                        required={f.required}
+                        placeholder={f.placeholder}
+                        value={form[f.key]}
+                        onChange={e => setForm(prev => ({ ...prev, [f.key]: e.target.value }))}
+                        style={{
+                          width: '100%', boxSizing: 'border-box',
+                          padding: '11px 14px', fontSize: 15,
+                          background: 'var(--color-bg-0)',
+                          border: '1px solid var(--color-border)',
+                          borderRadius: 10, color: 'var(--color-text-1)',
+                          outline: 'none',
+                        }}
+                      />
+                    </div>
+                  ))}
+                  <div>
+                    <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: 'var(--color-text-2)', marginBottom: 8 }}>Co w Twojej firmie zajmuje za dużo czasu?</label>
+                    <textarea
+                      required
+                      rows={5}
+                      placeholder="Np. co miesiąc ręcznie wystawiam 80 faktur, każda zajmuje mi 15 minut..."
+                      value={form.wiadomosc}
+                      onChange={e => setForm(prev => ({ ...prev, wiadomosc: e.target.value }))}
                       style={{
                         width: '100%', boxSizing: 'border-box',
                         padding: '11px 14px', fontSize: 15,
                         background: 'var(--color-bg-0)',
                         border: '1px solid var(--color-border)',
                         borderRadius: 10, color: 'var(--color-text-1)',
-                        outline: 'none',
+                        outline: 'none', resize: 'none',
                       }}
                     />
                   </div>
-                ))}
-                <div>
-                  <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: 'var(--color-text-2)', marginBottom: 8 }}>Co w Twojej firmie zajmuje za dużo czasu?</label>
-                  <textarea
-                    name="wiadomosc"
-                    rows={5}
-                    placeholder="Np. co miesiąc ręcznie wystawiam 80 faktur, każda zajmuje mi 15 minut..."
-                    style={{
-                      width: '100%', boxSizing: 'border-box',
-                      padding: '11px 14px', fontSize: 15,
-                      background: 'var(--color-bg-0)',
-                      border: '1px solid var(--color-border)',
-                      borderRadius: 10, color: 'var(--color-text-1)',
-                      outline: 'none', resize: 'none',
-                    }}
-                  />
-                </div>
-                <div>
-                  <button type="submit" style={{
-                    padding: '13px 28px',
-                    background: 'var(--color-accent)', color: 'var(--color-bg-0)',
-                    fontWeight: 600, fontSize: 16, borderRadius: 10,
-                    border: 'none', cursor: 'pointer',
-                  }}>
-                    Wyślij wiadomość
-                  </button>
-                  <p className="mono" style={{ fontSize: 12, color: 'var(--color-text-3)', marginTop: 10 }}>
-                    Nie sprzedajemy danych. Odpiszemy tylko w sprawie zapytania.
-                  </p>
-                </div>
-              </form>
+                  {status === 'error' && (
+                    <p style={{ fontSize: 14, color: '#e05c5c', margin: 0 }}>{errorMsg}</p>
+                  )}
+                  <div>
+                    <button
+                      type="submit"
+                      disabled={status === 'sending'}
+                      style={{
+                        padding: '13px 28px',
+                        background: status === 'sending' ? 'var(--color-border)' : 'var(--color-accent)',
+                        color: 'var(--color-bg-0)',
+                        fontWeight: 600, fontSize: 16, borderRadius: 10,
+                        border: 'none', cursor: status === 'sending' ? 'not-allowed' : 'pointer',
+                        transition: 'background 0.15s',
+                      }}
+                    >
+                      {status === 'sending' ? 'Wysyłanie...' : 'Wyślij wiadomość'}
+                    </button>
+                    <p className="mono" style={{ fontSize: 12, color: 'var(--color-text-3)', marginTop: 10 }}>
+                      Wiadomość trafia bezpośrednio do autora. Nie sprzedajemy danych. Odpiszemy tylko w sprawie zapytania.
+                    </p>
+                  </div>
+                </form>
+              )}
             </div>
           </div>
 
