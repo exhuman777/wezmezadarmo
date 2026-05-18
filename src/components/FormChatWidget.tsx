@@ -113,7 +113,7 @@ export function FormChatWidget({ formType }: Props) {
     } catch {
       setMessages(prev => {
         const updated = [...prev];
-        updated[updated.length - 1] = { role: 'assistant', content: 'Przepraszam, cos pojechalo nie tak. Sprobuj ponownie.' };
+        updated[updated.length - 1] = { role: 'assistant', content: 'Przepraszam, coś poszło nie tak. Spróbuj ponownie.' };
         return updated;
       });
     } finally {
@@ -231,7 +231,7 @@ export function FormChatWidget({ formType }: Props) {
                 fontFamily: 'inherit', opacity: (!input.trim() || loading) ? 0.5 : 1,
               }}
             >
-              {loading ? '...' : 'Wyslij'}
+              {loading ? '...' : 'Wyślij'}
             </button>
           </div>
         </div>

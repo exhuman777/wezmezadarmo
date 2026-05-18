@@ -277,6 +277,58 @@ input:focus, textarea:focus { outline: none; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { scrollbar-width: none; }
 
+/* Panel card hover -- interactive card containers */
+.panel-card {
+  transition: border-color 220ms var(--ease-out), transform 200ms var(--ease-out), box-shadow 220ms var(--ease-out);
+}
+.panel-card:hover {
+  border-color: var(--color-accent) !important;
+  box-shadow: var(--shadow-2);
+  transform: translateY(-1px);
+}
+
+/* Clickable row hover */
+.row-hover {
+  transition: background 150ms var(--ease-out);
+}
+.row-hover:hover {
+  background: var(--color-bg-2) !important;
+}
+
+/* Navigation link hover */
+.nav-link-hover {
+  transition: color 160ms var(--ease-out), background 160ms var(--ease-out) !important;
+}
+.nav-link-hover:hover {
+  color: var(--color-text-1) !important;
+  background: var(--color-surface-2) !important;
+}
+
+/* Outlined button hover */
+.btn-outline-hover {
+  transition: color 160ms var(--ease-out), border-color 160ms var(--ease-out), background 160ms var(--ease-out);
+}
+.btn-outline-hover:hover {
+  color: var(--color-text-1) !important;
+  border-color: var(--color-border-light) !important;
+  background: var(--color-surface-2) !important;
+}
+
+/* Solid accent button hover */
+.btn-accent-hover {
+  transition: background 160ms var(--ease-out);
+}
+.btn-accent-hover:hover {
+  background: var(--color-accent-hover) !important;
+}
+
+/* Input/textarea focus ring */
+.input-focus:focus {
+  border-color: var(--color-accent) !important;
+  box-shadow: 0 0 0 2px var(--color-accent-soft) !important;
+  outline: none !important;
+}
+
 @keyframes spin {
   to { transform: rotate(360deg); }
 }

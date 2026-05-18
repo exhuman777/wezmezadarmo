@@ -172,6 +172,7 @@ export default function MonitoringPage() {
             {CATEGORIES.map((cat, idx) => (
               <label
                 key={cat.id}
+                className="row-hover"
                 style={{
                   display: 'flex',
                   alignItems: 'center',

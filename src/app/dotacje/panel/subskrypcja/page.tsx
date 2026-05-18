@@ -198,7 +198,7 @@ export default function SubskrypcjaPage() {
           <p
           style={{
             fontFamily: 'var(--font-sans)',
-            fontSize: '13px',
+            fontSize: '14px',
             color: 'var(--color-text-2)',
             margin: 0,
           }}
@@ -219,14 +219,14 @@ export default function SubskrypcjaPage() {
       >
         <p
           style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '12px',
+            fontFamily: 'var(--font-sans)',
+            fontSize: '13px',
             color: 'var(--color-text-3)',
             margin: 0,
             lineHeight: 1.6,
           }}
         >
-          Platnosci zostana uruchomione wkrotce. W fazie beta dostep jest bezplatny.
+          Płatności zostaną uruchomione wkrótce. W fazie beta dostęp jest bezpłatny.
         </p>
       </div>
 
@@ -234,6 +234,7 @@ export default function SubskrypcjaPage() {
       <button
         onClick={exportData}
         disabled={actionLoading === 'export'}
+        className={actionLoading !== 'export' ? 'panel-card' : undefined}
         style={{
           display: 'block',
           width: '100%',
@@ -266,7 +267,7 @@ export default function SubskrypcjaPage() {
         <p
           style={{
             fontFamily: 'var(--font-sans)',
-            fontSize: '12px',
+            fontSize: '13px',
             color: 'var(--color-text-3)',
             margin: 0,
             lineHeight: 1.6,

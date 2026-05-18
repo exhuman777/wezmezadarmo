@@ -223,6 +223,7 @@ export default function AgentPage() {
           disabled={loading}
           placeholder="Napisz wiadomość... (Enter wysyła, Shift+Enter = nowa linia)"
           rows={2}
+          className="input-focus"
           style={{
             flex: 1,
             background: 'var(--color-bg-1)',
@@ -230,10 +231,9 @@ export default function AgentPage() {
             borderRadius: '6px',
             padding: '10px 14px',
             fontFamily: 'var(--font-mono)',
-            fontSize: '13px',
+            fontSize: '14px',
             color: 'var(--color-text-1)',
             resize: 'none',
-            outline: 'none',
             lineHeight: 1.5,
           }}
         />

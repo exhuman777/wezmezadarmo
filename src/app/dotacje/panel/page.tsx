@@ -345,14 +345,14 @@ export default async function PanelPage() {
           <Link
             key={action.href}
             href={action.href}
+            className="panel-card"
             style={{
               display: 'block',
               background: 'var(--color-bg-1)',
               border: '1px solid var(--color-border)',
-              borderRadius: '6px',
+              borderRadius: '8px',
               padding: '20px',
               textDecoration: 'none',
-              transition: 'border-color 0.15s',
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
@@ -381,7 +381,7 @@ export default async function PanelPage() {
             <p
               style={{
                 fontFamily: 'var(--font-sans)',
-                fontSize: '12px',
+                fontSize: '13px',
                 color: 'var(--color-text-3)',
                 lineHeight: 1.5,
                 margin: 0,

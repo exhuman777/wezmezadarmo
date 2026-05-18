@@ -41,14 +41,13 @@ export function SiteHeader() {
             { href: '/automatyzacje', label: 'Automatyzacje' },
             { href: '/dotacje', label: 'Dotacje' },
           ].map(({ href, label }) => (
-            <Link key={href} href={href} style={{
+            <Link key={href} href={href} className="nav-link-hover" style={{
               fontFamily: 'var(--font-mono)',
               fontSize: 13,
               color: 'var(--color-text-3)',
               textDecoration: 'none',
               padding: '6px 12px',
               borderRadius: 'var(--radius-sm)',
-              transition: 'color 0.15s',
             }}>
               {label}
             </Link>

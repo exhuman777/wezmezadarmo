@@ -171,9 +171,9 @@ export default function PanelAktualnosciPage() {
     background: 'var(--color-bg-0)',
     border: '1px solid var(--color-border)',
     borderRadius: '4px',
-    padding: '8px 12px',
+    padding: '9px 13px',
     fontFamily: 'var(--font-mono)',
-    fontSize: '13px',
+    fontSize: '14px',
     color: 'var(--color-text-1)',
     width: '100%',
     boxSizing: 'border-box',
@@ -304,6 +304,7 @@ export default function PanelAktualnosciPage() {
                 onChange={(e) => setFormUrl(e.target.value)}
                 placeholder="https://przyklad.gov.pl/rss.xml"
                 required
+                className="input-focus"
                 style={inputStyle}
               />
             </div>
@@ -315,6 +316,7 @@ export default function PanelAktualnosciPage() {
                 onChange={(e) => setFormName(e.target.value)}
                 placeholder="np. MF -- komunikaty podatkowe"
                 required
+                className="input-focus"
                 style={inputStyle}
               />
             </div>
@@ -324,6 +326,7 @@ export default function PanelAktualnosciPage() {
                 <select
                   value={formKategoria}
                   onChange={(e) => setFormKategoria(e.target.value)}
+                  className="input-focus"
                   style={{ ...inputStyle, cursor: 'pointer' }}
                 >
                   <option value="">Bez kategorii</option>
@@ -340,6 +343,7 @@ export default function PanelAktualnosciPage() {
                   max={168}
                   value={formGodziny}
                   onChange={(e) => setFormGodziny(Number(e.target.value))}
+                  className="input-focus"
                   style={inputStyle}
                 />
               </div>
@@ -423,6 +427,7 @@ export default function PanelAktualnosciPage() {
               return (
                 <div
                   key={item.id}
+                  className="row-hover"
                   style={{
                     padding: '12px 16px',
                     borderBottom: idx < Math.min(items.length, 15) - 1 ? '1px solid var(--color-border)' : 'none',
