@@ -171,7 +171,7 @@ export const ZUS: Benefit[] = [
     czestotliwosc: 'jednorazowo',
     wymagania: { wiekMin: 18 },
     wykluczenia: [
-      { opis: 'Świadczenie sytuacyjne -- przysługuje tylko gdy poniosłeś koszty pogrzebu osoby ubezpieczonej w ZUS lub członka jej rodziny', sprawdz: 'zdarzenie_smierci' },
+      { opis: 'Świadczenie sytuacyjne - przysługuje tylko gdy poniosłeś koszty pogrzebu osoby ubezpieczonej w ZUS lub członka jej rodziny', sprawdz: 'zdarzenie_smierci' },
       { opis: 'Wniosek złożony po upływie 12 miesięcy od dnia pogrzebu (prawo wygasa)', sprawdz: 'termin_12_miesiecy' },
     ],
     wniosek: {

@@ -766,7 +766,7 @@ export const PRACA: Benefit[] = [
   },
   {
     id: 'odprawa-pracownicza', nazwa: 'Odprawa pracownicza przy zwolnieniu',
-    opis: 'Odprawa pieniężna przysługuje pracownikowi zwolnionemu z przyczyn niedotyczących pracownika (likwidacja stanowiska, restrukturyzacja, problemy ekonomiczne firmy) w firmie zatrudniającej co najmniej 20 pracowników. Kwota zależy od stażu pracy: poniżej 2 lat stażu -- 1 miesięczne wynagrodzenie, 2 do 8 lat -- 2 miesięczne wynagrodzenia, powyżej 8 lat -- 3 miesięczne wynagrodzenia. Maksymalna odprawa w 2026 r.: 72 090 PLN brutto (15-krotność minimalnego wynagrodzenia). Odprawa jest obowiązkowa z mocy prawa -- pracodawca musi ją wypłacić bez osobnego wniosku, przy rozwiązaniu umowy. Pracownik nie musi o nią prosić. Dotyczy zarówno zwolnień grupowych, jak i indywidualnych (jeśli przyczyna leży po stronie pracodawcy).',
+    opis: 'Odprawa pieniężna przysługuje pracownikowi zwolnionemu z przyczyn niedotyczących pracownika (likwidacja stanowiska, restrukturyzacja, problemy ekonomiczne firmy) w firmie zatrudniającej co najmniej 20 pracowników. Kwota zależy od stażu pracy: poniżej 2 lat stażu - 1 miesięczne wynagrodzenie, 2 do 8 lat - 2 miesięczne wynagrodzenia, powyżej 8 lat - 3 miesięczne wynagrodzenia. Maksymalna odprawa w 2026 r.: 72 090 PLN brutto (15-krotność minimalnego wynagrodzenia). Odprawa jest obowiązkowa z mocy prawa - pracodawca musi ją wypłacić bez osobnego wniosku, przy rozwiązaniu umowy. Pracownik nie musi o nią prosić. Dotyczy zarówno zwolnień grupowych, jak i indywidualnych (jeśli przyczyna leży po stronie pracodawcy).',
     kategoria: 'PRACA',
     kwota: '1-3 miesięczne wynagrodzenia (max 72 090 PLN brutto w 2026 r.)', kwotaMin: 0, kwotaMax: 72090,
     czestotliwosc: 'jednorazowo (przy rozwiązaniu umowy)',
@@ -778,14 +778,14 @@ export const PRACA: Benefit[] = [
     wniosek: {
       kanal: ['PUP'],
       dokumenty: [
-        'Brak potrzeby składania wniosku -- odprawa przysługuje z mocy prawa',
+        'Brak potrzeby składania wniosku - odprawa przysługuje z mocy prawa',
         'Świadectwo pracy (pracodawca musi wystawić w dniu rozwiązania umowy)',
         'Potwierdzenie wysokości wynagrodzenia (jeśli pracodawca kwestionuje)',
       ],
       kroki: [
-        'NIE MUSISZ składać żadnego wniosku -- odprawa jest obowiązkowa z mocy ustawy z 2003 r.',
+        'NIE MUSISZ składać żadnego wniosku - odprawa jest obowiązkowa z mocy ustawy z 2003 r.',
         'Pracodawca musi ją wypłacić w dniu rozwiązania umowy lub przy ostatniej wypłacie',
-        'Jeśli pracodawca odmawia lub zaniża kwotę: złóż skargę do Państwowej Inspekcji Pracy (PIP) -- bezpłatnie i anonimowo',
+        'Jeśli pracodawca odmawia lub zaniża kwotę: złóż skargę do Państwowej Inspekcji Pracy (PIP) - bezpłatnie i anonimowo',
         'PIP może nałożyć grzywnę na pracodawcę i wyegzekwować wypłatę',
         'Alternatywnie: pozew do sądu pracy (niski lub zerowy koszt, szybkie rozpatrzenie)',
       ],

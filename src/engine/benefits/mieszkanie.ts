@@ -68,7 +68,7 @@ export const MIESZKANIE: Benefit[] = [
   },
   {
     id: 'fundusz-wsparcia-kredytobiorcow', nazwa: 'Fundusz Wsparcia Kredytobiorców (FWK)',
-    opis: 'FWK to pomoc dla osób, które nie są w stanie spłacać rat kredytu mieszkaniowego. Do 3000 PLN miesięcznie przez max 40 miesięcy (łącznie do 120 000 PLN), wypłacane bezpośrednio do banku (kredytobiorca nie dostaje gotówki). Wsparcie jest bezzwrotne przez 2 lata od ostatniej wypłaty, potem spłacane w 200 nieoprocentowanych ratach przez ok. 16 lat. Jeśli spłacisz 134 z 200 rat bez opóźnienia -- reszta umorzona. Warunki: bezrobocie LUB rata kredytu > 40% dochodu LUB dochód netto po spłacie kredytu < 2525 PLN (1-os.) / 2057,50 PLN/osobę (wieloosobowe). Wniosek przez bank, który udzielił kredytu. Dotyczy kredytów na mieszkanie lub dom na własne potrzeby.',
+    opis: 'FWK to pomoc dla osób, które nie są w stanie spłacać rat kredytu mieszkaniowego. Do 3000 PLN miesięcznie przez max 40 miesięcy (łącznie do 120 000 PLN), wypłacane bezpośrednio do banku (kredytobiorca nie dostaje gotówki). Wsparcie jest bezzwrotne przez 2 lata od ostatniej wypłaty, potem spłacane w 200 nieoprocentowanych ratach przez ok. 16 lat. Jeśli spłacisz 134 z 200 rat bez opóźnienia - reszta umorzona. Warunki: bezrobocie LUB rata kredytu > 40% dochodu LUB dochód netto po spłacie kredytu < 2525 PLN (1-os.) / 2057,50 PLN/osobę (wieloosobowe). Wniosek przez bank, który udzielił kredytu. Dotyczy kredytów na mieszkanie lub dom na własne potrzeby.',
     kategoria: 'MIESZKANIE',
     kwota: 'do 3000 PLN/mies. przez max 40 miesięcy (łącznie do 120 000 PLN)', kwotaMin: 0, kwotaMax: 3000,
     czestotliwosc: 'miesięcznie (max 40 mies.)',
@@ -96,9 +96,9 @@ export const MIESZKANIE: Benefit[] = [
       terminRealizacji: 'Decyzja BGK w ciągu kilku tygodni',
       pulapki: [
         'Do 3000 PLN/mies., max 40 miesięcy, kwota ustalana indywidualnie',
-        'NIE gotówka -- pieniądze trafiają bezpośrednio do banku na spłatę kredytu',
+        'NIE gotówka - pieniądze trafiają bezpośrednio do banku na spłatę kredytu',
         'Spłata: 200 rat po 2 latach od ostatniej wypłaty, nieoprocentowane',
-        'Jeśli spłacisz 134 z 200 rat na czas -- reszta UMORZONA (ok. 33% kwoty)',
+        'Jeśli spłacisz 134 z 200 rat na czas - reszta UMORZONA (ok. 33% kwoty)',
         'Warunek: kredyt musi być na mieszkanie/dom na własne potrzeby (nie inwestycyjny)',
         'Kryterium dochodowe 2025: dochód netto po racie < 2525 PLN (1 os.) lub 2057,50 PLN/os. (więcej os.)',
       ],

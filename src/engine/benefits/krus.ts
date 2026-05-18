@@ -240,7 +240,7 @@ export const KRUS: Benefit[] = [
   },
   {
     id: 'dodatek-pielegnacyjny-krus', nazwa: 'Dodatek pielęgnacyjny KRUS',
-    opis: 'Dodatek pielęgnacyjny z KRUS przysługuje emerytom i rencistom rolniczym, którzy: (a) ukończyli 75 lat -- przyznawany automatycznie z mocy prawa, lub (b) zostali uznani przez lekarza orzecznika KRUS za całkowicie niezdolnych do pracy i samodzielnej egzystencji. Kwota od marca 2026: 348,22 PLN brutto miesięcznie (waloryzacja 5,3%). Waloryzacja co roku 1 marca. Przyznawany automatycznie osobom 75+ pobierającym emeryturę lub rentę KRUS -- nie trzeba składać wniosku. Nie można łączyć z zasiłkiem pielęgnacyjnym z urzędu gminy (wyższy jest korzystniejszy: 348,22 PLN vs. 215,84 PLN). Nie podlega opodatkowaniu PIT.',
+    opis: 'Dodatek pielęgnacyjny z KRUS przysługuje emerytom i rencistom rolniczym, którzy: (a) ukończyli 75 lat - przyznawany automatycznie z mocy prawa, lub (b) zostali uznani przez lekarza orzecznika KRUS za całkowicie niezdolnych do pracy i samodzielnej egzystencji. Kwota od marca 2026: 348,22 PLN brutto miesięcznie (waloryzacja 5,3%). Waloryzacja co roku 1 marca. Przyznawany automatycznie osobom 75+ pobierającym emeryturę lub rentę KRUS - nie trzeba składać wniosku. Nie można łączyć z zasiłkiem pielęgnacyjnym z urzędu gminy (wyższy jest korzystniejszy: 348,22 PLN vs. 215,84 PLN). Nie podlega opodatkowaniu PIT.',
     kategoria: 'SENIOR',
     kwota: '348,22 PLN miesięcznie (od marca 2026)', kwotaMin: 348, kwotaMax: 348,
     czestotliwosc: 'miesięcznie',
@@ -275,7 +275,7 @@ export const KRUS: Benefit[] = [
   },
   {
     id: 'zwrot-akcyzy-paliwa-rolniczego', nazwa: 'Zwrot podatku akcyzowego od paliwa rolniczego',
-    opis: 'Zwrot akcyzy za olej napędowy używany do produkcji rolnej. Stawka 2026: 1,48 PLN za litr. Limit zwrotu: 162,80 PLN/ha użytków rolnych rocznie + 5,92 PLN na sztukę świń (średniorocznie) + 59,20 PLN na dużą jednostkę przeliczeniową (DJP) bydła, owiec, kóz i koni. Dwa nabory rocznie: 1 lutego -- 2 marca 2026 (wypłata kwiecień) oraz 1 sierpnia -- 31 sierpnia 2026 (wypłata październik). Wniosek składa się w urzędzie gminy właściwym dla miejsca zamieszkania. Wymagane faktury VAT dokumentujące zakup oleju napędowego. Przykład: rolnik z 50 ha dostanie max 8140 PLN zwrotu rocznie za paliwo.',
+    opis: 'Zwrot akcyzy za olej napędowy używany do produkcji rolnej. Stawka 2026: 1,48 PLN za litr. Limit zwrotu: 162,80 PLN/ha użytków rolnych rocznie + 5,92 PLN na sztukę świń (średniorocznie) + 59,20 PLN na dużą jednostkę przeliczeniową (DJP) bydła, owiec, kóz i koni. Dwa nabory rocznie: 1 lutego - 2 marca 2026 (wypłata kwiecień) oraz 1 sierpnia - 31 sierpnia 2026 (wypłata październik). Wniosek składa się w urzędzie gminy właściwym dla miejsca zamieszkania. Wymagane faktury VAT dokumentujące zakup oleju napędowego. Przykład: rolnik z 50 ha dostanie max 8140 PLN zwrotu rocznie za paliwo.',
     kategoria: 'PRACA',
     kwota: '1,48 PLN/litr ONW, limit 162,80 PLN/ha rocznie (+ bonus za zwierzęta)', kwotaMin: 0, kwotaMax: 0,
     czestotliwosc: 'dwa razy w roku (kwiecień i październik)',
@@ -291,7 +291,7 @@ export const KRUS: Benefit[] = [
       ],
       kroki: [
         'Zbieraj faktury VAT za zakup oleju napędowego (ON) przez cały rok',
-        'W terminie naboru (1 lutego -- 2 marca lub 1 sierpnia -- 31 sierpnia) złóż wniosek w urzędzie gminy',
+        'W terminie naboru (1 lutego - 2 marca lub 1 sierpnia - 31 sierpnia) złóż wniosek w urzędzie gminy',
         'Dołącz oryginalne faktury VAT za paliwo',
         'Przy produkcji zwierzęcej: dołącz zaświadczenie z ARiMR o liczbie zwierząt (możesz wygenerować samodzielnie z IRZplus)',
         'Urząd gminy wyda decyzję, wypłata do 30 kwietnia (1. nabór) lub do 31 października (2. nabór)',
@@ -312,7 +312,7 @@ export const KRUS: Benefit[] = [
   },
   {
     id: 'premia-dla-mlodego-rolnika', nazwa: 'Premia dla młodego rolnika (ARiMR)',
-    opis: 'Premia dla młodego rolnika to dotacja ARiMR w ramach Planu Strategicznego WPR 2023-2027. Kwota: 200 000 PLN dla upraw roślinnych lub 300 000 PLN przy produkcji zwierzęcej (nowość od 2026). Wypłacana w 2 transzach: 70% (140 000 PLN) po podpisaniu umowy, 30% (60 000 PLN) po realizacji biznesplanu. Warunki: wiek 18-40 lat (nieukończone 41 lat), prowadzenie działalności rolniczej nie wcześniej niż 24 miesiące przed wnioskiem, kwalifikacje rolnicze lub zobowiązanie do uzupełnienia w 36 mies. Zobowiązanie: min. 60% przychodów z rolnictwa przez 5 lat. Nabór 2026: czerwiec -- lipiec (może być ostatni w tej perspektywie finansowej). Powierzchnia gospodarstwa: min. 1 ha, max 300 ha, wartość ekonomiczna min. 15 000 EUR.',
+    opis: 'Premia dla młodego rolnika to dotacja ARiMR w ramach Planu Strategicznego WPR 2023-2027. Kwota: 200 000 PLN dla upraw roślinnych lub 300 000 PLN przy produkcji zwierzęcej (nowość od 2026). Wypłacana w 2 transzach: 70% (140 000 PLN) po podpisaniu umowy, 30% (60 000 PLN) po realizacji biznesplanu. Warunki: wiek 18-40 lat (nieukończone 41 lat), prowadzenie działalności rolniczej nie wcześniej niż 24 miesiące przed wnioskiem, kwalifikacje rolnicze lub zobowiązanie do uzupełnienia w 36 mies. Zobowiązanie: min. 60% przychodów z rolnictwa przez 5 lat. Nabór 2026: czerwiec - lipiec (może być ostatni w tej perspektywie finansowej). Powierzchnia gospodarstwa: min. 1 ha, max 300 ha, wartość ekonomiczna min. 15 000 EUR.',
     kategoria: 'PRACA',
     kwota: '200 000 PLN (uprawy) lub 300 000 PLN (z produkcją zwierzęcą)', kwotaMin: 200000, kwotaMax: 300000,
     czestotliwosc: 'jednorazowo (w 2 transzach)',
@@ -333,7 +333,7 @@ export const KRUS: Benefit[] = [
       ],
       kroki: [
         'Zarejestruj się w systemie eWniosekPlus (agencja.arimr.gov.pl)',
-        'Wypełnij wniosek w terminie naboru (czerwiec -- lipiec 2026)',
+        'Wypełnij wniosek w terminie naboru (czerwiec - lipiec 2026)',
         'Przygotuj biznesplan na 5 lat z planem inwestycji i przychodów',
         'Złóż wniosek elektronicznie z kompletem dokumentów',
         'ARiMR oceni wniosek i przyśle decyzję (punktacja: wiek, wykształcenie, kierunek produkcji)',
@@ -357,7 +357,7 @@ export const KRUS: Benefit[] = [
   },
   {
     id: 'doplaty-bezposrednie-arimr', nazwa: 'Dopłaty bezpośrednie ARiMR (płatności obszarowe)',
-    opis: 'Dopłaty bezpośrednie z budżetu UE i krajowego dla aktywnych rolników za utrzymanie gruntów rolnych. Szacunkowe stawki 2026 (ostateczne kwoty jesienią): podstawowe wsparcie dochodów: ~494,54 PLN/ha, płatność redystrybucyjna (pierwsze 30 ha): ~171,41 PLN/ha, małe gospodarstwa (do 5 ha): ~960,57 PLN/ha, dopłata dla młodych rolników: ~253,76 PLN/ha. Ekoschematy (dodatkowe): od 479 do 2387 PLN/ha (np. za międzyplony, przekształcenie na użytki zielone). Dopłaty do zwierząt: bydło ~325 PLN/sztukę, krowy ~416 PLN/sztukę, owce ~111 PLN/sztukę. Wnioski przez eWniosekPlus. Termin 2026: do 1 czerwca (wydłużony z powodu suszy). Warunek: "aktywny rolnik" -- przy dopłatach powyżej 1125 EUR w 2025 r. wymagane wykazanie kosztów/przychodów.',
+    opis: 'Dopłaty bezpośrednie z budżetu UE i krajowego dla aktywnych rolników za utrzymanie gruntów rolnych. Szacunkowe stawki 2026 (ostateczne kwoty jesienią): podstawowe wsparcie dochodów: ~494,54 PLN/ha, płatność redystrybucyjna (pierwsze 30 ha): ~171,41 PLN/ha, małe gospodarstwa (do 5 ha): ~960,57 PLN/ha, dopłata dla młodych rolników: ~253,76 PLN/ha. Ekoschematy (dodatkowe): od 479 do 2387 PLN/ha (np. za międzyplony, przekształcenie na użytki zielone). Dopłaty do zwierząt: bydło ~325 PLN/sztukę, krowy ~416 PLN/sztukę, owce ~111 PLN/sztukę. Wnioski przez eWniosekPlus. Termin 2026: do 1 czerwca (wydłużony z powodu suszy). Warunek: "aktywny rolnik" - przy dopłatach powyżej 1125 EUR w 2025 r. wymagane wykazanie kosztów/przychodów.',
     kategoria: 'PRACA',
     kwota: 'ok. 494-960 PLN/ha podstawowych + ekoschematy do 2387 PLN/ha', kwotaMin: 0, kwotaMax: 0,
     czestotliwosc: 'rocznie (wypłata listopad-grudzień)',
@@ -385,7 +385,7 @@ export const KRUS: Benefit[] = [
         'Termin 2026: do 1 czerwca (wydłużony z powodu suszy, normalnie 15 maja)',
         'Stawki szacunkowe, ostateczne kwoty znane dopiero jesienią',
         'Od 2026: wymóg "aktywnego rolnika" dla większych dopłat, sprawdź czy Cię dotyczy',
-        'GAEC 7 (nowe przepisy 2026): wymogi dotyczące różnorodności upraw -- sprawdź czy spełniasz',
+        'GAEC 7 (nowe przepisy 2026): wymogi dotyczące różnorodności upraw - sprawdź czy spełniasz',
         'Ekoschematy zwiększają dopłatę o 479-2387 PLN/ha, warto oznaczyć',
         'Płatność redystrybucyjna: dodatkowe 171 PLN/ha dla PIERWSZYCH 30 ha (korzystne dla małych)',
       ],
@@ -421,7 +421,7 @@ export const KRUS: Benefit[] = [
       pulapki: [
         'Dopłata 65% tylko jeśli ubezpieczysz min. 50% powierzchni upraw',
         'Firmy akredytowane (2026): PZU SA, Concordia, Pocztowe TUW, InterRisk, ERGO Hestia',
-        'Możesz potrącić składkę z dopłat bezpośrednich -- złóż wniosek w ARiMR do składania wniosków o dopłaty',
+        'Możesz potrącić składkę z dopłat bezpośrednich - złóż wniosek w ARiMR do składania wniosków o dopłaty',
         'Limit dla tytoniu/warzyw/owoców: do 25% sumy ubezpieczenia; pozostałe uprawy: do 15%',
         'Stawki i zakresy ustalane przez ministry co roku, sprawdź aktualny wykaz upraw',
       ],

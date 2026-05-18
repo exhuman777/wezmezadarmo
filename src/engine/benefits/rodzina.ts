@@ -193,7 +193,7 @@ export const RODZINA: Benefit[] = [
   },
   {
     id: 'aktywnie-w-domu', nazwa: 'Aktywnie w domu (Aktywny Rodzic)',
-    opis: 'Świadczenie 500 PLN miesięcznie dla rodzin z dziećmi od 12 do 35 miesiąca życia (1-3 lata), które nie korzystają z żłobka, klubu dziecięcego, dziennego opiekuna ani niani. Część programu Aktywny Rodzic (od 15 października 2024 r.). BRAK kryterium dochodowego. Przeznaczone dla rodzin wychowujących dziecko w domu -- wystarczy że dziecko jest w odpowiednim wieku i rodzic nie pobiera dofinansowania Aktywnie w żłobku. Wniosek wyłącznie elektronicznie przez ZUS (PUE ZUS, bankowość elektroniczną lub portal Empatia). Pieniądze trafiają na konto rodzica co miesiąc. Uwaga: jeśli w trakcie pobierania świadczenia zapiszesz dziecko do żłobka i złożysz wniosek Aktywnie w żłobku, Aktywnie w domu automatycznie wygasa. Nie wlicza się do dochodu, nie jest opodatkowane. Można łączyć z 800+, becikowym i innymi świadczeniami.',
+    opis: 'Świadczenie 500 PLN miesięcznie dla rodzin z dziećmi od 12 do 35 miesiąca życia (1-3 lata), które nie korzystają z żłobka, klubu dziecięcego, dziennego opiekuna ani niani. Część programu Aktywny Rodzic (od 15 października 2024 r.). BRAK kryterium dochodowego. Przeznaczone dla rodzin wychowujących dziecko w domu - wystarczy że dziecko jest w odpowiednim wieku i rodzic nie pobiera dofinansowania Aktywnie w żłobku. Wniosek wyłącznie elektronicznie przez ZUS (PUE ZUS, bankowość elektroniczną lub portal Empatia). Pieniądze trafiają na konto rodzica co miesiąc. Uwaga: jeśli w trakcie pobierania świadczenia zapiszesz dziecko do żłobka i złożysz wniosek Aktywnie w żłobku, Aktywnie w domu automatycznie wygasa. Nie wlicza się do dochodu, nie jest opodatkowane. Można łączyć z 800+, becikowym i innymi świadczeniami.',
     kategoria: 'RODZINA',
     kwota: '500 PLN miesięcznie', kwotaMin: 500, kwotaMax: 500,
     czestotliwosc: 'miesięcznie',
@@ -296,7 +296,7 @@ export const RODZINA: Benefit[] = [
   },
   {
     id: 'fundusz-alimentacyjny', nazwa: 'Fundusz alimentacyjny',
-    opis: 'Fundusz alimentacyjny to świadczenie państwa wypłacane dzieciom, gdy rodzic zobowiązany do płacenia alimentów ich nie płaci, a egzekucja komornicza jest bezskuteczna. Maksymalna kwota: 1000 PLN miesięcznie na dziecko (do wysokości zasądzonych alimentów). Kryterium dochodowe: 1209 PLN netto na osobę w rodzinie (od 1 października 2026 r. wzrośnie do 1665 PLN). Obowiązuje zasada "złotówka za złotówkę": przekroczenie progu nie pozbawia świadczenia całkowicie -- kwota jest pomniejszana o nadwyżkę dochodu. Warunek: zasądzone lub ugodzone alimenty PLUS bezskuteczna egzekucja komornicza. Przysługuje dzieciom do 18 lat lub do 25 lat jeśli się uczą. Wniosek elektronicznie od 1 lipca (Empatia, PUE ZUS, bankowość) lub w MOPS od 1 sierpnia. Fundusz dochodzi zwrotu świadczeń od dłużnika alimentacyjnego.',
+    opis: 'Fundusz alimentacyjny to świadczenie państwa wypłacane dzieciom, gdy rodzic zobowiązany do płacenia alimentów ich nie płaci, a egzekucja komornicza jest bezskuteczna. Maksymalna kwota: 1000 PLN miesięcznie na dziecko (do wysokości zasądzonych alimentów). Kryterium dochodowe: 1209 PLN netto na osobę w rodzinie (od 1 października 2026 r. wzrośnie do 1665 PLN). Obowiązuje zasada "złotówka za złotówkę": przekroczenie progu nie pozbawia świadczenia całkowicie - kwota jest pomniejszana o nadwyżkę dochodu. Warunek: zasądzone lub ugodzone alimenty PLUS bezskuteczna egzekucja komornicza. Przysługuje dzieciom do 18 lat lub do 25 lat jeśli się uczą. Wniosek elektronicznie od 1 lipca (Empatia, PUE ZUS, bankowość) lub w MOPS od 1 sierpnia. Fundusz dochodzi zwrotu świadczeń od dłużnika alimentacyjnego.',
     kategoria: 'RODZINA',
     kwota: 'do 1000 PLN miesięcznie na dziecko (do kwoty zasądzonych alimentów)', kwotaMin: 0, kwotaMax: 1000,
     czestotliwosc: 'miesięcznie',
@@ -328,7 +328,7 @@ export const RODZINA: Benefit[] = [
         'Kryterium dochodowe: 1209 PLN/osobę (od 1 X 2026 r.: 1665 PLN/osobę)',
         '"Złotówka za złotówkę": przekroczenie progu nie zeruje świadczenia, tylko je pomniejsza',
         'Max 1000 PLN/dziecko, ale tylko do kwoty zasądzonych alimentów (jeśli alimenty to 600 PLN, dostaniesz 600 PLN)',
-        'MUSISZ mieć zaświadczenie komornika o bezskuteczności egzekucji -- bez tego wniosek zostanie odrzucony',
+        'MUSISZ mieć zaświadczenie komornika o bezskuteczności egzekucji - bez tego wniosek zostanie odrzucony',
         'Fundusz dochodzi zwrotu wypłaconych świadczeń od dłużnika alimentacyjnego',
         'Nowy okres świadczeniowy zaczyna się 1 października, wnioski od 1 lipca (elektronicznie) lub 1 sierpnia (MOPS)',
       ],

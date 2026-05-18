@@ -92,10 +92,15 @@ export async function POST(request: NextRequest) {
         }
 
         const userCategories: string[] = (pref.categories as string[]) ?? [];
+        // Build sourceId -> tags lookup from FEEDS registry
+        const feedTagsMap = new Map<string, string[]>(FEEDS.map(f => [f.id, f.tags]));
         const filteredItems = userCategories.length > 0
-          ? allRecentItems.filter(item =>
-              item.audiences.includes('wszyscy') || item.audiences.includes('jdg')
-            )
+          ? allRecentItems.filter(item => {
+              const feedTags = feedTagsMap.get(item.sourceId) ?? [];
+              return userCategories.some(cat =>
+                item.sourceId === cat || feedTags.includes(cat)
+              );
+            })
           : allRecentItems;
 
         let payload;
@@ -153,7 +158,7 @@ export async function POST(request: NextRequest) {
         });
 
         if (sendError) {
-          console.error(`[digest/cron] błąd wysyłki do ${email}:`, sendError);
+          console.error(`[digest/cron] błąd wysyłki dla user ${pref.user_id}:`, sendError);
           results.errors++;
           return;
         }
