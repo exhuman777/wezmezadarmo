@@ -1,10 +1,16 @@
 import { NextRequest } from 'next/server';
 import Stripe from 'stripe';
 import { createSupabaseServer } from '@/lib/dotacje/supabase';
+import { TOKEN_PACKAGES, type TokenPackage } from '@/lib/tokens';
 
 export const dynamic = 'force-dynamic';
 
-export async function POST(_request: NextRequest) {
+const PRICE_IDS: Record<TokenPackage, string> = {
+  personal: process.env.STRIPE_PRICE_ID_PERSONAL!,
+  business: process.env.STRIPE_PRICE_ID_BUSINESS!,
+};
+
+export async function POST(request: NextRequest) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
   const supabase = await createSupabaseServer();
   const { data: { session } } = await supabase.auth.getSession();
@@ -13,21 +19,29 @@ export async function POST(_request: NextRequest) {
     return Response.json({ error: 'Wymagane zalogowanie.' }, { status: 401 });
   }
 
+  let body: { package: TokenPackage };
+  try {
+    body = await request.json();
+  } catch {
+    return Response.json({ error: 'Nieprawidłowy format żądania.' }, { status: 400 });
+  }
+
+  const pkg = body.package;
+  if (!pkg || !PRICE_IDS[pkg]) {
+    return Response.json({ error: 'Nieprawidłowy pakiet. Wybierz "personal" lub "business".' }, { status: 400 });
+  }
+
   const userId = session.user.id;
   const userEmail = session.user.email ?? '';
   const baseUrl = process.env.NEXT_PUBLIC_URL ?? 'https://wezmezadarmo.com';
+  const packageInfo = TOKEN_PACKAGES[pkg];
 
-  // Get current user row to check for existing stripe_customer_id
-  const { data: userRow, error: userError } = await supabase
+  // Get or create Stripe customer
+  const { data: userRow } = await supabase
     .from('users')
     .select('stripe_customer_id')
     .eq('id', userId)
     .single();
-
-  if (userError && userError.code !== 'PGRST116') {
-    console.error('[stripe/checkout] user lookup error:', userError);
-    return Response.json({ error: 'Błąd pobierania danych użytkownika.' }, { status: 500 });
-  }
 
   let stripeCustomerId: string = userRow?.stripe_customer_id ?? '';
 
@@ -39,17 +53,12 @@ export async function POST(_request: NextRequest) {
       });
       stripeCustomerId = customer.id;
 
-      const { error: updateError } = await supabase
+      await supabase
         .from('users')
         .update({ stripe_customer_id: stripeCustomerId })
         .eq('id', userId);
-
-      if (updateError) {
-        console.error('[stripe/checkout] failed to save stripe_customer_id:', updateError);
-        // Non-fatal -- continue, customer was created in Stripe
-      }
     } catch (err) {
-      console.error('[stripe/checkout] stripe customer creation error:', err);
+      console.error('[stripe/checkout] customer creation error:', err);
       return Response.json({ error: 'Błąd tworzenia konta płatności.' }, { status: 502 });
     }
   }
@@ -57,19 +66,16 @@ export async function POST(_request: NextRequest) {
   try {
     const checkoutSession = await stripe.checkout.sessions.create({
       customer: stripeCustomerId,
-      payment_method_types: ['card'],
-      line_items: [
-        {
-          price: process.env.STRIPE_PRICE_ID!,
-          quantity: 1,
-        },
-      ],
-      mode: 'subscription',
-      subscription_data: {
-        trial_period_days: 7,
+      payment_method_types: ['card', 'blik', 'p24'],
+      line_items: [{ price: PRICE_IDS[pkg], quantity: 1 }],
+      mode: 'payment',
+      metadata: {
+        supabase_user_id: userId,
+        package: pkg,
+        tokens: String(packageInfo.tokens),
       },
-      success_url: `${baseUrl}/dotacje/panel?success=1`,
-      cancel_url: `${baseUrl}/dotacje/panel/subskrypcja`,
+      success_url: `${baseUrl}/dotacje/panel?tokens_added=${packageInfo.tokens}`,
+      cancel_url: `${baseUrl}/dotacje/panel/tokeny`,
     });
 
     return Response.json({ url: checkoutSession.url });
