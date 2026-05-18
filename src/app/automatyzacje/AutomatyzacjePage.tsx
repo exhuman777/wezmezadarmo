@@ -13,7 +13,7 @@ const PROBLEMY = [
 const KROKI = [
   { tytul: 'Bezpłatna rozmowa', opis: 'Opowiadasz nam, co w Twojej firmie zajmuje za dużo czasu. 30 minut. Bez prezentacji, bez handlowania.' },
   { tytul: 'Konkretna wycena', opis: 'W ciągu 2 dni roboczych dostajesz propozycję: co zautomatyzujemy, ile to kosztuje, ile czasu zaoszczędzisz miesięcznie.' },
-  { tytul: 'Wdrożenie i test', opis: 'Budujemy system. Testujesz go na swoich danych. Jeśli nie działa tak jak uzgodniliśmy -- nie płacisz.' },
+  { tytul: 'Wdrożenie i test', opis: 'Budujemy system. Testujesz go na swoich danych. Jeśli nie działa tak jak uzgodniliśmy, nie płacisz.' },
 ];
 
 const PRODUKT_FEATURES = [
@@ -22,7 +22,33 @@ const PRODUKT_FEATURES = [
   'Wpisuje dane do arkusza Google lub Excela, który wskazujesz',
   'Wysyła powiadomienie, gdy pojawi się nowy dokument do zaksięgowania',
   'Nie obsługuje polskich faktur krajowych: te trafiają do KSeF automatycznie i nie wymagają osobnego narzędzia',
-  'Wdrożenie zajmuje do 5 dni roboczych, dostajesz instrukcję obsługi',
+  'Wdrożenie zajmuje do 1 dnia roboczego, dostajesz instrukcję obsługi',
+];
+
+const CENNIK = [
+  {
+    nazwa: 'Automatyzacja KSeF i faktur zagranicznych',
+    cena: '100 zł',
+    szczegoly: 'wdrożenie w 1 dzień roboczy',
+    opis: 'Gotowy system podłączany do Twojej skrzynki mailowej.',
+  },
+  {
+    nazwa: 'Automatyzacja na zamówienie',
+    cena: '999 zł',
+    szczegoly: 'realizacja 3 do 7 dni roboczych',
+    opis: 'W cenie: 1 poprawka i 1 miesiąc wsparcia technicznego oraz gwarancji.',
+  },
+];
+
+const PRZYKLADY = [
+  {
+    tytul: 'Faktury zagraniczne',
+    opis: 'Agent skanuje skrzynkę mailową, wyciąga dane z rachunków od Stripe, AWS i OpenAI, wpisuje je do arkusza i wysyła powiadomienie o każdym nowym dokumencie.',
+  },
+  {
+    tytul: 'Automatyzacja wniosków',
+    opis: 'Agent monitoruje dostępne dofinansowania, wypełnia wniosek na podstawie profilu firmy, a następnie przekazuje go do weryfikacji osobie decyzyjnej przed złożeniem w urzędzie lub instytucji państwowej. Agenci systemu WezmeZaDarmo nigdy nie składają dokumentów samodzielnie. Zawsze czekają na akceptację człowieka.',
+  },
 ];
 
 export default function AutomatyzacjePage() {
@@ -109,6 +135,27 @@ export default function AutomatyzacjePage() {
             </p>
           </div>
 
+          {/* PRZYKŁADY */}
+          <div className="rise" style={{ marginBottom: 64, animationDelay: '240ms' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
+              <span className="label-eyebrow">Przykłady automatyzacji</span>
+              <span style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              {PRZYKLADY.map((p) => (
+                <div key={p.tytul} style={{
+                  border: '1px solid var(--color-border)',
+                  borderRadius: 14,
+                  padding: '22px 28px',
+                  background: 'var(--color-surface)',
+                }}>
+                  <div style={{ fontWeight: 600, fontSize: 16, color: 'var(--color-accent)', marginBottom: 10 }}>{p.tytul}</div>
+                  <div style={{ fontSize: 15, color: 'var(--color-text-2)', lineHeight: 1.7 }}>{p.opis}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
           {/* PRODUKT */}
           <div className="rise" style={{ marginBottom: 64, animationDelay: '260ms' }}>
             <div style={{
@@ -118,7 +165,7 @@ export default function AutomatyzacjePage() {
               background: 'var(--color-surface)',
               boxShadow: 'var(--shadow-2)',
             }}>
-              <span className="label-eyebrow" style={{ color: 'var(--color-accent)', marginBottom: 16, display: 'block' }}>Flagship -- gotowy produkt</span>
+              <span className="label-eyebrow" style={{ color: 'var(--color-accent)', marginBottom: 16, display: 'block' }}>Flagship: gotowy produkt</span>
               <h2 style={{ fontSize: 36, letterSpacing: '-0.025em', marginBottom: 12, color: 'var(--color-text-1)' }}>
                 Automat Fakturowy
               </h2>
@@ -131,7 +178,7 @@ export default function AutomatyzacjePage() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 36 }}>
                 {PRODUKT_FEATURES.map((f, i) => (
                   <div key={i} style={{ display: 'flex', gap: 14, alignItems: 'flex-start', fontSize: 15, color: 'var(--color-text-2)', lineHeight: 1.6 }}>
-                    <span style={{ color: 'var(--color-accent)', fontWeight: 700, flexShrink: 0, marginTop: 1 }}>--</span>
+                    <span style={{ color: 'var(--color-accent)', fontWeight: 700, flexShrink: 0, marginTop: 1 }}>+</span>
                     {f}
                   </div>
                 ))}
@@ -144,10 +191,10 @@ export default function AutomatyzacjePage() {
               }}>
                 <div>
                   <div className="mono" style={{ fontSize: 44, fontWeight: 500, letterSpacing: '-0.04em', color: 'var(--color-text-1)', lineHeight: 1 }}>
-                    1 200 PLN
+                    100 zł
                   </div>
                   <div style={{ fontSize: 13, color: 'var(--color-text-3)', marginTop: 6 }}>
-                    jednorazowo &bull; bez abonamentu &bull; wdrożenie 5 dni roboczych
+                    jednorazowo &bull; bez abonamentu &bull; wdrożenie 1 dzień roboczy
                   </div>
                 </div>
                 <a href="#kontakt" style={{
@@ -159,6 +206,31 @@ export default function AutomatyzacjePage() {
                   Zamów wdrożenie
                 </a>
               </div>
+            </div>
+          </div>
+
+          {/* CENNIK */}
+          <div className="rise" style={{ marginBottom: 64, animationDelay: '280ms' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
+              <span className="label-eyebrow">Cennik</span>
+              <span style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
+              {CENNIK.map((c) => (
+                <div key={c.nazwa} style={{
+                  border: '1px solid var(--color-border)',
+                  borderRadius: 16,
+                  padding: '28px 28px',
+                  background: 'var(--color-surface)',
+                }}>
+                  <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--color-text-2)', marginBottom: 16, lineHeight: 1.4 }}>{c.nazwa}</div>
+                  <div className="mono" style={{ fontSize: 40, fontWeight: 500, letterSpacing: '-0.04em', color: 'var(--color-accent)', lineHeight: 1, marginBottom: 6 }}>
+                    {c.cena}
+                  </div>
+                  <div style={{ fontSize: 12, color: 'var(--color-text-3)', marginBottom: 16 }}>{c.szczegoly}</div>
+                  <div style={{ fontSize: 14, color: 'var(--color-text-2)', lineHeight: 1.65 }}>{c.opis}</div>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -231,7 +303,7 @@ export default function AutomatyzacjePage() {
                 sobkowicz.kamil@gmail.com
               </a>
               <p style={{ fontSize: 14, color: 'var(--color-text-3)' }}>
-                Napisz maila -- to najprostszy sposób. Podaj firmę, branżę i opis problemu.
+                Napisz maila. To najprostszy sposób. Podaj firmę, branżę i opis problemu.
               </p>
             </div>
 
