@@ -1,11 +1,14 @@
 import { createClient } from '@supabase/supabase-js';
 import { NextRequest, NextResponse } from 'next/server';
+import { Resend } from 'resend';
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!,
   { auth: { autoRefreshToken: false, persistSession: false } }
 );
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: NextRequest) {
   let body: {
@@ -36,7 +39,7 @@ export async function POST(request: NextRequest) {
   const { data: authData, error: authError } = await supabaseAdmin.auth.admin.createUser({
     email: email.trim().toLowerCase(),
     password,
-    email_confirm: true,
+    email_confirm: false,
   });
 
   if (authError) {
@@ -69,7 +72,25 @@ export async function POST(request: NextRequest) {
       categories: emailPreferences?.categories ?? ['dofinansowania', 'zus', 'podatki', 'prawo'],
     });
 
-  return NextResponse.json({ success: true }, { status: 201 });
+  const { data: linkData } = await supabaseAdmin.auth.admin.generateLink({
+    type: 'signup',
+    email: email.trim().toLowerCase(),
+    password: password as string,
+    options: {
+      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/agent/auth/callback`,
+    },
+  });
+
+  if (linkData?.properties?.action_link) {
+    await resend.emails.send({
+      from: process.env.RESEND_FROM_EMAIL ?? 'onboarding@resend.dev',
+      to: email,
+      subject: 'Potwierdź adres e-mail - wezmezadarmo',
+      html: `<p>Kliknij link poniżej aby potwierdzić adres e-mail i aktywować konto:</p><p><a href="${linkData.properties.action_link}">${linkData.properties.action_link}</a></p>`,
+    });
+  }
+
+  return NextResponse.json({ success: true, requiresEmailVerification: true }, { status: 201 });
 }
 
 function buildProfileInsert(userId: string, profile: Record<string, unknown>) {

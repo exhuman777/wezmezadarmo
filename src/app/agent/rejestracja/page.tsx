@@ -174,6 +174,11 @@ export default function AgentRejestracja() {
         return;
       }
 
+      if (data.requiresEmailVerification) {
+        router.push('/agent/sprawdz-email');
+        return;
+      }
+
       await fetch('/api/agent/auth/signin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

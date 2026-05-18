@@ -20,6 +20,8 @@ export default function AgentPowiadomienia() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [testing, setTesting] = useState(false);
+  const [testSent, setTestSent] = useState(false);
 
   useEffect(() => {
     fetch('/api/digest/preferences').then(async res => {
@@ -31,6 +33,16 @@ export default function AgentPowiadomienia() {
       setLoading(false);
     });
   }, [router]);
+
+  async function sendTest() {
+    setTesting(true);
+    const res = await fetch('/api/digest/test', { method: 'POST' });
+    setTesting(false);
+    if (res.ok) {
+      setTestSent(true);
+      setTimeout(() => setTestSent(false), 5000);
+    }
+  }
 
   async function save() {
     setSaving(true);
@@ -88,6 +100,27 @@ export default function AgentPowiadomienia() {
         }}>
           {saved ? 'Zapisano' : saving ? 'Zapisuję...' : 'Zapisz ustawienia'}
         </button>
+
+        <div>
+          {testSent ? (
+            <p style={{ fontSize: 13, color: 'var(--color-text-2)', fontFamily: 'var(--font-mono)' }}>
+              Wysłano. Sprawdź skrzynkę.
+            </p>
+          ) : (
+            <button onClick={sendTest} disabled={testing} style={{
+              padding: '10px 24px', background: 'var(--color-bg-2)',
+              color: 'var(--color-text-1)', border: '1px solid var(--color-border)',
+              borderRadius: 'var(--radius-sm)',
+              fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500,
+              cursor: testing ? 'not-allowed' : 'pointer', width: 'fit-content',
+            }}>
+              {testing ? 'Wysyłam...' : 'Wyślij testowy e-mail'}
+            </button>
+          )}
+          <p style={{ fontSize: 12, color: 'var(--color-text-3)', marginTop: 6 }}>
+            Wyśle próbny raport na Twój adres e-mail. Może zawierać starsze wiadomości.
+          </p>
+        </div>
       </div>
     </main>
   );
