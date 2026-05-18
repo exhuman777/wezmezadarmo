@@ -117,8 +117,8 @@ export async function POST(request: NextRequest) {
     const zusProfile = body.profile as ZusZ15aProfile;
     const { powodOpieki, relacjaDoZiecka } = zusProfile;
     const result = await chatCompletion([
-      { role: 'system', content: 'Jestes asystentem pomagajacym wypelnic formularz ZUS Z-15a. Pisz po polsku, zwiezle, formalnie.' },
-      { role: 'user', content: `Wygeneruj krotkie oswiadczenie (1-2 zdania) dlaczego wspolmalzonek lub drugi rodzic nie moze sprawowac opieki nad dzieckiem. Powod opieki wnioskodawcy: ${powodOpieki}. Relacja wnioskodawcy do dziecka: ${relacjaDoZiecka}. Napisz oswiadczenie w pierwszej osobie liczby mnogiej (my/wspolmalzonek). Brak cudzysłowow.` },
+      { role: 'system', content: 'Jesteś asystentem pomagającym wypełnić formularz ZUS Z-15a. Pisz po polsku, zwięźle, formalnie. Używaj tylko informacji podanych przez użytkownika, nie wymyślaj szczegółów.' },
+      { role: 'user', content: `Wygeneruj krótkie oświadczenie (1-2 zdania) dlaczego współmałżonek lub drugi rodzic nie może sprawować opieki nad dzieckiem. Powód opieki wnioskodawcy: ${powodOpieki}. Relacja wnioskodawcy do dziecka: ${relacjaDoZiecka}. Napisz oświadczenie w pierwszej osobie liczby pojedynczej. Brak cudzysłowów.` },
     ]);
     return new Response(JSON.stringify({ result }), {
       status: 200,
@@ -131,8 +131,8 @@ export async function POST(request: NextRequest) {
     const zusProfile = body.profile as ZusZ15bProfile;
     const { powodOpieki, relacjaDoWnioskodawcy } = zusProfile;
     const result = await chatCompletion([
-      { role: 'system', content: 'Jestes asystentem pomagajacym wypelnic formularz ZUS Z-15b. Pisz po polsku, zwiezle, formalnie.' },
-      { role: 'user', content: `Wygeneruj krotkie oswiadczenie (1-2 zdania) dlaczego zadna inna osoba z rodziny nie moze sprawowac opieki nad chorym czlonkiem rodziny. Powod opieki: ${powodOpieki}. Relacja podopiecznego do wnioskodawcy: ${relacjaDoWnioskodawcy}. Napisz oswiadczenie w pierwszej osobie. Brak cudzysłowow.` },
+      { role: 'system', content: 'Jesteś asystentem pomagającym wypełnić formularz ZUS Z-15b. Pisz po polsku, zwięźle, formalnie. Używaj tylko informacji podanych przez użytkownika, nie wymyślaj szczegółów.' },
+      { role: 'user', content: `Wygeneruj krótkie oświadczenie (1-2 zdania) dlaczego żadna inna osoba z rodziny nie może sprawować opieki nad chorym członkiem rodziny. Powód opieki: ${powodOpieki}. Relacja podopiecznego do wnioskodawcy: ${relacjaDoWnioskodawcy}. Napisz oświadczenie w pierwszej osobie. Brak cudzysłowów.` },
     ]);
     return new Response(JSON.stringify({ result }), {
       status: 200,

@@ -19,7 +19,7 @@ FORMAT ODPOWIEDZI (JSON array):
 [
   {
     "id": "benefit-id",
-    "confidence": "WYSOKA" | "ŚREDNIA" | "NISKA",
+    "confidence": "WYSOKA" | "SREDNIA" | "NISKA",
     "warnings": ["ostrzeżenie 1", "ostrzeżenie 2"],
     "reason": "krótkie uzasadnienie"
   }

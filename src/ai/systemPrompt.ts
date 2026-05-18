@@ -91,15 +91,15 @@ Działalność: ${profile.prowadzDzialalnosc ? 'tak' : 'nie'}`;
 
   if (focused) {
     const restSummary = rest.length > 0
-      ? rest.map(r => `[${r.status}] ${r.benefit.nazwa} -- ${r.benefit.kwota}`).join('\n')
+      ? rest.map(r => `[${r.status}] ${r.benefit.nazwa}: ${r.benefit.kwota}`).join('\n')
       : 'Brak innych świadczeń.';
 
     const extraKnowledge = BENEFIT_KNOWLEDGE[focused.benefit.id];
     const knowledgeSection = extraKnowledge ? `
-SZCZEGOLOWA WIEDZA O TYM SWIADCZENIU (zrodla urzedowe):
-${extraKnowledge.formularzOpis ? `-- FORMULARZ I POLA:\n${extraKnowledge.formularzOpis}` : ''}
-${extraKnowledge.szczegolyKwalifikacji ? `-- SZCZEGOLY KWALIFIKACJI:\n${extraKnowledge.szczegolyKwalifikacji}` : ''}
-${extraKnowledge.faq ? `-- CZESTE PYTANIA:\n${extraKnowledge.faq}` : ''}
+SZCZEGÓŁOWA WIEDZA O TYM ŚWIADCZENIU (źródła urzędowe):
+${extraKnowledge.formularzOpis ? `FORMULARZ I POLA:\n${extraKnowledge.formularzOpis}` : ''}
+${extraKnowledge.szczegolyKwalifikacji ? `SZCZEGÓŁY KWALIFIKACJI:\n${extraKnowledge.szczegolyKwalifikacji}` : ''}
+${extraKnowledge.faq ? `CZĘSTE PYTANIA:\n${extraKnowledge.faq}` : ''}
 ` : '';
 
     return `
