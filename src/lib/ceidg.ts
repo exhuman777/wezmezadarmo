@@ -14,6 +14,7 @@ export interface CeidgBusinessData {
   dataZakonczenia: string | null;
   pkd: string[];
   status: string | null;
+  wojewodztwo: string | null;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -23,6 +24,7 @@ export function parseCeidgResponse(data: any): CeidgBusinessData {
     return {
       aktywna: false, nazwa: null, dataRejestracji: null,
       dataZawieszenia: null, dataZakonczenia: null, pkd: [], status: null,
+      wojewodztwo: null,
     };
   }
   return {
@@ -33,6 +35,9 @@ export function parseCeidgResponse(data: any): CeidgBusinessData {
     dataZakonczenia: firma.dataZakonczeniaDzialalnosci ?? null,
     pkd: (firma.pkd ?? []).map((p: { kod: string }) => p.kod),
     status: firma.status ?? null,
+    wojewodztwo: firma.adresDzialalnosci?.wojewodztwo
+      ? String(firma.adresDzialalnosci.wojewodztwo).toLowerCase()
+      : null,
   };
 }
 
