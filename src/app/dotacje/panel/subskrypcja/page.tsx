@@ -45,42 +45,6 @@ export default function SubskrypcjaPage() {
     load();
   }, []);
 
-  async function startCheckout() {
-    setActionLoading('checkout');
-    setError(null);
-    try {
-      const res = await fetch('/api/dotacje/stripe/checkout', { method: 'POST' });
-      if (res.ok) {
-        const { url }: { url: string } = await res.json();
-        window.location.href = url;
-      } else {
-        setError('Nie udało się otworzyć płatności. Spróbuj ponownie.');
-        setActionLoading(null);
-      }
-    } catch {
-      setError('Błąd połączenia z Stripe.');
-      setActionLoading(null);
-    }
-  }
-
-  async function openPortal() {
-    setActionLoading('portal');
-    setError(null);
-    try {
-      const res = await fetch('/api/dotacje/stripe/portal', { method: 'POST' });
-      if (res.ok) {
-        const { url }: { url: string } = await res.json();
-        window.location.href = url;
-      } else {
-        setError('Nie udało się otworzyć portalu Stripe.');
-        setActionLoading(null);
-      }
-    } catch {
-      setError('Błąd połączenia z Stripe.');
-      setActionLoading(null);
-    }
-  }
-
   async function exportData() {
     setActionLoading('export');
     setError(null);
@@ -139,15 +103,6 @@ export default function SubskrypcjaPage() {
       </div>
     );
   }
-
-  const trialEnds =
-    data?.trial_ends_at
-      ? new Date(data.trial_ends_at).toLocaleDateString('pl-PL', {
-          day: 'numeric',
-          month: 'long',
-          year: 'numeric',
-        })
-      : null;
 
   return (
     <div style={{ maxWidth: '640px', margin: '0 auto', padding: '40px 24px 80px' }}>
@@ -240,94 +195,40 @@ export default function SubskrypcjaPage() {
           )}
         </div>
 
-        {data?.subscription_status === 'trial' && trialEnds && (
           <p
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '13px',
-              color: 'var(--color-text-2)',
-              margin: '0 0 4px',
-            }}
-          >
-            Okres próbny kończy się: <strong style={{ color: 'var(--color-accent)' }}>{trialEnds}</strong>
-          </p>
-        )}
-
-        {data?.subscription_status === 'inactive' && (
-          <p
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '13px',
-              color: 'var(--color-text-3)',
-              margin: 0,
-            }}
-          >
-            Subskrypcja nieaktywna. Aktywuj, aby korzystać z pełnego dostępu.
-          </p>
-        )}
-
-        {data?.subscription_status === 'active' && (
-          <p
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '13px',
-              color: 'var(--color-text-2)',
-              margin: 0,
-            }}
-          >
-            Masz pełen dostęp do agenta, monitoringu i powiadomień.
-          </p>
-        )}
+          style={{
+            fontFamily: 'var(--font-sans)',
+            fontSize: '13px',
+            color: 'var(--color-text-2)',
+            margin: 0,
+          }}
+        >
+          Masz pełen dostęp do agenta, monitoringu i powiadomień.
+        </p>
       </div>
 
-      {/* Primary action */}
-      {data?.subscription_status !== 'active' && (
-        <button
-          onClick={startCheckout}
-          disabled={actionLoading === 'checkout'}
+      {/* Platnosci w przygotowaniu */}
+      <div
+        style={{
+          background: 'var(--color-bg-1)',
+          border: '1px solid var(--color-border)',
+          borderRadius: '6px',
+          padding: '16px 20px',
+          marginBottom: '20px',
+        }}
+      >
+        <p
           style={{
-            display: 'block',
-            width: '100%',
-            background: actionLoading === 'checkout' ? 'var(--color-bg-2)' : 'var(--color-accent)',
-            color: actionLoading === 'checkout' ? 'var(--color-text-3)' : 'var(--color-bg-0)',
-            border: 'none',
-            borderRadius: '6px',
-            padding: '13px 20px',
             fontFamily: 'var(--font-mono)',
-            fontSize: '14px',
-            fontWeight: 700,
-            cursor: actionLoading === 'checkout' ? 'not-allowed' : 'pointer',
-            marginBottom: '12px',
-            textAlign: 'center',
+            fontSize: '12px',
+            color: 'var(--color-text-3)',
+            margin: 0,
+            lineHeight: 1.6,
           }}
         >
-          {actionLoading === 'checkout' ? 'Przekierowywanie...' : 'Subskrybuj -- 25 PLN/mies.'}
-        </button>
-      )}
-
-      {data?.subscription_status === 'active' && (
-        <button
-          onClick={openPortal}
-          disabled={actionLoading === 'portal'}
-          style={{
-            display: 'block',
-            width: '100%',
-            background: actionLoading === 'portal' ? 'var(--color-bg-2)' : 'var(--color-bg-1)',
-            color: actionLoading === 'portal' ? 'var(--color-text-3)' : 'var(--color-text-1)',
-            border: '1px solid var(--color-border-light)',
-            borderRadius: '6px',
-            padding: '12px 20px',
-            fontFamily: 'var(--font-mono)',
-            fontSize: '13px',
-            fontWeight: 600,
-            cursor: actionLoading === 'portal' ? 'not-allowed' : 'pointer',
-            marginBottom: '12px',
-            textAlign: 'center',
-          }}
-        >
-          {actionLoading === 'portal' ? 'Przekierowywanie...' : 'Zarządzaj subskrypcją'}
-        </button>
-      )}
+          Platnosci zostana uruchomione wkrotce. W fazie beta dostep jest bezplatny.
+        </p>
+      </div>
 
       {/* Data export */}
       <button

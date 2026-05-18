@@ -242,15 +242,15 @@ async function fetchFeed(feed: FeedMeta): Promise<FeedItem[]> {
 // Public API
 // ---------------------------------------------------------------------------
 
-export async function fetchAllFeeds(): Promise<FetchResult> {
-  const results = await Promise.allSettled(FEEDS.map(f => fetchFeed(f)));
+export async function fetchFeeds(feeds: FeedMeta[]): Promise<FetchResult> {
+  const results = await Promise.allSettled(feeds.map(f => fetchFeed(f)));
 
   const items: FeedItem[] = [];
   const active: string[] = [];
   const failed: string[] = [];
 
   results.forEach((r, i) => {
-    const feed = FEEDS[i];
+    const feed = feeds[i];
     if (r.status === 'fulfilled' && r.value.length > 0) {
       items.push(...r.value);
       active.push(feed.id);
@@ -259,7 +259,6 @@ export async function fetchAllFeeds(): Promise<FetchResult> {
     }
   });
 
-  // Sort newest first; items without dates go to end
   items.sort((a, b) => {
     if (!a.pubDate && !b.pubDate) return 0;
     if (!a.pubDate) return 1;
@@ -268,4 +267,8 @@ export async function fetchAllFeeds(): Promise<FetchResult> {
   });
 
   return { items, active, failed };
+}
+
+export async function fetchAllFeeds(): Promise<FetchResult> {
+  return fetchFeeds(FEEDS);
 }

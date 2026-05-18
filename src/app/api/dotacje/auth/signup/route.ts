@@ -77,7 +77,9 @@ export async function POST(request: NextRequest) {
     password,
     email_confirm: true,
     user_metadata: {
-      subscription_status: 'trial',
+      // Faza beta: wszyscy uzytownicy maja pelny dostep
+      // TODO: zmienic na 'trial' po wdrozeniu Stripe
+      subscription_status: 'active',
     },
   });
 
@@ -103,7 +105,9 @@ export async function POST(request: NextRequest) {
     .insert({
       id: userId,
       email: email.trim().toLowerCase(),
-      subscription_status: 'trial',
+      // Faza beta: pelny dostep bez Stripe
+      // TODO: zmienic na 'trial' po wdrozeniu platnosci
+      subscription_status: 'active',
       trial_ends_at: trialEndsAt,
     });
 

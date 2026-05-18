@@ -39,17 +39,10 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  // Check subscription status from user metadata (set during signup / webhook)
-  const subscriptionStatus =
-    session.user.user_metadata?.subscription_status ?? 'inactive';
-
-  const isSubscriptionPage = pathname === '/dotacje/panel/subskrypcja';
-
-  if (subscriptionStatus === 'inactive' && !isSubscriptionPage) {
-    const subUrl = request.nextUrl.clone();
-    subUrl.pathname = '/dotacje/panel/subskrypcja';
-    return NextResponse.redirect(subUrl);
-  }
+  // Subscription gate wyłączony -- dostęp bezpłatny w fazie beta
+  // TODO: przywrócić po wdrożeniu Stripe
+  // const subscriptionStatus = session.user.user_metadata?.subscription_status ?? 'inactive';
+  // if (subscriptionStatus === 'inactive' && pathname !== '/dotacje/panel/subskrypcja') { ... }
 
   return response;
 }
