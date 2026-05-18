@@ -45,7 +45,7 @@ const TIPS = [
   'Komu przysługuje: Zasilek przysługuje maksymalnie 14 dni rocznie za opieke nad chorym malzonkiem, rodzicem, tesciowym lub dzieckiem powyzej 14 lat.',
   'Termin: Wniosek zloz jak najszybciej po rozpoczeciu opieki. Pracodawca akceptuje wnioski z mocą wsteczna (do daty rozpoczecia choroby).',
   'Zaswiadczenie lekarskie: Do wniosku dolacz zwolnienie lekarskie (e-ZLA) lub zaswiadczenie o stanie zdrowia osoby chorej wystawione przez lekarza.',
-  'Wspolne gospodarstwo: Podopieczny musi pozostawac z Toba we wspolnym gospodarstwie domowym. Jesli mieszka oddzielnie -- zasilek nie przysluguje (poza malzonkiem i dziecmi).',
+  'Wspólne gospodarstwo: Podopieczny musi pozostawać z Tobą we wspólnym gospodarstwie domowym. Jeśli mieszka oddzielnie, zasiłek nie przysługuje (poza małżonkiem i dziećmi).',
   'Osoby w szpitalu: Jesli podopieczny jest w szpitalu, zasilek za te dni nie przysluguje. Liczony jest od dnia powrotu do domu.',
   'Prawo do limitu: Masz prawo do 14 dni zasilku opiekunczego na chorego dorosłego czlonka rodziny rocznie, niezaleznie od liczby chorujacych osob.',
 ]
@@ -54,7 +54,7 @@ const STEPS = [
   'Pobierz oryginalny formularz Z-15b ze strony: zus.pl/wzory-formularzy (wyszukaj "Z-15b").',
   'Przepisz dane z tego dokumentu do oficjalnego formularza.',
   'Dolacz zaswiadczenie lekarskie potwierdzajace chorobe podopiecznego (e-ZLA lub papierowe zaswiadczenie).',
-  'Zloz komplet dokumentow u swojego pracodawcy -- NIE bezposrednio w ZUS.',
+  'Złóż komplet dokumentów u swojego pracodawcy (NIE bezpośrednio w ZUS).',
   'Pracodawca przetworzy wniosek i przesle do ZUS przez PUE ZUS.',
   'Zasilek zostanie wyplacony przy najblizszym terminie wynagrodzenia lub przez ZUS bezposrednio.',
 ]
@@ -62,7 +62,7 @@ const STEPS = [
 export function Z15bPdf({ data, date }: { data: Z15bData; date: string }) {
   return (
     <Document
-      title={`Z-15b -- Zasilek opiekunczy (dorosly) -- ${data.imieNazwisko}`}
+      title={`Z-15b Zasiłek opiekuńczy (dorosły): ${data.imieNazwisko}`}
       author="wezmezadarmo.com"
       subject="Dokument pomocniczy do wniosku Z-15b"
     >
@@ -95,7 +95,7 @@ export function Z15bPdf({ data, date }: { data: Z15bData; date: string }) {
           <PdfField label="Powod sprawowania opieki" value={POWOD_LABELS[data.powodOpieki] ?? val(data.powodOpieki)} />
           <PdfField label="Okres opieki od" value={val(data.dataOd)} />
           <PdfField label="Okres opieki do" value={val(data.dataDo)} />
-          <PdfField label="Brak innych opiekunow -- oswiadczenie" value={val(data.innyOpieka)} />
+          <PdfField label="Brak innych opiekunów (oświadczenie)" value={val(data.innyOpieka)} />
         </PdfSection>
 
         <PdfSection title="Dane pracodawcy (platnik skladek)">

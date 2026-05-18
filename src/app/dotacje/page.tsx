@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Dotacje dla firm -- Agent AI monitorujący nabory | wezmezadarmo',
+  title: 'Dotacje dla firm | Agent AI monitorujący nabory | wezmezadarmo',
   description: 'AI agent znający profil Twojej firmy. Monitoruje KFS, PUP, PFRON, KPO i programy samorządowe. Powiadamia gdy otworzy się nabór. 25 PLN miesięcznie.',
 };
 
@@ -34,7 +34,7 @@ const PROGRAMS = [
   {
     category: 'Samorządy',
     name: 'Programy samorządowe',
-    max: 'różne -- od 5 tys. PLN',
+    max: 'różne, od 5 tys. PLN',
     description: 'Dotacje z urzędów marszałkowskich, gmin i powiatów. Różne kryteria, częste nabory lokalne. Monitoring 16 województw.',
   },
   {
@@ -49,7 +49,7 @@ const STEPS = [
   {
     num: '01',
     title: 'Podaj NIP',
-    desc: 'Agent pobiera dane firmy z CEIDG -- nazwa, adres, PKD, forma prawna. Nie wpisujesz ręcznie.',
+    desc: 'Agent pobiera dane firmy z CEIDG: nazwa, adres, PKD, forma prawna. Nie wpisujesz ręcznie.',
   },
   {
     num: '02',
@@ -71,7 +71,7 @@ const STEPS = [
 const FEATURES = [
   'Chat z agentem AI 24/7',
   'Monitoring programów dotacyjnych',
-  'Email -- powiadomienia o naborach',
+  'E-mail: powiadomienia o naborach',
   'Profil firmy na podstawie NIP',
   'Filtry: branża, rozmiar, region',
   'Historia rozmów i eksport notatek',
@@ -544,7 +544,7 @@ export default function DotacjePage() {
               margin: 0,
               lineHeight: 1.5,
             }}>
-              7 dni trial -- karta wymagana po upływie okresu próbnego.
+              7 dni trial. Karta wymagana po upływie okresu próbnego.
               Anuluj w dowolnym momencie.
             </p>
           </div>

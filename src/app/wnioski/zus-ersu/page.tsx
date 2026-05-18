@@ -186,7 +186,7 @@ function StepWnioskodawca({ data, update, onNext }: {
         <Field label="Kod pocztowy"><input className={IC} style={inputStyle} value={data.kodPocztowy} onChange={e => update('kodPocztowy', e.target.value)} placeholder="00-000" /></Field>
         <Field label="Miejscowosc"><input style={inputStyle} value={data.miejscowosc} onChange={e => update('miejscowosc', e.target.value)} /></Field>
       </div>
-      <Field label="Telefon" hint="Pole dobrowolne -- ulatwia kontakt ZUS"><input className={IC} style={inputStyle} value={data.telefon} onChange={e => update('telefon', e.target.value)} placeholder="+48 000 000 000" /></Field>
+      <Field label="Telefon" hint="Pole dobrowolne: ułatwia kontakt ZUS"><input className={IC} style={inputStyle} value={data.telefon} onChange={e => update('telefon', e.target.value)} placeholder="+48 000 000 000" /></Field>
       <Field label="Plec" hint="Wplywa na tresc oswiadczenia">
         <div style={{ display: 'flex', gap: 10 }}>
           {(['K', 'M'] as const).map(p => (
@@ -260,7 +260,7 @@ function StepSytuacja({ data, update, onBack, onNext }: {
       />
       {data.blyAreszt && (
         <div style={{ padding: '16px 20px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 10, marginBottom: 20 }}>
-          <p style={{ fontSize: 12, fontWeight: 600, marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.04em', color: 'var(--color-text-2)' }}>Okresy pobytu (od -- do)</p>
+          <p style={{ fontSize: 12, fontWeight: 600, marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.04em', color: 'var(--color-text-2)' }}>Okresy pobytu (od / do)</p>
           {data.okresy_areszt.map((o, i) => (
             <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 8 }}>
               <div>
@@ -289,7 +289,7 @@ function StepSytuacja({ data, update, onBack, onNext }: {
       />
       {!data.zamieszkaWrp && (
         <div style={{ padding: '16px 20px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 10, marginBottom: 20 }}>
-          <p style={{ fontSize: 12, fontWeight: 600, marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.04em', color: 'var(--color-text-2)' }}>Okresy pobytu POZA RP (od -- do)</p>
+          <p style={{ fontSize: 12, fontWeight: 600, marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.04em', color: 'var(--color-text-2)' }}>Okresy pobytu POZA RP (od / do)</p>
           {data.okresy_poza_rp.map((o, i) => (
             <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 8 }}>
               <div>
@@ -413,8 +413,8 @@ function buildOutput(d: EruData): string {
   const yn = (v: boolean) => v ? 'TAK' : 'NIE';
 
   const lines: string[] = [
-    'ERU -- OSWIADCZENIE O SYTUACJI OSOBISTEJ, RODZINNEJ, MAJATKOWEJ I MATERIALNEJ',
-    '(Oswiadczenie do wniosku ERSU -- Rodzicielskie swiadczenie uzupelniajace)',
+    'ERU: OSWIADCZENIE O SYTUACJI OSOBISTEJ, RODZINNEJ, MAJATKOWEJ I MATERIALNEJ',
+    '(Oswiadczenie do wniosku ERSU: Rodzicielskie swiadczenie uzupelniajace)',
     '',
     'DANE IDENTYFIKACYJNE WNIOSKODAWCY',
     `PESEL: ${d.pesel}`,
@@ -556,7 +556,7 @@ function StepDone({ onCopy, copied, onRestart }: { onCopy: () => void; copied: b
       <div style={{ padding: '16px 20px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 10, fontSize: 13, color: 'var(--color-text-2)', maxWidth: 460, margin: '0 auto', textAlign: 'left', lineHeight: 1.6 }}>
         <p style={{ fontWeight: 600, marginBottom: 8, color: 'var(--color-text-1)', textTransform: 'uppercase', fontSize: 11, letterSpacing: '0.05em' }}>Co dalej</p>
         <p style={{ marginBottom: 6 }}>1. Pobierz oryginalny formularz ERU ze strony zus.pl/wzory-formularzy</p>
-        <p style={{ marginBottom: 6 }}>2. Pobierz formularz ERSU (wniosek glowny) -- ERU to tylko zalacznik</p>
+        <p style={{ marginBottom: 6 }}>2. Pobierz formularz ERSU (wniosek glowny). ERU to tylko zalacznik</p>
         <p>3. Zloz oba formularze w oddziale ZUS lub elektronicznie przez PUE eZUS</p>
       </div>
     </div>
@@ -637,7 +637,7 @@ export default function ZusErsuPage() {
           <span style={{ fontSize: 12, color: 'var(--color-text-3)' }}>Zaklad Ubezpieczen Spolecznych</span>
         </div>
         <h1 className="display" style={{ fontSize: 'clamp(26px, 4vw, 38px)', marginBottom: 8 }}>Mama 4+ / Tata 4+</h1>
-        <p style={{ fontSize: 14, color: 'var(--color-text-3)', marginBottom: 32 }}>Rodzicielskie swiadczenie uzupelniajace -- oswiadczenie ERU</p>
+        <p style={{ fontSize: 14, color: 'var(--color-text-3)', marginBottom: 32 }}>Rodzicielskie świadczenie uzupełniające: oświadczenie ERU</p>
 
         <div style={{
           marginBottom: 32, padding: '20px 24px',

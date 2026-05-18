@@ -772,7 +772,7 @@ export default function Home() {
                     textDecoration: 'none',
                   }}>
                     <span style={{ fontSize: 13, color: 'var(--color-text-1)', fontWeight: 500 }}>
-                      Wypełnij wniosek ZUS z AI -- Z-15a, Z-3, ERPO i inne
+                      Wypełnij wniosek ZUS z AI: Z-15a, Z-3, ERPO i inne
                     </span>
                     <span style={{ fontSize: 12, color: 'var(--color-accent)', whiteSpace: 'nowrap', fontWeight: 500 }}>
                       12 formularzy &rarr;
@@ -1212,7 +1212,7 @@ export default function Home() {
                   Aktualnosci z ZUS, GUS, NBP i 5 innych instytucji
                 </h3>
                 <p style={{ fontSize: 14, color: 'var(--color-text-2)', lineHeight: 1.55, marginBottom: 20, maxWidth: 620 }}>
-                  Wszystkie wazne komunikaty rzadowe w jednym miejscu -- dopasowane do Twojego profilu.
+                  Wszystkie ważne komunikaty rządowe w jednym miejscu, dopasowane do Twojego profilu.
                   Filtruj po: JDG, firma lub wszyscy. Bez szukania po 8 osobnych stronach.
                 </p>
 
@@ -1371,7 +1371,7 @@ export default function Home() {
                   <li><a className="link-u" href="/wnioski" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Pomoc z wnioskami AI</a></li>
                   <li><a className="link-u" href="/automatyzacje" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Automatyzacje AI dla firm</a></li>
                   <li><a className="link-u" href="/aktualnosci" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Aktualności rządowe (RSS)</a></li>
-                  <li><a className="link-u" href="/dotacje" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Dotacje dla firm -- agent AI</a></li>
+                  <li><a className="link-u" href="/dotacje" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Dotacje dla firm | agent AI</a></li>
                   <li><a className="link-u" href="/llm.md" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>LLM -- świadczenia API</a></li>
                   <li><a className="link-u" href="/agents.md" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Agenci AI -- firmy B2B</a></li>
                   <li><a className="link-u" href="https://www.linkedin.com/in/kamil-sobkowicz/" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Kontakt / LinkedIn</a></li>

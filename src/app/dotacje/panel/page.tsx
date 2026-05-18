@@ -6,7 +6,7 @@ import type { EligibilityFlag } from '@/data/programs-b2b';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Panel -- Dotacje dla firm | wezmezadarmo',
+  title: 'Panel | Dotacje dla firm | wezmezadarmo',
 };
 
 const STATUS_LABEL: Record<string, string> = {

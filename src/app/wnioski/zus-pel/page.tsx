@@ -293,9 +293,9 @@ function StepZakres({ data, update, onBack, onNext }: { data: PelData; update: (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--color-text-3)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Role na portalu eZUS:</label>
             {[
-              { key: 'rolEzusUbezpieczony', label: 'Ubezpieczony -- stan konta, zgłoszenia, skladki, zwolnienia' },
-              { key: 'rolEzusSwiadzeniobiorca', label: 'Swiadczeniobiorca -- emerytury, renty, zasilki, PIT' },
-              { key: 'rolEzusPlatnik', label: 'Platnik skladek -- rozliczenia, zgłoszenia do ubezpieczen, ePłatnik' },
+              { key: 'rolEzusUbezpieczony', label: 'Ubezpieczony: stan konta, zgłoszenia, składki, zwolnienia' },
+              { key: 'rolEzusSwiadzeniobiorca', label: 'Świadczeniobiorca: emerytury, renty, zasiłki, PIT' },
+              { key: 'rolEzusPlatnik', label: 'Płatnik składek: rozliczenia, zgłoszenia do ubezpieczen, ePłatnik' },
             ].map(item => (
               <label key={item.key} style={{
                 display: 'flex', gap: 10, alignItems: 'center',
@@ -312,10 +312,10 @@ function StepZakres({ data, update, onBack, onNext }: { data: PelData; update: (
         )}
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-          <Field label="Pelnomocnictwo od" hint="DD.MM.RRRR -- jesli puste: od dnia doreczenia do ZUS">
+          <Field label="Pelnomocnictwo od" hint="DD.MM.RRRR (jesli puste: od dnia doreczenia do ZUS)">
             <DateInput className={IC} value={data.dataOd} onChange={v => update('dataOd', v)} placeholder="17.05.2026" />
           </Field>
-          <Field label="Pelnomocnictwo do" hint="DD.MM.RRRR -- jesli puste: bezterminowe">
+          <Field label="Pelnomocnictwo do" hint="DD.MM.RRRR (jesli puste: bezterminowe)">
             <DateInput className={IC} value={data.dataDo} onChange={v => update('dataDo', v)} placeholder="31.12.2026" />
           </Field>
         </div>
@@ -458,7 +458,7 @@ INSTRUKCJA:
 3. Zloz osobiscie w ZUS lub wyslij pocztą
 4. Lub udziel pelnomocnictwa elektronicznie: https://www.zus.pl/ezus/logowanie?jezyk=pl
 
-UWAGA: Zakres PEL nie obejmuje kontroli ZUS. Do reprezentowania podczas kontroli -- formularz PEL-K.
+UWAGA: Zakres PEL nie obejmuje kontroli ZUS. Do reprezentowania podczas kontroli użyj formularza PEL-K.
 
 Wygenerowano: wezmezadarmo.com/wnioski/zus-pel
 `;

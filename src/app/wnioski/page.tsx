@@ -419,7 +419,7 @@ export default function WnioskiPage() {
           <span style={{ color: 'var(--color-accent)', fontSize: 16, lineHeight: 1 }}>i</span>
           <span>
             Usługa w fazie beta: aktualnie bezpłatna. Generujemy PDF z Twoimi danymi, instrukcją złożenia i wskazówkami.
-            Ty podpisujesz i składasz wniosek samodzielnie -- serwis nie działa jako pełnomocnik ani kancelaria.
+            Ty podpisujesz i składasz wniosek samodzielnie. Serwis nie działa jako pełnomocnik ani kancelaria.
           </span>
         </div>
       </div>
@@ -499,7 +499,7 @@ export default function WnioskiPage() {
             Prywatność
           </p>
           <p style={{ fontSize: 14, color: 'var(--color-text-2)', lineHeight: 1.7 }}>
-            Twoje dane osobowe (PESEL, imię, adres) trafiają tylko do serwera w momencie generowania PDF -- wyłącznie do wypełnienia dokumentu.
+            Twoje dane osobowe (PESEL, imię, adres) trafiają tylko do serwera w momencie generowania PDF, wyłącznie do wypełnienia dokumentu.
             Nie są zapisywane, nie są przetwarzane do celów marketingowych. PDF generowany jest jednorazowo i nie jest archiwizowany.
           </p>
         </div>

@@ -71,7 +71,7 @@ const STEPS: { key: Step; label: string }[] = [
 ];
 
 const RODZAJ_LABELS: Record<RodzajNiezdolnosci, string> = {
-  'nie-dotyczy': 'Nie dotyczy -- zwykla choroba',
+  'nie-dotyczy': 'Nie dotyczy (zwykła choroba)',
   'choroba-zawodowa': 'Choroba zawodowa',
   'wypadek-przy-pracy': 'Wypadek przy pracy',
   'wypadek-w-drodze': 'Wypadek w drodze do pracy lub z pracy',
@@ -227,7 +227,7 @@ function StepWnioskodawca({ data, update, onNext }: { data: Zas53Data; update: (
           <Field label="Kod pocztowy"><input className={IC} style={{ width: 100 }} value={data.kodPocztowy} onChange={e => update('kodPocztowy', e.target.value)} placeholder="00-001" maxLength={6} /></Field>
           <Field label="Miejscowosc"><input className={IC} value={data.miejscowosc} onChange={e => update('miejscowosc', e.target.value)} placeholder="Warszawa" /></Field>
         </div>
-        <Field label="Telefon" hint="Opcjonalnie -- ulatwia kontakt ZUS">
+        <Field label="Telefon" hint="Opcjonalnie: ułatwia kontakt ZUS">
           <input className={IC} value={data.telefon} onChange={e => update('telefon', e.target.value)} placeholder="+48 600 000 000" />
         </Field>
       </div>
@@ -240,16 +240,16 @@ function StepPlatnik({ data, update, onBack, onNext }: { data: Zas53Data; update
   return (
     <div>
       <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 8, letterSpacing: '-0.01em' }}>Dane platnika skladek</h2>
-      <p style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 24 }}>Platnik to firma lub osoba, ktora oplacala za Ciebie skladki na ubezpieczenie, z ktorego wnioskujesz o zasilek. Jesli jestes przedsiebiorcy -- podaj dane swojej firmy.</p>
+      <p style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 24 }}>Platnik to firma lub osoba, ktora oplacala za Ciebie skladki na ubezpieczenie, z ktorego wnioskujesz o zasilek. Jeśli jesteś przedsiębiorcą, podaj dane swojej firmy.</p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         <Field label="Nazwa albo imie i nazwisko platnika">
-          <input className={IC} value={data.nazwaPlatinika} onChange={e => update('nazwaPlatinika', e.target.value)} placeholder="Jan Kowalski -- dzialalnosc gospodarcza" />
+          <input className={IC} value={data.nazwaPlatinika} onChange={e => update('nazwaPlatinika', e.target.value)} placeholder="Jan Kowalski, działalność gospodarcza" />
         </Field>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
           <Field label="NIP"><input className={IC} value={data.nipPlatnika} onChange={e => update('nipPlatnika', e.target.value)} placeholder="0000000000" maxLength={10} /></Field>
           <Field label="REGON"><input className={IC} value={data.regonPlatnika} onChange={e => update('regonPlatnika', e.target.value)} placeholder="000000000" maxLength={9} /></Field>
         </div>
-        <Field label="Numer rachunku bankowego" hint="Opcjonalnie. Jesli nie podasz -- ZUS wypłaci przekazem pocztowym.">
+        <Field label="Numer rachunku bankowego" hint="Opcjonalnie. Jeśli nie podasz, ZUS wypłaci przekazem pocztowym.">
           <input className={IC} value={data.nrKonta} onChange={e => update('nrKonta', e.target.value)} placeholder="PL00 0000 0000 0000 0000 0000 0000" />
         </Field>
       </div>
@@ -381,7 +381,7 @@ function StepPodglad({ data, onBack, onDone, onDownloadPdf, downloadingPdf, onCo
         <ol style={{ paddingLeft: 20, margin: 0, display: 'flex', flexDirection: 'column', gap: 8, lineHeight: 1.65 }}>
           <li><strong style={{ color: 'var(--color-text-1)' }}>Online (najszybciej):</strong> Zaloguj sie do <a href="https://www.zus.pl/ezus/logowanie?jezyk=pl" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)' }}>portalu eZUS</a> profilem zaufanym</li>
           <li><strong style={{ color: 'var(--color-text-1)' }}>Osobiscie:</strong> W oddziale ZUS wlasciwym dla miejsca zamieszkania</li>
-          <li><strong style={{ color: 'var(--color-text-1)' }}>Pocztą:</strong> Listem poleconym -- zachowaj potwierdzenie nadania</li>
+          <li><strong style={{ color: 'var(--color-text-1)' }}>Pocztą:</strong> Listem poleconym (zachowaj potwierdzenie nadania)</li>
           <li>Pobierz oryginalny formularz ZAS-53: <a href="https://www.zus.pl/wzory-formularzy" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)' }}>zus.pl/wzory-formularzy</a></li>
         </ol>
         <p style={{ marginTop: 12, fontSize: 12, color: 'var(--color-text-3)' }}>Termin: do 6 miesiecy od ostatniego dnia zwolnienia lekarskiego.</p>
@@ -459,7 +459,7 @@ Nazwa: ${d.nazwaPlatinika}
 NIP: ${d.nipPlatnika}
 REGON: ${d.regonPlatnika}
 
-Rachunek bankowy: ${d.nrKonta || '-- brak -- zasilek przekazem pocztowym'}
+Rachunek bankowy: ${d.nrKonta || '(brak - zasiłek przekazem pocztowym)'}
 
 ========================================
 WNIOSEK O ZASILEK CHOROBOWY

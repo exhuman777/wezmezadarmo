@@ -314,7 +314,7 @@ export default function PanelAktualnosciPage() {
                 type="text"
                 value={formName}
                 onChange={(e) => setFormName(e.target.value)}
-                placeholder="np. MF -- komunikaty podatkowe"
+                placeholder="np. MF: komunikaty podatkowe"
                 required
                 className="input-focus"
                 style={inputStyle}
@@ -498,7 +498,7 @@ export default function PanelAktualnosciPage() {
             Powiadomienia trafiają na adres email przypisany do Twojego konta. Aby zmienić adres kontaktowy, zaktualizuj profil firmy.
           </p>
           <p style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--color-text-3)', margin: 0 }}>
-            Częstotliwość sprawdzania -- zgodnie z ustawieniem każdego feeda (domyślnie: co 24 godz.).
+            Częstotliwość sprawdzania: zgodnie z ustawieniem każdego feeda (domyślnie: co 24 godz.).
           </p>
         </div>
       </div>

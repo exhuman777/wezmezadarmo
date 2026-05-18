@@ -217,7 +217,7 @@ export function PdfHeader({ symbol, date }: { symbol?: string; date: string }) {
       <View style={{ alignItems: 'flex-end' }}>
         {symbol && <Text style={[S.headerMeta, { color: '#c87a1a', fontWeight: 'bold' }]}>{symbol}</Text>}
         <Text style={S.headerMeta}>Przygotowano: {date}</Text>
-        <Text style={S.headerMeta}>Dokument pomocniczy -- NIE jest oficjalnym formularzem ZUS</Text>
+        <Text style={S.headerMeta}>Dokument pomocniczy (NIE jest oficjalnym formularzem ZUS)</Text>
       </View>
     </View>
   )
@@ -276,7 +276,7 @@ export function PdfTips({ title, tips }: { title?: string; tips: string[] }) {
 export function PdfSteps({ title, steps }: { title?: string; steps: string[] }) {
   return (
     <View style={S.stepsSection}>
-      <Text style={S.stepsSectionTitle}>{title ?? 'Co zrobic dalej -- instrukcja zlozenia'}</Text>
+      <Text style={S.stepsSectionTitle}>{title ?? 'Co zrobić dalej: instrukcja złożenia'}</Text>
       {steps.map((step, i) => (
         <View key={i} style={S.stepItem}>
           <Text style={S.stepNum}>{i + 1}.</Text>

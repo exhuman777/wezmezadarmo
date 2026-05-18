@@ -211,7 +211,7 @@ export default function ZusZ15bPage() {
           boxShadow: 'var(--shadow-1)',
         }}>
           <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 6, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Komu przysluguje</p>
-          <p style={{ marginBottom: 14 }}>Pracownicy i zleceniobiorcy oplacajacy skladke chorobowa, opiekujacy sie chorym malzonkiem, rodzicem, rodzicem dziecka, dziadkiem, wnukiem lub rodzenstwem -- prowadzacym z nimi wspolne gospodarstwo domowe. Zasilek 80% wynagrodzenia. Limit: 14 dni w roku (30 dni dla niepelnosprawnych doroslych).</p>
+          <p style={{ marginBottom: 14 }}>Pracownicy i zleceniobiorcy oplacajacy skladke chorobowa, opiekujacy sie chorym malzonkiem, rodzicem, rodzicem dziecka, dziadkiem, wnukiem lub rodzenstwem prowadzacym z nimi wspolne gospodarstwo domowe. Zasilek 80% wynagrodzenia. Limit: 14 dni w roku (30 dni dla niepelnosprawnych doroslych).</p>
           <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 6, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Jak zlozyc</p>
           <p>Wniosek skladasz u pracodawcy (platnika skladek), nie bezposrednio w ZUS. Pracodawca przesyla go elektronicznie przez PUE ZUS.</p>
         </div>
@@ -302,7 +302,7 @@ function StepWnioskodawca({ data, update, onNext }: { data: Z15bData; update: (k
             <input className={IC} value={data.miejscowosc} onChange={e => update('miejscowosc', e.target.value)} placeholder="Warszawa" />
           </Field>
         </div>
-        <Field label="Numer telefonu" hint="Opcjonalnie -- ulatwia kontakt ZUS w Twojej sprawie">
+        <Field label="Numer telefonu" hint="Opcjonalnie: ułatwia kontakt ZUS w Twojej sprawie">
           <input className={IC} value={data.telefon} onChange={e => update('telefon', e.target.value)} placeholder="+48 600 000 000" />
         </Field>
       </div>
@@ -328,7 +328,7 @@ function StepPlatnik({ data, update, onBack, onNext }: { data: Z15bData; update:
             <input className={IC} value={data.regonPlatnika} onChange={e => update('regonPlatnika', e.target.value)} placeholder="000000000" maxLength={9} />
           </Field>
         </div>
-        <Field label="Numer rachunku bankowego do wyplaty" hint="Opcjonalne. Jesli nie podasz -- ZUS wypłaci przekazem pocztowym">
+        <Field label="Numer rachunku bankowego do wyplaty" hint="Opcjonalne. Jeśli nie podasz, ZUS wypłaci przekazem pocztowym">
           <input className={IC} value={data.nrKonta} onChange={e => update('nrKonta', e.target.value)} placeholder="PL00 0000 0000 0000 0000 0000 0000" />
         </Field>
       </div>
@@ -356,7 +356,7 @@ function StepEzla({ data, update, onBack, onNext }: { data: Z15bData; update: (k
         </Field>
         <div style={{ padding: '12px 16px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 8, fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.6 }}>
           <p style={{ fontWeight: 600, color: 'var(--color-text-2)', marginBottom: 4 }}>e-ZLA</p>
-          <p>Zaswiadczenie lekarskie wystawione elektronicznie trafia do ZUS automatycznie. Jesli masz papierowe zaswiadczenie -- dolacz oryginał do wniosku. Limit zasilku Z-15b: 14 dni w roku kalendarzowym.</p>
+          <p>Zaswiadczenie lekarskie wystawione elektronicznie trafia do ZUS automatycznie. Jeśli masz papierowe zaświadczenie, dołącz oryginał do wniosku. Limit zasilku Z-15b: 14 dni w roku kalendarzowym.</p>
         </div>
       </div>
       <NavButtons onBack={onBack} onNext={onNext} nextDisabled={!valid} />
@@ -555,7 +555,7 @@ function StepPodglad({ data, onBack, onDone, onDownloadPdf, downloadingPdf, onCo
         <ol style={{ paddingLeft: 20, margin: 0, display: 'flex', flexDirection: 'column', gap: 8, lineHeight: 1.65 }}>
           <li>Pobierz oryginalny formularz Z-15b ze strony <a href="https://www.zus.pl/wzory-formularzy" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)' }}>zus.pl/wzory-formularzy</a> i przepisz dane</li>
           <li>Dolacz zaswiadczenie lekarskie (e-ZLA lub papierowe)</li>
-          <li>Zloz wniosek u pracodawcy -- nie bezposrednio w ZUS</li>
+          <li>Złóż wniosek u pracodawcy (nie bezpośrednio w ZUS)</li>
           <li>Pracodawca przesle do ZUS przez PUE ZUS</li>
         </ol>
         <p style={{ marginTop: 12, fontSize: 12, color: 'var(--color-text-3)' }}>Limit zasilku Z-15b: 14 dni w roku (30 dni dla niepelnosprawnych doroslych ze znacznym stopniem). Limit wspolny z zasilkiem na dzieci: max 60 dni lacznie.</p>
@@ -637,7 +637,7 @@ Nazwa: ${d.nazwaPlatinika}
 NIP: ${d.nipPlatnika}
 REGON: ${d.regonPlatnika}
 
-Rachunek bankowy (dobrowolnie): ${d.nrKonta || '-- brak -- zasilek przekazem pocztowym'}
+Rachunek bankowy (dobrowolnie): ${d.nrKonta || '(brak - zasiłek przekazem pocztowym)'}
 
 ========================================
 OKRES OPIEKI
@@ -670,7 +670,7 @@ OSWIADCZAM, ZE
 ========================================
 DANE MALZONKA
 
-${d.brakMalzonka ? 'Brak malzonka -- zaznaczone w formularzu' : `Imie i nazwisko: ${d.imieNazwiskoMalzonka}
+${d.brakMalzonka ? 'Brak małżonka (zaznaczone w formularzu)' : `Imie i nazwisko: ${d.imieNazwiskoMalzonka}
 PESEL: ${d.peselMalzonka}
 Malzonek pracuje: ${d.malzonekPracuje === 'tak' ? 'TAK' : 'NIE'}
 Malzonek pobierał zasilek opiekuńczy w tym roku: ${d.malzonekZasilek === 'tak' ? 'TAK -- dni na chorych doroslych: ' + (d.malzonekDniDorosli || 'nie podano') : 'NIE'}`}
@@ -687,7 +687,7 @@ INSTRUKCJA:
 1. Pobierz oryginalny Z-15b z: https://www.zus.pl/wzory-formularzy
 2. Przepisz dane WIELKIMI LITERAMI
 3. Dolacz zaswiadczenie lekarskie (e-ZLA lub papierowe)
-4. Zloz u pracodawcy -- nie w ZUS
+4. Złóż u pracodawcy (nie w ZUS)
 
 Wygenerowano: wezmezadarmo.com/wnioski/zus-z15b
 Adres do korespondencji: ${adres}

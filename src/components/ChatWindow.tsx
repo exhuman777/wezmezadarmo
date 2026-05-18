@@ -140,7 +140,7 @@ export function ChatWindow({
   function downloadMd() {
     const allBenefits = getAllBenefits();
     const lines: string[] = [
-      '# Moje świadczenia i ulgi -- wezmezadarmo.com',
+      '# Moje świadczenia i ulgi | wezmezadarmo.com',
       '',
       `Wygenerowano: ${new Date().toLocaleDateString('pl-PL')}`,
       `Łącznie: ${results.length} świadczeń`,

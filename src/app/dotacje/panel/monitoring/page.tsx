@@ -14,14 +14,14 @@ interface NotificationLog {
 }
 
 const CATEGORIES = [
-  { id: 'kfs', label: 'KFS -- Krajowy Fundusz Szkoleniowy' },
-  { id: 'pup', label: 'PUP -- Powiatowe Urzędy Pracy' },
-  { id: 'pfron', label: 'PFRON -- Fundusz Rehabilitacji Niepełnosprawnych' },
-  { id: 'kpo', label: 'KPO -- Krajowy Plan Odbudowy' },
-  { id: 'samorzad', label: 'Samorządy -- programy lokalne' },
-  { id: 'parp_feng', label: 'PARP / FENG -- fundusze europejskie' },
-  { id: 'ncbr', label: 'NCBR -- badania i rozwój' },
-  { id: 'nfz', label: 'NFZ -- ochrona zdrowia' },
+  { id: 'kfs', label: 'KFS: Krajowy Fundusz Szkoleniowy' },
+  { id: 'pup', label: 'PUP: Powiatowe Urzędy Pracy' },
+  { id: 'pfron', label: 'PFRON: Fundusz Rehabilitacji Niepełnosprawnych' },
+  { id: 'kpo', label: 'KPO: Krajowy Plan Odbudowy' },
+  { id: 'samorzad', label: 'Samorządy: programy lokalne' },
+  { id: 'parp_feng', label: 'PARP / FENG: fundusze europejskie' },
+  { id: 'ncbr', label: 'NCBR: badania i rozwój' },
+  { id: 'nfz', label: 'NFZ: ochrona zdrowia' },
 ];
 
 export default function MonitoringPage() {

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Regulamin -- dotacje | wezmezadarmo',
+  title: 'Regulamin | dotacje | wezmezadarmo',
   description: 'Regulamin usługi dotacje.wezmezadarmo.com -- warunki korzystania, subskrypcja, prawa użytkownika.',
 };
 
@@ -132,11 +132,11 @@ export default function RegulaminsPage() {
       <section style={SECTION_STYLE}>
         <h2 style={H2_STYLE}>§1 Definicje</h2>
         <ul style={UL_STYLE}>
-          <Li><strong>Usługodawca</strong> -- wezmezadarmo.com, operator serwisu dotacje.wezmezadarmo.com.</Li>
-          <Li><strong>Użytkownik</strong> -- osoba fizyczna lub prawna, która zarejestrowała konto w serwisie.</Li>
-          <Li><strong>Agent AI</strong> -- system sztucznej inteligencji oparty na dużym modelu językowym (LLM), dostępny w panelu użytkownika.</Li>
-          <Li><strong>Subskrypcja</strong> -- odpłatna usługa dostępu do panelu, agenta AI i powiadomień, w cenie 25 PLN brutto miesięcznie.</Li>
-          <Li><strong>Okres próbny</strong> -- 7 bezpłatnych dni od rejestracji konta.</Li>
+          <Li><strong>Usługodawca</strong>: wezmezadarmo.com, operator serwisu dotacje.wezmezadarmo.com.</Li>
+          <Li><strong>Użytkownik</strong>: osoba fizyczna lub prawna, która zarejestrowała konto w serwisie.</Li>
+          <Li><strong>Agent AI</strong>: system sztucznej inteligencji oparty na dużym modelu językowym (LLM), dostępny w panelu użytkownika.</Li>
+          <Li><strong>Subskrypcja</strong>: odpłatna usługa dostępu do panelu, agenta AI i powiadomień, w cenie 25 PLN brutto miesięcznie.</Li>
+          <Li><strong>Okres próbny</strong>: 7 bezpłatnych dni od rejestracji konta.</Li>
         </ul>
       </section>
 
@@ -149,7 +149,7 @@ export default function RegulaminsPage() {
         <ul style={UL_STYLE}>
           <Li>Bazę informacji o polskich programach wsparcia publicznego dla firm (KFS, PUP, PFRON, KPO, samorządy, PARP/FENG).</Li>
           <Li>Agenta AI odpowiadającego na pytania dotyczące programów dopasowanych do profilu firmy Użytkownika.</Li>
-          <Li>System monitorowania naborów -- powiadomienia e-mail wysyłane co tydzień, w każdy poniedziałek rano.</Li>
+          <Li>System monitorowania naborów (powiadomienia e-mail wysyłane co tydzień, w każdy poniedziałek rano).</Li>
         </ul>
         <p style={P_STYLE}>
           Usługa ma charakter informacyjny. Usługodawca nie gwarantuje przyznania
@@ -208,7 +208,7 @@ export default function RegulaminsPage() {
         <p style={P_STYLE}>
           Administratorem danych osobowych jest Usługodawca. Dane przetwarzane są
           w celu świadczenia usługi, obsługi subskrypcji i wysyłania powiadomień.
-          Szczegóły -- Polityka przejrzystości AI i Polityka prywatności dostępna
+          Szczegóły: Polityka przejrzystości AI i Polityka prywatności dostępna
           na stronie serwisu.
         </p>
         <ul style={UL_STYLE}>
@@ -247,7 +247,7 @@ export default function RegulaminsPage() {
         <h2 style={H2_STYLE}>§9 Postanowienia końcowe</h2>
         <ul style={UL_STYLE}>
           <Li>W sprawach nieuregulowanych zastosowanie ma prawo polskie.</Li>
-          <Li>Usługodawca zastrzega prawo zmiany regulaminu z 14-dniowym wyprzedzeniem -- o istotnych zmianach poinformujemy e-mailem.</Li>
+          <Li>Usługodawca zastrzega prawo zmiany regulaminu z 14-dniowym wyprzedzeniem. O istotnych zmianach poinformujemy e-mailem.</Li>
           <Li>Korzystanie z usługi po wejściu w życie zmian oznacza akceptację nowego regulaminu.</Li>
           <Li>Regulamin obowiązuje od 17 maja 2026 r.</Li>
         </ul>

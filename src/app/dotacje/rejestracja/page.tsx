@@ -322,7 +322,7 @@ export default function RejestracjaPage() {
             color: 'var(--color-text-3)',
             margin: '0 0 16px 0',
           }}>
-            Krok {step} z 3 -- {step === 1 ? 'dane konta' : step === 2 ? 'profil firmy' : 'profil dotacyjny'}
+            Krok {step} z 3: {step === 1 ? 'dane konta' : step === 2 ? 'profil firmy' : 'profil dotacyjny'}
           </p>
 
           {/* Progress bar */}
@@ -412,7 +412,7 @@ export default function RejestracjaPage() {
             </div>
 
             <button onClick={handleStep1Next} style={primaryButtonStyle()}>
-              Dalej -- profil firmy
+              Dalej: profil firmy
             </button>
 
             <div style={{
@@ -615,7 +615,7 @@ export default function RejestracjaPage() {
                 onClick={handleStep2Next}
                 style={{ ...primaryButtonStyle(), flex: 1 }}
               >
-                Dalej -- profil dotacyjny
+                Dalej: profil dotacyjny
               </button>
             </div>
           </div>

@@ -33,18 +33,18 @@ const FORMA_LABELS: Record<string, string> = {
 const TIPS = [
   'Kiedy skladac ZAS-53: Wniosek ten sklada sie bezposrednio do ZUS tylko gdy pracodawca nie jest platnikiem zasilkow (zatrudnia ponizej 20 pracownikow) lub gdy sam jestes platnikiem (DG).',
   'L4 i e-ZLA: Upewnij sie ze lekarz wystawil e-ZLA (elektroniczne zwolnienie). Numer e-ZLA widoczny jest na zwolnieniu lub przez IKP (Internetowe Konto Pacjenta). Dolacz go do wniosku.',
-  'Wypadek przy pracy: Jesli zwolnienie wynika z wypadku przy pracy lub choroby zawodowej -- zasilek wynosi 100% (nie 80%). Zaznacz to w wniosku i dolacz protokol powypadkowy.',
-  'Termin wyplaty: ZUS ma 30 dni na wyplate zasilku od daty zlozenia wniosku. Jesli minal termin -- mozna zlozyc skarge do dyrektora oddzialu ZUS.',
+  'Wypadek przy pracy: Jeśli zwolnienie wynika z wypadku przy pracy lub choroby zawodowej, zasiłek wynosi 100% (nie 80%). Zaznacz to w wniosku i dołącz protokół powypadkowy.',
+  'Termin wypłaty: ZUS ma 30 dni na wypłatę zasiłku od daty złożenia wniosku. Jeśli minął termin, można złożyć skargę do dyrektora oddziału ZUS.',
   'Przedsiebiorca: Majac DG i oplacajac dobrowolne ubezpieczenie chorobowe masz prawo do zasilku po 90 dniach od wstapienia do ubezpieczenia. Sprawdz daty.',
   'Stawka zasilku: 80% podstawy wymiaru (srednia z 12 miesiecy lub pelny rok dzialalnosci). W ciazy: 100%. Po wypadku przy pracy: 100%.',
-  'Korekta: Jesli ZUS zamiast zasilku wyslal Ci odmowe -- masz 30 dni na odwolanie do Oddzialu ZUS. Warto sie odwolac, czesto sa bledu formalne.',
+  'Korekta: Jeśli ZUS zamiast zasiłku wysłał Ci odmowę, masz 30 dni na odwołanie do Oddziału ZUS. Warto się odwołać, często są błędy formalne.',
 ]
 
 const STEPS = [
   'Pobierz oryginalny formularz ZAS-53 ze strony: zus.pl/wzory-formularzy (wyszukaj "ZAS-53").',
   'Przepisz dane z tego dokumentu do oficjalnego formularza.',
   'Dolacz e-ZLA (elektroniczne zwolnienie lekarskie) lub kserokopie papierowego L4.',
-  'Jesli wypadek przy pracy -- dolacz protokol BHP powypadkowy wystawiony przez pracodawce.',
+  'Jeśli wypadek przy pracy: dołącz protokół BHP powypadkowy wystawiony przez pracodawcę.',
   'Zloz formularz bezposrednio w oddziale ZUS lub wysylaj listem poleconym lub przez PUE ZUS.',
   'ZUS ma 30 dni na rozpatrzenie i wyplate zasilku.',
 ]
@@ -52,7 +52,7 @@ const STEPS = [
 export function Zas53Pdf({ data, date }: { data: Zas53Data; date: string }) {
   return (
     <Document
-      title={`ZAS-53 -- Zasilek chorobowy -- ${data.imieNazwisko}`}
+      title={`ZAS-53 Zasiłek chorobowy: ${data.imieNazwisko}`}
       author="wezmezadarmo.com"
       subject="Dokument pomocniczy do wniosku ZAS-53"
     >

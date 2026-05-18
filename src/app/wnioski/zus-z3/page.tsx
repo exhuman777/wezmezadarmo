@@ -41,14 +41,14 @@ const STEPS: { key: Step; label: string }[] = [
 ];
 
 const CHECKLIST_ITEMS = [
-  { id: 'dane_pracownika', label: 'Dane pracownika: imie i nazwisko, PESEL, adres -- czy sa poprawne?' },
-  { id: 'dane_platnika', label: 'Dane platnika skladek: NIP, REGON, nazwa firmy -- czy odpowiadaja rzeczywistosci?' },
+  { id: 'dane_pracownika', label: 'Dane pracownika: imię i nazwisko, PESEL, adres. Czy są poprawne?' },
+  { id: 'dane_platnika', label: 'Dane platnika skladek: NIP, REGON, nazwa firmy. Czy odpowiadaja rzeczywistosci?' },
   { id: 'okres_zatrudnienia', label: 'Okres zatrudnienia: czy data od-do jest poprawna?' },
-  { id: 'podstawa_wymiaru', label: 'Podstawa wymiaru zasilku: srednie wynagrodzenie brutto z 12 ostatnich miesiecy -- czy zgadza sie z Twoimi paskami?' },
+  { id: 'podstawa_wymiaru', label: 'Podstawa wymiaru zasilku: srednie wynagrodzenie brutto z 12 ostatnich miesiecy. Czy zgadza sie z Twoimi paskami?' },
   { id: 'skladka_chorobowa', label: 'Informacja o skladce chorobowej: czy pracodawca potwierdza ze oplacal za Ciebie skladke chorobowa?' },
   { id: 'przerwy', label: 'Przerwy w ubezpieczeniu: czy sa prawidlowo uwzglednione (urlopy bezplatne, przerwy w zatrudnieniu)?' },
-  { id: 'podpis', label: 'Podpis i pieczetka pracodawcy lub osoby upowazionej -- czy sa na dokumencie?' },
-  { id: 'data', label: 'Data wystawienia zaswiadczenia -- czy jest wspolczesna (nie stara)?', },
+  { id: 'podpis', label: 'Podpis i pieczetka pracodawcy lub osoby upowazionej. Czy sa na dokumencie?' },
+  { id: 'data', label: 'Data wystawienia zaswiadczenia. Czy jest wspolczesna (nie stara)?', },
 ];
 
 export default function ZusZ3Page() {
@@ -128,7 +128,7 @@ export default function ZusZ3Page() {
           <span style={{ fontSize: 12, color: 'var(--color-text-3)' }}>Zaswiadczenie platnika skladek</span>
         </div>
         <h1 className="display" style={{ fontSize: 'clamp(26px, 4vw, 38px)', marginBottom: 8 }}>Zaswiadczenie Z-3</h1>
-        <p style={{ fontSize: 14, color: 'var(--color-text-3)', marginBottom: 32 }}>Przewodnik dla pracownika -- jak sprawdzic i uzyskac Z-3 od pracodawcy</p>
+        <p style={{ fontSize: 14, color: 'var(--color-text-3)', marginBottom: 32 }}>Przewodnik dla pracownika: jak sprawdzić i uzyskać Z-3 od pracodawcy</p>
 
         {/* Step progress bar */}
         {step !== 'done' && (
@@ -155,7 +155,7 @@ export default function ZusZ3Page() {
                 <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 8, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Kiedy jest potrzebny</p>
                 <p style={{ marginBottom: 10 }}>Z-3 jest potrzebny gdy ubiegasz sie o zasilek chorobowy lub inne swiadczenia i:</p>
                 <ul style={{ paddingLeft: 20, margin: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
-                  <li>Pracodawca ma do 20 pracownikow -- wyplaca zasilek ZUS, nie pracodawca</li>
+                  <li>Pracodawca ma do 20 pracowników: wypłaca zasiłek ZUS, nie pracodawca</li>
                   <li>Skladas ZAS-53 bezposrednio do ZUS</li>
                   <li>ZUS poprosi pracodawce o Z-3 podczas weryfikacji wniosku</li>
                 </ul>
@@ -195,7 +195,7 @@ export default function ZusZ3Page() {
                   <DateInput className={IC} value={data.dataDo} onChange={v => update('dataDo', v)} placeholder="15.05.2026" />
                 </Field>
               </div>
-              <Field label="Twoje srednie wynagrodzenie brutto (PLN/mies.)" hint="Orientacyjna podstawa wymiaru zasilku -- sprawdzisz na paskach plac">
+              <Field label="Twoje srednie wynagrodzenie brutto (PLN/mies.)" hint="Orientacyjna podstawa wymiaru zasiłku (sprawdzisz na paskach płac)">
                 <input className={IC} value={data.podstawaWymiaru} onChange={e => update('podstawaWymiaru', e.target.value)} placeholder="5000" />
               </Field>
             </div>
@@ -206,7 +206,7 @@ export default function ZusZ3Page() {
         {step === 'checklist' && (
           <div>
             <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 8, letterSpacing: '-0.01em' }}>Checklista Z-3</h2>
-            <p style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 24 }}>Gdy juz otrzymasz Z-3 od pracodawcy -- sprawdz czy zawiera wszystkie wymagane informacje.</p>
+            <p style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 24 }}>Gdy już otrzymasz Z-3 od pracodawcy, sprawdź czy zawiera wszystkie wymagane informacje.</p>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 24 }}>
               {CHECKLIST_ITEMS.map(item => (
@@ -281,7 +281,7 @@ export default function ZusZ3Page() {
               <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 12, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Jesli pracodawca zwleka lub odmawia</p>
               <ol style={{ paddingLeft: 20, margin: 0, display: 'flex', flexDirection: 'column', gap: 8, lineHeight: 1.65 }}>
                 <li>Pracodawca ma obowiazek wystawic Z-3 -- to wymog prawny (art. 61 ustawy o swiadczeniach pienieznych)</li>
-                <li>Jesli zwleka ponad 7 dni -- zglós to do ZUS. ZUS moze sam zwrocic sie do pracodawcy o dane.</li>
+                <li>Jeśli zwleka ponad 7 dni, zgłoś to do ZUS. ZUS moze sam zwrocic sie do pracodawcy o dane.</li>
                 <li>W ostatecznosci ZUS moze sam wyliczyc podstawe na podstawie dostepnych danych z konta ubezpieczonego</li>
                 <li>Mozesz tez zlozyc skarge do Panstwowej Inspekcji Pracy (PIP)</li>
               </ol>

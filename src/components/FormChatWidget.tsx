@@ -9,23 +9,23 @@ interface Message {
 }
 
 const FORM_LABELS: Record<string, string> = {
-  'zus-zas53': 'ZAS-53 Zasilek chorobowy',
-  'zus-z15a':  'Z-15A Zasilek opiekunczy (dziecko)',
-  'zus-z15b':  'Z-15B Zasilek opiekunczy (dorosly)',
-  'zus-pel':   'PEL Pelnomocnictwo ZUS',
+  'zus-zas53': 'ZAS-53 Zasiłek chorobowy',
+  'zus-z15a':  'Z-15A Zasiłek opiekuńczy (dziecko)',
+  'zus-z15b':  'Z-15B Zasiłek opiekuńczy (dorosły)',
+  'zus-pel':   'PEL Pełnomocnictwo ZUS',
   'zus-erpo':  'ERPO Emerytura',
   'zus-ersu':  'ERSU Mama 4+',
-  'zus-z3':    'Z-3 Zaswiadczenie platnika',
+  'zus-z3':    'Z-3 Zaświadczenie płatnika',
 };
 
 const STARTER_HINTS: Record<string, string[]> = {
-  'zus-zas53': ['Kto moze zlozyc ZAS-53?', 'Ile wynosi zasilek chorobowy?', 'Jaki jest termin zloze?'],
-  'zus-z15a':  ['Ile dni zasilku przysluguje?', 'Co wpisac w e-ZLA?', 'Czy drugi rodzic musi podpisac?'],
-  'zus-z15b':  ['Kto jest czlonkiem rodziny wg ZUS?', 'Ile dni zasilku?', 'Co oznacza wspolne gospodarstwo?'],
-  'zus-pel':   ['Kto moze byc pelnomocnikiem?', 'Jak zlozyc pelnomocnictwo?', 'Jak odwolac pelnomocnictwo?'],
-  'zus-erpo':  ['Kiedy moge przejsc na emeryture?', 'Co to jest emerytura kapitałowa?', 'Jakie dokumenty potrzebuje?'],
-  'zus-ersu':  ['Komu przysluguje Mama 4+?', 'Ile wynosi swiadczenie?', 'Kiedy ojciec moze ubiegac sie o Tata 4+?'],
-  'zus-z3':    ['Kto wystawia Z-3?', 'Kiedy potrzebne jest Z-3?', 'Jakie wynagrodzenie wpisac?'],
+  'zus-zas53': ['Kto może złożyć ZAS-53?', 'Ile wynosi zasiłek chorobowy?', 'Jaki jest termin złożenia?'],
+  'zus-z15a':  ['Ile dni zasiłku przysługuje?', 'Co wpisać w e-ZLA?', 'Czy drugi rodzic musi podpisać?'],
+  'zus-z15b':  ['Kto jest członkiem rodziny wg ZUS?', 'Ile dni zasiłku?', 'Co oznacza wspólne gospodarstwo?'],
+  'zus-pel':   ['Kto może być pełnomocnikiem?', 'Jak złożyć pełnomocnictwo?', 'Jak odwołać pełnomocnictwo?'],
+  'zus-erpo':  ['Kiedy mogę przejść na emeryturę?', 'Co to jest emerytura kapitałowa?', 'Jakie dokumenty potrzebuję?'],
+  'zus-ersu':  ['Komu przysługuje Mama 4+?', 'Ile wynosi świadczenie?', 'Kiedy ojciec może ubiegać się o Tata 4+?'],
+  'zus-z3':    ['Kto wystawia Z-3?', 'Kiedy potrzebne jest Z-3?', 'Jakie wynagrodzenie wpisać?'],
 };
 
 interface Props {
@@ -48,7 +48,7 @@ export function FormChatWidget({ formType }: Props) {
       // welcome message
       setMessages([{
         role: 'assistant',
-        content: `Czesc! Jestem asystentem do formularza ${formLabel}. Zadaj mi pytanie -- odpowiem konkretnie.`,
+        content: `Cześć! Jestem asystentem do formularza ${formLabel}. Zadaj mi pytanie. Odpowiem konkretnie.`,
       }]);
     }
   }, [open, formLabel, messages.length]);

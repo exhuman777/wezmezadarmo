@@ -38,30 +38,30 @@ const FORMA_LABELS: Record<string, string> = {
 }
 
 const TIPS = [
-  'Wiek emerytalny: Kobiety -- 60 lat, Mezczyzni -- 65 lat. Mozna przejsc pozniej (kazdy miesiac opoznienia zwieksza emeryture o ok. 0.07%).',
+  'Wiek emerytalny: Kobiety 60 lat, Mężczyźni 65 lat. Można przejść później (każdy miesiąc opóźnienia zwiększa emeryturę o ok. 0.07%).',
   'PUE ZUS: Wniosek ERPO najlatwiej zlozyc elektronicznie przez Platforme Uslug Elektronicznych ZUS (pue.zus.pl) z profilem zaufanym. Nie trzeba isc do ZUS osobiscie.',
   'Dokumenty do dostarczenia: Zbierz wszystkie swiadectwa pracy z historii zatrudnienia (od 1999 roku sa juz w systemie ZUS, wczesniejsze musisz dostarczyc).',
   'Staz: Do wniosku potrzebny jest lacznie co najmniej 20 lat (kobiety) lub 25 lat (mezczyzni) okresow skladkowych i nieskładkowych. Sprawdz swoj staz przez IKP lub PUE ZUS.',
   'Emerytura i praca: Mozesz podjac prace po przejsciu na emeryture bez limitow zarobkow (od 2024 r. zniesiono ograniczenia).',
-  'Zawieszenie renty: Jesli pobierasz rente z tytulu niezdolnosci do pracy -- automatycznie zmienia sie ona w emeryture po osiagnieciu wieku emerytalnego. Nie musisz sk ladac osobnego wniosku.',
+  'Zawieszenie renty: Jeśli pobierasz rentę z tytułu niezdolności do pracy, automatycznie zmienia się ona w emeryturę po osiągnięciu wieku emerytalnego. Nie musisz składać osobnego wniosku.',
   'Termin wyplaty: Emerytura wyplacana jest od miesiaca zgloszenia wniosku (nie wstecznie). Zloz wniosek w miesiacu osigniecia wieku emerytalnego lub wczesniej.',
   'Fundusz emerytalny OFE: Jesli nalezysz do OFE, podczas skladania wniosku mozesz wybrac czy chcesz transferowac srodki do ZUS czy zostawic w OFE.',
 ]
 
 const STEPS = [
   'Zaloguj sie do PUE ZUS (pue.zus.pl) z profilem zaufanym lub e-dowodem.',
-  'Wypelnij wniosek ERPO elektronicznie na platformie PUE ZUS -- uzyj danych z tego dokumentu.',
+  'Wypełnij wniosek ERPO elektronicznie na platformie PUE ZUS. Użyj danych z tego dokumentu.',
   'Alternatywnie: pobierz formularz ERPO z zus.pl/wzory-formularzy i przepisz dane.',
-  'Dolacz historyczne swiadectwa pracy (od 1999 roku ZUS ma dane w systemie; wczesniejsze lata -- dostarcz papierowe dokumenty).',
-  'Jesli masz okresy pracy za granica (UE) -- dolacz zaswiadczenia z tamtejszych instytucji ubezpieczeniowych.',
+  'Dołącz historyczne świadectwa pracy (od 1999 roku ZUS ma dane w systemie; dla wcześniejszych lat dostarcz papierowe dokumenty).',
+  'Jeśli masz okresy pracy za granicą (UE), dołącz zaświadczenia z tamtejszych instytucji ubezpieczeniowych.',
   'Zloz wniosek przez PUE ZUS, poczte (polecony), lub osobiscie w oddziale ZUS.',
-  'ZUS wyda decyzje w ciagu 30 dni. Pierwsza wyplata -- w miesiacu zlozenia lub nastepnym.',
+  'ZUS wyda decyzję w ciągu 30 dni. Pierwsza wypłata w miesiącu złożenia lub następnym.',
 ]
 
 export function ErpoPdf({ data, date }: { data: ErpoData; date: string }) {
   return (
     <Document
-      title={`ERPO -- Wniosek o emeryture -- ${data.imieNazwisko}`}
+      title={`ERPO Wniosek o emeryturę: ${data.imieNazwisko}`}
       author="wezmezadarmo.com"
       subject="Dokument pomocniczy do wniosku o emeryture ERPO"
     >
@@ -71,7 +71,7 @@ export function ErpoPdf({ data, date }: { data: ErpoData; date: string }) {
         <View style={{ marginBottom: 16 }}>
           <View style={S.formBadge}><Text style={S.formBadgeText}>ERPO / ZUS</Text></View>
           <Text style={S.title}>Wniosek o emeryture</Text>
-          <Text style={S.subtitle}>Emerytura z FUS -- przyznanie swiadczenia emerytalnego</Text>
+          <Text style={S.subtitle}>Emerytura z FUS: przyznanie świadczenia emerytalnego</Text>
         </View>
 
         <PdfDisclaimer />

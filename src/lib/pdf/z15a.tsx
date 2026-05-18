@@ -39,13 +39,13 @@ const RELACJA_LABELS: Record<string, string> = {
 }
 
 const TIPS = [
-  'Termin: Zloz wniosek jak najszybciej po rozpoczeciu opieki -- zasilek jest liczony od dnia sprawowania opieki, ale wniosek musi dotrzec do pracodawcy w ciagu 7 dni.',
-  'e-ZLA: Lekarz wystawia elektroniczne zwolnienie (e-ZLA). Pracodawca widzi je automatycznie przez PUE ZUS -- nie musisz dostarczac papierowego zwolnienia.',
+  'Termin: Złóż wniosek jak najszybciej po rozpoczęciu opieki. Zasiłek liczony jest od dnia sprawowania opieki, ale wniosek musi dotrzeć do pracodawcy w ciągu 7 dni.',
+  'e-ZLA: Lekarz wystawia elektroniczne zwolnienie (e-ZLA). Pracodawca widzi je automatycznie przez PUE ZUS, nie musisz dostarczać papierowego zwolnienia.',
   'Zamkniecie placowki: Jesli zamknieto szkole lub przedszkole, dostarcz zaswiadczenie od dyrektora lub printscreen komunikatu ze strony placowki. Warto zachowac SMS od wychowawcy.',
   'Limit 60 dni: Masz prawo do 60 dni zasilku opiekunczego rocznie na wszystkie dzieci do 14 lat lacznie. Sprawdz ile dni juz wykorzytalas/es w tym roku.',
   'Jeden rodzic na raz: Oboje rodzicow nie moze pobierac zasilku jednoczesnie za ten sam dzien. Zdecydujcie wczesniej, kto bierze opieke w jakie dni.',
   'Wysokosc zasilku: Zasilek wynosi 80% podstawy wymiaru, nie 80% wynagrodzenia brutto. Podstawa to srednia 12-miesiecy, bez premii jednorazowych.',
-  'Pracodawca duzy vs maly: Przy pracodawcy powyzej 20 pracownikow -- zasilek wyplaca pracodawca i rozlicza z ZUS. Ponizej 20 pracownikow -- ZUS wyplaca bezposrednio na Twoje konto.',
+  'Pracodawca duży vs mały: Przy pracodawcy powyżej 20 pracowników zasiłek wypłaca pracodawca i rozlicza z ZUS. Poniżej 20 pracowników ZUS wypłaca bezpośrednio na Twoje konto.',
   'Dziecko niepelnosprawne: Przy dziecku z orzeczeniem o niepelnosprawnosci limit wynosi 30 dodatkowych dni rocznie (lacznie 90 dni).',
 ]
 
@@ -53,7 +53,7 @@ const STEPS = [
   'Pobierz oryginalny formularz Z-15a ze strony: zus.pl/wzory-formularzy (wyszukaj "Z-15a").',
   'Przepisz dane z tego dokumentu do oryginalnego formularza PDF lub wypelnij online przez PUE ZUS.',
   'Dolacz e-ZLA od lekarza (zwolnienie elektroniczne) lub zaswiadczenie o zamknieciu placowki.',
-  'Zloz komplet dokumentow u swojego pracodawcy -- NIE bezposrednio w ZUS.',
+  'Złóż komplet dokumentów u swojego pracodawcy (NIE bezpośrednio w ZUS).',
   'Pracodawca przetworzy wniosek i przesle do ZUS przez PUE ZUS.',
   'Zasilek zostanie wyplacony przy najblizszym terminie wynagrodzenia lub przez ZUS bezposrednio (do 30 dni od zlozenia).',
 ]
@@ -61,7 +61,7 @@ const STEPS = [
 export function Z15aPdf({ data, date }: { data: Z15aData; date: string }) {
   return (
     <Document
-      title={`Z-15a -- Zasilek opiekunczy -- ${data.imieNazwisko}`}
+      title={`Z-15a Zasiłek opiekuńczy: ${data.imieNazwisko}`}
       author="wezmezadarmo.com"
       subject="Dokument pomocniczy do wniosku Z-15a"
     >
@@ -94,7 +94,7 @@ export function Z15aPdf({ data, date }: { data: Z15aData; date: string }) {
           <PdfField label="Powod sprawowania opieki" value={POWOD_LABELS[data.powodOpieki] ?? val(data.powodOpieki)} />
           <PdfField label="Okres opieki od" value={val(data.dataOd)} />
           <PdfField label="Okres opieki do" value={val(data.dataDo)} />
-          <PdfField label="Drugi rodzic nie moze -- oswiadczenie" value={val(data.drugirodzicNieMoze)} />
+          <PdfField label="Drugi rodzic nie może (oświadczenie)" value={val(data.drugirodzicNieMoze)} />
         </PdfSection>
 
         <PdfSection title="Dane pracodawcy (platnik skladek)">

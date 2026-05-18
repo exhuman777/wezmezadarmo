@@ -249,7 +249,7 @@ function StepWnioskodawca({ data, update, onNext }: { data: ErpoData; update: (k
         <Field label="Telefon kontaktowy">
           <input className={IC} value={data.telefon} onChange={e => update('telefon', e.target.value)} placeholder="+48 600 000 000" />
         </Field>
-        <Field label="Adres e-mail" hint="Opcjonalnie -- ZUS moze wyslac decyzje emailem">
+        <Field label="Adres e-mail" hint="Opcjonalnie: ZUS może wysłać decyzję e-mailem">
           <input className={IC} value={data.email} onChange={e => update('email', e.target.value)} placeholder="jan@przyklad.pl" type="email" />
         </Field>
       </div>
@@ -323,7 +323,7 @@ function StepEmerytura({ data, update, wiekEmerytalny, minStaz, onBack, onNext }
 
         <div style={{ padding: '12px 16px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 8, fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.6 }}>
           <p style={{ fontWeight: 600, color: 'var(--color-text-2)', marginBottom: 4 }}>Wazne: historia zatrudnienia</p>
-          <p>Wniosek ERPO wymaga podania pelnej historii zatrudnienia (pracodawcy, okresy, rodzaj ubezpieczenia). ZUS posiada dane z systemu od 1999 r. Dla wczesniejszych okresow potrzebne sa swiadectwa pracy z archiwum. Ten kreator pomaga przygotowac dane -- pelna historia jest wymagana na formularzu oryginalnym.</p>
+          <p>Wniosek ERPO wymaga podania pelnej historii zatrudnienia (pracodawcy, okresy, rodzaj ubezpieczenia). ZUS posiada dane z systemu od 1999 r. Dla wczesniejszych okresow potrzebne sa swiadectwa pracy z archiwum. Ten kreator pomaga przygotowac dane. Pelna historia jest wymagana na formularzu oryginalnym.</p>
         </div>
       </div>
       <NavButtons onBack={onBack} onNext={onNext} />
@@ -334,14 +334,14 @@ function StepEmerytura({ data, update, wiekEmerytalny, minStaz, onBack, onNext }
 function StepDokumenty({ data, onBack, onNext }: { data: ErpoData; onBack: () => void; onNext: () => void }) {
   const DOCS_PODSTAWOWE = [
     'Dokument tozsamosci (dowod osobisty lub paszport)',
-    'PESEL (numer -- wystarczy go podac)',
+    'PESEL (wystarczy podać numer)',
     data.pobieraRente === 'tak' ? 'Decyzja o przyznaniu renty z ZUS' : null,
   ].filter(Boolean) as string[];
 
   const DOCS_ZATRUDNIENIE = [
     'Swiadectwa pracy lub inne dokumenty potwierdzajace okresy zatrudnienia',
     'Zaswiadczenia o zatrudnieniu i wynagrodzeniu z poszczegolnych lat (ZUS Rp-7) -- potrzebne do obliczenia wysokosci emerytury',
-    'Dokumenty potwierdzajace okresy rownoważne składkowym (urlop wychowawczy, sluzba wojskowa, studia -- dla lat sprzed 1999)',
+    'Dokumenty potwierdzajace okresy rownoważne składkowym (urlop wychowawczy, sluzba wojskowa, studia, dla lat sprzed 1999)',
   ];
 
   const DOCS_DODATKOWE: string[] = [];
@@ -370,9 +370,9 @@ function StepDokumenty({ data, onBack, onNext }: { data: ErpoData; onBack: () =>
           <p style={{ marginBottom: 8 }}>Jesli pracodawca nie istnieje lub dokumenty zagin¨ly:</p>
           <ul style={{ paddingLeft: 18, margin: 0, display: 'flex', flexDirection: 'column', gap: 4 }}>
             <li>ZUS posiada dane od 1999 r. automatycznie</li>
-            <li>Dla lat wczesniejszych -- Archiwum Panstwowe lub Krajowe Centrum Informacji Kryminalnej</li>
+            <li>Dla lat wcześniejszych: Archiwum Państwowe lub Krajowe Centrum Informacji Kryminalnej</li>
             <li>ZETO / COIG dla danych z lat 80-90 z duzych zakladow pracy</li>
-            <li>Swiadkowie pracy -- mozliwe poswiadczenie zeznaniami (wymagane wnioskowanie do ZUS)</li>
+            <li>Świadkowie pracy: możliwe poświadczenie zeznaniami (wymagane wnioskowanie do ZUS)</li>
           </ul>
         </div>
       </div>
@@ -414,7 +414,7 @@ function StepKonto({ data, update, onBack, onNext }: { data: ErpoData; update: (
           <input className={IC} value={data.nrKonta} onChange={e => update('nrKonta', e.target.value)} placeholder="PL00 0000 0000 0000 0000 0000 0000" />
         </Field>
         <div style={{ padding: '12px 16px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 8, fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.6 }}>
-          Jesli nie masz konta lub nie chcesz podawac -- ZUS wyplaci emeryture na poczcie. Podanie konta bankowego przyspiesza wyplate i eliminuje ryzyko zaginiocia przekazu.
+          Jesli nie masz konta lub nie chcesz podawac, ZUS wyplaci emeryture na poczcie. Podanie konta bankowego przyspiesza wyplate i eliminuje ryzyko zaginiocia przekazu.
         </div>
       </div>
       <NavButtons onBack={onBack} onNext={onNext} nextLabel="Podglad" />
@@ -461,7 +461,7 @@ function StepPodglad({ data, onBack, onDone, onDownloadPdf, downloadingPdf, onCo
       }}>
         <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 12, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Jak zlozyc wniosek ERPO</p>
         <ol style={{ paddingLeft: 20, margin: 0, display: 'flex', flexDirection: 'column', gap: 8, lineHeight: 1.65 }}>
-          <li><strong style={{ color: 'var(--color-text-1)' }}>Online (najszybciej):</strong> Zaloguj sie do <a href="https://www.zus.pl/pue" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)' }}>PUE ZUS</a> profilem zaufanym -- wniosek ERPO dostepny w sekcji "Emerytury i renty"</li>
+          <li><strong style={{ color: 'var(--color-text-1)' }}>Online (najszybciej):</strong> Zaloguj sie do <a href="https://www.zus.pl/pue" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)' }}>PUE ZUS</a> profilem zaufanym. Wniosek ERPO dostepny w sekcji "Emerytury i renty"</li>
           <li><strong style={{ color: 'var(--color-text-1)' }}>Osobiscie:</strong> W kazdym oddziale ZUS. Mozesz umowic wizyte online lub przyjsc bez kolejki w wyznaczonych godzinach.</li>
           <li><strong style={{ color: 'var(--color-text-1)' }}>Pocztą:</strong> Na adres oddzialu ZUS wlasciwego dla miejsca zamieszkania. Zachowaj potwierdzenie nadania.</li>
           <li>ZUS wyda decyzje w ciagu 30 dni od zlozenia kompletnego wniosku.</li>
@@ -544,7 +544,7 @@ W tym okresy skladkowe: ${d.latSkładkowych} lat
 ${d.pobieraRente === 'tak' ? `Aktualnie pobierana renta: TAK\nNumer decyzji rentowej: ${d.numerDecyzjiRentowej}` : 'Aktualnie pobierana renta: NIE'}
 
 WYPLATA SWIADCZENIA
-Numer rachunku bankowego: ${d.nrKonta || '-- nie podano -- wyplata przekazem pocztowym'}
+Numer rachunku bankowego: ${d.nrKonta || '(nie podano - wypłata przekazem pocztowym)'}
 
 ========================================
 

@@ -73,11 +73,11 @@ export function CookieConsent() {
                 onClick={() => setShowDetails(true)}
                 style={{ background: 'none', border: 'none', color: 'var(--color-accent)', fontSize: 13, cursor: 'pointer', padding: 0, textDecoration: 'underline' }}
               >
-                Szczegoly
+                Szczegóły
               </button>
               {' '}|{' '}
               <a href="/polityka-prywatnosci" style={{ color: 'var(--color-accent)', fontSize: 13, textDecoration: 'underline' }}>
-                Polityka prywatnosci
+                Polityka prywatności
               </a>
             </p>
             <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
@@ -89,7 +89,7 @@ export function CookieConsent() {
                   background: 'transparent', color: 'var(--color-text-2)', cursor: 'pointer',
                 }}
               >
-                Odrzuc
+                Odrzuć
               </button>
               <button
                 onClick={accept}
@@ -99,7 +99,7 @@ export function CookieConsent() {
                   background: 'var(--color-text-1)', color: 'var(--color-bg-0)', cursor: 'pointer',
                 }}
               >
-                Akceptuje
+                Akceptuję
               </button>
             </div>
           </div>
@@ -117,20 +117,20 @@ export function CookieConsent() {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 14 }}>
               <CookieRow
-                title="Niezbedne (techniczne)"
-                desc="Wymagane do prawidlowego dzialania serwisu. Nie moga byc wylaczone."
+                title="Niezbędne (techniczne)"
+                desc="Wymagane do prawidłowego działania serwisu. Nie mogą być wyłączone."
                 locked
               />
               <CookieRow
-                title="Analityczne -- Google Analytics"
-                desc="Anonimowe statystyki odwiedzin: liczba wejsc, czas na stronie, typ urzadzenia. Dane nie sa laczone z formularzem i nie sa sprzedawane."
+                title="Analityczne - Google Analytics"
+                desc="Anonimowe statystyki odwiedzin: liczba wejść, czas na stronie, typ urządzenia. Dane nie są łączone z formularzem i nie są sprzedawane."
               />
             </div>
 
             <p style={{ fontSize: 11, color: 'var(--color-text-3)', margin: '0 0 12px' }}>
-              Serwis nie stosuje cookies reklamowych, piksel sledzacych ani fingerprintingu.{' '}
+              Serwis nie stosuje cookies reklamowych, pikseli śledzących ani fingerprintingu.{' '}
               <a href="/polityka-prywatnosci" style={{ color: 'var(--color-accent)', textDecoration: 'underline' }}>
-                Pelna polityka prywatnosci
+                Pełna polityka prywatności
               </a>
             </p>
 
@@ -143,7 +143,7 @@ export function CookieConsent() {
                   background: 'transparent', color: 'var(--color-text-2)', cursor: 'pointer',
                 }}
               >
-                Tylko niezbedne
+                Tylko niezbędne
               </button>
               <button
                 onClick={accept}
@@ -153,7 +153,7 @@ export function CookieConsent() {
                   background: 'var(--color-text-1)', color: 'var(--color-bg-0)', cursor: 'pointer',
                 }}
               >
-                Akceptuje wszystkie
+                Akceptuję wszystkie
               </button>
             </div>
           </div>
@@ -176,9 +176,9 @@ function CookieRow({ title, desc, locked }: { title: string; desc: string; locke
       </div>
       <div style={{ flexShrink: 0, paddingTop: 2 }}>
         {locked ? (
-          <span style={{ fontSize: 11, color: 'var(--color-text-3)', fontWeight: 500 }}>Zawsze wlaczone</span>
+          <span style={{ fontSize: 11, color: 'var(--color-text-3)', fontWeight: 500 }}>Zawsze włączone</span>
         ) : (
-          <span style={{ fontSize: 11, color: 'var(--color-green)', fontWeight: 500 }}>Wlaczone po zgodzie</span>
+          <span style={{ fontSize: 11, color: 'var(--color-green)', fontWeight: 500 }}>Włączone po zgodzie</span>
         )}
       </div>
     </div>

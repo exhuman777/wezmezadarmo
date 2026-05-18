@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Polityka przejrzystości AI | dotacje -- wezmezadarmo',
+  title: 'Polityka przejrzystości AI | dotacje | wezmezadarmo',
   description: 'Informacja o charakterze systemu AI zgodnie z art. 52 Rozporządzenia UE o AI (AI Act). Zakres wiedzy agenta, ograniczenia i prawa użytkownika.',
 };
 
@@ -111,7 +111,7 @@ export default function PolitykAiPage() {
           display: 'block',
           marginBottom: '10px',
         }}>
-          ZGODNOŚĆ Z AI ACT ART. 52 -- RODO
+          ZGODNOŚĆ Z AI ACT ART. 52 | RODO
         </span>
         <h1 style={{
           fontFamily: 'var(--font-mono)',
@@ -158,7 +158,7 @@ export default function PolitykAiPage() {
           margin: 0,
           lineHeight: 1.6,
         }}>
-          Agent dotacje to system sztucznej inteligencji -- nie jest to człowiek,
+          Agent dotacje to system sztucznej inteligencji, nie jest to człowiek,
           doradca prawny ani ekspert finansowy. Odpowiedzi generuje model językowy
           na podstawie bazy programów dotacyjnych. Treść powinna być weryfikowana
           źródłowo przed podjęciem jakichkolwiek działań.
@@ -193,10 +193,10 @@ export default function PolitykAiPage() {
           Agent posiada informacje o następujących programach i instrumentach wsparcia:
         </p>
         <ul style={UL_STYLE}>
-          <Li>Krajowy Fundusz Szkoleniowy (KFS) -- na podstawie publikacji PUP i MPiPS</Li>
+          <Li>Krajowy Fundusz Szkoleniowy (KFS): na podstawie publikacji PUP i MPiPS</Li>
           <Li>Refundacje wynagrodzeń przez Powiatowe Urzędy Pracy (PUP)</Li>
           <Li>Dofinansowania PFRON do zatrudnienia osób z niepełnosprawnością</Li>
-          <Li>Instrumenty KPO -- nabory prowadzone przez PARP, BGK, Ministerstwo Funduszy</Li>
+          <Li>Instrumenty KPO: nabory prowadzone przez PARP, BGK, Ministerstwo Funduszy</Li>
           <Li>Wybrane programy samorządowe z 16 województw (dane aktualizowane co tydzień)</Li>
           <Li>Programy PARP z Funduszy Europejskich dla Nowoczesnej Gospodarki (FENG)</Li>
         </ul>
@@ -224,7 +224,7 @@ export default function PolitykAiPage() {
             Nie składa wniosków w imieniu użytkownika do żadnej instytucji
           </Li>
           <Li>
-            Nie gwarantuje przyznania dofinansowania -- decyzja należy wyłącznie
+            Nie gwarantuje przyznania dofinansowania: decyzja należy wyłącznie
             do instytucji zarządzającej programem
           </Li>
           <Li>
@@ -235,11 +235,11 @@ export default function PolitykAiPage() {
             Nie interpretuje indywidualnych umów, zapisów w statucie ani dokumentów firmy
           </Li>
           <Li>
-            Nie ma dostępu do rejestrów KRS, ZUS ani US -- NIP służy wyłącznie
+            Nie ma dostępu do rejestrów KRS, ZUS ani US: NIP służy wyłącznie
             do pobrania danych z CEIDG w celu skonfigurowania profilu
           </Li>
           <Li>
-            Nie przetwarza danych osobowych pracowników -- agent widzi tylko dane
+            Nie przetwarza danych osobowych pracowników: agent widzi tylko dane
             identyfikacyjne firmy i skonfigurowane flagi profilu
           </Li>
         </ul>
@@ -253,20 +253,20 @@ export default function PolitykAiPage() {
         </p>
         <ul style={UL_STYLE}>
           <Li>
-            NIP -- identyfikator pobierany z CEIDG wyłącznie w celu dopasowania profilu
+            NIP: identyfikator pobierany z CEIDG wyłącznie w celu dopasowania profilu
           </Li>
           <Li>
-            Kody PKD -- do filtrowania programów wg branży
+            Kody PKD: do filtrowania programów wg branży
           </Li>
           <Li>
-            Liczba zatrudnionych (MŚP / mikro) -- do weryfikacji limitów programów
+            Liczba zatrudnionych (MŚP / mikro): do weryfikacji limitów programów
           </Li>
           <Li>
-            Flagi zainteresowania -- zaznaczone przez użytkownika kategorie:
+            Flagi zainteresowania: zaznaczone przez użytkownika kategorie:
             szkolenia, zatrudnienie, innowacje, zielona transformacja, eksport
           </Li>
           <Li>
-            Województwo siedziby -- do filtrowania programów samorządowych
+            Województwo siedziby: do filtrowania programów samorządowych
           </Li>
         </ul>
         <p style={P_STYLE}>
@@ -286,14 +286,14 @@ export default function PolitykAiPage() {
         </p>
         <ul style={UL_STYLE}>
           <Li>
-            Zgłosić błąd przez formularz kontaktowy -- podaj fragment rozmowy
+            Zgłosić błąd przez formularz kontaktowy: podaj fragment rozmowy
             i źródło, które wskazuje na błędną informację
           </Li>
           <Li>
-            Zażądać ręcznej weryfikacji odpowiedzi -- odpowiemy w ciągu 5 dni roboczych
+            Zażądać ręcznej weryfikacji odpowiedzi: odpowiemy w ciągu 5 dni roboczych
           </Li>
           <Li>
-            Nie opierać się wyłącznie na odpowiedzi agenta -- zawsze zweryfikuj
+            Nie opierać się wyłącznie na odpowiedzi agenta, zawsze zweryfikuj
             informacje na stronie instytucji zarządzającej programem
           </Li>
         </ul>
@@ -339,7 +339,7 @@ export default function PolitykAiPage() {
           fontSize: '12px',
         }}>
           Niniejsza polityka obowiązuje od 17 maja 2026 r. Zastrzegamy prawo
-          do zmiany treści -- w przypadku istotnych zmian poinformujemy użytkowników
+          do zmiany treści, w przypadku istotnych zmian poinformujemy użytkowników
           drogą mailową z 14-dniowym wyprzedzeniem.
         </p>
       </section>
