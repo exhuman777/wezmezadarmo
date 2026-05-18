@@ -1,6 +1,8 @@
 import { NextRequest } from 'next/server';
 import { createSupabaseServer } from '@/lib/dotacje/supabase';
 import { buildAgentSystemPrompt } from '@/lib/dotacje/companyContext';
+import { buildLiveIntelBlock } from '@/lib/dotacje/grantScraper';
+import type { ScrapeItem } from '@/lib/dotacje/grantScraper';
 import { chatStream } from '@/ai/openrouter';
 import type { CompanyProfile } from '@/lib/dotacje/companyContext';
 import type { DBCompanyProfile } from '@/lib/dotacje/supabase';
@@ -64,7 +66,35 @@ export async function POST(request: NextRequest) {
   }
 
   const profile = dbProfileToCompanyProfile(profileRow as DBCompanyProfile);
-  const systemPrompt = buildAgentSystemPrompt(profile);
+
+  // Fetch recent grant scrape intel (last 24h) from DB
+  const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+  const { data: recentScrapes } = await supabase
+    .from('grant_scrape_log')
+    .select('id,source_id,source_name,title,link,description,pub_date,is_nabor,is_close,matched_program_id,scraped_at')
+    .gte('scraped_at', since)
+    .eq('is_nabor', true)
+    .order('scraped_at', { ascending: false })
+    .limit(20);
+
+  const liveItems: ScrapeItem[] = (recentScrapes ?? []).map((r) => ({
+    id: r.id,
+    sourceId: r.source_id,
+    sourceName: r.source_name,
+    title: r.title,
+    link: r.link,
+    description: r.description,
+    pubDate: r.pub_date,
+    isNabor: r.is_nabor,
+    isClose: r.is_close,
+    matchedProgramId: r.matched_program_id,
+    scrapedAt: r.scraped_at,
+  }));
+  const liveBlock = buildLiveIntelBlock(liveItems);
+  const basePrompt = buildAgentSystemPrompt(profile);
+  const systemPrompt = liveBlock
+    ? basePrompt.replace('## ZASADY ODPOWIEDZI', `${liveBlock}\n\n## ZASADY ODPOWIEDZI`)
+    : basePrompt;
 
   const messagesWithSystem: OpenAI.Chat.ChatCompletionMessageParam[] = [
     { role: 'system', content: systemPrompt },
