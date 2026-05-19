@@ -637,60 +637,106 @@ export default function Home() {
     return (
       <div style={{ minHeight: '100vh' }}>
 
-        {/* Dark Hero Banner */}
-        <section style={{ position: 'relative', paddingTop: 16, paddingBottom: 0 }}>
-          <div className="wrap" style={{ position: 'relative' }}>
-            <div className="rise card-dark" style={{
-              borderRadius: 'var(--r-xl)',
-              padding: 'clamp(36px, 5vw, 64px) clamp(24px, 4vw, 56px)',
-              marginBottom: 48,
-              background: `radial-gradient(800px 400px at 80% 20%, rgba(34,160,107,.2), transparent 60%),
-                radial-gradient(600px 400px at 20% 80%, rgba(78,196,138,.15), transparent 60%),
-                var(--green-950)`,
-            }}>
-              <div className="eyebrow green" style={{ marginBottom: 28, color: 'var(--green-300)' }}>
-                START
+        {/* Hero -- two-column: text left, card stack right */}
+        <section style={{ padding: '64px 0 96px', position: 'relative', overflow: 'hidden' }}>
+          <div className="wrap">
+            <div className="grid-hero" style={{ display: 'grid', gridTemplateColumns: '1.15fr .85fr', gap: 64, alignItems: 'center' }}>
+              {/* Left -- copy */}
+              <div className="stack-32">
+                <div className="eyebrow" style={{}}>
+                  SPRAWDŹ SWOJE ŚWIADCZENIA
+                </div>
+                <h1 style={{ maxWidth: 760 }}>
+                  Sprawdź co Ci się&nbsp;<span style={{ color: 'var(--accent)' }}>należy</span>.
+                  <br />
+                  <span className="serif-it" style={{ fontSize: '0.78em', color: 'var(--ink-600)', fontWeight: 400 }}>
+                    Szybko, bez rejestracji, bez czekania.
+                  </span>
+                </h1>
+                <p style={{ maxWidth: 560, fontSize: 20, color: 'var(--ink-700)', lineHeight: 1.45 }}>
+                  Łatwo sprawdź wstępnie czy są jakieś świadczenia, które mogą Ci przysługiwać.
+                  Ta strona to projekt prywatny, nie rządowy.
+                </p>
+                <div className="row-12 gap-wrap">
+                  <a href="#formularz" className="btn btn-red btn-lg">
+                    Zacznij sprawdzanie <IconArrowRight />
+                  </a>
+                  <a href="/dla-firm" className="btn btn-ghost btn-lg">
+                    Jestem firmą &rarr;
+                  </a>
+                </div>
+                <div className="row-24 gap-wrap" style={{ marginTop: 8 }}>
+                  {[
+                    { value: '117', label: 'świadczeń' },
+                    { value: '15', label: 'kategorii' },
+                    { value: '2 min', label: 'czas analizy' },
+                    { value: '0 PLN', label: 'kosztu' },
+                  ].map((s, i) => (
+                    <div key={i} className="stack-4">
+                      <span style={{ fontSize: 28, fontWeight: 500, letterSpacing: '-0.02em' }}>{s.value}</span>
+                      <span className="mono" style={{ fontSize: 11, color: 'var(--ink-500)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>{s.label}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <h1 style={{
-                fontSize: 'clamp(36px, 6vw, 64px)',
-                fontWeight: 600,
-                lineHeight: 1.1,
-                letterSpacing: '-0.03em',
-                margin: '0 0 20px',
-                color: 'var(--paper)',
-              }}>
-                Sprawdź co Ci się należy.<br />
-                <span className="serif-it" style={{ color: 'var(--green-400)' }}>Szybko, bez rejestracji, bez czekania.</span>
-              </h1>
-              <p style={{
-                fontSize: 17,
-                lineHeight: 1.65,
-                color: 'var(--ink-400)',
-                maxWidth: 560,
-                margin: '0 0 12px',
-              }}>
-                Łatwo sprawdź wstępnie czy są jakieś świadczenia, które mogą Ci przysługiwać.
-              </p>
-              <p style={{
-                fontSize: 13,
-                lineHeight: 1.5,
-                color: 'var(--ink-500)',
-                maxWidth: 560,
-                margin: '0 0 36px',
-              }}>
-                Ta strona to projekt prywatny, nie rządowy. Informacje tu wyświetlone są poglądowe i nie mają wpływu na uzyskanie świadczeń w urzędzie.
-              </p>
-              <div className="row-12 gap-wrap">
-                <a href="#formularz" className="btn btn-green btn-lg">
-                  Zacznij sprawdzanie &rarr;
-                </a>
-                <a href="/dla-firm" className="btn btn-ghost btn-lg" style={{
-                  background: 'rgba(255,255,255,.08)',
-                  borderColor: 'rgba(255,255,255,.15)',
-                  color: 'rgba(255,255,255,.7)',
+
+              {/* Right -- hero visual: staggered card stack */}
+              <div className="glow hide-mobile" style={{ position: 'relative', minHeight: 520 }}>
+                <div style={{
+                  position: 'absolute', inset: 0,
+                  background: 'radial-gradient(60% 60% at 60% 40%, rgba(34,160,107,.18), transparent 70%)',
+                  pointerEvents: 'none', zIndex: 0,
+                }} />
+
+                {/* Search/assistant pill */}
+                <div style={{
+                  position: 'relative', zIndex: 6,
+                  background: 'white', borderRadius: 14, padding: '12px 16px',
+                  boxShadow: 'var(--shadow-md)',
+                  display: 'flex', alignItems: 'center', gap: 10,
+                  marginBottom: 32,
                 }}>
-                  Jestem firmą
-                </a>
+                  <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'var(--green-500)', flexShrink: 0, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'var(--green-950)' }}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M12 3v3m0 12v3m-7-9H2m20 0h-3M5.6 5.6l2.1 2.1m8.6 8.6l2.1 2.1m0-12.8l-2.1 2.1M7.7 16.3l-2.1 2.1" /></svg>
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0, fontSize: 14, fontFamily: 'var(--f-mono)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    <span style={{ color: 'var(--ink-900)' }}>Jakie świadczenia mi przysługują?</span>
+                    <span style={{ color: 'var(--ink-400)' }}>_</span>
+                  </div>
+                  <span className="btn btn-primary btn-sm" style={{ padding: '8px 12px', flexShrink: 0 }}>Zapytaj AI</span>
+                </div>
+
+                {/* Staggered benefit cards */}
+                <div style={{ position: 'relative', zIndex: 4, display: 'flex', flexDirection: 'column', gap: 16 }}>
+                  {[
+                    { tag: 'ZUS', title: 'Świadczenie 800+', amt: '800 PLN/mies.', cat: 'Rodzina', color: 'var(--green-100)', tone: 'var(--green-800)' },
+                    { tag: 'NFZ', title: 'Refundacja okularów', amt: 'do 500 PLN', cat: 'Zdrowie', color: 'var(--paper-2)', tone: 'var(--ink-900)' },
+                    { tag: 'PIT', title: 'Ulga na dziecko', amt: 'do 2700 PLN/rok', cat: 'Podatki', color: 'var(--red-100)', tone: 'var(--red-700)' },
+                    { tag: 'PFRON', title: 'Dodatek mieszkaniowy', amt: 'do 1500 PLN/mies.', cat: 'Mieszkanie', color: 'white', tone: 'var(--green-800)' },
+                  ].map((c, i) => (
+                    <div key={i} className={i === 0 ? 'float-1' : i === 1 ? 'float-2' : i === 2 ? 'float-3' : ''} style={{
+                      background: c.color,
+                      borderRadius: 18,
+                      padding: '20px 22px',
+                      boxShadow: i === 0 ? 'var(--shadow-lg)' : 'var(--shadow-md)',
+                      transform: `translateX(${[0, 44, 12, 60][i]}px) rotate(${[-1.2, 1.1, -0.6, 0.8][i]}deg)`,
+                      border: '1px solid rgba(8,17,13,.05)',
+                      marginRight: [60, 0, 40, 0][i],
+                    }}>
+                      <div className="row-8" style={{ marginBottom: 10, justifyContent: 'space-between' }}>
+                        <span className="chip chip-mono" style={{ background: 'rgba(255,255,255,.7)', color: c.tone, whiteSpace: 'nowrap' }}>{c.tag}</span>
+                        <span className="mono" style={{ fontSize: 11, color: 'var(--ink-500)', whiteSpace: 'nowrap' }}>{c.cat}</span>
+                      </div>
+                      <div style={{ fontSize: 18, fontWeight: 500, letterSpacing: '-0.015em', marginBottom: 8 }}>{c.title}</div>
+                      <div className="row-8" style={{ justifyContent: 'space-between', flexWrap: 'wrap', gap: 6 }}>
+                        <span style={{ fontSize: 22, fontWeight: 500, color: c.tone, letterSpacing: '-0.02em', whiteSpace: 'nowrap' }}>{c.amt}</span>
+                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 12, fontFamily: 'var(--f-mono)', color: 'var(--ink-600)', whiteSpace: 'nowrap' }}>
+                          <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--green-500)' }} /> dostępne
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

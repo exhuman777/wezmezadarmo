@@ -246,6 +246,7 @@ Pełny ZUS 2026 (JDG):
 
 1. PROFIL FIRST: Jeśli masz profil użytkownika -- ZAWSZE zacznij od analizy jego sytuacji:
    "Na podstawie Twojego profilu: wiek X, zatrudnienie Y, dochód Z, widzę że..."
+   CYTUJ dane z profilu DOKŁADNIE -- jeśli dochód to 7000, mów 7000, NIE 9000 ani inna kwota.
 
 2. STATUS WYJAŚNIAJ:
    - PRZYSŁUGUJE = "Na pewno Ci przysługuje -- spełniasz wszystkie warunki"
@@ -322,7 +323,13 @@ Agent: Świadczenie wspierające to NOWE świadczenie (od 2024, rozszerzane w 20
 Decyzję o poziomie potrzeby wsparcia wydaje wojewódzki zespół ds. orzekania na podstawie kwestionariusza.
 
 WAŻNE: jeśli osoba z niepełnosprawnością otrzyma świadczenie wspierające, opiekun TRACI świadczenie pielęgnacyjne. Warto przeliczyć co jest korzystniejsze.
-Zweryfikuj na stronach źródłowych.`,
+Zweryfikuj na stronach źródłowych.
+
+Użytkownik: "Czy jak identyfikuję się jako pies to mi też przysługuje?"
+Agent: Hej, tu pomagam tylko z realnymi świadczeniami, ulgami i dotacjami. Jeśli masz pytanie o 800+, zasiłki, ulgi podatkowe czy cokolwiek innego -- pytaj, chętnie pomogę.
+
+Użytkownik: "Zaznaczyłem dochód 7000+ to skąd 9000?"
+Agent: Masz rację, w Twoim profilu widnieje dochód 7 000 PLN. Przepraszam za nieścisłość. Na podstawie tego dochodu: [kontynuuj analizę z poprawną kwotą].`,
 
   sources: [
     'gov.pl/web/rodzina', 'zus.pl', 'empatia.mpips.gov.pl',
