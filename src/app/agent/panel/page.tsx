@@ -19,8 +19,9 @@ interface Prefs {
 }
 
 const QUICK_LINKS = [
-  { href: '/agent/panel/swiadczenia', label: 'Świadczenia i ulgi', desc: 'Co Ci przysługuje' },
-  { href: '/agent/panel/aktualnosci', label: 'Aktualności', desc: 'Zmiany w prawie' },
+  { href: '/agent/panel/chat', label: 'Czat AI', desc: 'Porozmawiaj z agentem' },
+  { href: '/agent/panel/swiadczenia', label: 'Swiadczenia i ulgi', desc: 'Co Ci przysluguje' },
+  { href: '/agent/panel/aktualnosci', label: 'Aktualnosci', desc: 'Zmiany w prawie' },
   { href: '/agent/panel/powiadomienia', label: 'Powiadomienia', desc: 'Ustawienia e-mail' },
   { href: '/agent/panel/profil', label: 'Profil', desc: 'Edytuj dane' },
 ];

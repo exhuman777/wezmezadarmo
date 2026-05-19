@@ -35,7 +35,11 @@ export async function middleware(request: NextRequest) {
 
   if (!session) {
     const loginUrl = request.nextUrl.clone();
-    loginUrl.pathname = '/dotacje/logowanie';
+    if (pathname.startsWith('/agent/panel')) {
+      loginUrl.pathname = '/agent/logowanie';
+    } else {
+      loginUrl.pathname = '/dotacje/logowanie';
+    }
     return NextResponse.redirect(loginUrl);
   }
 
@@ -48,5 +52,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/dotacje/panel/:path*'],
+  matcher: ['/dotacje/panel/:path*', '/agent/panel/:path*'],
 };
