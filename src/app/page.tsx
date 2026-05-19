@@ -634,60 +634,47 @@ export default function Home() {
 
         {/* Dark Hero Banner */}
         <section style={{ position: 'relative', paddingTop: 16, paddingBottom: 0 }}>
-          <div className="container" style={{ position: 'relative' }}>
-            <div className="rise" style={{
-              background: 'linear-gradient(145deg, #0A1A10 0%, #122A1A 50%, #0F2215 100%)',
-              borderRadius: 24,
+          <div className="wrap" style={{ position: 'relative' }}>
+            <div className="rise card-dark" style={{
+              borderRadius: 'var(--r-xl)',
               padding: 'clamp(36px, 5vw, 64px) clamp(24px, 4vw, 56px)',
               marginBottom: 48,
+              background: `radial-gradient(800px 400px at 80% 20%, rgba(34,160,107,.2), transparent 60%),
+                radial-gradient(600px 400px at 20% 80%, rgba(78,196,138,.15), transparent 60%),
+                var(--green-950)`,
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 28 }}>
-                <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#4ADE80' }} />
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: '#6DC08A', letterSpacing: '0.06em', textTransform: 'uppercase' }}>START</span>
+              <div className="eyebrow green" style={{ marginBottom: 28, color: 'var(--green-300)' }}>
+                START
               </div>
               <h1 style={{
                 fontSize: 'clamp(36px, 6vw, 64px)',
-                fontWeight: 700,
+                fontWeight: 600,
                 lineHeight: 1.1,
                 letterSpacing: '-0.03em',
                 margin: '0 0 20px',
+                color: 'var(--paper)',
               }}>
-                <span style={{ color: '#F0F7F0' }}>Sprawdź teraz.</span><br />
-                <span style={{ color: '#4ADE80', fontStyle: 'italic' }}>Należy się Tobie.</span>
+                Sprawdź teraz.<br />
+                <span className="serif-it" style={{ color: 'var(--green-400)' }}>Należy się Tobie.</span>
               </h1>
               <p style={{
-                fontSize: 16,
+                fontSize: 17,
                 lineHeight: 1.65,
-                color: '#A0B8A0',
+                color: 'var(--ink-400)',
                 maxWidth: 560,
                 margin: '0 0 36px',
               }}>
                 Dwie minuty, jedenaście pytań, lista świadczeń wartych setki -
                 czasem tysiące - złotych. Bez rejestracji, bez opłat, bez urzędu.
               </p>
-              <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-                <a href="#formularz" style={{
-                  padding: '13px 28px',
-                  background: '#2E7D4F',
-                  color: '#fff',
-                  fontWeight: 600,
-                  fontSize: 15,
-                  borderRadius: 12,
-                  textDecoration: 'none',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 8,
-                }}>
+              <div className="row-12 gap-wrap">
+                <a href="#formularz" className="btn btn-green btn-lg">
                   Zacznij sprawdzanie &rarr;
                 </a>
-                <a href="/dla-firm" style={{
-                  padding: '13px 28px',
-                  border: '1px solid rgba(255,255,255,0.2)',
-                  color: 'rgba(255,255,255,0.7)',
-                  fontWeight: 500,
-                  fontSize: 15,
-                  borderRadius: 12,
-                  textDecoration: 'none',
+                <a href="/dla-firm" className="btn btn-ghost btn-lg" style={{
+                  background: 'rgba(255,255,255,.08)',
+                  borderColor: 'rgba(255,255,255,.15)',
+                  color: 'rgba(255,255,255,.7)',
                 }}>
                   Jestem firmą
                 </a>
@@ -698,7 +685,7 @@ export default function Home() {
 
         <section style={{ position: 'relative', paddingTop: 0, paddingBottom: 80 }}>
           <div className="grain-bg" />
-          <div className="container" style={{ position: 'relative' }}>
+          <div className="wrap" style={{ position: 'relative' }}>
 
             {/* Form + info section */}
             <div id="formularz" className="grid-hero" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48, alignItems: 'start', marginBottom: 64 }}>
@@ -1321,7 +1308,7 @@ export default function Home() {
 
         <section style={{ position: 'relative', minHeight: 'calc(100vh - 105px)', display: 'flex', alignItems: 'center' }}>
           <div className="grain-bg" />
-          <div className="container" style={{ position: 'relative', maxWidth: 640, margin: '0 auto' }}>
+          <div className="wrap" style={{ position: 'relative', maxWidth: 640, margin: '0 auto' }}>
             {/* Progress bar */}
             <div style={{ height: 2, background: 'var(--color-border)', borderRadius: 1, overflow: 'hidden', marginBottom: 48 }}>
               <div style={{
@@ -1421,7 +1408,7 @@ export default function Home() {
 
         <section style={{ position: 'relative', minHeight: 'calc(100vh - 105px)', display: 'flex', alignItems: 'center' }}>
           <div className="grain-bg" />
-          <div className="container" style={{ position: 'relative' }}>
+          <div className="wrap" style={{ position: 'relative' }}>
             <div className="grid-hero" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center' }}>
 
               {/* LEFT: status */}

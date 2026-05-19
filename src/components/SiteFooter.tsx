@@ -20,158 +20,120 @@ const KONTAKT_LINKS = [
   { href: '/polityka-prywatnosci', label: 'Polityka prywatności' },
 ];
 
+function FooterCol({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div className="stack-16">
+      <span className="mono" style={{
+        fontSize: 12, letterSpacing: '0.08em',
+        textTransform: 'uppercase', color: 'var(--ink-500)',
+      }}>
+        {title}
+      </span>
+      <div className="stack-4">
+        {children}
+      </div>
+    </div>
+  );
+}
+
 export function SiteFooter() {
   return (
-    <footer>
-      {/* Green gradient top accent */}
-      <div style={{
-        height: 4,
-        background: 'linear-gradient(90deg, var(--color-green) 0%, #4ADE80 50%, var(--color-green) 100%)',
-      }} />
-
-      <div style={{ background: 'var(--color-bg-0)' }}>
-        <div style={{
-          maxWidth: 1200,
-          margin: '0 auto',
-          padding: '48px 24px 20px',
+    <footer style={{
+      background: `
+        linear-gradient(180deg, transparent, rgba(6,36,24,.04) 40%, rgba(6,36,24,.08)),
+        var(--paper)
+      `,
+      padding: '80px 0 40px',
+    }}>
+      <div className="wrap">
+        {/* Columns */}
+        <div className="footer-grid" style={{
+          display: 'grid',
+          gridTemplateColumns: '2fr 1fr 1fr 1fr',
+          gap: 40,
         }}>
-          {/* Columns */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: '1.6fr 1fr 1fr 1fr',
-            gap: 40,
-            marginBottom: 40,
-          }}>
-            {/* Brand */}
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
-                <span style={{ width: 10, height: 10, borderRadius: '50%', background: 'var(--color-green)' }} />
-                <span style={{
-                  fontWeight: 600, fontSize: 15, color: 'var(--color-text-1)',
-                }}>
-                  wezmezadarmo<span style={{
-                    fontFamily: 'var(--font-mono)', fontWeight: 400,
-                    fontSize: 11, color: 'var(--color-text-3)',
-                  }}>.com</span>
-                </span>
-              </div>
-              <p style={{
-                fontSize: 13, color: 'var(--color-text-3)',
-                lineHeight: 1.65, margin: '0 0 16px', maxWidth: 280,
+          {/* Brand */}
+          <div className="stack-16">
+            <div className="row-8">
+              <span className="logo-dot" />
+              <span style={{
+                fontWeight: 600, fontSize: 17, letterSpacing: '-0.02em',
+                color: 'var(--ink-900)',
               }}>
-                Wszystkie świadczenia, dotacje i ulgi, które Ci się należą
-                - w jednym miejscu. Bez rejestracji, bez opłat, bez urzędów.
-              </p>
-              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                <span style={{
-                  fontSize: 11, fontFamily: 'var(--font-mono)',
-                  padding: '4px 10px', borderRadius: 999,
-                  border: '1px solid var(--color-border)',
-                  color: 'var(--color-text-3)',
-                }}>
-                  PESEL nie wychodzi z przeglądarki
-                </span>
-                <span style={{
-                  fontSize: 11, fontFamily: 'var(--font-mono)',
-                  padding: '4px 10px', borderRadius: 999,
-                  border: '1px solid var(--color-border)',
-                  color: 'var(--color-text-3)',
-                }}>
-                  RODO
-                </span>
-              </div>
+                wezmezadarmo<span className="dim" style={{ fontFamily: 'var(--f-mono)', fontWeight: 400, fontSize: 12 }}>.com</span>
+              </span>
             </div>
-
-            {/* PRODUKT */}
-            <div>
-              <div style={{
-                fontSize: 11, fontFamily: 'var(--font-mono)',
-                color: 'var(--color-text-3)', letterSpacing: '0.08em',
-                textTransform: 'uppercase' as const, marginBottom: 16,
-              }}>
-                PRODUKT
-              </div>
-              {PRODUKT.map(link => (
-                <Link key={link.href} href={link.href} style={{
-                  display: 'block', fontSize: 13, color: 'var(--color-text-2)',
-                  textDecoration: 'none', padding: '5px 0',
-                }}>
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-
-            {/* WIEDZA */}
-            <div>
-              <div style={{
-                fontSize: 11, fontFamily: 'var(--font-mono)',
-                color: 'var(--color-text-3)', letterSpacing: '0.08em',
-                textTransform: 'uppercase' as const, marginBottom: 16,
-              }}>
-                WIEDZA
-              </div>
-              {WIEDZA.map(link => (
-                <Link key={link.href} href={link.href} style={{
-                  display: 'block', fontSize: 13, color: 'var(--color-text-2)',
-                  textDecoration: 'none', padding: '5px 0',
-                }}>
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-
-            {/* KONTAKT */}
-            <div>
-              <div style={{
-                fontSize: 11, fontFamily: 'var(--font-mono)',
-                color: 'var(--color-text-3)', letterSpacing: '0.08em',
-                textTransform: 'uppercase' as const, marginBottom: 16,
-              }}>
-                KONTAKT
-              </div>
-              {KONTAKT_LINKS.map(link => (
-                link.external ? (
-                  <a key={link.href} href={link.href} style={{
-                    display: 'block', fontSize: 13, color: 'var(--color-text-2)',
-                    textDecoration: 'none', padding: '5px 0',
-                  }}>
-                    {link.label}
-                  </a>
-                ) : (
-                  <Link key={link.href} href={link.href} style={{
-                    display: 'block', fontSize: 13, color: 'var(--color-text-2)',
-                    textDecoration: 'none', padding: '5px 0',
-                  }}>
-                    {link.label}
-                  </Link>
-                )
-              ))}
+            <p className="mute" style={{ fontSize: 14, lineHeight: 1.65, maxWidth: 300 }}>
+              Wszystkie świadczenia, dotacje i ulgi, które Ci się należą
+              - w jednym miejscu. Bez rejestracji, bez opłat, bez urzędów.
+            </p>
+            <div className="row-8 gap-wrap">
+              <span className="chip chip-outline chip-mono">PESEL nie wychodzi z przeglądarki</span>
+              <span className="chip chip-outline chip-mono">RODO</span>
             </div>
           </div>
 
-          {/* Bottom bar */}
-          <div style={{
-            borderTop: '1px solid var(--color-border)',
-            paddingTop: 16,
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: 12,
-          }}>
-            <div style={{
-              fontSize: 12, color: 'var(--color-text-3)',
-              fontFamily: 'var(--font-sans)',
-            }}>
-              &copy; 2026 wezmezadarmo &middot; projekt obywatelski &middot; nie zarabiamy na Twoich danych
-            </div>
-            <div style={{
-              fontSize: 12, fontFamily: 'var(--font-mono)',
-              color: 'var(--color-text-3)',
-            }}>
-              baza zweryfikowana 14.05.2026
-            </div>
-          </div>
+          {/* PRODUKT */}
+          <FooterCol title="Produkt">
+            {PRODUKT.map(link => (
+              <Link key={link.href} href={link.href} style={{
+                fontSize: 14, color: 'var(--ink-700)',
+                textDecoration: 'none', padding: '3px 0',
+              }}>
+                {link.label}
+              </Link>
+            ))}
+          </FooterCol>
+
+          {/* WIEDZA */}
+          <FooterCol title="Wiedza">
+            {WIEDZA.map(link => (
+              <Link key={link.href} href={link.href} style={{
+                fontSize: 14, color: 'var(--ink-700)',
+                textDecoration: 'none', padding: '3px 0',
+              }}>
+                {link.label}
+              </Link>
+            ))}
+          </FooterCol>
+
+          {/* KONTAKT */}
+          <FooterCol title="Kontakt">
+            {KONTAKT_LINKS.map(link => (
+              link.external ? (
+                <a key={link.href} href={link.href} style={{
+                  fontSize: 14, color: 'var(--ink-700)',
+                  textDecoration: 'none', padding: '3px 0',
+                }}>
+                  {link.label}
+                </a>
+              ) : (
+                <Link key={link.href} href={link.href} style={{
+                  fontSize: 14, color: 'var(--ink-700)',
+                  textDecoration: 'none', padding: '3px 0',
+                }}>
+                  {link.label}
+                </Link>
+              )
+            ))}
+          </FooterCol>
+        </div>
+
+        {/* Divider + bottom bar */}
+        <div className="divider" style={{ margin: '40px 0 24px' }} />
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: 12,
+        }}>
+          <span className="mute" style={{ fontSize: 13 }}>
+            &copy; 2026 wezmezadarmo &middot; projekt obywatelski &middot; nie zarabiamy na Twoich danych
+          </span>
+          <span className="mono mute" style={{ fontSize: 12 }}>
+            baza zweryfikowana 14.05.2026
+          </span>
         </div>
       </div>
     </footer>

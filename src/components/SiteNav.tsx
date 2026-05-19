@@ -2,8 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useTheme } from '@/hooks/useTheme';
-import { ThemeToggle } from './ThemeToggle';
+import { useState } from 'react';
 
 const NAV_ITEMS = [
   { href: '/', label: 'Start', exact: true },
@@ -15,7 +14,7 @@ const NAV_ITEMS = [
 
 export function SiteNav() {
   const pathname = usePathname();
-  const { theme, toggle } = useTheme();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   function isActive(item: typeof NAV_ITEMS[number]) {
     if (item.exact) return pathname === item.href;
@@ -24,122 +23,82 @@ export function SiteNav() {
   }
 
   return (
-    <header style={{
-      position: 'sticky',
-      top: 0,
-      zIndex: 50,
-      background: theme === 'dark' ? 'rgba(10,18,10,0.92)' : 'rgba(245,248,245,0.94)',
-      backdropFilter: 'saturate(140%) blur(14px)',
-      WebkitBackdropFilter: 'saturate(140%) blur(14px)',
-      borderBottom: '1px solid var(--color-border)',
-    }}>
-      <div style={{
-        maxWidth: 1200,
-        margin: '0 auto',
-        padding: '0 24px',
-        height: 60,
-        display: 'flex',
-        alignItems: 'center',
-        gap: 32,
-      }}>
+    <header className="topnav">
+      <div className="topnav-inner">
         {/* Logo */}
-        <Link href="/" style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 10,
-          textDecoration: 'none',
-          flexShrink: 0,
-        }}>
-          <span style={{
-            width: 10,
-            height: 10,
-            borderRadius: '50%',
-            background: 'var(--color-green)',
-            flexShrink: 0,
-          }} />
-          <span style={{
-            fontWeight: 600,
-            fontSize: 16,
-            letterSpacing: '-0.02em',
-            color: 'var(--color-text-1)',
-          }}>
-            wezmezadarmo<span style={{
-              fontFamily: 'var(--font-mono)',
-              fontWeight: 400,
-              fontSize: 11,
-              color: 'var(--color-text-3)',
-            }}>.com</span>
-          </span>
+        <Link href="/" className="logo">
+          <span className="logo-dot" />
+          wezmezadarmo<span className="dim">.com</span>
         </Link>
 
-        {/* Center nav */}
-        <nav style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 2,
-          flex: 1,
-          justifyContent: 'center',
-        }}>
-          {NAV_ITEMS.map(item => {
-            const active = isActive(item);
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                style={{
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: 14,
-                  fontWeight: active ? 500 : 400,
-                  color: active ? '#fff' : 'var(--color-text-3)',
-                  textDecoration: 'none',
-                  padding: '7px 18px',
-                  borderRadius: 999,
-                  background: active ? '#1B3326' : 'transparent',
-                  transition: 'all 150ms',
-                  whiteSpace: 'nowrap',
-                }}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
+        {/* Center nav -- hidden on mobile via CSS */}
+        <nav className="navlinks">
+          {NAV_ITEMS.map(item => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`navlink${isActive(item) ? ' active' : ''}`}
+            >
+              {item.label}
+            </Link>
+          ))}
         </nav>
 
         {/* Right actions */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 8,
-          flexShrink: 0,
-        }}>
-          <ThemeToggle theme={theme} onToggle={toggle} />
-          <Link href="/agent/logowanie" style={{
-            fontFamily: 'var(--font-sans)',
-            fontSize: 13,
-            color: 'var(--color-text-2)',
-            textDecoration: 'none',
-            padding: '7px 18px',
-            border: '1px solid var(--color-border)',
-            borderRadius: 999,
-            whiteSpace: 'nowrap',
-          }}>
+        <div className="row-8">
+          {/* Mobile hamburger */}
+          <button
+            className="mobile-menu-btn"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Menu"
+          >
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+              {mobileOpen ? (
+                <>
+                  <line x1="4" y1="4" x2="16" y2="16" />
+                  <line x1="16" y1="4" x2="4" y2="16" />
+                </>
+              ) : (
+                <>
+                  <line x1="3" y1="6" x2="17" y2="6" />
+                  <line x1="3" y1="10" x2="17" y2="10" />
+                  <line x1="3" y1="14" x2="17" y2="14" />
+                </>
+              )}
+            </svg>
+          </button>
+          <Link href="/agent/logowanie" className="btn btn-ghost btn-sm hide-on-mobile">
             Zaloguj
           </Link>
-          <Link href="/" style={{
-            fontFamily: 'var(--font-sans)',
-            fontSize: 13,
-            fontWeight: 500,
-            color: '#fff',
-            textDecoration: 'none',
-            padding: '7px 18px',
-            borderRadius: 999,
-            background: '#1B3326',
-            whiteSpace: 'nowrap',
-          }}>
+          <Link href="/" className="btn btn-primary btn-sm hide-on-mobile">
             Sprawdź za darmo
           </Link>
         </div>
       </div>
+
+      {/* Mobile dropdown */}
+      {mobileOpen && (
+        <div className="mobile-nav-dropdown">
+          {NAV_ITEMS.map(item => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`mobile-navlink${isActive(item) ? ' active' : ''}`}
+              onClick={() => setMobileOpen(false)}
+            >
+              {item.label}
+            </Link>
+          ))}
+          <div className="mobile-nav-actions">
+            <Link href="/agent/logowanie" className="btn btn-ghost btn-sm" onClick={() => setMobileOpen(false)}>
+              Zaloguj
+            </Link>
+            <Link href="/" className="btn btn-primary btn-sm" onClick={() => setMobileOpen(false)}>
+              Sprawdź za darmo
+            </Link>
+          </div>
+        </div>
+      )}
     </header>
   );
 }

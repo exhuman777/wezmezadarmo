@@ -10,16 +10,16 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-57R2TFXNH7';
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#ECF2EC',
+  themeColor: '#f0f6f1',
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_URL ?? 'https://wezmezadarmo.vercel.app'),
-  title: 'wezmezadarmo, Sprawdz co Ci sie nalezy',
-  description: 'Odkryj swiadczenia rzadowe, na ktore sie kwalifikujesz. Darmowe badania, zasilki, ulgi podatkowe, wszystko w jednym miejscu.',
+  title: 'wezmezadarmo - Sprawdź co Ci się należy',
+  description: 'Odkryj świadczenia rządowe, na które się kwalifikujesz. Darmowe badania, zasiłki, ulgi podatkowe - wszystko w jednym miejscu.',
   openGraph: {
-    title: 'wezmezadarmo, Sprawdz co Ci sie nalezy',
-    description: 'Zasilki, ulgi, dotacje, darmowe badania, sprawdz w 2 minuty co Ci sie nalezy od panstwa.',
+    title: 'wezmezadarmo - Sprawdź co Ci się należy',
+    description: 'Zasiłki, ulgi, dotacje, darmowe badania - sprawdź w 2 minuty co Ci się należy od państwa.',
     siteName: 'wezmezadarmo',
     locale: 'pl_PL',
     type: 'website',
