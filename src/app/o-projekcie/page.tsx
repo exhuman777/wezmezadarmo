@@ -38,7 +38,7 @@ export default function OProjekciePage() {
               </p>
               <p>
                 wezmezadarmo powstało, żeby rozwiązać ten konkretny problem: zebrać w jednym miejscu
-                <strong className="text-text-1"> 117 świadczeń z 13 kategorii</strong> i dać
+                <strong className="text-text-1"> 117 świadczeń z 15 kategorii</strong> i dać
                 każdemu możliwość sprawdzenia w 2 minuty, na co się kwalifikuje.
                 Bez rejestracji, bez opłat, bez zbędnych kroków.
               </p>
@@ -105,9 +105,9 @@ export default function OProjekciePage() {
                   <div>
                     <strong className="text-text-1">Podajesz podstawowe dane</strong>
                     <p className="text-[13px] text-text-3 mt-0.5">
-                      PESEL (lub wiek i płeć) oraz opcjonalnie NIP. PESEL jest dekodowany lokalnie
-                      w Twojej przeglądarce i nigdy nie opuszcza Twojego urządzenia i nie jest
-                      wysyłany na żaden serwer.
+                      Wiek, płeć oraz opcjonalnie NIP. Jeśli podasz PESEL, jest on dekodowany
+                      lokalnie w Twojej przeglądarce w celu odczytania wieku i płci. Sam numer
+                      PESEL nie jest wysyłany na serwer.
                     </p>
                   </div>
                 </div>
@@ -144,15 +144,17 @@ export default function OProjekciePage() {
               Bezpieczeństwo danych
             </h2>
             <div className="space-y-3">
-              <p>Prywatność jest fundamentem tego projektu:</p>
+              <p>Prywatność jest fundamentem tego projektu. Każda usługa ma inne zasady:</p>
+
+              <p className="text-[13px] font-semibold text-text-1 mt-4 mb-1">Kalkulator świadczeń (strona główna)</p>
               <ul className="space-y-2 pl-1">
                 <li className="flex gap-2">
                   <span className="font-bold shrink-0" style={{ color: 'var(--color-green)' }}>[v]</span>
-                  <span><strong className="text-text-1">PESEL nie opuszcza przeglądarki</strong>: dekodowanie odbywa się lokalnie w JavaScript, numer nigdy nie jest wysyłany na serwer</span>
+                  <span><strong className="text-text-1">Kalkulator nie wymaga PESEL</strong>: wystarczy wiek i płeć. Jeśli podasz PESEL, jest dekodowany lokalnie w przeglądarce i nie trafia na serwer</span>
                 </li>
                 <li className="flex gap-2">
                   <span className="font-bold shrink-0" style={{ color: 'var(--color-green)' }}>[v]</span>
-                  <span><strong className="text-text-1">Brak bazy danych</strong>: nie zapisujemy żadnych danych osobowych, nie tworzymy kont, nie przechowujemy historii</span>
+                  <span><strong className="text-text-1">Brak bazy danych i kont</strong>: kalkulator nie zapisuje danych osobowych, nie tworzy kont i nie przechowuje historii na serwerze</span>
                 </li>
                 <li className="flex gap-2">
                   <span className="font-bold shrink-0" style={{ color: 'var(--color-green)' }}>[v]</span>
@@ -161,6 +163,22 @@ export default function OProjekciePage() {
                 <li className="flex gap-2">
                   <span className="font-bold shrink-0" style={{ color: 'var(--color-green)' }}>[v]</span>
                   <span><strong className="text-text-1">HTTPS</strong>: całe połączenie jest szyfrowane</span>
+                </li>
+              </ul>
+
+              <p className="text-[13px] font-semibold text-text-1 mt-4 mb-1">Formularze wniosków (/wnioski)</p>
+              <ul className="space-y-2 pl-1">
+                <li className="flex gap-2">
+                  <span className="font-bold shrink-0" style={{ color: 'var(--color-amber)' }}>[!]</span>
+                  <span><strong className="text-text-1">PESEL jest przesyłany na serwer</strong>: w celu wygenerowania pliku PDF z wypełnionym wnioskiem. Dane są przetwarzane jednorazowo w pamięci i nie są zapisywane</span>
+                </li>
+              </ul>
+
+              <p className="text-[13px] font-semibold text-text-1 mt-4 mb-1">Panel agenta (/agent/panel)</p>
+              <ul className="space-y-2 pl-1">
+                <li className="flex gap-2">
+                  <span className="font-bold shrink-0" style={{ color: 'var(--color-amber)' }}>[!]</span>
+                  <span><strong className="text-text-1">Wymaga rejestracji</strong>: dane profilu (wiek, dochód, zatrudnienie) i preferencje e-mail przechowywane w bazie Supabase (serwery w UE). PESEL nie jest zbierany</span>
                 </li>
               </ul>
             </div>

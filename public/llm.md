@@ -18,8 +18,9 @@
 - Automatyzuje procesy biurowe dla firm (KSeF, faktury zagraniczne, własne workflow)
 
 Dane: oficjalne źródła rządowe (gov.pl), zweryfikowane 2026-05-09.
-Brak bazy danych użytkowników w kalkulatorze -- wszystko przetwarzane lokalnie lub na serwerze bez zapisu.
-Platforma B2B (/dotacje) używa Supabase do przechowywania profilu firmy i historii monitorowania.
+Kalkulator świadczeń: brak bazy danych, dane przetwarzane na serwerze jednorazowo bez zapisu.
+Panel agenta (/agent/panel): wymaga konta, profil demograficzny przechowywany w Supabase (UE).
+Platforma B2B (/dotacje): wymaga konta, profil firmy i historia monitorowania przechowywane w Supabase (UE).
 
 Przewodnik dla agentów działających jako asystenci firm: **/agents.md**
 
@@ -212,23 +213,25 @@ Generuje PDF wniosku z wstrzykniętymi danymi (XFA injection do formularzy ZUS).
 
 ---
 
-## Kategorie świadczeń (13 kategorii, 117 świadczeń)
+## Kategorie świadczeń (15 kategorii, 117 świadczeń)
 
-| Kategoria | Opis | Przykładowe świadczenia |
-|-----------|------|-------------------------|
-| RODZINA | Świadczenia rodzinne | 800+, becikowe, rodzinny kapitał opiekuńczy |
-| ZDROWIE | Opieka zdrowotna, leki | Refundacja leków, rehabilitacja NFZ, bon na okulary |
-| PODATKI | Ulgi podatkowe | Ulga na dziecko, ulga rehabilitacyjna, ulga termomodernizacyjna |
-| BIZNES | Wsparcie przedsiębiorców | Dofinansowanie z PUP, ulgi ZUS dla nowej firmy |
-| MIESZKANIE | Pomoc mieszkaniowa | Dodatek mieszkaniowy, Fundusz Wsparcia Kredytobiorców |
-| NIEPELNOSPRAWNOSC | Wsparcie osób z niepełnosprawnością | Świadczenie pielęgnacyjne, PFRON, ulga na samochód |
-| ENERGIA | Pomoc energetyczna | Bon energetyczny, dodatek węglowy, dofinansowanie OZE |
-| ZUS | Świadczenia ZUS | Zasiłek chorobowy, macierzyński, ojcowski, opiekuńczy |
-| PRACA | Wsparcie zatrudnienia | Zasiłek dla bezrobotnych, szkolenia z PUP, dopłaty ARiMR |
-| EDUKACJA | Wsparcie edukacyjne | Stypendium socjalne, Erasmus+, wsparcie dla studentów |
-| SENIOR | Świadczenia dla seniorów | 13. emerytura, 14. emerytura, bon senioralny |
-| POMOC_SPOLECZNA | Pomoc społeczna | Zasiłek stały, celowy, pomoc rzeczowa z MOPS |
-| EKOLOGIA | Dotacje ekologiczne | Czyste Powietrze, Mój Prąd, dofinansowanie fotowoltaiki |
+| Kategoria | Liczba | Opis | Przykładowe świadczenia |
+|-----------|--------|------|-------------------------|
+| PRACA | 15 | Wsparcie zatrudnienia | Zasiłek dla bezrobotnych, szkolenia z PUP, bon na zasiedlenie |
+| KRUS | 11 | Świadczenia dla rolników | Emerytura rolnicza, renta KRUS, zasiłek macierzyński KRUS |
+| ZUS | 11 | Świadczenia ZUS | Zasiłek chorobowy, macierzyński, ojcowski, opiekuńczy |
+| RODZINA | 10 | Świadczenia rodzinne | 800+, becikowe, rodzinny kapitał opiekuńczy |
+| ZDROWIE | 10 | Opieka zdrowotna, leki | Refundacja leków, rehabilitacja NFZ, bon na okulary |
+| POMOC_SPOLECZNA | 10 | Pomoc społeczna | Zasiłek stały, celowy, pomoc rzeczowa z MOPS |
+| SENIOR | 8 | Świadczenia dla seniorów | 13. emerytura, 14. emerytura, bon senioralny |
+| PODATKI | 8 | Ulgi podatkowe | Ulga na dziecko, ulga rehabilitacyjna, ulga termomodernizacyjna |
+| EDUKACJA | 7 | Wsparcie edukacyjne | Stypendium socjalne, Erasmus+, wsparcie dla studentów |
+| BIZNES | 6 | Wsparcie przedsiębiorców | Dofinansowanie z PUP, ulgi ZUS dla nowej firmy |
+| EKOLOGIA | 6 | Dotacje ekologiczne | Czyste Powietrze, Mój Prąd, dofinansowanie fotowoltaiki |
+| NIEPELNOSPRAWNOSC | 5 | Wsparcie osób z niepełnosprawnością | Świadczenie pielęgnacyjne, PFRON, ulga na samochód |
+| MIESZKANIE | 4 | Pomoc mieszkaniowa | Dodatek mieszkaniowy, Fundusz Wsparcia Kredytobiorców |
+| INNE | 4 | Pozostałe świadczenia | Karta Dużej Rodziny, Karta Polaka |
+| ENERGIA | 2 | Pomoc energetyczna | Bon ciepłowniczy, bon energetyczny (zakończony) |
 
 ---
 

@@ -18,7 +18,7 @@ export default function PolitykaPage() {
           Polityka prywatności
         </h1>
         <p className="text-[13px] text-text-3 mb-8">
-          Ostatnia aktualizacja: 18 maja 2026 r.
+          Ostatnia aktualizacja: 19 maja 2026 r.
         </p>
 
         <div className="space-y-8 text-[14px] sm:text-[15px] leading-[1.7] text-text-2">
@@ -30,12 +30,14 @@ export default function PolitykaPage() {
           </Section>
 
           <Section n="2" title="Zakres serwisu i zasada minimalizacji danych">
-            <P>Serwis WezmeZaDarmo.com świadczy dwa rodzaje usług:</P>
+            <P>Serwis WezmeZaDarmo.com świadczy trzy rodzaje usług:</P>
             <ul className="list-disc pl-6 space-y-1 mt-2">
-              <li><strong className="text-text-1">Kalkulator świadczeń</strong> (strona główna, /wnioski): bezstanowy, bez kont użytkowników, bez bazy danych osobowych. Dane przetwarzane jednorazowo w pamięci operacyjnej serwera i natychmiast usuwane.</li>
+              <li><strong className="text-text-1">Kalkulator świadczeń</strong> (strona główna): bezstanowy, bez kont użytkowników, bez bazy danych osobowych. Dane przetwarzane jednorazowo w pamięci operacyjnej serwera i natychmiast usuwane.</li>
+              <li><strong className="text-text-1">Formularz wniosków</strong> (/wnioski): pomoc w wypełnieniu formularzy ZUS. Dane formularza (w tym PESEL, jeśli podany) przesyłane na serwer wyłącznie w celu wygenerowania pliku PDF. Dane przetwarzane jednorazowo w pamięci i natychmiast usuwane.</li>
+              <li><strong className="text-text-1">Panel agenta</strong> (/agent/panel): darmowa usługa dla osób prywatnych i JDG. Wymaga rejestracji konta z adresem e-mail. Dane profilu demograficznego i preferencje e-mail przechowywane w Supabase (serwery UE).</li>
               <li><strong className="text-text-1">Platforma B2B: Dotacje i monitoring</strong> (/dotacje): usługa płatna dla firm i JDG. Wymaga rejestracji konta z podaniem danych firmy. Dane przechowywane w Supabase (serwery UE).</li>
             </ul>
-            <P>2.1. Serwis stosuje zasadę minimalizacji danych (art. 5 ust. 1 lit. c RODO). Nie zbiera numerów PESEL. W kalkulatorze świadczeń nie są wymagane żadne dane kontaktowe.</P>
+            <P>2.1. Serwis stosuje zasadę minimalizacji danych (art. 5 ust. 1 lit. c RODO). Kalkulator świadczeń nie zbiera numeru PESEL ani danych kontaktowych. W formularzach wniosków (/wnioski) PESEL może być podany dobrowolnie w celu wygenerowania dokumentu PDF i jest przetwarzany jednorazowo w pamięci operacyjnej serwera bez zapisu.</P>
           </Section>
 
           <Section n="3" title="Zbierane dane i cel przetwarzania">
@@ -115,7 +117,45 @@ export default function PolitykaPage() {
               </tbody>
             </TableWrapper>
 
-            <P>3.3. <strong className="text-text-1">Formularz kontaktowy (/automatyzacje):</strong> Imię, nazwa firmy, adres e-mail i treść wiadomości. Cel: odpowiedź na zapytanie o automatyzację. Podstawa: art. 6 ust. 1 lit. b RODO. Dane nie są przechowywane po udzieleniu odpowiedzi.</P>
+            <P>3.3. <strong className="text-text-1">Panel agenta (/agent/panel):</strong></P>
+            <TableWrapper>
+              <thead>
+                <tr>
+                  <Th>Dane</Th>
+                  <Th>Cel</Th>
+                  <Th>Podstawa prawna</Th>
+                  <Th>Okres</Th>
+                </tr>
+              </thead>
+              <tbody>
+                <Tr>
+                  <Td>Adres e-mail, hasło (zaszyfrowane)</Td>
+                  <Td>Rejestracja i logowanie do konta</Td>
+                  <Td>Art. 6 ust. 1 lit. b RODO</Td>
+                  <Td>Do usunięcia konta lub żądania usunięcia</Td>
+                </Tr>
+                <Tr>
+                  <Td>Profil demograficzny (wiek, płeć, dochód, zatrudnienie, sytuacja rodzinna, województwo)</Td>
+                  <Td>Dopasowanie świadczeń do profilu użytkownika</Td>
+                  <Td>Art. 6 ust. 1 lit. b RODO</Td>
+                  <Td>Do usunięcia konta</Td>
+                </Tr>
+                <Tr>
+                  <Td>Preferencje e-mail (kategorie, godzina digestu)</Td>
+                  <Td>Wysyłka dziennego raportu e-mail</Td>
+                  <Td>Art. 6 ust. 1 lit. b RODO</Td>
+                  <Td>Do usunięcia konta lub wyłączenia digestu</Td>
+                </Tr>
+                <Tr>
+                  <Td>Log wysłanych digestów (data, liczba pozycji)</Td>
+                  <Td>Diagnostyka i zapobieganie duplikatom</Td>
+                  <Td>Art. 6 ust. 1 lit. f RODO (uzasadniony interes)</Td>
+                  <Td>90 dni</Td>
+                </Tr>
+              </tbody>
+            </TableWrapper>
+
+            <P>3.4. <strong className="text-text-1">Formularz kontaktowy (/automatyzacje):</strong> Imię, nazwa firmy, adres e-mail i treść wiadomości. Cel: odpowiedź na zapytanie o automatyzację. Podstawa: art. 6 ust. 1 lit. b RODO. Dane nie są przechowywane po udzieleniu odpowiedzi.</P>
           </Section>
 
           <Section n="4" title="Modele AI i przetwarzanie przez systemy sztucznej inteligencji">
@@ -124,7 +164,7 @@ export default function PolitykaPage() {
               <li>Google Gemini 2.0 Flash: asystent czatowy odpowiadający na pytania o świadczenia</li>
               <li>Google Gemini 2.0 Flash Lite: weryfikacja i filtrowanie wyników dopasowania</li>
             </ul>
-            <P>4.2. Do modeli AI przesyłane są wyłącznie zanonimizowane dane demograficzne. Żadne dane umożliwiające bezpośrednią identyfikację Użytkownika nie są przesyłane do systemów AI.</P>
+            <P>4.2. Do modeli AI przesyłany jest profil demograficzny Użytkownika (wiek, płeć, dochód, zatrudnienie, sytuacja rodzinna, województwo) oraz lista dopasowanych świadczeń. Nie są przesyłane dane umożliwiające bezpośrednią identyfikację: imię, nazwisko, PESEL, adres zamieszkania ani adres e-mail.</P>
             <P>4.3. Zgodnie z art. 50 Rozporządzenia (UE) 2024/1689 (Akt o Sztucznej Inteligencji), serwis wyraźnie informuje o interakcji z systemem AI w interfejsie aplikacji. Wyniki generowane przez AI mają charakter informacyjny i nie wywołują skutków prawnych (art. 22 RODO).</P>
           </Section>
 
@@ -143,7 +183,7 @@ export default function PolitykaPage() {
                 <Tr>
                   <Td>OpenRouter, Inc. (USA) / Google LLC</Td>
                   <Td>Obsługa modeli AI</Td>
-                  <Td>Zanonimizowane dane demograficzne</Td>
+                  <Td>Profil demograficzny (wiek, płeć, dochód, zatrudnienie) i dopasowane świadczenia</Td>
                   <Td>Art. 49 ust. 1 lit. a RODO (zgoda), SCC</Td>
                 </Tr>
                 <Tr>
@@ -154,8 +194,8 @@ export default function PolitykaPage() {
                 </Tr>
                 <Tr>
                   <Td>Supabase, Inc. (USA, serwery EU)</Td>
-                  <Td>Baza danych kont B2B (/dotacje)</Td>
-                  <Td>Dane konta firmowego</Td>
+                  <Td>Baza danych kont B2B (/dotacje) i panelu agenta (/agent/panel)</Td>
+                  <Td>Dane konta firmowego i profilu użytkownika agenta</Td>
                   <Td>Umowa powierzenia, SCC, serwery w regionie UE</Td>
                 </Tr>
                 <Tr>
@@ -241,7 +281,7 @@ export default function PolitykaPage() {
             <P>8.1. Administrator stosuje następujące środki ochrony technicznej:</P>
             <ul className="list-disc pl-6 space-y-1 mt-1">
               <li>Szyfrowanie HTTPS/TLS dla całego ruchu</li>
-              <li>Brak zbierania numerów PESEL ani innych krajowych numerów identyfikacyjnych</li>
+              <li>Kalkulator świadczeń nie zbiera numeru PESEL. W formularzach wniosków (/wnioski) PESEL może być podany w celu wygenerowania PDF i jest przetwarzany jednorazowo bez zapisu</li>
               <li>Kalkulator świadczeń nie prowadzi bazy danych osobowych Użytkowników</li>
               <li>Tranzytowe przetwarzanie NIP bez logowania ani buforowania</li>
               <li>Rate limiting oparty na adresie IP (ochrona przed nadużyciami)</li>
@@ -285,8 +325,8 @@ export default function PolitykaPage() {
           </Section>
 
           <Section n="11" title="Usługa pomocy w wypełnieniu wniosku (/wnioski)">
-            <P>11.1. Usługa przetwarza informacje opisowe o projekcie lub sytuacji Użytkownika podane w formularzu. Dane te nie zawierają numerów PESEL, NIP ani innych identyfikatorów, chyba że Użytkownik sam je wpisze.</P>
-            <P>11.2. Informacje są przesyłane do modelu AI wyłącznie w celu wygenerowania treści do pól formularza. Administrator nie przechowuje tych danych na serwerach. Wygenerowane treści przechowywane są wyłącznie lokalnie w przeglądarce Użytkownika.</P>
+            <P>11.1. Usługa przetwarza dane podane przez Użytkownika w formularzu, w tym numer PESEL (jeśli wymagany przez dany formularz ZUS). Dane formularza przesyłane są na serwer wyłącznie w celu wygenerowania pliku PDF i są przetwarzane jednorazowo w pamięci operacyjnej bez zapisu w bazie danych.</P>
+            <P>11.2. Asystent AI (/api/form-assist) otrzymuje wyłącznie informacje opisowe o projekcie lub sytuacji Użytkownika w celu wygenerowania treści do pól formularza. Numer PESEL nie jest przesyłany do modeli AI. Wygenerowane treści przechowywane są wyłącznie lokalnie w przeglądarce Użytkownika.</P>
             <P>11.3. Podstawa prawna: art. 6 ust. 1 lit. b RODO.</P>
           </Section>
 

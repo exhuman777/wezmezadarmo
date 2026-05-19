@@ -101,7 +101,7 @@ export default function ZusPelPage() {
     <div style={{ minHeight: '100vh', background: 'var(--color-bg-0)' }}>
       <header style={{
         position: 'sticky', top: 0, zIndex: 50,
-        background: 'rgba(250,248,242,0.85)',
+        background: 'rgba(236,242,236,0.85)',
         backdropFilter: 'saturate(140%) blur(14px)',
         WebkitBackdropFilter: 'saturate(140%) blur(14px)',
         borderBottom: '1px solid var(--color-border)',
@@ -179,7 +179,7 @@ function StepMocodawca({ data, update, onNext }: { data: PelData; update: (k: ke
           <Field label="Imie *"><input className={IC} value={data.imie} onChange={e => update('imie', e.target.value)} placeholder="Jan" /></Field>
           <Field label="Nazwisko *"><input className={IC} value={data.nazwisko} onChange={e => update('nazwisko', e.target.value)} placeholder="Kowalski" /></Field>
         </div>
-        <Field label="PESEL *" hint="Tylko lokalnie w przegladarce">
+        <Field label="PESEL *" hint="Przesyłany na serwer wyłącznie do wygenerowania PDF, bez zapisu">
           <input className={IC} value={data.pesel} onChange={e => update('pesel', e.target.value)} placeholder="00000000000" maxLength={11} />
         </Field>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr auto auto', gap: 10 }}>

@@ -41,7 +41,7 @@ export function PeselInfoModal({ isOpen, onClose }: PeselInfoModalProps) {
           <div className="p-3.5 rounded-xl" style={{ background: 'var(--color-green-bg)', border: '1px solid var(--color-green-border)' }}>
             <div className="text-[12px] font-bold tracking-wide text-green uppercase mb-1.5">Krótko</div>
             <p className="text-text-1 font-medium text-[14px] sm:text-[15px]">
-              Twój PESEL nie opuszcza Twojej przeglądarki. Nie przesyłamy go na żaden serwer. Dekodujemy z niego tylko wiek i płeć, lokalnie, na Twoim urządzeniu.
+              W kalkulatorze świadczeń Twój PESEL nie opuszcza przeglądarki. Dekodujemy z niego tylko wiek i płeć, lokalnie, na Twoim urządzeniu. Nie przesyłamy go na serwer.
             </p>
           </div>
 
@@ -153,7 +153,7 @@ export function PeselInfoModal({ isOpen, onClose }: PeselInfoModalProps) {
             <div className="space-y-2">
               <div className="flex gap-2.5">
                 <span className="text-green font-bold shrink-0">{'\u2713'}</span>
-                <span>PESEL jest przetwarzany wyłącznie w Twojej przeglądarce i nigdy nie trafia na nasz serwer</span>
+                <span>W kalkulatorze PESEL jest przetwarzany wyłącznie w przeglądarce i nie trafia na serwer</span>
               </div>
               <div className="flex gap-2.5">
                 <span className="text-green font-bold shrink-0">{'\u2713'}</span>
@@ -165,7 +165,7 @@ export function PeselInfoModal({ isOpen, onClose }: PeselInfoModalProps) {
               </div>
               <div className="flex gap-2.5">
                 <span className="text-green font-bold shrink-0">{'\u2713'}</span>
-                <span>Nie mamy bazy danych użytkowników, nie ma czego wykraść</span>
+                <span>Kalkulator nie posiada bazy danych użytkowników</span>
               </div>
               <div className="flex gap-2.5">
                 <span className="text-green font-bold shrink-0">{'\u2713'}</span>

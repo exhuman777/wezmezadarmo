@@ -131,7 +131,7 @@ export default function ZusErpoPage() {
       {/* Header */}
       <header style={{
         position: 'sticky', top: 0, zIndex: 50,
-        background: 'rgba(250,248,242,0.85)',
+        background: 'rgba(236,242,236,0.85)',
         backdropFilter: 'saturate(140%) blur(14px)',
         WebkitBackdropFilter: 'saturate(140%) blur(14px)',
         borderBottom: '1px solid var(--color-border)',
@@ -234,7 +234,7 @@ function StepWnioskodawca({ data, update, onNext }: { data: ErpoData; update: (k
         <Field label="Imie ojca">
           <input className={IC} value={data.imieOjca} onChange={e => update('imieOjca', e.target.value)} placeholder="Adam" />
         </Field>
-        <Field label="PESEL *" hint="Wpisywany tylko lokalnie, nie wysylany na serwer">
+        <Field label="PESEL *" hint="Przesyłany na serwer wyłącznie do wygenerowania PDF, bez zapisu">
           <input className={IC} value={data.pesel} onChange={e => update('pesel', e.target.value)} placeholder="00000000000" maxLength={11} />
         </Field>
         <Field label="Plec">

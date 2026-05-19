@@ -163,7 +163,7 @@ export default function ZusZ15bPage() {
       {/* Header */}
       <header style={{
         position: 'sticky', top: 0, zIndex: 50,
-        background: 'rgba(250,248,242,0.85)',
+        background: 'rgba(236,242,236,0.85)',
         backdropFilter: 'saturate(140%) blur(14px)',
         WebkitBackdropFilter: 'saturate(140%) blur(14px)',
         borderBottom: '1px solid var(--color-border)',
@@ -280,7 +280,7 @@ function StepWnioskodawca({ data, update, onNext }: { data: Z15bData; update: (k
             <input className={IC} value={data.nazwisko} onChange={e => update('nazwisko', e.target.value)} placeholder="Kowalski" />
           </Field>
         </div>
-        <Field label="PESEL *" hint="Wpisywany tylko lokalnie w przegladarce, nie wysylany na serwer">
+        <Field label="PESEL *" hint="Przesyłany na serwer wyłącznie do wygenerowania PDF, bez zapisu">
           <input className={IC} value={data.pesel} onChange={e => update('pesel', e.target.value)} placeholder="00000000000" maxLength={11} />
         </Field>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr auto auto', gap: 10 }}>

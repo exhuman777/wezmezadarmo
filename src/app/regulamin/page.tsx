@@ -46,10 +46,10 @@ export default function RegulaminPage() {
             <P className="pl-4">a) przyjęcie od Użytkownika danych demograficznych i sytuacyjnych (wiek, płeć, stan cywilny, dochód, liczba dzieci, forma zatrudnienia, województwo i inne parametry podane w formularzu) wyłącznie w zakresie niezbędnym do przeprowadzenia analizy kwalifikowalności do świadczeń;</P>
             <P className="pl-4">b) opcjonalna weryfikacja numeru NIP w rejestrze CEIDG w celu potwierdzenia statusu działalności gospodarczej, numer NIP jest przesyłany do publicznego API Centralnej Ewidencji i Informacji o Działalności Gospodarczej (CEIDG) prowadzonego przez Ministerstwo Rozwoju i Technologii; numer NIP nie jest zapisywany przez Operatora;</P>
             <P className="pl-4">c) analiza kwalifikowalności do świadczeń rządowych na podstawie podanych danych demograficznych i sytuacyjnych;</P>
-            <P className="pl-4">d) asystent AI umożliwiający zadawanie pytań o szczegóły świadczeń, do modelu AI przesyłane są wyłącznie zanonimizowane dane demograficzne, bez jakichkolwiek danych umożliwiających bezpośrednią identyfikację Użytkownika;</P>
+            <P className="pl-4">d) asystent AI umożliwiający zadawanie pytań o szczegóły świadczeń; do modelu AI przesyłany jest profil demograficzny Użytkownika (wiek, płeć, dochód, zatrudnienie, sytuacja rodzinna) oraz lista dopasowanych świadczeń, bez danych umożliwiających bezpośrednią identyfikację (imię, nazwisko, PESEL, adres);</P>
             <P className="pl-4">e) prezentacja wyników w formie listy świadczeń z informacjami o wymaganiach, kwotach, procedurze składania wniosków oraz źródłach prawnych.</P>
             <P>3.2. Serwis nie świadczy usług doradztwa prawnego, podatkowego ani finansowego.</P>
-            <P>3.3. Serwis nie zbiera, nie przetwarza ani nie przechowuje numerów PESEL. Użytkownik podaje wiek i płeć bezpośrednio w formularzu.</P>
+            <P>3.3. W kalkulatorze świadczeń Użytkownik podaje wiek i płeć bezpośrednio w formularzu, numer PESEL nie jest wymagany. W usłudze pomocy w wypełnieniu wniosku (/wnioski) numer PESEL może być podany w formularzu i jest przesyłany na serwer wyłącznie w celu wygenerowania dokumentu PDF, bez zapisu w bazie danych.</P>
           </Section>
 
           <Section n="3a" title="Usługa pomocy w wypełnieniu wniosku">
@@ -89,7 +89,7 @@ export default function RegulaminPage() {
             <P className="pl-4">b) AI może popełniać błędy, wyniki nie stanowią porady prawnej, podatkowej ani finansowej;</P>
             <P className="pl-4">c) ostateczna decyzja o kwalifikowalności do danego świadczenia należy wyłącznie do właściwego organu administracji publicznej;</P>
             <P className="pl-4">d) Operator nie ponosi odpowiedzialności za decyzje podjęte na podstawie wyników wygenerowanych przez Serwis;</P>
-            <P className="pl-4">e) dane przesyłane do modelu AI nie zawierają imienia, nazwiska, numeru NIP ani żadnych innych danych umożliwiających bezpośrednią identyfikację Użytkownika, przesyłane są wyłącznie zanonimizowane dane demograficzne.</P>
+            <P className="pl-4">e) dane przesyłane do modelu AI nie zawierają imienia, nazwiska, numeru PESEL, adresu zamieszkania ani adresu e-mail; przesyłany jest profil demograficzny (wiek, płeć, dochód, zatrudnienie, sytuacja rodzinna, województwo) oraz lista dopasowanych świadczeń.</P>
             <P>5.3. Zgodnie z art. 50 Rozporządzenia Parlamentu Europejskiego i Rady (UE) 2024/1689 (Akt o Sztucznej Inteligencji), Operator informuje, że Użytkownik wchodzi w interakcję z systemem wykorzystującym sztuczną inteligencję, a nie z człowiekiem.</P>
             <P>5.4. Transparentność AI: wszystkie treści wygenerowane przez model AI są wyraźnie oznaczone etykietą &quot;AI&quot; w interfejsie użytkownika. Baza świadczeń jest ręcznie zweryfikowana przez człowieka. AI pełni wyłącznie rolę pomocniczą (weryfikacja dopasowań, asystent czatowy).</P>
             <P>5.5. Wyjaśnialność wyników: Użytkownik może zapytać asystenta AI o uzasadnienie każdego dopasowania. Przy każdym świadczeniu podane są kryteria dopasowania, źródło prawne i data weryfikacji. Funkcja ta ma charakter informacyjny i nie stanowi realizacji prawa z art. 22 RODO, ponieważ system nie podejmuje zautomatyzowanych decyzji wywołujących skutki prawne.</P>

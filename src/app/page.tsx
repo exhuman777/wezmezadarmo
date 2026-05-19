@@ -12,36 +12,38 @@ type Phase = 'landing' | 'questions' | 'loading' | 'chat';
 
 const LOADING_MESSAGES = [
   'Szukamy pieniędzy dla Twojej rodziny...',
-  'Sprawdzamy 117 świadczeń w 13 kategoriach...',
+  'Sprawdzamy 117 świadczeń w 15 kategoriach...',
   'Szukam dla Ciebie funduszy...',
   'Analizujemy Twój profil...',
   'Twoje darmowe pieniądze od Państwa w zasięgu ręki...',
 ];
 
 const CATEGORIES = [
-  { id: 'family', label: 'Rodzina', count: 18 },
-  { id: 'senior', label: 'Seniorzy', count: 9 },
-  { id: 'disability', label: 'Niepełnosprawność', count: 11 },
-  { id: 'biz', label: 'Przedsiębiorcy', count: 8 },
-  { id: 'job', label: 'Bezrobotni', count: 6 },
-  { id: 'student', label: 'Studenci', count: 7 },
-  { id: 'farm', label: 'Rolnicy', count: 5 },
-  { id: 'house', label: 'Mieszkanie', count: 8 },
-  { id: 'health', label: 'Zdrowie', count: 7 },
-  { id: 'meds', label: 'Leki', count: 4 },
-  { id: 'transport', label: 'Transport', count: 5 },
-  { id: 'tax', label: 'Ulgi podatkowe', count: 8 },
-  { id: 'docs', label: 'Dokumenty', count: 3 },
+  { id: 'praca', label: 'Praca', count: 15 },
+  { id: 'krus', label: 'KRUS', count: 11 },
+  { id: 'zus', label: 'ZUS', count: 11 },
+  { id: 'rodzina', label: 'Rodzina', count: 10 },
+  { id: 'zdrowie', label: 'Zdrowie', count: 10 },
+  { id: 'pomoc', label: 'Pomoc społeczna', count: 10 },
+  { id: 'senior', label: 'Seniorzy', count: 8 },
+  { id: 'podatki', label: 'Ulgi podatkowe', count: 8 },
+  { id: 'edukacja', label: 'Edukacja', count: 7 },
+  { id: 'biznes', label: 'Przedsiębiorcy', count: 6 },
+  { id: 'ekologia', label: 'Ekologia', count: 6 },
+  { id: 'niepelnosprawnosc', label: 'Niepełnosprawność', count: 5 },
+  { id: 'mieszkanie', label: 'Mieszkanie', count: 4 },
+  { id: 'inne', label: 'Inne', count: 4 },
+  { id: 'energia', label: 'Energia', count: 2 },
 ];
 
 const EXAMPLE_BENEFITS = [
   { nazwa: 'Świadczenie 800+', kwota: '800 PLN/mies.', opis: 'Na każde dziecko do 18 roku życia, bez progu dochodowego' },
-  { nazwa: 'Bon energetyczny', kwota: 'do 1200 PLN', opis: 'Jednorazowe wsparcie na rachunki za prąd i gaz' },
+  { nazwa: 'Bon ciepłowniczy', kwota: 'do 3500 PLN', opis: 'Świadczenie dla odbiorców ciepła systemowego (nabór od lipca 2026)' },
   { nazwa: 'Ulga na dziecko (PIT)', kwota: 'do 2700 PLN/rok', opis: 'Odliczenie od podatku za każde dziecko' },
   { nazwa: 'Dodatek mieszkaniowy', kwota: 'do 1500 PLN/mies.', opis: 'Dopłata do czynszu przy niskim dochodzie' },
   { nazwa: 'Refundacja okularów (NFZ)', kwota: 'do 500 PLN', opis: 'Dofinansowanie do soczewek i oprawek' },
-  { nazwa: 'Zasiłek pogrzebowy', kwota: '4000 PLN', opis: 'Jednorazowe świadczenie na pokrycie kosztów pogrzebu' },
-  { nazwa: 'Trzynasta emerytura', kwota: '1780 PLN', opis: 'Dodatkowe roczne świadczenie dla emerytów i rencistów' },
+  { nazwa: 'Zasiłek pogrzebowy', kwota: '7000 PLN', opis: 'Jednorazowe świadczenie na pokrycie kosztów pogrzebu (od 2026 r.)' },
+  { nazwa: 'Trzynasta emerytura', kwota: '1978 PLN brutto', opis: 'Dodatkowe roczne świadczenie dla emerytów i rencistów (kwiecień 2026)' },
   { nazwa: 'Becikowe', kwota: '1000 PLN', opis: 'Jednorazowa zapomoga z tytułu urodzenia dziecka' },
 ];
 
@@ -278,8 +280,8 @@ function TopBar({ theme, onToggle, children }: { theme: 'light' | 'dark'; onTogg
     <header style={{
       position: 'sticky', top: 0, zIndex: 50,
       background: theme === 'dark'
-        ? 'rgba(11,10,8,0.8)'
-        : 'rgba(250,248,242,0.8)',
+        ? 'rgba(10,18,10,0.8)'
+        : 'rgba(236,242,236,0.8)',
       backdropFilter: 'saturate(140%) blur(14px)',
       WebkitBackdropFilter: 'saturate(140%) blur(14px)',
       borderBottom: '1px solid var(--color-border)',
@@ -568,7 +570,7 @@ export default function Home() {
         welcomeText += 'Napisz pytanie, jestem tutaj żeby pomóc.';
       } else {
         welcomeText = 'Nie znalazłem świadczeń pasujących do Twojego profilu.\n\n';
-        welcomeText += 'Algorytm przeszukał 117 świadczeń z 13 kategorii. Opisz mi swoją sytuację, a sprawdzę czy czegoś nie przeoczyłem.\n\n';
+        welcomeText += 'Algorytm przeszukał 117 świadczeń z 15 kategorii. Opisz mi swoją sytuację, a sprawdzę czy czegoś nie przeoczyłem.\n\n';
         welcomeText += 'Jestem asystentem AI. Moje odpowiedzi opierają się na zweryfikowanej bazie danych, ale zawsze sprawdź informacje na stronach źródłowych.';
       }
 
@@ -767,14 +769,14 @@ export default function Home() {
                   <a href="/wnioski" style={{
                     display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                     gap: 12, padding: '10px 16px', borderRadius: 8,
-                    border: '1px solid var(--color-accent)',
-                    background: 'color-mix(in srgb, var(--color-accent) 8%, transparent)',
+                    border: '1px solid var(--color-green-border)',
+                    background: 'var(--color-green-bg)',
                     textDecoration: 'none',
                   }}>
                     <span style={{ fontSize: 13, color: 'var(--color-text-1)', fontWeight: 500 }}>
                       Wypełnij wniosek ZUS z AI: Z-15a, Z-3, ERPO i inne
                     </span>
-                    <span style={{ fontSize: 12, color: 'var(--color-accent)', whiteSpace: 'nowrap', fontWeight: 500 }}>
+                    <span style={{ fontSize: 12, color: 'var(--color-green)', whiteSpace: 'nowrap', fontWeight: 500 }}>
                       12 formularzy &rarr;
                     </span>
                   </a>
@@ -787,7 +789,7 @@ export default function Home() {
                       textDecoration: 'none',
                     }}>
                       <span style={{ fontSize: 12, color: 'var(--color-text-2)' }}>AI dla firm / JDG</span>
-                      <span style={{ fontSize: 11, color: 'var(--color-accent)', fontWeight: 500 }}>Automatyzacje &rarr;</span>
+                      <span style={{ fontSize: 11, color: 'var(--color-green)', fontWeight: 500 }}>Automatyzacje &rarr;</span>
                     </a>
                     <a href="/aktualnosci" style={{
                       display: 'flex', alignItems: 'center', justifyContent: 'space-between',
@@ -797,7 +799,7 @@ export default function Home() {
                       textDecoration: 'none',
                     }}>
                       <span style={{ fontSize: 12, color: 'var(--color-text-2)' }}>ZUS, GUS, NBP...</span>
-                      <span style={{ fontSize: 11, color: 'var(--color-accent)', fontWeight: 500 }}>Aktualności &rarr;</span>
+                      <span style={{ fontSize: 11, color: 'var(--color-green)', fontWeight: 500 }}>Aktualności &rarr;</span>
                     </a>
                     <a href="/dotacje" style={{
                       display: 'flex', alignItems: 'center', justifyContent: 'space-between',
@@ -807,7 +809,7 @@ export default function Home() {
                       textDecoration: 'none',
                     }}>
                       <span style={{ fontSize: 12, color: 'var(--color-text-2)' }}>KFS, KPO, PFRON...</span>
-                      <span style={{ fontSize: 11, color: 'var(--color-accent)', fontWeight: 500 }}>Dotacje &rarr;</span>
+                      <span style={{ fontSize: 11, color: 'var(--color-green)', fontWeight: 500 }}>Dotacje &rarr;</span>
                     </a>
                   </div>
                 </div>
@@ -815,7 +817,7 @@ export default function Home() {
                 {/* Trust row */}
                 <div className="rise" style={{ display: 'flex', flexWrap: 'wrap', gap: 18, marginBottom: 36, animationDelay: '240ms' }}>
                   {[
-                    { label: 'PESEL nie opuszcza przeglądarki', icon: <IconLock /> },
+                    { label: 'PESEL dekodowany lokalnie w przeglądarce', icon: <IconLock /> },
                     { label: 'Kalkulator świadczeń bez bazy danych', icon: <IconShield /> },
                     { label: 'Połączenie HTTPS', icon: <IconCheck /> },
                   ].map((item, i) => (
@@ -893,9 +895,9 @@ export default function Home() {
                     alt="Seniorka z pomocą bliskich sprawdza przysługujące świadczenia"
                     style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.92) saturate(0.9)' }}
                   />
-                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(13,11,10,0.55) 0%, transparent 50%)' }} />
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,18,10,0.55) 0%, transparent 50%)' }} />
                   <div style={{ position: 'absolute', bottom: 14, left: 14, right: 14 }}>
-                    <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 4 }}>Dla seniorów i rodzin</div>
+                    <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-green)', marginBottom: 4 }}>Dla seniorów i rodzin</div>
                     <div style={{ fontSize: 13, color: '#fff', lineHeight: 1.4 }}>Każde pokolenie może skorzystać</div>
                   </div>
                 </div>
@@ -905,9 +907,9 @@ export default function Home() {
                     alt="Zespół w pracy sprawdza dostępne świadczenia i ulgi"
                     style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.9) saturate(0.9)' }}
                   />
-                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(13,11,10,0.55) 0%, transparent 55%)' }} />
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,18,10,0.55) 0%, transparent 55%)' }} />
                   <div style={{ position: 'absolute', bottom: 14, left: 14, right: 14 }}>
-                    <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 4 }}>Dla firm i pracowników</div>
+                    <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-green)', marginBottom: 4 }}>Dla firm i pracowników</div>
                     <div style={{ fontSize: 13, color: '#fff', lineHeight: 1.4 }}>Świadczenia, do których pracownicy mają prawo</div>
                   </div>
                 </div>
@@ -917,9 +919,9 @@ export default function Home() {
                     alt="Ekspert przy komputerze korzysta z asystenta AI"
                     style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.9) saturate(0.9)' }}
                   />
-                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(13,11,10,0.55) 0%, transparent 55%)' }} />
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,18,10,0.55) 0%, transparent 55%)' }} />
                   <div style={{ position: 'absolute', bottom: 14, left: 14, right: 14 }}>
-                    <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 4 }}>Asystent AI</div>
+                    <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-green)', marginBottom: 4 }}>Asystent AI</div>
                     <div style={{ fontSize: 13, color: '#fff', lineHeight: 1.4 }}>Odpowie na każde pytanie o świadczenia</div>
                   </div>
                 </div>
@@ -933,10 +935,17 @@ export default function Home() {
                 <span className="label-eyebrow" style={{ color: 'var(--color-muted-2)' }}>3 z 117</span>
               </div>
               <div className="grid-benefits" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
-                {EXAMPLE_BENEFITS.slice(0, 3).map((b, i) => (
+                {EXAMPLE_BENEFITS.slice(0, 3).map((b, i) => {
+                  const tints = [
+                    { bg: 'var(--color-green-bg)', border: 'var(--color-green-border)' },
+                    { bg: 'var(--color-surface)', border: 'var(--color-border)' },
+                    { bg: 'var(--color-pl-red-soft)', border: 'var(--color-pl-red-border)' },
+                  ];
+                  const t = tints[i];
+                  return (
                   <a key={i} href="/swiadczenia" className="hover-lift" style={{
-                    background: 'var(--color-surface)',
-                    border: '1px solid var(--color-border)',
+                    background: t.bg,
+                    border: `1px solid ${t.border}`,
                     borderRadius: 16,
                     padding: '22px',
                     display: 'flex', flexDirection: 'column', gap: 10,
@@ -944,17 +953,19 @@ export default function Home() {
                   }}>
                     <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
                       <div style={{ fontSize: 17, fontWeight: 500, letterSpacing: '-0.015em' }}>{b.nazwa}</div>
-                      <Chip tone="primary" mono>#{String(i + 1).padStart(2, '0')}</Chip>
+                      <Chip tone="success" mono>#{String(i + 1).padStart(2, '0')}</Chip>
                     </div>
-                    <p style={{ fontSize: 13, color: 'var(--color-text-3)', lineHeight: 1.5, flex: 1 }}>{b.opis}</p>
-                    <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', borderTop: '1px solid var(--color-border)', paddingTop: 14 }}>
-                      <div>
+                    <p style={{ fontSize: 13, color: 'var(--color-text-2)', lineHeight: 1.5, flex: 1 }}>{b.opis}</p>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid var(--color-border)', paddingTop: 14 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                        <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--color-green)', flexShrink: 0 }} />
                         <div className="mono" style={{ fontSize: 22, fontWeight: 500, letterSpacing: '-0.02em', color: 'var(--color-text-1)' }}>{b.kwota}</div>
                       </div>
                       <span className="label-eyebrow" style={{ color: 'var(--color-accent)' }}>Sprawdź <IconArrowRight /></span>
                     </div>
                   </a>
-                ))}
+                  );
+                })}
               </div>
             </div>
 
@@ -977,7 +988,7 @@ export default function Home() {
                 }}>
                   <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
                     <div>
-                      <div className="mono" style={{ fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 6 }}>
+                      <div className="mono" style={{ fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-green)', marginBottom: 6 }}>
                         Formularze ZUS
                       </div>
                       <div style={{ fontSize: 17, fontWeight: 500, letterSpacing: '-0.015em', color: 'var(--color-text-1)' }}>
@@ -1015,7 +1026,7 @@ export default function Home() {
                 }}>
                   <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
                     <div>
-                      <div className="mono" style={{ fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 6 }}>
+                      <div className="mono" style={{ fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-green)', marginBottom: 6 }}>
                         Automatyzacje AI
                       </div>
                       <div style={{ fontSize: 17, fontWeight: 500, letterSpacing: '-0.015em', color: 'var(--color-text-1)' }}>
@@ -1054,7 +1065,7 @@ export default function Home() {
                 }}>
                   <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
                     <div>
-                      <div className="mono" style={{ fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 6 }}>
+                      <div className="mono" style={{ fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-green)', marginBottom: 6 }}>
                         Agent AI dotacje
                       </div>
                       <div style={{ fontSize: 17, fontWeight: 500, letterSpacing: '-0.015em', color: 'var(--color-text-1)' }}>
@@ -1095,7 +1106,7 @@ export default function Home() {
                 boxShadow: 'var(--shadow-2)',
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
-                  <span className="label-eyebrow" style={{ color: 'var(--color-accent)' }}>Czy wiesz?</span>
+                  <span className="label-eyebrow" style={{ color: 'var(--color-green)' }}>Czy wiesz?</span>
                   <span style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
                 </div>
                 <h3 style={{ fontSize: 24, letterSpacing: '-0.025em', marginBottom: 12 }}>
@@ -1204,7 +1215,7 @@ export default function Home() {
                 boxShadow: 'var(--shadow-2)',
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
-                  <span className="label-eyebrow" style={{ color: 'var(--color-accent)' }}>Agregator RSS</span>
+                  <span className="label-eyebrow" style={{ color: 'var(--color-green)' }}>Agregator RSS</span>
                   <span style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
                   <span className="mono" style={{ fontSize: 10, color: 'var(--color-muted-2)' }}>odswiezane co 30 min</span>
                 </div>
@@ -1356,7 +1367,7 @@ export default function Home() {
               <div>
                 <Logo />
                 <p style={{ fontSize: 14, color: 'var(--color-text-3)', marginTop: 16, maxWidth: 360, lineHeight: 1.6 }}>
-                  Sprawdź czy należą Ci się świadczenia od państwa. 117 świadczeń, 13 kategorii. Strona przygotowana i dostępna również w wersji dla agentów AI w pliku <a href="/llm.md" style={{ color: 'var(--color-accent)' }}>llm.md</a>.
+                  Sprawdź czy należą Ci się świadczenia od państwa. 117 świadczeń, 15 kategorii. Strona przygotowana i dostępna również w wersji dla agentów AI w pliku <a href="/llm.md" style={{ color: 'var(--color-accent)' }}>llm.md</a>.
                 </p>
                 <div style={{ marginTop: 20 }}>
                   <FlagStripe width={36} thickness={4} />
@@ -1526,8 +1537,8 @@ export default function Home() {
                 </h1>
 
                 <p style={{ fontSize: 17, color: 'var(--color-text-2)', maxWidth: 480, marginBottom: 32, lineHeight: 1.5 }}>
-                  Dopasowujemy 117 świadczeń z 13 kategorii do Twojej sytuacji.
-                  Wszystko dzieje się w Twojej przeglądarce. Żadne dane nie opuszczają urządzenia.
+                  Dopasowujemy 117 świadczeń z 15 kategorii do Twojej sytuacji.
+                  Dopasowanie odbywa się na serwerze, ale dane nie są zapisywane.
                 </p>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 24 }}>
