@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { SiteHeader } from '@/components/SiteHeader';
 
 const PROBLEMY = [
   { obszar: 'Faktury zagraniczne', opis: 'Polskie faktury trafiają do KSeF. Ale rachunki z USA i spoza UE (Stripe, OpenAI, AWS, Notion) przychodzą mailem i można je przegapić. Trzeba je ręcznie przepisywać do ewidencji.' },
@@ -88,7 +87,6 @@ export default function AutomatyzacjePage() {
 
   return (
     <div style={{ minHeight: '100vh' }}>
-      <SiteHeader />
 
       <section style={{ position: 'relative', paddingTop: 48, paddingBottom: 80 }}>
         <div className="grain-bg" />

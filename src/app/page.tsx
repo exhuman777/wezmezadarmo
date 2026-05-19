@@ -3,8 +3,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { IntakeForm } from '@/components/IntakeForm';
 import { ChatWindow, ChatMessage } from '@/components/ChatWindow';
-import { ThemeToggle } from '@/components/ThemeToggle';
-import { useTheme } from '@/hooks/useTheme';
 import { MatchResult, UserProfile } from '@/engine/types';
 import { CeidgBusinessData } from '@/lib/ceidg';
 
@@ -206,43 +204,7 @@ function CountUp({ to, suffix = '', delay = 0 }: { to: number; suffix?: string; 
   return <span>{val}{suffix}</span>;
 }
 
-/* ---- FlagStripe ---- */
-function FlagStripe({ width = 60, thickness = 3 }: { width?: number; thickness?: number }) {
-  return (
-    <span style={{
-      display: 'inline-flex',
-      flexDirection: 'column',
-      width,
-      borderRadius: 2,
-      overflow: 'hidden',
-      boxShadow: '0 0 0 1px var(--color-border)',
-    }}>
-      <span style={{ height: thickness, background: '#FFFFFF' }} />
-      <span style={{ height: thickness, background: 'var(--color-pl-red)' }} />
-    </span>
-  );
-}
-
-/* ---- Logo ---- */
-function Logo({ size = 18 }: { size?: number }) {
-  return (
-    <a href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
-      <span className="red-dot" />
-      <span style={{
-        fontWeight: 600,
-        fontSize: size,
-        letterSpacing: '-0.02em',
-        color: 'var(--color-text-1)',
-        display: 'inline-flex',
-        alignItems: 'baseline',
-        gap: 2,
-      }}>
-        wezmezadarmo
-        <span className="mono" style={{ color: 'var(--color-text-3)', fontWeight: 400, fontSize: size * 0.65 }}>.com</span>
-      </span>
-    </a>
-  );
-}
+/* ---- FlagStripe + Logo removed: no longer used (SiteNav in root layout) ---- */
 
 /* ---- Chip ---- */
 function Chip({ children, tone = 'default', mono = false }: { children: React.ReactNode; tone?: string; mono?: boolean }) {
@@ -274,31 +236,7 @@ function Chip({ children, tone = 'default', mono = false }: { children: React.Re
   );
 }
 
-/* ---- TopBar ---- */
-function TopBar({ theme, onToggle, children }: { theme: 'light' | 'dark'; onToggle: () => void; children?: React.ReactNode }) {
-  return (
-    <header style={{
-      position: 'sticky', top: 0, zIndex: 50,
-      background: theme === 'dark'
-        ? 'rgba(10,18,10,0.8)'
-        : 'rgba(236,242,236,0.8)',
-      backdropFilter: 'saturate(140%) blur(14px)',
-      WebkitBackdropFilter: 'saturate(140%) blur(14px)',
-      borderBottom: '1px solid var(--color-border)',
-    }}>
-      <div className="container" style={{
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        height: 64,
-      }}>
-        <Logo />
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          {children}
-          <ThemeToggle theme={theme} onToggle={onToggle} />
-        </div>
-      </div>
-    </header>
-  );
-}
+/* ---- TopBar removed: SiteNav is in root layout ---- */
 
 /* ---- Icons ---- */
 const IconLock = () => (
@@ -331,7 +269,6 @@ const SESSION_KEY = 'wzd_session_v1';
 const SESSION_TTL = 7 * 24 * 60 * 60 * 1000;
 
 export default function Home() {
-  const { theme, toggle: toggleTheme } = useTheme();
   const [phase, setPhase] = useState<Phase>('landing');
   const [isLoading, setIsLoading] = useState(false);
   const [profile, setProfile] = useState<Partial<UserProfile>>({});
@@ -694,51 +631,96 @@ export default function Home() {
   if (phase === 'landing') {
     return (
       <div style={{ minHeight: '100vh' }}>
-        <TopBar theme={theme} onToggle={toggleTheme} />
 
-        <section style={{ position: 'relative', paddingTop: 32, paddingBottom: 80 }}>
+        {/* Dark Hero Banner */}
+        <section style={{ position: 'relative', paddingTop: 16, paddingBottom: 0 }}>
+          <div className="container" style={{ position: 'relative' }}>
+            <div className="rise" style={{
+              background: 'linear-gradient(145deg, #0A1A10 0%, #122A1A 50%, #0F2215 100%)',
+              borderRadius: 24,
+              padding: 'clamp(36px, 5vw, 64px) clamp(24px, 4vw, 56px)',
+              marginBottom: 48,
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 28 }}>
+                <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#4ADE80' }} />
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: '#6DC08A', letterSpacing: '0.06em', textTransform: 'uppercase' }}>START</span>
+              </div>
+              <h1 style={{
+                fontSize: 'clamp(36px, 6vw, 64px)',
+                fontWeight: 700,
+                lineHeight: 1.1,
+                letterSpacing: '-0.03em',
+                margin: '0 0 20px',
+              }}>
+                <span style={{ color: '#F0F7F0' }}>Sprawdź teraz.</span><br />
+                <span style={{ color: '#4ADE80', fontStyle: 'italic' }}>Należy się Tobie.</span>
+              </h1>
+              <p style={{
+                fontSize: 16,
+                lineHeight: 1.65,
+                color: '#A0B8A0',
+                maxWidth: 560,
+                margin: '0 0 36px',
+              }}>
+                Dwie minuty, jedenaście pytań, lista świadczeń wartych setki -
+                czasem tysiące - złotych. Bez rejestracji, bez opłat, bez urzędu.
+              </p>
+              <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+                <a href="#formularz" style={{
+                  padding: '13px 28px',
+                  background: '#2E7D4F',
+                  color: '#fff',
+                  fontWeight: 600,
+                  fontSize: 15,
+                  borderRadius: 12,
+                  textDecoration: 'none',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 8,
+                }}>
+                  Zacznij sprawdzanie &rarr;
+                </a>
+                <a href="/dla-firm" style={{
+                  padding: '13px 28px',
+                  border: '1px solid rgba(255,255,255,0.2)',
+                  color: 'rgba(255,255,255,0.7)',
+                  fontWeight: 500,
+                  fontSize: 15,
+                  borderRadius: 12,
+                  textDecoration: 'none',
+                }}>
+                  Jestem firmą
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section style={{ position: 'relative', paddingTop: 0, paddingBottom: 80 }}>
           <div className="grain-bg" />
           <div className="container" style={{ position: 'relative' }}>
 
-            {/* Eyebrow row */}
-            <div className="rise" style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 36 }}>
-              <FlagStripe width={28} thickness={3} />
-              <span className="label-eyebrow">Niezależne narzędzie | Projekt Społeczny | Z miłości do Polski | Z miłości do Polaków</span>
-              <span style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
-              <span className="label-eyebrow hide-mobile" style={{ color: 'var(--color-muted-2)' }}>zaktualizowano 15.05.2026</span>
-            </div>
+            {/* Form + info section */}
+            <div id="formularz" className="grid-hero" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48, alignItems: 'start', marginBottom: 64 }}>
 
-            {/* Split: hero left + form right */}
-            <div className="grid-hero" style={{ display: 'grid', gridTemplateColumns: '1.15fr 1fr', gap: 64, alignItems: 'start' }}>
-
-              {/* LEFT */}
+              {/* LEFT: stats + trust */}
               <div>
-                <h1 className="display rise" style={{ fontSize: 'clamp(48px, 7vw, 96px)', marginBottom: 28, animationDelay: '60ms' }}>
-                  Sprawdź<br />
-                  co Ci<br />
-                  <span style={{ color: 'var(--color-accent)' }}>się należy</span>
-                  <span style={{ display: 'inline-block', width: 12, height: 12, marginLeft: 12, background: 'var(--color-pl-red)', borderRadius: '50%', verticalAlign: 'baseline', transform: 'translateY(-12px)' }} />
-                </h1>
-
                 <p className="rise" style={{
-                  maxWidth: 540,
-                  fontSize: 18, lineHeight: 1.55,
+                  maxWidth: 480,
+                  fontSize: 16, lineHeight: 1.65,
                   color: 'var(--color-text-2)',
-                  marginBottom: 40,
-                  animationDelay: '120ms',
+                  marginBottom: 32,
+                  animationDelay: '60ms',
                 }}>
                   Polska ma ponad 110 świadczeń, ulg i dotacji wartych miliardy złotych rocznie.
-                  Większość ludzi nie wie, że im przysługują.{' '}
-                  <span className="serif" style={{ fontSize: 20 }}>Na tej stronie sprawdzisz to szybko i za darmo.</span>{' '}
-                  W dwie minuty, bez zakładania konta.
-                  Wiele osób nie wie, że przysługuje im nawet kilka tysięcy złotych rocznie w ulgach, dopłatach i przywilejach. Czasem wystarczy po prostu złożyć wniosek lub się gdzieś zgłosić. Zero większych wymagań. Liczy się to, czy o tym wiesz.{' '}
-                  Na stronie WezmeZaDarmo wbudowany jest asystent AI, który przez chat odpowie na Twoje pytania i pomoże potwierdzić, czy dane świadczenie Ci przysługuje oraz co zrobić, by je uzyskać. Asystent dobrze zna polskie ulgi i programy rządowe, więc jeśli coś jest niejasne, śmiało pytaj.
+                  Większość ludzi nie wie, że im przysługują.
+                  Na stronie WezmeZaDarmo wbudowany jest asystent AI, który przez chat odpowie na Twoje pytania i pomoże potwierdzić, czy dane świadczenie Ci przysługuje.
                 </p>
 
                 {/* Stat counters */}
                 <div className="rise grid-stats" style={{
                   display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)',
-                  gap: 0, marginBottom: 44, animationDelay: '180ms',
+                  gap: 0, marginBottom: 32, animationDelay: '120ms',
                   borderTop: '1px solid var(--color-border)',
                   borderBottom: '1px solid var(--color-border)',
                   padding: '20px 0',
@@ -753,7 +735,7 @@ export default function Home() {
                         {String(i + 1).padStart(2, '0')}
                       </div>
                       <div style={{
-                        fontSize: 56, fontWeight: 400, letterSpacing: '-0.04em',
+                        fontSize: 48, fontWeight: 400, letterSpacing: '-0.04em',
                         lineHeight: 1, color: 'var(--color-text-1)',
                         fontVariantNumeric: 'tabular-nums',
                       }}>
@@ -764,61 +746,11 @@ export default function Home() {
                   ))}
                 </div>
 
-                {/* Quick links row */}
-                <div className="rise" style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 24, animationDelay: '220ms' }}>
-                  <a href="/wnioski" style={{
-                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                    gap: 12, padding: '10px 16px', borderRadius: 8,
-                    border: '1px solid var(--color-green-border)',
-                    background: 'var(--color-green-bg)',
-                    textDecoration: 'none',
-                  }}>
-                    <span style={{ fontSize: 13, color: 'var(--color-text-1)', fontWeight: 500 }}>
-                      Wypełnij wniosek ZUS z AI: Z-15a, Z-3, ERPO i inne
-                    </span>
-                    <span style={{ fontSize: 12, color: 'var(--color-green)', whiteSpace: 'nowrap', fontWeight: 500 }}>
-                      12 formularzy &rarr;
-                    </span>
-                  </a>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8 }}>
-                    <a href="/automatyzacje" style={{
-                      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                      gap: 8, padding: '9px 14px', borderRadius: 8,
-                      border: '1px solid var(--color-border)',
-                      background: 'var(--color-surface)',
-                      textDecoration: 'none',
-                    }}>
-                      <span style={{ fontSize: 12, color: 'var(--color-text-2)' }}>AI dla firm / JDG</span>
-                      <span style={{ fontSize: 11, color: 'var(--color-green)', fontWeight: 500 }}>Automatyzacje &rarr;</span>
-                    </a>
-                    <a href="/aktualnosci" style={{
-                      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                      gap: 8, padding: '9px 14px', borderRadius: 8,
-                      border: '1px solid var(--color-border)',
-                      background: 'var(--color-surface)',
-                      textDecoration: 'none',
-                    }}>
-                      <span style={{ fontSize: 12, color: 'var(--color-text-2)' }}>ZUS, GUS, NBP...</span>
-                      <span style={{ fontSize: 11, color: 'var(--color-green)', fontWeight: 500 }}>Aktualności &rarr;</span>
-                    </a>
-                    <a href="/dotacje" style={{
-                      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                      gap: 8, padding: '9px 14px', borderRadius: 8,
-                      border: '1px solid var(--color-border)',
-                      background: 'var(--color-surface)',
-                      textDecoration: 'none',
-                    }}>
-                      <span style={{ fontSize: 12, color: 'var(--color-text-2)' }}>KFS, KPO, PFRON...</span>
-                      <span style={{ fontSize: 11, color: 'var(--color-green)', fontWeight: 500 }}>Dotacje &rarr;</span>
-                    </a>
-                  </div>
-                </div>
-
                 {/* Trust row */}
-                <div className="rise" style={{ display: 'flex', flexWrap: 'wrap', gap: 18, marginBottom: 36, animationDelay: '240ms' }}>
+                <div className="rise" style={{ display: 'flex', flexWrap: 'wrap', gap: 18, animationDelay: '180ms' }}>
                   {[
                     { label: 'PESEL dekodowany lokalnie w przeglądarce', icon: <IconLock /> },
-                    { label: 'Kalkulator świadczeń bez bazy danych', icon: <IconShield /> },
+                    { label: 'Kalkulator bez bazy danych', icon: <IconShield /> },
                     { label: 'Połączenie HTTPS', icon: <IconCheck /> },
                   ].map((item, i) => (
                     <a key={i} href="/o-projekcie" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 13, color: 'var(--color-text-2)', textDecoration: 'none' }}>
@@ -936,32 +868,27 @@ export default function Home() {
               </div>
               <div className="grid-benefits" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
                 {EXAMPLE_BENEFITS.slice(0, 3).map((b, i) => {
-                  const tints = [
-                    { bg: 'var(--color-green-bg)', border: 'var(--color-green-border)' },
-                    { bg: 'var(--color-surface)', border: 'var(--color-border)' },
-                    { bg: 'var(--color-pl-red-soft)', border: 'var(--color-pl-red-border)' },
-                  ];
-                  const t = tints[i];
+                  const icons = ['8', 'R', 'U'];
                   return (
                   <a key={i} href="/swiadczenia" className="hover-lift" style={{
-                    background: t.bg,
-                    border: `1px solid ${t.border}`,
+                    background: 'var(--color-surface)',
+                    border: '1px solid var(--color-border)',
                     borderRadius: 16,
                     padding: '22px',
-                    display: 'flex', flexDirection: 'column', gap: 10,
+                    display: 'flex', flexDirection: 'column', gap: 12,
                     textDecoration: 'none', color: 'inherit', cursor: 'pointer',
                   }}>
-                    <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
-                      <div style={{ fontSize: 17, fontWeight: 500, letterSpacing: '-0.015em' }}>{b.nazwa}</div>
-                      <Chip tone="success" mono>#{String(i + 1).padStart(2, '0')}</Chip>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                      <span style={{ width: 38, height: 38, borderRadius: '50%', background: '#0F1F14', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-mono)', fontSize: 14, fontWeight: 600, flexShrink: 0 }}>{icons[i]}</span>
+                      <div style={{ fontSize: 16, fontWeight: 600, letterSpacing: '-0.015em', color: 'var(--color-text-1)' }}>{b.nazwa}</div>
                     </div>
-                    <p style={{ fontSize: 13, color: 'var(--color-text-2)', lineHeight: 1.5, flex: 1 }}>{b.opis}</p>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid var(--color-border)', paddingTop: 14 }}>
+                    <p style={{ fontSize: 13, color: 'var(--color-text-3)', lineHeight: 1.5, flex: 1 }}>{b.opis}</p>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                         <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--color-green)', flexShrink: 0 }} />
-                        <div className="mono" style={{ fontSize: 22, fontWeight: 500, letterSpacing: '-0.02em', color: 'var(--color-text-1)' }}>{b.kwota}</div>
+                        <div className="mono" style={{ fontSize: 20, fontWeight: 500, letterSpacing: '-0.02em', color: 'var(--color-text-1)' }}>{b.kwota}</div>
                       </div>
-                      <span className="label-eyebrow" style={{ color: 'var(--color-accent)' }}>Sprawdź <IconArrowRight /></span>
+                      <span className="mono" style={{ fontSize: 10, padding: '3px 10px', border: '1px solid var(--color-border)', borderRadius: 999, color: 'var(--color-text-3)' }}>Sprawdź</span>
                     </div>
                   </a>
                   );
@@ -986,22 +913,20 @@ export default function Home() {
                   display: 'flex', flexDirection: 'column', gap: 14,
                   textDecoration: 'none', color: 'inherit',
                 }}>
-                  <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                    <span style={{ width: 40, height: 40, borderRadius: '50%', background: '#0F1F14', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-mono)', fontSize: 15, fontWeight: 600, flexShrink: 0 }}>W</span>
                     <div>
-                      <div className="mono" style={{ fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-green)', marginBottom: 6 }}>
-                        Formularze ZUS
-                      </div>
-                      <div style={{ fontSize: 17, fontWeight: 500, letterSpacing: '-0.015em', color: 'var(--color-text-1)' }}>
+                      <div style={{ fontSize: 16, fontWeight: 600, letterSpacing: '-0.015em', color: 'var(--color-text-1)' }}>
                         Wypełnij wniosek ZUS
                       </div>
+                      <div style={{ fontSize: 12, color: 'var(--color-text-3)', marginTop: 2 }}>Kreator formularzy z PDF</div>
                     </div>
-                    <Chip tone="primary" mono>12 formularzy</Chip>
                   </div>
                   <p style={{ fontSize: 13, color: 'var(--color-text-3)', lineHeight: 1.55, flex: 1, margin: 0 }}>
                     Kreator pyta o Twoje dane krok po kroku i wypełnia formularz ZUS.
                     Na końcu generuje PDF, który drukujesz i składasz osobiście lub wysyłasz pocztą.
                   </p>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 'auto' }}>
                     {['Z-15a', 'Z-15b', 'Z-3', 'ERPO', 'ZAS-53', 'PEL'].map(sym => (
                       <span key={sym} className="mono" style={{
                         fontSize: 10, padding: '3px 8px',
@@ -1009,9 +934,6 @@ export default function Home() {
                         borderRadius: 999, color: 'var(--color-text-3)',
                       }}>{sym}</span>
                     ))}
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', borderTop: '1px solid var(--color-border)', paddingTop: 14 }}>
-                    <span className="label-eyebrow" style={{ color: 'var(--color-accent)' }}>Wypełnij wniosek <IconArrowRight /></span>
                   </div>
                 </a>
 
@@ -1024,33 +946,28 @@ export default function Home() {
                   display: 'flex', flexDirection: 'column', gap: 14,
                   textDecoration: 'none', color: 'inherit',
                 }}>
-                  <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                    <span style={{ width: 40, height: 40, borderRadius: '50%', background: '#0F1F14', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-mono)', fontSize: 15, fontWeight: 600, flexShrink: 0 }}>A</span>
                     <div>
-                      <div className="mono" style={{ fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-green)', marginBottom: 6 }}>
-                        Automatyzacje AI
-                      </div>
-                      <div style={{ fontSize: 17, fontWeight: 500, letterSpacing: '-0.015em', color: 'var(--color-text-1)' }}>
+                      <div style={{ fontSize: 16, fontWeight: 600, letterSpacing: '-0.015em', color: 'var(--color-text-1)' }}>
                         Faktury zagraniczne z maila do arkusza
                       </div>
+                      <div style={{ fontSize: 12, color: 'var(--color-text-3)', marginTop: 2 }}>Automatyzacje AI</div>
                     </div>
-                    <Chip tone="ghost" mono>JDG / firma</Chip>
                   </div>
                   <p style={{ fontSize: 13, color: 'var(--color-text-3)', lineHeight: 1.55, flex: 1, margin: 0 }}>
                     Polskie faktury trafiają do KSeF automatycznie. Ale faktury z USA i spoza UE
                     (np. Stripe, OpenAI, Notion) przychodzą mailem i łatwo je przegapić.
                     System czyta skrzynkę, wyciąga kwoty i wpisuje je do arkusza.
                   </p>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-                    {['Faktury spoza UE', 'KSeF nie obejmuje', '1200 PLN wdrożenie'].map(tag => (
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 'auto' }}>
+                    {['Faktury spoza UE', 'KSeF nie obejmuje', '399 PLN'].map(tag => (
                       <span key={tag} className="mono" style={{
                         fontSize: 10, padding: '3px 8px',
                         border: '1px solid var(--color-border)',
                         borderRadius: 999, color: 'var(--color-text-3)',
                       }}>{tag}</span>
                     ))}
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', borderTop: '1px solid var(--color-border)', paddingTop: 14 }}>
-                    <span className="label-eyebrow" style={{ color: 'var(--color-accent)' }}>Zobacz szczegóły <IconArrowRight /></span>
                   </div>
                 </a>
 
@@ -1063,23 +980,21 @@ export default function Home() {
                   display: 'flex', flexDirection: 'column', gap: 14,
                   textDecoration: 'none', color: 'inherit',
                 }}>
-                  <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                    <span style={{ width: 40, height: 40, borderRadius: '50%', background: '#0F1F14', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-mono)', fontSize: 15, fontWeight: 600, flexShrink: 0 }}>D</span>
                     <div>
-                      <div className="mono" style={{ fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-green)', marginBottom: 6 }}>
-                        Agent AI dotacje
-                      </div>
-                      <div style={{ fontSize: 17, fontWeight: 500, letterSpacing: '-0.015em', color: 'var(--color-text-1)' }}>
+                      <div style={{ fontSize: 16, fontWeight: 600, letterSpacing: '-0.015em', color: 'var(--color-text-1)' }}>
                         Monitoring dotacji dla Twojej firmy
                       </div>
+                      <div style={{ fontSize: 12, color: 'var(--color-text-3)', marginTop: 2 }}>Agent AI dotacje</div>
                     </div>
-                    <Chip tone="primary" mono>25 PLN/mies.</Chip>
                   </div>
                   <p style={{ fontSize: 13, color: 'var(--color-text-3)', lineHeight: 1.55, flex: 1, margin: 0 }}>
                     Podajesz NIP i branżę. Agent sprawdza otwarte nabory z KFS, PUP, PFRON, KPO
                     i programów samorządowych. Gdy pojawi się nabór pasujący do Twojego profilu,
                     dostajesz maila z linkiem i terminem.
                   </p>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 'auto' }}>
                     {['KFS', 'PFRON', 'KPO', 'PARP', '16 województw'].map(tag => (
                       <span key={tag} className="mono" style={{
                         fontSize: 10, padding: '3px 8px',
@@ -1087,9 +1002,6 @@ export default function Home() {
                         borderRadius: 999, color: 'var(--color-text-3)',
                       }}>{tag}</span>
                     ))}
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', borderTop: '1px solid var(--color-border)', paddingTop: 14 }}>
-                    <span className="label-eyebrow" style={{ color: 'var(--color-accent)' }}>Aktywuj agenta <IconArrowRight /></span>
                   </div>
                 </a>
 
@@ -1107,9 +1019,9 @@ export default function Home() {
               </h2>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
                 {[
-                  { num: '01', badge: 1, title: 'Odpowiedz na pytania', desc: 'Podaj wiek, sytuację rodzinną i zawodową. Bez numeru PESEL, bez logowania. Zajmuje to 2 minuty.' },
-                  { num: '02', badge: 2, title: 'Algorytm + AI weryfikacja', desc: 'System sprawdza 117 świadczeń, ulg i dotacji. AI weryfikuje przypadki graniczne i dodaje ostrzeżenia.' },
-                  { num: '03', badge: 3, title: 'Twoja lista świadczeń', desc: 'Dostajesz spersonalizowaną listę z kwotami, instrukcjami i linkami do oficjalnych źródeł rządowych.' },
+                  { num: '01', icon: '1', title: 'Odpowiedz na pytania', desc: 'Podaj wiek, sytuację rodzinną i zawodową. Bez numeru PESEL, bez logowania. Zajmuje to 2 minuty.' },
+                  { num: '02', icon: '2', title: 'Algorytm + AI weryfikacja', desc: 'System sprawdza 117 świadczeń, ulg i dotacji. AI weryfikuje przypadki graniczne i dodaje ostrzeżenia.' },
+                  { num: '03', icon: '3', title: 'Twoja lista świadczeń', desc: 'Dostajesz spersonalizowaną listę z kwotami, instrukcjami i linkami do oficjalnych źródeł rządowych.' },
                 ].map((step) => (
                   <div key={step.num} style={{
                     background: 'var(--color-surface)',
@@ -1117,17 +1029,11 @@ export default function Home() {
                     borderRadius: 16,
                     padding: '24px 22px',
                   }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18 }}>
-                      <span className="mono" style={{ fontSize: 13, color: 'var(--color-pl-red)', fontWeight: 600 }}>{step.num}</span>
-                      <span style={{
-                        width: 34, height: 34, borderRadius: '50%',
-                        border: '2px solid var(--color-pl-red)',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        fontSize: 14, fontWeight: 600, color: 'var(--color-pl-red)',
-                      }}>{step.badge}</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 18 }}>
+                      <span style={{ width: 40, height: 40, borderRadius: '50%', background: '#0F1F14', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-mono)', fontSize: 15, fontWeight: 600, flexShrink: 0 }}>{step.icon}</span>
+                      <div style={{ fontSize: 16, fontWeight: 600, color: 'var(--color-text-1)' }}>{step.title}</div>
                     </div>
-                    <div style={{ fontSize: 17, fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 10 }}>{step.title}</div>
-                    <p style={{ fontSize: 14, color: 'var(--color-text-2)', lineHeight: 1.6, margin: 0 }}>{step.desc}</p>
+                    <p style={{ fontSize: 14, color: 'var(--color-text-3)', lineHeight: 1.6, margin: 0 }}>{step.desc}</p>
                   </div>
                 ))}
               </div>
@@ -1397,49 +1303,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Footer */}
-        <footer style={{ borderTop: '1px solid var(--color-border)', padding: '60px 0 40px', marginTop: 60 }}>
-          <div className="container">
-            <div className="grid-footer" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: 40, marginBottom: 48 }}>
-              <div>
-                <Logo />
-                <p style={{ fontSize: 14, color: 'var(--color-text-3)', marginTop: 16, maxWidth: 360, lineHeight: 1.6 }}>
-                  Sprawdź czy należą Ci się świadczenia od państwa. 117 świadczeń, 15 kategorii. Strona przygotowana i dostępna również w wersji dla agentów AI w pliku <a href="/llm.md" style={{ color: 'var(--color-accent)' }}>llm.md</a>.
-                </p>
-                <div style={{ marginTop: 20 }}>
-                  <FlagStripe width={36} thickness={4} />
-                </div>
-              </div>
-              <div>
-                <div className="label-eyebrow" style={{ marginBottom: 14 }}>Nawigacja</div>
-                <ul style={{ padding: 0, margin: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10 }}>
-                  <li><a className="link-u" href="/swiadczenia" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Baza świadczeń</a></li>
-                  <li><a className="link-u" href="/o-projekcie" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>O projekcie</a></li>
-                  <li><a className="link-u" href="/dla-firm" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>API dla firm</a></li>
-                  <li><a className="link-u" href="/wnioski" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Pomoc z wnioskami AI</a></li>
-                  <li><a className="link-u" href="/automatyzacje" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Automatyzacje AI dla firm</a></li>
-                  <li><a className="link-u" href="/aktualnosci" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Aktualności rządowe (RSS)</a></li>
-                  <li><a className="link-u" href="/dotacje" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Dotacje dla firm | agent AI</a></li>
-                  <li><a className="link-u" href="/llm.md" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>LLM -- świadczenia API</a></li>
-                  <li><a className="link-u" href="/agents.md" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Agenci AI -- firmy B2B</a></li>
-                  <li><a className="link-u" href="https://www.linkedin.com/in/kamil-sobkowicz/" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Kontakt / LinkedIn</a></li>
-                </ul>
-              </div>
-              <div>
-                <div className="label-eyebrow" style={{ marginBottom: 14 }}>Prawne</div>
-                <ul style={{ padding: 0, margin: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10 }}>
-                  <li><a className="link-u" href="/regulamin" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Regulamin</a></li>
-                  <li><a className="link-u" href="/polityka-prywatnosci" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Polityka prywatności</a></li>
-                  <li><a className="link-u" href="/polityka-prywatnosci" style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Cookies</a></li>
-                </ul>
-              </div>
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: 24, borderTop: '1px solid var(--color-border)', fontSize: 12, color: 'var(--color-text-3)' }}>
-              <span>2026 wezmezadarmo.com | projekt społeczny Kamila Sobkowicza</span>
-              <span style={{ fontSize: 12 }}>Made with &lt;3 for Poland and Polish people, in Poland</span>
-            </div>
-          </div>
-        </footer>
+        {/* Footer is rendered by root layout */}
 
       </div>
     );
@@ -1451,11 +1315,11 @@ export default function Home() {
     const progress = ((questionIndex + 1) / QUESTIONS.length) * 100;
     return (
       <div style={{ minHeight: '100vh' }}>
-        <TopBar theme={theme} onToggle={toggleTheme}>
+        <div style={{ display: 'flex', justifyContent: 'center', padding: '12px 0' }}>
           <Chip mono>{questionIndex + 1}/{QUESTIONS.length}</Chip>
-        </TopBar>
+        </div>
 
-        <section style={{ position: 'relative', minHeight: 'calc(100vh - 65px)', display: 'flex', alignItems: 'center' }}>
+        <section style={{ position: 'relative', minHeight: 'calc(100vh - 105px)', display: 'flex', alignItems: 'center' }}>
           <div className="grain-bg" />
           <div className="container" style={{ position: 'relative', maxWidth: 640, margin: '0 auto' }}>
             {/* Progress bar */}
@@ -1551,11 +1415,11 @@ export default function Home() {
 
     return (
       <div style={{ minHeight: '100vh' }}>
-        <TopBar theme={theme} onToggle={toggleTheme}>
+        <div style={{ display: 'flex', justifyContent: 'center', padding: '12px 0' }}>
           <Chip mono>ANALIZA</Chip>
-        </TopBar>
+        </div>
 
-        <section style={{ position: 'relative', minHeight: 'calc(100vh - 65px)', display: 'flex', alignItems: 'center' }}>
+        <section style={{ position: 'relative', minHeight: 'calc(100vh - 105px)', display: 'flex', alignItems: 'center' }}>
           <div className="grain-bg" />
           <div className="container" style={{ position: 'relative' }}>
             <div className="grid-hero" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center' }}>
@@ -1672,9 +1536,7 @@ export default function Home() {
 
   // ===================== CHAT =====================
   return (
-    <div className="fixed inset-0 flex flex-col" style={{ background: 'var(--color-bg-0)' }}>
-      <TopBar theme={theme} onToggle={toggleTheme} />
-
+    <div className="fixed inset-0 flex flex-col" style={{ background: 'var(--color-bg-0)', paddingTop: 60 }}>
       <ChatWindow
         messages={messages}
         results={results}

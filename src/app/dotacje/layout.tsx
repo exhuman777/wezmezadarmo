@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { DotacjeNav } from '@/components/DotacjeNav';
 
 export const metadata: Metadata = {
   title: 'Dotacje dla firm | Agent AI | wezmezadarmo',
@@ -16,7 +15,6 @@ export const metadata: Metadata = {
 export default function DotacjeLayout({ children }: { children: React.ReactNode }) {
   return (
     <div style={{ minHeight: '100vh', background: 'var(--color-bg-0)', color: 'var(--color-text-1)' }}>
-      <DotacjeNav />
       {children}
     </div>
   );

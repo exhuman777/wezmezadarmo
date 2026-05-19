@@ -11,7 +11,7 @@ function PanelLayoutInner({ children }: { children: React.ReactNode }) {
   return (
     <div style={{
       display: 'flex',
-      height: 'calc(100vh - 52px)',
+      height: 'calc(100vh - 60px)',
       overflow: 'hidden',
     }}>
       <AgentPanelSidebar

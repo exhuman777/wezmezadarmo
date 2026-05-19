@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 import { CookieConsent } from '@/components/CookieConsent';
+import { SiteNav } from '@/components/SiteNav';
+import { SiteFooter } from '@/components/SiteFooter';
 import './globals.css';
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-57R2TFXNH7';
@@ -49,7 +51,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         )}
       </head>
       <body>
+        <SiteNav />
         {children}
+        <SiteFooter />
         <CookieConsent />
       </body>
     </html>
