@@ -654,18 +654,26 @@ export default function Home() {
                 margin: '0 0 20px',
                 color: 'var(--paper)',
               }}>
-                Sprawdź teraz.<br />
-                <span className="serif-it" style={{ color: 'var(--green-400)' }}>Należy się Tobie.</span>
+                Sprawdź co Ci się należy.<br />
+                <span className="serif-it" style={{ color: 'var(--green-400)' }}>Szybko, bez rejestracji, bez czekania.</span>
               </h1>
               <p style={{
                 fontSize: 17,
                 lineHeight: 1.65,
                 color: 'var(--ink-400)',
                 maxWidth: 560,
+                margin: '0 0 12px',
+              }}>
+                Łatwo sprawdź wstępnie czy są jakieś świadczenia, które mogą Ci przysługiwać.
+              </p>
+              <p style={{
+                fontSize: 13,
+                lineHeight: 1.5,
+                color: 'var(--ink-500)',
+                maxWidth: 560,
                 margin: '0 0 36px',
               }}>
-                Dwie minuty, jedenaście pytań, lista świadczeń wartych setki -
-                czasem tysiące - złotych. Bez rejestracji, bez opłat, bez urzędu.
+                Ta strona to projekt prywatny, nie rządowy. Informacje tu wyświetlone są poglądowe i nie mają wpływu na uzyskanie świadczeń w urzędzie.
               </p>
               <div className="row-12 gap-wrap">
                 <a href="#formularz" className="btn btn-green btn-lg">
