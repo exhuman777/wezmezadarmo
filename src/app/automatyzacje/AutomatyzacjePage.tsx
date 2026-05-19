@@ -39,6 +39,12 @@ const CENNIK = [
     szczegoly: 'po wcześniejszym ustaleniu zakresu',
     opis: 'Zakres i wycena ustalane indywidualnie. Jeśli nie działa zgodnie z ustaleniami, nie płacisz.',
   },
+  {
+    nazwa: 'Custom agent + utrzymanie',
+    cena: 'od 1 499 PLN',
+    szczegoly: '+99 zł/mc',
+    opis: 'Dedykowany agent + miesięczne aktualizacje, monitoring i wsparcie.',
+  },
 ];
 
 const PRZYKLADY = [
@@ -86,7 +92,7 @@ export default function AutomatyzacjePage() {
 
       <section style={{ position: 'relative', paddingTop: 48, paddingBottom: 80 }}>
         <div className="grain-bg" />
-        <div className="container" style={{ position: 'relative', maxWidth: 860 }}>
+        <div className="container" style={{ position: 'relative', maxWidth: 960 }}>
 
           {/* Eyebrow */}
           <div className="rise" style={{ marginBottom: 20 }}>
@@ -100,7 +106,7 @@ export default function AutomatyzacjePage() {
             animationDelay: '60ms',
           }}>
             Faktury spoza UE przychodzą mailem.<br />
-            <span style={{ color: 'var(--color-accent)' }}>Łatwo je przegapić.</span>
+            <span className="serif" style={{ color: 'var(--color-pl-red)' }}>Łatwo je przegapić.</span>
           </h1>
 
           <p className="rise" style={{
@@ -135,32 +141,75 @@ export default function AutomatyzacjePage() {
 
           {/* PROBLEMY */}
           <div className="rise" style={{ marginBottom: 64, animationDelay: '220ms' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
+              <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--color-pl-red)', flexShrink: 0 }} />
               <span className="label-eyebrow">Gdzie ucieka czas w Twojej firmie?</span>
               <span style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
             </div>
+
             <div style={{
-              border: '1px solid var(--color-border)',
-              borderRadius: 16,
-              overflow: 'hidden',
+              display: 'grid',
+              gridTemplateColumns: '1.2fr 1fr',
+              gap: 40,
+              alignItems: 'start',
             }}>
-              {PROBLEMY.map((p, i) => (
-                <div key={p.obszar} style={{
-                  display: 'grid',
-                  gridTemplateColumns: '140px 1fr',
-                  gap: 24,
-                  padding: '18px 24px',
-                  borderTop: i > 0 ? '1px solid var(--color-border)' : 'none',
-                  background: 'var(--color-surface)',
+              {/* Left: heading + table */}
+              <div>
+                <h2 style={{
+                  fontSize: 'clamp(28px, 4vw, 44px)',
+                  letterSpacing: '-0.025em',
+                  lineHeight: 1.15,
+                  marginBottom: 32,
+                  color: 'var(--color-text-1)',
                 }}>
-                  <div style={{ fontWeight: 600, fontSize: 15, color: 'var(--color-accent)' }}>{p.obszar}</div>
-                  <div style={{ fontSize: 15, color: 'var(--color-text-2)', lineHeight: 1.6 }}>{p.opis}</div>
+                  To jest norma.<br />
+                  <span className="serif" style={{ color: 'var(--color-pl-red)' }}>Nie musi tak być.</span>
+                </h2>
+
+                <div style={{
+                  border: '1px solid var(--color-border)',
+                  borderRadius: 16,
+                  overflow: 'hidden',
+                }}>
+                  {PROBLEMY.map((p, i) => (
+                    <div key={p.obszar} style={{
+                      display: 'grid',
+                      gridTemplateColumns: '140px 1fr',
+                      gap: 24,
+                      padding: '18px 24px',
+                      borderTop: i > 0 ? '1px solid var(--color-border)' : 'none',
+                      background: 'var(--color-surface)',
+                    }}>
+                      <div style={{ fontWeight: 700, fontSize: 15, color: 'var(--color-pl-red)' }}>{p.obszar}</div>
+                      <div style={{ fontSize: 15, color: 'var(--color-text-2)', lineHeight: 1.6 }}>{p.opis}</div>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
+
+              {/* Right: stat */}
+              <div style={{
+                padding: '36px 28px',
+                background: 'var(--color-surface)',
+                border: '1px solid var(--color-border)',
+                borderRadius: 16,
+                marginTop: 80,
+              }}>
+                <div className="mono" style={{
+                  fontSize: 56,
+                  fontWeight: 500,
+                  letterSpacing: '-0.04em',
+                  color: 'var(--color-pl-red)',
+                  lineHeight: 1,
+                  marginBottom: 12,
+                }}>
+                  ~6h
+                </div>
+                <div style={{ fontSize: 15, color: 'var(--color-text-2)', lineHeight: 1.65 }}>
+                  Tyle tygodniowo traci przeciętna mała firma na ręczne przepisywanie dokumentów, faktur i danych do arkuszy.
+                </div>
+              </div>
             </div>
-            <p className="mono" style={{ marginTop: 14, fontSize: 12, color: 'var(--color-text-3)' }}>
-              To jest norma. Większość firm w Polsce tak działa. Nie musi tak być.
-            </p>
           </div>
 
           {/* PRZYKŁADY */}
@@ -177,7 +226,7 @@ export default function AutomatyzacjePage() {
                   padding: '22px 28px',
                   background: 'var(--color-surface)',
                 }}>
-                  <div style={{ fontWeight: 600, fontSize: 16, color: 'var(--color-accent)', marginBottom: 10 }}>{p.tytul}</div>
+                  <div style={{ fontWeight: 600, fontSize: 16, color: 'var(--color-green)', marginBottom: 10 }}>{p.tytul}</div>
                   <div style={{ fontSize: 15, color: 'var(--color-text-2)', lineHeight: 1.7 }}>{p.opis}</div>
                 </div>
               ))}
@@ -187,17 +236,16 @@ export default function AutomatyzacjePage() {
           {/* PRODUKT */}
           <div className="rise" style={{ marginBottom: 64, animationDelay: '260ms' }}>
             <div style={{
-              border: '1px solid var(--color-accent)',
               borderRadius: 20,
               padding: '36px 40px',
-              background: 'var(--color-surface)',
-              boxShadow: 'var(--shadow-2)',
+              background: '#0F1F14',
+              color: '#E8F0E8',
             }}>
-              <span className="label-eyebrow" style={{ color: 'var(--color-accent)', marginBottom: 16, display: 'block' }}>Flagship: gotowy produkt</span>
-              <h2 style={{ fontSize: 36, letterSpacing: '-0.025em', marginBottom: 12, color: 'var(--color-text-1)' }}>
+              <span className="label-eyebrow" style={{ color: '#6DC08A', marginBottom: 16, display: 'block' }}>Flagship: gotowy produkt</span>
+              <h2 style={{ fontSize: 36, letterSpacing: '-0.025em', marginBottom: 12, color: '#E8F0E8' }}>
                 Automat Fakturowy
               </h2>
-              <p style={{ fontSize: 16, color: 'var(--color-text-2)', lineHeight: 1.7, maxWidth: 560, marginBottom: 32 }}>
+              <p style={{ fontSize: 16, color: '#C2D4C2', lineHeight: 1.7, maxWidth: 560, marginBottom: 32 }}>
                 System, który skanuje wskazaną skrzynkę mailową i wyciąga dane z faktur
                 od zagranicznych dostawców (spoza UE). Wpisuje je do arkusza, który wskazujesz.
                 Polskich faktur krajowych nie obsługuje, bo te trafiają do KSeF automatycznie.
@@ -205,29 +253,29 @@ export default function AutomatyzacjePage() {
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 36 }}>
                 {PRODUKT_FEATURES.map((f, i) => (
-                  <div key={i} style={{ display: 'flex', gap: 14, alignItems: 'flex-start', fontSize: 15, color: 'var(--color-text-2)', lineHeight: 1.6 }}>
-                    <span style={{ color: 'var(--color-accent)', fontWeight: 700, flexShrink: 0, marginTop: 1 }}>+</span>
+                  <div key={i} style={{ display: 'flex', gap: 14, alignItems: 'flex-start', fontSize: 15, color: '#C2D4C2', lineHeight: 1.6 }}>
+                    <span style={{ color: '#6DC08A', fontWeight: 700, flexShrink: 0, marginTop: 1 }}>+</span>
                     {f}
                   </div>
                 ))}
               </div>
 
               <div style={{
-                borderTop: '1px solid var(--color-border)',
+                borderTop: '1px solid rgba(109, 192, 138, 0.2)',
                 paddingTop: 28,
                 display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 24,
               }}>
                 <div>
-                  <div className="mono" style={{ fontSize: 44, fontWeight: 500, letterSpacing: '-0.04em', color: 'var(--color-text-1)', lineHeight: 1 }}>
+                  <div className="mono" style={{ fontSize: 44, fontWeight: 500, letterSpacing: '-0.04em', color: '#6DC08A', lineHeight: 1 }}>
                     399 PLN
                   </div>
-                  <div style={{ fontSize: 13, color: 'var(--color-text-3)', marginTop: 6 }}>
+                  <div style={{ fontSize: 13, color: '#8BA88B', marginTop: 6 }}>
                     jednorazowo &bull; bez abonamentu &bull; wdrożenie 1 dzień roboczy
                   </div>
                 </div>
                 <a href="#kontakt" style={{
                   padding: '13px 28px',
-                  background: 'var(--color-accent)', color: 'var(--color-bg-0)',
+                  background: '#2E7D4F', color: '#ffffff',
                   fontWeight: 600, fontSize: 16, borderRadius: 10,
                   textDecoration: 'none', flexShrink: 0,
                 }}>
@@ -239,50 +287,122 @@ export default function AutomatyzacjePage() {
 
           {/* CENNIK */}
           <div className="rise" style={{ marginBottom: 64, animationDelay: '280ms' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
+              <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--color-pl-red)', flexShrink: 0 }} />
               <span className="label-eyebrow">Cennik</span>
               <span style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
-              {CENNIK.map((c) => (
-                <div key={c.nazwa} style={{
-                  border: '1px solid var(--color-border)',
-                  borderRadius: 16,
-                  padding: '28px 28px',
-                  background: 'var(--color-surface)',
-                }}>
-                  <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--color-text-2)', marginBottom: 16, lineHeight: 1.4 }}>{c.nazwa}</div>
-                  <div className="mono" style={{ fontSize: 40, fontWeight: 500, letterSpacing: '-0.04em', color: 'var(--color-accent)', lineHeight: 1, marginBottom: 6 }}>
-                    {c.cena}
+
+            <h2 style={{
+              fontSize: 'clamp(24px, 3.5vw, 38px)',
+              letterSpacing: '-0.025em',
+              marginBottom: 8,
+              color: 'var(--color-text-1)',
+            }}>
+              Płacisz raz. <strong>Bez abonamentu.</strong>
+            </h2>
+            <p style={{
+              fontSize: 15, color: 'var(--color-text-2)', lineHeight: 1.65,
+              maxWidth: 600, marginBottom: 32,
+            }}>
+              Gwarancja: jeśli wdrożony agent nie działa zgodnie z tym, co ustaliliśmy, nie płacisz.
+            </p>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+              {CENNIK.map((c, i) => {
+                const isDark = i === 0;
+                const isGreen = i === 2;
+                return (
+                  <div key={c.nazwa} style={{
+                    border: isDark ? 'none' : '1px solid var(--color-border)',
+                    borderRadius: 16,
+                    padding: '28px 28px',
+                    background: isDark ? '#0F1F14' : 'var(--color-surface)',
+                    color: isDark ? '#E8F0E8' : undefined,
+                  }}>
+                    <div style={{
+                      fontSize: 14, fontWeight: 600,
+                      color: isDark ? '#8BA88B' : 'var(--color-text-2)',
+                      marginBottom: 16, lineHeight: 1.4,
+                    }}>{c.nazwa}</div>
+                    <div className="mono" style={{
+                      fontSize: 40, fontWeight: 500, letterSpacing: '-0.04em',
+                      color: isDark ? '#6DC08A' : isGreen ? 'var(--color-green)' : 'var(--color-accent)',
+                      lineHeight: 1, marginBottom: 6,
+                    }}>
+                      {c.cena}
+                    </div>
+                    <div style={{
+                      fontSize: 12,
+                      color: isDark ? '#6B8D6B' : 'var(--color-text-3)',
+                      marginBottom: 16,
+                    }}>{c.szczegoly}</div>
+                    <div style={{
+                      fontSize: 14, lineHeight: 1.65,
+                      color: isDark ? '#C2D4C2' : 'var(--color-text-2)',
+                      marginBottom: 20,
+                    }}>{c.opis}</div>
+                    <a href="#kontakt" style={{
+                      display: 'inline-block',
+                      padding: '10px 22px',
+                      background: (isDark || isGreen) ? '#2E7D4F' : 'var(--color-accent)',
+                      color: (isDark || isGreen) ? '#ffffff' : 'var(--color-bg-0)',
+                      fontWeight: 600, fontSize: 14, borderRadius: 10,
+                      textDecoration: 'none',
+                    }}>
+                      Zamów
+                    </a>
                   </div>
-                  <div style={{ fontSize: 12, color: 'var(--color-text-3)', marginBottom: 16 }}>{c.szczegoly}</div>
-                  <div style={{ fontSize: 14, color: 'var(--color-text-2)', lineHeight: 1.65 }}>{c.opis}</div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
           {/* JAK DZIAŁAMY */}
           <div id="jak-dzialamy" className="rise" style={{ marginBottom: 64, animationDelay: '300ms' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 32 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
+              <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--color-green)', flexShrink: 0 }} />
               <span className="label-eyebrow">Jak wygląda współpraca</span>
               <span style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+
+            <h2 style={{
+              fontSize: 'clamp(24px, 3.5vw, 38px)',
+              letterSpacing: '-0.025em',
+              marginBottom: 32,
+              color: 'var(--color-text-1)',
+            }}>
+              3 kroki, <span className="serif">1 tydzień</span>, gotowe.
+            </h2>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
               {KROKI.map((k, i) => (
-                <div key={i} style={{ display: 'flex', gap: 20 }}>
+                <div key={i} style={{
+                  background: 'var(--color-surface)',
+                  border: '1px solid var(--color-border)',
+                  borderRadius: 16,
+                  padding: 28,
+                }}>
                   <div style={{
-                    flexShrink: 0,
-                    width: 44, height: 44, borderRadius: '50%',
-                    border: '2px solid var(--color-accent)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                    marginBottom: 20,
                   }}>
-                    <span className="mono" style={{ fontWeight: 700, color: 'var(--color-accent)', fontSize: 16 }}>{i + 1}</span>
+                    <span className="mono" style={{
+                      fontSize: 24, fontWeight: 700, color: 'var(--color-pl-red)',
+                    }}>
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span style={{
+                      width: 36, height: 36, borderRadius: '50%',
+                      border: '2px solid var(--color-pl-red)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontSize: 14, fontWeight: 600, color: 'var(--color-pl-red)',
+                    }}>
+                      {i + 1}
+                    </span>
                   </div>
-                  <div style={{ paddingTop: 8 }}>
-                    <div style={{ fontSize: 18, fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 8 }}>{k.tytul}</div>
-                    <div style={{ fontSize: 15, color: 'var(--color-text-2)', lineHeight: 1.7 }}>{k.opis}</div>
-                  </div>
+                  <div style={{ fontSize: 18, fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 10 }}>{k.tytul}</div>
+                  <div style={{ fontSize: 14, color: 'var(--color-text-2)', lineHeight: 1.7 }}>{k.opis}</div>
                 </div>
               ))}
             </div>

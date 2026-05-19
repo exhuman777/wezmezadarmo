@@ -160,8 +160,8 @@ export default function LogowaniePage() {
             style={{
               width: '100%',
               padding: '10px',
-              background: loading ? 'var(--color-border)' : 'var(--color-accent)',
-              color: loading ? 'var(--color-text-3)' : 'var(--color-bg-0)',
+              background: loading ? 'var(--color-border)' : 'var(--color-green)',
+              color: loading ? 'var(--color-text-3)' : '#FFFFFF',
               border: 'none',
               borderRadius: 'var(--radius-sm)',
               fontFamily: 'var(--font-mono)',
@@ -189,7 +189,7 @@ export default function LogowaniePage() {
           <Link
             href="/dotacje/rejestracja"
             style={{
-              color: 'var(--color-accent)',
+              color: 'var(--color-green)',
               textDecoration: 'none',
             }}
           >

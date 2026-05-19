@@ -107,7 +107,7 @@ export default function DlaFirmPage() {
             my odpowiadamy, co danemu użytkownikowi przysługuje i jak to dostać.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <a href="/dotacje" className="text-[12px] font-mono text-accent border border-[var(--color-amber-border)] bg-[var(--color-amber-bg)] px-3 py-1.5 rounded hover:underline">
+            <a href="/dotacje" className="text-[12px] font-mono text-green border border-[var(--color-green-border)] bg-[var(--color-green-bg)] px-3 py-1.5 rounded hover:underline">
               Agent dotacyjny dla firm
             </a>
             <a href="/automatyzacje" className="text-[12px] font-mono text-text-3 border border-border px-3 py-1.5 rounded hover:underline">
@@ -126,7 +126,7 @@ export default function DlaFirmPage() {
             <div className="space-y-3">
 
               <div className="border border-border rounded-lg p-4">
-                <div className="font-mono text-[11px] text-accent tracking-widest uppercase mb-2">Oprogramowanie kadrowe i HR</div>
+                <div className="font-mono text-[11px] text-green tracking-widest uppercase mb-2">Oprogramowanie kadrowe i HR</div>
                 <p className="text-[14px] leading-relaxed">
                   Przy onboardingu nowego pracownika Twój system może automatycznie sprawdzić,
                   jakie świadczenia mu przysługują: świadczenie 800+ na dzieci, ulga
@@ -136,7 +136,7 @@ export default function DlaFirmPage() {
               </div>
 
               <div className="border border-border rounded-lg p-4">
-                <div className="font-mono text-[11px] text-accent tracking-widest uppercase mb-2">Aplikacje bankowe i fintech</div>
+                <div className="font-mono text-[11px] text-green tracking-widest uppercase mb-2">Aplikacje bankowe i fintech</div>
                 <p className="text-[14px] leading-relaxed">
                   Klient składa wniosek kredytowy. Twoja aplikacja w tle sprawdza, na jakie
                   regularne świadczenia się kwalifikuje: 800+, trzynasta emerytura, renta.
@@ -147,7 +147,7 @@ export default function DlaFirmPage() {
               </div>
 
               <div className="border border-border rounded-lg p-4">
-                <div className="font-mono text-[11px] text-accent tracking-widest uppercase mb-2">Ośrodki Pomocy Społecznej i NGO</div>
+                <div className="font-mono text-[11px] text-green tracking-widest uppercase mb-2">Ośrodki Pomocy Społecznej i NGO</div>
                 <p className="text-[14px] leading-relaxed">
                   Pracownik socjalny obsługuje klienta. Zamiast ręcznie sprawdzać kilkadziesiąt
                   stron rządowych. Jedno zapytanie do API i gotowa lista świadczeń, do których
@@ -167,7 +167,7 @@ export default function DlaFirmPage() {
             <div className="space-y-4">
               <p>
                 Jeden endpoint REST:{' '}
-                <code className="font-mono text-[13px] bg-bg-2 px-1.5 py-0.5 rounded text-accent border border-border">
+                <code className="font-mono text-[13px] bg-bg-2 px-1.5 py-0.5 rounded text-green border border-border">
                   POST /api/verify
                 </code>
                 . Wysyłasz profil użytkownika w formacie JSON, otrzymujesz listę
@@ -205,7 +205,7 @@ export default function DlaFirmPage() {
             </h2>
             <p className="mb-4 text-[14px]">
               Wszystkie pola są opcjonalne. Im więcej podasz, tym dokładniejsze dopasowanie.
-              Minimalne zapytanie wystarczy z samym <code className="font-mono text-[13px] bg-bg-2 px-1 rounded border border-border text-accent">wiek</code> i <code className="font-mono text-[13px] bg-bg-2 px-1 rounded border border-border text-accent">plec</code>.
+              Minimalne zapytanie wystarczy z samym <code className="font-mono text-[13px] bg-bg-2 px-1 rounded border border-border text-green">wiek</code> i <code className="font-mono text-[13px] bg-bg-2 px-1 rounded border border-border text-green">plec</code>.
             </p>
             <div className="border border-border rounded-lg overflow-hidden">
               <div className="grid grid-cols-[1fr_1fr_2fr] bg-bg-2 border-b border-border px-4 py-2 font-mono text-[10px] tracking-widest uppercase text-text-3">
@@ -218,7 +218,7 @@ export default function DlaFirmPage() {
                   key={f.pole}
                   className={`grid grid-cols-[1fr_1fr_2fr] px-4 py-2.5 text-[12px] border-b border-border last:border-0 ${i % 2 === 0 ? '' : 'bg-bg-2'}`}
                 >
-                  <code className="font-mono text-accent">{f.pole}</code>
+                  <code className="font-mono text-green">{f.pole}</code>
                   <code className="font-mono text-text-3 text-[11px]">{f.typ}</code>
                   <span className="text-text-2 text-[12px]">{f.opis}</span>
                 </div>
@@ -246,7 +246,7 @@ export default function DlaFirmPage() {
                   ['dataWeryfikacji', 'data ostatniej weryfikacji danych'],
                 ].map(([pole, opis]) => (
                   <li key={pole} className="flex gap-3 text-[14px]">
-                    <code className="font-mono text-accent text-[12px] shrink-0 mt-0.5">{pole}</code>
+                    <code className="font-mono text-green text-[12px] shrink-0 mt-0.5">{pole}</code>
                     <span className="text-text-2">{opis}</span>
                   </li>
                 ))}

@@ -72,8 +72,8 @@ function LogowanieForm() {
         </div>
         {error && <p style={{ fontSize: 13, color: '#e05c5c', margin: 0 }}>{error}</p>}
         <button type="submit" disabled={loading} style={{
-          padding: '11px', background: loading ? 'var(--color-border)' : 'var(--color-accent)',
-          color: 'var(--color-bg-0)', border: 'none', borderRadius: 'var(--radius-sm)',
+          padding: '11px', background: loading ? 'var(--color-border)' : 'var(--color-green)',
+          color: '#FFFFFF', border: 'none', borderRadius: 'var(--radius-sm)',
           fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500,
           cursor: loading ? 'not-allowed' : 'pointer',
         }}>
@@ -81,7 +81,7 @@ function LogowanieForm() {
         </button>
         <Link href="/agent/reset-hasla" style={{
           fontFamily: 'var(--font-mono)', fontSize: 12,
-          color: 'var(--color-accent)', textDecoration: 'none',
+          color: 'var(--color-green)', textDecoration: 'none',
           textAlign: 'center' as const,
         }}>
           Nie pamiętasz hasła?
@@ -89,7 +89,7 @@ function LogowanieForm() {
       </form>
       <p style={{ fontSize: 13, color: 'var(--color-text-3)', marginTop: 20, textAlign: 'center' }}>
         Nie masz konta?{' '}
-        <Link href="/agent/rejestracja" style={{ color: 'var(--color-accent)' }}>Zarejestruj się</Link>
+        <Link href="/agent/rejestracja" style={{ color: 'var(--color-green)' }}>Zarejestruj się</Link>
       </p>
     </div>
   );

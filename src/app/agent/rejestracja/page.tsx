@@ -207,7 +207,7 @@ export default function AgentRejestracja() {
           {[1, 2, 3].map(n => (
             <div key={n} style={{
               flex: 1, height: 3, borderRadius: 2,
-              background: n <= step ? 'var(--color-accent)' : 'var(--color-border)',
+              background: n <= step ? 'var(--color-green)' : 'var(--color-border)',
               transition: 'background 0.2s',
             }} />
           ))}
@@ -233,7 +233,7 @@ export default function AgentRejestracja() {
               <label style={{ display: 'flex', gap: 10, alignItems: 'flex-start', cursor: 'pointer', fontSize: 13, color: 'var(--color-text-2)' }}>
                 <input type="checkbox" checked={form.acceptTerms} onChange={e => set('acceptTerms', e.target.checked)} />
                 Akceptuję{' '}
-                <a href="/regulamin" target="_blank" style={{ color: 'var(--color-accent)' }}>regulamin serwisu</a>
+                <a href="/regulamin" target="_blank" style={{ color: 'var(--color-green)' }}>regulamin serwisu</a>
               </label>
               {error && <p style={{ fontSize: 13, color: '#e05c5c', margin: 0 }}>{error}</p>}
               <button
@@ -246,8 +246,8 @@ export default function AgentRejestracja() {
                   setStep(2);
                 }}
                 style={{
-                  padding: '11px 24px', background: 'var(--color-accent)',
-                  color: 'var(--color-bg-0)', fontFamily: 'var(--font-mono)',
+                  padding: '11px 24px', background: 'var(--color-green)',
+                  color: '#FFFFFF', fontFamily: 'var(--font-mono)',
                   fontSize: 13, fontWeight: 500, border: 'none',
                   borderRadius: 'var(--radius-sm)', cursor: 'pointer',
                 }}
@@ -281,7 +281,7 @@ export default function AgentRejestracja() {
                     <button onClick={lookupNip} disabled={form.nipLoading} style={{
                       padding: '10px 16px', background: 'var(--color-bg-2)',
                       border: '1px solid var(--color-border)', borderRadius: 'var(--radius-sm)',
-                      color: 'var(--color-accent)', fontFamily: 'var(--font-mono)',
+                      color: 'var(--color-green)', fontFamily: 'var(--font-mono)',
                       fontSize: 12, cursor: 'pointer', whiteSpace: 'nowrap',
                     }}>
                       {form.nipLoading ? 'Sprawdzam...' : 'Sprawdź NIP'}
@@ -422,7 +422,7 @@ export default function AgentRejestracja() {
               <button onClick={() => setStep(1)} style={{ padding: '10px 20px', background: 'transparent', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-sm)', color: 'var(--color-text-2)', cursor: 'pointer', fontFamily: 'var(--font-mono)', fontSize: 12 }}>
                 Wstecz
               </button>
-              <button onClick={() => { setError(''); setStep(3); }} style={{ padding: '10px 24px', background: 'var(--color-accent)', color: 'var(--color-bg-0)', border: 'none', borderRadius: 'var(--radius-sm)', cursor: 'pointer', fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500 }}>
+              <button onClick={() => { setError(''); setStep(3); }} style={{ padding: '10px 24px', background: 'var(--color-green)', color: '#FFFFFF', border: 'none', borderRadius: 'var(--radius-sm)', cursor: 'pointer', fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500 }}>
                 Dalej
               </button>
             </div>
@@ -471,7 +471,7 @@ export default function AgentRejestracja() {
               <button onClick={() => setStep(2)} style={{ padding: '10px 20px', background: 'transparent', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-sm)', color: 'var(--color-text-2)', cursor: 'pointer', fontFamily: 'var(--font-mono)', fontSize: 12 }}>
                 Wstecz
               </button>
-              <button onClick={handleSubmit} disabled={submitting} style={{ padding: '11px 28px', background: submitting ? 'var(--color-border)' : 'var(--color-accent)', color: 'var(--color-bg-0)', border: 'none', borderRadius: 'var(--radius-sm)', cursor: submitting ? 'not-allowed' : 'pointer', fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500 }}>
+              <button onClick={handleSubmit} disabled={submitting} style={{ padding: '11px 28px', background: submitting ? 'var(--color-border)' : 'var(--color-green)', color: '#FFFFFF', border: 'none', borderRadius: 'var(--radius-sm)', cursor: submitting ? 'not-allowed' : 'pointer', fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500 }}>
                 {submitting ? 'Tworzę konto...' : 'Załóż konto'}
               </button>
             </div>

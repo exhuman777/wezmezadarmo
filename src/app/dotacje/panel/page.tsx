@@ -16,7 +16,7 @@ const STATUS_LABEL: Record<string, string> = {
 };
 
 const STATUS_COLOR: Record<string, string> = {
-  trial: 'var(--color-accent)',
+  trial: 'var(--color-green)',
   active: '#4ade80',
   inactive: 'var(--color-text-3)',
 };
@@ -210,7 +210,7 @@ export default async function PanelPage() {
               fontFamily: 'var(--font-mono)',
               fontSize: '28px',
               fontWeight: 700,
-              color: 'var(--color-accent)',
+              color: 'var(--color-green)',
               lineHeight: 1,
             }}
           >
@@ -276,7 +276,7 @@ export default async function PanelPage() {
         <div
           style={{
             background: 'var(--color-bg-1)',
-            border: '1px solid var(--color-accent)',
+            border: '1px solid var(--color-green)',
             borderRadius: '6px',
             padding: '20px 24px',
             marginBottom: '32px',
@@ -286,7 +286,7 @@ export default async function PanelPage() {
             style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '13px',
-              color: 'var(--color-accent)',
+              color: 'var(--color-green)',
               fontWeight: 600,
               marginBottom: '6px',
             }}
@@ -308,8 +308,8 @@ export default async function PanelPage() {
             style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '12px',
-              color: 'var(--color-bg-0)',
-              background: 'var(--color-accent)',
+              color: '#FFFFFF',
+              background: 'var(--color-green)',
               padding: '7px 14px',
               borderRadius: '4px',
               textDecoration: 'none',
@@ -360,7 +360,7 @@ export default async function PanelPage() {
                 style={{
                   fontFamily: 'var(--font-mono)',
                   fontSize: '13px',
-                  color: 'var(--color-accent)',
+                  color: 'var(--color-green)',
                   fontWeight: 700,
                   minWidth: '20px',
                 }}

@@ -120,8 +120,8 @@ export default function NoweHaslo() {
           </div>
           {error && <p style={{ fontSize: 13, color: '#ef4444', margin: 0 }}>{error}</p>}
           <button type="submit" disabled={loading} style={{
-            padding: '10px 24px', background: loading ? 'var(--color-border)' : 'var(--color-accent)',
-            color: 'var(--color-bg-0)', border: 'none', borderRadius: 'var(--radius-sm)',
+            padding: '10px 24px', background: loading ? 'var(--color-border)' : 'var(--color-green)',
+            color: '#FFFFFF', border: 'none', borderRadius: 'var(--radius-sm)',
             fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500,
             cursor: loading ? 'not-allowed' : 'pointer',
           }}>

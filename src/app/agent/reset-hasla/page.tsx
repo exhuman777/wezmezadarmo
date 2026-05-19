@@ -64,7 +64,7 @@ export default function ResetHasla() {
             </p>
             <Link href="/agent/logowanie" style={{
               fontFamily: 'var(--font-mono)', fontSize: 13,
-              color: 'var(--color-accent)', textDecoration: 'none',
+              color: 'var(--color-green)', textDecoration: 'none',
             }}>
               Wróć do logowania
             </Link>
@@ -89,8 +89,8 @@ export default function ResetHasla() {
             </div>
             {error && <p style={{ fontSize: 13, color: '#ef4444', margin: 0 }}>{error}</p>}
             <button type="submit" disabled={loading} style={{
-              padding: '10px 24px', background: loading ? 'var(--color-border)' : 'var(--color-accent)',
-              color: 'var(--color-bg-0)', border: 'none', borderRadius: 'var(--radius-sm)',
+              padding: '10px 24px', background: loading ? 'var(--color-border)' : 'var(--color-green)',
+              color: '#FFFFFF', border: 'none', borderRadius: 'var(--radius-sm)',
               fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500,
               cursor: loading ? 'not-allowed' : 'pointer',
             }}>
@@ -98,7 +98,7 @@ export default function ResetHasla() {
             </button>
             <Link href="/agent/logowanie" style={{
               fontFamily: 'var(--font-mono)', fontSize: 12,
-              color: 'var(--color-accent)', textDecoration: 'none',
+              color: 'var(--color-green)', textDecoration: 'none',
               textAlign: 'center' as const,
             }}>
               Wróć do logowania

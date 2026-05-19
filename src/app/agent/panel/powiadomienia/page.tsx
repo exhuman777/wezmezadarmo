@@ -60,7 +60,7 @@ export default function AgentPowiadomienia() {
 
   return (
     <main style={{ maxWidth: 560, margin: '0 auto', padding: '40px 24px' }}>
-      <Link href="/agent/panel" style={{ fontSize: 13, color: 'var(--color-accent)', textDecoration: 'none', display: 'block', marginBottom: 24 }}>&larr; Panel</Link>
+      <Link href="/agent/panel" style={{ fontSize: 13, color: 'var(--color-green)', textDecoration: 'none', display: 'block', marginBottom: 24 }}>&larr; Panel</Link>
       <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--color-text-3)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 8 }}>Ustawienia powiadomień</div>
       <h1 style={{ fontFamily: 'var(--font-mono)', fontSize: 22, fontWeight: 500, marginBottom: 24 }}>Dzienny raport e-mail</h1>
 
@@ -93,7 +93,7 @@ export default function AgentPowiadomienia() {
         )}
 
         <button onClick={save} disabled={saving} style={{
-          padding: '10px 24px', background: saved ? 'var(--color-border)' : 'var(--color-accent)',
+          padding: '10px 24px', background: saved ? 'var(--color-border)' : 'var(--color-green)',
           color: 'var(--color-bg-0)', border: 'none', borderRadius: 'var(--radius-sm)',
           fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500,
           cursor: saving ? 'not-allowed' : 'pointer', width: 'fit-content',

@@ -226,7 +226,7 @@ function FlagStripe({ width = 60, thickness = 3 }: { width?: number; thickness?:
 /* ---- Logo ---- */
 function Logo({ size = 18 }: { size?: number }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+    <a href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
       <span className="red-dot" />
       <span style={{
         fontWeight: 600,
@@ -240,7 +240,7 @@ function Logo({ size = 18 }: { size?: number }) {
         wezmezadarmo
         <span className="mono" style={{ color: 'var(--color-text-3)', fontWeight: 400, fontSize: size * 0.65 }}>.com</span>
       </span>
-    </div>
+    </a>
   );
 }
 
@@ -1093,6 +1093,43 @@ export default function Home() {
                   </div>
                 </a>
 
+              </div>
+            </div>
+
+            {/* Jak to działa -- 3 steps */}
+            <div className="rise" style={{ marginTop: 80, animationDelay: '475ms' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+                <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--color-green)', flexShrink: 0 }} />
+                <span className="label-eyebrow" style={{ color: 'var(--color-green)' }}>Jak to działa</span>
+              </div>
+              <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 700, letterSpacing: '-0.03em', lineHeight: 1.1, marginBottom: 32, color: 'var(--color-text-1)' }}>
+                3 kroki, <span className="serif" style={{ fontStyle: 'italic' }}>2 minuty</span>, gotowe.
+              </h2>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+                {[
+                  { num: '01', badge: 1, title: 'Odpowiedz na pytania', desc: 'Podaj wiek, sytuację rodzinną i zawodową. Bez numeru PESEL, bez logowania. Zajmuje to 2 minuty.' },
+                  { num: '02', badge: 2, title: 'Algorytm + AI weryfikacja', desc: 'System sprawdza 117 świadczeń, ulg i dotacji. AI weryfikuje przypadki graniczne i dodaje ostrzeżenia.' },
+                  { num: '03', badge: 3, title: 'Twoja lista świadczeń', desc: 'Dostajesz spersonalizowaną listę z kwotami, instrukcjami i linkami do oficjalnych źródeł rządowych.' },
+                ].map((step) => (
+                  <div key={step.num} style={{
+                    background: 'var(--color-surface)',
+                    border: '1px solid var(--color-border)',
+                    borderRadius: 16,
+                    padding: '24px 22px',
+                  }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18 }}>
+                      <span className="mono" style={{ fontSize: 13, color: 'var(--color-pl-red)', fontWeight: 600 }}>{step.num}</span>
+                      <span style={{
+                        width: 34, height: 34, borderRadius: '50%',
+                        border: '2px solid var(--color-pl-red)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        fontSize: 14, fontWeight: 600, color: 'var(--color-pl-red)',
+                      }}>{step.badge}</span>
+                    </div>
+                    <div style={{ fontSize: 17, fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 10 }}>{step.title}</div>
+                    <p style={{ fontSize: 14, color: 'var(--color-text-2)', lineHeight: 1.6, margin: 0 }}>{step.desc}</p>
+                  </div>
+                ))}
               </div>
             </div>
 

@@ -90,7 +90,7 @@ export default function AgentProfil() {
 
   return (
     <div style={{ maxWidth: 600, margin: '0 auto', padding: '40px 24px' }}>
-      <Link href="/agent/panel" style={{ fontSize: 13, color: 'var(--color-accent)', textDecoration: 'none', display: 'block', marginBottom: 24 }}>&larr; Panel</Link>
+      <Link href="/agent/panel" style={{ fontSize: 13, color: 'var(--color-green)', textDecoration: 'none', display: 'block', marginBottom: 24 }}>&larr; Panel</Link>
       <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--color-text-3)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 8 }}>Profil</div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
         <h1 style={{ fontFamily: 'var(--font-mono)', fontSize: 22, fontWeight: 500 }}>Twoje dane</h1>
@@ -99,7 +99,7 @@ export default function AgentProfil() {
             onClick={() => setEditing(true)}
             style={{
               padding: '8px 16px', fontSize: 13,
-              background: 'var(--color-accent)', color: 'var(--color-bg-0)',
+              background: 'var(--color-green)', color: 'var(--color-bg-0)',
               border: 'none', borderRadius: 6,
               cursor: 'pointer', fontFamily: 'var(--font-mono)', fontWeight: 500,
             }}
@@ -109,7 +109,7 @@ export default function AgentProfil() {
         )}
       </div>
 
-      {saved && <div style={{ padding: '10px 16px', background: 'var(--color-bg-1)', border: '1px solid var(--color-accent)', borderRadius: 6, marginBottom: 16, fontSize: 13, color: 'var(--color-accent)', fontFamily: 'var(--font-mono)' }}>Zapisano.</div>}
+      {saved && <div style={{ padding: '10px 16px', background: 'var(--color-bg-1)', border: '1px solid var(--color-green)', borderRadius: 6, marginBottom: 16, fontSize: 13, color: 'var(--color-green)', fontFamily: 'var(--font-mono)' }}>Zapisano.</div>}
       {error && <div style={{ padding: '10px 16px', background: '#2a1a1a', border: '1px solid #e05c5c', borderRadius: 6, marginBottom: 16, fontSize: 13, color: '#e05c5c' }}>{error}</div>}
 
       <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, padding: '8px 12px', background: 'var(--color-bg-1)', borderRadius: 4, marginBottom: 16, color: 'var(--color-text-3)' }}>
@@ -146,7 +146,7 @@ export default function AgentProfil() {
                       type="checkbox"
                       checked={!!draft[field.key]}
                       onChange={e => setDraft(prev => ({ ...prev, [field.key]: e.target.checked }))}
-                      style={{ accentColor: 'var(--color-accent)' }}
+                      style={{ accentColor: 'var(--color-green)' }}
                     />
                     <span style={{ fontSize: 13, color: 'var(--color-text-2)' }}>
                       {draft[field.key] ? 'Tak' : 'Nie'}
@@ -192,7 +192,7 @@ export default function AgentProfil() {
             disabled={saving}
             style={{
               padding: '10px 24px', fontSize: 13,
-              background: 'var(--color-accent)', color: 'var(--color-bg-0)',
+              background: 'var(--color-green)', color: 'var(--color-bg-0)',
               border: 'none', borderRadius: 6,
               cursor: saving ? 'not-allowed' : 'pointer',
               fontFamily: 'var(--font-mono)', fontWeight: 500,

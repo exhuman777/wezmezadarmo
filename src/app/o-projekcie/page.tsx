@@ -169,7 +169,7 @@ export default function OProjekciePage() {
               <p className="text-[13px] font-semibold text-text-1 mt-4 mb-1">Formularze wniosków (/wnioski)</p>
               <ul className="space-y-2 pl-1">
                 <li className="flex gap-2">
-                  <span className="font-bold shrink-0" style={{ color: 'var(--color-amber)' }}>[!]</span>
+                  <span className="font-bold shrink-0" style={{ color: 'var(--color-warn)' }}>[!]</span>
                   <span><strong className="text-text-1">PESEL jest przesyłany na serwer</strong>: w celu wygenerowania pliku PDF z wypełnionym wnioskiem. Dane są przetwarzane jednorazowo w pamięci i nie są zapisywane</span>
                 </li>
               </ul>
@@ -177,7 +177,7 @@ export default function OProjekciePage() {
               <p className="text-[13px] font-semibold text-text-1 mt-4 mb-1">Panel agenta (/agent/panel)</p>
               <ul className="space-y-2 pl-1">
                 <li className="flex gap-2">
-                  <span className="font-bold shrink-0" style={{ color: 'var(--color-amber)' }}>[!]</span>
+                  <span className="font-bold shrink-0" style={{ color: 'var(--color-warn)' }}>[!]</span>
                   <span><strong className="text-text-1">Wymaga rejestracji</strong>: dane profilu (wiek, dochód, zatrudnienie) i preferencje e-mail przechowywane w bazie Supabase (serwery w UE). PESEL nie jest zbierany</span>
                 </li>
               </ul>
@@ -291,7 +291,7 @@ export default function OProjekciePage() {
                 co im przysługuje. To narzędzie ma to zmienić.
               </p>
               <div className="flex items-center gap-3 mt-4 p-3 rounded-xl" style={{ background: 'var(--color-bg-2)', border: '1px solid var(--color-border)' }}>
-                <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 text-[16px] font-extrabold" style={{ background: 'linear-gradient(135deg, var(--color-accent), var(--color-accent-2))', color: '#fff' }}>
+                <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 text-[16px] font-extrabold" style={{ background: 'linear-gradient(135deg, var(--color-green), #3D9D60)', color: '#fff' }}>
                   KS
                 </div>
                 <div>

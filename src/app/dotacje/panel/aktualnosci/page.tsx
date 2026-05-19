@@ -353,8 +353,8 @@ export default function PanelAktualnosciPage() {
                 type="submit"
                 disabled={submitting || !formUrl.trim() || !formName.trim()}
                 style={{
-                  background: submitting || !formUrl.trim() || !formName.trim() ? 'var(--color-bg-2)' : 'var(--color-accent)',
-                  color: submitting || !formUrl.trim() || !formName.trim() ? 'var(--color-text-3)' : 'var(--color-bg-0)',
+                  background: submitting || !formUrl.trim() || !formName.trim() ? 'var(--color-bg-2)' : 'var(--color-green)',
+                  color: submitting || !formUrl.trim() || !formName.trim() ? 'var(--color-text-3)' : '#FFFFFF',
                   border: '1px solid var(--color-border-light)',
                   borderRadius: '5px',
                   padding: '9px 20px',
@@ -382,7 +382,7 @@ export default function PanelAktualnosciPage() {
           <p style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--color-text-3)', textTransform: 'uppercase', letterSpacing: '0.08em', margin: 0 }}>
             Ostatnie powiadomienia
             {unreadCount > 0 && (
-              <span style={{ marginLeft: '8px', color: 'var(--color-accent)', fontWeight: 700 }}>
+              <span style={{ marginLeft: '8px', color: 'var(--color-green)', fontWeight: 700 }}>
                 ({unreadCount})
               </span>
             )}
@@ -440,7 +440,7 @@ export default function PanelAktualnosciPage() {
                 >
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px', flexWrap: 'wrap' }}>
-                      <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--color-accent)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                      <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--color-green)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                         {item.source}
                       </span>
                       {item.pubDate && (

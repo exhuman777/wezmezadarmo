@@ -159,7 +159,7 @@ export default function AgentPage() {
                 borderRadius: '6px',
                 background:
                   msg.role === 'user'
-                    ? 'var(--color-accent)'
+                    ? 'var(--color-green)'
                     : 'var(--color-bg-2)',
                 border:
                   msg.role === 'user'
@@ -169,7 +169,7 @@ export default function AgentPage() {
                   msg.role === 'assistant' ? 'var(--font-mono)' : 'var(--font-sans)',
                 fontSize: msg.role === 'assistant' ? '13px' : '14px',
                 color:
-                  msg.role === 'user' ? 'var(--color-bg-0)' : 'var(--color-text-1)',
+                  msg.role === 'user' ? '#FFFFFF' : 'var(--color-text-1)',
                 lineHeight: 1.6,
                 whiteSpace: 'pre-wrap',
                 wordBreak: 'break-word',
@@ -241,8 +241,8 @@ export default function AgentPage() {
           onClick={send}
           disabled={loading || !input.trim()}
           style={{
-            background: loading || !input.trim() ? 'var(--color-bg-2)' : 'var(--color-accent)',
-            color: loading || !input.trim() ? 'var(--color-text-3)' : 'var(--color-bg-0)',
+            background: loading || !input.trim() ? 'var(--color-bg-2)' : 'var(--color-green)',
+            color: loading || !input.trim() ? 'var(--color-text-3)' : '#FFFFFF',
             border: '1px solid var(--color-border-light)',
             borderRadius: '6px',
             padding: '10px 18px',

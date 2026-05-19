@@ -34,7 +34,7 @@ export function AgentNav() {
         }}>
           <span style={{ color: 'var(--color-text-3)' }}>wezmezadarmo</span>
           <span style={{ color: 'var(--color-border-light)', margin: '0 4px' }}>/</span>
-          <span style={{ color: 'var(--color-accent)' }}>agent</span>
+          <span style={{ color: 'var(--color-green)' }}>agent</span>
         </Link>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <ThemeToggle theme={theme} onToggle={toggle} />
@@ -52,10 +52,10 @@ export function AgentNav() {
           <Link href="/agent/rejestracja" style={{
             fontFamily: 'var(--font-mono)',
             fontSize: '12px',
-            color: 'var(--color-bg-0)',
+            color: '#FFFFFF',
             textDecoration: 'none',
             padding: '6px 12px',
-            background: 'var(--color-accent)',
+            background: 'var(--color-green)',
             borderRadius: 'var(--radius-sm)',
             fontWeight: 500,
           }}>

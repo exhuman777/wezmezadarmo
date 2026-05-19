@@ -107,7 +107,7 @@ export default function DotacjePage() {
           maxWidth: '780px',
         }}>
           Dotacje dla{' '}
-          <span style={{ color: 'var(--color-accent)' }}>Twojej firmy.</span>
+          <span style={{ color: 'var(--color-green)' }}>Twojej firmy.</span>
           <br />
           Agent, który nie śpi.
         </h1>
@@ -157,9 +157,9 @@ export default function DotacjePage() {
           <span style={{
             fontFamily: 'var(--font-mono)',
             fontSize: '12px',
-            color: 'var(--color-accent)',
-            border: '1px solid var(--color-amber-border)',
-            background: 'var(--color-amber-bg)',
+            color: 'var(--color-green)',
+            border: '1px solid var(--color-green-border)',
+            background: 'var(--color-green-bg)',
             padding: '6px 12px',
             borderRadius: 'var(--radius-sm)',
           }}>
@@ -206,7 +206,7 @@ export default function DotacjePage() {
                 fontFamily: 'var(--font-mono)',
                 fontSize: '24px',
                 fontWeight: 500,
-                color: 'var(--color-accent)',
+                color: 'var(--color-green)',
                 lineHeight: 1,
                 marginBottom: '4px',
               }}>
@@ -271,7 +271,7 @@ export default function DotacjePage() {
               <div style={{
                 fontFamily: 'var(--font-mono)',
                 fontSize: '11px',
-                color: 'var(--color-accent)',
+                color: 'var(--color-green)',
                 marginBottom: '10px',
                 opacity: 0.8,
               }}>
@@ -352,9 +352,9 @@ export default function DotacjePage() {
                     fontFamily: 'var(--font-mono)',
                     fontSize: '10px',
                     fontWeight: 500,
-                    color: 'var(--color-accent)',
-                    background: 'var(--color-amber-bg)',
-                    border: '1px solid var(--color-amber-border)',
+                    color: 'var(--color-green)',
+                    background: 'var(--color-green-bg)',
+                    border: '1px solid var(--color-green-border)',
                     padding: '2px 7px',
                     borderRadius: '3px',
                     letterSpacing: '0.04em',
@@ -374,7 +374,7 @@ export default function DotacjePage() {
                 <div style={{
                   fontFamily: 'var(--font-mono)',
                   fontSize: '11px',
-                  color: 'var(--color-accent)',
+                  color: 'var(--color-green)',
                   marginBottom: '10px',
                   opacity: 0.9,
                 }}>
@@ -505,7 +505,7 @@ export default function DotacjePage() {
         </div>
         <div style={{
           maxWidth: '480px',
-          border: '1px solid var(--color-accent)',
+          border: '1px solid var(--color-green)',
           borderRadius: 'var(--radius)',
           background: 'var(--color-bg-1)',
           overflow: 'hidden',
@@ -567,7 +567,7 @@ export default function DotacjePage() {
                   <span style={{
                     fontFamily: 'var(--font-mono)',
                     fontSize: '10px',
-                    color: 'var(--color-accent)',
+                    color: 'var(--color-green)',
                     minWidth: '12px',
                   }}>
                     +
@@ -642,10 +642,10 @@ export default function DotacjePage() {
             style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '12px',
-              color: 'var(--color-accent)',
+              color: 'var(--color-green)',
               textDecoration: 'none',
-              border: '1px solid var(--color-amber-border)',
-              background: 'var(--color-amber-bg)',
+              border: '1px solid var(--color-green-border)',
+              background: 'var(--color-green-bg)',
               padding: '6px 14px',
               borderRadius: 'var(--radius-sm)',
               whiteSpace: 'nowrap',

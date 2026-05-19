@@ -245,8 +245,8 @@ export default function AgentChatPage() {
               width: 56, height: 56,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               borderRadius: 14,
-              background: 'var(--color-accent)',
-              color: 'var(--color-bg-0)',
+              background: 'var(--color-green)',
+              color: '#FFFFFF',
               fontFamily: 'var(--font-mono)',
               fontSize: 20, fontWeight: 700,
             }}>
@@ -295,7 +295,7 @@ export default function AgentChatPage() {
             {msg.role === 'assistant' && (
               <div style={{
                 fontFamily: 'var(--font-mono)', fontSize: 10,
-                color: 'var(--color-accent)', marginBottom: 4,
+                color: 'var(--color-green)', marginBottom: 4,
                 letterSpacing: '0.06em', textTransform: 'uppercase',
               }}>
                 {MODE_LABELS[mode]}
@@ -304,7 +304,7 @@ export default function AgentChatPage() {
             <div style={{
               padding: '12px 16px',
               borderRadius: msg.role === 'user' ? '14px 14px 4px 14px' : '14px 14px 14px 4px',
-              background: msg.role === 'user' ? 'var(--color-accent)' : 'var(--color-bg-1)',
+              background: msg.role === 'user' ? 'var(--color-green)' : 'var(--color-bg-1)',
               color: msg.role === 'user' ? 'var(--color-bg-0)' : 'var(--color-text-1)',
               border: msg.role === 'user' ? 'none' : '1px solid var(--color-border)',
               fontSize: 14,
@@ -316,7 +316,7 @@ export default function AgentChatPage() {
                 <span style={{
                   display: 'inline-block',
                   width: 6, height: 14,
-                  background: 'var(--color-accent)',
+                  background: 'var(--color-green)',
                   marginLeft: 2,
                   animation: 'blink 1s steps(2) infinite',
                 }} />
@@ -361,7 +361,7 @@ export default function AgentChatPage() {
             lineHeight: 1.5,
             transition: 'border-color 200ms',
           }}
-          onFocus={e => e.currentTarget.style.borderColor = 'var(--color-accent)'}
+          onFocus={e => e.currentTarget.style.borderColor = 'var(--color-green)'}
           onBlur={e => e.currentTarget.style.borderColor = 'var(--color-border)'}
         />
         <button

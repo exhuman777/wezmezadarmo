@@ -335,7 +335,7 @@ export default function RejestracjaPage() {
             <div style={{
               height: '100%',
               width: `${progressPct}%`,
-              background: 'var(--color-accent)',
+              background: 'var(--color-green)',
               transition: 'width 0.3s ease',
             }} />
           </div>
@@ -403,7 +403,7 @@ export default function RejestracjaPage() {
                   lineHeight: '1.5',
                 }}>
                   Akceptuję{' '}
-                  <Link href="/dotacje/regulamin" style={{ color: 'var(--color-accent)', textDecoration: 'none' }}>
+                  <Link href="/dotacje/regulamin" style={{ color: 'var(--color-green)', textDecoration: 'none' }}>
                     regulamin i politykę prywatności
                   </Link>
                 </span>
@@ -424,7 +424,7 @@ export default function RejestracjaPage() {
               textAlign: 'center',
             }}>
               Masz już konto?{' '}
-              <Link href="/dotacje/logowanie" style={{ color: 'var(--color-accent)', textDecoration: 'none' }}>
+              <Link href="/dotacje/logowanie" style={{ color: 'var(--color-green)', textDecoration: 'none' }}>
                 Zaloguj się
               </Link>
             </div>
@@ -757,8 +757,8 @@ function FieldError({ msg }: { msg: string }) {
 function primaryButtonStyle(): React.CSSProperties {
   return {
     padding: '10px',
-    background: 'var(--color-accent)',
-    color: 'var(--color-bg-0)',
+    background: 'var(--color-green)',
+    color: '#FFFFFF',
     border: 'none',
     borderRadius: 'var(--radius-sm)',
     fontFamily: 'var(--font-mono)',

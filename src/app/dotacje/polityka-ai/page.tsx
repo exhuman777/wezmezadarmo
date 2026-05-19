@@ -54,7 +54,7 @@ function Li({ children }: { children: React.ReactNode }) {
         top: '8px',
         fontFamily: 'var(--font-mono)',
         fontSize: '10px',
-        color: 'var(--color-accent)',
+        color: 'var(--color-green)',
       }}>
         --
       </span>
@@ -136,8 +136,8 @@ export default function PolitykAiPage() {
 
       {/* Notice box */}
       <div style={{
-        background: 'var(--color-amber-bg)',
-        border: '1px solid var(--color-amber-border)',
+        background: 'var(--color-green-bg)',
+        border: '1px solid var(--color-green-border)',
         borderRadius: 'var(--radius)',
         padding: '16px 20px',
         marginBottom: '40px',
@@ -145,7 +145,7 @@ export default function PolitykAiPage() {
         <p style={{
           fontFamily: 'var(--font-mono)',
           fontSize: '12px',
-          color: 'var(--color-accent)',
+          color: 'var(--color-green)',
           margin: '0 0 6px',
           fontWeight: 500,
         }}>

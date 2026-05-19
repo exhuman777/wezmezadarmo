@@ -109,7 +109,7 @@ export default async function AktualnosciPage() {
             style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '12px',
-              color: 'var(--color-accent)',
+              color: 'var(--color-green)',
               textDecoration: 'none',
               fontWeight: 600,
             }}

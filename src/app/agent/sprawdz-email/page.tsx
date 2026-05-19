@@ -22,7 +22,7 @@ export default function SprawdzEmail() {
         </p>
         <Link href="/agent/logowanie" style={{
           fontFamily: 'var(--font-mono)', fontSize: 13,
-          color: 'var(--color-accent)', textDecoration: 'none',
+          color: 'var(--color-green)', textDecoration: 'none',
         }}>
           Wróć do logowania
         </Link>

@@ -81,9 +81,9 @@ export default function AgentPanel() {
           </p>
         )}
         {!prefs?.digest_enabled && (
-          <p style={{ fontSize: 13, color: 'var(--color-accent)' }}>
+          <p style={{ fontSize: 13, color: 'var(--color-green)' }}>
             Digest e-mail jest wyłączony.{' '}
-            <Link href="/agent/panel/powiadomienia" style={{ color: 'var(--color-accent)', textDecoration: 'underline' }}>Włącz</Link>
+            <Link href="/agent/panel/powiadomienia" style={{ color: 'var(--color-green)', textDecoration: 'underline' }}>Włącz</Link>
           </p>
         )}
       </div>

@@ -37,7 +37,7 @@ export default function OnboardingBanner({ profileType }: OnboardingBannerProps)
   return (
     <div style={{
       position: 'relative',
-      border: '1px solid var(--color-accent)',
+      border: '1px solid var(--color-green)',
       borderRadius: 'var(--radius-sm)',
       padding: '20px 24px',
       marginBottom: 24,
@@ -73,7 +73,7 @@ export default function OnboardingBanner({ profileType }: OnboardingBannerProps)
       <ol style={{ margin: 0, padding: '0 0 0 18px', display: 'flex', flexDirection: 'column', gap: 8 }}>
         {steps.map((step, i) => (
           <li key={i} style={{ fontSize: 13, color: 'var(--color-text-2)' }}>
-            <Link href={step.href} style={{ color: 'var(--color-accent)', textDecoration: 'none' }}>
+            <Link href={step.href} style={{ color: 'var(--color-green)', textDecoration: 'none' }}>
               {step.label}
             </Link>
           </li>

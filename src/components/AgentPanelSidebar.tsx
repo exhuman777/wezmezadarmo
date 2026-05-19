@@ -76,8 +76,8 @@ export function AgentPanelSidebar({ activeMode, onModeChange, collapsed }: Props
                   gap: 10,
                   padding: collapsed ? '8px' : '8px 10px',
                   justifyContent: collapsed ? 'center' : 'flex-start',
-                  background: isActive ? 'var(--color-accent)' : 'transparent',
-                  color: isActive ? 'var(--color-bg-0)' : 'var(--color-text-2)',
+                  background: isActive ? 'var(--color-green)' : 'transparent',
+                  color: isActive ? '#FFFFFF' : 'var(--color-text-2)',
                   border: 'none',
                   borderRadius: 6,
                   cursor: 'pointer',
@@ -90,11 +90,11 @@ export function AgentPanelSidebar({ activeMode, onModeChange, collapsed }: Props
                   width: 28, height: 28,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   borderRadius: 6,
-                  background: isActive ? 'rgba(0,0,0,0.15)' : 'var(--color-bg-2)',
+                  background: isActive ? 'rgba(0,0,0,0.15)' : 'var(--color-green-bg)',
                   fontFamily: 'var(--font-mono)',
                   fontSize: 12, fontWeight: 600,
                   flexShrink: 0,
-                  color: isActive ? 'var(--color-bg-0)' : 'var(--color-accent)',
+                  color: isActive ? '#FFFFFF' : 'var(--color-green)',
                 }}>
                   {agent.icon}
                 </span>

@@ -211,7 +211,7 @@ export default function SwiadczeniaPage() {
         }}
       >
         <a href="/" className="flex items-center gap-2 no-underline hover:no-underline">
-          <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full shrink-0" style={{ background: 'var(--color-accent)', boxShadow: '0 0 6px var(--color-amber-border)' }} />
+          <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full shrink-0" style={{ background: 'var(--color-green)', boxShadow: '0 0 6px var(--color-green-border)' }} />
           <span className="text-[12px] sm:text-[14px] font-extrabold tracking-[1.5px] sm:tracking-[2px] text-text-1">
             wezmezadarmo
           </span>
@@ -243,7 +243,7 @@ export default function SwiadczeniaPage() {
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Szukaj świadczenia, np. 800+, becikowe, ulga..."
             className="w-full px-4 py-3 rounded-xl text-[14px] sm:text-[15px] border border-border bg-bg-1 text-text-1 outline-none transition-all focus:border-accent"
-            style={{ caretColor: 'var(--color-accent)' }}
+            style={{ caretColor: 'var(--color-green)' }}
           />
           {search && (
             <button
@@ -260,10 +260,10 @@ export default function SwiadczeniaPage() {
           <button
             onClick={() => setActiveCategory('ALL')}
             className={`px-3 py-1.5 rounded-lg text-[12px] sm:text-[13px] font-semibold border cursor-pointer transition-all ${
-              activeCategory === 'ALL' ? 'border-accent text-accent' : 'border-border text-text-3 hover:text-text-1'
+              activeCategory === 'ALL' ? 'border-green text-green' : 'border-border text-text-3 hover:text-text-1'
             }`}
             style={{
-              background: activeCategory === 'ALL' ? 'var(--color-amber-bg)' : 'var(--color-bg-2)',
+              background: activeCategory === 'ALL' ? 'var(--color-green-bg)' : 'var(--color-bg-2)',
             }}
           >
             Wszystkie ({allBenefits.length})
@@ -276,10 +276,10 @@ export default function SwiadczeniaPage() {
                 key={cat}
                 onClick={() => setActiveCategory(cat === activeCategory ? 'ALL' : cat)}
                 className={`px-3 py-1.5 rounded-lg text-[12px] sm:text-[13px] font-semibold border cursor-pointer transition-all ${
-                  activeCategory === cat ? 'border-accent text-accent' : 'border-border text-text-3 hover:text-text-1'
+                  activeCategory === cat ? 'border-green text-green' : 'border-border text-text-3 hover:text-text-1'
                 }`}
                 style={{
-                  background: activeCategory === cat ? 'var(--color-amber-bg)' : 'var(--color-bg-2)',
+                  background: activeCategory === cat ? 'var(--color-green-bg)' : 'var(--color-bg-2)',
                 }}
               >
                 {CATEGORY_LABELS[cat]} ({count})

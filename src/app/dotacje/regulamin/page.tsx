@@ -52,7 +52,7 @@ function Li({ children }: { children: React.ReactNode }) {
         top: '8px',
         fontFamily: 'var(--font-mono)',
         fontSize: '10px',
-        color: 'var(--color-accent)',
+        color: 'var(--color-green)',
       }}>
         --
       </span>
@@ -238,7 +238,7 @@ export default function RegulaminsPage() {
         </p>
         <p style={P_STYLE}>
           Użytkownik będący konsumentem może skorzystać z platformy ODR (Online
-          Dispute Resolution): <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--color-accent)' }}>ec.europa.eu/consumers/odr</span>
+          Dispute Resolution): <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--color-green)' }}>ec.europa.eu/consumers/odr</span>
         </p>
       </section>
 

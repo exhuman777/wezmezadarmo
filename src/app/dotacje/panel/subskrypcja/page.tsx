@@ -15,7 +15,7 @@ const STATUS_LABEL: Record<string, string> = {
 };
 
 const STATUS_COLOR: Record<string, string> = {
-  trial: 'var(--color-accent)',
+  trial: 'var(--color-green)',
   active: '#4ade80',
   inactive: 'var(--color-text-3)',
 };

@@ -79,7 +79,7 @@ export default function AgentSwiadczenia() {
 
   return (
     <main style={{ maxWidth: 860, margin: '0 auto', padding: '40px 24px' }}>
-      <Link href="/agent/panel" style={{ fontSize: 13, color: 'var(--color-accent)', textDecoration: 'none', display: 'block', marginBottom: 24 }}>&larr; Panel</Link>
+      <Link href="/agent/panel" style={{ fontSize: 13, color: 'var(--color-green)', textDecoration: 'none', display: 'block', marginBottom: 24 }}>&larr; Panel</Link>
       <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--color-text-3)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 8 }}>Świadczenia i ulgi</div>
       <h1 style={{ fontFamily: 'var(--font-mono)', fontSize: 22, fontWeight: 500, marginBottom: 24 }}>Co Ci przysługuje</h1>
 
@@ -88,14 +88,14 @@ export default function AgentSwiadczenia() {
       {results.length === 0 && !error && (
         <p style={{ fontSize: 14, color: 'var(--color-text-3)' }}>
           Nie znaleziono świadczeń dla Twojego profilu lub konto jest typem JDG.{' '}
-          <Link href="/agent/panel/profil" style={{ color: 'var(--color-accent)' }}>Sprawdź profil</Link>
+          <Link href="/agent/panel/profil" style={{ color: 'var(--color-green)' }}>Sprawdź profil</Link>
         </p>
       )}
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         {results.map(({ benefit, status, matchedCriteria, warnings }) => (
           <div key={benefit.id} style={{
-            border: `1px solid ${status === 'PRZYSLUGUJE' ? 'var(--color-accent)' : 'var(--color-border)'}`,
+            border: `1px solid ${status === 'PRZYSLUGUJE' ? 'var(--color-green)' : 'var(--color-border)'}`,
             borderRadius: 'var(--radius)', padding: '20px',
             background: 'var(--color-bg-1)',
           }}>
@@ -104,13 +104,13 @@ export default function AgentSwiadczenia() {
               <span style={{
                 fontFamily: 'var(--font-mono)', fontSize: 10, padding: '2px 8px',
                 borderRadius: 3, border: '1px solid',
-                color: status === 'PRZYSLUGUJE' ? 'var(--color-accent)' : 'var(--color-text-3)',
-                borderColor: status === 'PRZYSLUGUJE' ? 'var(--color-accent)' : 'var(--color-border)',
+                color: status === 'PRZYSLUGUJE' ? 'var(--color-green)' : 'var(--color-text-3)',
+                borderColor: status === 'PRZYSLUGUJE' ? 'var(--color-green)' : 'var(--color-border)',
               }}>
                 {status === 'PRZYSLUGUJE' ? 'przysługuje' : 'możliwe'}
               </span>
             </div>
-            {benefit.kwota && <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13, color: 'var(--color-accent)', marginBottom: 8 }}>{benefit.kwota}</div>}
+            {benefit.kwota && <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13, color: 'var(--color-green)', marginBottom: 8 }}>{benefit.kwota}</div>}
             {matchedCriteria.length > 0 && (
               <div style={{ fontSize: 12, color: 'var(--color-text-3)', marginBottom: 4 }}>
                 {matchedCriteria.join(' - ')}
@@ -121,7 +121,7 @@ export default function AgentSwiadczenia() {
             )}
             {benefit.zrodloUrl && (
               <a href={benefit.zrodloUrl} target="_blank" rel="noopener noreferrer"
-                style={{ fontSize: 12, color: 'var(--color-accent)', textDecoration: 'none', display: 'block', marginTop: 8 }}>
+                style={{ fontSize: 12, color: 'var(--color-green)', textDecoration: 'none', display: 'block', marginTop: 8 }}>
                 Oficjalne źródło &rarr;
               </a>
             )}

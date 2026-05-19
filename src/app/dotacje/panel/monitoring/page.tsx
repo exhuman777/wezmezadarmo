@@ -222,8 +222,8 @@ export default function MonitoringPage() {
           onClick={save}
           disabled={saving || loading}
           style={{
-            background: saving || loading ? 'var(--color-bg-2)' : 'var(--color-accent)',
-            color: saving || loading ? 'var(--color-text-3)' : 'var(--color-bg-0)',
+            background: saving || loading ? 'var(--color-bg-2)' : 'var(--color-green)',
+            color: saving || loading ? 'var(--color-text-3)' : '#FFFFFF',
             border: '1px solid var(--color-border-light)',
             borderRadius: '5px',
             padding: '9px 20px',
@@ -312,7 +312,7 @@ export default function MonitoringPage() {
                     style={{
                       fontFamily: 'var(--font-mono)',
                       fontSize: '10px',
-                      color: 'var(--color-accent)',
+                      color: 'var(--color-green)',
                       textTransform: 'uppercase',
                       letterSpacing: '0.05em',
                       display: 'block',

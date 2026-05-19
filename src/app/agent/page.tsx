@@ -22,14 +22,14 @@ export default function AgentLanding() {
         </div>
         <h1 style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(28px, 5vw, 52px)', fontWeight: 500, lineHeight: 1.1, letterSpacing: '-0.03em', color: 'var(--color-text-1)', margin: '0 0 20px', maxWidth: 700 }}>
           Twój agent AI.<br />
-          <span style={{ color: 'var(--color-accent)' }}>Pilnuje spraw, gdy Ty żyjesz.</span>
+          <span style={{ color: 'var(--color-green)' }}>Pilnuje spraw, gdy Ty żyjesz.</span>
         </h1>
         <p style={{ fontFamily: 'var(--font-sans)', fontSize: 16, lineHeight: 1.65, color: 'var(--color-text-2)', margin: '0 0 32px', maxWidth: 520 }}>
           Dla JDG i osób prywatnych. Agent sprawdza co Ci przysługuje, śledzi zmiany w prawie
           i wysyła Ci codzienny raport na e-mail. Bez wchodzenia na rządowe strony.
         </p>
         <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-          <Link href="/agent/rejestracja" style={{ fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500, color: 'var(--color-bg-0)', background: 'var(--color-accent)', padding: '10px 20px', borderRadius: 'var(--radius-sm)', textDecoration: 'none' }}>
+          <Link href="/agent/rejestracja" style={{ fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500, color: '#FFFFFF', background: 'var(--color-green)', padding: '10px 20px', borderRadius: 'var(--radius-sm)', textDecoration: 'none' }}>
             Zacznij za darmo
           </Link>
           <Link href="/agent/logowanie" style={{ fontFamily: 'var(--font-mono)', fontSize: 13, color: 'var(--color-text-2)', border: '1px solid var(--color-border-light)', padding: '10px 20px', borderRadius: 'var(--radius-sm)', textDecoration: 'none' }}>
@@ -43,7 +43,7 @@ export default function AgentLanding() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1px', background: 'var(--color-border)', border: '1px solid var(--color-border)', borderRadius: 'var(--radius)', overflow: 'hidden' }}>
             {CECHY.map(({ label, desc }) => (
               <div key={label} style={{ background: 'var(--color-bg-1)', padding: '24px' }}>
-                <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500, color: 'var(--color-accent)', marginBottom: 10 }}>{label}</div>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500, color: 'var(--color-green)', marginBottom: 10 }}>{label}</div>
                 <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: 'var(--color-text-3)', lineHeight: 1.6, margin: 0 }}>{desc}</p>
               </div>
             ))}
