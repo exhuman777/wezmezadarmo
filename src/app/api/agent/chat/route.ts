@@ -3,29 +3,21 @@
  * Auth-aware streaming chat for agent panel.
  * Accepts mode: ogolny | swiadczenie | wniosek | nabor | faktura | termin
  * Loads user profile & benefits for context-rich responses.
+ *
+ * Uses the agent registry (src/agents/) for production-grade system prompts.
  */
 
 import { NextRequest } from 'next/server';
 import { createSupabaseServer } from '@/lib/dotacje/supabase';
 import { chatStream } from '@/ai/openrouter';
-import { SYSTEM_PROMPT, buildConversationContext } from '@/ai/systemPrompt';
 import { matchBenefits } from '@/engine/matcher';
-import { UserProfile } from '@/engine/types';
 import { CORS_HEADERS } from '@/lib/apiAuth';
+import type { AgentMode } from '@/agents/types';
+import { buildAgentSystemPrompt, profileToUserProfile } from '@/agents/registry';
 
-const MODE_PROMPTS: Record<string, string> = {
-  ogolny: `Odpowiadasz na dowolne pytania dotyczace swiadczen, ulg, wnioskow i urzedow w Polsce. Badz pomocny i rzeczowy.`,
-
-  swiadczenie: `Skupiasz sie na konkretnych swiadczeniach i ulgach. Masz dostep do profilu uzytkownika i jego dopasowanych swiadczen. Pomagasz zrozumiec jakie swiadczenia przysluguja, jakie sa warunki i jak z nich skorzystac.`,
-
-  wniosek: `Specjalizujesz sie w pomaganiu z wypelnianiem wnioskow ZUS, PFRON, MOPS i innych urzedow. Wyjasniaj krok po kroku jak wypelnic kazde pole. Znasz formularze: Z-15a, Z-15b, ZAS-53, PEL, ERPO, ERSU, Z-3. Jesli pytanie dotyczy innego formularza, powiedz ze mozesz pomoc z formularzami dostepnymi na wezmezadarmo.com/wnioski`,
-
-  nabor: `Specjalizujesz sie w dofinansowaniach i naborach. Pomagasz znalezc odpowiednie programy wsparcia, granty EU, programy PUP, PFRON, NCBiR, PARP. Wyjasniaj terminy, warunki i kroki aplikowania.`,
-
-  faktura: `Specjalizujesz sie w fakturach i rozliczeniach. Wyjasniaj KSeF (Krajowy System e-Faktur), obowiazki podatkowe, VAT, PIT, CIT. Odpowiadaj na pytania o terminy rozliczen, deklaracje, ulgi podatkowe dla firm i osob fizycznych.`,
-
-  termin: `Specjalizujesz sie w terminach urzedowych. Informujesz o terminach skladania wnioskow, deklaracji podatkowych, rejestracji, odnowien. Przypominaj o waznych terminach i konsekwencjach ich niedotrzymania. Kalendarz urzedowy: PIT roczny do 30.04, VAT miesiecznie do 25. dnia, ZUS do 15/20. dnia.`,
-};
+const VALID_MODES: Set<string> = new Set<string>([
+  'ogolny', 'swiadczenie', 'wniosek', 'nabor', 'faktura', 'termin',
+]);
 
 interface AgentChatBody {
   messages: { role: 'user' | 'assistant'; content: string }[];
@@ -60,13 +52,15 @@ export async function POST(request: NextRequest) {
     });
   }
 
-  const { messages, mode = 'ogolny' } = body;
+  const { messages, mode: rawMode = 'ogolny' } = body;
   if (!messages || !Array.isArray(messages) || messages.length === 0) {
     return new Response(JSON.stringify({ error: 'Brak wiadomosci.' }), {
       status: 400,
       headers: { 'Content-Type': 'application/json', ...CORS_HEADERS },
     });
   }
+
+  const mode: AgentMode = VALID_MODES.has(rawMode) ? (rawMode as AgentMode) : 'ogolny';
 
   // Load profile for context
   const { data: profile } = await supabase
@@ -76,47 +70,25 @@ export async function POST(request: NextRequest) {
     .single();
 
   // Build user profile object for benefit matching
-  let verifiedResults = null;
-  let userProfile: UserProfile | null = null;
+  const userProfile = profile ? profileToUserProfile(profile as Record<string, unknown>) : null;
 
-  if (profile && profile.type === 'private') {
-    userProfile = {
-      wiek: profile.wiek ?? 0,
-      plec: profile.plec ?? '',
-      stanCywilny: profile.stan_cywilny ?? '',
-      liczbaDzieci: profile.liczba_dzieci ?? 0,
-      wiekDzieci: profile.wiek_dzieci ?? [],
-      dochodMiesiecznie: profile.dochod_miesiecznie ?? 0,
-      dochodNaOsobe: profile.dochod_na_osobe ?? 0,
-      zatrudnienie: profile.zatrudnienie ?? '',
-      niepelnosprawnosc: profile.niepelnosprawnosc ?? 'brak',
-      wlasnosc: profile.wlasnosc ?? '',
-      wojewodztwo: profile.wojewodztwo ?? '',
-      prowadzDzialalnosc: false,
-      pierwszaDzialalnosc: false,
-      ciaza: profile.ciaza ?? false,
-      student: profile.student ?? false,
-      emeryt: profile.emeryt ?? false,
-      rolnik: profile.rolnik ?? false,
-      bezrobotnyZarejestrowany: profile.bezrobotny_zarejestrowany ?? false,
-    } as UserProfile;
-
-    // Match benefits for context
-    if (mode === 'swiadczenie' || mode === 'ogolny') {
-      const results = matchBenefits(userProfile);
-      verifiedResults = results.filter(
-        r => r.status === 'PRZYSLUGUJE' || r.status === 'MOZLIWE'
-      );
-    }
+  let matchedBenefits = null;
+  if (userProfile && (mode === 'swiadczenie' || mode === 'ogolny')) {
+    const results = matchBenefits(userProfile);
+    matchedBenefits = results.filter(
+      r => r.status === 'PRZYSLUGUJE' || r.status === 'MOZLIWE'
+    );
   }
 
-  const modePrompt = MODE_PROMPTS[mode] ?? MODE_PROMPTS.ogolny;
-  const context = buildConversationContext(userProfile, verifiedResults, null);
+  // Build full system prompt via agent registry
+  const profileType = profile?.type === 'jdg' ? 'jdg' as const : profile?.type === 'private' ? 'private' as const : null;
 
-  const systemMessage = SYSTEM_PROMPT
-    + `\n\nTRYB AGENTA: ${modePrompt}`
-    + (profile ? `\n\nPROFIL UZYTKOWNIKA: Typ: ${profile.type}${profile.type === 'jdg' ? `, Firma: ${profile.company_name}, NIP: ${profile.nip}` : ``}` : '')
-    + (context ? `\n\n${context}` : '');
+  const systemMessage = buildAgentSystemPrompt(mode, {
+    profile: profile as Record<string, unknown> | null,
+    profileType,
+    matchedBenefits,
+    userProfile,
+  });
 
   try {
     const stream = await chatStream([

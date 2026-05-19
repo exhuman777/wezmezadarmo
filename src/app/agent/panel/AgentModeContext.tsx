@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, useState } from 'react';
-import type { AgentMode } from '@/components/AgentPanelSidebar';
+import type { AgentMode } from '@/agents/types';
 
 interface AgentModeContextValue {
   mode: AgentMode;

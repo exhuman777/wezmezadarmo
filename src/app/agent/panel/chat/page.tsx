@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState, useCallback } from 'react';
 import { useAgentMode } from '../AgentModeContext';
-import type { AgentMode } from '@/components/AgentPanelSidebar';
+import type { AgentMode } from '@/agents/types';
 
 interface Message {
   id: string;
