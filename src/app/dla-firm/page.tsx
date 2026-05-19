@@ -126,34 +126,58 @@ export default function DlaFirmPage() {
             <div className="space-y-3">
 
               <div className="border border-border rounded-lg p-4">
-                <div className="font-mono text-[11px] text-green tracking-widest uppercase mb-2">Oprogramowanie kadrowe i HR</div>
-                <p className="text-[14px] leading-relaxed">
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="w-9 h-9 rounded-full bg-[#0F1F14] text-white flex items-center justify-center font-mono text-[13px] font-semibold shrink-0">H</span>
+                  <div className="font-mono text-[13px] font-medium text-text-1">Oprogramowanie kadrowe i HR</div>
+                </div>
+                <p className="text-[14px] leading-relaxed mb-3">
                   Przy onboardingu nowego pracownika Twój system może automatycznie sprawdzić,
                   jakie świadczenia mu przysługują: świadczenie 800+ na dzieci, ulga
                   prorodzinna w PIT, dofinansowanie do żłobka z budżetu gminy, becikowe.
                   HR dostaje gotową listę zamiast odsyłać pracownika na rządowe strony.
                 </p>
+                <div className="flex gap-1.5 flex-wrap">
+                  <span className="text-[10px] font-mono px-2 py-0.5 border border-border rounded-full text-text-3">onboarding</span>
+                  <span className="text-[10px] font-mono px-2 py-0.5 border border-border rounded-full text-text-3">HR</span>
+                  <span className="text-[10px] font-mono px-2 py-0.5 border border-border rounded-full text-text-3">kadry</span>
+                </div>
               </div>
 
               <div className="border border-border rounded-lg p-4">
-                <div className="font-mono text-[11px] text-green tracking-widest uppercase mb-2">Aplikacje bankowe i fintech</div>
-                <p className="text-[14px] leading-relaxed">
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="w-9 h-9 rounded-full bg-[#0F1F14] text-white flex items-center justify-center font-mono text-[13px] font-semibold shrink-0">F</span>
+                  <div className="font-mono text-[13px] font-medium text-text-1">Aplikacje bankowe i fintech</div>
+                </div>
+                <p className="text-[14px] leading-relaxed mb-3">
                   Klient składa wniosek kredytowy. Twoja aplikacja w tle sprawdza, na jakie
                   regularne świadczenia się kwalifikuje: 800+, trzynasta emerytura, renta.
                   To realny, stały dochód, który powinien wchodzić do scoringu. Dodatkowo
                   doradztwo finansowe zyskuje nowy wymiar: "przysługuje Ci X, możesz to
                   przeznaczyć na nadpłatę kredytu".
                 </p>
+                <div className="flex gap-1.5 flex-wrap">
+                  <span className="text-[10px] font-mono px-2 py-0.5 border border-border rounded-full text-text-3">fintech</span>
+                  <span className="text-[10px] font-mono px-2 py-0.5 border border-border rounded-full text-text-3">scoring</span>
+                  <span className="text-[10px] font-mono px-2 py-0.5 border border-border rounded-full text-text-3">kredyty</span>
+                </div>
               </div>
 
               <div className="border border-border rounded-lg p-4">
-                <div className="font-mono text-[11px] text-green tracking-widest uppercase mb-2">Ośrodki Pomocy Społecznej i NGO</div>
-                <p className="text-[14px] leading-relaxed">
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="w-9 h-9 rounded-full bg-[#0F1F14] text-white flex items-center justify-center font-mono text-[13px] font-semibold shrink-0">N</span>
+                  <div className="font-mono text-[13px] font-medium text-text-1">Ośrodki Pomocy Społecznej i NGO</div>
+                </div>
+                <p className="text-[14px] leading-relaxed mb-3">
                   Pracownik socjalny obsługuje klienta. Zamiast ręcznie sprawdzać kilkadziesiąt
                   stron rządowych. Jedno zapytanie do API i gotowa lista świadczeń, do których
                   dana osoba się kwalifikuje, z instrukcją gdzie i jak złożyć wniosek.
                   Oszczędność czasu, mniej błędów, lepsza obsługa.
                 </p>
+                <div className="flex gap-1.5 flex-wrap">
+                  <span className="text-[10px] font-mono px-2 py-0.5 border border-border rounded-full text-text-3">NGO</span>
+                  <span className="text-[10px] font-mono px-2 py-0.5 border border-border rounded-full text-text-3">OPS</span>
+                  <span className="text-[10px] font-mono px-2 py-0.5 border border-border rounded-full text-text-3">pomoc</span>
+                </div>
               </div>
 
             </div>

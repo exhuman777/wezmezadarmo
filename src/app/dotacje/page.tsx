@@ -268,23 +268,23 @@ export default function DotacjePage() {
                 padding: '24px',
               }}
             >
-              <div style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '11px',
-                color: 'var(--color-green)',
-                marginBottom: '10px',
-                opacity: 0.8,
-              }}>
-                {step.num}
-              </div>
-              <div style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '14px',
-                fontWeight: 500,
-                color: 'var(--color-text-1)',
-                marginBottom: '8px',
-              }}>
-                {step.title}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+                <span style={{
+                  width: 36, height: 36, borderRadius: '50%',
+                  background: '#0F1F14', color: '#fff',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 600, flexShrink: 0,
+                }}>
+                  {step.num}
+                </span>
+                <div style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '14px',
+                  fontWeight: 500,
+                  color: 'var(--color-text-1)',
+                }}>
+                  {step.title}
+                </div>
               </div>
               <p style={{
                 fontFamily: 'var(--font-sans)',
@@ -347,48 +347,55 @@ export default function DotacjePage() {
                   padding: '20px',
                 }}
               >
-                <div style={{ marginBottom: '10px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
                   <span style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '10px',
-                    fontWeight: 500,
-                    color: 'var(--color-green)',
-                    background: 'var(--color-green-bg)',
-                    border: '1px solid var(--color-green-border)',
-                    padding: '2px 7px',
-                    borderRadius: '3px',
-                    letterSpacing: '0.04em',
+                    width: 38, height: 38, borderRadius: '50%',
+                    background: '#0F1F14', color: '#fff',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontFamily: 'var(--font-mono)', fontSize: 12, fontWeight: 600, flexShrink: 0,
                   }}>
-                    {prog.category}
+                    {prog.category.charAt(0)}
                   </span>
-                </div>
-                <div style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '14px',
-                  fontWeight: 500,
-                  color: 'var(--color-text-1)',
-                  marginBottom: '4px',
-                }}>
-                  {prog.name}
-                </div>
-                <div style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '11px',
-                  color: 'var(--color-green)',
-                  marginBottom: '10px',
-                  opacity: 0.9,
-                }}>
-                  {prog.max}
+                  <div>
+                    <div style={{
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '14px',
+                      fontWeight: 500,
+                      color: 'var(--color-text-1)',
+                    }}>
+                      {prog.name}
+                    </div>
+                    <div style={{
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '11px',
+                      color: 'var(--color-green)',
+                      opacity: 0.9,
+                    }}>
+                      {prog.max}
+                    </div>
+                  </div>
                 </div>
                 <p style={{
                   fontFamily: 'var(--font-sans)',
                   fontSize: '12px',
                   color: 'var(--color-text-3)',
                   lineHeight: 1.6,
-                  margin: 0,
+                  margin: '0 0 12px',
                 }}>
                   {prog.description}
                 </p>
+                <span style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '10px',
+                  color: 'var(--color-green)',
+                  background: 'var(--color-green-bg)',
+                  border: '1px solid var(--color-green-border)',
+                  padding: '3px 8px',
+                  borderRadius: 999,
+                  letterSpacing: '0.04em',
+                }}>
+                  {prog.category}
+                </span>
               </div>
             ))}
           </div>

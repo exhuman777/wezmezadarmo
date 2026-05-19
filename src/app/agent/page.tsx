@@ -7,10 +7,10 @@ export const metadata: Metadata = {
 };
 
 const CECHY = [
-  { label: 'Świadczenia i ulgi', desc: 'Agent dopasowuje 117 świadczeń do Twojego profilu: 800+, becikowe, zasiłki, ulgi podatkowe.' },
-  { label: 'Zmiany w prawie', desc: 'Śledzi ZUS, podatki.gov.pl i zmiany przepisów. Informuje Cię zanim musisz działać.' },
-  { label: 'Dzienny raport e-mail', desc: 'Co rano dostaniesz zwięzłe podsumowanie co jest nowego. Bez logowania do panelu.' },
-  { label: 'JDG i osoby prywatne', desc: 'Dla prowadzących działalność (NIP + PKD) i dla osób prywatnych (profil rodzinny).' },
+  { label: 'Świadczenia i ulgi', desc: 'Agent dopasowuje 117 świadczeń do Twojego profilu: 800+, becikowe, zasiłki, ulgi podatkowe.', icon: 'S' },
+  { label: 'Zmiany w prawie', desc: 'Śledzi ZUS, podatki.gov.pl i zmiany przepisów. Informuje Cię zanim musisz działać.', icon: 'Z' },
+  { label: 'Dzienny raport e-mail', desc: 'Co rano dostaniesz zwięzłe podsumowanie co jest nowego. Bez logowania do panelu.', icon: 'D' },
+  { label: 'JDG i osoby prywatne', desc: 'Dla prowadzących działalność (NIP + PKD) i dla osób prywatnych (profil rodzinny).', icon: 'J' },
 ];
 
 export default function AgentLanding() {
@@ -41,9 +41,17 @@ export default function AgentLanding() {
       <section style={{ borderTop: '1px solid var(--color-border)', borderBottom: '1px solid var(--color-border)', background: 'var(--color-bg-1)' }}>
         <div style={{ maxWidth: 860, margin: '0 auto', padding: '48px 24px' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1px', background: 'var(--color-border)', border: '1px solid var(--color-border)', borderRadius: 'var(--radius)', overflow: 'hidden' }}>
-            {CECHY.map(({ label, desc }) => (
+            {CECHY.map(({ label, desc, icon }) => (
               <div key={label} style={{ background: 'var(--color-bg-1)', padding: '24px' }}>
-                <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500, color: 'var(--color-green)', marginBottom: 10 }}>{label}</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
+                  <span style={{
+                    width: 36, height: 36, borderRadius: '50%',
+                    background: '#0F1F14', color: '#fff',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 600, flexShrink: 0,
+                  }}>{icon}</span>
+                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500, color: 'var(--color-text-1)' }}>{label}</div>
+                </div>
                 <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: 'var(--color-text-3)', lineHeight: 1.6, margin: 0 }}>{desc}</p>
               </div>
             ))}

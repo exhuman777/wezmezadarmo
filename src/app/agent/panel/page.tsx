@@ -19,11 +19,11 @@ interface Prefs {
 }
 
 const QUICK_LINKS = [
-  { href: '/agent/panel/chat', label: 'Czat AI', desc: 'Porozmawiaj z agentem' },
-  { href: '/agent/panel/swiadczenia', label: 'Swiadczenia i ulgi', desc: 'Co Ci przysluguje' },
-  { href: '/agent/panel/aktualnosci', label: 'Aktualnosci', desc: 'Zmiany w prawie' },
-  { href: '/agent/panel/powiadomienia', label: 'Powiadomienia', desc: 'Ustawienia e-mail' },
-  { href: '/agent/panel/profil', label: 'Profil', desc: 'Edytuj dane' },
+  { href: '/agent/panel/chat', label: 'Czat AI', desc: 'Porozmawiaj z agentem', icon: 'C' },
+  { href: '/agent/panel/swiadczenia', label: 'Świadczenia i ulgi', desc: 'Co Ci przysługuje', icon: 'S' },
+  { href: '/agent/panel/aktualnosci', label: 'Aktualności', desc: 'Zmiany w prawie', icon: 'A' },
+  { href: '/agent/panel/powiadomienia', label: 'Powiadomienia', desc: 'Ustawienia e-mail', icon: 'P' },
+  { href: '/agent/panel/profil', label: 'Profil', desc: 'Edytuj dane', icon: 'U' },
 ];
 
 export default function AgentPanel() {
@@ -89,14 +89,22 @@ export default function AgentPanel() {
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 12 }}>
-        {QUICK_LINKS.map(({ href, label, desc }) => (
+        {QUICK_LINKS.map(({ href, label, desc, icon }) => (
           <Link key={href} href={href} style={{
             display: 'block', textDecoration: 'none',
             border: '1px solid var(--color-border)',
             borderRadius: 'var(--radius)', padding: '20px',
             background: 'var(--color-bg-1)',
           }}>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: 14, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 6 }}>{label}</div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 10 }}>
+              <span style={{
+                width: 36, height: 36, borderRadius: '50%',
+                background: '#0F1F14', color: '#fff',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 600, flexShrink: 0,
+              }}>{icon}</span>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 14, fontWeight: 500, color: 'var(--color-text-1)' }}>{label}</div>
+            </div>
             <div style={{ fontSize: 12, color: 'var(--color-text-3)' }}>{desc}</div>
           </Link>
         ))}

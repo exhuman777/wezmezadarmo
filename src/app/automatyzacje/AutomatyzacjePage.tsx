@@ -171,19 +171,30 @@ export default function AutomatyzacjePage() {
                   borderRadius: 16,
                   overflow: 'hidden',
                 }}>
-                  {PROBLEMY.map((p, i) => (
-                    <div key={p.obszar} style={{
-                      display: 'grid',
-                      gridTemplateColumns: '140px 1fr',
-                      gap: 24,
-                      padding: '18px 24px',
-                      borderTop: i > 0 ? '1px solid var(--color-border)' : 'none',
-                      background: 'var(--color-surface)',
-                    }}>
-                      <div style={{ fontWeight: 700, fontSize: 15, color: 'var(--color-pl-red)' }}>{p.obszar}</div>
-                      <div style={{ fontSize: 15, color: 'var(--color-text-2)', lineHeight: 1.6 }}>{p.opis}</div>
-                    </div>
-                  ))}
+                  {PROBLEMY.map((p, i) => {
+                    const icons = ['F', 'O', 'R', 'M', 'Z'];
+                    return (
+                      <div key={p.obszar} style={{
+                        display: 'grid',
+                        gridTemplateColumns: '180px 1fr',
+                        gap: 24,
+                        padding: '18px 24px',
+                        borderTop: i > 0 ? '1px solid var(--color-border)' : 'none',
+                        background: 'var(--color-surface)',
+                      }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                          <span style={{
+                            width: 30, height: 30, borderRadius: '50%',
+                            background: '#0F1F14', color: '#fff',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            fontFamily: 'var(--font-mono)', fontSize: 11, fontWeight: 600, flexShrink: 0,
+                          }}>{icons[i]}</span>
+                          <div style={{ fontWeight: 600, fontSize: 14, color: 'var(--color-text-1)' }}>{p.obszar}</div>
+                        </div>
+                        <div style={{ fontSize: 15, color: 'var(--color-text-2)', lineHeight: 1.6 }}>{p.opis}</div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
 
@@ -219,17 +230,28 @@ export default function AutomatyzacjePage() {
               <span style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-              {PRZYKLADY.map((p) => (
-                <div key={p.tytul} style={{
-                  border: '1px solid var(--color-border)',
-                  borderRadius: 14,
-                  padding: '22px 28px',
-                  background: 'var(--color-surface)',
-                }}>
-                  <div style={{ fontWeight: 600, fontSize: 16, color: 'var(--color-green)', marginBottom: 10 }}>{p.tytul}</div>
-                  <div style={{ fontSize: 15, color: 'var(--color-text-2)', lineHeight: 1.7 }}>{p.opis}</div>
-                </div>
-              ))}
+              {PRZYKLADY.map((p, i) => {
+                const icons = ['F', 'W'];
+                return (
+                  <div key={p.tytul} style={{
+                    border: '1px solid var(--color-border)',
+                    borderRadius: 14,
+                    padding: '22px 28px',
+                    background: 'var(--color-surface)',
+                  }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
+                      <span style={{
+                        width: 38, height: 38, borderRadius: '50%',
+                        background: '#0F1F14', color: '#fff',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        fontFamily: 'var(--font-mono)', fontSize: 14, fontWeight: 600, flexShrink: 0,
+                      }}>{icons[i]}</span>
+                      <div style={{ fontWeight: 600, fontSize: 16, color: 'var(--color-text-1)' }}>{p.tytul}</div>
+                    </div>
+                    <div style={{ fontSize: 15, color: 'var(--color-text-2)', lineHeight: 1.7 }}>{p.opis}</div>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
@@ -312,6 +334,7 @@ export default function AutomatyzacjePage() {
               {CENNIK.map((c, i) => {
                 const isDark = i === 0;
                 const isGreen = i === 2;
+                const icons = ['M', 'Z', 'A'];
                 return (
                   <div key={c.nazwa} style={{
                     border: isDark ? 'none' : '1px solid var(--color-border)',
@@ -320,11 +343,20 @@ export default function AutomatyzacjePage() {
                     background: isDark ? '#0F1F14' : 'var(--color-surface)',
                     color: isDark ? '#E8F0E8' : undefined,
                   }}>
-                    <div style={{
-                      fontSize: 14, fontWeight: 600,
-                      color: isDark ? '#8BA88B' : 'var(--color-text-2)',
-                      marginBottom: 16, lineHeight: 1.4,
-                    }}>{c.nazwa}</div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
+                      <span style={{
+                        width: 38, height: 38, borderRadius: '50%',
+                        background: isDark ? 'rgba(109, 192, 138, 0.15)' : '#0F1F14',
+                        color: isDark ? '#6DC08A' : '#fff',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 600, flexShrink: 0,
+                      }}>{icons[i]}</span>
+                      <div style={{
+                        fontSize: 14, fontWeight: 600,
+                        color: isDark ? '#E8F0E8' : 'var(--color-text-1)',
+                        lineHeight: 1.4,
+                      }}>{c.nazwa}</div>
+                    </div>
                     <div className="mono" style={{
                       fontSize: 40, fontWeight: 500, letterSpacing: '-0.04em',
                       color: isDark ? '#6DC08A' : isGreen ? 'var(--color-green)' : 'var(--color-accent)',
@@ -383,25 +415,17 @@ export default function AutomatyzacjePage() {
                   borderRadius: 16,
                   padding: 28,
                 }}>
-                  <div style={{
-                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                    marginBottom: 20,
-                  }}>
-                    <span className="mono" style={{
-                      fontSize: 24, fontWeight: 700, color: 'var(--color-pl-red)',
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 18 }}>
+                    <span style={{
+                      width: 40, height: 40, borderRadius: '50%',
+                      background: '#0F1F14', color: '#fff',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontFamily: 'var(--font-mono)', fontSize: 15, fontWeight: 600, flexShrink: 0,
                     }}>
                       {String(i + 1).padStart(2, '0')}
                     </span>
-                    <span style={{
-                      width: 36, height: 36, borderRadius: '50%',
-                      border: '2px solid var(--color-pl-red)',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      fontSize: 14, fontWeight: 600, color: 'var(--color-pl-red)',
-                    }}>
-                      {i + 1}
-                    </span>
+                    <div style={{ fontSize: 18, fontWeight: 600, color: 'var(--color-text-1)' }}>{k.tytul}</div>
                   </div>
-                  <div style={{ fontSize: 18, fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 10 }}>{k.tytul}</div>
                   <div style={{ fontSize: 14, color: 'var(--color-text-2)', lineHeight: 1.7 }}>{k.opis}</div>
                 </div>
               ))}
