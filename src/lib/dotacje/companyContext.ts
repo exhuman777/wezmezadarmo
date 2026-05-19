@@ -41,7 +41,7 @@ const STATUS_LABELS: Record<string, string> = {
   closed: 'ZAMKNIĘTY',
 };
 
-function buildCompanyBlock(profile: CompanyProfile): string {
+export function buildCompanyBlock(profile: CompanyProfile): string {
   const flagDescriptions = profile.flags.map((f) => FLAG_LABELS[f] ?? f).join(', ');
 
   return [
@@ -56,7 +56,7 @@ function buildCompanyBlock(profile: CompanyProfile): string {
   ].join('\n');
 }
 
-function buildMatchedProgramsBlock(profile: CompanyProfile): string {
+export function buildMatchedProgramsBlock(profile: CompanyProfile): string {
   const matches = matchPrograms(profile.flags, profile.voivodeship, profile.size);
 
   if (matches.length === 0) {

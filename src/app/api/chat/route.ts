@@ -1,6 +1,14 @@
+/**
+ * POST /api/chat
+ * Public streaming AI chat for citizens.
+ * Rate-limited: 3 queries/day per IP (B2B API keys exempt).
+ * Uses the swiadczenie agent from the unified agent registry.
+ */
+
 import { NextRequest } from 'next/server';
 import { chatStream } from '@/ai/openrouter';
-import { SYSTEM_PROMPT, buildConversationContext } from '@/ai/systemPrompt';
+import { buildAgentSystemPrompt } from '@/agents/registry';
+import type { AgentContext } from '@/agents/types';
 import { UserProfile, MatchResult } from '@/engine/types';
 import { checkRateLimit } from '@/lib/rateLimit';
 import { checkApiKey, unauthorizedResponse, optionsResponse, CORS_HEADERS } from '@/lib/apiAuth';
@@ -13,7 +21,7 @@ export async function POST(request: NextRequest) {
   if (!checkApiKey(request)) return unauthorizedResponse();
 
   try {
-    // Klienci B2B z kluczem API -- bez limitu zapytań
+    // Klienci B2B z kluczem API -- bez limitu zapytan
     const apiKeysEnv = process.env.B2B_API_KEYS;
     const providedKey = request.headers.get('x-api-key') || request.headers.get('authorization')?.replace('Bearer ', '');
     const isBizClient = !!(apiKeysEnv && providedKey && apiKeysEnv.split(',').map(k => k.trim()).includes(providedKey));
@@ -21,7 +29,6 @@ export async function POST(request: NextRequest) {
     let remaining = 999;
 
     if (!isBizClient) {
-      // Rate limit by IP
       const forwarded = request.headers.get('x-forwarded-for');
       const ip = forwarded?.split(',')[0]?.trim() ?? request.headers.get('x-real-ip') ?? 'unknown';
       const { allowed, remaining: rem } = checkRateLimit(ip);
@@ -71,9 +78,16 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    const context = buildConversationContext(profile, verifiedResults, focusedBenefitId);
+    // Build agent context from request data
+    const agentContext: AgentContext = {
+      profile: null,
+      profileType: 'private',
+      matchedBenefits: verifiedResults,
+      userProfile: profile,
+      focusedBenefitId: focusedBenefitId ?? null,
+    };
 
-    const systemMessage = SYSTEM_PROMPT + (context ? `\n\n${context}` : '');
+    const systemMessage = buildAgentSystemPrompt('swiadczenie', agentContext);
 
     const allMessages = [
       { role: 'system' as const, content: systemMessage },

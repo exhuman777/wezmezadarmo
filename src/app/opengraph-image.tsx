@@ -15,7 +15,7 @@ export default function OGImage() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          background: 'linear-gradient(135deg, #0a0806 0%, #14100b 50%, #1c1610 100%)',
+          background: 'linear-gradient(135deg, #0A120A 0%, #121A12 50%, #1A241A 100%)',
           position: 'relative',
         }}
       >
@@ -28,7 +28,7 @@ export default function OGImage() {
             width: '400px',
             height: '400px',
             borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(240,168,96,0.12), transparent 70%)',
+            background: 'radial-gradient(circle, rgba(46,125,79,0.15), transparent 70%)',
           }}
         />
         <div
@@ -39,7 +39,7 @@ export default function OGImage() {
             width: '300px',
             height: '300px',
             borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(240,168,96,0.08), transparent 70%)',
+            background: 'radial-gradient(circle, rgba(46,125,79,0.10), transparent 70%)',
           }}
         />
 
@@ -58,7 +58,7 @@ export default function OGImage() {
             style={{
               fontSize: '64px',
               fontWeight: 800,
-              color: '#f0a860',
+              color: '#6DC08A',
               letterSpacing: '8px',
               marginBottom: '16px',
               fontFamily: 'monospace',
@@ -72,7 +72,7 @@ export default function OGImage() {
             style={{
               width: '120px',
               height: '3px',
-              background: 'linear-gradient(90deg, transparent, #f0a860, transparent)',
+              background: 'linear-gradient(90deg, transparent, #6DC08A, transparent)',
               marginBottom: '24px',
               borderRadius: '2px',
             }}
@@ -95,7 +95,7 @@ export default function OGImage() {
           <div
             style={{
               fontSize: '22px',
-              color: '#c4a882',
+              color: '#C2D4C2',
               fontFamily: 'monospace',
               marginBottom: '32px',
             }}
@@ -117,14 +117,14 @@ export default function OGImage() {
                 alignItems: 'center',
                 padding: '16px 32px',
                 borderRadius: '12px',
-                border: '1px solid rgba(240,168,96,0.3)',
-                background: 'rgba(240,168,96,0.08)',
+                border: '1px solid rgba(46,125,79,0.3)',
+                background: 'rgba(46,125,79,0.08)',
               }}
             >
-              <div style={{ fontSize: '36px', fontWeight: 800, color: '#f0a860', fontFamily: 'monospace' }}>
+              <div style={{ fontSize: '36px', fontWeight: 800, color: '#6DC08A', fontFamily: 'monospace' }}>
                 117
               </div>
-              <div style={{ fontSize: '14px', color: '#c4a882', fontFamily: 'monospace', letterSpacing: '2px' }}>
+              <div style={{ fontSize: '14px', color: '#C2D4C2', fontFamily: 'monospace', letterSpacing: '2px' }}>
                 SWIADCZEN
               </div>
             </div>
@@ -135,14 +135,14 @@ export default function OGImage() {
                 alignItems: 'center',
                 padding: '16px 32px',
                 borderRadius: '12px',
-                border: '1px solid rgba(63,185,80,0.3)',
-                background: 'rgba(63,185,80,0.08)',
+                border: '1px solid rgba(46,125,79,0.3)',
+                background: 'rgba(46,125,79,0.08)',
               }}
             >
-              <div style={{ fontSize: '36px', fontWeight: 800, color: '#3fb950', fontFamily: 'monospace' }}>
+              <div style={{ fontSize: '36px', fontWeight: 800, color: '#6DC08A', fontFamily: 'monospace' }}>
                 15
               </div>
-              <div style={{ fontSize: '14px', color: '#c4a882', fontFamily: 'monospace', letterSpacing: '2px' }}>
+              <div style={{ fontSize: '14px', color: '#C2D4C2', fontFamily: 'monospace', letterSpacing: '2px' }}>
                 KATEGORII
               </div>
             </div>
@@ -153,14 +153,14 @@ export default function OGImage() {
                 alignItems: 'center',
                 padding: '16px 32px',
                 borderRadius: '12px',
-                border: '1px solid rgba(240,168,96,0.3)',
-                background: 'rgba(240,168,96,0.08)',
+                border: '1px solid rgba(200,48,46,0.3)',
+                background: 'rgba(200,48,46,0.08)',
               }}
             >
-              <div style={{ fontSize: '36px', fontWeight: 800, color: '#f0a860', fontFamily: 'monospace' }}>
+              <div style={{ fontSize: '36px', fontWeight: 800, color: '#F07060', fontFamily: 'monospace' }}>
                 2 min
               </div>
-              <div style={{ fontSize: '14px', color: '#c4a882', fontFamily: 'monospace', letterSpacing: '2px' }}>
+              <div style={{ fontSize: '14px', color: '#C2D4C2', fontFamily: 'monospace', letterSpacing: '2px' }}>
                 SPRAWDZENIE
               </div>
             </div>

@@ -15,6 +15,7 @@
 import type { AgentKnowledge, AgentMode, AgentContext } from './types';
 import type { UserProfile, MatchResult } from '@/engine/types';
 import { buildBasePrompt } from './base-prompt';
+import { BENEFIT_KNOWLEDGE } from '@/ai/benefitKnowledge';
 
 // --- Agent knowledge imports ---
 import ogolny from './knowledge/ogolny';
@@ -91,79 +92,222 @@ export function buildAgentSystemPrompt(
 }
 
 /**
- * Buduje kontekst runtime z profilu uzytkownika i dopasowanych swiadczen.
+ * Lzejszy prompt do czatu o formularzach (model lite).
+ * Uzywa agenta wniosek ale z wiedza specyficzna dla danego formularza.
  */
+export function buildFormChatPrompt(formKnowledge: string): string {
+  const agent = getAgent('wniosek');
+  const parts: string[] = [];
+
+  parts.push(buildBasePrompt());
+  parts.push(`=== TWOJA SPECJALIZACJA ===\n${agent.persona}`);
+  parts.push(`=== KONTEKST FORMULARZA ===\n${formKnowledge}`);
+  parts.push(`=== REGULY ODPOWIEDZI ===\n${agent.responseRules}\n\nDODATKOWO: Odpowiadaj krotko i konkretnie. Maksymalnie 3-4 zdania na odpowiedz. Jesli pytanie jest proste, jedno zdanie wystarczy.`);
+  parts.push(`=== CZEGO NIE ROBISZ ===\n${agent.boundaries}`);
+
+  return parts.join('\n\n');
+}
+
+
+// ---------------------------------------------------------------------------
+// Runtime context builder
+// ---------------------------------------------------------------------------
+
 function buildRuntimeContext(ctx: AgentContext): string | null {
   const blocks: string[] = [];
 
-  if (ctx.profile) {
-    const p = ctx.profile;
-    const type = ctx.profileType;
-
-    if (type === 'private') {
-      const fields = [
-        p.wiek && `Wiek: ${p.wiek}`,
-        p.plec && `Plec: ${p.plec === 'K' ? 'kobieta' : 'mezczyzna'}`,
-        p.stan_cywilny && `Stan cywilny: ${p.stan_cywilny}`,
-        p.liczba_dzieci != null && `Dzieci: ${p.liczba_dzieci}`,
-        p.wiek_dzieci && Array.isArray(p.wiek_dzieci) && (p.wiek_dzieci as number[]).length > 0 && `Wiek dzieci: ${(p.wiek_dzieci as number[]).join(', ')}`,
-        p.dochod_miesiecznie && `Dochod miesiecznie: ${p.dochod_miesiecznie} PLN`,
-        p.dochod_na_osobe && `Dochod na osobe: ${p.dochod_na_osobe} PLN`,
-        p.zatrudnienie && `Zatrudnienie: ${p.zatrudnienie}`,
-        p.niepelnosprawnosc && p.niepelnosprawnosc !== 'brak' && `Niepelnosprawnosc: ${p.niepelnosprawnosc}`,
-        p.wlasnosc && `Mieszkanie: ${p.wlasnosc}`,
-        p.wojewodztwo && `Wojewodztwo: ${p.wojewodztwo}`,
-        p.ciaza && 'W ciazy: tak',
-        p.student && 'Student: tak',
-        p.emeryt && 'Emeryt: tak',
-        p.rolnik && 'Rolnik (KRUS): tak',
-        p.bezrobotny_zarejestrowany && 'Bezrobotny zarejestrowany: tak',
-      ].filter(Boolean);
-
-      blocks.push(`PROFIL UZYTKOWNIKA (osoba prywatna):\n${fields.join('\n')}`);
-    } else if (type === 'jdg') {
-      const fields = [
-        p.company_name && `Firma: ${p.company_name}`,
-        p.nip && `NIP: ${p.nip}`,
-        p.pkd_codes && Array.isArray(p.pkd_codes) && `PKD: ${(p.pkd_codes as string[]).join(', ')}`,
-        p.company_voivodeship && `Wojewodztwo: ${p.company_voivodeship}`,
-        p.company_size && `Wielkosc: ${p.company_size}`,
-      ].filter(Boolean);
-
-      blocks.push(`PROFIL UZYTKOWNIKA (JDG):\n${fields.join('\n')}`);
-    }
+  // --- Profil uzytkownika ---
+  if (ctx.userProfile) {
+    blocks.push(buildUserProfileBlock(ctx.userProfile));
+  } else if (ctx.profile && ctx.profileType) {
+    blocks.push(buildRawProfileBlock(ctx.profile, ctx.profileType));
   }
 
+  // --- Dopasowane swiadczenia ---
   if (ctx.matchedBenefits && ctx.matchedBenefits.length > 0) {
-    const pewne = ctx.matchedBenefits.filter(r => r.status === 'PRZYSLUGUJE');
-    const mozliwe = ctx.matchedBenefits.filter(r => r.status === 'MOZLIWE');
+    blocks.push(buildBenefitsBlock(ctx.matchedBenefits, ctx.focusedBenefitId));
+  }
 
-    const benefitLines: string[] = [];
-    benefitLines.push(`Laczna liczba dopasowanych swiadczen: ${ctx.matchedBenefits.length}`);
-    benefitLines.push(`Pewne (PRZYSLUGUJE): ${pewne.length}`);
-    benefitLines.push(`Mozliwe (MOZLIWE): ${mozliwe.length}`);
-    benefitLines.push('');
-
-    for (const r of ctx.matchedBenefits.slice(0, 15)) {
-      const status = r.status === 'PRZYSLUGUJE' ? '[PEWNE]' : '[MOZLIWE]';
-      benefitLines.push(`${status} ${r.benefit.nazwa} -- ${r.benefit.kwota}`);
-      if (r.matchedCriteria.length > 0) {
-        benefitLines.push(`  Spelnione: ${r.matchedCriteria.join(', ')}`);
-      }
-      if (r.warnings.length > 0) {
-        benefitLines.push(`  Ostrzezenie: ${r.warnings.join(', ')}`);
-      }
-    }
-
-    if (ctx.matchedBenefits.length > 15) {
-      benefitLines.push(`...i ${ctx.matchedBenefits.length - 15} wiecej`);
-    }
-
-    blocks.push(`DOPASOWANE SWIADCZENIA:\n${benefitLines.join('\n')}`);
+  // --- Extra context (company data, live intel, etc.) ---
+  if (ctx.extraContext) {
+    blocks.push(ctx.extraContext);
   }
 
   return blocks.length > 0 ? blocks.join('\n\n') : null;
 }
+
+/**
+ * Profil z typed UserProfile (public chat, po konwersji).
+ */
+function buildUserProfileBlock(p: UserProfile): string {
+  const fields = [
+    `Wiek: ${p.wiek}`,
+    `Plec: ${p.plec === 'K' ? 'kobieta' : 'mezczyzna'}`,
+    p.stanCywilny && `Stan cywilny: ${p.stanCywilny}`,
+    `Dzieci: ${p.liczbaDzieci}`,
+    p.wiekDzieci && p.wiekDzieci.length > 0 && `Wiek dzieci: ${p.wiekDzieci.join(', ')}`,
+    p.dochodMiesiecznie && `Dochod miesiecznie: ${p.dochodMiesiecznie} PLN`,
+    p.dochodNaOsobe && `Dochod na osobe: ${p.dochodNaOsobe} PLN`,
+    p.zatrudnienie && `Zatrudnienie: ${p.zatrudnienie}`,
+    p.niepelnosprawnosc && p.niepelnosprawnosc !== 'brak' && `Niepelnosprawnosc: ${p.niepelnosprawnosc}`,
+    p.wlasnosc && `Mieszkanie: ${p.wlasnosc}`,
+    p.wojewodztwo && `Wojewodztwo: ${p.wojewodztwo}`,
+    p.ciaza && 'W ciazy: tak',
+    p.student && 'Student: tak',
+    p.emeryt && 'Emeryt: tak',
+    p.rolnik && 'Rolnik (KRUS): tak',
+    p.bezrobotnyZarejestrowany && 'Bezrobotny zarejestrowany: tak',
+    p.prowadzDzialalnosc && 'Prowadzi dzialalnosc: tak',
+  ].filter(Boolean);
+
+  return `PROFIL UZYTKOWNIKA:\n${fields.join('\n')}`;
+}
+
+/**
+ * Profil z raw DB record (agent panel, snake_case).
+ */
+function buildRawProfileBlock(p: Record<string, unknown>, type: 'jdg' | 'private'): string {
+  if (type === 'private') {
+    const fields = [
+      p.wiek && `Wiek: ${p.wiek}`,
+      p.plec && `Plec: ${p.plec === 'K' ? 'kobieta' : 'mezczyzna'}`,
+      p.stan_cywilny && `Stan cywilny: ${p.stan_cywilny}`,
+      p.liczba_dzieci != null && `Dzieci: ${p.liczba_dzieci}`,
+      p.wiek_dzieci && Array.isArray(p.wiek_dzieci) && (p.wiek_dzieci as number[]).length > 0 && `Wiek dzieci: ${(p.wiek_dzieci as number[]).join(', ')}`,
+      p.dochod_miesiecznie && `Dochod miesiecznie: ${p.dochod_miesiecznie} PLN`,
+      p.dochod_na_osobe && `Dochod na osobe: ${p.dochod_na_osobe} PLN`,
+      p.zatrudnienie && `Zatrudnienie: ${p.zatrudnienie}`,
+      p.niepelnosprawnosc && p.niepelnosprawnosc !== 'brak' && `Niepelnosprawnosc: ${p.niepelnosprawnosc}`,
+      p.wlasnosc && `Mieszkanie: ${p.wlasnosc}`,
+      p.wojewodztwo && `Wojewodztwo: ${p.wojewodztwo}`,
+      p.ciaza && 'W ciazy: tak',
+      p.student && 'Student: tak',
+      p.emeryt && 'Emeryt: tak',
+      p.rolnik && 'Rolnik (KRUS): tak',
+      p.bezrobotny_zarejestrowany && 'Bezrobotny zarejestrowany: tak',
+    ].filter(Boolean);
+
+    return `PROFIL UZYTKOWNIKA (osoba prywatna):\n${fields.join('\n')}`;
+  }
+
+  // JDG
+  const fields = [
+    p.company_name && `Firma: ${p.company_name}`,
+    p.nip && `NIP: ${p.nip}`,
+    p.pkd_codes && Array.isArray(p.pkd_codes) && `PKD: ${(p.pkd_codes as string[]).join(', ')}`,
+    p.company_voivodeship && `Wojewodztwo: ${p.company_voivodeship}`,
+    p.company_size && `Wielkosc: ${p.company_size}`,
+  ].filter(Boolean);
+
+  return `PROFIL UZYTKOWNIKA (JDG):\n${fields.join('\n')}`;
+}
+
+/**
+ * Blok dopasowanych swiadczen z opcjonalnym focus na jedno.
+ */
+function buildBenefitsBlock(benefits: MatchResult[], focusedId?: string | null): string {
+  const lines: string[] = [];
+
+  // Focused benefit: full detail + knowledge enrichment
+  const focused = focusedId
+    ? benefits.find(r => r.benefit.id === focusedId)
+    : null;
+
+  if (focused) {
+    lines.push(`UZYTKOWNIK PYTA O TO SWIADCZENIE -- odpowiadaj przede wszystkim w kontekscie tego swiadczenia:`);
+    lines.push(formatDetailedBenefit(focused));
+
+    // Enriched knowledge from benefitKnowledge.ts
+    const enrichment = BENEFIT_KNOWLEDGE[focused.benefit.id];
+    if (enrichment) {
+      if (enrichment.formularzOpis) {
+        lines.push(`\nFORMULARZ I POLA:\n${enrichment.formularzOpis}`);
+      }
+      if (enrichment.szczegolyKwalifikacji) {
+        lines.push(`\nSZCZEGOLY KWALIFIKACJI:\n${enrichment.szczegolyKwalifikacji}`);
+      }
+      if (enrichment.faq) {
+        lines.push(`\nCZESTE PYTANIA:\n${enrichment.faq}`);
+      }
+    }
+
+    // Other benefits as summary
+    const others = benefits.filter(r => r.benefit.id !== focusedId);
+    if (others.length > 0) {
+      lines.push(`\nPOZOSTALE DOPASOWANE SWIADCZENIA (dodatkowy kontekst):`);
+      for (const r of others.slice(0, 10)) {
+        const status = r.status === 'PRZYSLUGUJE' ? '[PEWNE]' : '[MOZLIWE]';
+        lines.push(`${status} ${r.benefit.nazwa}: ${r.benefit.kwota}`);
+      }
+      if (others.length > 10) {
+        lines.push(`...i ${others.length - 10} wiecej`);
+      }
+    }
+
+    lines.push(`\nLACZNA LICZBA DOPASOWANYCH SWIADCZEN: ${benefits.length}`);
+    return lines.join('\n');
+  }
+
+  // Regular mode: summary of all benefits
+  const pewne = benefits.filter(r => r.status === 'PRZYSLUGUJE');
+  const mozliwe = benefits.filter(r => r.status === 'MOZLIWE');
+
+  lines.push(`DOPASOWANE SWIADCZENIA:`);
+  lines.push(`Laczna liczba: ${benefits.length}`);
+  lines.push(`Pewne (PRZYSLUGUJE): ${pewne.length}`);
+  lines.push(`Mozliwe (MOZLIWE): ${mozliwe.length}`);
+  lines.push('');
+
+  for (const r of benefits.slice(0, 15)) {
+    const status = r.status === 'PRZYSLUGUJE' ? '[PEWNE]' : '[MOZLIWE]';
+    lines.push(`${status} ${r.benefit.nazwa} -- ${r.benefit.kwota}`);
+    if (r.benefit.opis) {
+      lines.push(`  Opis: ${r.benefit.opis}`);
+    }
+    lines.push(`  Zrodlo: ${r.benefit.zrodloUrl}`);
+    if (r.matchedCriteria.length > 0) {
+      lines.push(`  Spelnione: ${r.matchedCriteria.join(', ')}`);
+    }
+    if (r.warnings.length > 0) {
+      lines.push(`  Ostrzezenie: ${r.warnings.join(', ')}`);
+    }
+  }
+
+  if (benefits.length > 15) {
+    lines.push(`...i ${benefits.length - 15} wiecej`);
+  }
+
+  return lines.join('\n');
+}
+
+/**
+ * Formatuj pelne dane swiadczenia (dla focused benefit).
+ */
+function formatDetailedBenefit(r: MatchResult): string {
+  const b = r.benefit;
+  const parts = [
+    `[${r.status}] ${b.nazwa}`,
+    `Kwota: ${b.kwota} (${b.czestotliwosc})`,
+    `Pewnosc: ${r.confidence}`,
+  ];
+  if (b.opis) parts.push(`Opis: ${b.opis}`);
+  parts.push(`Zrodlo: ${b.zrodloUrl}`);
+  if (r.warnings.length > 0) parts.push(`Ostrzezenia: ${r.warnings.join('; ')}`);
+  if (b.wykluczenia.length > 0) parts.push(`Wykluczenia: ${b.wykluczenia.map(w => w.opis).join('; ')}`);
+  parts.push(`Gdzie zlozyc: ${b.wniosek.kanal.join(', ')}`);
+  if (b.wniosek.formularz) parts.push(`Formularz: ${b.wniosek.formularz}`);
+  parts.push(`Dokumenty: ${b.wniosek.dokumenty.join('; ')}`);
+  parts.push(`Kroki: ${b.wniosek.kroki.map((k, i) => `${i + 1}. ${k}`).join(' ')}`);
+  parts.push(`Termin: ${b.wniosek.terminRealizacji}`);
+  if (b.wniosek.pulapki.length > 0) parts.push(`Pulapki: ${b.wniosek.pulapki.join('; ')}`);
+  parts.push(`Odwolanie: ${b.wniosek.odwolanie}`);
+  return parts.join('\n  ');
+}
+
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
 
 /**
  * Helper: zbuduj UserProfile z danych bazy (agent_user_profiles).

@@ -135,8 +135,8 @@ export function FormChatWidget({ formType }: Props) {
         <div style={{
           position: 'absolute', bottom: 56, right: 0,
           width: 340, maxHeight: 480,
-          background: '#0f0d0b',
-          border: '1px solid #3a2e1e',
+          background: '#0A120A',
+          border: '1px solid #243024',
           borderRadius: 12,
           display: 'flex', flexDirection: 'column',
           boxShadow: '0 8px 32px rgba(0,0,0,0.6)',
@@ -145,18 +145,18 @@ export function FormChatWidget({ formType }: Props) {
           {/* Header */}
           <div style={{
             padding: '12px 14px',
-            borderBottom: '1px solid #3a2e1e',
+            borderBottom: '1px solid #243024',
             display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           }}>
             <div>
-              <div style={{ fontSize: 11, color: '#e6993a', fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+              <div style={{ fontSize: 11, color: '#2E7D4F', fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase' }}>
                 Asystent AI
               </div>
-              <div style={{ fontSize: 10, color: '#7a6a54', marginTop: 2 }}>{formLabel}</div>
+              <div style={{ fontSize: 10, color: '#7A907A', marginTop: 2 }}>{formLabel}</div>
             </div>
             <button
               onClick={() => setOpen(false)}
-              style={{ background: 'none', border: 'none', color: '#7a6a54', cursor: 'pointer', fontSize: 16, padding: '2px 6px' }}
+              style={{ background: 'none', border: 'none', color: '#7A907A', cursor: 'pointer', fontSize: 16, padding: '2px 6px' }}
               aria-label="Zamknij"
             >
               x
@@ -174,9 +174,9 @@ export function FormChatWidget({ formType }: Props) {
                   fontSize: 12, lineHeight: 1.55,
                   padding: '8px 11px',
                   borderRadius: m.role === 'user' ? '12px 12px 2px 12px' : '12px 12px 12px 2px',
-                  background: m.role === 'user' ? '#e6993a' : '#1c1712',
-                  color: m.role === 'user' ? '#0f0d0b' : '#c4a882',
-                  border: m.role === 'assistant' ? '1px solid #3a2e1e' : 'none',
+                  background: m.role === 'user' ? '#2E7D4F' : '#121A12',
+                  color: m.role === 'user' ? '#0A120A' : '#C2D4C2',
+                  border: m.role === 'assistant' ? '1px solid #243024' : 'none',
                   whiteSpace: 'pre-wrap',
                 }}>
                   {m.content}
@@ -195,8 +195,8 @@ export function FormChatWidget({ formType }: Props) {
                   key={h}
                   onClick={() => send(h)}
                   style={{
-                    background: 'none', border: '1px solid #3a2e1e', borderRadius: 20,
-                    color: '#7a6a54', fontSize: 10, cursor: 'pointer', padding: '4px 10px',
+                    background: 'none', border: '1px solid #243024', borderRadius: 20,
+                    color: '#7A907A', fontSize: 10, cursor: 'pointer', padding: '4px 10px',
                     fontFamily: 'inherit',
                   }}
                 >
@@ -207,7 +207,7 @@ export function FormChatWidget({ formType }: Props) {
           )}
 
           {/* Input */}
-          <div style={{ padding: '10px 14px', borderTop: '1px solid #3a2e1e', display: 'flex', gap: 8 }}>
+          <div style={{ padding: '10px 14px', borderTop: '1px solid #243024', display: 'flex', gap: 8 }}>
             <input
               ref={inputRef}
               value={input}
@@ -216,8 +216,8 @@ export function FormChatWidget({ formType }: Props) {
               disabled={loading}
               placeholder="Zadaj pytanie..."
               style={{
-                flex: 1, background: '#1c1712', border: '1px solid #3a2e1e', borderRadius: 8,
-                color: '#c4a882', fontSize: 12, padding: '7px 10px', fontFamily: 'inherit',
+                flex: 1, background: '#121A12', border: '1px solid #243024', borderRadius: 8,
+                color: '#C2D4C2', fontSize: 12, padding: '7px 10px', fontFamily: 'inherit',
                 outline: 'none',
               }}
             />
@@ -225,8 +225,8 @@ export function FormChatWidget({ formType }: Props) {
               onClick={() => send()}
               disabled={loading || !input.trim()}
               style={{
-                background: '#e6993a', border: 'none', borderRadius: 8,
-                color: '#0f0d0b', fontSize: 12, fontWeight: 700,
+                background: '#2E7D4F', border: 'none', borderRadius: 8,
+                color: '#0A120A', fontSize: 12, fontWeight: 700,
                 padding: '7px 12px', cursor: loading ? 'wait' : 'pointer',
                 fontFamily: 'inherit', opacity: (!input.trim() || loading) ? 0.5 : 1,
               }}
@@ -241,10 +241,10 @@ export function FormChatWidget({ formType }: Props) {
       <button
         onClick={() => setOpen(o => !o)}
         style={{
-          background: open ? '#3a2e1e' : '#e6993a',
-          border: `1px solid ${open ? '#e6993a' : '#e6993a'}`,
+          background: open ? '#243024' : '#2E7D4F',
+          border: `1px solid ${open ? '#2E7D4F' : '#2E7D4F'}`,
           borderRadius: 24,
-          color: open ? '#e6993a' : '#0f0d0b',
+          color: open ? '#2E7D4F' : '#0A120A',
           fontSize: 12, fontWeight: 700,
           padding: '10px 18px',
           cursor: 'pointer',

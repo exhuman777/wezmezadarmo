@@ -1,5 +1,13 @@
+/**
+ * POST /api/form-assist
+ * AI-generated one-shot responses for specific form fields.
+ * Supports NLnet grant fields and ZUS justification generators.
+ * Uses the wniosek agent identity for ZUS forms.
+ */
+
 import { NextRequest } from 'next/server';
 import { chatCompletion } from '@/ai/openrouter';
+import { getAgent } from '@/agents/registry';
 import { CORS_HEADERS, optionsResponse } from '@/lib/apiAuth';
 
 export async function OPTIONS() {
@@ -53,7 +61,7 @@ If no prior involvement, state this honestly and briefly mention connections to 
 Keep it to 2-3 sentences. Be factual and concise.`,
 
   budget_breakdown: `Write a detailed budget breakdown for an NLnet grant application.
-Include: task name, hours, hourly rate (€75/hr), total per task, and brief task description.
+Include: task name, hours, hourly rate (EUR75/hr), total per task, and brief task description.
 Cover: open-sourcing and documentation, core feature development, database expansion, testing, community outreach, infrastructure.
 Format as a numbered list with clear structure. End with a total that matches the requested amount.
 Justify the hourly rate in 1 sentence.`,
@@ -83,6 +91,10 @@ This application was drafted with AI assistance (Claude by Anthropic) for struct
 All factual content was provided and verified by the applicant. The final text was reviewed and edited by the applicant.
 Write this as a clear, honest 2-3 sentence disclosure. Do not be defensive about AI use -- NLnet explicitly asks for this information.`,
 };
+
+/** Wniosek agent persona for ZUS justification generation */
+const wniosekAgent = getAgent('wniosek');
+const ZUS_SYSTEM_PROMPT = `${wniosekAgent.persona}\n\nZadanie: generuj krotkie oswiadczenia do formularzy ZUS. Pisz zwiezle, formalnie, po polsku. Uzywaj tylko informacji podanych przez uzytkownika, nie wymyslaj szczegolow.`;
 
 export async function POST(request: NextRequest) {
   if (!process.env.OPENROUTER_API_KEY) {
@@ -117,8 +129,8 @@ export async function POST(request: NextRequest) {
     const zusProfile = body.profile as ZusZ15aProfile;
     const { powodOpieki, relacjaDoZiecka } = zusProfile;
     const result = await chatCompletion([
-      { role: 'system', content: 'Jesteś asystentem pomagającym wypełnić formularz ZUS Z-15a. Pisz po polsku, zwięźle, formalnie. Używaj tylko informacji podanych przez użytkownika, nie wymyślaj szczegółów.' },
-      { role: 'user', content: `Wygeneruj krótkie oświadczenie (1-2 zdania) dlaczego współmałżonek lub drugi rodzic nie może sprawować opieki nad dzieckiem. Powód opieki wnioskodawcy: ${powodOpieki}. Relacja wnioskodawcy do dziecka: ${relacjaDoZiecka}. Napisz oświadczenie w pierwszej osobie liczby pojedynczej. Brak cudzysłowów.` },
+      { role: 'system', content: ZUS_SYSTEM_PROMPT },
+      { role: 'user', content: `Wygeneruj krotkie oswiadczenie (1-2 zdania) dlaczego wspolmalzonek lub drugi rodzic nie moze sprawowac opieki nad dzieckiem. Powod opieki wnioskodawcy: ${powodOpieki}. Relacja wnioskodawcy do dziecka: ${relacjaDoZiecka}. Napisz oswiadczenie w pierwszej osobie liczby pojedynczej. Brak cudzyslowow.` },
     ], 'lite');
     return new Response(JSON.stringify({ result }), {
       status: 200,
@@ -131,8 +143,8 @@ export async function POST(request: NextRequest) {
     const zusProfile = body.profile as ZusZ15bProfile;
     const { powodOpieki, relacjaDoWnioskodawcy } = zusProfile;
     const result = await chatCompletion([
-      { role: 'system', content: 'Jesteś asystentem pomagającym wypełnić formularz ZUS Z-15b. Pisz po polsku, zwięźle, formalnie. Używaj tylko informacji podanych przez użytkownika, nie wymyślaj szczegółów.' },
-      { role: 'user', content: `Wygeneruj krótkie oświadczenie (1-2 zdania) dlaczego żadna inna osoba z rodziny nie może sprawować opieki nad chorym członkiem rodziny. Powód opieki: ${powodOpieki}. Relacja podopiecznego do wnioskodawcy: ${relacjaDoWnioskodawcy}. Napisz oświadczenie w pierwszej osobie. Brak cudzysłowów.` },
+      { role: 'system', content: ZUS_SYSTEM_PROMPT },
+      { role: 'user', content: `Wygeneruj krotkie oswiadczenie (1-2 zdania) dlaczego zadna inna osoba z rodziny nie moze sprawowac opieki nad chorym czlonkiem rodziny. Powod opieki: ${powodOpieki}. Relacja podopiecznego do wnioskodawcy: ${relacjaDoWnioskodawcy}. Napisz oswiadczenie w pierwszej osobie. Brak cudzyslowow.` },
     ], 'lite');
     return new Response(JSON.stringify({ result }), {
       status: 200,
@@ -140,6 +152,7 @@ export async function POST(request: NextRequest) {
     });
   }
 
+  // NLnet grant fields
   const nlnetProfile = body.profile as FormProfile;
   const fieldPrompt = NLNET_FIELD_PROMPTS[fieldKey];
   if (!fieldPrompt) {

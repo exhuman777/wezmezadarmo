@@ -1,9 +1,17 @@
+/**
+ * POST /api/dotacje/chat
+ * B2B streaming AI chat for company panel.
+ * Uses the nabor agent from the unified agent registry
+ * with company-specific context (matched programs, live intel).
+ */
+
 import { NextRequest } from 'next/server';
 import { createSupabaseServer } from '@/lib/dotacje/supabase';
-import { buildAgentSystemPrompt } from '@/lib/dotacje/companyContext';
+import { buildCompanyBlock, buildMatchedProgramsBlock } from '@/lib/dotacje/companyContext';
 import { buildLiveIntelBlock } from '@/lib/dotacje/grantScraper';
 import type { ScrapeItem } from '@/lib/dotacje/grantScraper';
 import { chatStream } from '@/ai/openrouter';
+import { buildAgentSystemPrompt } from '@/agents/registry';
 import type { CompanyProfile } from '@/lib/dotacje/companyContext';
 import type { DBCompanyProfile } from '@/lib/dotacje/supabase';
 import type OpenAI from 'openai';
@@ -21,6 +29,27 @@ function dbProfileToCompanyProfile(db: DBCompanyProfile): CompanyProfile {
     flags: (Object.keys(db.flags) as string[]).filter((k) => db.flags[k]) as CompanyProfile['flags'],
   };
 }
+
+/** Company-specific anti-hallucination rules appended to extraContext */
+const COMPANY_RULES = `ZASADY ANTY-HALUCYNACYJNE DLA CZATU FIRMOWEGO:
+
+1. TYLKO FAKTY Z BAZY. Podajesz wylacznie informacje o programach, ktore widoczne sa w sekcji DOPASOWANE PROGRAMY powyzej. Nie wolno Ci wymyslac, uzupelniac ani "domyslac sie" szczegolow programow spoza tej listy.
+
+2. ZAKAZY BEZWZGLEDNE:
+   - Nie wolno podawac kwot dofinansowania, ktorych nie ma w DOPASOWANE PROGRAMY.
+   - Nie wolno podawac dat naboru, ktorych nie ma w DOPASOWANE PROGRAMY.
+   - Nie wolno podawac adresow URL, ktorych nie ma w DOPASOWANE PROGRAMY.
+   - Nie wolno nazywac programow, instytucji ani funduszy z pamieci -- tylko to, co jest w bazie.
+   - Nie wolno potwierdzac, ze program "jest aktualnie otwarty", jesli jego status nie wynosi "open".
+
+3. GDY NIE WIESZ -- POWIEDZ TO WPROST. Jesli uzytkownik pyta o cos, czego nie ma w Twojej bazie lub czego nie jestes pewien, odpowiedz dokladnie tak:
+   "Nie mam pewnych informacji na ten temat w mojej bazie. Rekomendujemy sprawdzenie bezposrednio na stronie instytucji."
+
+4. WERYFIKACJA PRZED ODPOWIEDZIA. Przed kazda odpowiedzia sprawdz: czy kazdy fakt, ktory podajesz (kwota, data, nazwa, URL, wymaganie), pochodzi bezposrednio z sekcji DOPASOWANE PROGRAMY powyzej? Jesli nie -- usun ten fakt z odpowiedzi.
+
+5. ZAKAZ UOGOLNIEN. Nie uzywaj zwrotow takich jak "zazwyczaj", "z reguly", "standardowo w takich programach". Kazde wymaganie musi miec konkretne zrodlo z bazy.
+
+6. Kazda odpowiedz KONCZ zdaniem: "Stan wiedzy: maj 2026. Weryfikuj terminy i wymagania bezposrednio w instytucji przed zlozeniem wniosku."`;
 
 export async function POST(request: NextRequest) {
   if (!process.env.OPENROUTER_API_KEY) {
@@ -44,12 +73,12 @@ export async function POST(request: NextRequest) {
   try {
     body = await request.json();
   } catch {
-    return Response.json({ error: 'Nieprawidłowy format żądania.' }, { status: 400 });
+    return Response.json({ error: 'Nieprawidlowy format zadania.' }, { status: 400 });
   }
 
   const { messages } = body;
   if (!Array.isArray(messages) || messages.length === 0) {
-    return Response.json({ error: 'Brak wiadomości w żądaniu.' }, { status: 400 });
+    return Response.json({ error: 'Brak wiadomosci w zadaniu.' }, { status: 400 });
   }
 
   const { data: profileRow, error: profileError } = await supabase
@@ -60,7 +89,7 @@ export async function POST(request: NextRequest) {
 
   if (profileError || !profileRow) {
     return Response.json(
-      { error: 'Nie znaleziono profilu firmy. Uzupełnij dane firmy przed rozmową z asystentem.' },
+      { error: 'Nie znaleziono profilu firmy. Uzupelnij dane firmy przed rozmowa z asystentem.' },
       { status: 404 },
     );
   }
@@ -90,11 +119,24 @@ export async function POST(request: NextRequest) {
     matchedProgramId: r.matched_program_id,
     scrapedAt: r.scraped_at,
   }));
+
+  // Build company-specific extra context
+  const companyBlock = buildCompanyBlock(profile);
+  const programsBlock = buildMatchedProgramsBlock(profile);
   const liveBlock = buildLiveIntelBlock(liveItems);
-  const basePrompt = buildAgentSystemPrompt(profile);
-  const systemPrompt = liveBlock
-    ? basePrompt.replace('## ZASADY ODPOWIEDZI', `${liveBlock}\n\n## ZASADY ODPOWIEDZI`)
-    : basePrompt;
+
+  const extraParts = [companyBlock, programsBlock];
+  if (liveBlock) extraParts.push(liveBlock);
+  extraParts.push(COMPANY_RULES);
+
+  // Use nabor agent with company extraContext
+  const systemPrompt = buildAgentSystemPrompt('nabor', {
+    profile: null,
+    profileType: 'jdg',
+    matchedBenefits: null,
+    userProfile: null,
+    extraContext: extraParts.join('\n\n'),
+  });
 
   const messagesWithSystem: OpenAI.Chat.ChatCompletionMessageParam[] = [
     { role: 'system', content: systemPrompt },
@@ -119,7 +161,7 @@ export async function POST(request: NextRequest) {
           }
         } catch (err) {
           controller.enqueue(
-            encoder.encode(`data: ${JSON.stringify({ error: 'Błąd strumieniowania odpowiedzi.' })}\n\n`),
+            encoder.encode(`data: ${JSON.stringify({ error: 'Blad strumieniowania odpowiedzi.' })}\n\n`),
           );
         } finally {
           controller.close();
@@ -138,7 +180,7 @@ export async function POST(request: NextRequest) {
   } catch (err) {
     console.error('[chat/route] chatStream error:', err);
     return Response.json(
-      { error: 'Błąd komunikacji z modelem AI. Spróbuj ponownie.' },
+      { error: 'Blad komunikacji z modelem AI. Sprobuj ponownie.' },
       { status: 502 },
     );
   }

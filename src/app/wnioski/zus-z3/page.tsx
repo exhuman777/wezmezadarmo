@@ -92,7 +92,7 @@ export default function ZusZ3Page() {
       {/* Header */}
       <header style={{
         position: 'sticky', top: 0, zIndex: 50,
-        background: 'rgba(250,248,242,0.85)',
+        background: 'rgba(236,242,236,0.85)',
         backdropFilter: 'saturate(140%) blur(14px)',
         WebkitBackdropFilter: 'saturate(140%) blur(14px)',
         borderBottom: '1px solid var(--color-border)',

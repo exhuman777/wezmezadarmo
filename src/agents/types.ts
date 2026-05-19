@@ -36,4 +36,10 @@ export interface AgentContext {
   profileType: 'jdg' | 'private' | null;
   matchedBenefits: MatchResult[] | null;
   userProfile: UserProfile | null;
+
+  /** Public chat: focus on a specific benefit with enriched knowledge */
+  focusedBenefitId?: string | null;
+
+  /** Extra context appended to the prompt (company data, live intel, etc.) */
+  extraContext?: string | null;
 }
