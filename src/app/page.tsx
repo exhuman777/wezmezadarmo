@@ -264,6 +264,11 @@ const IconArrowLeft = () => (
     <path d="M19 12H5M11 6l-6 6 6 6"/>
   </svg>
 );
+const IconChat = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>
+);
 
 const SESSION_KEY = 'wzd_session_v1';
 const SESSION_TTL = 7 * 24 * 60 * 60 * 1000;
@@ -704,12 +709,23 @@ export default function Home() {
                   maxWidth: 480,
                   fontSize: 16, lineHeight: 1.65,
                   color: 'var(--color-text-2)',
-                  marginBottom: 32,
+                  marginBottom: 16,
                   animationDelay: '60ms',
                 }}>
                   Polska ma ponad 110 świadczeń, ulg i dotacji wartych miliardy złotych rocznie.
                   Większość ludzi nie wie, że im przysługują.
-                  Na stronie WezmeZaDarmo wbudowany jest asystent AI, który przez chat odpowie na Twoje pytania i pomoże potwierdzić, czy dane świadczenie Ci przysługuje.
+                  Na tej stronie sprawdzisz to szybko i za darmo. W dwie minuty, bez zakładania konta.
+                </p>
+                <p className="rise" style={{
+                  maxWidth: 480,
+                  fontSize: 15, lineHeight: 1.65,
+                  color: 'var(--color-text-3)',
+                  marginBottom: 32,
+                  animationDelay: '90ms',
+                }}>
+                  Wiele osób nie wie, że przysługuje im nawet kilka tysięcy złotych rocznie
+                  w ulgach, dopłatach i przywilejach. Czasem wystarczy po prostu złożyć wniosek
+                  lub się gdzieś zgłosić. Zero większych wymagań. Liczy się to, czy o tym wiesz.
                 </p>
 
                 {/* Stat counters */}
@@ -853,6 +869,35 @@ export default function Home() {
                   </div>
                 </div>
               </div>
+            </div>
+
+            {/* AI assistant callout */}
+            <div className="rise" style={{
+              marginTop: 48,
+              animationDelay: '400ms',
+              padding: '28px 32px',
+              background: 'var(--color-surface)',
+              border: '1px solid var(--color-border)',
+              borderRadius: 16,
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: 18,
+            }}>
+              <span style={{
+                width: 40, height: 40, borderRadius: '50%',
+                background: 'var(--green-950, #0F1F14)',
+                color: 'var(--color-green)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: 18, flexShrink: 0, marginTop: 2,
+              }}>
+                <IconChat />
+              </span>
+              <p style={{ fontSize: 15, lineHeight: 1.65, color: 'var(--color-text-2)', margin: 0 }}>
+                Na stronie WezmeZaDarmo wbudowany jest asystent AI, który przez chat
+                odpowie na Twoje pytania i pomoże potwierdzić, czy dane świadczenie
+                Ci przysługuje oraz co zrobić, by je uzyskać. Asystent dobrze zna
+                polskie ulgi i programy rządowe, więc jeśli coś jest niejasne, śmiało pytaj.
+              </p>
             </div>
 
             {/* Example benefits */}
