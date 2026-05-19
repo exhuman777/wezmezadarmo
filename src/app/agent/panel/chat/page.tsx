@@ -11,44 +11,44 @@ interface Message {
 }
 
 const MODE_LABELS: Record<AgentMode, string> = {
-  ogolny: 'Asystent ogolny',
-  swiadczenie: 'Swiadczenia i ulgi',
+  ogolny: 'Asystent ogólny',
+  swiadczenie: 'Świadczenia i ulgi',
   wniosek: 'Wnioski i formularze',
   nabor: 'Dofinansowania i nabory',
   faktura: 'Faktury i rozliczenia',
-  termin: 'Terminy urzedowe',
+  termin: 'Terminy urzędowe',
 };
 
 const MODE_HINTS: Record<AgentMode, string[]> = {
   ogolny: [
-    'Jakie mam swiadczenia?',
-    'Jak zlozyc wniosek o 800+?',
-    'Czy przysluguje mi zasilek?',
+    'Jakie mam świadczenia?',
+    'Jak złożyć wniosek o 800+?',
+    'Czy przysługuje mi zasiłek?',
   ],
   swiadczenie: [
-    'Co mi przysluguje z mojego profilu?',
-    'Ile wynosi zasilek opiekunczy?',
-    'Czy kwalifikuje sie do Dobry Start?',
+    'Co mi przysługuje z mojego profilu?',
+    'Ile wynosi zasiłek opiekuńczy?',
+    'Czy kwalifikuję się do Dobry Start?',
   ],
   wniosek: [
-    'Pomoz mi wypelnic Z-15a',
-    'Jakie dokumenty potrzebuje do ZAS-53?',
-    'Gdzie zlozyc wniosek o emeryture?',
+    'Pomóż mi wypełnić Z-15a',
+    'Jakie dokumenty potrzebuję do ZAS-53?',
+    'Gdzie złożyć wniosek o emeryturę?',
   ],
   nabor: [
-    'Jakie sa aktualne nabory?',
+    'Jakie są aktualne nabory?',
     'Dofinansowanie dla JDG na szkolenia',
     'Granty EU dla mikrofirm',
   ],
   faktura: [
-    'Od kiedy obowiazkowy KSeF?',
-    'Jak wystawic fakture zagraniczna?',
+    'Od kiedy obowiązkowy KSeF?',
+    'Jak wystawić fakturę zagraniczną?',
     'Termin rozliczenia VAT',
   ],
   termin: [
     'Kiedy termin PIT roczny?',
-    'Do kiedy ZUS miesiecznie?',
-    'Terminy skladania wnioskow PFRON',
+    'Do kiedy ZUS miesięcznie?',
+    'Terminy składania wniosków PFRON',
   ],
 };
 
@@ -209,7 +209,7 @@ export default function AgentChatPage() {
             color: 'var(--color-text-3)', letterSpacing: '0.08em',
             textTransform: 'uppercase', marginBottom: 2,
           }}>
-            Czat AI
+            Czat z AI
           </div>
           <div style={{ fontSize: 15, fontWeight: 500, color: 'var(--color-text-1)' }}>
             {MODE_LABELS[mode]}
@@ -226,6 +226,7 @@ export default function AgentChatPage() {
             }}
           >
             Nowa rozmowa
+
           </button>
         )}
       </div>
@@ -257,7 +258,7 @@ export default function AgentChatPage() {
                 {MODE_LABELS[mode]}
               </div>
               <div style={{ fontSize: 13, color: 'var(--color-text-3)', maxWidth: 400 }}>
-                Zadaj pytanie lub wybierz podpowiedz ponizej
+                Zadaj pytanie lub wybierz podpowiedź poniżej
               </div>
             </div>
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -344,6 +345,7 @@ export default function AgentChatPage() {
           onChange={handleTextareaChange}
           onKeyDown={handleKeyDown}
           placeholder="Zadaj pytanie... (Shift+Enter = nowa linia)"
+
           disabled={isStreaming}
           rows={1}
           style={{
@@ -376,7 +378,7 @@ export default function AgentChatPage() {
             flexShrink: 0,
           }}
         >
-          Wyslij
+          Wyślij
         </button>
       </form>
 
@@ -389,7 +391,7 @@ export default function AgentChatPage() {
         background: 'var(--color-bg-0)',
         flexShrink: 0,
       }}>
-        Odpowiedzi AI generowane przez model. Zweryfikuj na stronach zrodlowych.
+        Odpowiedzi AI generowane przez model. Zweryfikuj na stronach źródłowych.
       </div>
 
       <style>{`

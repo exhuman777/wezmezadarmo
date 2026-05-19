@@ -14,19 +14,19 @@ interface AgentType {
 }
 
 const AGENT_TYPES: AgentType[] = [
-  { id: 'ogolny', label: 'Asystent', desc: 'Pytania ogolne', icon: 'M' },
-  { id: 'swiadczenie', label: 'Swiadczenie', desc: 'Sprawdz uprawnienia', icon: 'S' },
+  { id: 'ogolny', label: 'Asystent', desc: 'Pytania ogólne', icon: 'M' },
+  { id: 'swiadczenie', label: 'Świadczenie', desc: 'Sprawdź uprawnienia', icon: 'S' },
   { id: 'wniosek', label: 'Wniosek', desc: 'Pomoc z formularzami', icon: 'W' },
-  { id: 'nabor', label: 'Nabor', desc: 'Dofinansowania', icon: 'N' },
+  { id: 'nabor', label: 'Nabór', desc: 'Dofinansowania', icon: 'N' },
   { id: 'faktura', label: 'Faktura', desc: 'KSeF i rozliczenia', icon: 'F' },
-  { id: 'termin', label: 'Termin', desc: 'Terminy urzedowe', icon: 'T' },
+  { id: 'termin', label: 'Termin', desc: 'Terminy urzędowe', icon: 'T' },
 ];
 
 const NAV_ITEMS = [
   { href: '/agent/panel', label: 'Panel', exact: true },
-  { href: '/agent/panel/chat', label: 'Czat AI', exact: false },
-  { href: '/agent/panel/swiadczenia', label: 'Swiadczenia', exact: false },
-  { href: '/agent/panel/aktualnosci', label: 'Aktualnosci', exact: false },
+  { href: '/agent/panel/chat', label: 'Czat z AI', exact: false },
+  { href: '/agent/panel/swiadczenia', label: 'Świadczenia', exact: false },
+  { href: '/agent/panel/aktualnosci', label: 'Aktualności', exact: false },
   { href: '/agent/panel/powiadomienia', label: 'Powiadomienia', exact: false },
   { href: '/agent/panel/profil', label: 'Profil', exact: false },
 ];
@@ -60,6 +60,7 @@ export function AgentPanelSidebar({ activeMode, onModeChange, collapsed }: Props
             textTransform: 'uppercase', marginBottom: 10, padding: '0 6px',
           }}>
             Tryb agenta
+
           </div>
         )}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>

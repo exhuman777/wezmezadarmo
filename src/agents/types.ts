@@ -6,28 +6,28 @@ export interface AgentKnowledge {
   /** Unikalne ID agenta */
   id: AgentMode;
 
-  /** Nazwa wyswietlana */
+  /** Nazwa wyświetlana */
   name: string;
 
-  /** Krotki opis dla UI */
+  /** Krótki opis dla UI */
   description: string;
 
-  /** Persona i specjalizacja agenta -- glowna czesc system prompt */
+  /** Persona i specjalizacja agenta -- główna część system prompt */
   persona: string;
 
-  /** Wiedza domenowa -- fakty, regulacje, przepisy ktore agent zna */
+  /** Wiedza domenowa -- fakty, regulacje, przepisy które agent zna */
   domainKnowledge: string;
 
-  /** Reguly odpowiadania specyficzne dla tego agenta */
+  /** Reguły odpowiadania specyficzne dla tego agenta */
   responseRules: string;
 
   /** Czego agent NIE robi / nie wie */
   boundaries: string;
 
-  /** Przykladowe interakcje (few-shot) dla jakosci odpowiedzi */
+  /** Przykładowe interakcje (few-shot) dla jakości odpowiedzi */
   examples: string;
 
-  /** Zrodla wiedzy z ktorych agent korzysta */
+  /** Źródła wiedzy z których agent korzysta */
   sources: string[];
 }
 
