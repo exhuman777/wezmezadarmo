@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
+import { GeistSans } from 'geist/font/sans';
+import { GeistMono } from 'geist/font/mono';
 import { CookieConsent } from '@/components/CookieConsent';
 import { SiteNav } from '@/components/SiteNav';
 import { SiteFooter } from '@/components/SiteFooter';
@@ -29,10 +31,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pl">
+    <html lang="pl" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <head>
-        {/* Anti-flicker: apply saved dark theme before first paint */}
-        <script dangerouslySetInnerHTML={{ __html: `try{var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.classList.add('dark')}catch(e){}` }} />
+        {/* Force light mode -- whitelabel v2 is light-only; clear any stale dark preference */}
+        <script dangerouslySetInnerHTML={{ __html: `try{document.documentElement.classList.remove('dark');localStorage.removeItem('theme')}catch(e){}` }} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {GA_ID && (
