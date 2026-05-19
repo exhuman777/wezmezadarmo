@@ -656,7 +656,7 @@ export default function Home() {
                 <h1 style={{ maxWidth: 760, color: '#fff' }}>
                   Sprawdź co Ci się&nbsp;<span style={{ color: '#8EEAAD' }}>należy</span>.
                   <br />
-                  <span className="serif-it" style={{ fontSize: '0.78em', color: 'rgba(255,255,255,0.6)', fontWeight: 400 }}>
+                  <span style={{ fontSize: '0.78em', color: 'rgba(255,255,255,0.6)', fontWeight: 400 }}>
                     Szybko, bez rejestracji, bez czekania.
                   </span>
                 </h1>
