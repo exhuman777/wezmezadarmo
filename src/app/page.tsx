@@ -637,46 +637,52 @@ export default function Home() {
     return (
       <div style={{ minHeight: '100vh' }}>
 
-        {/* Hero -- two-column: text left, card stack right */}
-        <section style={{ padding: '64px 0 96px', position: 'relative', overflow: 'hidden' }}>
-          <div className="wrap">
+        {/* Hero -- dark green gradient */}
+        <section style={{
+          padding: '72px 0 80px',
+          position: 'relative', overflow: 'hidden',
+          background: 'linear-gradient(160deg, #0a1f14 0%, #0f2e1a 40%, #122d1c 100%)',
+          borderRadius: '0 0 24px 24px',
+        }}>
+          {/* Gradient glow */}
+          <div style={{ position: 'absolute', top: '20%', left: '60%', width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(34,160,107,0.15) 0%, transparent 70%)', pointerEvents: 'none' }} />
+          <div className="wrap" style={{ position: 'relative' }}>
             <div className="grid-hero" style={{ display: 'grid', gridTemplateColumns: '1.15fr .85fr', gap: 64, alignItems: 'center' }}>
               {/* Left -- copy */}
               <div className="stack-32">
-                <div className="eyebrow" style={{}}>
+                <div className="mono" style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(142,234,173,0.7)' }}>
                   SPRAWDŹ SWOJE ŚWIADCZENIA
                 </div>
-                <h1 style={{ maxWidth: 760 }}>
-                  Sprawdź co Ci się&nbsp;<span style={{ color: 'var(--accent)' }}>należy</span>.
+                <h1 style={{ maxWidth: 760, color: '#fff' }}>
+                  Sprawdź co Ci się&nbsp;<span style={{ color: '#8EEAAD' }}>należy</span>.
                   <br />
-                  <span className="serif-it" style={{ fontSize: '0.78em', color: 'var(--ink-600)', fontWeight: 400 }}>
+                  <span className="serif-it" style={{ fontSize: '0.78em', color: 'rgba(255,255,255,0.6)', fontWeight: 400 }}>
                     Szybko, bez rejestracji, bez czekania.
                   </span>
                 </h1>
-                <p style={{ maxWidth: 560, fontSize: 20, color: 'var(--ink-700)', lineHeight: 1.45 }}>
+                <p style={{ maxWidth: 560, fontSize: 18, color: 'rgba(255,255,255,0.7)', lineHeight: 1.55 }}>
                   Łatwo sprawdź wstępnie czy są jakieś świadczenia, które mogą Ci przysługiwać.
                   Ta strona to projekt prywatny, nie rządowy.
                 </p>
                 <div className="row-12 gap-wrap">
-                  <a href="#formularz" className="btn btn-red btn-lg">
+                  <a href="#formularz" style={{
+                    display: 'inline-flex', alignItems: 'center', gap: 8,
+                    padding: '12px 24px', borderRadius: 10,
+                    background: '#22A06B', color: '#fff',
+                    fontSize: 15, fontWeight: 500, textDecoration: 'none',
+                    transition: 'opacity 200ms',
+                  }}>
                     Zacznij sprawdzanie <IconArrowRight />
                   </a>
-                  <a href="/dla-firm" className="btn btn-ghost btn-lg">
+                  <a href="/dla-firm" style={{
+                    display: 'inline-flex', alignItems: 'center', gap: 8,
+                    padding: '12px 24px', borderRadius: 10,
+                    border: '1px solid rgba(255,255,255,0.25)', color: 'rgba(255,255,255,0.85)',
+                    fontSize: 15, textDecoration: 'none',
+                    transition: 'border-color 200ms',
+                  }}>
                     Jestem firmą &rarr;
                   </a>
-                </div>
-                <div className="row-24 gap-wrap" style={{ marginTop: 8 }}>
-                  {[
-                    { value: '117', label: 'świadczeń' },
-                    { value: '15', label: 'kategorii' },
-                    { value: '2 min', label: 'czas analizy' },
-                    { value: '0 PLN', label: 'kosztu' },
-                  ].map((s, i) => (
-                    <div key={i} className="stack-4">
-                      <span style={{ fontSize: 28, fontWeight: 500, letterSpacing: '-0.02em' }}>{s.value}</span>
-                      <span className="mono" style={{ fontSize: 11, color: 'var(--ink-500)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>{s.label}</span>
-                    </div>
-                  ))}
                 </div>
               </div>
 
@@ -755,23 +761,12 @@ export default function Home() {
                   maxWidth: 480,
                   fontSize: 16, lineHeight: 1.65,
                   color: 'var(--color-text-2)',
-                  marginBottom: 16,
+                  marginBottom: 32,
                   animationDelay: '60ms',
                 }}>
                   Polska ma ponad 110 świadczeń, ulg i dotacji wartych miliardy złotych rocznie.
                   Większość ludzi nie wie, że im przysługują.
                   Na tej stronie sprawdzisz to szybko i za darmo. W dwie minuty, bez zakładania konta.
-                </p>
-                <p className="rise" style={{
-                  maxWidth: 480,
-                  fontSize: 15, lineHeight: 1.65,
-                  color: 'var(--color-text-3)',
-                  marginBottom: 32,
-                  animationDelay: '90ms',
-                }}>
-                  Wiele osób nie wie, że przysługuje im nawet kilka tysięcy złotych rocznie
-                  w ulgach, dopłatach i przywilejach. Czasem wystarczy po prostu złożyć wniosek
-                  lub się gdzieś zgłosić. Zero większych wymagań. Liczy się to, czy o tym wiesz.
                 </p>
 
                 {/* Stat counters */}
@@ -915,35 +910,6 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </div>
-
-            {/* AI assistant callout */}
-            <div className="rise" style={{
-              marginTop: 48,
-              animationDelay: '400ms',
-              padding: '28px 32px',
-              background: 'var(--color-surface)',
-              border: '1px solid var(--color-border)',
-              borderRadius: 16,
-              display: 'flex',
-              alignItems: 'flex-start',
-              gap: 18,
-            }}>
-              <span style={{
-                width: 40, height: 40, borderRadius: '50%',
-                background: 'var(--green-950, #0F1F14)',
-                color: 'var(--color-green)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: 18, flexShrink: 0, marginTop: 2,
-              }}>
-                <IconChat />
-              </span>
-              <p style={{ fontSize: 15, lineHeight: 1.65, color: 'var(--color-text-2)', margin: 0 }}>
-                Na stronie WezmeZaDarmo wbudowany jest asystent AI, który przez chat
-                odpowie na Twoje pytania i pomoże potwierdzić, czy dane świadczenie
-                Ci przysługuje oraz co zrobić, by je uzyskać. Asystent dobrze zna
-                polskie ulgi i programy rządowe, więc jeśli coś jest niejasne, śmiało pytaj.
-              </p>
             </div>
 
             {/* Example benefits */}
@@ -1095,30 +1061,33 @@ export default function Home() {
             </div>
 
             {/* Jak to działa -- 3 steps */}
-            <div className="rise" style={{ marginTop: 80, animationDelay: '475ms' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
-                <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--color-green)', flexShrink: 0 }} />
-                <span className="label-eyebrow" style={{ color: 'var(--color-green)' }}>Jak to działa</span>
+            <div className="rise" style={{ marginTop: 96, animationDelay: '475ms' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
+                <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#c44', flexShrink: 0 }} />
+                <span className="mono" style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-text-3)', fontWeight: 600 }}>Jak to działa</span>
               </div>
-              <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 700, letterSpacing: '-0.03em', lineHeight: 1.1, marginBottom: 32, color: 'var(--color-text-1)' }}>
-                3 kroki, <span className="serif" style={{ fontStyle: 'italic' }}>2 minuty</span>, gotowe.
+              <h2 style={{ fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 700, letterSpacing: '-0.03em', lineHeight: 1.1, marginBottom: 48, color: 'var(--color-text-1)' }}>
+                Trzy kroki. Dwie minuty.<br /><span style={{ color: '#c44' }}>Zero opłat.</span>
               </h2>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 0 }}>
                 {[
-                  { num: '01', icon: '1', title: 'Odpowiedz na pytania', desc: 'Podaj wiek, sytuację rodzinną i zawodową. Bez numeru PESEL, bez logowania. Zajmuje to 2 minuty.' },
-                  { num: '02', icon: '2', title: 'Algorytm + AI weryfikacja', desc: 'System sprawdza 117 świadczeń, ulg i dotacji. AI weryfikuje przypadki graniczne i dodaje ostrzeżenia.' },
-                  { num: '03', icon: '3', title: 'Twoja lista świadczeń', desc: 'Dostajesz spersonalizowaną listę z kwotami, instrukcjami i linkami do oficjalnych źródeł rządowych.' },
-                ].map((step) => (
+                  { num: '01', title: 'Podaj minimum danych', desc: 'PESEL (lub wiek + płeć) i opcjonalnie NIP. PESEL dekodowany lokalnie w przeglądarce -- nigdy nie wysyłany na serwer.', iconPath: 'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 5v5l4 2' },
+                  { num: '02', title: 'Odpowiedz na 11 pytań', desc: 'Stan cywilny, dzieci, dochód, zatrudnienie, niepełnosprawność, mieszkanie, województwo. Klikasz, nie piszesz.', iconPath: 'M13 2L3 14h9l-1 8 10-12h-9l1-8' },
+                  { num: '03', title: 'Dostań spersonalizowaną listę', desc: 'Kwoty, dokumenty, kroki i pułapki. Pobierasz .MD lub PDF. Pytasz asystenta o szczegóły.', iconPath: 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6 M16 13H8 M16 17H8 M10 9H8' },
+                ].map((step, i) => (
                   <div key={step.num} style={{
-                    background: 'var(--color-surface)',
-                    border: '1px solid var(--color-border)',
-                    borderRadius: 16,
-                    padding: '24px 22px',
+                    padding: '0 28px 32px',
+                    borderRight: i < 2 ? '1px solid var(--color-border)' : 'none',
                   }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 18 }}>
-                      <span style={{ width: 40, height: 40, borderRadius: '50%', background: '#0F1F14', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-mono)', fontSize: 15, fontWeight: 600, flexShrink: 0 }}>{step.icon}</span>
-                      <div style={{ fontSize: 16, fontWeight: 600, color: 'var(--color-text-1)' }}>{step.title}</div>
+                    {/* Progress bar */}
+                    <div style={{ height: 3, background: i === 0 ? '#22A06B' : 'var(--color-border)', borderRadius: 2, marginBottom: 24 }} />
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+                      <span className="mono" style={{ fontSize: 13, color: 'var(--color-text-3)', fontWeight: 500 }}>{step.num}</span>
+                      <span style={{ width: 36, height: 36, borderRadius: '50%', background: '#0F1F14', color: '#8EEAAD', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d={step.iconPath} /></svg>
+                      </span>
                     </div>
+                    <h3 style={{ fontSize: 18, fontWeight: 600, letterSpacing: '-0.02em', marginBottom: 10, color: 'var(--color-text-1)' }}>{step.title}</h3>
                     <p style={{ fontSize: 14, color: 'var(--color-text-3)', lineHeight: 1.6, margin: 0 }}>{step.desc}</p>
                   </div>
                 ))}

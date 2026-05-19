@@ -88,54 +88,63 @@ export default function AutomatyzacjePage() {
   return (
     <div style={{ minHeight: '100vh' }}>
 
-      <section style={{ position: 'relative', paddingTop: 48, paddingBottom: 80 }}>
+      <section style={{ position: 'relative', paddingTop: 0, paddingBottom: 80 }}>
         <div className="grain-bg" />
+
+        {/* Dark green hero */}
+        <div style={{
+          background: 'linear-gradient(160deg, #0a1f14 0%, #0f2e1a 40%, #122d1c 100%)',
+          borderRadius: '0 0 24px 24px',
+          padding: '80px 0 64px',
+          marginBottom: 64,
+          position: 'relative', overflow: 'hidden',
+        }}>
+          <div style={{ position: 'absolute', top: '20%', right: '15%', width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(34,160,107,0.12) 0%, transparent 70%)', pointerEvents: 'none' }} />
+          <div className="container" style={{ position: 'relative', maxWidth: 960 }}>
+            <div className="rise" style={{ marginBottom: 20 }}>
+              <span className="mono" style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(142,234,173,0.5)' }}>Automatyzacje AI dla firm i JDG</span>
+            </div>
+            <h1 className="display rise" style={{
+              fontSize: 'clamp(32px, 5vw, 60px)',
+              marginBottom: 24,
+              animationDelay: '60ms',
+              color: '#fff',
+            }}>
+              Faktury spoza UE przychodzą mailem.<br />
+              <span className="serif" style={{ color: '#8EEAAD' }}>Łatwo je przegapić.</span>
+            </h1>
+            <p className="rise" style={{
+              fontSize: 18, lineHeight: 1.65,
+              color: 'rgba(255,255,255,0.7)',
+              maxWidth: 620, marginBottom: 40,
+              animationDelay: '120ms',
+            }}>
+              Polskie faktury trafiają do KSeF automatycznie. Ale rachunki z USA i spoza UE
+              przychodzą mailem i łatwo je przegapić. Budujemy system, który czyta skrzynkę
+              i wpisuje te dokumenty do Twojego arkusza, zanim trafią do szuflady.
+            </p>
+            <div className="rise" style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 0, animationDelay: '180ms' }}>
+              <a href="#kontakt" style={{
+                padding: '13px 28px',
+                background: '#22A06B', color: '#fff',
+                fontWeight: 600, fontSize: 16, borderRadius: 10,
+                textDecoration: 'none',
+              }}>
+                Umów bezpłatną rozmowę
+              </a>
+              <a href="#jak-dzialamy" style={{
+                padding: '13px 28px',
+                border: '1px solid rgba(255,255,255,0.25)', color: 'rgba(255,255,255,0.85)',
+                fontWeight: 500, fontSize: 16, borderRadius: 10,
+                textDecoration: 'none',
+              }}>
+                Jak to działa?
+              </a>
+            </div>
+          </div>
+        </div>
+
         <div className="container" style={{ position: 'relative', maxWidth: 960 }}>
-
-          {/* Eyebrow */}
-          <div className="rise" style={{ marginBottom: 20 }}>
-            <span className="label-eyebrow">Automatyzacje AI dla firm i JDG</span>
-          </div>
-
-          {/* HERO */}
-          <h1 className="display rise" style={{
-            fontSize: 'clamp(32px, 5vw, 60px)',
-            marginBottom: 24,
-            animationDelay: '60ms',
-          }}>
-            Faktury spoza UE przychodzą mailem.<br />
-            <span className="serif" style={{ color: 'var(--color-pl-red)' }}>Łatwo je przegapić.</span>
-          </h1>
-
-          <p className="rise" style={{
-            fontSize: 18, lineHeight: 1.65,
-            color: 'var(--color-text-2)',
-            maxWidth: 620, marginBottom: 40,
-            animationDelay: '120ms',
-          }}>
-            Polskie faktury trafiają do KSeF automatycznie. Ale rachunki z USA i spoza UE
-            przychodzą mailem i łatwo je przegapić. Budujemy system, który czyta skrzynkę
-            i wpisuje te dokumenty do Twojego arkusza, zanim trafią do szuflady.
-          </p>
-
-          <div className="rise" style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 64, animationDelay: '180ms' }}>
-            <a href="#kontakt" style={{
-              padding: '13px 28px',
-              background: 'var(--color-accent)', color: 'var(--color-bg-0)',
-              fontWeight: 600, fontSize: 16, borderRadius: 10,
-              textDecoration: 'none',
-            }}>
-              Umów bezpłatną rozmowę
-            </a>
-            <a href="#jak-dzialamy" style={{
-              padding: '13px 28px',
-              border: '1px solid var(--color-border)', color: 'var(--color-text-2)',
-              fontWeight: 500, fontSize: 16, borderRadius: 10,
-              textDecoration: 'none',
-            }}>
-              Jak to działa?
-            </a>
-          </div>
 
           {/* PROBLEMY */}
           <div className="rise" style={{ marginBottom: 64, animationDelay: '220ms' }}>

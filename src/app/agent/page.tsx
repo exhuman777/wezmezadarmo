@@ -16,43 +16,57 @@ const CECHY = [
 export default function AgentLanding() {
   return (
     <main>
-      <section style={{ maxWidth: 860, margin: '0 auto', padding: '72px 24px 56px' }}>
-        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--color-text-3)', letterSpacing: '0.04em', marginBottom: 16 }}>
-          {'// agent.wezmezadarmo.v1'}
-        </div>
-        <h1 style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(28px, 5vw, 52px)', fontWeight: 500, lineHeight: 1.1, letterSpacing: '-0.03em', color: 'var(--color-text-1)', margin: '0 0 20px', maxWidth: 700 }}>
-          Twój agent AI.<br />
-          <span style={{ color: 'var(--color-green)' }}>Pilnuje spraw, gdy Ty żyjesz.</span>
-        </h1>
-        <p style={{ fontFamily: 'var(--font-sans)', fontSize: 16, lineHeight: 1.65, color: 'var(--color-text-2)', margin: '0 0 32px', maxWidth: 520 }}>
-          Dla JDG i osób prywatnych. Agent sprawdza co Ci przysługuje, śledzi zmiany w prawie
-          i wysyła Ci codzienny raport na e-mail. Bez wchodzenia na rządowe strony.
-        </p>
-        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-          <Link href="/agent/rejestracja" style={{ fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500, color: '#FFFFFF', background: 'var(--color-green)', padding: '10px 20px', borderRadius: 'var(--radius-sm)', textDecoration: 'none' }}>
-            Zacznij za darmo
-          </Link>
-          <Link href="/agent/logowanie" style={{ fontFamily: 'var(--font-mono)', fontSize: 13, color: 'var(--color-text-2)', border: '1px solid var(--color-border-light)', padding: '10px 20px', borderRadius: 'var(--radius-sm)', textDecoration: 'none' }}>
-            Mam już konto
-          </Link>
+      <section style={{
+        background: 'linear-gradient(160deg, #0a1f14 0%, #0f2e1a 40%, #122d1c 100%)',
+        borderRadius: '0 0 24px 24px',
+        position: 'relative', overflow: 'hidden',
+      }}>
+        {/* Glow */}
+        <div style={{ position: 'absolute', top: '30%', right: '10%', width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(34,160,107,0.12) 0%, transparent 70%)', pointerEvents: 'none' }} />
+        <div style={{ maxWidth: 860, margin: '0 auto', padding: '80px 24px 64px', position: 'relative' }}>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'rgba(142,234,173,0.5)', letterSpacing: '0.04em', marginBottom: 16 }}>
+            {'// agent.wezmezadarmo.v1'}
+          </div>
+          <h1 style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(28px, 5vw, 52px)', fontWeight: 500, lineHeight: 1.1, letterSpacing: '-0.03em', color: '#fff', margin: '0 0 20px', maxWidth: 700 }}>
+            Twój agent AI.<br />
+            <span style={{ color: '#8EEAAD' }}>Pilnuje spraw, gdy Ty żyjesz.</span>
+          </h1>
+          <p style={{ fontFamily: 'var(--font-sans)', fontSize: 16, lineHeight: 1.65, color: 'rgba(255,255,255,0.7)', margin: '0 0 32px', maxWidth: 520 }}>
+            Dla JDG i osób prywatnych. Agent sprawdza co Ci przysługuje, śledzi zmiany w prawie
+            i wysyła Ci codzienny raport na e-mail. Bez wchodzenia na rządowe strony.
+          </p>
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+            <Link href="/agent/rejestracja" style={{ fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500, color: '#fff', background: '#22A06B', padding: '12px 22px', borderRadius: 10, textDecoration: 'none' }}>
+              Zacznij za darmo
+            </Link>
+            <Link href="/agent/logowanie" style={{ fontFamily: 'var(--font-mono)', fontSize: 13, color: 'rgba(255,255,255,0.85)', border: '1px solid rgba(255,255,255,0.25)', padding: '12px 22px', borderRadius: 10, textDecoration: 'none' }}>
+              Mam już konto
+            </Link>
+          </div>
         </div>
       </section>
 
-      <section style={{ borderTop: '1px solid var(--color-border)', borderBottom: '1px solid var(--color-border)', background: 'var(--color-bg-1)' }}>
-        <div style={{ maxWidth: 860, margin: '0 auto', padding: '48px 24px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1px', background: 'var(--color-border)', border: '1px solid var(--color-border)', borderRadius: 'var(--radius)', overflow: 'hidden' }}>
+      <section style={{ background: 'linear-gradient(160deg, #0a1f14 0%, #0f2e1a 40%, #122d1c 100%)', borderTop: '1px solid rgba(142,234,173,0.1)' }}>
+        <div style={{ maxWidth: 860, margin: '0 auto', padding: '56px 24px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16 }}>
             {CECHY.map(({ label, desc, icon }) => (
-              <div key={label} style={{ background: 'var(--color-bg-1)', padding: '24px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
+              <div key={label} style={{
+                background: 'rgba(255,255,255,0.04)',
+                border: '1px solid rgba(142,234,173,0.12)',
+                borderRadius: 16,
+                padding: '24px',
+                transition: 'border-color 200ms',
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 14 }}>
                   <span style={{
                     width: 36, height: 36, borderRadius: '50%',
-                    background: '#0F1F14', color: '#fff',
+                    background: 'rgba(142,234,173,0.1)', color: '#8EEAAD',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 600, flexShrink: 0,
                   }}>{icon}</span>
-                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500, color: 'var(--color-text-1)' }}>{label}</div>
+                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500, color: '#fff' }}>{label}</div>
                 </div>
-                <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: 'var(--color-text-3)', lineHeight: 1.6, margin: 0 }}>{desc}</p>
+                <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: 'rgba(255,255,255,0.6)', lineHeight: 1.65, margin: 0 }}>{desc}</p>
               </div>
             ))}
           </div>
