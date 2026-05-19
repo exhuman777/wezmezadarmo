@@ -93,7 +93,7 @@ export default function AutomatyzacjePage() {
 
         {/* Dark green hero */}
         <div style={{
-          background: 'linear-gradient(160deg, #0a1f14 0%, #0f2e1a 40%, #122d1c 100%)',
+          background: 'radial-gradient(800px 500px at 80% 20%, rgba(34,160,107,.25), transparent 60%), radial-gradient(600px 400px at 20% 80%, rgba(78,196,138,.18), transparent 60%), var(--green-950)',
           borderRadius: '0 0 24px 24px',
           padding: '80px 0 64px',
           marginBottom: 64,
@@ -102,7 +102,7 @@ export default function AutomatyzacjePage() {
           <div style={{ position: 'absolute', top: '20%', right: '15%', width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(34,160,107,0.12) 0%, transparent 70%)', pointerEvents: 'none' }} />
           <div className="container" style={{ position: 'relative', maxWidth: 960 }}>
             <div className="rise" style={{ marginBottom: 20 }}>
-              <span className="mono" style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(142,234,173,0.5)' }}>Automatyzacje AI dla firm i JDG</span>
+              <span className="mono" style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--green-300)' }}>Automatyzacje AI dla firm i JDG</span>
             </div>
             <h1 className="display rise" style={{
               fontSize: 'clamp(32px, 5vw, 60px)',
@@ -111,11 +111,11 @@ export default function AutomatyzacjePage() {
               color: '#fff',
             }}>
               Faktury spoza UE przychodzą mailem.<br />
-              <span className="serif" style={{ color: '#8EEAAD' }}>Łatwo je przegapić.</span>
+              <span style={{ color: 'var(--green-300)' }}>Łatwo je przegapić.</span>
             </h1>
             <p className="rise" style={{
               fontSize: 18, lineHeight: 1.65,
-              color: 'rgba(255,255,255,0.7)',
+              color: 'var(--ink-400)',
               maxWidth: 620, marginBottom: 40,
               animationDelay: '120ms',
             }}>
@@ -126,7 +126,7 @@ export default function AutomatyzacjePage() {
             <div className="rise" style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 0, animationDelay: '180ms' }}>
               <a href="#kontakt" style={{
                 padding: '13px 28px',
-                background: '#22A06B', color: '#fff',
+                background: 'var(--green-500)', color: '#fff',
                 fontWeight: 600, fontSize: 16, borderRadius: 10,
                 textDecoration: 'none',
               }}>
@@ -170,7 +170,7 @@ export default function AutomatyzacjePage() {
                   color: 'var(--color-text-1)',
                 }}>
                   To jest norma.<br />
-                  <span className="serif" style={{ color: 'var(--color-pl-red)' }}>Nie musi tak być.</span>
+                  <span style={{ color: 'var(--color-pl-red)' }}>Nie musi tak być.</span>
                 </h2>
 
                 <div style={{
@@ -192,7 +192,7 @@ export default function AutomatyzacjePage() {
                         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                           <span style={{
                             width: 30, height: 30, borderRadius: '50%',
-                            background: '#0F1F14', color: '#fff',
+                            background: 'var(--green-950)', color: '#fff',
                             display: 'flex', alignItems: 'center', justifyContent: 'center',
                             fontFamily: 'var(--font-mono)', fontSize: 11, fontWeight: 600, flexShrink: 0,
                           }}>{icons[i]}</span>
@@ -249,7 +249,7 @@ export default function AutomatyzacjePage() {
                     <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
                       <span style={{
                         width: 38, height: 38, borderRadius: '50%',
-                        background: '#0F1F14', color: '#fff',
+                        background: 'var(--green-950)', color: '#fff',
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
                         fontFamily: 'var(--font-mono)', fontSize: 14, fontWeight: 600, flexShrink: 0,
                       }}>{icons[i]}</span>
@@ -267,14 +267,14 @@ export default function AutomatyzacjePage() {
             <div style={{
               borderRadius: 20,
               padding: '36px 40px',
-              background: '#0F1F14',
-              color: '#E8F0E8',
+              background: 'var(--green-950)',
+              color: 'var(--paper)',
             }}>
-              <span className="label-eyebrow" style={{ color: '#6DC08A', marginBottom: 16, display: 'block' }}>Flagship: gotowy produkt</span>
-              <h2 style={{ fontSize: 36, letterSpacing: '-0.025em', marginBottom: 12, color: '#E8F0E8' }}>
+              <span className="label-eyebrow" style={{ color: 'var(--green-400)', marginBottom: 16, display: 'block' }}>Flagship: gotowy produkt</span>
+              <h2 style={{ fontSize: 36, letterSpacing: '-0.025em', marginBottom: 12, color: 'var(--paper)' }}>
                 Automat Fakturowy
               </h2>
-              <p style={{ fontSize: 16, color: '#C2D4C2', lineHeight: 1.7, maxWidth: 560, marginBottom: 32 }}>
+              <p style={{ fontSize: 16, color: 'var(--ink-300)', lineHeight: 1.7, maxWidth: 560, marginBottom: 32 }}>
                 System, który skanuje wskazaną skrzynkę mailową i wyciąga dane z faktur
                 od zagranicznych dostawców (spoza UE). Wpisuje je do arkusza, który wskazujesz.
                 Polskich faktur krajowych nie obsługuje, bo te trafiają do KSeF automatycznie.
@@ -282,8 +282,8 @@ export default function AutomatyzacjePage() {
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 36 }}>
                 {PRODUKT_FEATURES.map((f, i) => (
-                  <div key={i} style={{ display: 'flex', gap: 14, alignItems: 'flex-start', fontSize: 15, color: '#C2D4C2', lineHeight: 1.6 }}>
-                    <span style={{ color: '#6DC08A', fontWeight: 700, flexShrink: 0, marginTop: 1 }}>+</span>
+                  <div key={i} style={{ display: 'flex', gap: 14, alignItems: 'flex-start', fontSize: 15, color: 'var(--ink-300)', lineHeight: 1.6 }}>
+                    <span style={{ color: 'var(--green-400)', fontWeight: 700, flexShrink: 0, marginTop: 1 }}>+</span>
                     {f}
                   </div>
                 ))}
@@ -295,16 +295,16 @@ export default function AutomatyzacjePage() {
                 display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 24,
               }}>
                 <div>
-                  <div className="mono" style={{ fontSize: 44, fontWeight: 500, letterSpacing: '-0.04em', color: '#6DC08A', lineHeight: 1 }}>
+                  <div className="mono" style={{ fontSize: 44, fontWeight: 500, letterSpacing: '-0.04em', color: 'var(--green-400)', lineHeight: 1 }}>
                     399 PLN
                   </div>
-                  <div style={{ fontSize: 13, color: '#8BA88B', marginTop: 6 }}>
+                  <div style={{ fontSize: 13, color: 'var(--ink-500)', marginTop: 6 }}>
                     jednorazowo &bull; bez abonamentu &bull; wdrożenie 1 dzień roboczy
                   </div>
                 </div>
                 <a href="#kontakt" style={{
                   padding: '13px 28px',
-                  background: '#2E7D4F', color: '#ffffff',
+                  background: 'var(--green-800)', color: '#ffffff',
                   fontWeight: 600, fontSize: 16, borderRadius: 10,
                   textDecoration: 'none', flexShrink: 0,
                 }}>
@@ -411,7 +411,7 @@ export default function AutomatyzacjePage() {
               marginBottom: 32,
               color: 'var(--color-text-1)',
             }}>
-              3 kroki, <span className="serif">1 tydzień</span>, gotowe.
+              3 kroki, 1 tydzień, gotowe.
             </h2>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>

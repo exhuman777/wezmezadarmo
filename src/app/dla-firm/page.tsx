@@ -106,12 +106,20 @@ export default function DlaFirmPage() {
             źródeł rządowych, dostępnych przez jedno wywołanie API. Twoja aplikacja pyta,
             my odpowiadamy, co danemu użytkownikowi przysługuje i jak to dostać.
           </p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <a href="/dotacje" className="text-[12px] font-mono text-green border border-[var(--color-green-border)] bg-[var(--color-green-bg)] px-3 py-1.5 rounded hover:underline">
-              Agent dotacyjny dla firm
+          <div className="mt-8 grid gap-3" style={{ gridTemplateColumns: '1fr 1fr', maxWidth: 520 }}>
+            <a href="/automatyzacje" className="block rounded-xl border border-border bg-surface p-4 hover:border-green transition-colors no-underline">
+              <div className="flex items-center gap-2.5 mb-2">
+                <span className="w-8 h-8 rounded-full flex items-center justify-center text-[12px] font-mono font-semibold shrink-0" style={{ background: '#0F1F14', color: '#8EEAAD' }}>A</span>
+                <span className="text-[13px] font-semibold text-text-1">Automatyzacje AI</span>
+              </div>
+              <p className="text-[12px] text-text-3 leading-relaxed m-0">Faktury, raporty, dokumenty. Gotowe systemy od 399 PLN.</p>
             </a>
-            <a href="/automatyzacje" className="text-[12px] font-mono text-text-3 border border-border px-3 py-1.5 rounded hover:underline">
-              Automatyzacje AI
+            <a href="/dla-firm#api" className="block rounded-xl border border-border bg-surface p-4 hover:border-green transition-colors no-underline">
+              <div className="flex items-center gap-2.5 mb-2">
+                <span className="w-8 h-8 rounded-full flex items-center justify-center text-[12px] font-mono font-semibold shrink-0" style={{ background: '#0F1F14', color: '#8EEAAD' }}>B</span>
+                <span className="text-[13px] font-semibold text-text-1">API świadczeń</span>
+              </div>
+              <p className="text-[12px] text-text-3 leading-relaxed m-0">Baza 117 świadczeń jako REST API do Twojej aplikacji.</p>
             </a>
           </div>
         </div>
@@ -127,7 +135,7 @@ export default function DlaFirmPage() {
 
               <div className="border border-border rounded-lg p-4">
                 <div className="flex items-center gap-3 mb-3">
-                  <span className="w-9 h-9 rounded-full bg-[#0F1F14] text-white flex items-center justify-center font-mono text-[13px] font-semibold shrink-0">H</span>
+                  <span className="w-9 h-9 rounded-full bg-[var(--green-950)] text-white flex items-center justify-center font-mono text-[13px] font-semibold shrink-0">H</span>
                   <div className="font-mono text-[13px] font-medium text-text-1">Oprogramowanie kadrowe i HR</div>
                 </div>
                 <p className="text-[14px] leading-relaxed mb-3">
@@ -145,7 +153,7 @@ export default function DlaFirmPage() {
 
               <div className="border border-border rounded-lg p-4">
                 <div className="flex items-center gap-3 mb-3">
-                  <span className="w-9 h-9 rounded-full bg-[#0F1F14] text-white flex items-center justify-center font-mono text-[13px] font-semibold shrink-0">F</span>
+                  <span className="w-9 h-9 rounded-full bg-[var(--green-950)] text-white flex items-center justify-center font-mono text-[13px] font-semibold shrink-0">F</span>
                   <div className="font-mono text-[13px] font-medium text-text-1">Aplikacje bankowe i fintech</div>
                 </div>
                 <p className="text-[14px] leading-relaxed mb-3">
@@ -164,7 +172,7 @@ export default function DlaFirmPage() {
 
               <div className="border border-border rounded-lg p-4">
                 <div className="flex items-center gap-3 mb-3">
-                  <span className="w-9 h-9 rounded-full bg-[#0F1F14] text-white flex items-center justify-center font-mono text-[13px] font-semibold shrink-0">N</span>
+                  <span className="w-9 h-9 rounded-full bg-[var(--green-950)] text-white flex items-center justify-center font-mono text-[13px] font-semibold shrink-0">N</span>
                   <div className="font-mono text-[13px] font-medium text-text-1">Ośrodki Pomocy Społecznej i NGO</div>
                 </div>
                 <p className="text-[14px] leading-relaxed mb-3">

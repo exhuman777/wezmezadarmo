@@ -316,7 +316,7 @@ export default function WnioskiPage() {
       {/* Header */}
       <header style={{
         position: 'sticky', top: 0, zIndex: 50,
-        background: 'rgba(236,242,236,0.85)',
+        background: 'rgba(240,246,241,0.85)',
         backdropFilter: 'saturate(140%) blur(14px)',
         WebkitBackdropFilter: 'saturate(140%) blur(14px)',
         borderBottom: '1px solid var(--color-border)',
@@ -369,7 +369,7 @@ export default function WnioskiPage() {
             }}>
               Podaj swoje dane. AI automatycznie wypełnia formularz.
               Ty przeglądasz pole po polu i pobierasz gotowy tekst.
-              {' '}<span className="serif" style={{ fontSize: 19 }}>Twoje dane nie wychodzą poza przeglądarkę.</span>
+              {' '}Twoje dane nie wychodzą poza przeglądarkę.
             </p>
 
             {/* Stats row */}
@@ -586,7 +586,7 @@ function FormCard({ form }: { form: Form }) {
             {form.deadlineUrgent && (
               <span style={{
                 fontSize: 10, fontWeight: 600, color: 'var(--color-warn)',
-                background: 'rgba(184,116,26,0.1)',
+                background: 'var(--color-amber-bg)',
                 padding: '2px 7px', borderRadius: 4,
                 letterSpacing: '0.04em', textTransform: 'uppercase',
               }}>
