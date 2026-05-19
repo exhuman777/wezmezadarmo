@@ -895,9 +895,9 @@ export default function Home() {
                     alt="Seniorka z pomocą bliskich sprawdza przysługujące świadczenia"
                     style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.92) saturate(0.9)' }}
                   />
-                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,18,10,0.55) 0%, transparent 50%)' }} />
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,18,10,0.75) 0%, transparent 50%)' }} />
                   <div style={{ position: 'absolute', bottom: 14, left: 14, right: 14 }}>
-                    <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-green)', marginBottom: 4 }}>Dla seniorów i rodzin</div>
+                    <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#8EEAAD', marginBottom: 4, textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>Dla seniorów i rodzin</div>
                     <div style={{ fontSize: 13, color: '#fff', lineHeight: 1.4 }}>Każde pokolenie może skorzystać</div>
                   </div>
                 </div>
@@ -907,9 +907,9 @@ export default function Home() {
                     alt="Zespół w pracy sprawdza dostępne świadczenia i ulgi"
                     style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.9) saturate(0.9)' }}
                   />
-                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,18,10,0.55) 0%, transparent 55%)' }} />
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,18,10,0.75) 0%, transparent 55%)' }} />
                   <div style={{ position: 'absolute', bottom: 14, left: 14, right: 14 }}>
-                    <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-green)', marginBottom: 4 }}>Dla firm i pracowników</div>
+                    <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#8EEAAD', marginBottom: 4, textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>Dla firm i pracowników</div>
                     <div style={{ fontSize: 13, color: '#fff', lineHeight: 1.4 }}>Świadczenia, do których pracownicy mają prawo</div>
                   </div>
                 </div>
@@ -919,9 +919,9 @@ export default function Home() {
                     alt="Ekspert przy komputerze korzysta z asystenta AI"
                     style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.9) saturate(0.9)' }}
                   />
-                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,18,10,0.55) 0%, transparent 55%)' }} />
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,18,10,0.75) 0%, transparent 55%)' }} />
                   <div style={{ position: 'absolute', bottom: 14, left: 14, right: 14 }}>
-                    <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-green)', marginBottom: 4 }}>Asystent AI</div>
+                    <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#8EEAAD', marginBottom: 4, textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>Asystent AI</div>
                     <div style={{ fontSize: 13, color: '#fff', lineHeight: 1.4 }}>Odpowie na każde pytanie o świadczenia</div>
                   </div>
                 </div>
