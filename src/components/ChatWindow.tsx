@@ -67,7 +67,7 @@ export function ChatWindow({
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 900);
+    const check = () => setIsMobile(window.innerWidth < 920);
     check();
     window.addEventListener('resize', check);
     return () => window.removeEventListener('resize', check);
@@ -221,7 +221,8 @@ export function ChatWindow({
         background: 'var(--color-surface)',
         ...(isPanel ? {
           borderLeft: '1px solid var(--color-border)',
-          width: 360,
+          width: 'min(360px, 35vw)',
+          minWidth: 280,
           flexShrink: 0,
         } : {}),
       }}>
@@ -356,7 +357,7 @@ export function ChatWindow({
 
       {/* ---- HEADER BAR ---- */}
       {results.length > 0 && (
-        <div style={{ padding: '0 24px', borderBottom: '1px solid var(--color-border)', background: 'var(--color-surface)', flexShrink: 0 }}>
+        <div style={{ padding: isMobile ? '0 12px' : '0 24px', borderBottom: '1px solid var(--color-border)', background: 'var(--color-surface)', flexShrink: 0 }}>
 
           {/* Sources row */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 0', flexWrap: 'wrap' }}>
@@ -735,7 +736,7 @@ export function ChatWindow({
 
       {/* Disclaimer */}
       <div style={{
-        padding: '8px 24px',
+        padding: isMobile ? '8px 12px' : '8px 24px',
         paddingBottom: 'max(8px, env(safe-area-inset-bottom))',
         fontSize: 11, color: 'var(--color-text-3)',
         textAlign: 'center',

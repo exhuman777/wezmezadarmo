@@ -188,7 +188,7 @@ export default function DotacjePage() {
           margin: '0 auto',
           padding: '0 24px',
           display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(160px, 100%), 1fr))',
         }}>
           {[
             { num: '20+', label: 'programów w bazie' },
@@ -253,7 +253,7 @@ export default function DotacjePage() {
         </div>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(220px, 100%), 1fr))',
           gap: '1px',
           background: 'var(--color-border)',
           border: '1px solid var(--color-border)',
@@ -334,7 +334,7 @@ export default function DotacjePage() {
           </div>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))',
             gap: '12px',
           }}>
             {PROGRAMS.map((prog) => (

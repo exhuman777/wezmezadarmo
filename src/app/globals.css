@@ -931,3 +931,25 @@ section.short { padding: 48px 0; }
   .hide-mobile { display: none !important; }
   .display { font-size: clamp(36px, 10vw, 64px) !important; }
 }
+
+/* Small phone breakpoint */
+@media (max-width: 480px) {
+  .wrap, .wrap-narrow, .topnav-inner, .container { padding-left: 16px; padding-right: 16px; }
+  section { padding: 48px 0; }
+  h1 { font-size: clamp(32px, 9vw, 48px); }
+  h2 { font-size: clamp(24px, 7vw, 36px); }
+  .grid-stats { grid-template-columns: 1fr !important; gap: 16px !important; }
+  .grid-stats > div { border-left: none !important; padding-left: 0 !important; border-bottom: 1px solid var(--line); padding-bottom: 16px; }
+  .grid-stats > div:last-child { border-bottom: none; padding-bottom: 0; }
+  .footer-grid { grid-template-columns: 1fr !important; }
+  .btn { padding: 12px 18px; font-size: 15px; }
+  .btn-lg { padding: 14px 22px; font-size: 16px; }
+  .card { padding: 20px; }
+}
+
+/* Steps grid (3-column "jak to dziala") collapse on mobile */
+@media (max-width: 720px) {
+  .steps-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+  .steps-grid > div { border-right: none !important; border-bottom: 1px solid var(--line); padding-bottom: 24px !important; padding-left: 0 !important; padding-right: 0 !important; }
+  .steps-grid > div:last-child { border-bottom: none; }
+}

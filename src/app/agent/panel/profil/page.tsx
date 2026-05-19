@@ -175,7 +175,7 @@ export default function AgentProfil() {
           Object.entries(profile)
             .filter(([key]) => !HIDDEN_KEYS.includes(key))
             .map(([key, value], i) => (
-              <div key={key} style={{ display: 'grid', gridTemplateColumns: '160px 1fr', padding: '12px 16px', borderBottom: '1px solid var(--color-border)', background: i % 2 === 0 ? 'var(--color-bg-1)' : 'var(--color-bg-2)' }}>
+              <div key={key} style={{ display: 'grid', gridTemplateColumns: 'minmax(100px, 160px) 1fr', padding: '12px 16px', borderBottom: '1px solid var(--color-border)', background: i % 2 === 0 ? 'var(--color-bg-1)' : 'var(--color-bg-2)' }}>
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--color-text-3)', paddingTop: 2 }}>{key}</span>
                 <span style={{ fontSize: 13, color: 'var(--color-text-1)' }}>
                   {typeof value === 'boolean' ? (value ? 'Tak' : 'Nie') : Array.isArray(value) ? (value as unknown[]).join(', ') || '(brak)' : String(value ?? '(brak)')}

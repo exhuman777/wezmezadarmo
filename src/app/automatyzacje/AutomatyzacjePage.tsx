@@ -95,8 +95,8 @@ export default function AutomatyzacjePage() {
         <div style={{
           background: 'radial-gradient(800px 500px at 80% 20%, rgba(34,160,107,.25), transparent 60%), radial-gradient(600px 400px at 20% 80%, rgba(78,196,138,.18), transparent 60%), var(--green-950)',
           borderRadius: '0 0 24px 24px',
-          padding: '80px 0 64px',
-          marginBottom: 64,
+          padding: 'clamp(48px, 6vw, 80px) 0 clamp(40px, 5vw, 64px)',
+          marginBottom: 'clamp(32px, 5vw, 64px)',
           position: 'relative', overflow: 'hidden',
         }}>
           <div style={{ position: 'absolute', top: '20%', right: '15%', width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(34,160,107,0.12) 0%, transparent 70%)', pointerEvents: 'none' }} />
@@ -154,10 +154,10 @@ export default function AutomatyzacjePage() {
               <span style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
             </div>
 
-            <div style={{
+            <div className="grid-hero" style={{
               display: 'grid',
               gridTemplateColumns: '1.2fr 1fr',
-              gap: 40,
+              gap: 'clamp(24px, 4vw, 40px)',
               alignItems: 'start',
             }}>
               {/* Left: heading + table */}
@@ -183,7 +183,7 @@ export default function AutomatyzacjePage() {
                     return (
                       <div key={p.obszar} style={{
                         display: 'grid',
-                        gridTemplateColumns: '180px 1fr',
+                        gridTemplateColumns: 'minmax(120px, 180px) 1fr',
                         gap: 24,
                         padding: '18px 24px',
                         borderTop: i > 0 ? '1px solid var(--color-border)' : 'none',
@@ -266,7 +266,7 @@ export default function AutomatyzacjePage() {
           <div className="rise" style={{ marginBottom: 64, animationDelay: '260ms' }}>
             <div style={{
               borderRadius: 20,
-              padding: '36px 40px',
+              padding: 'clamp(20px, 4vw, 36px) clamp(16px, 4vw, 40px)',
               background: 'var(--green-950)',
               color: 'var(--paper)',
             }}>
@@ -337,7 +337,7 @@ export default function AutomatyzacjePage() {
               Gwarancja: jeśli wdrożony agent nie działa zgodnie z tym, co ustaliliśmy, nie płacisz.
             </p>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+            <div className="grid-3" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
               {CENNIK.map((c, i) => {
                 const isDark = i === 0;
                 const isGreen = i === 2;
@@ -414,7 +414,7 @@ export default function AutomatyzacjePage() {
               3 kroki, 1 tydzień, gotowe.
             </h2>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+            <div className="grid-3" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
               {KROKI.map((k, i) => (
                 <div key={i} style={{
                   background: 'var(--color-surface)',
@@ -502,7 +502,7 @@ export default function AutomatyzacjePage() {
             <div style={{
               background: 'var(--color-surface)',
               border: '1px solid var(--color-border)',
-              borderRadius: 16, padding: '28px 32px',
+              borderRadius: 16, padding: 'clamp(20px, 3vw, 28px) clamp(16px, 3vw, 32px)',
             }}>
               <span className="label-eyebrow" style={{ marginBottom: 20, display: 'block' }}>Wyślij zapytanie</span>
 

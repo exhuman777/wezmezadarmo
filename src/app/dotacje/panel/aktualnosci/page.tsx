@@ -227,9 +227,9 @@ export default function PanelAktualnosciPage() {
               </p>
             </div>
           ) : (
-            <div>
+            <div style={{ overflowX: 'auto' }}>
               {/* Header row */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 120px 80px 60px', gap: '8px', padding: '10px 16px', borderBottom: '1px solid var(--color-border)', background: 'var(--color-bg-2)' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 120px 80px 60px', gap: '8px', padding: '10px 16px', borderBottom: '1px solid var(--color-border)', background: 'var(--color-bg-2)', minWidth: 420 }}>
                 {['Nazwa', 'Kategoria', 'Co (h)', ''].map((h) => (
                   <span key={h} style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--color-text-3)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{h}</span>
                 ))}
@@ -320,7 +320,7 @@ export default function PanelAktualnosciPage() {
                 style={inputStyle}
               />
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 160px', gap: '12px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(160px, 100%), 1fr))', gap: '12px' }}>
               <div>
                 <label style={labelStyle}>Kategoria</label>
                 <select

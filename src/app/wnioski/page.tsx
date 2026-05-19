@@ -373,7 +373,7 @@ export default function WnioskiPage() {
             </p>
 
             {/* Stats row */}
-            <div className="rise" style={{
+            <div className="rise grid-stats" style={{
               display: 'grid', gridTemplateColumns: 'repeat(3, auto)',
               gap: 0, marginTop: 40, marginBottom: 0,
               borderTop: '1px solid var(--color-border)',
@@ -381,14 +381,14 @@ export default function WnioskiPage() {
               padding: '20px 0',
               animationDelay: '180ms',
               width: 'fit-content',
-              minWidth: 480,
+              minWidth: 0,
             }}>
               {[
                 { n: totalForms, label: 'formularzy w bazie' },
                 { n: availableForms, label: 'dostępnych teraz' },
                 { n: 6, label: 'kategorii wniosków' },
               ].map((s, i) => (
-                <div key={i} style={{ paddingLeft: i ? 36 : 0, paddingRight: 36, borderLeft: i ? '1px solid var(--color-border)' : 'none' }}>
+                <div key={i} style={{ paddingLeft: i ? 'clamp(12px, 2vw, 36px)' : 0, paddingRight: 'clamp(12px, 2vw, 36px)', borderLeft: i ? '1px solid var(--color-border)' : 'none' }}>
                   <div className="mono" style={{ fontSize: 10, color: 'var(--color-text-3)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 6 }}>
                     {String(i + 1).padStart(2, '0')}
                   </div>
@@ -462,10 +462,10 @@ export default function WnioskiPage() {
           <div style={{ marginBottom: 40 }}>
             <span className="label-eyebrow">Jak to działa</span>
           </div>
-          <div style={{
+          <div className="grid-4" style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: 24,
+            gap: 'clamp(12px, 2vw, 24px)',
           }}>
             {STEPS.map((s) => (
               <div key={s.n} style={{

@@ -23,7 +23,7 @@ export default function AgentLanding() {
       }}>
         {/* Glow */}
         <div style={{ position: 'absolute', top: '30%', right: '10%', width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(34,160,107,0.12) 0%, transparent 70%)', pointerEvents: 'none' }} />
-        <div style={{ maxWidth: 860, margin: '0 auto', padding: '80px 24px 64px', position: 'relative' }}>
+        <div style={{ maxWidth: 860, margin: '0 auto', padding: 'clamp(48px, 6vw, 80px) 20px clamp(40px, 5vw, 64px)', position: 'relative' }}>
           <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'rgba(142,234,173,0.5)', letterSpacing: '0.04em', marginBottom: 16 }}>
             {'// agent.wezmezadarmo.v1'}
           </div>
@@ -48,7 +48,7 @@ export default function AgentLanding() {
 
       <section style={{ background: 'linear-gradient(160deg, #0a1f14 0%, #0f2e1a 40%, #122d1c 100%)', borderTop: '1px solid rgba(142,234,173,0.1)' }}>
         <div style={{ maxWidth: 860, margin: '0 auto', padding: '56px 24px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(200px, 100%), 1fr))', gap: 16 }}>
             {CECHY.map(({ label, desc, icon }) => (
               <div key={label} style={{
                 background: 'rgba(255,255,255,0.04)',

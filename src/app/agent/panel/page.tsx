@@ -88,7 +88,7 @@ export default function AgentPanel() {
         )}
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 12 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(200px, 100%), 1fr))', gap: 12 }}>
         {QUICK_LINKS.map(({ href, label, desc, icon }) => (
           <Link key={href} href={href} style={{
             display: 'block', textDecoration: 'none',

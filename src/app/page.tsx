@@ -639,7 +639,7 @@ export default function Home() {
 
         {/* Hero -- dark green gradient */}
         <section style={{
-          padding: '72px 0 80px',
+          padding: 'clamp(40px, 6vw, 72px) 0 clamp(48px, 6vw, 80px)',
           position: 'relative', overflow: 'hidden',
           background: `radial-gradient(800px 500px at 80% 20%, rgba(34,160,107,.25), transparent 60%), radial-gradient(600px 400px at 20% 80%, rgba(78,196,138,.18), transparent 60%), var(--green-950)`,
           borderRadius: '0 0 24px 24px',
@@ -647,7 +647,7 @@ export default function Home() {
           {/* Gradient glow */}
           <div style={{ position: 'absolute', top: '20%', left: '60%', width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(34,160,107,0.15) 0%, transparent 70%)', pointerEvents: 'none' }} />
           <div className="wrap" style={{ position: 'relative' }}>
-            <div className="grid-hero" style={{ display: 'grid', gridTemplateColumns: '1.15fr .85fr', gap: 64, alignItems: 'center' }}>
+            <div className="grid-hero" style={{ display: 'grid', gridTemplateColumns: '1.15fr .85fr', gap: 'clamp(24px, 4vw, 64px)', alignItems: 'center' }}>
               {/* Left -- copy */}
               <div className="stack-32">
                 <div className="mono" style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(142,234,173,0.7)' }}>
@@ -753,7 +753,7 @@ export default function Home() {
           <div className="wrap" style={{ position: 'relative' }}>
 
             {/* Form + info section */}
-            <div id="formularz" className="grid-hero" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48, alignItems: 'start', marginBottom: 64 }}>
+            <div id="formularz" className="grid-hero" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'clamp(24px, 4vw, 48px)', alignItems: 'start', marginBottom: 'clamp(32px, 5vw, 64px)' }}>
 
               {/* LEFT: stats + trust */}
               <div>
@@ -954,7 +954,7 @@ export default function Home() {
                 <span className="label-eyebrow">Narzędzia dla firm i JDG</span>
                 <span className="label-eyebrow" style={{ color: 'var(--color-muted-2)' }}>3 moduły</span>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 12 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))', gap: 12 }}>
 
                 {/* Card: Wnioski ZUS */}
                 <a href="/wnioski" className="hover-lift" style={{
@@ -1061,22 +1061,22 @@ export default function Home() {
             </div>
 
             {/* Jak to działa -- 3 steps */}
-            <div className="rise" style={{ marginTop: 96, animationDelay: '475ms' }}>
+            <div className="rise" style={{ marginTop: 'clamp(48px, 7vw, 96px)', animationDelay: '475ms' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
                 <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#c44', flexShrink: 0 }} />
                 <span className="mono" style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-text-3)', fontWeight: 600 }}>Jak to działa</span>
               </div>
-              <h2 style={{ fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 700, letterSpacing: '-0.03em', lineHeight: 1.1, marginBottom: 48, color: 'var(--color-text-1)' }}>
+              <h2 style={{ fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 700, letterSpacing: '-0.03em', lineHeight: 1.1, marginBottom: 'clamp(24px, 4vw, 48px)', color: 'var(--color-text-1)' }}>
                 Trzy kroki. Dwie minuty.<br /><span style={{ color: '#c44' }}>Zero opłat.</span>
               </h2>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 0 }}>
+              <div className="steps-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 0 }}>
                 {[
                   { num: '01', title: 'Podaj minimum danych', desc: 'PESEL (lub wiek + płeć) i opcjonalnie NIP. PESEL dekodowany lokalnie w przeglądarce -- nigdy nie wysyłany na serwer.', iconPath: 'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 5v5l4 2' },
                   { num: '02', title: 'Odpowiedz na 11 pytań', desc: 'Stan cywilny, dzieci, dochód, zatrudnienie, niepełnosprawność, mieszkanie, województwo. Klikasz, nie piszesz.', iconPath: 'M13 2L3 14h9l-1 8 10-12h-9l1-8' },
                   { num: '03', title: 'Dostań spersonalizowaną listę', desc: 'Kwoty, dokumenty, kroki i pułapki. Pobierasz .MD lub PDF. Pytasz asystenta o szczegóły.', iconPath: 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6 M16 13H8 M16 17H8 M10 9H8' },
                 ].map((step, i) => (
                   <div key={step.num} style={{
-                    padding: '0 28px 32px',
+                    padding: '0 clamp(12px, 2vw, 28px) 32px',
                     borderRight: i < 2 ? '1px solid var(--color-border)' : 'none',
                   }}>
                     {/* Progress bar */}
@@ -1134,7 +1134,7 @@ export default function Home() {
                 <span className="label-eyebrow">Co mówią użytkownicy</span>
                 <span style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))', gap: 16 }}>
 
                 {/* Testimonial 1 */}
                 <div style={{
@@ -1477,7 +1477,7 @@ export default function Home() {
         <section style={{ position: 'relative', minHeight: 'calc(100vh - 105px)', display: 'flex', alignItems: 'center' }}>
           <div className="grain-bg" />
           <div className="wrap" style={{ position: 'relative' }}>
-            <div className="grid-hero" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center' }}>
+            <div className="grid-hero" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'clamp(24px, 5vw, 80px)', alignItems: 'center' }}>
 
               {/* LEFT: status */}
               <div>
@@ -1528,8 +1528,8 @@ export default function Home() {
               </div>
 
               {/* RIGHT: ring visualization */}
-              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <div style={{ position: 'relative', width: 360, height: 360 }}>
+              <div className="hide-mobile" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <div style={{ position: 'relative', width: 'min(360px, 100%)', aspectRatio: '1', maxWidth: 360 }}>
                   <svg viewBox="0 0 320 320" style={{ width: '100%', height: '100%', willChange: 'transform' }}>
                     {/* 13-segment ring */}
                     {Array.from({ length: segments }).map((_, i) => {

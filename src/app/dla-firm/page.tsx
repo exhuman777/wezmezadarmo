@@ -106,7 +106,7 @@ export default function DlaFirmPage() {
             źródeł rządowych, dostępnych przez jedno wywołanie API. Twoja aplikacja pyta,
             my odpowiadamy, co danemu użytkownikowi przysługuje i jak to dostać.
           </p>
-          <div className="mt-8 grid gap-3" style={{ gridTemplateColumns: '1fr 1fr', maxWidth: 520 }}>
+          <div className="mt-8 grid gap-3" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(220px, 100%), 1fr))', maxWidth: 520 }}>
             <a href="/automatyzacje" className="block rounded-xl border border-border bg-surface p-4 hover:border-green transition-colors no-underline">
               <div className="flex items-center gap-2.5 mb-2">
                 <span className="w-8 h-8 rounded-full flex items-center justify-center text-[12px] font-mono font-semibold shrink-0" style={{ background: '#0F1F14', color: '#8EEAAD' }}>A</span>
@@ -239,22 +239,24 @@ export default function DlaFirmPage() {
               Wszystkie pola są opcjonalne. Im więcej podasz, tym dokładniejsze dopasowanie.
               Minimalne zapytanie wystarczy z samym <code className="font-mono text-[13px] bg-bg-2 px-1 rounded border border-border text-green">wiek</code> i <code className="font-mono text-[13px] bg-bg-2 px-1 rounded border border-border text-green">plec</code>.
             </p>
-            <div className="border border-border rounded-lg overflow-hidden">
-              <div className="grid grid-cols-[1fr_1fr_2fr] bg-bg-2 border-b border-border px-4 py-2 font-mono text-[10px] tracking-widest uppercase text-text-3">
-                <span>Pole</span>
-                <span>Typ</span>
-                <span>Opis</span>
-              </div>
-              {PROFILE_FIELDS.map((f, i) => (
-                <div
-                  key={f.pole}
-                  className={`grid grid-cols-[1fr_1fr_2fr] px-4 py-2.5 text-[12px] border-b border-border last:border-0 ${i % 2 === 0 ? '' : 'bg-bg-2'}`}
-                >
-                  <code className="font-mono text-green">{f.pole}</code>
-                  <code className="font-mono text-text-3 text-[11px]">{f.typ}</code>
-                  <span className="text-text-2 text-[12px]">{f.opis}</span>
+            <div className="border border-border rounded-lg overflow-x-auto">
+              <div className="min-w-[480px]">
+                <div className="grid grid-cols-[1fr_1fr_2fr] bg-bg-2 border-b border-border px-4 py-2 font-mono text-[10px] tracking-widest uppercase text-text-3">
+                  <span>Pole</span>
+                  <span>Typ</span>
+                  <span>Opis</span>
                 </div>
-              ))}
+                {PROFILE_FIELDS.map((f, i) => (
+                  <div
+                    key={f.pole}
+                    className={`grid grid-cols-[1fr_1fr_2fr] px-4 py-2.5 text-[12px] border-b border-border last:border-0 ${i % 2 === 0 ? '' : 'bg-bg-2'}`}
+                  >
+                    <code className="font-mono text-green">{f.pole}</code>
+                    <code className="font-mono text-text-3 text-[11px]">{f.typ}</code>
+                    <span className="text-text-2 text-[12px]">{f.opis}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </section>
 
@@ -303,7 +305,7 @@ export default function DlaFirmPage() {
               ].map(([para, wartosc], i) => (
                 <div
                   key={para}
-                  className={`grid grid-cols-[1fr_2fr] px-4 py-3 text-[13px] border-b border-border last:border-0 ${i % 2 === 0 ? '' : 'bg-bg-2'}`}
+                  className={`grid sm:grid-cols-[1fr_2fr] px-4 py-3 text-[13px] border-b border-border last:border-0 ${i % 2 === 0 ? '' : 'bg-bg-2'}`}
                 >
                   <span className="text-text-3 font-medium">{para}</span>
                   <span className="text-text-1 font-mono text-[12px]">{wartosc}</span>
