@@ -7,8 +7,8 @@ import { FormChatWidget } from '@/components/FormChatWidget';
 
 // ---- TYPES ----
 
-type RodzajEmerytury = 'zwykla' | 'czescisciowa' | 'pomostowa';
-type FormaZatrudnienia = 'pracownik' | 'przedsiebiorca' | 'rolnik' | 'inne';
+type RodzajEmerytury = 'zwykła' | 'częściowa' | 'pomostowa';
+type FormaZatrudnienia = 'pracownik' | 'przedsiębiorca' | 'rolnik' | 'inne';
 
 interface ErpoData {
   // Wnioskodawca
@@ -18,7 +18,7 @@ interface ErpoData {
   adres: string;
   telefon: string;
   email: string;
-  plec: 'K' | 'M';
+  płeć: 'K' | 'M';
 
   // Emerytura
   rodzajEmerytury: RodzajEmerytury;
@@ -35,7 +35,7 @@ interface ErpoData {
   numerDecyzjiRentowej: string;
 }
 
-type Step = 'wnioskodawca' | 'emerytura' | 'dokumenty' | 'konto' | 'podglad' | 'done';
+type Step = 'wnioskodawca' | 'emerytura' | 'dokumenty' | 'konto' | 'podgląd' | 'done';
 
 const EMPTY: ErpoData = {
   imieNazwisko: '',
@@ -44,8 +44,8 @@ const EMPTY: ErpoData = {
   adres: '',
   telefon: '',
   email: '',
-  plec: 'K',
-  rodzajEmerytury: 'zwykla',
+  płeć: 'K',
+  rodzajEmerytury: 'zwykła',
   dataUrodzenia: '',
   formaZatrudnienia: 'pracownik',
   latPracy: '',
@@ -60,23 +60,23 @@ const STEPS: { key: Step; label: string }[] = [
   { key: 'emerytura', label: 'Rodzaj emerytury' },
   { key: 'dokumenty', label: 'Dokumenty' },
   { key: 'konto', label: 'Konto bankowe' },
-  { key: 'podglad', label: 'Podglad' },
+  { key: 'podgląd', label: 'Podgląd' },
 ];
 
 const RODZAJ_LABELS: Record<RodzajEmerytury, string> = {
-  zwykla: 'Emerytura zwykla (po osiagnieciu wieku emerytalnego)',
-  czescisciowa: 'Emerytura czesciowa (wiek emerytalny - 5 lat i 25/30 lat stazu)',
-  pomostowa: 'Emerytura pomostowa (praca w szczegolnych warunkach)',
+  zwykła: 'Emerytura zwykła (po osiągnięciu wieku emerytalnego)',
+  częściowa: 'Emerytura częściowa (wiek emerytalny - 5 lat i 25/30 lat stażu)',
+  pomostowa: 'Emerytura pomostowa (praca w szczególnych warunkach)',
 };
 
 const FORMA_LABELS: Record<FormaZatrudnienia, string> = {
-  pracownik: 'Pracownik etatowy (umowa o prace)',
-  przedsiebiorca: 'Osoba prowadzaca dzialalnosc gospodarcza',
+  pracownik: 'Pracownik etatowy (umowa o pracę)',
+  przedsiębiorca: 'Osoba prowadząca działalność gospodarczą',
   rolnik: 'Rolnik (ubezpieczony w KRUS)',
   inne: 'Inna forma (zlecenie, domownik, itp.)',
 };
 
-// Minimalny staz skladkowy i nieskładkowy do emerytury
+// Minimalny staż składkowy i nieskładkowy do emerytury
 const MIN_STAZ = { K: 20, M: 25 }; // lata
 const WIEK_EMERYTALNY = { K: 60, M: 65 }; // lata
 
@@ -94,8 +94,8 @@ export default function ZusErpoPage() {
   const stepIdx = STEPS.findIndex(s => s.key === step);
 
   // Check basic eligibility
-  const wiekEmerytalny = WIEK_EMERYTALNY[data.plec];
-  const minStaz = MIN_STAZ[data.plec];
+  const wiekEmerytalny = WIEK_EMERYTALNY[data.płeć];
+  const minStaz = MIN_STAZ[data.płeć];
 
   const downloadPdf = async () => {
     setDownloadingPdf(true);
@@ -114,7 +114,7 @@ export default function ZusErpoPage() {
       a.click();
       URL.revokeObjectURL(url);
     } catch {
-      alert('Blad generowania PDF. Uzyj opcji kopiowania do schowka.');
+      alert('Błąd generowania PDF. Użyj opcji kopiowania do schowka.');
     }
     setDownloadingPdf(false);
   };
@@ -164,9 +164,9 @@ export default function ZusErpoPage() {
         {/* Title */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
           <span className="mono" style={{ fontSize: 11, color: 'var(--color-accent)', background: 'var(--color-accent-soft)', padding: '3px 8px', borderRadius: 6, fontWeight: 500 }}>ERPO</span>
-          <span style={{ fontSize: 12, color: 'var(--color-text-3)' }}>Zaklad Ubezpieczen Spolecznych</span>
+          <span style={{ fontSize: 12, color: 'var(--color-text-3)' }}>Zaklad Ubezpieczeń Spolecznych</span>
         </div>
-        <h1 className="display" style={{ fontSize: 'clamp(26px, 4vw, 38px)', marginBottom: 8 }}>Wniosek o emeryture</h1>
+        <h1 className="display" style={{ fontSize: 'clamp(26px, 4vw, 38px)', marginBottom: 8 }}>Wniosek o emeryturę</h1>
         <p style={{ fontSize: 14, color: 'var(--color-text-3)', marginBottom: 32 }}>Przygotuj dane do wniosku ERPO / Emerytura+</p>
 
         {/* Info block */}
@@ -183,16 +183,16 @@ export default function ZusErpoPage() {
             <div style={{ padding: '10px 14px', background: 'var(--color-bg-0)', border: '1px solid var(--color-border)', borderRadius: 8 }}>
               <div style={{ fontSize: 11, color: 'var(--color-text-3)', marginBottom: 4 }}>Kobiety</div>
               <div style={{ fontSize: 22, fontWeight: 500, color: 'var(--color-accent)' }}>60 lat</div>
-              <div style={{ fontSize: 11, color: 'var(--color-text-3)' }}>min. 20 lat stazu</div>
+              <div style={{ fontSize: 11, color: 'var(--color-text-3)' }}>min. 20 lat stażu</div>
             </div>
             <div style={{ padding: '10px 14px', background: 'var(--color-bg-0)', border: '1px solid var(--color-border)', borderRadius: 8 }}>
-              <div style={{ fontSize: 11, color: 'var(--color-text-3)', marginBottom: 4 }}>Mezczyzni</div>
+              <div style={{ fontSize: 11, color: 'var(--color-text-3)', marginBottom: 4 }}>Mężczyźni</div>
               <div style={{ fontSize: 22, fontWeight: 500, color: 'var(--color-accent)' }}>65 lat</div>
-              <div style={{ fontSize: 11, color: 'var(--color-text-3)' }}>min. 25 lat stazu</div>
+              <div style={{ fontSize: 11, color: 'var(--color-text-3)' }}>min. 25 lat stażu</div>
             </div>
           </div>
-          <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 6, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Jak zlozyc</p>
-          <p>Wniosek ERPO mozna zlozyc przez PUE ZUS (online z profilem zaufanym), osobiscie w oddziale ZUS lub listownie. Najwygodniej przez PUE ZUS -- przetwarza sie szybciej.</p>
+          <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 6, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Jak złożyć</p>
+          <p>Wniosek ERPO można złożyć przez PUE ZUS (online z profilem zaufanym), osobiście w oddziale ZUS lub listownie. Najwygodniej przez PUE ZUS -- przetwarza się szybciej.</p>
         </div>
 
         {/* Step progress bar */}
@@ -211,8 +211,8 @@ export default function ZusErpoPage() {
         {step === 'wnioskodawca' && <StepWnioskodawca data={data} update={update} onNext={() => setStep('emerytura')} />}
         {step === 'emerytura' && <StepEmerytura data={data} update={update} wiekEmerytalny={wiekEmerytalny} minStaz={minStaz} onBack={() => setStep('wnioskodawca')} onNext={() => setStep('dokumenty')} />}
         {step === 'dokumenty' && <StepDokumenty data={data} onBack={() => setStep('emerytura')} onNext={() => setStep('konto')} />}
-        {step === 'konto' && <StepKonto data={data} update={update} onBack={() => setStep('dokumenty')} onNext={() => setStep('podglad')} />}
-        {step === 'podglad' && <StepPodglad data={data} onBack={() => setStep('konto')} onDone={() => setStep('done')} onDownloadPdf={downloadPdf} downloadingPdf={downloadingPdf} onCopy={copyAll} copied={copied} />}
+        {step === 'konto' && <StepKonto data={data} update={update} onBack={() => setStep('dokumenty')} onNext={() => setStep('podgląd')} />}
+        {step === 'podgląd' && <StepPodgląd data={data} onBack={() => setStep('konto')} onDone={() => setStep('done')} onDownloadPdf={downloadPdf} downloadingPdf={downloadingPdf} onCopy={copyAll} copied={copied} />}
         {step === 'done' && <StepDone onDownloadPdf={downloadPdf} downloadingPdf={downloadingPdf} onCopy={copyAll} copied={copied} onRestart={() => { setData(EMPTY); setStep('wnioskodawca'); }} />}
       </div>
       <FormChatWidget formType="zus-erpo" />
@@ -228,19 +228,19 @@ function StepWnioskodawca({ data, update, onNext }: { data: ErpoData; update: (k
     <div>
       <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 24, letterSpacing: '-0.01em' }}>Twoje dane osobowe</h2>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-        <Field label="Imie i nazwisko *">
+        <Field label="Imię i nazwisko *">
           <input className={IC} value={data.imieNazwisko} onChange={e => update('imieNazwisko', e.target.value)} placeholder="Jan Kowalski" />
         </Field>
-        <Field label="Imie ojca">
+        <Field label="Imię ojca">
           <input className={IC} value={data.imieOjca} onChange={e => update('imieOjca', e.target.value)} placeholder="Adam" />
         </Field>
         <Field label="PESEL *" hint="Przesyłany na serwer wyłącznie do wygenerowania PDF, bez zapisu">
           <input className={IC} value={data.pesel} onChange={e => update('pesel', e.target.value)} placeholder="00000000000" maxLength={11} />
         </Field>
-        <Field label="Plec">
-          <select className={IC} value={data.plec} onChange={e => update('plec', e.target.value as 'K' | 'M')}>
+        <Field label="Płeć">
+          <select className={IC} value={data.płeć} onChange={e => update('płeć', e.target.value as 'K' | 'M')}>
             <option value="K">Kobieta</option>
-            <option value="M">Mezczyzna</option>
+            <option value="M">Mężczyzna</option>
           </select>
         </Field>
         <Field label="Adres zamieszkania">
@@ -280,17 +280,17 @@ function StepEmerytura({ data, update, wiekEmerytalny, minStaz, onBack, onNext }
         <Field label="Data urodzenia" hint="DD.MM.RRRR -- do weryfikacji wieku emerytalnego">
           <DateInput className={IC} value={data.dataUrodzenia} onChange={v => update('dataUrodzenia', v)} placeholder="15.03.1964" />
         </Field>
-        <Field label="Glowna forma zatrudnienia przez wiekszosc kariery">
+        <Field label="Główna forma zatrudnienia przez większość kariery">
           <select className={IC} value={data.formaZatrudnienia} onChange={e => update('formaZatrudnienia', e.target.value as FormaZatrudnienia)}>
             {(Object.entries(FORMA_LABELS) as [FormaZatrudnienia, string][]).map(([k, v]) => (
               <option key={k} value={k}>{v}</option>
             ))}
           </select>
         </Field>
-        <Field label="Szacunkowy laczny staz pracy (lata)" hint="Okresy skladkowe i nieskładkowe razem">
+        <Field label="Szacunkowy łączny staz pracy (lata)" hint="Okresy składkowe i nieskładkowe razem">
           <input className={IC} value={data.latPracy} onChange={e => update('latPracy', e.target.value)} placeholder="35" type="number" min="0" max="50" />
         </Field>
-        <Field label="Z czego okresy skladkowe (lata)" hint={`Lata w ktorych oplacane byly skladki na ubezpieczenie emerytalne. Minimum dla Ciebie: ${minStaz} lat.`}>
+        <Field label="Z czego okresy składkowe (lata)" hint={`Lata w których oplacane byly składki na ubezpieczenie emerytalne. Minimum dla Ciebie: ${minStaz} lat.`}>
           <input className={IC} value={data.latSkładkowych} onChange={e => update('latSkładkowych', e.target.value)} placeholder={String(minStaz)} type="number" min="0" max="50" />
         </Field>
 
@@ -303,8 +303,8 @@ function StepEmerytura({ data, update, wiekEmerytalny, minStaz, onBack, onNext }
             color: stazeOK ? 'var(--color-text-1)' : 'var(--color-text-2)',
           }}>
             {stazeOK
-              ? `Staz skladkowy wystarczajacy. Wymagane minimum: ${minStaz} lat. Masz: ${latPracyNum} lat.`
-              : `Uwaga: wymagane minimum to ${minStaz} lat stazu skladkowego. Wpisalas/es ${latPracyNum} lat. Skonsultuj z ZUS -- mozliwa emerytura na innych zasadach.`
+              ? `Staz składkowy wystarczajacy. Wymagane minimum: ${minStaz} lat. Masz: ${latPracyNum} lat.`
+              : `Uwaga: wymagane minimum to ${minStaz} lat stażu składkowego. Wpisałaś/eś ${latPracyNum} lat. Skonsultuj z ZUS -- mozliwa emerytura na innych zasadach.`
             }
           </div>
         )}
@@ -322,8 +322,8 @@ function StepEmerytura({ data, update, wiekEmerytalny, minStaz, onBack, onNext }
         )}
 
         <div style={{ padding: '12px 16px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 8, fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.6 }}>
-          <p style={{ fontWeight: 600, color: 'var(--color-text-2)', marginBottom: 4 }}>Wazne: historia zatrudnienia</p>
-          <p>Wniosek ERPO wymaga podania pelnej historii zatrudnienia (pracodawcy, okresy, rodzaj ubezpieczenia). ZUS posiada dane z systemu od 1999 r. Dla wczesniejszych okresow potrzebne sa swiadectwa pracy z archiwum. Ten kreator pomaga przygotowac dane. Pelna historia jest wymagana na formularzu oryginalnym.</p>
+          <p style={{ fontWeight: 600, color: 'var(--color-text-2)', marginBottom: 4 }}>Ważne: historia zatrudnienia</p>
+          <p>Wniosek ERPO wymaga podania pełnej historii zatrudnienia (pracodawcy, okresy, rodzaj ubezpieczenia). ZUS posiada dane z systemu od 1999 r. Dla wczesniejszych okresow potrzebne sa świadectwa pracy z archiwum. Ten kreator pomaga przygotowac dane. Pelna historia jest wymagana na formularzu oryginalnym.</p>
         </div>
       </div>
       <NavButtons onBack={onBack} onNext={onNext} />
@@ -339,39 +339,39 @@ function StepDokumenty({ data, onBack, onNext }: { data: ErpoData; onBack: () =>
   ].filter(Boolean) as string[];
 
   const DOCS_ZATRUDNIENIE = [
-    'Swiadectwa pracy lub inne dokumenty potwierdzajace okresy zatrudnienia',
-    'Zaswiadczenia o zatrudnieniu i wynagrodzeniu z poszczegolnych lat (ZUS Rp-7) -- potrzebne do obliczenia wysokosci emerytury',
-    'Dokumenty potwierdzajace okresy rownoważne składkowym (urlop wychowawczy, sluzba wojskowa, studia, dla lat sprzed 1999)',
+    'Świadectwa pracy lub inne dokumenty potwierdzające okresy zatrudnienia',
+    'Zaświadczenia o zatrudnieniu i wynagrodzeniu z poszczególnych lat (ZUS Rp-7) -- potrzebne do obliczenia wysokości emerytury',
+    'Dokumenty potwierdzające okresy rownoważne składkowym (urlop wychowawczy, sluzba wojskowa, studia, dla lat sprzed 1999)',
   ];
 
   const DOCS_DODATKOWE: string[] = [];
   if (data.rodzajEmerytury === 'pomostowa') {
-    DOCS_DODATKOWE.push('Zaswiadczenie pracodawcy o pracy w szczegolnych warunkach lub o szczegolnym charakterze (wzor ZUS Rp-6)');
-    DOCS_DODATKOWE.push('Swiadectwo pracy z wymienionym kodem pracy szczegolnej');
+    DOCS_DODATKOWE.push('Zaświadczenie pracodawcy o pracy w szczególnych warunkach lub o szczególnym charakterze (wzór ZUS Rp-6)');
+    DOCS_DODATKOWE.push('Świadectwo pracy z wymienionym kodem pracy szczególnej');
   }
-  if (data.rodzajEmerytury === 'czescisciowa') {
-    DOCS_DODATKOWE.push('Dokumenty potwierdzajace dlugi staz pracy: min. 35 lat dla kobiet lub 40 lat dla mezczyzn');
+  if (data.rodzajEmerytury === 'częściowa') {
+    DOCS_DODATKOWE.push('Dokumenty potwierdzające dlugi staz pracy: min. 35 lat dla kobiet lub 40 lat dla mezczyzn');
   }
 
   return (
     <div>
       <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 8, letterSpacing: '-0.01em' }}>Potrzebne dokumenty</h2>
-      <p style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 24 }}>Przygotuj ponizsze dokumenty przed zlozeniem wniosku ERPO.</p>
+      <p style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 24 }}>Przygotuj poniższe dokumenty przed złożeniem wniosku ERPO.</p>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         <DocSection title="Dokumenty podstawowe" docs={DOCS_PODSTAWOWE} />
         <DocSection title="Historia zatrudnienia" docs={DOCS_ZATRUDNIENIE} />
         {DOCS_DODATKOWE.length > 0 && (
-          <DocSection title={`Dodatkowe -- ${data.rodzajEmerytury === 'pomostowa' ? 'emerytura pomostowa' : 'emerytura czesciowa'}`} docs={DOCS_DODATKOWE} />
+          <DocSection title={`Dodatkowe -- ${data.rodzajEmerytury === 'pomostowa' ? 'emerytura pomostowa' : 'emerytura częściowa'}`} docs={DOCS_DODATKOWE} />
         )}
 
         <div style={{ padding: '16px 20px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 10, fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.65 }}>
           <p style={{ fontWeight: 600, color: 'var(--color-text-2)', marginBottom: 8 }}>Archiwum dokumentow</p>
-          <p style={{ marginBottom: 8 }}>Jesli pracodawca nie istnieje lub dokumenty zagin¨ly:</p>
+          <p style={{ marginBottom: 8 }}>Jeśli pracodawca nie istnieje lub dokumenty zaginęły:</p>
           <ul style={{ paddingLeft: 18, margin: 0, display: 'flex', flexDirection: 'column', gap: 4 }}>
             <li>ZUS posiada dane od 1999 r. automatycznie</li>
             <li>Dla lat wcześniejszych: Archiwum Państwowe lub Krajowe Centrum Informacji Kryminalnej</li>
-            <li>ZETO / COIG dla danych z lat 80-90 z duzych zakladow pracy</li>
+            <li>ZETO / COIG dla danych z lat 80-90 z duzych zakładów pracy</li>
             <li>Świadkowie pracy: możliwe poświadczenie zeznaniami (wymagane wnioskowanie do ZUS)</li>
           </ul>
         </div>
@@ -408,28 +408,28 @@ function StepKonto({ data, update, onBack, onNext }: { data: ErpoData; update: (
   return (
     <div>
       <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 8, letterSpacing: '-0.01em' }}>Konto bankowe</h2>
-      <p style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 24 }}>ZUS bedzie wyplacac emeryture na ten rachunek.</p>
+      <p style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 24 }}>ZUS będzie wypłacac emeryturę na ten rachunek.</p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         <Field label="Numer rachunku bankowego" hint="Format: PL00 0000 0000 0000 0000 0000 0000">
           <input className={IC} value={data.nrKonta} onChange={e => update('nrKonta', e.target.value)} placeholder="PL00 0000 0000 0000 0000 0000 0000" />
         </Field>
         <div style={{ padding: '12px 16px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 8, fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.6 }}>
-          Jesli nie masz konta lub nie chcesz podawac, ZUS wyplaci emeryture na poczcie. Podanie konta bankowego przyspiesza wyplate i eliminuje ryzyko zaginiocia przekazu.
+          Jeśli nie masz konta lub nie chcesz podawac, ZUS wypłaci emeryturę na poczcie. Podanie konta bankowego przyspiesza wypłatę i eliminuje ryzyko zaginiocia przekazu.
         </div>
       </div>
-      <NavButtons onBack={onBack} onNext={onNext} nextLabel="Podglad" />
+      <NavButtons onBack={onBack} onNext={onNext} nextLabel="Podgląd" />
     </div>
   );
 }
 
-function StepPodglad({ data, onBack, onDone, onDownloadPdf, downloadingPdf, onCopy, copied }: {
+function StepPodgląd({ data, onBack, onDone, onDownloadPdf, downloadingPdf, onCopy, copied }: {
   data: ErpoData; onBack: () => void; onDone: () => void;
   onDownloadPdf: () => void; downloadingPdf: boolean;
   onCopy: () => void; copied: boolean;
 }) {
   return (
     <div>
-      <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 24, letterSpacing: '-0.01em' }}>Podglad danych do wniosku ERPO</h2>
+      <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 24, letterSpacing: '-0.01em' }}>Podgląd danych do wniosku ERPO</h2>
       <div className="mono" style={{
         background: 'var(--color-bg-1)', border: '1px solid var(--color-border)',
         borderRadius: 10, padding: '20px 24px',
@@ -459,13 +459,13 @@ function StepPodglad({ data, onBack, onDone, onDownloadPdf, downloadingPdf, onCo
         borderRadius: 10, fontSize: 13, color: 'var(--color-text-2)',
         boxShadow: 'var(--shadow-1)',
       }}>
-        <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 12, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Jak zlozyc wniosek ERPO</p>
+        <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 12, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Jak złożyć wniosek ERPO</p>
         <ol style={{ paddingLeft: 20, margin: 0, display: 'flex', flexDirection: 'column', gap: 8, lineHeight: 1.65 }}>
-          <li><strong style={{ color: 'var(--color-text-1)' }}>Online (najszybciej):</strong> Zaloguj sie do <a href="https://www.zus.pl/pue" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)' }}>PUE ZUS</a> profilem zaufanym. Wniosek ERPO dostepny w sekcji "Emerytury i renty"</li>
-          <li><strong style={{ color: 'var(--color-text-1)' }}>Osobiscie:</strong> W kazdym oddziale ZUS. Mozesz umowic wizyte online lub przyjsc bez kolejki w wyznaczonych godzinach.</li>
-          <li><strong style={{ color: 'var(--color-text-1)' }}>Pocztą:</strong> Na adres oddzialu ZUS wlasciwego dla miejsca zamieszkania. Zachowaj potwierdzenie nadania.</li>
-          <li>ZUS wyda decyzje w ciagu 30 dni od zlozenia kompletnego wniosku.</li>
-          <li>Emerytura przysluguje od miesiqca zlozenia wniosku (nie wstecznie) -- nie zwlekaj z wnioskiem po osiagnieciu wieku emerytalnego.</li>
+          <li><strong style={{ color: 'var(--color-text-1)' }}>Online (najszybciej):</strong> Zaloguj się do <a href="https://www.zus.pl/pue" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)' }}>PUE ZUS</a> profilem zaufanym. Wniosek ERPO dostępny w sekcji "Emerytury i renty"</li>
+          <li><strong style={{ color: 'var(--color-text-1)' }}>Osobiście:</strong> W kazdym oddziale ZUS. Możesz umowic wizyte online lub przyjsc bez kolejki w wyznaczonych godzinach.</li>
+          <li><strong style={{ color: 'var(--color-text-1)' }}>Pocztą:</strong> Na adres oddziału ZUS właściwego dla miejsca zamieszkania. Zachowaj potwierdzenie nadania.</li>
+          <li>ZUS wyda decyzje w ciagu 30 dni od złożenia kompletnego wniosku.</li>
+          <li>Emerytura przysługuje od miesiąca złożenia wniosku (nie wstecznie) -- nie zwlekaj z wnioskiem po osiągnięciu wieku emerytalnego.</li>
         </ol>
       </div>
 
@@ -483,7 +483,7 @@ function StepDone({ onDownloadPdf, downloadingPdf, onCopy, copied, onRestart }: 
       <span className="label-eyebrow" style={{ display: 'block', marginBottom: 12 }}>Gotowe</span>
       <h2 style={{ fontSize: 28, fontWeight: 500, letterSpacing: '-0.02em', color: 'var(--color-text-1)', marginBottom: 12 }}>Dane do wniosku ERPO przygotowane</h2>
       <p style={{ fontSize: 14, color: 'var(--color-text-2)', marginBottom: 32, lineHeight: 1.7 }}>
-        PDF zawiera Twoje dane i wskazowki. Uzupelnij pelny formularz ERPO przez PUE ZUS lub w oddziale ZUS.
+        PDF zawiera Twoje dane i wskazowki. Uzupełnij pełny formularz ERPO przez PUE ZUS lub w oddziale ZUS.
       </p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 32 }}>
         <button
@@ -504,11 +504,11 @@ function StepDone({ onDownloadPdf, downloadingPdf, onCopy, copied, onRestart }: 
           className="btn"
           style={{ width: '100%', height: 44, borderRadius: 10, fontSize: 13, color: 'var(--color-accent)', border: '1px solid var(--color-accent)', justifyContent: 'center' }}
         >
-          Zloz wniosek przez PUE ZUS
+          Złóż wniosek przez PUE ZUS
         </a>
       </div>
       <button onClick={onRestart} style={{ fontSize: 13, color: 'var(--color-text-3)', background: 'none', border: 'none', cursor: 'pointer' }}>
-        Wypelnij ponownie
+        Wypełnij ponownie
       </button>
     </div>
   );
@@ -527,20 +527,20 @@ Przygotowane przez kreator wezmezadarmo.com
 ========================================
 
 DANE WNIOSKODAWCY
-Imie i nazwisko: ${d.imieNazwisko}
-Imie ojca: ${d.imieOjca}
+Imię i nazwisko: ${d.imieNazwisko}
+Imię ojca: ${d.imieOjca}
 PESEL: ${d.pesel}
-Plec: ${d.plec === 'K' ? 'Kobieta' : 'Mezczyzna'}
+Płeć: ${d.płeć === 'K' ? 'Kobieta' : 'Mężczyzna'}
 Data urodzenia: ${d.dataUrodzenia}
 Adres zamieszkania: ${d.adres}
 Telefon: ${d.telefon}
 Email: ${d.email}
 
 SZCZEGOLY EMERYTURY
-Rodzaj swiadczenia: ${rodzajLabel}
-Glowna forma zatrudnienia: ${formaLabel}
+Rodzaj świadczenia: ${rodzajLabel}
+Główna forma zatrudnienia: ${formaLabel}
 Laczny staz pracy (szacunek): ${d.latPracy} lat
-W tym okresy skladkowe: ${d.latSkładkowych} lat
+W tym okresy składkowe: ${d.latSkładkowych} lat
 ${d.pobieraRente === 'tak' ? `Aktualnie pobierana renta: TAK\nNumer decyzji rentowej: ${d.numerDecyzjiRentowej}` : 'Aktualnie pobierana renta: NIE'}
 
 WYPLATA SWIADCZENIA
@@ -549,18 +549,18 @@ Numer rachunku bankowego: ${d.nrKonta || '(nie podano - wypłata przekazem poczt
 ========================================
 
 UWAGA: To sa dane przygotowawcze.
-Pelny wniosek ERPO nalezy wypelnic w systemie PUE ZUS lub na formularzu papierowym
-dostepnym w oddziale ZUS. Wymagane jest podanie pelnej historii zatrudnienia
-z datami i nazwami pracodawcow.
+Pelny wniosek ERPO należy wypełnić w systemie PUE ZUS lub na formularzu papierowym
+dostępnym w oddziale ZUS. Wymagane jest podanie pełnej historii zatrudnienia
+z datami i nazwami pracodawców.
 
 INSTRUKCJA ZLOZENIA:
-1. Zaloguj sie do PUE ZUS: https://www.zus.pl/pue
-2. Wybierz: "Emerytury i renty" -> "Wniosek o emeryture (ERPO)"
-3. Uzupelnij formularz korzystajac z powyzszych danych
-4. Dolacz dokumenty potwierdzajace historie zatrudnienia
-5. Podpisz profilem zaufanym i wyslij
+1. Zaloguj się do PUE ZUS: https://www.zus.pl/pue
+2. Wybierz: "Emerytury i renty" -> "Wniosek o emeryturę (ERPO)"
+3. Uzupełnij formularz korzystając z powyższych danych
+4. Dołącz dokumenty potwierdzające historie zatrudnienia
+5. Podpisz profilem zaufanym i wyślij
 
-Alternatywnie: osobiscie w oddziale ZUS lub listem poleconym.
+Alternatywnie: osobiście w oddziale ZUS lub listem poleconym.
 
 Wygenerowano przez: wezmezadarmo.com/wnioski/zus-erpo
 `;

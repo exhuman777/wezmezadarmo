@@ -7,7 +7,7 @@ import { FormChatWidget } from '@/components/FormChatWidget';
 
 // ---- TYPES ----
 
-type KtoUdziela = 'wlasne' | 'firma' | 'podmiot';
+type KtoUdziela = 'własne' | 'firma' | 'podmiot';
 type ZakresPelnomocnictwa = 'wszystkie' | 'pit' | 'konkretna' | 'ezus';
 
 interface PelData {
@@ -19,12 +19,12 @@ interface PelData {
   nrDomu: string;
   nrLokalu: string;
   kodPocztowy: string;
-  miejscowosc: string;
+  miejscowość: string;
   telefon: string;
   ktoUdziela: KtoUdziela;
-  nipFirmy: string; // jesli firma
+  nipFirmy: string; // jeśli firma
 
-  // Pelnomocnik
+  // Pełnomocnik
   imiePeln: string;
   nazwiskoPeln: string;
   peselPeln: string;
@@ -32,7 +32,7 @@ interface PelData {
   nrDomuPeln: string;
   nrLokoluPeln: string;
   kodPocztowyPeln: string;
-  miejscowoscPeln: string;
+  miejscowośćPeln: string;
   telefonPeln: string;
 
   // Zakres
@@ -40,31 +40,31 @@ interface PelData {
   konkretnaCzynnosc: string;
   rolEzusUbezpieczony: boolean;
   rolEzusSwiadzeniobiorca: boolean;
-  rolEzusPlatnik: boolean;
+  rolEzusPłatnik: boolean;
 
   // Daty
   dataOd: string;
   dataDo: string;
 }
 
-type Step = 'mocodawca' | 'pelnomocnik' | 'zakres' | 'podglad' | 'done';
+type Step = 'mocodawca' | 'pełnomocnik' | 'zakres' | 'podgląd' | 'done';
 
 const EMPTY: PelData = {
   imie: '', nazwisko: '', pesel: '',
-  ulica: '', nrDomu: '', nrLokalu: '', kodPocztowy: '', miejscowosc: '', telefon: '',
-  ktoUdziela: 'wlasne', nipFirmy: '',
+  ulica: '', nrDomu: '', nrLokalu: '', kodPocztowy: '', miejscowość: '', telefon: '',
+  ktoUdziela: 'własne', nipFirmy: '',
   imiePeln: '', nazwiskoPeln: '', peselPeln: '',
-  ulicaPeln: '', nrDomuPeln: '', nrLokoluPeln: '', kodPocztowyPeln: '', miejscowoscPeln: '', telefonPeln: '',
+  ulicaPeln: '', nrDomuPeln: '', nrLokoluPeln: '', kodPocztowyPeln: '', miejscowośćPeln: '', telefonPeln: '',
   zakres: 'wszystkie', konkretnaCzynnosc: '',
-  rolEzusUbezpieczony: false, rolEzusSwiadzeniobiorca: false, rolEzusPlatnik: false,
+  rolEzusUbezpieczony: false, rolEzusSwiadzeniobiorca: false, rolEzusPłatnik: false,
   dataOd: '', dataDo: '',
 };
 
 const STEPS: { key: Step; label: string }[] = [
   { key: 'mocodawca', label: 'Twoje dane' },
-  { key: 'pelnomocnik', label: 'Pelnomocnik' },
+  { key: 'pełnomocnik', label: 'Pełnomocnik' },
   { key: 'zakres', label: 'Zakres' },
-  { key: 'podglad', label: 'Podglad' },
+  { key: 'podgląd', label: 'Podgląd' },
 ];
 
 // ---- COMPONENT ----
@@ -132,16 +132,16 @@ export default function ZusPelPage() {
       <div style={{ maxWidth: 600, margin: '0 auto', padding: '48px 24px 80px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
           <span className="mono" style={{ fontSize: 11, color: 'var(--color-accent)', background: 'var(--color-accent-soft)', padding: '3px 8px', borderRadius: 6, fontWeight: 500 }}>PEL</span>
-          <span style={{ fontSize: 12, color: 'var(--color-text-3)' }}>Zaklad Ubezpieczen Spolecznych</span>
+          <span style={{ fontSize: 12, color: 'var(--color-text-3)' }}>Zakład Ubezpieczeń Społecznych</span>
         </div>
-        <h1 className="display" style={{ fontSize: 'clamp(26px, 4vw, 38px)', marginBottom: 8 }}>Pelnomocnictwo</h1>
-        <p style={{ fontSize: 14, color: 'var(--color-text-3)', marginBottom: 32 }}>Upowaz wybrania przez Ciebie osobe do zalatwienia spraw w ZUS w Twoim imieniu</p>
+        <h1 className="display" style={{ fontSize: 'clamp(26px, 4vw, 38px)', marginBottom: 8 }}>Pełnomocnictwo</h1>
+        <p style={{ fontSize: 14, color: 'var(--color-text-3)', marginBottom: 32 }}>Upoważnij wybraną przez Ciebie osobę do załatwienia spraw w ZUS w Twoim imieniu</p>
 
         <div style={{ marginBottom: 32, padding: '20px 24px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 12, fontSize: 13, color: 'var(--color-text-2)', lineHeight: 1.7, boxShadow: 'var(--shadow-1)' }}>
           <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 6, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Kiedy potrzebne</p>
-          <p style={{ marginBottom: 12 }}>Gdy chcesz upowaznic malzonka, dzieci, prawnika lub ksiegowego do: skladania wnioskow w ZUS w Twoim imieniu, odbierania korespondencji, korzystania z portalu eZUS.</p>
-          <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 6, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Jak zlozyc</p>
-          <p>Osobiscie w oddziale ZUS (wymagany podpis wlasnorecznie), pocztą lub przez <a href="https://www.zus.pl/ezus/logowanie?jezyk=pl" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)' }}>portal eZUS</a> z profilem zaufanym. Zakresu PEL nie obejmuje kontroli ZUS (do tego sluzy PEL-K).</p>
+          <p style={{ marginBottom: 12 }}>Gdy chcesz upoważnić małżonka, dzieci, prawnika lub księgowego do: składania wniosków w ZUS w Twoim imieniu, odbierania korespondencji, korzystania z portalu eZUS.</p>
+          <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 6, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Jak złożyć</p>
+          <p>Osobiście w oddziale ZUS (wymagany podpis własnoręcznie), pocztą lub przez <a href="https://www.zus.pl/ezus/logowanie?jezyk=pl" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)' }}>portal eZUS</a> z profilem zaufanym. Zakres PEL nie obejmuje kontroli ZUS (do tego służy PEL-K).</p>
         </div>
 
         {step !== 'done' && (
@@ -156,10 +156,10 @@ export default function ZusPelPage() {
           </div>
         )}
 
-        {step === 'mocodawca' && <StepMocodawca data={data} update={update} onNext={() => setStep('pelnomocnik')} />}
-        {step === 'pelnomocnik' && <StepPelnomocnik data={data} update={update} onBack={() => setStep('mocodawca')} onNext={() => setStep('zakres')} />}
-        {step === 'zakres' && <StepZakres data={data} update={update} onBack={() => setStep('pelnomocnik')} onNext={() => setStep('podglad')} />}
-        {step === 'podglad' && <StepPodglad data={data} onBack={() => setStep('zakres')} onDone={() => setStep('done')} onDownload={downloadTxt} onCopy={copyAll} copied={copied} />}
+        {step === 'mocodawca' && <StepMocodawca data={data} update={update} onNext={() => setStep('pełnomocnik')} />}
+        {step === 'pełnomocnik' && <StepPełnomocnik data={data} update={update} onBack={() => setStep('mocodawca')} onNext={() => setStep('zakres')} />}
+        {step === 'zakres' && <StepZakres data={data} update={update} onBack={() => setStep('pełnomocnik')} onNext={() => setStep('podgląd')} />}
+        {step === 'podgląd' && <StepPodgląd data={data} onBack={() => setStep('zakres')} onDone={() => setStep('done')} onDownload={downloadTxt} onCopy={copyAll} copied={copied} />}
         {step === 'done' && <StepDone onDownload={downloadTxt} onCopy={copyAll} copied={copied} onRestart={() => { setData(EMPTY); setStep('mocodawca'); }} />}
       </div>
       <FormChatWidget formType="zus-pel" />
@@ -173,10 +173,10 @@ function StepMocodawca({ data, update, onNext }: { data: PelData; update: (k: ke
   const valid = data.imie.trim().length > 0 && data.nazwisko.trim().length > 0 && data.pesel.trim().length === 11;
   return (
     <div>
-      <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 24, letterSpacing: '-0.01em' }}>Dane osoby udzielajacej pelnomocnictwa</h2>
+      <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 24, letterSpacing: '-0.01em' }}>Dane osoby udzielającej pełnomocnictwa</h2>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-          <Field label="Imie *"><input className={IC} value={data.imie} onChange={e => update('imie', e.target.value)} placeholder="Jan" /></Field>
+          <Field label="Imię *"><input className={IC} value={data.imie} onChange={e => update('imie', e.target.value)} placeholder="Jan" /></Field>
           <Field label="Nazwisko *"><input className={IC} value={data.nazwisko} onChange={e => update('nazwisko', e.target.value)} placeholder="Kowalski" /></Field>
         </div>
         <Field label="PESEL *" hint="Przesyłany na serwer wyłącznie do wygenerowania PDF, bez zapisu">
@@ -189,16 +189,16 @@ function StepMocodawca({ data, update, onNext }: { data: PelData; update: (k: ke
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 12 }}>
           <Field label="Kod pocztowy"><input className={IC} style={{ width: 100 }} value={data.kodPocztowy} onChange={e => update('kodPocztowy', e.target.value)} placeholder="00-001" maxLength={6} /></Field>
-          <Field label="Miejscowosc"><input className={IC} value={data.miejscowosc} onChange={e => update('miejscowosc', e.target.value)} placeholder="Warszawa" /></Field>
+          <Field label="Miejscowość"><input className={IC} value={data.miejscowość} onChange={e => update('miejscowość', e.target.value)} placeholder="Warszawa" /></Field>
         </div>
         <Field label="Telefon" hint="Opcjonalnie"><input className={IC} value={data.telefon} onChange={e => update('telefon', e.target.value)} placeholder="+48 600 000 000" /></Field>
 
         <div>
-          <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 8 }}>Dzialasz w imieniu:</label>
+          <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 8 }}>Działasz w imieniu:</label>
           {[
-            { v: 'wlasne', label: 'Wlasnym (jako ubezpieczony, emeryt, rencista)' },
-            { v: 'firma', label: 'Swojej firmy (jako przedsiebiorca lub komornik)' },
-            { v: 'podmiot', label: 'Innego podmiotu (spolka, instytucja)' },
+            { v: 'własne', label: 'Własnym (jako ubezpieczony, emeryt, rencista)' },
+            { v: 'firma', label: 'Swojej firmy (jako przedsiębiorca lub komornik)' },
+            { v: 'podmiot', label: 'Innego podmiotu (spółka, instytucja)' },
           ].map(opt => (
             <label key={opt.v} style={{
               display: 'flex', gap: 10, alignItems: 'center', marginBottom: 8,
@@ -223,18 +223,18 @@ function StepMocodawca({ data, update, onNext }: { data: PelData; update: (k: ke
   );
 }
 
-function StepPelnomocnik({ data, update, onBack, onNext }: { data: PelData; update: (k: keyof PelData, v: string | boolean) => void; onBack: () => void; onNext: () => void }) {
+function StepPełnomocnik({ data, update, onBack, onNext }: { data: PelData; update: (k: keyof PelData, v: string | boolean) => void; onBack: () => void; onNext: () => void }) {
   const valid = data.imiePeln.trim().length > 0 && data.nazwiskoPeln.trim().length > 0;
   return (
     <div>
-      <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 8, letterSpacing: '-0.01em' }}>Dane pelnomocnika</h2>
-      <p style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 24 }}>Osoba, ktora bedzie zalatwiac sprawy w ZUS w Twoim imieniu.</p>
+      <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 8, letterSpacing: '-0.01em' }}>Dane pełnomocnika</h2>
+      <p style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 24 }}>Osoba, która będzie załatwiać sprawy w ZUS w Twoim imieniu.</p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-          <Field label="Imie *"><input className={IC} value={data.imiePeln} onChange={e => update('imiePeln', e.target.value)} placeholder="Anna" /></Field>
+          <Field label="Imię *"><input className={IC} value={data.imiePeln} onChange={e => update('imiePeln', e.target.value)} placeholder="Anna" /></Field>
           <Field label="Nazwisko *"><input className={IC} value={data.nazwiskoPeln} onChange={e => update('nazwiskoPeln', e.target.value)} placeholder="Kowalska" /></Field>
         </div>
-        <Field label="PESEL pelnomocnika" hint="Jesli posiada PESEL">
+        <Field label="PESEL pełnomocnika" hint="Jeśli posiada PESEL">
           <input className={IC} value={data.peselPeln} onChange={e => update('peselPeln', e.target.value)} placeholder="00000000000" maxLength={11} />
         </Field>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr auto auto', gap: 10 }}>
@@ -244,9 +244,9 @@ function StepPelnomocnik({ data, update, onBack, onNext }: { data: PelData; upda
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 12 }}>
           <Field label="Kod pocztowy"><input className={IC} style={{ width: 100 }} value={data.kodPocztowyPeln} onChange={e => update('kodPocztowyPeln', e.target.value)} placeholder="00-001" maxLength={6} /></Field>
-          <Field label="Miejscowosc"><input className={IC} value={data.miejscowoscPeln} onChange={e => update('miejscowoscPeln', e.target.value)} placeholder="Warszawa" /></Field>
+          <Field label="Miejscowość"><input className={IC} value={data.miejscowośćPeln} onChange={e => update('miejscowośćPeln', e.target.value)} placeholder="Warszawa" /></Field>
         </div>
-        <Field label="Telefon pelnomocnika" hint="Opcjonalnie">
+        <Field label="Telefon pełnomocnika" hint="Opcjonalnie">
           <input className={IC} value={data.telefonPeln} onChange={e => update('telefonPeln', e.target.value)} placeholder="+48 500 000 000" />
         </Field>
       </div>
@@ -258,16 +258,16 @@ function StepPelnomocnik({ data, update, onBack, onNext }: { data: PelData; upda
 function StepZakres({ data, update, onBack, onNext }: { data: PelData; update: (k: keyof PelData, v: string | boolean) => void; onBack: () => void; onNext: () => void }) {
   return (
     <div>
-      <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 8, letterSpacing: '-0.01em' }}>Zakres pelnomocnictwa</h2>
-      <p style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 24 }}>Wybierz co pelnomocnik bedzie mogl robic w ZUS w Twoim imieniu.</p>
+      <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 8, letterSpacing: '-0.01em' }}>Zakres pełnomocnictwa</h2>
+      <p style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 24 }}>Wybierz co pełnomocnik będzie mógł robić w ZUS w Twoim imieniu.</p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
 
         <div>
-          <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 8 }}>Udzielam pelnomocnictwa:</label>
+          <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 8 }}>Udzielam pełnomocnictwa:</label>
           {[
-            { v: 'wszystkie', label: 'Do zalatwienia wszystkich moich spraw w ZUS (pelny zakres)' },
+            { v: 'wszystkie', label: 'Do zalatwienia wszystkich moich spraw w ZUS (pełny zakres)' },
             { v: 'pit', label: 'Do otrzymywania deklaracji PIT z ZUS' },
-            { v: 'konkretna', label: 'Do wykonania konkretnej czynnosci / zalatwienia sprawy' },
+            { v: 'konkretna', label: 'Do wykonania konkretnej czynności / zalatwienia sprawy' },
             { v: 'ezus', label: 'Do zalatwiana spraw przez portal eZUS' },
           ].map(opt => (
             <label key={opt.v} style={{
@@ -284,8 +284,8 @@ function StepZakres({ data, update, onBack, onNext }: { data: PelData; update: (
         </div>
 
         {data.zakres === 'konkretna' && (
-          <Field label="Czego dotyczy pelnomocnictwo" hint='Np. "wyplaty zasilku macierzynskiego" lub "zlozycia wniosku o emeryture ERPO"'>
-            <textarea className={IC} style={{ minHeight: 70, resize: 'none' }} value={data.konkretnaCzynnosc} onChange={e => update('konkretnaCzynnosc', e.target.value)} placeholder="Zlozenia wniosku o zasilek chorobowy ZAS-53" />
+          <Field label="Czego dotyczy pełnomocnictwo" hint='Np. "wypłaty zasiłku macierzyńskiego" lub "złożyćia wniosku o emeryturę ERPO"'>
+            <textarea className={IC} style={{ minHeight: 70, resize: 'none' }} value={data.konkretnaCzynnosc} onChange={e => update('konkretnaCzynnosc', e.target.value)} placeholder="Zlozenia wniosku o zasiłek chorobowy ZAS-53" />
           </Field>
         )}
 
@@ -295,7 +295,7 @@ function StepZakres({ data, update, onBack, onNext }: { data: PelData; update: (
             {[
               { key: 'rolEzusUbezpieczony', label: 'Ubezpieczony: stan konta, zgłoszenia, składki, zwolnienia' },
               { key: 'rolEzusSwiadzeniobiorca', label: 'Świadczeniobiorca: emerytury, renty, zasiłki, PIT' },
-              { key: 'rolEzusPlatnik', label: 'Płatnik składek: rozliczenia, zgłoszenia do ubezpieczen, ePłatnik' },
+              { key: 'rolEzusPłatnik', label: 'Płatnik składek: rozliczenia, zgłoszenia do ubezpieczeń, ePłatnik' },
             ].map(item => (
               <label key={item.key} style={{
                 display: 'flex', gap: 10, alignItems: 'center',
@@ -312,30 +312,30 @@ function StepZakres({ data, update, onBack, onNext }: { data: PelData; update: (
         )}
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-          <Field label="Pelnomocnictwo od" hint="DD.MM.RRRR (jesli puste: od dnia doreczenia do ZUS)">
+          <Field label="Pełnomocnictwo od" hint="DD.MM.RRRR (jeśli puste: od dnia doręczenia do ZUS)">
             <DateInput className={IC} value={data.dataOd} onChange={v => update('dataOd', v)} placeholder="17.05.2026" />
           </Field>
-          <Field label="Pelnomocnictwo do" hint="DD.MM.RRRR (jesli puste: bezterminowe)">
+          <Field label="Pełnomocnictwo do" hint="DD.MM.RRRR (jeśli puste: bezterminowe)">
             <DateInput className={IC} value={data.dataDo} onChange={v => update('dataDo', v)} placeholder="31.12.2026" />
           </Field>
         </div>
 
         <div style={{ padding: '12px 16px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 8, fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.6 }}>
-          Pelnomocnictwo wymaga wlasnoreczcznego podpisu mocodawcy. Musi byc zlozone osobiscie w ZUS lub przeslanego pocztą z podpisem. Mozna tez udzielic pelnomocnictwa przez portal eZUS z profilem zaufanym.
+          Pełnomocnictwo wymaga wlasnoreczcznego podpisu mocodawcy. Musi być zlozone osobiście w ZUS lub przeslanego pocztą z podpisem. Mozna też udzielic pełnomocnictwa przez portal eZUS z profilem zaufanym.
         </div>
       </div>
-      <NavButtons onBack={onBack} onNext={onNext} nextLabel="Podglad" />
+      <NavButtons onBack={onBack} onNext={onNext} nextLabel="Podgląd" />
     </div>
   );
 }
 
-function StepPodglad({ data, onBack, onDone, onDownload, onCopy, copied }: {
+function StepPodgląd({ data, onBack, onDone, onDownload, onCopy, copied }: {
   data: PelData; onBack: () => void; onDone: () => void;
   onDownload: () => void; onCopy: () => void; copied: boolean;
 }) {
   return (
     <div>
-      <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 24, letterSpacing: '-0.01em' }}>Podglad pelnomocnictwa PEL</h2>
+      <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 24, letterSpacing: '-0.01em' }}>Podgląd pełnomocnictwa PEL</h2>
       <div className="mono" style={{
         background: 'var(--color-bg-1)', border: '1px solid var(--color-border)',
         borderRadius: 10, padding: '20px 24px', fontSize: 12, color: 'var(--color-text-2)',
@@ -351,12 +351,12 @@ function StepPodglad({ data, onBack, onDone, onDownload, onCopy, copied }: {
         </button>
       </div>
       <div style={{ marginTop: 24, padding: '20px 24px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 10, fontSize: 13, color: 'var(--color-text-2)', boxShadow: 'var(--shadow-1)' }}>
-        <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 12, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Jak zlozyc PEL</p>
+        <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 12, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Jak złożyć PEL</p>
         <ol style={{ paddingLeft: 20, margin: 0, display: 'flex', flexDirection: 'column', gap: 8, lineHeight: 1.65 }}>
           <li>Pobierz oryginalny formularz PEL: <a href="https://www.zus.pl/wzory-formularzy" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)' }}>zus.pl/wzory-formularzy</a></li>
-          <li>Wypelnij i podpisz wlasnorecznie (wymagany oryginalny podpis)</li>
-          <li>Zloz osobiscie w oddziale ZUS lub wyslij pocztą</li>
-          <li>Lub udziel pelnomocnictwa przez <a href="https://www.zus.pl/ezus/logowanie?jezyk=pl" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)' }}>portal eZUS</a> z profilem zaufanym</li>
+          <li>Wypełnij i podpisz własnoręcznie (wymagany oryginalny podpis)</li>
+          <li>Złóż osobiście w oddziale ZUS lub wyślij pocztą</li>
+          <li>Lub udziel pełnomocnictwa przez <a href="https://www.zus.pl/ezus/logowanie?jezyk=pl" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)' }}>portal eZUS</a> z profilem zaufanym</li>
         </ol>
       </div>
       <NavButtons onBack={onBack} onNext={onDone} nextLabel="Gotowe" />
@@ -368,9 +368,9 @@ function StepDone({ onDownload, onCopy, copied, onRestart }: { onDownload: () =>
   return (
     <div>
       <span className="label-eyebrow" style={{ display: 'block', marginBottom: 12 }}>Gotowe</span>
-      <h2 style={{ fontSize: 28, fontWeight: 500, letterSpacing: '-0.02em', color: 'var(--color-text-1)', marginBottom: 12 }}>Pelnomocnictwo przygotowane</h2>
+      <h2 style={{ fontSize: 28, fontWeight: 500, letterSpacing: '-0.02em', color: 'var(--color-text-1)', marginBottom: 12 }}>Pełnomocnictwo przygotowane</h2>
       <p style={{ fontSize: 14, color: 'var(--color-text-2)', marginBottom: 32, lineHeight: 1.7 }}>
-        Przepisz dane do oryginalnego formularza PEL ze strony zus.pl i podpisz wlasnorecznie. Zloz w ZUS osobiscie lub pocztą.
+        Przepisz dane do oryginalnego formularza PEL ze strony zus.pl i podpisz własnoręcznie. Złóż w ZUS osobiście lub pocztą.
       </p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 32 }}>
         <button onClick={onDownload} className="btn btn-primary" style={{ width: '100%', height: 50, borderRadius: 10, fontSize: 14 }}>Pobierz dane PEL (.txt)</button>
@@ -379,14 +379,14 @@ function StepDone({ onDownload, onCopy, copied, onRestart }: { onDownload: () =>
         </button>
         <a href="https://www.zus.pl/ezus/logowanie?jezyk=pl" target="_blank" rel="noopener noreferrer" className="btn"
           style={{ width: '100%', height: 44, borderRadius: 10, fontSize: 13, color: 'var(--color-accent)', border: '1px solid var(--color-accent)', justifyContent: 'center' }}>
-          Udziel pelnomocnictwa przez eZUS
+          Udziel pełnomocnictwa przez eZUS
         </a>
         <a href="https://www.zus.pl/wzory-formularzy" target="_blank" rel="noopener noreferrer" className="btn"
           style={{ width: '100%', height: 40, borderRadius: 10, fontSize: 12, color: 'var(--color-text-2)', border: '1px solid var(--color-border)', justifyContent: 'center' }}>
           Oryginalny formularz PEL na zus.pl
         </a>
       </div>
-      <button onClick={onRestart} style={{ fontSize: 13, color: 'var(--color-text-3)', background: 'none', border: 'none', cursor: 'pointer' }}>Wypelnij ponownie</button>
+      <button onClick={onRestart} style={{ fontSize: 13, color: 'var(--color-text-3)', background: 'none', border: 'none', cursor: 'pointer' }}>Wypełnij ponownie</button>
     </div>
   );
 }
@@ -394,16 +394,16 @@ function StepDone({ onDownload, onCopy, copied, onRestart }: { onDownload: () =>
 // ---- HELPERS ----
 
 function buildOutput(d: PelData): string {
-  const ktoLabel = { wlasne: 'Wlasnym (ubezpieczony / swiadczeniobiorca)', firma: 'Firmy (przedsiebiorca / komornik)', podmiot: 'Innego podmiotu' }[d.ktoUdziela];
+  const ktoLabel = { własne: 'Własnym (ubezpieczony / świadczeniobiorca)', firma: 'Firmy (przedsiębiorca / komornik)', podmiot: 'Innego podmiotu' }[d.ktoUdziela];
   const zakresList = {
     wszystkie: 'Do zalatwienia wszystkich spraw w ZUS',
     pit: 'Do otrzymywania deklaracji PIT z ZUS',
-    konkretna: `Do wykonania konkretnej czynnosci: ${d.konkretnaCzynnosc}`,
-    ezus: `Do zalatwania spraw przez portal eZUS:\n  ${[d.rolEzusUbezpieczony && 'Ubezpieczony', d.rolEzusSwiadzeniobiorca && 'Swiadczeniobiorca', d.rolEzusPlatnik && 'Platnik skladek'].filter(Boolean).join(', ')}`,
+    konkretna: `Do wykonania konkretnej czynności: ${d.konkretnaCzynnosc}`,
+    ezus: `Do zalatwania spraw przez portal eZUS:\n  ${[d.rolEzusUbezpieczony && 'Ubezpieczony', d.rolEzusSwiadzeniobiorca && 'Świadczeniobiorca', d.rolEzusPłatnik && 'Płatnik składek'].filter(Boolean).join(', ')}`,
   }[d.zakres];
 
   return `PELNOMOCNICTWO PEL
-Formularz pelnomocnictwa do zalatwienia spraw w ZUS
+Formularz pełnomocnictwa do zalatwienia spraw w ZUS
 
 Wypelnic WIELKIMI LITERAMI. Pola wyboru zaznaczyc X.
 Pobierz oryginalny formularz: https://www.zus.pl/wzory-formularzy
@@ -411,28 +411,28 @@ Pobierz oryginalny formularz: https://www.zus.pl/wzory-formularzy
 ========================================
 DANE OSOBY UDZIELAJACEJ PELNOMOCNICTWA
 
-Imie: ${d.imie.toUpperCase()}
+Imię: ${d.imie.toUpperCase()}
 Nazwisko: ${d.nazwisko.toUpperCase()}
 PESEL: ${d.pesel}
 Ulica: ${d.ulica.toUpperCase()}
 Nr domu: ${d.nrDomu}   Nr lokalu: ${d.nrLokalu || '--'}
 Kod pocztowy: ${d.kodPocztowy}
-Miejscowosc: ${d.miejscowosc.toUpperCase()}
+Miejscowość: ${d.miejscowość.toUpperCase()}
 Telefon: ${d.telefon || '--'}
 
-Dzialajac w imieniu: ${ktoLabel}
+Działając w imieniu: ${ktoLabel}
 ${d.nipFirmy ? `NIP firmy: ${d.nipFirmy}` : ''}
 
 ========================================
 DANE PELNOMOCNIKA
 
-Imie: ${d.imiePeln.toUpperCase()}
+Imię: ${d.imiePeln.toUpperCase()}
 Nazwisko: ${d.nazwiskoPeln.toUpperCase()}
 PESEL: ${d.peselPeln || '--'}
 Ulica: ${d.ulicaPeln.toUpperCase()}
 Nr domu: ${d.nrDomuPeln}   Nr lokalu: ${d.nrLokoluPeln || '--'}
 Kod pocztowy: ${d.kodPocztowyPeln}
-Miejscowosc: ${d.miejscowoscPeln.toUpperCase()}
+Miejscowość: ${d.miejscowośćPeln.toUpperCase()}
 Telefon: ${d.telefonPeln || '--'}
 
 ========================================
@@ -440,23 +440,23 @@ ZAKRES PELNOMOCNICTWA
 
 ${zakresList}
 
-Pelnomocnictwo obowiazuje:
-Od: ${d.dataOd || 'od dnia doreczenia do ZUS'}
-Do: ${d.dataDo || 'bezterminowo (do odwolania)'}
+Pełnomocnictwo obowiązuje:
+Od: ${d.dataOd || 'od dnia doręczenia do ZUS'}
+Do: ${d.dataDo || 'bezterminowo (do odwołania)'}
 
 ========================================
 
 Data: .........................
-Podpis osoby udzielajacej pelnomocnictwa: .........................
+Podpis osoby udzielajacej pełnomocnictwa: .........................
 
 (wymagany wlasnorecczny podpis na oryginalnym formularzu)
 
 ========================================
 INSTRUKCJA:
 1. Pobierz oryginalny PEL: https://www.zus.pl/wzory-formularzy
-2. Przepisz dane WIELKIMI LITERAMI i podpisz wlasnorecznie
-3. Zloz osobiscie w ZUS lub wyslij pocztą
-4. Lub udziel pelnomocnictwa elektronicznie: https://www.zus.pl/ezus/logowanie?jezyk=pl
+2. Przepisz dane WIELKIMI LITERAMI i podpisz własnoręcznie
+3. Złóż osobiście w ZUS lub wyślij pocztą
+4. Lub udziel pełnomocnictwa elektronicznie: https://www.zus.pl/ezus/logowanie?jezyk=pl
 
 UWAGA: Zakres PEL nie obejmuje kontroli ZUS. Do reprezentowania podczas kontroli użyj formularza PEL-K.
 

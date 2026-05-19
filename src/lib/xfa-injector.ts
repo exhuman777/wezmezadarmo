@@ -3,6 +3,8 @@
  * Loads original ZUS PDF and draws user data text at exact field positions.
  * Works in any PDF viewer (Chrome, Preview, Firefox, Adobe Reader).
  *
+ * Uses embedded Roboto font for full Polish diacritics support (ą ć ę ł ń ó ś ź ż).
+ *
  * Coordinate system:
  *   - pdftotext bbox: yMin from top-left origin
  *   - pdf-lib drawText: y from bottom-left origin
@@ -10,13 +12,22 @@
  *   - Page height for A4: 841.89 pt
  */
 
-import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
+import { PDFDocument, rgb } from 'pdf-lib';
+import fontkit from '@pdf-lib/fontkit';
 import fs from 'fs';
 import path from 'path';
 
 export function loadZusPdf(filename: string): Buffer {
   const p = path.join(process.cwd(), 'public', 'forms', filename);
   return fs.readFileSync(p);
+}
+
+let _cachedFont: Uint8Array | null = null;
+function loadRobotoFont(): Uint8Array {
+  if (_cachedFont) return _cachedFont;
+  const fontPath = path.join(process.cwd(), 'public', 'fonts', 'Roboto-Regular.ttf');
+  _cachedFont = new Uint8Array(fs.readFileSync(fontPath));
+  return _cachedFont;
 }
 
 export type FieldStamp = {
@@ -32,7 +43,10 @@ export async function stampPdf(
   stamps: FieldStamp[]
 ): Promise<Buffer> {
   const doc = await PDFDocument.load(pdfBytes);
-  const font = await doc.embedFont(StandardFonts.Helvetica);
+  doc.registerFontkit(fontkit);
+
+  const robotoBytes = loadRobotoFont();
+  const font = await doc.embedFont(robotoBytes, { subset: true });
   const pages = doc.getPages();
 
   for (const stamp of stamps) {

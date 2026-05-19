@@ -16,13 +16,13 @@ interface Z15aData {
   nrDomu: string;
   nrLokalu: string;
   kodPocztowy: string;
-  miejscowosc: string;
+  miejscowość: string;
   telefon: string;
 
-  // Dane platnika skladek
-  nipPlatnika: string;
-  regonPlatnika: string;
-  nazwaPlatnika: string;
+  // Dane płatnika składek
+  nipPłatnika: string;
+  regonPłatnika: string;
+  nazwaPłatnika: string;
 
   // Rachunek bankowy
   nrKonta: string;
@@ -39,32 +39,32 @@ interface Z15aData {
   dataUrodzDziecka: string;
   dzieckoNiepelnosprawne: 'tak' | 'nie';
 
-  // Oswiadczenia
+  // Oświadczenia
   jestDomownik: 'tak' | 'nie';
   domownikDni: string;
   pracaZmianowa: 'tak' | 'nie';
-  zmianaPlatnika: 'tak' | 'nie' | 'nie-zmienialem';
-  wspolneGospodarstwo: 'tak' | 'nie';
+  zmianaPłatnika: 'tak' | 'nie' | 'nie-zmieniałem';
+  wspólneGospodarstwo: 'tak' | 'nie';
 
   // Dane drugiego rodzica
   brakDrugiegoRodzica: boolean;
   peselRodzic2: string;
   imieNazwiskoRodzic2: string;
   rodzic2Pracuje: 'tak' | 'nie';
-  rodzic2Zasilek: 'tak' | 'nie';
+  rodzic2Zasiłek: 'tak' | 'nie';
   rodzic2DniDzieci: string;
   rodzic2DniDorosli: string;
 
-  // Dane malzonka
+  // Dane małżonka
   brakMalzonka: boolean;
-  malzonekJestRodzic2: boolean;
+  małżonekJestRodzic2: boolean;
   peselMalzonka: string;
   imieNazwiskoMalzonka: string;
-  malzonekPracuje: 'tak' | 'nie';
-  malzonekZasilek: 'tak' | 'nie';
+  małżonekPracuje: 'tak' | 'nie';
+  małżonekZasiłek: 'tak' | 'nie';
 }
 
-type Step = 'wnioskodawca' | 'platnik' | 'ezla' | 'dziecko' | 'oswiadczenia' | 'rodzic2' | 'podglad' | 'done';
+type Step = 'wnioskodawca' | 'platnik' | 'ezla' | 'dziecko' | 'oświadczenia' | 'rodzic2' | 'podgląd' | 'done';
 
 const EMPTY: Z15aData = {
   imie: '',
@@ -74,11 +74,11 @@ const EMPTY: Z15aData = {
   nrDomu: '',
   nrLokalu: '',
   kodPocztowy: '',
-  miejscowosc: '',
+  miejscowość: '',
   telefon: '',
-  nipPlatnika: '',
-  regonPlatnika: '',
-  nazwaPlatnika: '',
+  nipPłatnika: '',
+  regonPłatnika: '',
+  nazwaPłatnika: '',
   nrKonta: '',
   dataOd: '',
   dataDo: '',
@@ -91,21 +91,21 @@ const EMPTY: Z15aData = {
   jestDomownik: 'nie',
   domownikDni: '',
   pracaZmianowa: 'nie',
-  zmianaPlatnika: 'nie-zmienialem',
-  wspolneGospodarstwo: 'tak',
+  zmianaPłatnika: 'nie-zmieniałem',
+  wspólneGospodarstwo: 'tak',
   brakDrugiegoRodzica: false,
   peselRodzic2: '',
   imieNazwiskoRodzic2: '',
   rodzic2Pracuje: 'tak',
-  rodzic2Zasilek: 'nie',
+  rodzic2Zasiłek: 'nie',
   rodzic2DniDzieci: '',
   rodzic2DniDorosli: '',
   brakMalzonka: false,
-  malzonekJestRodzic2: false,
+  małżonekJestRodzic2: false,
   peselMalzonka: '',
   imieNazwiskoMalzonka: '',
-  malzonekPracuje: 'tak',
-  malzonekZasilek: 'nie',
+  małżonekPracuje: 'tak',
+  małżonekZasiłek: 'nie',
 };
 
 const STEPS: { key: Step; label: string }[] = [
@@ -113,9 +113,9 @@ const STEPS: { key: Step; label: string }[] = [
   { key: 'platnik', label: 'Pracodawca' },
   { key: 'ezla', label: 'Okres i e-ZLA' },
   { key: 'dziecko', label: 'Dziecko' },
-  { key: 'oswiadczenia', label: 'Oswiadczenia' },
+  { key: 'oświadczenia', label: 'Oświadczenia' },
   { key: 'rodzic2', label: 'Drugi rodzic' },
-  { key: 'podglad', label: 'Podglad' },
+  { key: 'podgląd', label: 'Podgląd' },
 ];
 
 // ---- COMPONENT ----
@@ -148,7 +148,7 @@ export default function ZusZ15aPage() {
       a.click();
       URL.revokeObjectURL(url);
     } catch {
-      alert('Blad generowania PDF. Uzyj opcji kopiowania do schowka.');
+      alert('Błąd generowania PDF. Użyj opcji kopiowania do schowka.');
     }
     setDownloadingPdf(false);
   };
@@ -198,10 +198,10 @@ export default function ZusZ15aPage() {
         {/* Title */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
           <span className="mono" style={{ fontSize: 11, color: 'var(--color-accent)', background: 'var(--color-accent-soft)', padding: '3px 8px', borderRadius: 6, fontWeight: 500 }}>Z-15a</span>
-          <span style={{ fontSize: 12, color: 'var(--color-text-3)' }}>Zaklad Ubezpieczen Spolecznych</span>
+          <span style={{ fontSize: 12, color: 'var(--color-text-3)' }}>Zakład Ubezpieczeń Społecznych</span>
         </div>
-        <h1 className="display" style={{ fontSize: 'clamp(26px, 4vw, 38px)', marginBottom: 8 }}>Zasilek opiekuńczy</h1>
-        <p style={{ fontSize: 14, color: 'var(--color-text-3)', marginBottom: 32 }}>Opieka nad dzieckiem -- choroba, kwarantanna lub zamkniecie placowki</p>
+        <h1 className="display" style={{ fontSize: 'clamp(26px, 4vw, 38px)', marginBottom: 8 }}>Zasiłek opiekuńczy</h1>
+        <p style={{ fontSize: 14, color: 'var(--color-text-3)', marginBottom: 32 }}>Opieka nad dzieckiem - choroba, kwarantanna lub zamknięcie placówki</p>
 
         {/* Info block */}
         <div style={{
@@ -212,10 +212,10 @@ export default function ZusZ15aPage() {
           color: 'var(--color-text-2)', lineHeight: 1.7,
           boxShadow: 'var(--shadow-1)',
         }}>
-          <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 6, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Komu przysluguje</p>
-          <p style={{ marginBottom: 14 }}>Pracownicy i zleceniobiorcy oplacajacy skladke chorobowa, gdy opiekuja sie chorym dzieckiem do 14 lat lub gdy zamknieto zlobek, przedszkole, szkole dziecka do lat 8. Zasilek 80% wynagrodzenia. Limit: 60 dni/rok na dzieci do 8 lat i chore do 14 lat; 14 dni na inne dzieci.</p>
-          <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 6, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Jak zlozyc</p>
-          <p>Wniosek skladasz u pracodawcy (platnika skladek), nie bezposrednio w ZUS. Pracodawca przesyla go elektronicznie przez PUE ZUS.</p>
+          <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 6, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Komu przysługuje</p>
+          <p style={{ marginBottom: 14 }}>Pracownicy i zleceniobiorcy opłacający składkę chorobową, gdy opiekują się chorym dzieckiem do 14 lat lub gdy zamknięto żłobek, przedszkole, szkołę dziecka do lat 8. Zasiłek 80% wynagrodzenia. Limit: 60 dni/rok na dzieci do 8 lat i chore do 14 lat; 14 dni na inne dzieci.</p>
+          <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 6, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Jak złożyć</p>
+          <p>Wniosek składasz u pracodawcy (płatnika składek), nie bezpośrednio w ZUS. Pracodawca przesyła go elektronicznie przez PUE ZUS.</p>
         </div>
 
         {/* Step progress bar */}
@@ -232,13 +232,13 @@ export default function ZusZ15aPage() {
         )}
 
         {step === 'wnioskodawca' && <StepWnioskodawca data={data} update={update} onNext={() => setStep('platnik')} />}
-        {step === 'platnik' && <StepPlatnik data={data} update={update} onBack={() => setStep('wnioskodawca')} onNext={() => setStep('ezla')} />}
+        {step === 'platnik' && <StepPłatnik data={data} update={update} onBack={() => setStep('wnioskodawca')} onNext={() => setStep('ezla')} />}
         {step === 'ezla' && <StepEzla data={data} update={update} onBack={() => setStep('platnik')} onNext={() => setStep('dziecko')} />}
-        {step === 'dziecko' && <StepDziecko data={data} update={update} onBack={() => setStep('ezla')} onNext={() => setStep('oswiadczenia')} />}
-        {step === 'oswiadczenia' && <StepOswiadczenia data={data} update={update} onBack={() => setStep('dziecko')} onNext={() => setStep('rodzic2')} />}
-        {step === 'rodzic2' && <StepRodzic2 data={data} update={update} onBack={() => setStep('oswiadczenia')} onNext={() => setStep('podglad')} />}
-        {step === 'podglad' && (
-          <StepPodglad
+        {step === 'dziecko' && <StepDziecko data={data} update={update} onBack={() => setStep('ezla')} onNext={() => setStep('oświadczenia')} />}
+        {step === 'oświadczenia' && <StepOświadczenia data={data} update={update} onBack={() => setStep('dziecko')} onNext={() => setStep('rodzic2')} />}
+        {step === 'rodzic2' && <StepRodzic2 data={data} update={update} onBack={() => setStep('oświadczenia')} onNext={() => setStep('podgląd')} />}
+        {step === 'podgląd' && (
+          <StepPodgląd
             data={data}
             onBack={() => setStep('rodzic2')}
             onDone={() => setStep('done')}
@@ -272,7 +272,7 @@ function StepWnioskodawca({ data, update, onNext }: { data: Z15aData; update: (k
       <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 24, letterSpacing: '-0.01em' }}>Twoje dane</h2>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-          <Field label="Imie *">
+          <Field label="Imię *">
             <input className={IC} value={data.imie} onChange={e => update('imie', e.target.value)} placeholder="Jan" />
           </Field>
           <Field label="Nazwisko *">
@@ -297,8 +297,8 @@ function StepWnioskodawca({ data, update, onNext }: { data: Z15aData; update: (k
           <Field label="Kod pocztowy">
             <input className={IC} style={{ width: 100 }} value={data.kodPocztowy} onChange={e => update('kodPocztowy', e.target.value)} placeholder="00-001" maxLength={6} />
           </Field>
-          <Field label="Miejscowosc">
-            <input className={IC} value={data.miejscowosc} onChange={e => update('miejscowosc', e.target.value)} placeholder="Warszawa" />
+          <Field label="Miejscowość">
+            <input className={IC} value={data.miejscowość} onChange={e => update('miejscowość', e.target.value)} placeholder="Warszawa" />
           </Field>
         </div>
         <Field label="Numer telefonu" hint="Opcjonalnie: ułatwia kontakt ZUS w Twojej sprawie">
@@ -310,24 +310,24 @@ function StepWnioskodawca({ data, update, onNext }: { data: Z15aData; update: (k
   );
 }
 
-function StepPlatnik({ data, update, onBack, onNext }: { data: Z15aData; update: (k: keyof Z15aData, v: string | boolean) => void; onBack: () => void; onNext: () => void }) {
+function StepPłatnik({ data, update, onBack, onNext }: { data: Z15aData; update: (k: keyof Z15aData, v: string | boolean) => void; onBack: () => void; onNext: () => void }) {
   return (
     <div>
-      <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 8, letterSpacing: '-0.01em' }}>Dane platnika skladek</h2>
-      <p style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 24 }}>Twoj pracodawca lub zleceniodawca. Znajdziesz na umowie lub pasku wynagrodzenia.</p>
+      <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 8, letterSpacing: '-0.01em' }}>Dane płatnika składek</h2>
+      <p style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 24 }}>Twój pracodawca lub zleceniodawca. Znajdziesz na umowie lub pasku wynagrodzenia.</p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-        <Field label="Nazwa albo imie i nazwisko platnika">
-          <input className={IC} value={data.nazwaPlatnika} onChange={e => update('nazwaPlatnika', e.target.value)} placeholder="XYZ Sp. z o.o." />
+        <Field label="Nazwa albo imię i nazwisko płatnika">
+          <input className={IC} value={data.nazwaPłatnika} onChange={e => update('nazwaPłatnika', e.target.value)} placeholder="XYZ Sp. z o.o." />
         </Field>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-          <Field label="NIP platnika">
-            <input className={IC} value={data.nipPlatnika} onChange={e => update('nipPlatnika', e.target.value)} placeholder="0000000000" maxLength={10} />
+          <Field label="NIP płatnika">
+            <input className={IC} value={data.nipPłatnika} onChange={e => update('nipPłatnika', e.target.value)} placeholder="0000000000" maxLength={10} />
           </Field>
-          <Field label="REGON platnika">
-            <input className={IC} value={data.regonPlatnika} onChange={e => update('regonPlatnika', e.target.value)} placeholder="000000000" maxLength={9} />
+          <Field label="REGON płatnika">
+            <input className={IC} value={data.regonPłatnika} onChange={e => update('regonPłatnika', e.target.value)} placeholder="000000000" maxLength={9} />
           </Field>
         </div>
-        <Field label="Numer rachunku bankowego do wyplaty" hint="Opcjonalne. Jesli nie podasz, ZUS wypłaci przekazem pocztowym">
+        <Field label="Numer rachunku bankowego do wypłaty" hint="Opcjonalne. Jeśli nie podasz, ZUS wypłaci przekazem pocztowym">
           <input className={IC} value={data.nrKonta} onChange={e => update('nrKonta', e.target.value)} placeholder="PL00 0000 0000 0000 0000 0000 0000" />
         </Field>
       </div>
@@ -340,7 +340,7 @@ function StepEzla({ data, update, onBack, onNext }: { data: Z15aData; update: (k
   const valid = data.dataOd.trim().length > 0 && data.dataDo.trim().length > 0;
   return (
     <div>
-      <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 24, letterSpacing: '-0.01em' }}>Okres, za ktory ubiegasz sie o zasilek</h2>
+      <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 24, letterSpacing: '-0.01em' }}>Okres, za który ubiegasz się o zasiłek</h2>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
           <Field label="Data od *" hint="DD.MM.RRRR">
@@ -354,8 +354,8 @@ function StepEzla({ data, update, onBack, onNext }: { data: Z15aData; update: (k
           <input className={IC} value={data.numerEzla} onChange={e => update('numerEzla', e.target.value)} placeholder="np. K/12345678" />
         </Field>
         <div style={{ padding: '12px 16px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 8, fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.6 }}>
-          <p style={{ fontWeight: 600, color: 'var(--color-text-2)', marginBottom: 4 }}>Limit dni zasilku Z-15a</p>
-          <p>60 dni w roku kalendarzowym na dzieci do 8 lat i chore dzieci do 14 lat. 14 dni na inne dzieci niepelnosprawne powyzej 8 lat (bez choroby). Limit wspolny z zasilkiem Z-15b.</p>
+          <p style={{ fontWeight: 600, color: 'var(--color-text-2)', marginBottom: 4 }}>Limit dni zasiłku Z-15a</p>
+          <p>60 dni w roku kalendarzowym na dzieci do 8 lat i chore dzieci do 14 lat. 14 dni na inne dzieci niepełnosprawne powyżej 8 lat (bez choroby). Limit wspólny z zasiłkiem Z-15b.</p>
         </div>
       </div>
       <NavButtons onBack={onBack} onNext={onNext} nextDisabled={!valid} />
@@ -367,13 +367,13 @@ function StepDziecko({ data, update, onBack, onNext }: { data: Z15aData; update:
   const valid = data.imieDziecka.trim().length > 0 && data.nazwiskoDziecka.trim().length > 0 && data.dataUrodzDziecka.trim().length > 0;
   return (
     <div>
-      <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 24, letterSpacing: '-0.01em' }}>Dane dziecka, nad ktorym sprawujesz opieke</h2>
+      <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 24, letterSpacing: '-0.01em' }}>Dane dziecka, nad którym sprawujesz opiekę</h2>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
         <Field label="PESEL dziecka" hint="Opcjonalne: jeśli dziecko nie ma jeszcze PESEL">
           <input className={IC} value={data.peselDziecka} onChange={e => update('peselDziecka', e.target.value)} placeholder="00000000000" maxLength={11} />
         </Field>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-          <Field label="Imie dziecka *">
+          <Field label="Imię dziecka *">
             <input className={IC} value={data.imieDziecka} onChange={e => update('imieDziecka', e.target.value)} placeholder="Anna" />
           </Field>
           <Field label="Nazwisko dziecka *">
@@ -384,15 +384,15 @@ function StepDziecko({ data, update, onBack, onNext }: { data: Z15aData; update:
           <DateInput className={IC} value={data.dataUrodzDziecka} onChange={v => update('dataUrodzDziecka', v)} placeholder="15.03.2020" />
         </Field>
 
-        <OswiadczenieBlock
-          label="Dziecko ma orzeczenie o znacznym stopniu niepelnosprawnosci albo orzeczenie o niepelnosprawnosci ze wskazaniem koniecznosci stalej lub dlugotwalej opieki lub pomocy innej osoby"
-          hint="Jesli tak, zasilek przysluguje do 18. roku zycia dziecka."
+        <OświadczenieBlock
+          label="Dziecko ma orzeczenie o znacznym stopniu niepełnosprawności albo orzeczenie o niepełnosprawności ze wskazaniem konieczności stałej lub długotrwałej opieki lub pomocy innej osoby"
+          hint="Jeśli tak, zasiłek przysługuje do 18. roku życia dziecka."
           value={data.dzieckoNiepelnosprawne}
           onChange={v => update('dzieckoNiepelnosprawne', v)}
         />
 
         <div style={{ padding: '12px 16px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 8, fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.6 }}>
-          Zasilek na dziecko chore do 14 lat lub zamkniecie placowki (dziecko do 8 lat). Przy orzeczeniu o niepelnosprawnosci: do 18 lat.
+          Zasiłek na dziecko chore do 14 lat lub zamknięcie placówki (dziecko do 8 lat). Przy orzeczeniu o niepełnosprawności: do 18 lat.
         </div>
       </div>
       <NavButtons onBack={onBack} onNext={onNext} nextDisabled={!valid} />
@@ -400,65 +400,65 @@ function StepDziecko({ data, update, onBack, onNext }: { data: Z15aData; update:
   );
 }
 
-function StepOswiadczenia({ data, update, onBack, onNext }: { data: Z15aData; update: (k: keyof Z15aData, v: string | boolean) => void; onBack: () => void; onNext: () => void }) {
+function StepOświadczenia({ data, update, onBack, onNext }: { data: Z15aData; update: (k: keyof Z15aData, v: string | boolean) => void; onBack: () => void; onNext: () => void }) {
   return (
     <div>
-      <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 8, letterSpacing: '-0.01em' }}>Oswiadczenia</h2>
-      <p style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 24 }}>Obowiazkowe pytania z formularza Z-15a.</p>
+      <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 8, letterSpacing: '-0.01em' }}>Oświadczenia</h2>
+      <p style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 24 }}>Obowiązkowe pytania z formularza Z-15a.</p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
 
-        {/* Oswiadczenie 1: Domownik */}
-        <OswiadczenieBlock
-          label="1. Czy jest domownik, ktory moze zapewnic opieke dziecku w okresie, za ktory ubiegam sie o zasilek opiekuńczy?"
-          hint="Domownikiem nie jest osoba calkowicie niezdolna do pracy, chora, niesprawna fizycznie lub psychicznie ze wzgledu na wiek."
+        {/* Oświadczenie 1: Domownik */}
+        <OświadczenieBlock
+          label="1. Czy jest domownik, który może zapewnić opiekę dziecku w okresie, za który ubiegam się o zasiłek opiekuńczy?"
+          hint="Domownikiem nie jest osoba całkowicie niezdolna do pracy, chora, niesprawna fizycznie lub psychicznie ze względu na wiek."
           value={data.jestDomownik}
           onChange={v => update('jestDomownik', v)}
         />
         {data.jestDomownik === 'tak' && (
-          <Field label="Podaj w jakich dniach inny domownik moze sprawowac opieke">
+          <Field label="Podaj w jakich dniach inny domownik może sprawować opiekę">
             <input className={IC} value={data.domownikDni} onChange={e => update('domownikDni', e.target.value)} placeholder="np. 3-5 maja 2026" />
           </Field>
         )}
 
-        {/* Oswiadczenie 2: Praca zmianowa */}
-        <OswiadczenieBlock
-          label="2. Jesli zasilek bedzie wyplacal Ci ZUS: czy jestes zatrudniony w systemie pracy zmianowej?"
-          hint="Dotyczy tylko sytuacji gdy zasilek wyplaca bezposrednio ZUS (pracodawcy do 20 pracownikow)."
+        {/* Oświadczenie 2: Praca zmianowa */}
+        <OświadczenieBlock
+          label="2. Jeśli zasiłek będzie wypłacał Ci ZUS: czy jesteś zatrudniony w systemie pracy zmianowej?"
+          hint="Dotyczy tylko sytuacji gdy zasiłek wypłaca bezpośrednio ZUS (pracodawcy do 20 pracowników)."
           value={data.pracaZmianowa}
           onChange={v => update('pracaZmianowa', v)}
         />
 
-        {/* Oswiadczenie 3: Zmiana platnika */}
+        {/* Oświadczenie 3: Zmiana płatnika */}
         <div>
           <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 8 }}>
-            3. Czy w tym roku kalendarzowym zmieniles platnika skladek i otrzymales zasilek od poprzedniego platnika?
+            3. Czy w tym roku kalendarzowym zmieniłeś płatnika składek i otrzymałeś zasiłek od poprzedniego płatnika?
           </label>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             {[
-              { v: 'nie-zmienialem', label: 'Nie zmienialem platnika w tym roku' },
-              { v: 'nie', label: 'Tak, zmienialem, ale nie otrzymalem zasilku od poprzedniego' },
-              { v: 'tak', label: 'Tak, zmienialem i otrzymalem zasilek od poprzedniego platnika' },
+              { v: 'nie-zmieniałem', label: 'Nie zmieniałem płatnika w tym roku' },
+              { v: 'nie', label: 'Tak, zmieniałem, ale nie otrzymałem zasiłku od poprzedniego' },
+              { v: 'tak', label: 'Tak, zmieniałem i otrzymałem zasiłek od poprzedniego płatnika' },
             ].map(opt => (
               <label key={opt.v} style={{
                 display: 'flex', gap: 10, alignItems: 'center',
                 padding: '12px 14px',
-                background: data.zmianaPlatnika === opt.v ? 'color-mix(in srgb, var(--color-accent) 8%, var(--color-bg-1))' : 'var(--color-bg-1)',
-                border: `1px solid ${data.zmianaPlatnika === opt.v ? 'var(--color-accent)' : 'var(--color-border)'}`,
+                background: data.zmianaPłatnika === opt.v ? 'color-mix(in srgb, var(--color-accent) 8%, var(--color-bg-1))' : 'var(--color-bg-1)',
+                border: `1px solid ${data.zmianaPłatnika === opt.v ? 'var(--color-accent)' : 'var(--color-border)'}`,
                 borderRadius: 8, cursor: 'pointer',
               }}>
-                <input type="radio" name="zmianaPlatnika" value={opt.v} checked={data.zmianaPlatnika === opt.v} onChange={() => update('zmianaPlatnika', opt.v)} style={{ accentColor: 'var(--color-accent)' }} />
+                <input type="radio" name="zmianaPłatnika" value={opt.v} checked={data.zmianaPłatnika === opt.v} onChange={() => update('zmianaPłatnika', opt.v)} style={{ accentColor: 'var(--color-accent)' }} />
                 <span style={{ fontSize: 13, color: 'var(--color-text-2)' }}>{opt.label}</span>
               </label>
             ))}
           </div>
         </div>
 
-        {/* Oswiadczenie 4: Wspolne gospodarstwo */}
-        <OswiadczenieBlock
-          label="4. Czy pozostajesz we wspolnym gospodarstwie z chorym dzieckiem w okresie sprawowania opieki?"
-          hint="Dotyczy szczegolnie opieki nad chorym dzieckiem dorosłym."
-          value={data.wspolneGospodarstwo}
-          onChange={v => update('wspolneGospodarstwo', v)}
+        {/* Oświadczenie 4: Wspolne gospodarstwo */}
+        <OświadczenieBlock
+          label="4. Czy pozostajesz we wspólnym gospodarstwie z chorym dzieckiem w okresie sprawowania opieki?"
+          hint="Dotyczy szczególnie opieki nad chorym dzieckiem dorosłym."
+          value={data.wspólneGospodarstwo}
+          onChange={v => update('wspólneGospodarstwo', v)}
         />
       </div>
       <NavButtons onBack={onBack} onNext={onNext} />
@@ -495,28 +495,28 @@ function StepRodzic2({ data, update, onBack, onNext }: { data: Z15aData; update:
           <Field label="PESEL drugiego rodzica">
             <input className={IC} value={data.peselRodzic2} onChange={e => update('peselRodzic2', e.target.value)} placeholder="00000000000" maxLength={11} />
           </Field>
-          <Field label="Imie i nazwisko drugiego rodzica">
+          <Field label="Imię i nazwisko drugiego rodzica">
             <input className={IC} value={data.imieNazwiskoRodzic2} onChange={e => update('imieNazwiskoRodzic2', e.target.value)} placeholder="Anna Kowalska" />
           </Field>
 
-          <OswiadczenieBlock
+          <OświadczenieBlock
             label="Czy drugi rodzic pracuje?"
             value={data.rodzic2Pracuje}
             onChange={v => update('rodzic2Pracuje', v)}
           />
 
-          <OswiadczenieBlock
-            label="Czy drugi rodzic w tym roku otrzymal zasilek opiekuńczy?"
-            value={data.rodzic2Zasilek}
-            onChange={v => update('rodzic2Zasilek', v)}
+          <OświadczenieBlock
+            label="Czy drugi rodzic w tym roku otrzymał zasiłek opiekuńczy?"
+            value={data.rodzic2Zasiłek}
+            onChange={v => update('rodzic2Zasiłek', v)}
           />
 
-          {data.rodzic2Zasilek === 'tak' && (
+          {data.rodzic2Zasiłek === 'tak' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <Field label="Liczba dni zasilku na dzieci do lat 14" hint="Podaj ile dni zasilku opiekuńczego pobral drugi rodzic na dzieci do 14 lat w tym roku">
+              <Field label="Liczba dni zasiłku na dzieci do lat 14" hint="Podaj ile dni zasiłku opiekuńczego pobral drugi rodzic na dzieci do 14 lat w tym roku">
                 <input className={IC} value={data.rodzic2DniDzieci} onChange={e => update('rodzic2DniDzieci', e.target.value)} placeholder="np. 14" type="number" min="0" max="60" />
               </Field>
-              <Field label="Liczba dni zasilku na chorych doroslych" hint="Dni zasilku Z-15b na chorych czlonkow rodziny powyzej 14 lat">
+              <Field label="Liczba dni zasiłku na chorych dorosłych" hint="Dni zasiłku Z-15b na chorych członków rodziny powyżej 14 lat">
                 <input className={IC} value={data.rodzic2DniDorosli} onChange={e => update('rodzic2DniDorosli', e.target.value)} placeholder="np. 7" type="number" min="0" max="14" />
               </Field>
             </div>
@@ -524,10 +524,10 @@ function StepRodzic2({ data, update, onBack, onNext }: { data: Z15aData; update:
         </div>
       )}
 
-      {/* Malzonek -- jesli inny niz drugi rodzic */}
+      {/* Małżonek -- jeśli inny niż drugi rodzic */}
       <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: 28, marginTop: 8 }}>
-        <h3 style={{ fontSize: 15, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 8 }}>Dane Twojego malzonka</h3>
-        <p style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 20 }}>Podaj jesli malzonek jest inna osoba niz drugi rodzic dziecka.</p>
+        <h3 style={{ fontSize: 15, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 8 }}>Dane Twojego małżonka</h3>
+        <p style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 20 }}>Podaj jeśli małżonek jest inna osoba niż drugi rodzic dziecka.</p>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 20 }}>
           <label style={{
@@ -540,68 +540,68 @@ function StepRodzic2({ data, update, onBack, onNext }: { data: Z15aData; update:
             <input
               type="checkbox"
               checked={data.brakMalzonka}
-              onChange={e => { update('brakMalzonka', e.target.checked); if (e.target.checked) update('malzonekJestRodzic2', false); }}
+              onChange={e => { update('brakMalzonka', e.target.checked); if (e.target.checked) update('małżonekJestRodzic2', false); }}
               style={{ accentColor: 'var(--color-accent)', width: 15, height: 15 }}
             />
-            <span style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Nie mam malzonka</span>
+            <span style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Nie mam małżonka</span>
           </label>
 
           {!data.brakMalzonka && (
             <label style={{
               display: 'flex', gap: 10, alignItems: 'center',
               padding: '14px 16px',
-              background: data.malzonekJestRodzic2 ? 'color-mix(in srgb, var(--color-accent) 8%, var(--color-bg-1))' : 'var(--color-bg-1)',
-              border: `1px solid ${data.malzonekJestRodzic2 ? 'var(--color-accent)' : 'var(--color-border)'}`,
+              background: data.małżonekJestRodzic2 ? 'color-mix(in srgb, var(--color-accent) 8%, var(--color-bg-1))' : 'var(--color-bg-1)',
+              border: `1px solid ${data.małżonekJestRodzic2 ? 'var(--color-accent)' : 'var(--color-border)'}`,
               borderRadius: 8, cursor: 'pointer',
             }}>
               <input
                 type="checkbox"
-                checked={data.malzonekJestRodzic2}
-                onChange={e => update('malzonekJestRodzic2', e.target.checked)}
+                checked={data.małżonekJestRodzic2}
+                onChange={e => update('małżonekJestRodzic2', e.target.checked)}
                 style={{ accentColor: 'var(--color-accent)', width: 15, height: 15 }}
               />
-              <span style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Malzonek jest jednoczesnie drugim rodzicem dziecka (dane juz podane powyzej)</span>
+              <span style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Małżonek jest jednocześnie drugim rodzicem dziecka (dane juz podane powyżej)</span>
             </label>
           )}
         </div>
 
-        {!data.brakMalzonka && !data.malzonekJestRodzic2 && (
+        {!data.brakMalzonka && !data.małżonekJestRodzic2 && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-            <Field label="PESEL malzonka">
+            <Field label="PESEL małżonka">
               <input className={IC} value={data.peselMalzonka} onChange={e => update('peselMalzonka', e.target.value)} placeholder="00000000000" maxLength={11} />
             </Field>
-            <Field label="Imie i nazwisko malzonka">
+            <Field label="Imię i nazwisko małżonka">
               <input className={IC} value={data.imieNazwiskoMalzonka} onChange={e => update('imieNazwiskoMalzonka', e.target.value)} placeholder="Anna Kowalska" />
             </Field>
 
-            <OswiadczenieBlock
-              label="Czy malzonek pracuje?"
-              value={data.malzonekPracuje}
-              onChange={v => update('malzonekPracuje', v)}
+            <OświadczenieBlock
+              label="Czy małżonek pracuje?"
+              value={data.małżonekPracuje}
+              onChange={v => update('małżonekPracuje', v)}
             />
 
-            <OswiadczenieBlock
-              label="Czy malzonek w tym roku kalendarzowym otrzymal zasilek opiekuńczy?"
-              value={data.malzonekZasilek}
-              onChange={v => update('malzonekZasilek', v)}
+            <OświadczenieBlock
+              label="Czy małżonek w tym roku kalendarzowym otrzymał zasiłek opiekuńczy?"
+              value={data.małżonekZasiłek}
+              onChange={v => update('małżonekZasiłek', v)}
             />
           </div>
         )}
       </div>
 
-      <NavButtons onBack={onBack} onNext={onNext} nextLabel="Podglad wniosku" />
+      <NavButtons onBack={onBack} onNext={onNext} nextLabel="Podgląd wniosku" />
     </div>
   );
 }
 
-function StepPodglad({ data, onBack, onDone, onDownloadPdf, downloadingPdf, onCopy, copied }: {
+function StepPodgląd({ data, onBack, onDone, onDownloadPdf, downloadingPdf, onCopy, copied }: {
   data: Z15aData; onBack: () => void; onDone: () => void;
   onDownloadPdf: () => void; downloadingPdf: boolean;
   onCopy: () => void; copied: boolean;
 }) {
   return (
     <div>
-      <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 24, letterSpacing: '-0.01em' }}>Podglad wniosku Z-15a</h2>
+      <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 24, letterSpacing: '-0.01em' }}>Podgląd wniosku Z-15a</h2>
       <div className="mono" style={{
         background: 'var(--color-bg-1)', border: '1px solid var(--color-border)',
         borderRadius: 10, padding: '20px 24px',
@@ -632,14 +632,14 @@ function StepPodglad({ data, onBack, onDone, onDownloadPdf, downloadingPdf, onCo
         borderRadius: 10, fontSize: 13, color: 'var(--color-text-2)',
         boxShadow: 'var(--shadow-1)',
       }}>
-        <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 12, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Co zrobic dalej</p>
+        <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 12, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Co zrobić dalej</p>
         <ol style={{ paddingLeft: 20, margin: 0, display: 'flex', flexDirection: 'column', gap: 8, lineHeight: 1.65 }}>
           <li>Pobierz oryginalny formularz Z-15a ze strony <a href="https://www.zus.pl/wzory-formularzy" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)' }}>zus.pl/wzory-formularzy</a> i przepisz dane</li>
-          <li>Dolacz zaswiadczenie lekarskie e-ZLA lub zaswiadczenie o zamknieciu placowki</li>
+          <li>Dołącz zaświadczenie lekarskie e-ZLA lub zaświadczenie o zamknieciu placówki</li>
           <li>Złóż wniosek u pracodawcy (nie bezpośrednio w ZUS)</li>
-          <li>Pracodawca przesle do ZUS przez PUE ZUS. Mozesz rowniez sprawdzic status przez <a href="https://www.zus.pl/ezus/logowanie?jezyk=pl" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)' }}>eZUS</a></li>
+          <li>Pracodawca prześle do ZUS przez PUE ZUS. Możesz również sprawdzic status przez <a href="https://www.zus.pl/ezus/logowanie?jezyk=pl" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)' }}>eZUS</a></li>
         </ol>
-        <p style={{ marginTop: 12, fontSize: 12, color: 'var(--color-text-3)' }}>Limit zasilku Z-15a: 60 dni/rok na dzieci do 8 lat i chore do 14 lat; 14 dni na inne. Wniosek skladasz u pracodawcy, nie w ZUS.</p>
+        <p style={{ marginTop: 12, fontSize: 12, color: 'var(--color-text-3)' }}>Limit zasiłku Z-15a: 60 dni/rok na dzieci do 8 lat i chore do 14 lat; 14 dni na inne. Wniosek składasz u pracodawcy, nie w ZUS.</p>
       </div>
 
       <NavButtons onBack={onBack} onNext={onDone} nextLabel="Gotowe" />
@@ -656,7 +656,7 @@ function StepDone({ onDownloadPdf, downloadingPdf, onCopy, copied, onRestart }: 
       <span className="label-eyebrow" style={{ display: 'block', marginBottom: 12 }}>Gotowe</span>
       <h2 style={{ fontSize: 28, fontWeight: 500, letterSpacing: '-0.02em', color: 'var(--color-text-1)', marginBottom: 12 }}>Wniosek przygotowany</h2>
       <p style={{ fontSize: 14, color: 'var(--color-text-2)', marginBottom: 32, lineHeight: 1.7 }}>
-        PDF zawiera wszystkie Twoje dane, instrukcje zlozenia i wskazowki. Pobierz oryginalny formularz Z-15a z zus.pl, przepisz dane i zloz u pracodawcy.
+        PDF zawiera wszystkie Twoje dane, instrukcje złożenia i wskazowki. Pobierz oryginalny formularz Z-15a z zus.pl, przepisz dane i złóż u pracodawcy.
       </p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 32 }}>
         <button
@@ -690,7 +690,7 @@ function StepDone({ onDownloadPdf, downloadingPdf, onCopy, copied, onRestart }: 
         </a>
       </div>
       <button onClick={onRestart} style={{ fontSize: 13, color: 'var(--color-text-3)', background: 'none', border: 'none', cursor: 'pointer' }}>
-        Wypelnij nowy wniosek
+        Wypełnij nowy wniosek
       </button>
     </div>
   );
@@ -699,28 +699,28 @@ function StepDone({ onDownloadPdf, downloadingPdf, onCopy, copied, onRestart }: 
 // ---- HELPERS ----
 
 function buildOutput(d: Z15aData): string {
-  const adres = [d.ulica, d.nrDomu, d.nrLokalu ? `/${d.nrLokalu}` : '', d.kodPocztowy, d.miejscowosc].filter(Boolean).join(' ');
+  const adres = [d.ulica, d.nrDomu, d.nrLokalu ? `/${d.nrLokalu}` : '', d.kodPocztowy, d.miejscowość].filter(Boolean).join(' ');
 
   const rodzic2Block = d.brakDrugiegoRodzica
     ? 'Brak drugiego rodzica (zaznaczone w formularzu)'
     : `PESEL: ${d.peselRodzic2 || '-- brak'}
-Imie i nazwisko: ${d.imieNazwiskoRodzic2 ? d.imieNazwiskoRodzic2.toUpperCase() : '-- brak'}
+Imię i nazwisko: ${d.imieNazwiskoRodzic2 ? d.imieNazwiskoRodzic2.toUpperCase() : '-- brak'}
 Drugi rodzic pracuje: ${d.rodzic2Pracuje === 'tak' ? 'TAK' : 'NIE'}
-Otrzymal zasilek opiekuńczy w tym roku: ${d.rodzic2Zasilek === 'tak'
-    ? `TAK: dni na dzieci do lat 14: ${d.rodzic2DniDzieci || 'nie podano'}, dni na chorych doroslych: ${d.rodzic2DniDorosli || 'nie podano'}`
+Otrzymal zasiłek opiekuńczy w tym roku: ${d.rodzic2Zasiłek === 'tak'
+    ? `TAK: dni na dzieci do lat 14: ${d.rodzic2DniDzieci || 'nie podano'}, dni na chorych dorosłych: ${d.rodzic2DniDorosli || 'nie podano'}`
     : 'NIE'}`;
 
-  const malzonekBlock = d.brakMalzonka
-    ? 'Brak malzonka (zaznaczone w formularzu)'
-    : d.malzonekJestRodzic2
-      ? 'Malzonek jest jednoczesnie drugim rodzicem dziecka: dane podane powyzej'
+  const małżonekBlock = d.brakMalzonka
+    ? 'Brak małżonka (zaznaczone w formularzu)'
+    : d.małżonekJestRodzic2
+      ? 'Małżonek jest jednocześnie drugim rodzicem dziecka: dane podane powyżej'
       : `PESEL: ${d.peselMalzonka || '-- brak'}
-Imie i nazwisko: ${d.imieNazwiskoMalzonka ? d.imieNazwiskoMalzonka.toUpperCase() : '-- brak'}
-Malzonek pracuje: ${d.malzonekPracuje === 'tak' ? 'TAK' : 'NIE'}
-Malzonek pobierał zasilek opiekuńczy w tym roku: ${d.malzonekZasilek === 'tak' ? 'TAK' : 'NIE'}`;
+Imię i nazwisko: ${d.imieNazwiskoMalzonka ? d.imieNazwiskoMalzonka.toUpperCase() : '-- brak'}
+Małżonek pracuje: ${d.małżonekPracuje === 'tak' ? 'TAK' : 'NIE'}
+Małżonek pobierał zasiłek opiekuńczy w tym roku: ${d.małżonekZasiłek === 'tak' ? 'TAK' : 'NIE'}`;
 
   return `WNIOSEK Z-15A
-Wniosek o zasilek opiekuńczy z powodu sprawowania opieki nad dzieckiem
+Wniosek o zasiłek opiekuńczy z powodu sprawowania opieki nad dzieckiem
 
 Wypelnic WIELKIMI LITERAMI. Pola wyboru zaznaczyc X.
 Pobierz oryginalny formularz: https://www.zus.pl/wzory-formularzy
@@ -728,21 +728,21 @@ Pobierz oryginalny formularz: https://www.zus.pl/wzory-formularzy
 ========================================
 TWOJE DANE
 
-Imie: ${d.imie.toUpperCase()}
+Imię: ${d.imie.toUpperCase()}
 Nazwisko: ${d.nazwisko.toUpperCase()}
 PESEL: ${d.pesel}
 Ulica: ${d.ulica.toUpperCase()}
 Nr domu: ${d.nrDomu}   Nr lokalu: ${d.nrLokalu || '--'}
 Kod pocztowy: ${d.kodPocztowy}
-Miejscowosc: ${d.miejscowosc.toUpperCase()}
+Miejscowość: ${d.miejscowość.toUpperCase()}
 Numer telefonu: ${d.telefon || '-- (pole dobrowolne)'}
 
 ========================================
-DANE PLATNIKA SKLADEK
+DANE PŁATNIKA SKŁADEK
 
-Nazwa: ${d.nazwaPlatnika}
-NIP: ${d.nipPlatnika}
-REGON: ${d.regonPlatnika}
+Nazwa: ${d.nazwaPłatnika}
+NIP: ${d.nipPłatnika}
+REGON: ${d.regonPłatnika}
 
 Rachunek bankowy (dobrowolnie): ${d.nrKonta || '(brak - zasiłek przekazem pocztowym)'}
 
@@ -757,25 +757,25 @@ Seria i numer e-ZLA: ${d.numerEzla || '-- (nie podano lub brak)'}
 DANE DZIECKA
 
 PESEL dziecka: ${d.peselDziecka || '-- brak'}
-Imie: ${d.imieDziecka.toUpperCase()}
+Imię: ${d.imieDziecka.toUpperCase()}
 Nazwisko: ${d.nazwiskoDziecka.toUpperCase()}
 Data urodzenia: ${d.dataUrodzDziecka}
-Orzeczenie o niepelnosprawnosci: ${d.dzieckoNiepelnosprawne === 'tak' ? 'TAK' : 'NIE'}
+Orzeczenie o niepełnosprawności: ${d.dzieckoNiepelnosprawne === 'tak' ? 'TAK' : 'NIE'}
 
 ========================================
 OSWIADCZAM, ZE
 
-1. Czy jest domownik mogacy zapewnic opieke dziecku:
-   ${d.jestDomownik === 'tak' ? 'TAK, domownik moze sprawowac opieke w dniach: ' + (d.domownikDni || 'nie podano') : 'NIE'}
+1. Czy jest domownik mogacy zapewnić opiekę dziecku:
+   ${d.jestDomownik === 'tak' ? 'TAK, domownik może sprawować opiekę w dniach: ' + (d.domownikDni || 'nie podano') : 'NIE'}
 
 2. Czy jestes zatrudniony w systemie pracy zmianowej:
    ${d.pracaZmianowa === 'tak' ? 'TAK' : 'NIE'}
 
-3. Zmiana platnika skladek:
-   ${d.zmianaPlatnika === 'nie-zmienialem' ? 'Nie zmienialem platnika w tym roku' : d.zmianaPlatnika === 'nie' ? 'Tak, zmienialem, ale nie otrzymalem zasilku od poprzedniego' : 'TAK: otrzymalem zasilek od poprzedniego platnika'}
+3. Zmiana płatnika składek:
+   ${d.zmianaPłatnika === 'nie-zmieniałem' ? 'Nie zmieniałem płatnika w tym roku' : d.zmianaPłatnika === 'nie' ? 'Tak, zmieniałem, ale nie otrzymałem zasiłku od poprzedniego' : 'TAK: otrzymałem zasiłek od poprzedniego płatnika'}
 
-4. Pozostaje we wspolnym gospodarstwie z chorym dzieckiem:
-   ${d.wspolneGospodarstwo === 'tak' ? 'TAK' : 'NIE'}
+4. Pozostaje we wspólnym gospodarstwie z chorym dzieckiem:
+   ${d.wspólneGospodarstwo === 'tak' ? 'TAK' : 'NIE'}
 
 ========================================
 DANE DRUGIEGO RODZICA DZIECKA
@@ -785,11 +785,11 @@ ${rodzic2Block}
 ========================================
 DANE MALZONKA
 
-${malzonekBlock}
+${małżonekBlock}
 
 ========================================
 
-Oswiadczam, ze dane podane we wniosku podaiem zgodnie z prawda.
+Oświadczam, ze dane podane we wniosku podaiem zgodnie z prawda.
 
 Data: .........................
 Podpis: .........................
@@ -798,7 +798,7 @@ Podpis: .........................
 INSTRUKCJA:
 1. Pobierz oryginalny Z-15a z: https://www.zus.pl/wzory-formularzy
 2. Przepisz dane WIELKIMI LITERAMI
-3. Dolacz e-ZLA (zwolnienie lekarskie) lub zaswiadczenie o zamknieciu placowki
+3. Dołącz e-ZLA (zwolnienie lekarskie) lub zaświadczenie o zamknieciu placówki
 4. Złóż u pracodawcy (nie w ZUS)
 5. Status wniosku: https://www.zus.pl/ezus/logowanie?jezyk=pl
 
@@ -809,7 +809,7 @@ Adres do korespondencji: ${adres}
 
 // ---- SHARED ----
 
-function OswiadczenieBlock({ label, hint, value, onChange }: {
+function OświadczenieBlock({ label, hint, value, onChange }: {
   label: string; hint?: string;
   value: 'tak' | 'nie'; onChange: (v: 'tak' | 'nie') => void;
 }) {

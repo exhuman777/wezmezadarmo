@@ -7,7 +7,7 @@ import { FormChatWidget } from '@/components/FormChatWidget';
 
 // ---- TYPES ----
 
-type Plec = 'K' | 'M';
+type Płeć = 'K' | 'M';
 
 interface Okres {
   od: string;
@@ -29,9 +29,9 @@ interface EruData {
   nrDomu: string;
   nrLokalu: string;
   kodPocztowy: string;
-  miejscowosc: string;
+  miejscowość: string;
   telefon: string;
-  plec: Plec;
+  płeć: Płeć;
 
   // Informacje o dzieciach
   liczbaUrodzonych: string;
@@ -42,7 +42,7 @@ interface EruData {
   okresy_areszt: Okres[];
 
   // Rolnicy
-  ubezpieczenieRolnikow: boolean;
+  ubezpieczenieRolników: boolean;
 
   // Zamieszkanie w RP
   zamieszkaWrp: boolean;
@@ -52,8 +52,8 @@ interface EruData {
   przerwy: PrzerwaPraca[];
 
   // Dodatkowe dla ojca
-  ojciec_smierc: boolean;
-  ojciec_smierc_data: string;
+  ojciec_śmierć: boolean;
+  ojciec_śmierć_data: string;
   ojciec_porzucenie: boolean;
   ojciec_porzucenie_data: string;
   ojciec_zaprzestanie: boolean;
@@ -63,7 +63,7 @@ interface EruData {
   matka_dataUrodzenia: string;
 }
 
-type Step = 'wnioskodawca' | 'dzieci' | 'sytuacja' | 'przerwy' | 'ojciec' | 'podglad' | 'done';
+type Step = 'wnioskodawca' | 'dzieci' | 'sytuacja' | 'przerwy' | 'ojciec' | 'podgląd' | 'done';
 
 const EMPTY_OKRES: Okres = { od: '', do: '' };
 const EMPTY_PRZERWA: PrzerwaPraca = { od: '', do: '', przyczyna: '' };
@@ -76,14 +76,14 @@ const EMPTY: EruData = {
   nrDomu: '',
   nrLokalu: '',
   kodPocztowy: '',
-  miejscowosc: '',
+  miejscowość: '',
   telefon: '',
-  plec: 'K',
+  płeć: 'K',
   liczbaUrodzonych: '',
   liczbaWychowanych: '',
   blyAreszt: false,
   okresy_areszt: [{ ...EMPTY_OKRES }, { ...EMPTY_OKRES }, { ...EMPTY_OKRES }],
-  ubezpieczenieRolnikow: false,
+  ubezpieczenieRolników: false,
   zamieszkaWrp: true,
   okresy_poza_rp: [{ ...EMPTY_OKRES }, { ...EMPTY_OKRES }, { ...EMPTY_OKRES }],
   przerwy: [
@@ -92,8 +92,8 @@ const EMPTY: EruData = {
     { ...EMPTY_PRZERWA },
     { ...EMPTY_PRZERWA },
   ],
-  ojciec_smierc: false,
-  ojciec_smierc_data: '',
+  ojciec_śmierć: false,
+  ojciec_śmierć_data: '',
   ojciec_porzucenie: false,
   ojciec_porzucenie_data: '',
   ojciec_zaprzestanie: false,
@@ -143,7 +143,7 @@ function NavButtons({ onBack, onNext, nextLabel = 'Dalej' }: { onBack?: () => vo
   );
 }
 
-function OswiadczenieBlock({ label, value, onChange }: {
+function OświadczenieBlock({ label, value, onChange }: {
   label: string; value: boolean; onChange: (v: boolean) => void;
 }) {
   return (
@@ -175,7 +175,7 @@ function StepWnioskodawca({ data, update, onNext }: {
     <div>
       <h2 style={{ fontSize: 22, marginBottom: 24 }}>Twoje dane</h2>
       <Field label="PESEL"><input className={IC} style={inputStyle} value={data.pesel} onChange={e => update('pesel', e.target.value)} placeholder="00000000000" /></Field>
-      <Field label="Imie"><input style={inputStyle} value={data.imie} onChange={e => update('imie', e.target.value)} placeholder="Jan" /></Field>
+      <Field label="Imię"><input style={inputStyle} value={data.imie} onChange={e => update('imie', e.target.value)} placeholder="Jan" /></Field>
       <Field label="Nazwisko"><input style={inputStyle} value={data.nazwisko} onChange={e => update('nazwisko', e.target.value)} placeholder="Kowalski" /></Field>
       <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: 12 }}>
         <Field label="Ulica"><input style={inputStyle} value={data.ulica} onChange={e => update('ulica', e.target.value)} /></Field>
@@ -184,19 +184,19 @@ function StepWnioskodawca({ data, update, onNext }: {
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 12 }}>
         <Field label="Kod pocztowy"><input className={IC} style={inputStyle} value={data.kodPocztowy} onChange={e => update('kodPocztowy', e.target.value)} placeholder="00-000" /></Field>
-        <Field label="Miejscowosc"><input style={inputStyle} value={data.miejscowosc} onChange={e => update('miejscowosc', e.target.value)} /></Field>
+        <Field label="Miejscowość"><input style={inputStyle} value={data.miejscowość} onChange={e => update('miejscowość', e.target.value)} /></Field>
       </div>
       <Field label="Telefon" hint="Pole dobrowolne: ułatwia kontakt ZUS"><input className={IC} style={inputStyle} value={data.telefon} onChange={e => update('telefon', e.target.value)} placeholder="+48 000 000 000" /></Field>
-      <Field label="Plec" hint="Wplywa na tresc oswiadczenia">
+      <Field label="Płeć" hint="Wpływa na treść oświadczenia">
         <div style={{ display: 'flex', gap: 10 }}>
           {(['K', 'M'] as const).map(p => (
-            <button key={p} onClick={() => update('plec', p)} style={{
+            <button key={p} onClick={() => update('płeć', p)} style={{
               flex: 1, padding: '10px', borderRadius: 8,
-              border: `1px solid ${data.plec === p ? 'var(--color-accent)' : 'var(--color-border)'}`,
-              background: data.plec === p ? 'var(--color-accent-soft)' : 'var(--color-bg-1)',
-              color: data.plec === p ? 'var(--color-accent)' : 'var(--color-text-2)',
+              border: `1px solid ${data.płeć === p ? 'var(--color-accent)' : 'var(--color-border)'}`,
+              background: data.płeć === p ? 'var(--color-accent-soft)' : 'var(--color-bg-1)',
+              color: data.płeć === p ? 'var(--color-accent)' : 'var(--color-text-2)',
               fontWeight: 600, fontSize: 13, cursor: 'pointer',
-            }}>{p === 'K' ? 'Kobieta' : 'Mezczyzna'}</button>
+            }}>{p === 'K' ? 'Kobieta' : 'Mężczyzna'}</button>
           ))}
         </div>
       </Field>
@@ -210,7 +210,7 @@ function StepDzieci({ data, update, onBack, onNext }: {
   update: (k: keyof EruData, v: string | boolean | Okres[] | PrzerwaPraca[]) => void;
   onBack: () => void; onNext: () => void;
 }) {
-  const gender = data.plec === 'K';
+  const gender = data.płeć === 'K';
   return (
     <div>
       <h2 style={{ fontSize: 22, marginBottom: 24 }}>Informacje o dzieciach</h2>
@@ -218,13 +218,13 @@ function StepDzieci({ data, update, onBack, onNext }: {
         padding: '16px 20px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)',
         borderRadius: 10, fontSize: 13, color: 'var(--color-text-2)', marginBottom: 28, lineHeight: 1.6,
       }}>
-        <p>Swiadczenie przysluguje gdy {gender ? 'urodzilas' : 'urodzil'} i {gender ? 'wychowala' : 'wychowal'} {gender ? 'Pani' : 'Pan'} co najmniej <strong>4 dzieci</strong> i nie {gender ? 'nabylas' : 'nabyl'} prawa do emerytury lub masz emeryture ponizej minimum (1901 zl od marca 2024).</p>
+        <p>Świadczenie przysługuje gdy {gender ? 'urodziłaś' : 'urodził'} i {gender ? 'wychowała' : 'wychował'} {gender ? 'Pani' : 'Pan'} co najmniej <strong>4 dzieci</strong> i nie {gender ? 'nabyłaś' : 'nabył'} prawa do emerytury lub masz emeryturę poniżej minimum (1901 zł od marca 2024).</p>
       </div>
-      <Field label={`Ile dzieci ${gender ? 'Pani urodzila' : 'Pan urodzil'}`}>
+      <Field label={`Ile dzieci ${gender ? 'Pani urodziła' : 'Pan urodził'}`}>
         <input className={IC} style={inputStyle} type="number" min="0" value={data.liczbaUrodzonych}
           onChange={e => update('liczbaUrodzonych', e.target.value)} placeholder="4" />
       </Field>
-      <Field label={`Ile dzieci ${gender ? 'Pani wychowala' : 'Pan wychowal'}`} hint="Moze byc mniejsza liczba jesli byly przerwy lub dziecko zmarlo">
+      <Field label={`Ile dzieci ${gender ? 'Pani wychowała' : 'Pan wychował'}`} hint="Może być mniejsza liczba jeśli były przerwy lub dziecko zmarło">
         <input className={IC} style={inputStyle} type="number" min="0" value={data.liczbaWychowanych}
           onChange={e => update('liczbaWychowanych', e.target.value)} placeholder="4" />
       </Field>
@@ -253,8 +253,8 @@ function StepSytuacja({ data, update, onBack, onNext }: {
     <div>
       <h2 style={{ fontSize: 22, marginBottom: 24 }}>Sytuacja osobista</h2>
 
-      <OswiadczenieBlock
-        label="Przebywam lub przebywalam/przebywaloem w areszcie sledczym lub zakladzie karnym"
+      <OświadczenieBlock
+        label="Przebywam lub przebywałam/przebywałem w areszcie śledczym lub zakładzie karnym"
         value={data.blyAreszt}
         onChange={v => update('blyAreszt', v)}
       />
@@ -276,13 +276,13 @@ function StepSytuacja({ data, update, onBack, onNext }: {
         </div>
       )}
 
-      <OswiadczenieBlock
-        label="Mam okresy podlegania ubezpieczeniu spolecznemu rolnikow"
-        value={data.ubezpieczenieRolnikow}
-        onChange={v => update('ubezpieczenieRolnikow', v)}
+      <OświadczenieBlock
+        label="Mam okresy podlegania ubezpieczeniu społecznemu rolników"
+        value={data.ubezpieczenieRolników}
+        onChange={v => update('ubezpieczenieRolników', v)}
       />
 
-      <OswiadczenieBlock
+      <OświadczenieBlock
         label="Zamieszkuje na terytorium Rzeczypospolitej Polskiej"
         value={data.zamieszkaWrp}
         onChange={v => update('zamieszkaWrp', v)}
@@ -324,7 +324,7 @@ function StepPrzerwy({ data, update, onBack, onNext }: {
   return (
     <div>
       <h2 style={{ fontSize: 22, marginBottom: 8 }}>Przerwy w wychowywaniu</h2>
-      <p style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 24 }}>Jezeli bylyprzierwy w wychowywaniu dzieci, podaj okresy i przyczyny. Zostaw puste jezeli nie bylo przerw.</p>
+      <p style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 24 }}>Jeżeli były przerwy w wychowywaniu dzieci, podaj okresy i przyczyny. Zostaw puste jeżeli nie bylo przerw.</p>
 
       {data.przerwy.map((p, i) => (
         <div key={i} style={{ padding: '16px 20px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 10, marginBottom: 14 }}>
@@ -360,45 +360,45 @@ function StepOjciec({ data, update, onBack, onNext }: {
     <div>
       <h2 style={{ fontSize: 22, marginBottom: 8 }}>Dodatkowe informacje ojca</h2>
       <p style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 24 }}>
-        Ojciec moze ubiegac sie o swiadczenie tylko jesli matka dzieci: zmara, porzucila dzieci lub dlugotrwale zaprzestala ich wychowywania.
+        Ojciec może ubiegać się o świadczenie tylko jeśli matka dzieci: zmarła, porzuciła dzieci lub długotrwale zaprzestała ich wychowywania.
       </p>
 
-      <OswiadczenieBlock
-        label="a) Smierc matki dzieci"
-        value={data.ojciec_smierc}
-        onChange={v => update('ojciec_smierc', v)}
+      <OświadczenieBlock
+        label="a) Śmierć matki dzieci"
+        value={data.ojciec_śmierć}
+        onChange={v => update('ojciec_śmierć', v)}
       />
-      {data.ojciec_smierc && (
-        <Field label="Data smierci matki">
-          <DateInput className={IC} style={inputStyle} value={data.ojciec_smierc_data} onChange={v => update('ojciec_smierc_data', v)} placeholder="dd.mm.rrrr" />
+      {data.ojciec_śmierć && (
+        <Field label="Data śmierći matki">
+          <DateInput className={IC} style={inputStyle} value={data.ojciec_śmierć_data} onChange={v => update('ojciec_śmierć_data', v)} placeholder="dd.mm.rrrr" />
         </Field>
       )}
 
-      <OswiadczenieBlock
-        label="b) Porzucenie dzieci przez matke"
+      <OświadczenieBlock
+        label="b) Porzucenie dzieci przez matkę"
         value={data.ojciec_porzucenie}
         onChange={v => update('ojciec_porzucenie', v)}
       />
       {data.ojciec_porzucenie && (
-        <Field label="Data porzucenia przez matke">
+        <Field label="Data porzucenia przez matkę">
           <DateInput className={IC} style={inputStyle} value={data.ojciec_porzucenie_data} onChange={v => update('ojciec_porzucenie_data', v)} placeholder="dd.mm.rrrr" />
         </Field>
       )}
 
-      <OswiadczenieBlock
-        label="c) Dlugotrwale zaprzestanie wychowywania dzieci przez matke"
+      <OświadczenieBlock
+        label="c) Długotrwale zaprzestanie wychowywania dzieci przez matkę"
         value={data.ojciec_zaprzestanie}
         onChange={v => update('ojciec_zaprzestanie', v)}
       />
       {data.ojciec_zaprzestanie && (
-        <Field label="Data poczatkowa zaprzestania przez matke">
+        <Field label="Data początkowa zaprzestania przez matkę">
           <DateInput className={IC} style={inputStyle} value={data.ojciec_zaprzestanie_data} onChange={v => update('ojciec_zaprzestanie_data', v)} placeholder="dd.mm.rrrr" />
         </Field>
       )}
 
       <div style={{ marginTop: 28, paddingTop: 24, borderTop: '1px solid var(--color-border)' }}>
         <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-text-2)', marginBottom: 16, textTransform: 'uppercase', letterSpacing: '0.04em' }}>Dane matki dzieci</p>
-        <Field label="Imie matki dzieci"><input style={inputStyle} value={data.matka_imie} onChange={e => update('matka_imie', e.target.value)} /></Field>
+        <Field label="Imię matki dzieci"><input style={inputStyle} value={data.matka_imie} onChange={e => update('matka_imie', e.target.value)} /></Field>
         <Field label="Nazwisko matki dzieci"><input style={inputStyle} value={data.matka_nazwisko} onChange={e => update('matka_nazwisko', e.target.value)} /></Field>
         <Field label="Data urodzenia matki dzieci"><DateInput className={IC} style={inputStyle} value={data.matka_dataUrodzenia} onChange={v => update('matka_dataUrodzenia', v)} placeholder="dd.mm.rrrr" /></Field>
       </div>
@@ -413,30 +413,30 @@ function buildOutput(d: EruData): string {
   const yn = (v: boolean) => v ? 'TAK' : 'NIE';
 
   const lines: string[] = [
-    'ERU: OSWIADCZENIE O SYTUACJI OSOBISTEJ, RODZINNEJ, MAJATKOWEJ I MATERIALNEJ',
-    '(Oswiadczenie do wniosku ERSU: Rodzicielskie swiadczenie uzupelniajace)',
+    'ERU: OŚWIADCZENIE O SYTUACJI OSOBISTEJ, RODZINNEJ, MAJATKOWEJ I MATERIALNEJ',
+    '(Oświadczenie do wniosku ERSU: Rodzicielskie świadczenie uzupełniające)',
     '',
     'DANE IDENTYFIKACYJNE WNIOSKODAWCY',
     `PESEL: ${d.pesel}`,
-    `IMIE: ${U(d.imie)}`,
+    `IMIĘ: ${U(d.imie)}`,
     `NAZWISKO: ${U(d.nazwisko)}`,
-    `ADRES: ${U(d.ulica)} ${d.nrDomu}${d.nrLokalu ? '/' + d.nrLokalu : ''}, ${d.kodPocztowy} ${U(d.miejscowosc)}`,
+    `ADRES: ${U(d.ulica)} ${d.nrDomu}${d.nrLokalu ? '/' + d.nrLokalu : ''}, ${d.kodPocztowy} ${U(d.miejscowość)}`,
   ];
   if (d.telefon) lines.push(`TELEFON: ${d.telefon}`);
 
   lines.push('', 'INFORMACJE O DZIECIACH');
-  const g = d.plec === 'K';
-  lines.push(`${g ? 'URODZILAM' : 'URODZILAM/URODZILO'}: ${d.liczbaUrodzonych} DZIECI`);
-  lines.push(`${g ? 'WYCHOWALAM' : 'WYCHOWALEM'}: ${d.liczbaWychowanych} DZIECI`);
+  const g = d.płeć === 'K';
+  lines.push(`${g ? 'URODZIŁAM' : 'URODZIŁAM/URODZILO'}: ${d.liczbaUrodzonych} DZIECI`);
+  lines.push(`${g ? 'WYCHOWAŁAM' : 'WYCHOWAŁEM'}: ${d.liczbaWychowanych} DZIECI`);
 
-  lines.push('', 'INFORMACJE MAJACE WPLYW NA ROZPATRZENIE WNIOSKU');
+  lines.push('', 'INFORMACJE MAJĄCE WPŁYW NA ROZPATRZENIE WNIOSKU');
   lines.push(`POBYT W ARESZCIE LUB ZAKLADZIE KARNYM: ${yn(d.blyAreszt)}`);
   if (d.blyAreszt) {
     d.okresy_areszt.filter(o => o.od || o.do).forEach(o => {
       lines.push(`  OD: ${o.od}  DO: ${o.do}`);
     });
   }
-  lines.push(`UBEZPIECZENIE SPOLECZNE ROLNIKOW: ${yn(d.ubezpieczenieRolnikow)}`);
+  lines.push(`UBEZPIECZEŃIE SPOŁECZNE ROLNIKOW: ${yn(d.ubezpieczenieRolników)}`);
   lines.push(`ZAMIESZKUJĘ NA TERYTORIUM RP: ${yn(d.zamieszkaWrp)}`);
   if (!d.zamieszkaWrp) {
     lines.push('OKRESY POZA RP:');
@@ -454,44 +454,44 @@ function buildOutput(d: EruData): string {
     });
   }
 
-  if (d.plec === 'M') {
+  if (d.płeć === 'M') {
     lines.push('', 'DODATKOWE INFORMACJE OJCA DZIECI');
-    lines.push(`a) SMIERC MATKI DZIECI: ${yn(d.ojciec_smierc)}`);
-    if (d.ojciec_smierc) lines.push(`   DATA SMIERCI: ${d.ojciec_smierc_data}`);
+    lines.push(`a) ŚMIERĆ MATKI DZIECI: ${yn(d.ojciec_śmierć)}`);
+    if (d.ojciec_śmierć) lines.push(`   DATA ŚMIERĆI: ${d.ojciec_śmierć_data}`);
     lines.push(`b) PORZUCENIE DZIECI PRZEZ MATKE: ${yn(d.ojciec_porzucenie)}`);
     if (d.ojciec_porzucenie) lines.push(`   DATA PORZUCENIA: ${d.ojciec_porzucenie_data}`);
-    lines.push(`c) DLUGOTRWALE ZAPRZESTANIE WYCHOWYWANIA: ${yn(d.ojciec_zaprzestanie)}`);
-    if (d.ojciec_zaprzestanie) lines.push(`   DATA POCZATKOWA: ${d.ojciec_zaprzestanie_data}`);
+    lines.push(`c) DŁUGOTRWALE ZAPRZESTANIE WYCHOWYWANIA: ${yn(d.ojciec_zaprzestanie)}`);
+    if (d.ojciec_zaprzestanie) lines.push(`   DATA POCZĄTKOWA: ${d.ojciec_zaprzestanie_data}`);
     if (d.matka_imie || d.matka_nazwisko) {
       lines.push('', 'DANE MATKI DZIECI');
-      if (d.matka_imie) lines.push(`IMIE: ${U(d.matka_imie)}`);
+      if (d.matka_imie) lines.push(`IMIĘ: ${U(d.matka_imie)}`);
       if (d.matka_nazwisko) lines.push(`NAZWISKO: ${U(d.matka_nazwisko)}`);
       if (d.matka_dataUrodzenia) lines.push(`DATA URODZENIA: ${d.matka_dataUrodzenia}`);
     }
   }
 
   lines.push('', '---', 'Formularz przygotowany przez kreator wezmezadarmo.com');
-  lines.push('WAZNE: Przed zlozeniem porownaj dane z oryginalnym formularzem ZUS ERU.');
+  lines.push('WAŻNE: Przed złożeniem porównaj dane z oryginalnym formularzem ZUS ERU.');
 
   return lines.join('\n');
 }
 
-function StepPodglad({ data, onBack, onDone, onCopy, copied }: {
+function StepPodgląd({ data, onBack, onDone, onCopy, copied }: {
   data: EruData; onBack: () => void; onDone: () => void; onCopy: () => void; copied: boolean;
 }) {
-  const g = data.plec === 'K';
+  const g = data.płeć === 'K';
   return (
     <div>
-      <h2 style={{ fontSize: 22, marginBottom: 24 }}>Podglad oswiadczenia</h2>
+      <h2 style={{ fontSize: 22, marginBottom: 24 }}>Podgląd oświadczenia</h2>
 
       <div style={{ padding: '20px 24px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 10, marginBottom: 24 }}>
-        <Row label="Imie i nazwisko" value={`${data.imie} ${data.nazwisko}`} />
+        <Row label="Imię i nazwisko" value={`${data.imie} ${data.nazwisko}`} />
         <Row label="PESEL" value={data.pesel} mono />
-        <Row label="Adres" value={`${data.ulica} ${data.nrDomu}${data.nrLokalu ? '/' + data.nrLokalu : ''}, ${data.kodPocztowy} ${data.miejscowosc}`} />
+        <Row label="Adres" value={`${data.ulica} ${data.nrDomu}${data.nrLokalu ? '/' + data.nrLokalu : ''}, ${data.kodPocztowy} ${data.miejscowość}`} />
         <Row label={g ? 'Urodzila dzieci' : 'Urodzil dzieci'} value={data.liczbaUrodzonych} />
         <Row label={g ? 'Wychowala dzieci' : 'Wychowal dzieci'} value={data.liczbaWychowanych} />
         <Row label="Pobyt w areszcie" value={data.blyAreszt ? 'TAK' : 'NIE'} />
-        <Row label="Ubezp. rolnikow" value={data.ubezpieczenieRolnikow ? 'TAK' : 'NIE'} />
+        <Row label="Ubezp. rolników" value={data.ubezpieczenieRolników ? 'TAK' : 'NIE'} />
         <Row label="Zamieszkuje w RP" value={data.zamieszkaWrp ? 'TAK' : 'NIE'} />
       </div>
 
@@ -529,10 +529,10 @@ function StepDone({ onCopy, copied, onRestart }: { onCopy: () => void; copied: b
           <polyline points="20 6 9 17 4 12" />
         </svg>
       </div>
-      <h2 style={{ fontSize: 24, marginBottom: 12 }}>Oswiadczenie ERU gotowe</h2>
+      <h2 style={{ fontSize: 24, marginBottom: 12 }}>Oświadczenie ERU gotowe</h2>
       <p style={{ fontSize: 14, color: 'var(--color-text-2)', maxWidth: 460, margin: '0 auto 32px', lineHeight: 1.6 }}>
-        Skopiuj dane do schowka i uzyj ich do wypelnienia oficjalnego formularza ERU ze strony ZUS.
-        Formularz ERSU + ERU mozna zlozyc w oddziale ZUS lub przez portal eZUS.
+        Skopiuj dane do schowka i użyj ich do wypełnienia oficjalnego formularza ERU ze strony ZUS.
+        Formularz ERSU + ERU można złożyć w oddziale ZUS lub przez portal eZUS.
       </p>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 400, margin: '0 auto 32px' }}>
@@ -545,7 +545,7 @@ function StepDone({ onCopy, copied, onRestart }: { onCopy: () => void; copied: b
           display: 'block', padding: '13px 24px', borderRadius: 8,
           border: '1px solid var(--color-border)', background: 'var(--color-bg-1)',
           color: 'var(--color-text-1)', fontSize: 14, textDecoration: 'none', textAlign: 'center',
-        }}>Przejdz do eZUS (logowanie)</a>
+        }}>Przejdź do eZUS (logowanie)</a>
         <button onClick={onRestart} style={{
           padding: '13px 24px', borderRadius: 8,
           border: '1px solid var(--color-border)', background: 'transparent',
@@ -556,8 +556,8 @@ function StepDone({ onCopy, copied, onRestart }: { onCopy: () => void; copied: b
       <div style={{ padding: '16px 20px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 10, fontSize: 13, color: 'var(--color-text-2)', maxWidth: 460, margin: '0 auto', textAlign: 'left', lineHeight: 1.6 }}>
         <p style={{ fontWeight: 600, marginBottom: 8, color: 'var(--color-text-1)', textTransform: 'uppercase', fontSize: 11, letterSpacing: '0.05em' }}>Co dalej</p>
         <p style={{ marginBottom: 6 }}>1. Pobierz oryginalny formularz ERU ze strony zus.pl/wzory-formularzy</p>
-        <p style={{ marginBottom: 6 }}>2. Pobierz formularz ERSU (wniosek glowny). ERU to tylko zalacznik</p>
-        <p>3. Zloz oba formularze w oddziale ZUS lub elektronicznie przez PUE eZUS</p>
+        <p style={{ marginBottom: 6 }}>2. Pobierz formularz ERSU (wniosek glowny). ERU to tylko załącznik</p>
+        <p>3. Złóż oba formularze w oddziale ZUS lub elektronicznie przez PUE eZUS</p>
       </div>
     </div>
   );
@@ -580,8 +580,8 @@ export default function ZusErsuPage() {
       { key: 'sytuacja', label: 'Sytuacja' },
       { key: 'przerwy', label: 'Przerwy' },
     ];
-    if (data.plec === 'M') steps.push({ key: 'ojciec', label: 'Informacje ojca' });
-    steps.push({ key: 'podglad', label: 'Podglad' });
+    if (data.płeć === 'M') steps.push({ key: 'ojciec', label: 'Informacje ojca' });
+    steps.push({ key: 'podgląd', label: 'Podgląd' });
     return steps;
   };
 
@@ -595,8 +595,8 @@ export default function ZusErsuPage() {
     });
   };
 
-  const nextAfterPrzerwy = () => data.plec === 'M' ? setStep('ojciec') : setStep('podglad');
-  const backFromPodglad = () => data.plec === 'M' ? setStep('ojciec') : setStep('przerwy');
+  const nextAfterPrzerwy = () => data.płeć === 'M' ? setStep('ojciec') : setStep('podgląd');
+  const backFromPodgląd = () => data.płeć === 'M' ? setStep('ojciec') : setStep('przerwy');
 
   return (
     <div style={{ minHeight: '100vh', background: 'var(--color-bg-0)' }}>
@@ -634,7 +634,7 @@ export default function ZusErsuPage() {
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
           <span className="mono" style={{ fontSize: 11, color: 'var(--color-accent)', background: 'var(--color-accent-soft)', padding: '3px 8px', borderRadius: 6, fontWeight: 500 }}>ERSU + ERU</span>
-          <span style={{ fontSize: 12, color: 'var(--color-text-3)' }}>Zaklad Ubezpieczen Spolecznych</span>
+          <span style={{ fontSize: 12, color: 'var(--color-text-3)' }}>Zaklad Ubezpieczeń Spolecznych</span>
         </div>
         <h1 className="display" style={{ fontSize: 'clamp(26px, 4vw, 38px)', marginBottom: 8 }}>Mama 4+ / Tata 4+</h1>
         <p style={{ fontSize: 14, color: 'var(--color-text-3)', marginBottom: 32 }}>Rodzicielskie świadczenie uzupełniające: oświadczenie ERU</p>
@@ -646,8 +646,8 @@ export default function ZusErsuPage() {
           boxShadow: 'var(--shadow-1)',
         }}>
           <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 6, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Dla kogo</p>
-          <p style={{ marginBottom: 14 }}>Dla rodzicow co najmniej 4 dzieci, ktorzy zrezygnowali z pracy by wychowywac dzieci i nie maja prawa do emerytury, renty lub maja swiadczenie ponizej 1901 zl miesieczne. Wniosek glowny: ERSU. Ten kreator pomaga wypelnic zalacznik ERU (oswiadczenie o sytuacji).</p>
-          <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 6, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Jak zlozyc</p>
+          <p style={{ marginBottom: 14 }}>Dla rodziców co najmniej 4 dzieci, którzy zrezygnowali z pracy by wychowywac dzieci i nie maja prawa do emerytury, renty lub maja świadczenie poniżej 1901 zl miesięczne. Wniosek glowny: ERSU. Ten kreator pomaga wypełnić załącznik ERU (oświadczenie o sytuacji).</p>
+          <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 6, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Jak złożyć</p>
           <p>W oddziale ZUS lub przez portal <a href="https://www.zus.pl/ezus/logowanie?jezyk=pl" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)' }}>eZUS</a> (z profilem zaufanym lub e-Dowodem).</p>
         </div>
 
@@ -667,9 +667,9 @@ export default function ZusErsuPage() {
         {step === 'dzieci' && <StepDzieci data={data} update={update} onBack={() => setStep('wnioskodawca')} onNext={() => setStep('sytuacja')} />}
         {step === 'sytuacja' && <StepSytuacja data={data} update={update} onBack={() => setStep('dzieci')} onNext={() => setStep('przerwy')} />}
         {step === 'przerwy' && <StepPrzerwy data={data} update={update} onBack={() => setStep('sytuacja')} onNext={nextAfterPrzerwy} />}
-        {step === 'ojciec' && <StepOjciec data={data} update={update} onBack={() => setStep('przerwy')} onNext={() => setStep('podglad')} />}
-        {step === 'podglad' && (
-          <StepPodglad data={data} onBack={backFromPodglad} onDone={() => setStep('done')}
+        {step === 'ojciec' && <StepOjciec data={data} update={update} onBack={() => setStep('przerwy')} onNext={() => setStep('podgląd')} />}
+        {step === 'podgląd' && (
+          <StepPodgląd data={data} onBack={backFromPodgląd} onDone={() => setStep('done')}
             onCopy={copyAll} copied={copied} />
         )}
         {step === 'done' && (
