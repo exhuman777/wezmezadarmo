@@ -672,7 +672,7 @@ export function ChatWindow({
                   {selectedBenefit.wniosek.pulapki.length > 0 && (
                     <div style={{ marginTop: 28 }}>
                       <DetailBlock title="Na co uważać" tone="red">
-                        <ul style={{ paddingLeft: 0, margin: 0, listStyle: 'none', fontSize: 14, lineHeight: 1.7, color: 'var(--color-red, #c44)' }}>
+                        <ul style={{ paddingLeft: 0, margin: 0, listStyle: 'none', fontSize: 14, lineHeight: 1.7, color: 'var(--color-red)' }}>
                           {selectedBenefit.wniosek.pulapki.map((p, i) => (
                             <li key={i} style={{ display: 'flex', gap: 8, marginBottom: 4 }}>
                               <span style={{ fontWeight: 600, flexShrink: 0, fontSize: 14 }}>!</span>
@@ -693,7 +693,7 @@ export function ChatWindow({
                         </div>
                       ))}
                       {selectedResult.warnings.map((w, i) => (
-                        <div key={i} style={{ display: 'flex', gap: 8, fontSize: 13, color: 'var(--color-red, #c44)', marginBottom: 4 }}>
+                        <div key={i} style={{ display: 'flex', gap: 8, fontSize: 13, color: 'var(--color-red)', marginBottom: 4 }}>
                           <span style={{ fontWeight: 600 }}>!</span> {w}
                         </div>
                       ))}
@@ -755,7 +755,7 @@ function DetailBlock({ title, children, tone = 'primary' }: { title: string; chi
       <div className="mono" style={{
         fontSize: 11, fontWeight: 600,
         letterSpacing: '0.06em', textTransform: 'uppercase',
-        color: tone === 'red' ? 'var(--color-red, #c44)' : 'var(--color-accent)',
+        color: tone === 'red' ? 'var(--color-red)' : 'var(--color-accent)',
         marginBottom: 10,
       }}>{title}</div>
       {children}

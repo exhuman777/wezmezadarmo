@@ -354,7 +354,7 @@ export default function PanelAktualnosciPage() {
                 disabled={submitting || !formUrl.trim() || !formName.trim()}
                 style={{
                   background: submitting || !formUrl.trim() || !formName.trim() ? 'var(--color-bg-2)' : 'var(--color-green)',
-                  color: submitting || !formUrl.trim() || !formName.trim() ? 'var(--color-text-3)' : '#FFFFFF',
+                  color: submitting || !formUrl.trim() || !formName.trim() ? 'var(--color-text-3)' : 'white',
                   border: '1px solid var(--color-border-light)',
                   borderRadius: '5px',
                   padding: '9px 20px',
@@ -367,7 +367,7 @@ export default function PanelAktualnosciPage() {
                 {submitting ? 'Dodawanie...' : 'Dodaj feed'}
               </button>
               {submitMsg && (
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: submitMsg === 'Feed dodany.' ? '#4ade80' : 'var(--color-accent)' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: submitMsg === 'Feed dodany.' ? 'var(--green-400)' : 'var(--color-accent)' }}>
                   {submitMsg}
                 </span>
               )}

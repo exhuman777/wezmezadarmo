@@ -289,7 +289,7 @@ export default function OProjekciePage() {
                 co im przysługuje. To narzędzie ma to zmienić.
               </p>
               <div className="flex items-center gap-3 mt-4 p-3 rounded-xl" style={{ background: 'var(--color-bg-2)', border: '1px solid var(--color-border)' }}>
-                <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 text-[16px] font-extrabold" style={{ background: 'linear-gradient(135deg, var(--color-green), #3D9D60)', color: '#fff' }}>
+                <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 text-[16px] font-extrabold" style={{ background: 'linear-gradient(135deg, var(--color-green), var(--green-600))', color: '#fff' }}>
                   KS
                 </div>
                 <div>

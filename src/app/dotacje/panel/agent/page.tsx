@@ -169,7 +169,7 @@ export default function AgentPage() {
                   msg.role === 'assistant' ? 'var(--font-mono)' : 'var(--font-sans)',
                 fontSize: msg.role === 'assistant' ? '13px' : '14px',
                 color:
-                  msg.role === 'user' ? '#FFFFFF' : 'var(--color-text-1)',
+                  msg.role === 'user' ? 'white' : 'var(--color-text-1)',
                 lineHeight: 1.6,
                 whiteSpace: 'pre-wrap',
                 wordBreak: 'break-word',
@@ -242,7 +242,7 @@ export default function AgentPage() {
           disabled={loading || !input.trim()}
           style={{
             background: loading || !input.trim() ? 'var(--color-bg-2)' : 'var(--color-green)',
-            color: loading || !input.trim() ? 'var(--color-text-3)' : '#FFFFFF',
+            color: loading || !input.trim() ? 'var(--color-text-3)' : 'white',
             border: '1px solid var(--color-border-light)',
             borderRadius: '6px',
             padding: '10px 18px',

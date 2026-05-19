@@ -347,44 +347,44 @@ export default function AutomatyzacjePage() {
                     border: isDark ? 'none' : '1px solid var(--color-border)',
                     borderRadius: 16,
                     padding: '28px 28px',
-                    background: isDark ? '#0F1F14' : 'var(--color-surface)',
-                    color: isDark ? '#E8F0E8' : undefined,
+                    background: isDark ? 'var(--green-950)' : 'var(--color-surface)',
+                    color: isDark ? 'var(--paper)' : undefined,
                   }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
                       <span style={{
                         width: 38, height: 38, borderRadius: '50%',
-                        background: isDark ? 'rgba(109, 192, 138, 0.15)' : '#0F1F14',
-                        color: isDark ? '#6DC08A' : '#fff',
+                        background: isDark ? 'rgba(109, 192, 138, 0.15)' : 'var(--green-950)',
+                        color: isDark ? 'var(--green-400)' : '#fff',
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
                         fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 600, flexShrink: 0,
                       }}>{icons[i]}</span>
                       <div style={{
                         fontSize: 14, fontWeight: 600,
-                        color: isDark ? '#E8F0E8' : 'var(--color-text-1)',
+                        color: isDark ? 'var(--paper)' : 'var(--color-text-1)',
                         lineHeight: 1.4,
                       }}>{c.nazwa}</div>
                     </div>
                     <div className="mono" style={{
                       fontSize: 40, fontWeight: 500, letterSpacing: '-0.04em',
-                      color: isDark ? '#6DC08A' : isGreen ? 'var(--color-green)' : 'var(--color-accent)',
+                      color: isDark ? 'var(--green-400)' : isGreen ? 'var(--color-green)' : 'var(--color-accent)',
                       lineHeight: 1, marginBottom: 6,
                     }}>
                       {c.cena}
                     </div>
                     <div style={{
                       fontSize: 12,
-                      color: isDark ? '#6B8D6B' : 'var(--color-text-3)',
+                      color: isDark ? 'var(--ink-500)' : 'var(--color-text-3)',
                       marginBottom: 16,
                     }}>{c.szczegoly}</div>
                     <div style={{
                       fontSize: 14, lineHeight: 1.65,
-                      color: isDark ? '#C2D4C2' : 'var(--color-text-2)',
+                      color: isDark ? 'var(--ink-300)' : 'var(--color-text-2)',
                       marginBottom: 20,
                     }}>{c.opis}</div>
                     <a href="#kontakt" style={{
                       display: 'inline-block',
                       padding: '10px 22px',
-                      background: (isDark || isGreen) ? '#2E7D4F' : 'var(--color-accent)',
+                      background: (isDark || isGreen) ? 'var(--green-800)' : 'var(--color-accent)',
                       color: (isDark || isGreen) ? '#ffffff' : 'var(--color-bg-0)',
                       fontWeight: 600, fontSize: 14, borderRadius: 10,
                       textDecoration: 'none',
@@ -425,7 +425,7 @@ export default function AutomatyzacjePage() {
                   <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 18 }}>
                     <span style={{
                       width: 40, height: 40, borderRadius: '50%',
-                      background: '#0F1F14', color: '#fff',
+                      background: 'var(--green-950)', color: '#fff',
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                       fontFamily: 'var(--font-mono)', fontSize: 15, fontWeight: 600, flexShrink: 0,
                     }}>
@@ -563,7 +563,7 @@ export default function AutomatyzacjePage() {
                     />
                   </div>
                   {status === 'error' && (
-                    <p style={{ fontSize: 14, color: '#e05c5c', margin: 0 }}>{errorMsg}</p>
+                    <p style={{ fontSize: 14, color: 'var(--red-400)', margin: 0 }}>{errorMsg}</p>
                   )}
                   <div>
                     <button

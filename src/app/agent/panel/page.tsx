@@ -99,7 +99,7 @@ export default function AgentPanel() {
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 10 }}>
               <span style={{
                 width: 36, height: 36, borderRadius: '50%',
-                background: '#0F1F14', color: '#fff',
+                background: 'var(--green-950)', color: '#fff',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 600, flexShrink: 0,
               }}>{icon}</span>

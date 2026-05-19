@@ -110,7 +110,7 @@ export default function AgentProfil() {
       </div>
 
       {saved && <div style={{ padding: '10px 16px', background: 'var(--color-bg-1)', border: '1px solid var(--color-green)', borderRadius: 6, marginBottom: 16, fontSize: 13, color: 'var(--color-green)', fontFamily: 'var(--font-mono)' }}>Zapisano.</div>}
-      {error && <div style={{ padding: '10px 16px', background: '#2a1a1a', border: '1px solid #e05c5c', borderRadius: 6, marginBottom: 16, fontSize: 13, color: '#e05c5c' }}>{error}</div>}
+      {error && <div style={{ padding: '10px 16px', background: 'var(--red-50)', border: '1px solid var(--red-400)', borderRadius: 6, marginBottom: 16, fontSize: 13, color: 'var(--red-400)' }}>{error}</div>}
 
       <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, padding: '8px 12px', background: 'var(--color-bg-1)', borderRadius: 4, marginBottom: 16, color: 'var(--color-text-3)' }}>
         Typ konta: {profileType === 'jdg' ? 'JDG (dzialalnosc gospodarcza)' : 'Osoba prywatna'}

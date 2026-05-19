@@ -205,7 +205,7 @@ export default function SwiadczeniaPage() {
       <div
         className="flex items-center gap-2 sm:gap-3 px-3 sm:px-5 py-2.5 sm:py-3 border-b border-border sticky top-0 z-50"
         style={{
-          background: theme === 'dark' ? 'rgba(17,17,17,0.9)' : 'rgba(255,255,255,0.9)',
+          background: 'rgba(240,246,241,0.85)',
           backdropFilter: 'blur(12px)',
           WebkitBackdropFilter: 'blur(12px)',
         }}

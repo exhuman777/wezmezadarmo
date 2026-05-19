@@ -641,7 +641,7 @@ export default function Home() {
         <section style={{
           padding: '72px 0 80px',
           position: 'relative', overflow: 'hidden',
-          background: 'linear-gradient(160deg, #0a1f14 0%, #0f2e1a 40%, #122d1c 100%)',
+          background: `radial-gradient(800px 500px at 80% 20%, rgba(34,160,107,.25), transparent 60%), radial-gradient(600px 400px at 20% 80%, rgba(78,196,138,.18), transparent 60%), var(--green-950)`,
           borderRadius: '0 0 24px 24px',
         }}>
           {/* Gradient glow */}
@@ -654,7 +654,7 @@ export default function Home() {
                   SPRAWDŹ SWOJE ŚWIADCZENIA
                 </div>
                 <h1 style={{ maxWidth: 760, color: '#fff' }}>
-                  Sprawdź co Ci się&nbsp;<span style={{ color: '#8EEAAD' }}>należy</span>.
+                  Sprawdź co Ci się&nbsp;<span style={{ color: 'var(--green-300)' }}>należy</span>.
                   <br />
                   <span style={{ fontSize: '0.78em', color: 'rgba(255,255,255,0.6)', fontWeight: 400 }}>
                     Szybko, bez rejestracji, bez czekania.
@@ -668,7 +668,7 @@ export default function Home() {
                   <a href="#formularz" style={{
                     display: 'inline-flex', alignItems: 'center', gap: 8,
                     padding: '12px 24px', borderRadius: 10,
-                    background: '#22A06B', color: '#fff',
+                    background: 'var(--green-500)', color: '#fff',
                     fontSize: 15, fontWeight: 500, textDecoration: 'none',
                     transition: 'opacity 200ms',
                   }}>
@@ -881,7 +881,7 @@ export default function Home() {
                   />
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,18,10,0.75) 0%, transparent 50%)' }} />
                   <div style={{ position: 'absolute', bottom: 14, left: 14, right: 14 }}>
-                    <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#8EEAAD', marginBottom: 4, textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>Dla seniorów i rodzin</div>
+                    <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--green-300)', marginBottom: 4, textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>Dla seniorów i rodzin</div>
                     <div style={{ fontSize: 13, color: '#fff', lineHeight: 1.4 }}>Każde pokolenie może skorzystać</div>
                   </div>
                 </div>
@@ -893,7 +893,7 @@ export default function Home() {
                   />
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,18,10,0.75) 0%, transparent 55%)' }} />
                   <div style={{ position: 'absolute', bottom: 14, left: 14, right: 14 }}>
-                    <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#8EEAAD', marginBottom: 4, textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>Dla firm i pracowników</div>
+                    <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--green-300)', marginBottom: 4, textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>Dla firm i pracowników</div>
                     <div style={{ fontSize: 13, color: '#fff', lineHeight: 1.4 }}>Świadczenia, do których pracownicy mają prawo</div>
                   </div>
                 </div>
@@ -905,7 +905,7 @@ export default function Home() {
                   />
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,18,10,0.75) 0%, transparent 55%)' }} />
                   <div style={{ position: 'absolute', bottom: 14, left: 14, right: 14 }}>
-                    <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#8EEAAD', marginBottom: 4, textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>Asystent AI</div>
+                    <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--green-300)', marginBottom: 4, textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>Asystent AI</div>
                     <div style={{ fontSize: 13, color: '#fff', lineHeight: 1.4 }}>Odpowie na każde pytanie o świadczenia</div>
                   </div>
                 </div>
@@ -931,7 +931,7 @@ export default function Home() {
                     textDecoration: 'none', color: 'inherit', cursor: 'pointer',
                   }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                      <span style={{ width: 38, height: 38, borderRadius: '50%', background: '#0F1F14', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-mono)', fontSize: 14, fontWeight: 600, flexShrink: 0 }}>{icons[i]}</span>
+                      <span style={{ width: 38, height: 38, borderRadius: '50%', background: 'var(--green-950)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-mono)', fontSize: 14, fontWeight: 600, flexShrink: 0 }}>{icons[i]}</span>
                       <div style={{ fontSize: 16, fontWeight: 600, letterSpacing: '-0.015em', color: 'var(--color-text-1)' }}>{b.nazwa}</div>
                     </div>
                     <p style={{ fontSize: 13, color: 'var(--color-text-3)', lineHeight: 1.5, flex: 1 }}>{b.opis}</p>
@@ -966,7 +966,7 @@ export default function Home() {
                   textDecoration: 'none', color: 'inherit',
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-                    <span style={{ width: 40, height: 40, borderRadius: '50%', background: '#0F1F14', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-mono)', fontSize: 15, fontWeight: 600, flexShrink: 0 }}>W</span>
+                    <span style={{ width: 40, height: 40, borderRadius: '50%', background: 'var(--green-950)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-mono)', fontSize: 15, fontWeight: 600, flexShrink: 0 }}>W</span>
                     <div>
                       <div style={{ fontSize: 16, fontWeight: 600, letterSpacing: '-0.015em', color: 'var(--color-text-1)' }}>
                         Wypełnij wniosek ZUS
@@ -999,7 +999,7 @@ export default function Home() {
                   textDecoration: 'none', color: 'inherit',
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-                    <span style={{ width: 40, height: 40, borderRadius: '50%', background: '#0F1F14', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-mono)', fontSize: 15, fontWeight: 600, flexShrink: 0 }}>A</span>
+                    <span style={{ width: 40, height: 40, borderRadius: '50%', background: 'var(--green-950)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-mono)', fontSize: 15, fontWeight: 600, flexShrink: 0 }}>A</span>
                     <div>
                       <div style={{ fontSize: 16, fontWeight: 600, letterSpacing: '-0.015em', color: 'var(--color-text-1)' }}>
                         Faktury zagraniczne z maila do arkusza
@@ -1033,7 +1033,7 @@ export default function Home() {
                   textDecoration: 'none', color: 'inherit',
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-                    <span style={{ width: 40, height: 40, borderRadius: '50%', background: '#0F1F14', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-mono)', fontSize: 15, fontWeight: 600, flexShrink: 0 }}>D</span>
+                    <span style={{ width: 40, height: 40, borderRadius: '50%', background: 'var(--green-950)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-mono)', fontSize: 15, fontWeight: 600, flexShrink: 0 }}>D</span>
                     <div>
                       <div style={{ fontSize: 16, fontWeight: 600, letterSpacing: '-0.015em', color: 'var(--color-text-1)' }}>
                         Monitoring dotacji dla Twojej firmy
@@ -1080,10 +1080,10 @@ export default function Home() {
                     borderRight: i < 2 ? '1px solid var(--color-border)' : 'none',
                   }}>
                     {/* Progress bar */}
-                    <div style={{ height: 3, background: i === 0 ? '#22A06B' : 'var(--color-border)', borderRadius: 2, marginBottom: 24 }} />
+                    <div style={{ height: 3, background: i === 0 ? 'var(--green-500)' : 'var(--color-border)', borderRadius: 2, marginBottom: 24 }} />
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
                       <span className="mono" style={{ fontSize: 13, color: 'var(--color-text-3)', fontWeight: 500 }}>{step.num}</span>
-                      <span style={{ width: 36, height: 36, borderRadius: '50%', background: '#0F1F14', color: '#8EEAAD', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <span style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--green-950)', color: 'var(--green-300)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d={step.iconPath} /></svg>
                       </span>
                     </div>

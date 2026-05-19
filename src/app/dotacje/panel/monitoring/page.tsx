@@ -223,7 +223,7 @@ export default function MonitoringPage() {
           disabled={saving || loading}
           style={{
             background: saving || loading ? 'var(--color-bg-2)' : 'var(--color-green)',
-            color: saving || loading ? 'var(--color-text-3)' : '#FFFFFF',
+            color: saving || loading ? 'var(--color-text-3)' : 'white',
             border: '1px solid var(--color-border-light)',
             borderRadius: '5px',
             padding: '9px 20px',
@@ -240,7 +240,7 @@ export default function MonitoringPage() {
             style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '12px',
-              color: saveMsg.startsWith('Zapisano') ? '#4ade80' : 'var(--color-accent)',
+              color: saveMsg.startsWith('Zapisano') ? 'var(--green-400)' : 'var(--color-accent)',
             }}
           >
             {saveMsg}

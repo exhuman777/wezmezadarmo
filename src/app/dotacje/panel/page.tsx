@@ -17,7 +17,7 @@ const STATUS_LABEL: Record<string, string> = {
 
 const STATUS_COLOR: Record<string, string> = {
   trial: 'var(--color-green)',
-  active: '#4ade80',
+  active: 'var(--green-400)',
   inactive: 'var(--color-text-3)',
 };
 
@@ -308,7 +308,7 @@ export default async function PanelPage() {
             style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '12px',
-              color: '#FFFFFF',
+              color: 'white',
               background: 'var(--color-green)',
               padding: '7px 14px',
               borderRadius: '4px',

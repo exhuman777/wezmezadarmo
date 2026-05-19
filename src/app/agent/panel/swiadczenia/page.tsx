@@ -117,7 +117,7 @@ export default function AgentSwiadczenia() {
               </div>
             )}
             {warnings.length > 0 && (
-              <div style={{ fontSize: 12, color: '#e0a830', marginTop: 4 }}>{warnings[0]}</div>
+              <div style={{ fontSize: 12, color: 'var(--color-warn)', marginTop: 4 }}>{warnings[0]}</div>
             )}
             {benefit.zrodloUrl && (
               <a href={benefit.zrodloUrl} target="_blank" rel="noopener noreferrer"
