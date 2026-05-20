@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import { IntakeForm } from '@/components/IntakeForm';
 import { ChatWindow, ChatMessage } from '@/components/ChatWindow';
 import { MatchResult, UserProfile } from '@/engine/types';
@@ -274,6 +275,8 @@ const SESSION_KEY = 'wzd_session_v1';
 const SESSION_TTL = 7 * 24 * 60 * 60 * 1000;
 
 export default function Home() {
+  const router = useRouter();
+  const [heroQuery, setHeroQuery] = useState('');
   const [phase, setPhase] = useState<Phase>('landing');
   const [isLoading, setIsLoading] = useState(false);
   const [profile, setProfile] = useState<Partial<UserProfile>>({});
@@ -695,22 +698,36 @@ export default function Home() {
                 }} />
 
                 {/* Search/assistant pill */}
-                <div style={{
-                  position: 'relative', zIndex: 6,
-                  background: 'white', borderRadius: 14, padding: '12px 16px',
-                  boxShadow: 'var(--shadow-md)',
-                  display: 'flex', alignItems: 'center', gap: 10,
-                  marginBottom: 32,
-                }}>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    const trimmed = heroQuery.trim();
+                    router.push(trimmed ? `/agent?q=${encodeURIComponent(trimmed)}` : '/agent');
+                  }}
+                  style={{
+                    position: 'relative', zIndex: 6,
+                    background: 'white', borderRadius: 14, padding: '12px 16px',
+                    boxShadow: 'var(--shadow-md)',
+                    display: 'flex', alignItems: 'center', gap: 10,
+                    marginBottom: 32,
+                  }}
+                >
                   <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'var(--green-500)', flexShrink: 0, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'var(--green-950)' }}>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M12 3v3m0 12v3m-7-9H2m20 0h-3M5.6 5.6l2.1 2.1m8.6 8.6l2.1 2.1m0-12.8l-2.1 2.1M7.7 16.3l-2.1 2.1" /></svg>
                   </div>
-                  <div style={{ flex: 1, minWidth: 0, fontSize: 14, fontFamily: 'var(--f-mono)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                    <span style={{ color: 'var(--ink-900)' }}>Jakie świadczenia mi przysługują?</span>
-                    <span style={{ color: 'var(--ink-400)' }}>_</span>
-                  </div>
-                  <span className="btn btn-primary btn-sm" style={{ padding: '8px 12px', flexShrink: 0 }}>Zapytaj AI</span>
-                </div>
+                  <input
+                    type="text"
+                    value={heroQuery}
+                    onChange={(e) => setHeroQuery(e.target.value)}
+                    placeholder="Jakie świadczenia mi przysługują?"
+                    style={{
+                      flex: 1, minWidth: 0, fontSize: 14, fontFamily: 'var(--f-mono)',
+                      border: 'none', outline: 'none', background: 'transparent',
+                      color: 'var(--ink-900)',
+                    }}
+                  />
+                  <button type="submit" className="btn btn-primary btn-sm" style={{ padding: '8px 12px', flexShrink: 0, cursor: 'pointer' }}>Zapytaj AI</button>
+                </form>
 
                 {/* Staggered benefit cards */}
                 <div style={{ position: 'relative', zIndex: 4, display: 'flex', flexDirection: 'column', gap: 16 }}>
@@ -747,6 +764,13 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* Gradient transition: hero -> form */}
+        <div style={{
+          height: 72,
+          background: 'linear-gradient(to bottom, var(--green-950), #f0f6f1)',
+          marginTop: -1,
+        }} />
 
         <section style={{ position: 'relative', paddingTop: 0, paddingBottom: 80 }}>
           <div className="grain-bg" />
@@ -899,8 +923,8 @@ export default function Home() {
                 </div>
                 <div style={{ position: 'relative', height: 220, borderRadius: 14, overflow: 'hidden', flexShrink: 0 }}>
                   <img
-                    src="/foto-ekspert.png"
-                    alt="Ekspert przy komputerze korzysta z asystenta AI"
+                    src="/foto-nowy.png"
+                    alt="Mężczyzna sprawdza przysługujące mu świadczenia"
                     style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.9) saturate(0.9)' }}
                   />
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,18,10,0.75) 0%, transparent 55%)' }} />
