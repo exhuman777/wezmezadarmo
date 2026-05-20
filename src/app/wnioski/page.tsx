@@ -345,7 +345,7 @@ export default function WnioskiPage() {
       </header>
 
       {/* Hero */}
-      <section style={{ position: 'relative', paddingTop: 64, paddingBottom: 64, overflow: 'hidden' }}>
+      <section style={{ position: 'relative', paddingTop: 48, paddingBottom: 48, overflow: 'hidden' }}>
         <div className="grain-bg" />
         <div className="container" style={{ position: 'relative' }}>
 
@@ -375,7 +375,7 @@ export default function WnioskiPage() {
             {/* Stats row */}
             <div className="rise grid-stats" style={{
               display: 'grid', gridTemplateColumns: 'repeat(3, auto)',
-              gap: 0, marginTop: 40, marginBottom: 0,
+              gap: 0, marginTop: 28, marginBottom: 0,
               borderTop: '1px solid var(--color-border)',
               borderBottom: '1px solid var(--color-border)',
               padding: '20px 0',
@@ -405,7 +405,7 @@ export default function WnioskiPage() {
       </section>
 
       {/* Beta notice */}
-      <div className="container" style={{ paddingBottom: 16 }}>
+      <div className="container" style={{ paddingBottom: 8 }}>
         <div style={{
           display: 'flex', alignItems: 'center', gap: 12,
           padding: '12px 16px',
@@ -426,11 +426,11 @@ export default function WnioskiPage() {
 
       {/* Form categories */}
       <main className="container" style={{ paddingTop: 48, paddingBottom: 80 }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 56 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 36 }}>
           {CATEGORIES.map((cat) => (
             <section key={cat.id}>
               {/* Category header */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 20 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 14 }}>
                 <span className="mono" style={{ fontSize: 11, color: 'var(--color-text-3)', letterSpacing: '0.1em' }}>
                   {cat.icon}
                 </span>
@@ -444,7 +444,7 @@ export default function WnioskiPage() {
               </div>
 
               {/* Form cards */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
                 {cat.forms.map((form) => (
                   <FormCard key={form.slug} form={form} />
                 ))}
@@ -455,8 +455,8 @@ export default function WnioskiPage() {
 
         {/* How it works */}
         <div style={{
-          marginTop: 80,
-          paddingTop: 48,
+          marginTop: 48,
+          paddingTop: 32,
           borderTop: '1px solid var(--color-border)',
         }}>
           <div style={{ marginBottom: 40 }}>
@@ -464,7 +464,7 @@ export default function WnioskiPage() {
           </div>
           <div className="grid-4" style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(200px, 100%), 1fr))',
             gap: 'clamp(12px, 2vw, 24px)',
           }}>
             {STEPS.map((s) => (
@@ -488,8 +488,8 @@ export default function WnioskiPage() {
 
         {/* Privacy */}
         <div style={{
-          marginTop: 40,
-          padding: '24px 28px',
+          marginTop: 24,
+          padding: '18px 22px',
           background: 'var(--color-bg-1)',
           border: '1px solid var(--color-border)',
           borderRadius: 12,
@@ -505,7 +505,7 @@ export default function WnioskiPage() {
         </div>
 
         {/* Contact */}
-        <div style={{ marginTop: 24, fontSize: 13, color: 'var(--color-text-3)' }}>
+        <div style={{ marginTop: 16, fontSize: 13, color: 'var(--color-text-3)' }}>
           Brakuje wniosku który potrzebujesz? Napisz:{' '}
           <a href="mailto:sobkowicz.kamil@gmail.com" style={{ color: 'var(--color-accent)' }}>sobkowicz.kamil@gmail.com</a>
         </div>
@@ -523,13 +523,13 @@ function FormCard({ form }: { form: Form }) {
     alignItems: 'flex-start',
     justifyContent: 'space-between',
     gap: 20,
-    padding: '20px 24px',
+    padding: isAvailable ? '16px 20px' : '14px 18px',
     borderRadius: 12,
     border: `1px solid ${isAvailable ? 'var(--color-accent)' : 'var(--color-border)'}`,
     background: isAvailable ? 'var(--color-bg-1)' : 'var(--color-bg-0)',
     boxShadow: isAvailable ? 'var(--shadow-card)' : 'none',
     transition: 'transform 320ms cubic-bezier(.2,.7,.1,1), box-shadow 320ms cubic-bezier(.2,.7,.1,1)',
-    opacity: isAvailable ? 1 : 0.75,
+    opacity: isAvailable ? 1 : 0.6,
   };
 
   return (
@@ -570,7 +570,7 @@ function FormCard({ form }: { form: Form }) {
           {form.institution}
         </p>
 
-        <p style={{ fontSize: 13, color: 'var(--color-text-2)', lineHeight: 1.65 }}>
+        <p style={{ fontSize: isAvailable ? 13 : 12, color: 'var(--color-text-2)', lineHeight: 1.65 }}>
           {form.description}
         </p>
 
