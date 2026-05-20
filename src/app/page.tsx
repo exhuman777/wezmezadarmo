@@ -373,7 +373,7 @@ export default function Home() {
     return () => clearInterval(id);
   }, [phase]);
 
-  async function handleIntakeSubmit(data: { wiek: number; plec: 'K' | 'M'; nip?: string }) {
+  async function handleIntakeSubmit(data: { wiek: number; plec: 'K' | 'M'; nip?: string; pesel?: string }) {
     setProfile((prev) => ({ ...prev, wiek: data.wiek, plec: data.plec }));
 
     if (data.nip) {

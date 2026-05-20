@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 interface IntakeFormProps {
-  onSubmit: (data: { wiek: number; plec: 'K' | 'M'; nip?: string }) => void;
+  onSubmit: (data: { wiek: number; plec: 'K' | 'M'; nip?: string; pesel?: string }) => void;
   isLoading: boolean;
 }
 
@@ -38,6 +38,7 @@ export function IntakeForm({ onSubmit, isLoading }: IntakeFormProps) {
       wiek,
       plec: plec as 'K' | 'M',
       nip: cleanNip.length === 10 ? cleanNip : undefined,
+      pesel: cleanNip.length === 11 ? cleanNip : undefined,
     });
   }
 
@@ -57,11 +58,11 @@ export function IntakeForm({ onSubmit, isLoading }: IntakeFormProps) {
         />
       </Field>
 
-      <Field label="Plec">
+      <Field label="Płeć">
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
           {[
             { id: 'K' as const, label: 'Kobieta' },
-            { id: 'M' as const, label: 'Mezczyzna' },
+            { id: 'M' as const, label: 'Mężczyzna' },
           ].map(({ id, label }) => (
             <button key={id} type="button" onClick={() => setPlec(id)}
               disabled={isLoading}
@@ -80,13 +81,13 @@ export function IntakeForm({ onSubmit, isLoading }: IntakeFormProps) {
         </div>
       </Field>
 
-      <Field label="NIP" hint="Opcjonalnie, dla swiadczen firmowych">
+      <Field label="NIP lub PESEL" hint="Opcjonalnie, dla dokładniejszego dopasowania">
         <input
           type="text"
           inputMode="numeric"
           value={nip}
-          onChange={(e) => setNip(e.target.value.replace(/\D/g, '').slice(0, 10))}
-          placeholder="0000000000"
+          onChange={(e) => setNip(e.target.value.replace(/\D/g, '').slice(0, 11))}
+          placeholder="NIP (10 cyfr) lub PESEL (11 cyfr)"
           style={fieldStyle}
           disabled={isLoading}
           onFocus={e => e.currentTarget.style.borderColor = 'var(--color-accent)'}
@@ -135,7 +136,7 @@ export function IntakeForm({ onSubmit, isLoading }: IntakeFormProps) {
         onMouseEnter={e => canSubmit && (e.currentTarget.style.background = 'var(--color-accent)')}
         onMouseLeave={e => canSubmit && (e.currentTarget.style.background = 'var(--color-text-1)')}
       >
-        {isLoading ? 'Sprawdzam...' : 'Sprawdz co Ci sie nalezy'}
+        {isLoading ? 'Sprawdzam...' : 'Sprawdź co Ci się należy'}
         {!isLoading && (
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
             <path d="M5 12h14M13 6l6 6-6 6"/>
