@@ -1,428 +1,380 @@
-import Link from 'next/link';
-import type { Metadata } from 'next';
+'use client';
 
-export const metadata: Metadata = {
-  title: 'Współpraca B2B | wezmezadarmo.com',
-  description:
-    'Baza 117 polskich świadczeń socjalnych, ulg i dotacji dostępna jako API REST dla firm, NGO i instytucji. Bez przechowywania danych użytkowników. Integracja w jeden dzień.',
-};
+import { useState } from 'react';
 
 const EXAMPLE_REQUEST = `curl -X POST https://wezmezadarmo.com/api/verify \\
   -H "Content-Type: application/json" \\
   -H "X-API-Key: TWOJ_KLUCZ_API" \\
-  -d '{
-    "profile": {
-      "wiek": 35,
-      "plec": "K",
-      "stanCywilny": "malzenstwo",
-      "liczbaDzieci": 2,
-      "wiekDzieci": [3, 7],
-      "dochodMiesiecznie": 4500,
-      "dochodNaOsobe": 1500,
-      "zatrudnienie": "umowa_o_prace",
-      "niepelnosprawnosc": "brak",
-      "wlasnosc": "mieszkanie",
-      "wojewodztwo": "mazowieckie",
-      "prowadzDzialalnosc": false,
-      "pierwszaDzialalnosc": false,
-      "ciaza": false,
-      "student": false,
-      "emeryt": false,
-      "rolnik": false,
-      "bezrobotnyZarejestrowany": false
-    }
-  }'`;
+  -d '{ "profile": { "wiek": 35, "plec": "K",
+    "liczbaDzieci": 2, "dochodNaOsobe": 1500 } }'`;
 
-const EXAMPLE_RESPONSE = `{
-  "results": [
-    {
-      "benefit": {
-        "id": "800-plus",
-        "nazwa": "Świadczenie wychowawcze 800+",
-        "kategoria": "RODZINA",
-        "kwota": "800 PLN/mies.",
-        "czestotliwosc": "miesięcznie",
-        "wniosek": {
-          "kanal": ["EMPATIA", "ePUAP"],
-          "dokumenty": ["Dowód osobisty", "Akty urodzenia dzieci"],
-          "kroki": [
-            "Zaloguj się do portalu Emp@tia (empatia.mrpips.gov.pl)",
-            "Wybierz wniosek SW-1",
-            "Wypełnij dane dzieci i konto bankowe",
-            "Prześlij elektronicznie (nie musisz iść do urzędu)"
-          ],
-          "terminRealizacji": "do 3 miesięcy od złożenia wniosku"
-        },
-        "zrodloUrl": "https://www.gov.pl/web/rodzina/800plus",
-        "dataWeryfikacji": "2026-05-09"
-      },
-      "status": "PRZYSLUGUJE",
-      "confidence": "WYSOKA",
-      "matchedCriteria": ["Ma 2 dzieci poniżej 18 lat"],
-      "failedCriteria": [],
-      "warnings": []
-    }
-  ],
-  "aiVerified": true
-}`;
-
-const PROFILE_FIELDS = [
-  { pole: 'wiek', typ: 'number', opis: 'Wiek w latach', przyklad: '35' },
-  { pole: 'plec', typ: '"K" | "M"', opis: 'Płeć: K = kobieta, M = mężczyzna', przyklad: '"K"' },
-  { pole: 'stanCywilny', typ: 'string', opis: '"wolny" | "malzenstwo" | "rozwiedziony" | "wdowiec"', przyklad: '"malzenstwo"' },
-  { pole: 'liczbaDzieci', typ: 'number', opis: 'Liczba dzieci poniżej 18 roku życia', przyklad: '2' },
-  { pole: 'wiekDzieci', typ: 'number[]', opis: 'Wiek każdego dziecka (tablica)', przyklad: '[3, 7]' },
-  { pole: 'dochodMiesiecznie', typ: 'number', opis: 'Łączny dochód netto gospodarstwa (PLN/mies.)', przyklad: '4500' },
-  { pole: 'dochodNaOsobe', typ: 'number', opis: 'Dochód netto na osobę w gospodarstwie (PLN/mies.)', przyklad: '1500' },
-  { pole: 'zatrudnienie', typ: 'string', opis: '"umowa_o_prace" | "dzialalnosc" | "umowa_zlecenie" | "bezrobotny" | "emeryt"', przyklad: '"umowa_o_prace"' },
-  { pole: 'niepelnosprawnosc', typ: 'string', opis: '"brak" | "lekki" | "umiarkowany" | "znaczny"', przyklad: '"brak"' },
-  { pole: 'wlasnosc', typ: 'string', opis: '"mieszkanie" | "dom" | "wynajem" | "rodzina"', przyklad: '"mieszkanie"' },
-  { pole: 'wojewodztwo', typ: 'string', opis: 'Nazwa województwa (małymi literami, z myślnikami)', przyklad: '"mazowieckie"' },
-  { pole: 'prowadzDzialalnosc', typ: 'boolean', opis: 'Czy prowadzi działalność gospodarczą', przyklad: 'false' },
-  { pole: 'pierwszaDzialalnosc', typ: 'boolean', opis: 'Czy to pierwsza działalność gospodarcza', przyklad: 'false' },
-  { pole: 'ciaza', typ: 'boolean', opis: 'Czy w ciąży (dotyczy kobiet)', przyklad: 'false' },
-  { pole: 'student', typ: 'boolean', opis: 'Czy jest studentem', przyklad: 'false' },
-  { pole: 'emeryt', typ: 'boolean', opis: 'Czy pobiera emeryturę lub rentę', przyklad: 'false' },
-  { pole: 'rolnik', typ: 'boolean', opis: 'Czy jest rolnikiem ubezpieczonym w KRUS', przyklad: 'false' },
-  { pole: 'bezrobotnyZarejestrowany', typ: 'boolean', opis: 'Czy jest zarejestrowany w urzędzie pracy (PUP)', przyklad: 'false' },
+const AUTOMATYZACJE = [
+  {
+    ikona: 'F',
+    nazwa: 'Faktury z zagranicy',
+    opis: 'Automatyczna ekstrakcja danych z faktur mailowych z UE i spoza UE (Stripe, AWS, OpenAI). Kategoryzacja, wpis do ewidencji, alerty o nowych dokumentach.',
+    tagi: ['JDG', 'import', 'księgowość'],
+  },
+  {
+    ikona: 'K',
+    nazwa: 'KSeF automatyczny',
+    opis: 'Automatyczne przesyłanie faktur sprzedażowych do Krajowego Systemu e-Faktur. Bez ręcznego logowania, bez przepisywania danych.',
+    tagi: ['KSeF', 'faktury', 'compliance'],
+  },
+  {
+    ikona: 'Z',
+    nazwa: 'Raport ZUS miesięczny',
+    opis: 'Generowanie miesięcznego raportu składek i zobowiązań ZUS dla pracowników. Gotowy arkusz do przekazania księgowej.',
+    tagi: ['ZUS', 'kadry', 'raporty'],
+  },
+  {
+    ikona: 'D',
+    nazwa: 'Monitoring dotacji',
+    opis: 'AI agent sprawdza nowe dotacje i dofinansowania pasujące do profilu firmy. Powiadomienie, gdy pojawi się coś dla Ciebie.',
+    tagi: ['dotacje', 'PARP', 'NCBiR'],
+  },
+  {
+    ikona: 'O',
+    nazwa: 'Onboarding pracownika',
+    opis: 'Automatyczne sprawdzanie świadczeń przysługujących nowemu pracownikowi. HR dostaje gotową listę zamiast odsyłać na rządowe strony.',
+    tagi: ['HR', 'onboarding', 'świadczenia'],
+  },
+  {
+    ikona: 'R',
+    nazwa: 'Rozliczenie delegacji',
+    opis: 'Ekstrakcja danych z paragonów i faktur delegacyjnych. OCR, kategoryzacja, wpis do arkusza kosztów.',
+    tagi: ['delegacje', 'koszty', 'OCR'],
+  },
 ];
 
 export default function DlaFirmPage() {
-  return (
-    <div className="min-h-screen bg-bg-0 py-8 sm:py-12 px-4 sm:px-6">
-      <div className="max-w-2xl mx-auto">
-        <Link href="/" className="text-[13px] text-accent hover:underline mb-6 inline-block">
-          &larr; Wróć do strony głównej
-        </Link>
+  const [form, setForm] = useState({ imie: '', firma: '', email: '', wiadomosc: '' });
+  const [status, setStatus] = useState<'idle' | 'sending' | 'ok' | 'error'>('idle');
+  const [errorMsg, setErrorMsg] = useState('');
 
-        {/* Nagłówek */}
-        <div className="mb-10">
-          <div className="text-[11px] font-mono tracking-widest text-text-3 uppercase mb-3">Współpraca B2B</div>
-          <h1 className="text-[24px] sm:text-[30px] font-bold text-text-1 mb-4 leading-tight">
-            Baza polskich świadczeń<br />dla Twojej aplikacji
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setStatus('sending');
+    setErrorMsg('');
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setErrorMsg(data.error ?? 'Błąd wysyłania.');
+        setStatus('error');
+      } else {
+        setStatus('ok');
+      }
+    } catch {
+      setErrorMsg('Błąd połączenia. Spróbuj ponownie.');
+      setStatus('error');
+    }
+  }
+
+  return (
+    <div style={{ minHeight: '100vh' }}>
+
+      {/* ── HERO ── */}
+      <section style={{
+        background: 'linear-gradient(160deg, #0a1f14 0%, #0f2e1a 40%, #122d1c 100%)',
+        borderRadius: '0 0 24px 24px',
+        position: 'relative', overflow: 'hidden',
+      }}>
+        <div style={{ position: 'absolute', top: '30%', right: '10%', width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(34,160,107,0.12) 0%, transparent 70%)', pointerEvents: 'none' }} />
+        <div style={{ maxWidth: 860, margin: '0 auto', padding: 'clamp(48px, 6vw, 80px) 20px clamp(40px, 5vw, 64px)', position: 'relative' }}>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'rgba(142,234,173,0.5)', letterSpacing: '0.04em', marginBottom: 16 }}>
+            {'// dla-firm.wezmezadarmo.v1'}
+          </div>
+          <h1 style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(28px, 5vw, 48px)', fontWeight: 500, lineHeight: 1.1, letterSpacing: '-0.03em', color: '#fff', margin: '0 0 20px', maxWidth: 700 }}>
+            Automatyzacje i API<br />
+            <span style={{ color: '#8EEAAD' }}>dla firm</span>
           </h1>
-          <p className="text-[15px] text-text-2 leading-relaxed">
-            117 zweryfikowanych świadczeń socjalnych, ulg podatkowych i dotacji z oficjalnych
-            źródeł rządowych, dostępnych przez jedno wywołanie API. Twoja aplikacja pyta,
-            my odpowiadamy, co danemu użytkownikowi przysługuje i jak to dostać.
+          <p style={{ fontFamily: 'var(--font-sans)', fontSize: 16, lineHeight: 1.65, color: 'rgba(255,255,255,0.7)', margin: '0 0 32px', maxWidth: 540 }}>
+            Gotowe automatyzacje procesów firmowych plus baza 117 polskich świadczeń jako REST API do Twojej aplikacji.
           </p>
-          <div className="mt-8 grid gap-3" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(220px, 100%), 1fr))', maxWidth: 520 }}>
-            <a href="/automatyzacje" className="block rounded-xl border border-border bg-surface p-4 hover:border-green transition-colors no-underline">
-              <div className="flex items-center gap-2.5 mb-2">
-                <span className="w-8 h-8 rounded-full flex items-center justify-center text-[12px] font-mono font-semibold shrink-0" style={{ background: '#0F1F14', color: '#8EEAAD' }}>A</span>
-                <span className="text-[13px] font-semibold text-text-1">Automatyzacje AI</span>
-              </div>
-              <p className="text-[12px] text-text-3 leading-relaxed m-0">Faktury, raporty, dokumenty. Gotowe systemy od 399 PLN.</p>
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+            <a href="#automatyzacje" style={{ fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500, color: '#fff', background: '#22A06B', padding: '12px 22px', borderRadius: 10, textDecoration: 'none' }}>
+              Zobacz automatyzacje
             </a>
-            <a href="/dla-firm#api" className="block rounded-xl border border-border bg-surface p-4 hover:border-green transition-colors no-underline">
-              <div className="flex items-center gap-2.5 mb-2">
-                <span className="w-8 h-8 rounded-full flex items-center justify-center text-[12px] font-mono font-semibold shrink-0" style={{ background: '#0F1F14', color: '#8EEAAD' }}>B</span>
-                <span className="text-[13px] font-semibold text-text-1">API świadczeń</span>
-              </div>
-              <p className="text-[12px] text-text-3 leading-relaxed m-0">Baza 117 świadczeń jako REST API do Twojej aplikacji.</p>
+            <a href="#api" style={{ fontFamily: 'var(--font-mono)', fontSize: 13, color: 'rgba(255,255,255,0.85)', border: '1px solid rgba(255,255,255,0.25)', padding: '12px 22px', borderRadius: 10, textDecoration: 'none' }}>
+              Dokumentacja API
             </a>
           </div>
         </div>
+      </section>
 
-        <div className="space-y-12 text-[14px] sm:text-[15px] leading-[1.7] text-text-2">
-
-          {/* Dla kogo */}
-          <section>
-            <h2 className="text-[16px] sm:text-[18px] font-bold text-text-1 mb-4">
-              Dla kogo to jest
-            </h2>
-            <div className="space-y-3">
-
-              <div className="border border-border rounded-lg p-4">
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="w-9 h-9 rounded-full bg-[var(--green-950)] text-white flex items-center justify-center font-mono text-[13px] font-semibold shrink-0">H</span>
-                  <div className="font-mono text-[13px] font-medium text-text-1">Oprogramowanie kadrowe i HR</div>
-                </div>
-                <p className="text-[14px] leading-relaxed mb-3">
-                  Przy onboardingu nowego pracownika Twój system może automatycznie sprawdzić,
-                  jakie świadczenia mu przysługują: świadczenie 800+ na dzieci, ulga
-                  prorodzinna w PIT, dofinansowanie do żłobka z budżetu gminy, becikowe.
-                  HR dostaje gotową listę zamiast odsyłać pracownika na rządowe strony.
-                </p>
-                <div className="flex gap-1.5 flex-wrap">
-                  <span className="text-[10px] font-mono px-2 py-0.5 border border-border rounded-full text-text-3">onboarding</span>
-                  <span className="text-[10px] font-mono px-2 py-0.5 border border-border rounded-full text-text-3">HR</span>
-                  <span className="text-[10px] font-mono px-2 py-0.5 border border-border rounded-full text-text-3">kadry</span>
-                </div>
+      {/* ── AUTOMATYZACJE ── */}
+      <section id="automatyzacje" style={{ maxWidth: 860, margin: '0 auto', padding: 'clamp(48px, 6vw, 72px) 20px' }}>
+        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase' as const, color: 'var(--color-text-3)', marginBottom: 12 }}>
+          Automatyzacje
+        </div>
+        <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(22px, 4vw, 32px)', fontWeight: 600, color: 'var(--color-text-1)', margin: '0 0 8px' }}>
+          Gotowe systemy dla firm
+        </h2>
+        <p style={{ fontSize: 15, lineHeight: 1.65, color: 'var(--color-text-2)', margin: '0 0 32px', maxWidth: 540 }}>
+          Każda automatyzacja to działający system wdrażany w ciągu kilku dni. Bez miesięcznych subskrypcji za narzędzia, których nie używasz.
+        </p>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(340px, 100%), 1fr))',
+          gap: 16,
+        }}>
+          {AUTOMATYZACJE.map(a => (
+            <div key={a.nazwa} style={{
+              background: 'var(--color-bg-1)',
+              border: '1px solid var(--color-border)',
+              borderRadius: 16, padding: 24,
+              transition: 'transform 0.15s, box-shadow 0.15s',
+            }}
+              onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.08)'; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
+                <span style={{
+                  width: 36, height: 36, borderRadius: '50%',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 600,
+                  background: 'var(--green-950)', color: '#8EEAAD', flexShrink: 0,
+                }}>
+                  {a.ikona}
+                </span>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 14, fontWeight: 600, color: 'var(--color-text-1)' }}>
+                  {a.nazwa}
+                </span>
               </div>
-
-              <div className="border border-border rounded-lg p-4">
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="w-9 h-9 rounded-full bg-[var(--green-950)] text-white flex items-center justify-center font-mono text-[13px] font-semibold shrink-0">F</span>
-                  <div className="font-mono text-[13px] font-medium text-text-1">Aplikacje bankowe i fintech</div>
-                </div>
-                <p className="text-[14px] leading-relaxed mb-3">
-                  Klient składa wniosek kredytowy. Twoja aplikacja w tle sprawdza, na jakie
-                  regularne świadczenia się kwalifikuje: 800+, trzynasta emerytura, renta.
-                  To realny, stały dochód, który powinien wchodzić do scoringu. Dodatkowo
-                  doradztwo finansowe zyskuje nowy wymiar: "przysługuje Ci X, możesz to
-                  przeznaczyć na nadpłatę kredytu".
-                </p>
-                <div className="flex gap-1.5 flex-wrap">
-                  <span className="text-[10px] font-mono px-2 py-0.5 border border-border rounded-full text-text-3">fintech</span>
-                  <span className="text-[10px] font-mono px-2 py-0.5 border border-border rounded-full text-text-3">scoring</span>
-                  <span className="text-[10px] font-mono px-2 py-0.5 border border-border rounded-full text-text-3">kredyty</span>
-                </div>
-              </div>
-
-              <div className="border border-border rounded-lg p-4">
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="w-9 h-9 rounded-full bg-[var(--green-950)] text-white flex items-center justify-center font-mono text-[13px] font-semibold shrink-0">N</span>
-                  <div className="font-mono text-[13px] font-medium text-text-1">Ośrodki Pomocy Społecznej i NGO</div>
-                </div>
-                <p className="text-[14px] leading-relaxed mb-3">
-                  Pracownik socjalny obsługuje klienta. Zamiast ręcznie sprawdzać kilkadziesiąt
-                  stron rządowych. Jedno zapytanie do API i gotowa lista świadczeń, do których
-                  dana osoba się kwalifikuje, z instrukcją gdzie i jak złożyć wniosek.
-                  Oszczędność czasu, mniej błędów, lepsza obsługa.
-                </p>
-                <div className="flex gap-1.5 flex-wrap">
-                  <span className="text-[10px] font-mono px-2 py-0.5 border border-border rounded-full text-text-3">NGO</span>
-                  <span className="text-[10px] font-mono px-2 py-0.5 border border-border rounded-full text-text-3">OPS</span>
-                  <span className="text-[10px] font-mono px-2 py-0.5 border border-border rounded-full text-text-3">pomoc</span>
-                </div>
-              </div>
-
-            </div>
-          </section>
-
-          {/* Jak to dziala */}
-          <section>
-            <h2 className="text-[16px] sm:text-[18px] font-bold text-text-1 mb-4">
-              Jak to działa
-            </h2>
-            <div className="space-y-4">
-              <p>
-                Jeden endpoint REST:{' '}
-                <code className="font-mono text-[13px] bg-bg-2 px-1.5 py-0.5 rounded text-green border border-border">
-                  POST /api/verify
-                </code>
-                . Wysyłasz profil użytkownika w formacie JSON, otrzymujesz listę
-                świadczeń posortowaną według pewności dopasowania. Każde świadczenie
-                zawiera kwotę, jak często jest wypłacane, jakie dokumenty są potrzebne
-                i dokładną instrukcję składania wniosku krok po kroku.
+              <p style={{ fontSize: 14, lineHeight: 1.6, color: 'var(--color-text-2)', margin: '0 0 14px' }}>
+                {a.opis}
               </p>
-              <p>
-                Dopasowanie działa dwuetapowo: najpierw deterministyczny algorytm
-                sprawdza twarde warunki (wiek, dochód, liczba dzieci itd.), a następnie
-                model językowy AI weryfikuje przypadki graniczne i dodaje ostrzeżenia
-                tam, gdzie kwalifikowalność nie jest jednoznaczna.
-              </p>
-
-              <div>
-                <div className="font-mono text-[11px] text-text-3 tracking-widest uppercase mb-2">Przykładowe zapytanie</div>
-                <pre className="bg-bg-2 border border-border rounded-lg p-4 text-[12px] font-mono text-text-2 overflow-x-auto whitespace-pre leading-relaxed">
-                  {EXAMPLE_REQUEST}
-                </pre>
-              </div>
-
-              <div>
-                <div className="font-mono text-[11px] text-text-3 tracking-widest uppercase mb-2">Przykładowa odpowiedź (jedno świadczenie ze skróconej listy)</div>
-                <pre className="bg-bg-2 border border-border rounded-lg p-4 text-[12px] font-mono text-text-2 overflow-x-auto whitespace-pre leading-relaxed">
-                  {EXAMPLE_RESPONSE}
-                </pre>
+              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                {a.tagi.map(t => (
+                  <span key={t} style={{
+                    fontFamily: 'var(--font-mono)', fontSize: 10,
+                    padding: '2px 8px', borderRadius: 999,
+                    border: '1px solid var(--color-border)',
+                    color: 'var(--color-text-3)',
+                  }}>{t}</span>
+                ))}
               </div>
             </div>
-          </section>
+          ))}
+        </div>
+      </section>
 
-          {/* Pola profilu */}
-          <section>
-            <h2 className="text-[16px] sm:text-[18px] font-bold text-text-1 mb-4">
-              Pola profilu użytkownika
-            </h2>
-            <p className="mb-4 text-[14px]">
-              Wszystkie pola są opcjonalne. Im więcej podasz, tym dokładniejsze dopasowanie.
-              Minimalne zapytanie wystarczy z samym <code className="font-mono text-[13px] bg-bg-2 px-1 rounded border border-border text-green">wiek</code> i <code className="font-mono text-[13px] bg-bg-2 px-1 rounded border border-border text-green">plec</code>.
-            </p>
-            <div className="border border-border rounded-lg overflow-x-auto">
-              <div className="min-w-[480px]">
-                <div className="grid grid-cols-[1fr_1fr_2fr] bg-bg-2 border-b border-border px-4 py-2 font-mono text-[10px] tracking-widest uppercase text-text-3">
-                  <span>Pole</span>
-                  <span>Typ</span>
-                  <span>Opis</span>
-                </div>
-                {PROFILE_FIELDS.map((f, i) => (
-                  <div
-                    key={f.pole}
-                    className={`grid grid-cols-[1fr_1fr_2fr] px-4 py-2.5 text-[12px] border-b border-border last:border-0 ${i % 2 === 0 ? '' : 'bg-bg-2'}`}
-                  >
-                    <code className="font-mono text-green">{f.pole}</code>
-                    <code className="font-mono text-text-3 text-[11px]">{f.typ}</code>
-                    <span className="text-text-2 text-[12px]">{f.opis}</span>
+      {/* ── API ── */}
+      <section id="api" style={{
+        background: 'var(--color-bg-2)',
+        borderTop: '1px solid var(--color-border)',
+        borderBottom: '1px solid var(--color-border)',
+      }}>
+        <div style={{ maxWidth: 860, margin: '0 auto', padding: 'clamp(48px, 6vw, 72px) 20px' }}>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase' as const, color: 'var(--color-text-3)', marginBottom: 12 }}>
+            REST API
+          </div>
+          <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(22px, 4vw, 32px)', fontWeight: 600, color: 'var(--color-text-1)', margin: '0 0 8px' }}>
+            API bazy świadczeń
+          </h2>
+          <p style={{ fontSize: 15, lineHeight: 1.65, color: 'var(--color-text-2)', margin: '0 0 28px', maxWidth: 540 }}>
+            117 zweryfikowanych świadczeń socjalnych, ulg i dotacji. Jeden endpoint REST, odpowiedź w &lt;200ms, aktualizowana baza.
+          </p>
+
+          <pre style={{
+            background: 'var(--color-bg-0)',
+            border: '1px solid var(--color-border)',
+            borderRadius: 12, padding: 20,
+            fontFamily: 'var(--font-mono)', fontSize: 12,
+            color: 'var(--color-text-2)',
+            overflowX: 'auto', whiteSpace: 'pre',
+            lineHeight: 1.6, margin: '0 0 28px',
+          }}>
+            {EXAMPLE_REQUEST}
+          </pre>
+
+          <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 28px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {[
+              '117 świadczeń w 13 kategoriach',
+              'Odpowiedź <200ms',
+              'Brak przechowywania danych (RODO)',
+              'Dokumentacja dla AI: wezmezadarmo.com/llm.md',
+            ].map(item => (
+              <li key={item} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, fontSize: 14, color: 'var(--color-text-2)' }}>
+                <span style={{ color: '#22A06B', fontWeight: 700, flexShrink: 0, marginTop: 1 }}>+</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+
+          <a href="#kontakt" style={{
+            display: 'inline-block',
+            fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500,
+            color: '#fff', background: '#22A06B',
+            padding: '12px 22px', borderRadius: 10, textDecoration: 'none',
+          }}>
+            Napisz po klucz API
+          </a>
+        </div>
+      </section>
+
+      {/* ── DLA KOGO ── */}
+      <section style={{ maxWidth: 860, margin: '0 auto', padding: 'clamp(48px, 6vw, 72px) 20px' }}>
+        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase' as const, color: 'var(--color-text-3)', marginBottom: 12 }}>
+          Dla kogo
+        </div>
+        <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(22px, 4vw, 32px)', fontWeight: 600, color: 'var(--color-text-1)', margin: '0 0 28px' }}>
+          Kto korzysta z naszego API
+        </h2>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(240px, 100%), 1fr))',
+          gap: 16,
+        }}>
+          {[
+            {
+              ikona: 'H', tytul: 'HR / Kadry',
+              opis: 'Przy onboardingu system sprawdza, jakie świadczenia przysługują pracownikowi. HR dostaje gotową listę zamiast odsyłać na rządowe strony.',
+            },
+            {
+              ikona: 'F', tytul: 'Fintech / Bankowość',
+              opis: 'Klient składa wniosek kredytowy, a aplikacja w tle sprawdza na jakie regularne świadczenia się kwalifikuje. Realny dochód do scoringu.',
+            },
+            {
+              ikona: 'N', tytul: 'NGO / OPS',
+              opis: 'Jedno zapytanie do API zamiast ręcznego sprawdzania kilkudziesięciu stron. Gotowa lista świadczeń z instrukcją złożenia wniosku.',
+            },
+          ].map(k => (
+            <div key={k.tytul} style={{
+              background: 'var(--color-bg-1)',
+              border: '1px solid var(--color-border)',
+              borderRadius: 16, padding: 24,
+            }}>
+              <span style={{
+                width: 36, height: 36, borderRadius: '50%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 600,
+                background: 'var(--green-950)', color: '#8EEAAD',
+                marginBottom: 14,
+              }}>
+                {k.ikona}
+              </span>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 14, fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 8 }}>
+                {k.tytul}
+              </div>
+              <p style={{ fontSize: 14, lineHeight: 1.6, color: 'var(--color-text-2)', margin: 0 }}>
+                {k.opis}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── KONTAKT ── */}
+      <section id="kontakt" style={{
+        borderTop: '1px solid var(--color-border)',
+        background: 'var(--color-bg-2)',
+      }}>
+        <div style={{ maxWidth: 560, margin: '0 auto', padding: 'clamp(48px, 6vw, 72px) 20px' }}>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase' as const, color: 'var(--color-text-3)', marginBottom: 12 }}>
+            Kontakt
+          </div>
+          <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(22px, 4vw, 28px)', fontWeight: 600, color: 'var(--color-text-1)', margin: '0 0 8px' }}>
+            Porozmawiajmy o współpracy
+          </h2>
+          <p style={{ fontSize: 15, lineHeight: 1.65, color: 'var(--color-text-2)', margin: '0 0 28px' }}>
+            Warunki współpracy ustalane indywidualnie. Dla NGO możliwy bezpłatny dostęp.
+          </p>
+
+          <div style={{
+            background: 'var(--color-surface)',
+            border: '1px solid var(--color-border)',
+            borderRadius: 16, padding: 'clamp(20px, 3vw, 28px) clamp(16px, 3vw, 32px)',
+          }}>
+            {status === 'ok' ? (
+              <div style={{
+                padding: '32px 24px', textAlign: 'center',
+                border: '1px solid var(--color-accent)', borderRadius: 12,
+                background: 'var(--color-bg-0)',
+              }}>
+                <div style={{ fontSize: 22, fontWeight: 700, color: 'var(--color-accent)', marginBottom: 12 }}>Wiadomość wysłana</div>
+                <p style={{ fontSize: 15, color: 'var(--color-text-2)', lineHeight: 1.7 }}>
+                  Odpiszemy w ciągu jednego dnia roboczego na podany adres e-mail.
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                {([
+                  { key: 'imie', label: 'Imię i nazwisko', placeholder: 'Jan Kowalski', type: 'text', autocomplete: 'name', required: true },
+                  { key: 'firma', label: 'Nazwa firmy (opcjonalnie)', placeholder: 'Kowalski Sp. z o.o.', type: 'text', autocomplete: 'organization', required: false },
+                  { key: 'email', label: 'Adres e-mail', placeholder: 'jan@kowalski.pl', type: 'email', autocomplete: 'email', required: true },
+                ] as const).map(f => (
+                  <div key={f.key}>
+                    <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: 'var(--color-text-2)', marginBottom: 8 }}>{f.label}</label>
+                    <input
+                      type={f.type}
+                      autoComplete={f.autocomplete}
+                      required={f.required}
+                      placeholder={f.placeholder}
+                      value={form[f.key]}
+                      onChange={e => setForm(prev => ({ ...prev, [f.key]: e.target.value }))}
+                      style={{
+                        width: '100%', boxSizing: 'border-box',
+                        padding: '11px 14px', fontSize: 15,
+                        background: 'var(--color-bg-0)',
+                        border: '1px solid var(--color-border)',
+                        borderRadius: 10, color: 'var(--color-text-1)',
+                        outline: 'none',
+                      }}
+                    />
                   </div>
                 ))}
-              </div>
-            </div>
-          </section>
-
-          {/* Odpowiedź */}
-          <section>
-            <h2 className="text-[16px] sm:text-[18px] font-bold text-text-1 mb-4">
-              Co zwraca API
-            </h2>
-            <div className="space-y-3">
-              <p>Każde świadczenie w odpowiedzi zawiera:</p>
-              <ul className="space-y-2 pl-1">
-                {[
-                  ['status', '"PRZYSLUGUJE" | "MOZLIWE" | "NIE_PRZYSLUGUJE" (pewność dopasowania)'],
-                  ['confidence', '"WYSOKA" | "SREDNIA" | "NISKA" (jakość danych wejściowych)'],
-                  ['matchedCriteria', 'lista warunków, które zostały spełnione'],
-                  ['warnings', 'ostrzeżenia, np. "dochód blisko progu, sprawdź dokładnie"'],
-                  ['wniosek.kroki', 'instrukcja krok po kroku jak złożyć wniosek'],
-                  ['wniosek.dokumenty', 'lista wymaganych dokumentów'],
-                  ['wniosek.kanal', 'gdzie złożyć: ePUAP, Emp@tia, ZUS, urząd gminy itd.'],
-                  ['zrodloUrl', 'link do oficjalnego źródła rządowego'],
-                  ['dataWeryfikacji', 'data ostatniej weryfikacji danych'],
-                ].map(([pole, opis]) => (
-                  <li key={pole} className="flex gap-3 text-[14px]">
-                    <code className="font-mono text-green text-[12px] shrink-0 mt-0.5">{pole}</code>
-                    <span className="text-text-2">{opis}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </section>
-
-          {/* Parametry techniczne */}
-          <section>
-            <h2 className="text-[16px] sm:text-[18px] font-bold text-text-1 mb-4">
-              Parametry techniczne
-            </h2>
-            <div className="border border-border rounded-lg overflow-hidden">
-              {[
-                ['Autoryzacja', 'Nagłówek X-API-Key lub Authorization: Bearer <klucz>'],
-                ['Format', 'JSON / REST (HTTPS)'],
-                ['CORS', 'Włączony (możesz wywoływać z frontendu lub backendu)'],
-                ['Opóźnienie (p50)', 'ok. 200 ms samo dopasowanie; ok. 1,5 s z weryfikacją AI'],
-                ['Dane użytkownika', 'Nie zapisywane, przetwarzane in-memory i usuwane po odpowiedzi'],
-                ['Baza danych', 'Brak po naszej stronie; żadnych kont, żadnych logów'],
-                ['Dostępność', 'Vercel Edge Network (hostowany w UE)'],
-              ].map(([para, wartosc], i) => (
-                <div
-                  key={para}
-                  className={`grid sm:grid-cols-[1fr_2fr] px-4 py-3 text-[13px] border-b border-border last:border-0 ${i % 2 === 0 ? '' : 'bg-bg-2'}`}
-                >
-                  <span className="text-text-3 font-medium">{para}</span>
-                  <span className="text-text-1 font-mono text-[12px]">{wartosc}</span>
+                <div>
+                  <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: 'var(--color-text-2)', marginBottom: 8 }}>Opisz swój przypadek użycia</label>
+                  <textarea
+                    required
+                    rows={4}
+                    placeholder="Np. chcemy zintegrować API świadczeń z naszym systemem HR..."
+                    value={form.wiadomosc}
+                    onChange={e => setForm(prev => ({ ...prev, wiadomosc: e.target.value }))}
+                    style={{
+                      width: '100%', boxSizing: 'border-box',
+                      padding: '11px 14px', fontSize: 15,
+                      background: 'var(--color-bg-0)',
+                      border: '1px solid var(--color-border)',
+                      borderRadius: 10, color: 'var(--color-text-1)',
+                      outline: 'none', resize: 'none',
+                    }}
+                  />
                 </div>
-              ))}
-            </div>
-          </section>
-
-          {/* RODO */}
-          <section>
-            <h2 className="text-[16px] sm:text-[18px] font-bold text-text-1 mb-4">
-              RODO i ochrona danych
-            </h2>
-            <div className="space-y-3">
-              <p>
-                API nie przechowuje żadnych danych osobowych. Profil użytkownika wysłany
-                w zapytaniu jest przetwarzany wyłącznie w pamięci operacyjnej serwera
-                i usuwany natychmiast po zwróceniu odpowiedzi. Nie prowadzimy bazy
-                użytkowników ani logów zapytań.
-              </p>
-              <p>
-                Dane wejściowe (wiek, dochód, sytuacja rodzinna) są danymi anonimowymi.
-                Nie wymagamy PESEL ani żadnych danych identyfikujących. Administratorem
-                danych osobowych końcowego użytkownika pozostaje Twoja firma jako integrator,
-                nie przenosimy tej odpowiedzialności na siebie.
-              </p>
-              <p>
-                Dane dot. dochodu, sytuacji rodzinnej i niepełnosprawności mogą być
-                uznane za dane wrażliwe w rozumieniu RODO art. 9, jeśli są powiązane
-                z konkretną osobą po stronie integratora. Zalecamy ich anonimizację
-                przed przesłaniem do API.
-              </p>
-            </div>
-          </section>
-
-          {/* Wycena */}
-          <section>
-            <h2 className="text-[16px] sm:text-[18px] font-bold text-text-1 mb-4">
-              Wycena i warunki współpracy
-            </h2>
-            <div className="space-y-3">
-              <p>
-                Każde wykorzystanie API przez podmiot zewnętrzny jest uzgadniane
-                indywidualnie. Nie ma jednej stałej stawki. Warunki zależą od
-                charakteru organizacji, liczby zapytań miesięcznie i sposobu użycia.
-              </p>
-              <p>
-                Dla <strong className="text-text-1">fundacji i organizacji pozarządowych (NGO)</strong>{' '}
-                działających na rzecz osób wykluczonych, seniorów, osób z niepełnosprawnościami
-                lub rodzin w trudnej sytuacji: dostęp do API może być całkowicie bezpłatny.
-                Decyzja jest podejmowana indywidualnie po zapoznaniu się z działalnością organizacji.
-              </p>
-              <p>
-                Dla firm komercyjnych warunki finansowe są negocjowane w zależności od skali
-                i przeznaczenia integracji.
-              </p>
-            </div>
-          </section>
-
-          {/* Zakaz nieuprawnionego uzycia */}
-          <section>
-            <h2 className="text-[16px] sm:text-[18px] font-bold text-text-1 mb-4">
-              Niedozwolone użycie
-            </h2>
-            <div className="space-y-3">
-              <p>
-                Korzystanie z API wezmezadarmo.com przez podmioty zewnętrzne bez uprzedniej
-                pisemnej zgody autora jest <strong className="text-text-1">zabronione</strong>.
-                Dotyczy to zarówno użycia komercyjnego, jak i integracyjnego.
-              </p>
-              <p>
-                Zabronione jest również automatyczne pobieranie treści serwisu (web scraping,
-                crawlowanie, skrypty masowe). Baza świadczeń, jej struktura i opisy stanowią
-                autorskie dzieło Kamila Sobkowicza w rozumieniu ustawy o prawie autorskim
-                i prawach pokrewnych.
-              </p>
-              <p>
-                Szczegółowe postanowienia zawiera{' '}
-                <a href="/regulamin" className="text-accent hover:underline">Regulamin serwisu (§ 9)</a>.
-              </p>
-            </div>
-          </section>
-
-          {/* Kontakt */}
-          <section>
-            <h2 className="text-[16px] sm:text-[18px] font-bold text-text-1 mb-4">
-              Kontakt
-            </h2>
-            <div className="space-y-4">
-              <p>
-                Napisz na adres poniżej z krótkim opisem przypadku użycia i szacowaną
-                liczbą zapytań miesięcznie. Odpisuję w ciągu jednego dnia roboczego.
-              </p>
-              <div className="border border-border rounded-lg p-5 space-y-3">
-                <div className="font-mono text-[11px] text-text-3 tracking-widest uppercase">Kontakt</div>
-                <div className="text-[15px]">
-                  <span className="text-text-3 text-[13px]">e-mail: </span>
-                  <a
-                    href="mailto:sobkowicz.kamil@gmail.com"
-                    className="text-accent hover:underline font-mono text-[14px]"
+                {status === 'error' && (
+                  <p style={{ fontSize: 14, color: 'var(--red-400)', margin: 0 }}>{errorMsg}</p>
+                )}
+                <div>
+                  <button
+                    type="submit"
+                    disabled={status === 'sending'}
+                    style={{
+                      padding: '13px 28px',
+                      background: status === 'sending' ? 'var(--color-border)' : '#22A06B',
+                      color: '#fff',
+                      fontWeight: 600, fontSize: 16, borderRadius: 10,
+                      border: 'none', cursor: status === 'sending' ? 'not-allowed' : 'pointer',
+                      transition: 'background 0.15s',
+                    }}
                   >
-                    sobkowicz.kamil@gmail.com
-                  </a>
+                    {status === 'sending' ? 'Wysyłanie...' : 'Wyślij wiadomość'}
+                  </button>
+                  <p style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--color-text-3)', marginTop: 10 }}>
+                    Wiadomość trafia bezpośrednio do autora. Odpiszemy w ciągu jednego dnia roboczego.
+                  </p>
                 </div>
-                <div className="text-[13px] text-text-3">
-                  Kamil Sobkowicz, autor projektu wezmezadarmo.com
-                </div>
-              </div>
-              <p className="text-[13px] text-text-3">
-                Dokumentacja techniczna w formacie czytelnym dla modeli AI:{' '}
-                <a href="/llm.md" className="text-accent hover:underline">wezmezadarmo.com/llm.md</a>
-              </p>
-            </div>
-          </section>
-
+              </form>
+            )}
+          </div>
         </div>
-      </div>
+      </section>
+
     </div>
   );
 }
