@@ -42,7 +42,7 @@ export function DotacjeNav() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <ThemeToggle theme={theme} onToggle={toggle} />
           <Link
-            href="/dotacje/logowanie"
+            href="/logowanie"
             className="btn-outline-hover"
             style={{
               fontFamily: 'var(--font-mono)',
@@ -57,7 +57,7 @@ export function DotacjeNav() {
             Zaloguj się
           </Link>
           <Link
-            href="/dotacje/rejestracja"
+            href="/rejestracja"
             className="btn-accent-hover"
             style={{
               fontFamily: 'var(--font-mono)',

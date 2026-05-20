@@ -12,13 +12,15 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 export const maxDuration = 30;
 
-const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!,
-  { auth: { autoRefreshToken: false, persistSession: false } }
-);
+function getAdminClient() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+    { auth: { autoRefreshToken: false, persistSession: false } },
+  );
+}
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+function getResend() { return new Resend(process.env.RESEND_API_KEY); }
 
 export async function POST() {
   const supabase = await createSupabaseServer();
@@ -33,6 +35,7 @@ export async function POST() {
     return NextResponse.json({ error: 'Brak adresu e-mail.' }, { status: 400 });
   }
 
+  const supabaseAdmin = getAdminClient();
   const { data: profile } = await supabaseAdmin
     .from('agent_user_profiles')
     .select('*')
@@ -89,6 +92,7 @@ export async function POST() {
   const subject = `[TEST] ${buildDigestSubject(payload)}`;
   const html = buildDigestHtml(payload);
 
+  const resend = getResend();
   const { error: sendError } = await resend.emails.send({
     from: process.env.RESEND_FROM_EMAIL ?? 'agent@wezmezadarmo.com',
     to: email,

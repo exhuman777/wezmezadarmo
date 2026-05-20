@@ -12,13 +12,13 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
 
-const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!,
-  { auth: { autoRefreshToken: false, persistSession: false } }
-);
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+function getAdminClient() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+    { auth: { autoRefreshToken: false, persistSession: false } },
+  );
+}
 
 export async function POST(request: NextRequest) {
   const authHeader = request.headers.get('authorization');
@@ -26,6 +26,9 @@ export async function POST(request: NextRequest) {
   if (!authHeader || authHeader !== expected) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
+
+  const supabaseAdmin = getAdminClient();
+  const resend = new Resend(process.env.RESEND_API_KEY);
 
   const { data: prefRows, error: prefError } = await supabaseAdmin
     .from('email_preferences')

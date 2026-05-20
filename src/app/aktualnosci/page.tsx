@@ -103,7 +103,7 @@ export default async function AktualnosciPage() {
             Jesteś firmą? Zaloguj się do panelu wezmezadarmo i skonfiguruj własne kanały monitorowania.
           </p>
           <Link
-            href="/dotacje/logowanie"
+            href="/logowanie"
             style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '12px',

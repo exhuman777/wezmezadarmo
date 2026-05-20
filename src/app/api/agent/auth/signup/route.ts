@@ -2,13 +2,15 @@ import { createClient } from '@supabase/supabase-js';
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!,
-  { auth: { autoRefreshToken: false, persistSession: false } }
-);
+export const dynamic = 'force-dynamic';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+function getAdminClient() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+    { auth: { autoRefreshToken: false, persistSession: false } },
+  );
+}
 
 export async function POST(request: NextRequest) {
   let body: {
@@ -35,6 +37,9 @@ export async function POST(request: NextRequest) {
   if (!profile || !['jdg', 'private'].includes(profile.type as string)) {
     return NextResponse.json({ error: 'Typ konta (jdg lub private) jest wymagany.' }, { status: 400 });
   }
+
+  const supabaseAdmin = getAdminClient();
+  const resend = new Resend(process.env.RESEND_API_KEY);
 
   const { data: authData, error: authError } = await supabaseAdmin.auth.admin.createUser({
     email: email.trim().toLowerCase(),

@@ -38,7 +38,7 @@ export function AgentNav() {
         </Link>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <ThemeToggle theme={theme} onToggle={toggle} />
-          <Link href="/agent/logowanie" style={{
+          <Link href="/logowanie" style={{
             fontFamily: 'var(--font-mono)',
             fontSize: '12px',
             color: 'var(--color-text-3)',
@@ -49,7 +49,7 @@ export function AgentNav() {
           }}>
             Zaloguj się
           </Link>
-          <Link href="/agent/rejestracja" style={{
+          <Link href="/rejestracja" style={{
             fontFamily: 'var(--font-mono)',
             fontSize: '12px',
             color: '#FFFFFF',

@@ -124,7 +124,7 @@ export default function DotacjePage() {
         </p>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
           <Link
-            href="/dotacje/rejestracja"
+            href="/rejestracja"
             style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '13px',
@@ -449,7 +449,7 @@ export default function DotacjePage() {
           </p>
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
             <Link
-              href="/dotacje/rejestracja"
+              href="/rejestracja"
               style={{
                 fontFamily: 'var(--font-mono)',
                 fontSize: '13px',
@@ -465,7 +465,7 @@ export default function DotacjePage() {
               Skonfiguruj monitoring
             </Link>
             <Link
-              href="/dotacje/rejestracja"
+              href="/rejestracja"
               style={{
                 fontFamily: 'var(--font-mono)',
                 fontSize: '13px',
@@ -584,7 +584,7 @@ export default function DotacjePage() {
               ))}
             </ul>
             <Link
-              href="/dotacje/rejestracja"
+              href="/rejestracja"
               style={{
                 display: 'block',
                 textAlign: 'center',

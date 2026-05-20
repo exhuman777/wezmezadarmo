@@ -67,7 +67,7 @@ export function SiteNav() {
               )}
             </svg>
           </button>
-          <Link href="/agent/logowanie" className="btn btn-ghost btn-sm hide-on-mobile">
+          <Link href="/logowanie" className="btn btn-ghost btn-sm hide-on-mobile">
             Zaloguj
           </Link>
           <Link href="/" className="btn btn-primary btn-sm hide-on-mobile">
@@ -90,7 +90,7 @@ export function SiteNav() {
             </Link>
           ))}
           <div className="mobile-nav-actions">
-            <Link href="/agent/logowanie" className="btn btn-ghost btn-sm" onClick={() => setMobileOpen(false)}>
+            <Link href="/logowanie" className="btn btn-ghost btn-sm" onClick={() => setMobileOpen(false)}>
               Zaloguj
             </Link>
             <Link href="/" className="btn btn-primary btn-sm" onClick={() => setMobileOpen(false)}>
