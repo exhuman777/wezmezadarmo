@@ -520,8 +520,8 @@ export function ChatWindow({
                         textAlign: 'left', cursor: 'pointer',
                         transition: 'background 150ms',
                       }}>
-                        <div style={{ flex: 1, minWidth: 0 }}>
-                          <div style={{ fontSize: 14, fontWeight: 500, color: 'var(--color-text-1)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', marginBottom: 2 }}>
+                        <div style={{ flex: 1, minWidth: 0, overflow: 'hidden' }}>
+                          <div style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-text-1)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', marginBottom: 2 }}>
                             {r.benefit.nazwa}
                           </div>
                           <div style={{ fontSize: 12, color: 'var(--color-text-3)' }}>{r.benefit.kwota}</div>
@@ -554,7 +554,7 @@ export function ChatWindow({
                 </button>
               )}
               {selectedResult && selectedBenefit ? (
-                <div style={{ padding: isMobile ? '8px 20px 32px' : '32px 40px 48px', maxWidth: 780 }}>
+                <div style={{ padding: isMobile ? '8px 16px 24px' : '24px 32px 36px', maxWidth: 780 }}>
 
                   {/* Tags row */}
                   <div style={{ display: 'flex', gap: 8, marginBottom: 16, flexWrap: 'wrap' }}>
@@ -576,13 +576,13 @@ export function ChatWindow({
                   </div>
 
                   {/* Title */}
-                  <h2 style={{ fontSize: isMobile ? 24 : 32, letterSpacing: '-0.03em', lineHeight: 1.15, margin: '0 0 14px', fontWeight: 600 }}>
+                  <h2 style={{ fontSize: isMobile ? 22 : 28, letterSpacing: '-0.03em', lineHeight: 1.15, margin: '0 0 10px', fontWeight: 600, wordBreak: 'break-word' }}>
                     {selectedBenefit.nazwa}
                   </h2>
 
                   {/* Amount + deadline */}
-                  <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, marginBottom: 12, flexWrap: 'wrap' }}>
-                    <span style={{ fontSize: isMobile ? 22 : 28, fontWeight: 500, color: 'var(--color-accent)', letterSpacing: '-0.02em' }}>
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginBottom: 10, flexWrap: 'wrap' }}>
+                    <span style={{ fontSize: isMobile ? 20 : 24, fontWeight: 500, color: 'var(--color-accent)', letterSpacing: '-0.02em' }}>
                       {selectedBenefit.kwota}
                     </span>
                     <span style={{ fontSize: 13, color: 'var(--color-text-3)' }}>
@@ -592,13 +592,13 @@ export function ChatWindow({
 
                   {/* Description */}
                   {selectedBenefit.opis && (
-                    <p style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--color-text-2)', margin: '0 0 24px', maxWidth: 600 }}>
+                    <p style={{ fontSize: 14, lineHeight: 1.55, color: 'var(--color-text-2)', margin: '0 0 18px', maxWidth: 600, wordBreak: 'break-word' }}>
                       {selectedBenefit.opis}
                     </p>
                   )}
 
                   {/* Action buttons */}
-                  <div style={{ display: 'flex', gap: 10, marginBottom: 32, flexWrap: 'wrap' }}>
+                  <div style={{ display: 'flex', gap: 8, marginBottom: 24, flexWrap: 'wrap' }}>
                     <button onClick={() => onGuide(selectedBenefit.id)} className="btn btn-primary" style={{
                       height: 44, padding: '0 22px', fontSize: 14,
                       display: 'flex', alignItems: 'center', gap: 8,
@@ -625,10 +625,10 @@ export function ChatWindow({
                   </div>
 
                   {/* Dotted divider */}
-                  <div style={{ borderTop: '2px dotted var(--color-border)', margin: '0 0 28px' }} />
+                  <div style={{ borderTop: '2px dotted var(--color-border)', margin: '0 0 20px' }} />
 
                   {/* Detail blocks in 2-col grid */}
-                  <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '28px 32px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '20px 24px' }}>
                     <DetailBlock title="Co potrzebujesz">
                       <ul style={{ paddingLeft: 0, margin: 0, listStyle: 'none', fontSize: 14, lineHeight: 1.7, color: 'var(--color-text-2)' }}>
                         {selectedBenefit.wniosek.dokumenty.map((d, i) => (
@@ -671,7 +671,7 @@ export function ChatWindow({
 
                   {/* Warnings */}
                   {selectedBenefit.wniosek.pulapki.length > 0 && (
-                    <div style={{ marginTop: 28 }}>
+                    <div style={{ marginTop: 20 }}>
                       <DetailBlock title="Na co uważać" tone="red">
                         <ul style={{ paddingLeft: 0, margin: 0, listStyle: 'none', fontSize: 14, lineHeight: 1.7, color: 'var(--color-red)' }}>
                           {selectedBenefit.wniosek.pulapki.map((p, i) => (

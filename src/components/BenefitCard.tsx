@@ -47,7 +47,7 @@ export function BenefitCard({ result, onGuide }: BenefitCardProps) {
       onClick={() => onGuide(b.id)}
       style={{
         width: '100%',
-        marginBottom: 8,
+        marginBottom: 6,
         cursor: 'pointer',
         overflow: 'hidden',
         background: 'var(--color-surface)',
@@ -57,16 +57,16 @@ export function BenefitCard({ result, onGuide }: BenefitCardProps) {
         transition: 'all 320ms cubic-bezier(.2,.7,.1,1)',
       }}
     >
-      <div style={{ padding: '16px 18px' }}>
+      <div style={{ padding: '12px 14px' }}>
         {/* Top row */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12, marginBottom: 8 }}>
-          <h3 style={{ fontSize: 15, fontWeight: 500, color: 'var(--color-text-1)', lineHeight: 1.3, flex: 1, letterSpacing: '-0.01em' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 8, marginBottom: 6 }}>
+          <h3 style={{ fontSize: 14, fontWeight: 500, color: 'var(--color-text-1)', lineHeight: 1.3, flex: 1, minWidth: 0, letterSpacing: '-0.01em', wordBreak: 'break-word', overflow: 'hidden' }}>
             {b.nazwa}
           </h3>
           <span style={{
-            display: 'inline-flex', alignItems: 'center', gap: 6,
-            fontSize: 11, fontWeight: 500, padding: '4px 10px',
-            borderRadius: 999,
+            display: 'inline-flex', alignItems: 'center',
+            fontSize: 10, fontWeight: 500, padding: '3px 8px',
+            borderRadius: 999, whiteSpace: 'nowrap', flexShrink: 0,
             background: s.bgVar, color: s.colorVar,
             fontFamily: 'var(--font-mono)',
             letterSpacing: '0.04em',
@@ -76,28 +76,28 @@ export function BenefitCard({ result, onGuide }: BenefitCardProps) {
         </div>
 
         {/* Amount */}
-        <div style={{ marginBottom: 8 }}>
-          <span className="mono" style={{ fontSize: 20, fontWeight: 500, letterSpacing: '-0.02em', color: 'var(--color-text-1)' }}>
+        <div style={{ marginBottom: 6 }}>
+          <span className="mono" style={{ fontSize: 18, fontWeight: 500, letterSpacing: '-0.02em', color: 'var(--color-text-1)' }}>
             {b.kwota}
           </span>
-          <span style={{ fontSize: 12, color: 'var(--color-text-3)', marginLeft: 8 }}>
+          <span style={{ fontSize: 11, color: 'var(--color-text-3)', marginLeft: 6 }}>
             {b.czestotliwosc}
           </span>
         </div>
 
         {/* Confidence */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 12, marginBottom: 10, fontSize: 11, color: 'var(--color-text-3)' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8, marginBottom: 8, fontSize: 11, color: 'var(--color-text-3)' }}>
           <span className="mono" style={{ letterSpacing: '0.04em' }}>{CONFIDENCE_LABELS[result.confidence] ?? result.confidence}</span>
           <span>Dopasowanie: algorytm + weryfikacja AI</span>
         </div>
 
         {/* Matched criteria */}
         {result.matchedCriteria.length > 0 && (
-          <div style={{ marginBottom: 10 }}>
+          <div style={{ marginBottom: 8 }}>
             {result.matchedCriteria.map((c, i) => (
-              <div key={i} style={{ display: 'flex', gap: 8, fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.5 }}>
+              <div key={i} style={{ display: 'flex', gap: 6, fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.5 }}>
                 <span style={{ color: 'var(--color-green)', fontWeight: 600, flexShrink: 0 }}>[v]</span>
-                <span>{c}</span>
+                <span style={{ wordBreak: 'break-word', minWidth: 0 }}>{c}</span>
               </div>
             ))}
           </div>
@@ -105,19 +105,19 @@ export function BenefitCard({ result, onGuide }: BenefitCardProps) {
 
         {/* Warnings */}
         {result.warnings.length > 0 && (
-          <div style={{ marginBottom: 10 }}>
+          <div style={{ marginBottom: 8 }}>
             {result.warnings.map((w, i) => (
-              <div key={i} style={{ display: 'flex', gap: 8, fontSize: 12, color: 'var(--color-red)', lineHeight: 1.5 }}>
+              <div key={i} style={{ display: 'flex', gap: 6, fontSize: 12, color: 'var(--color-red)', lineHeight: 1.5 }}>
                 <span style={{ fontWeight: 600, flexShrink: 0 }}>!</span>
-                <span>{w}</span>
+                <span style={{ wordBreak: 'break-word', minWidth: 0 }}>{w}</span>
               </div>
             ))}
           </div>
         )}
 
         {/* Footer */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: 12, borderTop: '1px solid var(--color-border)', marginTop: 4 }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 2, minWidth: 0, flex: 1, marginRight: 12 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: 10, borderTop: '1px solid var(--color-border)', marginTop: 2 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 2, minWidth: 0, flex: 1, marginRight: 10 }}>
             <a
               href={b.zrodloUrl}
               target="_blank"
@@ -135,7 +135,7 @@ export function BenefitCard({ result, onGuide }: BenefitCardProps) {
           <button
             onClick={(e) => { e.stopPropagation(); onGuide(b.id); }}
             style={{
-              padding: '8px 16px',
+              padding: '6px 14px',
               borderRadius: 999,
               border: 'none',
               background: 'var(--color-text-1)',
