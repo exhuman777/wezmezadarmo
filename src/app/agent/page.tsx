@@ -27,7 +27,7 @@ function AgentContent() {
   const q = searchParams.get('q');
 
   return (
-    <main>
+    <main style={{ background: 'linear-gradient(160deg, #0a1f14 0%, #0f2e1a 40%, #122d1c 100%)', minHeight: '100vh' }}>
       <section style={{
         background: 'linear-gradient(160deg, #0a1f14 0%, #0f2e1a 40%, #122d1c 100%)',
         borderRadius: '0 0 24px 24px',
@@ -48,10 +48,10 @@ function AgentContent() {
             i wysyła Ci codzienny raport na e-mail. Bez wchodzenia na rządowe strony.
           </p>
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-            <Link href="/agent/rejestracja" style={{ fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500, color: '#fff', background: '#22A06B', padding: '12px 22px', borderRadius: 10, textDecoration: 'none' }}>
+            <Link href="/rejestracja" style={{ fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500, color: '#fff', background: '#22A06B', padding: '12px 22px', borderRadius: 10, textDecoration: 'none' }}>
               Zacznij za darmo
             </Link>
-            <Link href="/agent/logowanie" style={{ fontFamily: 'var(--font-mono)', fontSize: 13, color: 'rgba(255,255,255,0.85)', border: '1px solid rgba(255,255,255,0.25)', padding: '12px 22px', borderRadius: 10, textDecoration: 'none' }}>
+            <Link href="/logowanie" style={{ fontFamily: 'var(--font-mono)', fontSize: 13, color: 'rgba(255,255,255,0.85)', border: '1px solid rgba(255,255,255,0.25)', padding: '12px 22px', borderRadius: 10, textDecoration: 'none' }}>
               Mam już konto
             </Link>
           </div>
@@ -81,7 +81,7 @@ function AgentContent() {
               Zaloguj się, żeby Asystent AI odpowiedział na Twoje pytanie.
             </p>
             <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
-              <Link href="/agent/logowanie" style={{
+              <Link href="/logowanie" style={{
                 fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500,
                 color: '#fff', background: '#22A06B', padding: '10px 20px',
                 borderRadius: 10, textDecoration: 'none',
@@ -90,7 +90,7 @@ function AgentContent() {
               </Link>
               <span style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: 'rgba(255,255,255,0.45)' }}>
                 Nie masz konta?{' '}
-                <Link href="/agent/rejestracja" style={{ color: '#8EEAAD', textDecoration: 'underline', textUnderlineOffset: 3 }}>
+                <Link href="/rejestracja" style={{ color: '#8EEAAD', textDecoration: 'underline', textUnderlineOffset: 3 }}>
                   Zacznij za darmo
                 </Link>
               </span>
@@ -109,7 +109,7 @@ function AgentContent() {
           {PRZYKŁADY.map((text) => (
             <Link
               key={text}
-              href={`/agent/logowanie?q=${encodeURIComponent(text)}`}
+              href={`/logowanie?q=${encodeURIComponent(text)}`}
               style={{
                 fontFamily: 'var(--font-sans)', fontSize: 13,
                 color: 'rgba(255,255,255,0.75)',
@@ -163,7 +163,7 @@ function AgentContent() {
       </section>
 
       <section style={{ maxWidth: 860, margin: '0 auto', padding: '24px 24px' }}>
-        <p style={{ fontSize: 11, color: 'var(--color-text-3)', fontFamily: 'var(--font-sans)', lineHeight: 1.6, maxWidth: 640 }}>
+        <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-sans)', lineHeight: 1.6, maxWidth: 640 }}>
           Agent AI ma charakter wyłącznie informacyjny. Nie składamy wniosków bez Twojej akceptacji.
           Żaden dokument nie jest wysyłany do urzędu bez Twojej wiedzy i zgody.
         </p>

@@ -767,10 +767,15 @@ export default function Home() {
 
         {/* Gradient transition: hero -> form */}
         <div style={{
-          height: 72,
-          background: 'linear-gradient(to bottom, var(--green-950), #f0f6f1)',
+          height: 80,
+          background: 'linear-gradient(to bottom, var(--green-950) 0%, #f0f6f1 100%)',
           marginTop: -1,
-        }} />
+          position: 'relative',
+        }}>
+          <svg viewBox="0 0 1440 80" preserveAspectRatio="none" style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: 40 }}>
+            <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#f0f6f1" />
+          </svg>
+        </div>
 
         <section style={{ position: 'relative', paddingTop: 0, paddingBottom: 80 }}>
           <div className="grain-bg" />
@@ -781,59 +786,85 @@ export default function Home() {
 
               {/* LEFT: stats + trust */}
               <div>
-                <p className="rise" style={{
-                  maxWidth: 480,
-                  fontSize: 16, lineHeight: 1.65,
-                  color: 'var(--color-text-2)',
-                  marginBottom: 32,
+                {/* Opis w boksie */}
+                <div className="rise" style={{
+                  background: 'var(--color-surface)',
+                  border: '1px solid var(--color-border)',
+                  borderRadius: 16,
+                  padding: '24px',
+                  marginBottom: 20,
                   animationDelay: '60ms',
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
                 }}>
-                  Polska ma ponad 110 świadczeń, ulg i dotacji wartych miliardy złotych rocznie.
-                  Większość ludzi nie wie, że im przysługują.
-                  Na tej stronie sprawdzisz to szybko i za darmo. W dwie minuty, bez zakładania konta.
-                </p>
-
-                {/* Stat counters */}
-                <div className="rise grid-stats" style={{
-                  display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)',
-                  gap: 0, marginBottom: 32, animationDelay: '120ms',
-                  borderTop: '1px solid var(--color-border)',
-                  borderBottom: '1px solid var(--color-border)',
-                  padding: '20px 0',
-                }}>
-                  {[
-                    { n: 117, suf: '', lbl: 'świadczeń w bazie' },
-                    { n: 13, suf: '', lbl: 'kategorii życiowych' },
-                    { n: 2, suf: ' min', lbl: 'średni czas analizy' },
-                  ].map((s, i) => (
-                    <div key={i} style={{ borderLeft: i ? '1px solid var(--color-border)' : 'none', paddingLeft: i ? 28 : 0 }}>
-                      <div className="mono" style={{ fontSize: 11, color: 'var(--color-text-3)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 8 }}>
-                        {String(i + 1).padStart(2, '0')}
-                      </div>
-                      <div style={{
-                        fontSize: 48, fontWeight: 400, letterSpacing: '-0.04em',
-                        lineHeight: 1, color: 'var(--color-text-1)',
-                        fontVariantNumeric: 'tabular-nums',
-                      }}>
-                        <CountUp to={s.n} suffix={s.suf} delay={300 + i * 120} />
-                      </div>
-                      <div style={{ fontSize: 13, color: 'var(--color-text-3)', marginTop: 8 }}>{s.lbl}</div>
-                    </div>
-                  ))}
+                  <p style={{
+                    maxWidth: 480,
+                    fontSize: 15, lineHeight: 1.65,
+                    color: 'var(--color-text-2)',
+                    margin: 0,
+                  }}>
+                    Polska ma ponad 110 świadczeń, ulg i dotacji wartych miliardy złotych rocznie.
+                    Większość ludzi nie wie, że im przysługują.
+                    Na tej stronie sprawdzisz to szybko i za darmo. W dwie minuty, bez zakładania konta.
+                  </p>
                 </div>
 
-                {/* Trust row */}
-                <div className="rise" style={{ display: 'flex', flexWrap: 'wrap', gap: 18, animationDelay: '180ms' }}>
-                  {[
-                    { label: 'PESEL dekodowany lokalnie w przeglądarce', icon: <IconLock /> },
-                    { label: 'Kalkulator bez bazy danych', icon: <IconShield /> },
-                    { label: 'Połączenie HTTPS', icon: <IconCheck /> },
-                  ].map((item, i) => (
-                    <a key={i} href="/o-projekcie" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 13, color: 'var(--color-text-2)', textDecoration: 'none' }}>
-                      <span style={{ color: 'var(--color-green)', display: 'inline-flex' }}>{item.icon}</span>
-                      {item.label}
-                    </a>
-                  ))}
+                {/* Stat counters w boksie */}
+                <div className="rise" style={{
+                  background: 'var(--color-surface)',
+                  border: '1px solid var(--color-border)',
+                  borderRadius: 16,
+                  padding: '20px 24px',
+                  marginBottom: 20,
+                  animationDelay: '120ms',
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
+                }}>
+                  <div className="grid-stats" style={{
+                    display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)',
+                    gap: 0,
+                  }}>
+                    {[
+                      { n: 117, suf: '', lbl: 'świadczeń w bazie' },
+                      { n: 13, suf: '', lbl: 'kategorii życiowych' },
+                      { n: 2, suf: ' min', lbl: 'średni czas analizy' },
+                    ].map((s, i) => (
+                      <div key={i} style={{ borderLeft: i ? '1px solid var(--color-border)' : 'none', paddingLeft: i ? 'clamp(12px, 2vw, 28px)' : 0 }}>
+                        <div className="mono" style={{ fontSize: 11, color: 'var(--color-text-3)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 8 }}>
+                          {String(i + 1).padStart(2, '0')}
+                        </div>
+                        <div style={{
+                          fontSize: 'clamp(32px, 4vw, 48px)', fontWeight: 400, letterSpacing: '-0.04em',
+                          lineHeight: 1, color: 'var(--color-text-1)',
+                          fontVariantNumeric: 'tabular-nums',
+                        }}>
+                          <CountUp to={s.n} suffix={s.suf} delay={300 + i * 120} />
+                        </div>
+                        <div style={{ fontSize: 12, color: 'var(--color-text-3)', marginTop: 8 }}>{s.lbl}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Trust row w boksie */}
+                <div className="rise" style={{
+                  background: 'var(--color-surface)',
+                  border: '1px solid var(--color-border)',
+                  borderRadius: 16,
+                  padding: '16px 24px',
+                  animationDelay: '180ms',
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
+                }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                    {[
+                      { label: 'PESEL dekodowany lokalnie w przeglądarce', icon: <IconLock /> },
+                      { label: 'Kalkulator bez bazy danych', icon: <IconShield /> },
+                      { label: 'Połączenie HTTPS', icon: <IconCheck /> },
+                    ].map((item, i) => (
+                      <a key={i} href="/o-projekcie" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, fontSize: 13, color: 'var(--color-text-2)', textDecoration: 'none' }}>
+                        <span style={{ color: 'var(--color-green)', display: 'inline-flex', flexShrink: 0 }}>{item.icon}</span>
+                        {item.label}
+                      </a>
+                    ))}
+                  </div>
                 </div>
               </div>
 
