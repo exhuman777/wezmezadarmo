@@ -36,12 +36,12 @@ function BenefitRow({ benefit, isExpanded, onToggle }: { benefit: Benefit; isExp
     >
       <button
         onClick={onToggle}
-        className="w-full text-left px-4 py-3.5 cursor-pointer bg-transparent border-none flex items-start gap-3"
+        className="w-full text-left px-4 py-3 cursor-pointer bg-transparent border-none flex items-start gap-3"
       >
         <span className="text-accent font-bold text-[14px] mt-0.5 shrink-0">{'\u2192'}</span>
-        <div className="flex-1 min-w-0">
+        <div className="flex-1 min-w-0 overflow-hidden">
           <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-            <span className="text-[14px] sm:text-[15px] font-semibold text-text-1">{benefit.nazwa}</span>
+            <span className="text-[14px] sm:text-[15px] font-semibold text-text-1 break-words">{benefit.nazwa}</span>
             <span className="text-[13px] sm:text-[14px] font-bold text-accent">{benefit.kwota}</span>
           </div>
           <div className="text-[12px] text-text-3 mt-0.5">{benefit.czestotliwosc}</div>
@@ -52,7 +52,7 @@ function BenefitRow({ benefit, isExpanded, onToggle }: { benefit: Benefit; isExp
       </button>
 
       {isExpanded && (
-        <div className="px-4 pb-4 pt-0 border-t border-border" style={{ animation: 'fadeIn 0.3s ease' }}>
+        <div className="px-4 pb-3 pt-0 border-t border-border overflow-hidden" style={{ animation: 'fadeIn 0.3s ease', wordBreak: 'break-word' }}>
           {/* Wymagania */}
           {benefit.wymagania && Object.keys(benefit.wymagania).length > 0 && (
             <div className="mt-3">
@@ -298,16 +298,16 @@ export default function SwiadczeniaPage() {
         {/* Benefits list */}
         {activeCategory === 'ALL' && !search ? (
           // Grouped by category
-          <div className="space-y-6">
+          <div className="space-y-4">
             {CATEGORY_ORDER.map(cat => {
               const benefits = groupedByCategory.get(cat);
               if (!benefits || benefits.length === 0) return null;
               return (
                 <div key={cat}>
-                  <div className="text-[11px] sm:text-[12px] font-bold tracking-wider text-accent uppercase mb-2">
+                  <div className="text-[11px] sm:text-[12px] font-bold tracking-wider text-accent uppercase mb-1.5">
                     {CATEGORY_LABELS[cat]} ({benefits.length})
                   </div>
-                  <div className="space-y-2">
+                  <div className="space-y-1.5">
                     {benefits.map(b => (
                       <BenefitRow
                         key={b.id}
@@ -323,7 +323,7 @@ export default function SwiadczeniaPage() {
           </div>
         ) : (
           // Flat list (filtered or single category)
-          <div className="space-y-2">
+          <div className="space-y-1.5">
             {filtered.map(b => (
               <BenefitRow
                 key={b.id}
