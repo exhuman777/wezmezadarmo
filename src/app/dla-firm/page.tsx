@@ -75,7 +75,7 @@ function VIAGrid() {
 
 function VIADotacjeCard() {
   return (
-    <a href="https://www.tryvia.eu/#" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit', display: 'block', marginTop: 16 }}>
+    <div style={{ marginTop: 16 }}>
       <div style={{
         borderRadius: 20,
         padding: '32px 36px 28px',
@@ -83,12 +83,7 @@ function VIADotacjeCard() {
         backdropFilter: 'blur(2px)',
         border: '1px solid rgba(82,72,204,0.1)',
         position: 'relative', overflow: 'hidden',
-        transition: 'transform 0.15s, box-shadow 0.15s',
-        cursor: 'pointer',
-      }}
-        onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-2px)'; (e.currentTarget as HTMLDivElement).style.boxShadow = '0 12px 36px rgba(82,72,204,0.18)'; }}
-        onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.transform = 'translateY(0)'; (e.currentTarget as HTMLDivElement).style.boxShadow = 'none'; }}
-      >
+      }}>
         {/* grain overlay */}
         <div style={{
           position: 'absolute', inset: 0,
@@ -154,22 +149,27 @@ function VIADotacjeCard() {
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: '#c0392b', fontWeight: 500 }}>
                   × nie widziałeś ich wszystkich
                 </span>
-                <span style={{
-                  display: 'inline-flex', alignItems: 'center', gap: 8,
-                  background: '#5248cc', color: '#fff',
-                  fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500,
-                  padding: '10px 20px', borderRadius: 10,
-                  letterSpacing: '0.01em',
-                }}>
+                <a
+                  href="https://www.tryvia.eu/#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'inline-flex', alignItems: 'center', gap: 8,
+                    background: '#5248cc', color: '#fff',
+                    fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500,
+                    padding: '10px 20px', borderRadius: 10,
+                    letterSpacing: '0.01em', textDecoration: 'none',
+                  }}
+                >
                   Sprawdź VIA
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                </span>
+                </a>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </a>
+    </div>
   );
 }
 
