@@ -1646,7 +1646,13 @@ export default function Home() {
 
   // ===================== CHAT =====================
   return (
-    <div className="fixed inset-0 flex flex-col" style={{ background: 'var(--color-bg-0)', paddingTop: 60 }}>
+    <div style={{
+      position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+      display: 'flex', flexDirection: 'column',
+      background: 'var(--color-bg-0)',
+      paddingTop: 64,
+      zIndex: 10,
+    }}>
       <ChatWindow
         messages={messages}
         results={results}
