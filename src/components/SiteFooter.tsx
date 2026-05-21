@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { FooterContactForm } from './FooterContactForm';
 
 const PRODUKT = [
   { href: '/', label: 'Świadczenia dla osoby' },
@@ -12,12 +13,6 @@ const WIEDZA = [
   { href: '/aktualnosci', label: 'Aktualizacje' },
   { href: '/o-projekcie', label: 'Źródła' },
   { href: '/polityka-prywatnosci', label: 'Bezpieczeństwo' },
-];
-
-const KONTAKT_LINKS = [
-  { href: 'mailto:sobkowicz.kamil@gmail.com', label: 'sobkowicz.kamil@gmail.com', external: true },
-  { href: '/regulamin', label: 'Regulamin' },
-  { href: '/polityka-prywatnosci', label: 'Polityka prywatności' },
 ];
 
 function FooterCol({ title, children }: { title: string; children: React.ReactNode }) {
@@ -49,7 +44,7 @@ export function SiteFooter() {
         {/* Columns */}
         <div className="footer-grid" style={{
           display: 'grid',
-          gridTemplateColumns: '2fr 1fr 1fr 1fr',
+          gridTemplateColumns: '2fr 1fr 1fr 2fr',
           gap: 40,
         }}>
           {/* Brand */}
@@ -99,23 +94,23 @@ export function SiteFooter() {
 
           {/* KONTAKT */}
           <FooterCol title="Kontakt">
-            {KONTAKT_LINKS.map(link => (
-              link.external ? (
-                <a key={link.href} href={link.href} style={{
-                  fontSize: 14, color: 'var(--ink-700)',
-                  textDecoration: 'none', padding: '3px 0',
-                }}>
-                  {link.label}
-                </a>
-              ) : (
-                <Link key={link.href} href={link.href} style={{
-                  fontSize: 14, color: 'var(--ink-700)',
-                  textDecoration: 'none', padding: '3px 0',
-                }}>
-                  {link.label}
-                </Link>
-              )
-            ))}
+            <a
+              href="https://linkedin.com/in/kamil-sobkowicz"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ fontSize: 14, color: 'var(--ink-700)', textDecoration: 'none', padding: '3px 0', display: 'block' }}
+            >
+              LinkedIn
+            </a>
+            <Link href="/regulamin" style={{ fontSize: 14, color: 'var(--ink-700)', textDecoration: 'none', padding: '3px 0', display: 'block' }}>
+              Regulamin
+            </Link>
+            <Link href="/polityka-prywatnosci" style={{ fontSize: 14, color: 'var(--ink-700)', textDecoration: 'none', padding: '3px 0', display: 'block' }}>
+              Polityka prywatności
+            </Link>
+            <div style={{ marginTop: 16 }}>
+              <FooterContactForm />
+            </div>
           </FooterCol>
         </div>
 

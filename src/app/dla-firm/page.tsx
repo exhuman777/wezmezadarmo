@@ -137,7 +137,7 @@ function VIADotacjeCard() {
                 Dofinansowania dla Twojej firmy, o których nie wiedziałeś.
               </h3>
               <p style={{ fontSize: 15, lineHeight: 1.65, color: '#3d3557', margin: '0 0 20px', maxWidth: 420 }}>
-                Agenty AI pracują za Ciebie <strong>24h na dobę</strong>, monitorując internet
+                Agenci AI pracują za Ciebie <strong>24h na dobę</strong>, monitorując internet
                 w poszukiwaniu dotacji i dofinansowań dopasowanych do profilu Twojej firmy.
                 Gdy pojawi się coś dla Ciebie, dostajesz alert.
               </p>
