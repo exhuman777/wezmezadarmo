@@ -28,12 +28,6 @@ const AUTOMATYZACJE = [
     tagi: ['ZUS', 'kadry', 'raporty'],
   },
   {
-    ikona: 'D',
-    nazwa: 'Monitoring dotacji',
-    opis: 'AI agent sprawdza nowe dotacje i dofinansowania pasujące do profilu firmy. Powiadomienie, gdy pojawi się coś dla Ciebie.',
-    tagi: ['dotacje', 'PARP', 'NCBiR'],
-  },
-  {
     ikona: 'O',
     nazwa: 'Onboarding pracownika',
     opis: 'Automatyczne sprawdzanie świadczeń przysługujących nowemu pracownikowi. HR dostaje gotową listę zamiast odsyłać na rządowe strony.',
@@ -46,6 +40,137 @@ const AUTOMATYZACJE = [
     tagi: ['delegacje', 'koszty', 'OCR'],
   },
 ];
+
+/* ── VIA logo SVG ── */
+function VIALogo({ size = 52 }: { size?: number }) {
+  return (
+    <svg width={size} height={Math.round(size * 0.52)} viewBox="0 0 52 27" fill="none">
+      <path d="M3 4L12 23L21 9L30 23L39 4" stroke="#1a1525" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M44 4L49 23" stroke="#1a1525" strokeWidth="5" strokeLinecap="round"/>
+    </svg>
+  );
+}
+
+/* ── VIA dotacje mini-grid ── */
+const SPRAWDZONE_IDX = new Set([5, 20, 33, 41]);
+const DOPASOWANE_IDX  = new Set([2, 8, 13, 17, 24, 28, 35, 38, 43, 46, 50, 53]);
+
+function VIAGrid() {
+  const COLS = 9, ROWS = 6;
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: `repeat(${COLS}, 1fr)`, gap: 4, marginBottom: 18 }}>
+      {Array.from({ length: COLS * ROWS }).map((_, i) => (
+        <div key={i} style={{
+          aspectRatio: '1',
+          borderRadius: 3,
+          background: SPRAWDZONE_IDX.has(i) ? '#5248cc'
+            : DOPASOWANE_IDX.has(i) ? '#d87c68'
+            : '#cac5dc',
+          transition: 'opacity 200ms',
+        }} />
+      ))}
+    </div>
+  );
+}
+
+function VIADotacjeCard() {
+  return (
+    <a href="/dotacje" style={{ textDecoration: 'none', color: 'inherit', display: 'block', marginTop: 16 }}>
+      <div style={{
+        borderRadius: 20,
+        padding: '32px 36px 28px',
+        background: 'linear-gradient(145deg, #ece7f8 0%, #e0d9f4 40%, #d6ceee 100%)',
+        position: 'relative', overflow: 'hidden',
+        transition: 'transform 0.15s, box-shadow 0.15s',
+        cursor: 'pointer',
+      }}
+        onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-2px)'; (e.currentTarget as HTMLDivElement).style.boxShadow = '0 12px 36px rgba(82,72,204,0.18)'; }}
+        onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.transform = 'translateY(0)'; (e.currentTarget as HTMLDivElement).style.boxShadow = 'none'; }}
+      >
+        {/* grain overlay */}
+        <div style={{
+          position: 'absolute', inset: 0,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E")`,
+          backgroundSize: '180px',
+          pointerEvents: 'none',
+          opacity: 0.6,
+        }} />
+
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px 48px', position: 'relative', alignItems: 'start' }}>
+
+          {/* LEFT: visualization */}
+          <div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.08em', color: '#5248cc', opacity: 0.7 }}>
+                04 · MONITORING DOTACJI · PL
+              </span>
+            </div>
+
+            <VIAGrid />
+
+            <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap', marginBottom: 0 }}>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontFamily: 'var(--font-mono)', fontSize: 11, color: '#5248cc' }}>
+                <span style={{ width: 10, height: 10, borderRadius: 2, background: '#5248cc', flexShrink: 0 }} />
+                SPRAWDZONE · 4
+              </span>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontFamily: 'var(--font-mono)', fontSize: 11, color: '#d87c68' }}>
+                <span style={{ width: 10, height: 10, borderRadius: 2, background: '#d87c68', flexShrink: 0 }} />
+                DOPASOWANE · 12
+              </span>
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: '#8c86a4' }}>
+                KWALIFIKUJĄCE · 70
+              </span>
+            </div>
+          </div>
+
+          {/* RIGHT: copy */}
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: 260 }}>
+            {/* VIA logo */}
+            <div style={{ marginBottom: 24 }}>
+              <VIALogo size={48} />
+            </div>
+
+            <div style={{ flex: 1 }}>
+              <h3 style={{
+                fontSize: 'clamp(22px, 3vw, 30px)',
+                fontWeight: 700, lineHeight: 1.2,
+                letterSpacing: '-0.025em',
+                color: '#1a1525', margin: '0 0 14px',
+              }}>
+                Dofinansowania dla Twojej firmy,{' '}
+                <em style={{ fontStyle: 'italic', fontWeight: 700 }}>o których nie wiedziałeś.</em>
+              </h3>
+              <p style={{ fontSize: 15, lineHeight: 1.65, color: '#3d3557', margin: '0 0 20px', maxWidth: 420 }}>
+                Agenty AI pracują za Ciebie <strong>24h na dobę</strong>, monitorując internet
+                w poszukiwaniu dotacji i dofinansowań dopasowanych do profilu Twojej firmy.
+                Gdy pojawi się coś dla Ciebie - dostajesz alert.
+              </p>
+            </div>
+
+            <div>
+              <div style={{ height: 1, background: 'rgba(82,72,204,0.2)', marginBottom: 14 }} />
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: '#c0392b', fontStyle: 'italic', fontWeight: 500 }}>
+                  × nie widziałeś ich wszystkich
+                </span>
+                <span style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 8,
+                  background: '#5248cc', color: '#fff',
+                  fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500,
+                  padding: '10px 20px', borderRadius: 10,
+                  letterSpacing: '0.01em',
+                }}>
+                  Sprawdź VIA
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  );
+}
 
 export default function DlaFirmPage() {
   const [form, setForm] = useState({ imie: '', firma: '', email: '', wiadomosc: '' });
@@ -162,6 +287,9 @@ export default function DlaFirmPage() {
             </div>
           ))}
         </div>
+
+        {/* ── VIA Monitoring Dotacji card ── */}
+        <VIADotacjeCard />
       </section>
 
       {/* ── API ── */}
