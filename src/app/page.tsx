@@ -642,7 +642,7 @@ export default function Home() {
 
         {/* Hero -- dark green gradient */}
         <section style={{
-          padding: 'clamp(40px, 6vw, 72px) 0 clamp(48px, 6vw, 80px)',
+          padding: 'clamp(40px, 6vw, 72px) 0 clamp(96px, 10vw, 140px)',
           position: 'relative', overflow: 'hidden',
           background: `radial-gradient(800px 500px at 80% 20%, rgba(34,160,107,.25), transparent 60%), radial-gradient(600px 400px at 20% 80%, rgba(78,196,138,.18), transparent 60%), var(--green-950)`,
           borderRadius: '0 0 24px 24px',
@@ -763,19 +763,14 @@ export default function Home() {
               </div>
             </div>
           </div>
+          {/* Gradient fade -- clipped by section's overflow:hidden + borderRadius */}
+          <div style={{
+            position: 'absolute', bottom: 0, left: 0, right: 0,
+            height: 120,
+            background: 'linear-gradient(to bottom, transparent 0%, #f0f6f1 100%)',
+            pointerEvents: 'none',
+          }} />
         </section>
-
-        {/* Gradient transition: hero -> form */}
-        <div style={{
-          height: 80,
-          background: 'linear-gradient(to bottom, var(--green-950) 0%, #f0f6f1 100%)',
-          marginTop: -1,
-          position: 'relative',
-        }}>
-          <svg viewBox="0 0 1440 80" preserveAspectRatio="none" style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: 40 }}>
-            <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#f0f6f1" />
-          </svg>
-        </div>
 
         <section style={{ position: 'relative', paddingTop: 0, paddingBottom: 80 }}>
           <div className="grain-bg" />
