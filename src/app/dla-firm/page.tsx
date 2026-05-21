@@ -75,11 +75,13 @@ function VIAGrid() {
 
 function VIADotacjeCard() {
   return (
-    <a href="/dotacje" style={{ textDecoration: 'none', color: 'inherit', display: 'block', marginTop: 16 }}>
+    <a href="https://www.tryvia.eu/#" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit', display: 'block', marginTop: 16 }}>
       <div style={{
         borderRadius: 20,
         padding: '32px 36px 28px',
-        background: 'linear-gradient(145deg, #ece7f8 0%, #e0d9f4 40%, #d6ceee 100%)',
+        background: 'linear-gradient(145deg, rgba(242,238,252,0.72) 0%, rgba(232,225,248,0.72) 40%, rgba(222,214,242,0.72) 100%)',
+        backdropFilter: 'blur(2px)',
+        border: '1px solid rgba(82,72,204,0.1)',
         position: 'relative', overflow: 'hidden',
         transition: 'transform 0.15s, box-shadow 0.15s',
         cursor: 'pointer',
@@ -137,20 +139,19 @@ function VIADotacjeCard() {
                 letterSpacing: '-0.025em',
                 color: '#1a1525', margin: '0 0 14px',
               }}>
-                Dofinansowania dla Twojej firmy,{' '}
-                <em style={{ fontStyle: 'italic', fontWeight: 700 }}>o których nie wiedziałeś.</em>
+                Dofinansowania dla Twojej firmy, o których nie wiedziałeś.
               </h3>
               <p style={{ fontSize: 15, lineHeight: 1.65, color: '#3d3557', margin: '0 0 20px', maxWidth: 420 }}>
                 Agenty AI pracują za Ciebie <strong>24h na dobę</strong>, monitorując internet
                 w poszukiwaniu dotacji i dofinansowań dopasowanych do profilu Twojej firmy.
-                Gdy pojawi się coś dla Ciebie - dostajesz alert.
+                Gdy pojawi się coś dla Ciebie, dostajesz alert.
               </p>
             </div>
 
             <div>
               <div style={{ height: 1, background: 'rgba(82,72,204,0.2)', marginBottom: 14 }} />
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: '#c0392b', fontStyle: 'italic', fontWeight: 500 }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: '#c0392b', fontWeight: 500 }}>
                   × nie widziałeś ich wszystkich
                 </span>
                 <span style={{
