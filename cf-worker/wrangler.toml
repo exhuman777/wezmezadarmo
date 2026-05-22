@@ -1,0 +1,8 @@
+name = "wezmezadarmo-rss"
+main = "src/index.js"
+compatibility_date = "2024-09-23"
+
+# Ustaw sekret przez: wrangler secret put RSS_SECRET
+# Następnie w Vercel dodaj:
+#   RSS_PROXY_URL = https://wezmezadarmo-rss.<twój-subdomain>.workers.dev
+#   RSS_PROXY_SECRET = <ten sam sekret>

@@ -7,6 +7,7 @@ export interface FeedMeta {
   url: string;
   audiences: Audience[];
   tags: string[];
+  requiresProxy?: boolean; // wymaga CF Worker (blokada Incapsula/Imperva na Vercel)
 }
 
 export interface FeedItem {
@@ -35,7 +36,8 @@ export const FEEDS: FeedMeta[] = [
     id: 'zus',
     name: 'ZUS',
     fullName: 'Zakład Ubezpieczeń Społecznych',
-    url: 'https://www.zus.pl/kanal-rss',
+    // Liferay AssetPublisher RSS — działa bezpośrednio (poprzedni URL zwracał stronę HTML)
+    url: 'https://www.zus.pl/o-zus/aktualnosci/-/asset_publisher/aktualnosci/rss',
     audiences: ['wszyscy', 'jdg', 'firmy'],
     tags: ['ubezpieczenia', 'składki', 'świadczenia', 'emerytury'],
   },
@@ -43,7 +45,8 @@ export const FEEDS: FeedMeta[] = [
     id: 'gus',
     name: 'GUS',
     fullName: 'Główny Urząd Statystyczny',
-    url: 'https://stat.gov.pl/rss/',
+    // Prawidłowy URL XML (poprzedni kierował do strony HTML o RSS)
+    url: 'https://stat.gov.pl/rss/pl/5438/8.xml',
     audiences: ['wszyscy', 'firmy'],
     tags: ['statystyki', 'gospodarka', 'dane', 'wskaźniki'],
   },
@@ -51,49 +54,61 @@ export const FEEDS: FeedMeta[] = [
     id: 'nbp',
     name: 'NBP',
     fullName: 'Narodowy Bank Polski',
-    url: 'https://rss.nbp.pl/',
+    // Incapsula blokuje Vercel — wymaga CF Worker (RSS_PROXY_URL)
+    url: 'https://www.nbp.pl/home.aspx?f=/aktualnosci/aktualnosci.html',
     audiences: ['wszyscy', 'firmy'],
     tags: ['kursy walut', 'polityka pieniężna', 'stopy procentowe'],
+    requiresProxy: true,
   },
   {
     id: 'uokik',
     name: 'UOKiK',
     fullName: 'Urząd Ochrony Konkurencji i Konsumentów',
-    url: 'https://uokik.gov.pl/rss.php?m=0',
+    // Brak RSS — CF Worker scrapuje HTML aktualności
+    url: 'https://uokik.gov.pl/aktualnosci',
     audiences: ['wszyscy', 'firmy'],
     tags: ['ochrona konsumentów', 'konkurencja', 'ostrzeżenia', 'reklamacje'],
+    requiresProxy: true,
   },
   {
     id: 'fundusze',
     name: 'Fundusze EU',
     fullName: 'Fundusze Europejskie',
-    url: 'https://www.funduszeeuropejskie.gov.pl/rss',
+    // JS SPA — przez CF Worker (szansa na bypass Vercel-block)
+    url: 'https://www.funduszeeuropejskie.gov.pl/strony/aktualnosci/',
     audiences: ['jdg', 'firmy'],
     tags: ['dotacje', 'UE', 'dofinansowania', 'granty', 'KPO'],
+    requiresProxy: true,
   },
   {
     id: 'ezdrowie',
     name: 'e-Zdrowie',
     fullName: 'Portal e-Zdrowia (eZdrowie.gov.pl)',
-    url: 'https://ezdrowie.gov.pl/portal/home/rss',
+    // JS SPA — przez CF Worker
+    url: 'https://ezdrowie.gov.pl/portal/home/aktualnosci?isExtend=true',
     audiences: ['wszyscy'],
     tags: ['zdrowie', 'NFZ', 'e-recepta', 'leczenie'],
+    requiresProxy: true,
   },
   {
     id: 'sejm',
     name: 'Sejm',
     fullName: 'Sejm Rzeczypospolitej Polskiej',
+    // Imperva CDN blokuje Vercel — wymaga CF Worker
     url: 'https://www.sejm.gov.pl/sejm10.nsf/rss.xsp',
     audiences: ['wszyscy', 'firmy', 'jdg'],
     tags: ['prawo', 'legislacja', 'przepisy', 'ustawa'],
+    requiresProxy: true,
   },
   {
     id: 'arimr',
     name: 'ARiMR',
     fullName: 'Agencja Restrukturyzacji i Modernizacji Rolnictwa',
-    url: 'https://www.arimr.gov.pl/rss.html',
+    // Przez CF Worker
+    url: 'https://www.arimr.gov.pl/aktualnosci-i-komunikaty',
     audiences: ['jdg', 'firmy'],
     tags: ['rolnictwo', 'dotacje', 'dopłaty', 'agro'],
+    requiresProxy: true,
   },
 ];
 
@@ -213,19 +228,35 @@ function parseXml(xml: string, feed: FeedMeta): FeedItem[] {
 const FETCH_TIMEOUT_MS = 9000;
 const MAX_ITEMS_PER_FEED = 15;
 
+// CF Worker proxy — ustaw RSS_PROXY_URL i RSS_PROXY_SECRET w Vercel env
+const PROXY_URL = process.env.RSS_PROXY_URL ?? '';
+const PROXY_SECRET = process.env.RSS_PROXY_SECRET ?? '';
+
 async function fetchFeed(feed: FeedMeta): Promise<FeedItem[]> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
 
-  try {
-    const res = await fetch(feed.url, {
-      signal: controller.signal,
-      headers: {
+  // Użyj CF Worker jeśli feed wymaga proxy i Worker jest skonfigurowany
+  const useProxy = feed.requiresProxy && PROXY_URL;
+  const fetchUrl = useProxy
+    ? `${PROXY_URL}?id=${encodeURIComponent(feed.id)}`
+    : feed.url;
+
+  const headers: Record<string, string> = useProxy
+    ? {
+        'Authorization': `Bearer ${PROXY_SECRET}`,
+        'Accept': 'application/rss+xml, application/atom+xml, text/xml, application/xml, */*',
+      }
+    : {
         'User-Agent': 'Mozilla/5.0 (compatible; wezmezadarmo-rss/1.0; +https://www.wezmezadarmo.com/llm.md)',
-        Accept: 'application/rss+xml, application/atom+xml, text/xml, application/xml, */*',
-      },
+        'Accept': 'application/rss+xml, application/atom+xml, text/xml, application/xml, */*',
+      };
+
+  try {
+    const res = await fetch(fetchUrl, {
+      signal: controller.signal,
+      headers,
       redirect: 'follow',
-      // Cache for 30 min on Vercel edge -- avoids cold-start timeout hammering all feeds
       next: { revalidate: 1800 },
     });
     if (!res.ok) return [];
