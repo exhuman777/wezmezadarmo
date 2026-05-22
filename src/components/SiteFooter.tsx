@@ -62,10 +62,6 @@ export function SiteFooter() {
               Wszystkie świadczenia, dotacje i ulgi, które Ci się należą
               - w jednym miejscu. Bez rejestracji, bez opłat, bez urzędów.
             </p>
-            <div className="row-8 gap-wrap">
-              <span className="chip chip-outline chip-mono">PESEL nie wychodzi z przeglądarki</span>
-              <span className="chip chip-outline chip-mono">RODO</span>
-            </div>
           </div>
 
           {/* PRODUKT */}
