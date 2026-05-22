@@ -506,8 +506,8 @@ export default function WnioskiPage() {
 
         {/* Contact */}
         <div style={{ marginTop: 16, fontSize: 13, color: 'var(--color-text-3)' }}>
-          Brakuje wniosku który potrzebujesz? Napisz:{' '}
-          <a href="mailto:sobkowicz.kamil@gmail.com" style={{ color: 'var(--color-accent)' }}>sobkowicz.kamil@gmail.com</a>
+          Brakuje wniosku który potrzebujesz?{' '}
+          <a href="/dla-firm#kontakt" style={{ color: 'var(--color-accent)' }}>Napisz przez formularz kontaktowy</a>
         </div>
       </main>
 
