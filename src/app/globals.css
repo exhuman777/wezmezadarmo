@@ -953,3 +953,5 @@ section.short { padding: 48px 0; }
   .steps-grid > div { border-right: none !important; border-bottom: 1px solid var(--line); padding-bottom: 24px !important; padding-left: 0 !important; padding-right: 0 !important; }
   .steps-grid > div:last-child { border-bottom: none; }
 }
+
+.aktualnosci-cta-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(34,160,107,0.4) !important; }

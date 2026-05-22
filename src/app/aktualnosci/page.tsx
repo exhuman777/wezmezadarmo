@@ -122,6 +122,7 @@ export default async function AktualnosciPage() {
           </div>
           <Link
             href="/logowanie"
+            className="aktualnosci-cta-btn"
             style={{
               fontFamily: 'var(--font-mono)', fontSize: 12, fontWeight: 600,
               color: '#fff', background: '#22A06B',
@@ -129,14 +130,6 @@ export default async function AktualnosciPage() {
               textDecoration: 'none', flexShrink: 0,
               boxShadow: '0 2px 8px rgba(34,160,107,0.3)',
               transition: 'transform 0.15s, box-shadow 0.15s',
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)';
-              (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 14px rgba(34,160,107,0.4)';
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.transform = '';
-              (e.currentTarget as HTMLElement).style.boxShadow = '0 2px 8px rgba(34,160,107,0.3)';
             }}
           >
             Przejdź do panelu →
