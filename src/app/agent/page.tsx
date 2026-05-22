@@ -5,10 +5,10 @@ import { useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 
 const CECHY = [
-  { label: 'Świadczenia i ulgi', desc: 'Agent dopasowuje 117 świadczeń do Twojego profilu: 800+, becikowe, zasiłki, ulgi podatkowe.', icon: 'S' },
-  { label: 'Zmiany w prawie', desc: 'Śledzi ZUS, podatki.gov.pl i zmiany przepisów. Informuje Cię zanim musisz działać.', icon: 'Z' },
-  { label: 'Dzienny raport e-mail', desc: 'Co rano dostaniesz zwięzłe podsumowanie co jest nowego. Bez logowania do panelu.', icon: 'D' },
-  { label: 'JDG i osoby prywatne', desc: 'Dla prowadzących działalność (NIP + PKD) i dla osób prywatnych (profil rodzinny).', icon: 'J' },
+  { label: 'Chat AI', desc: 'Zadajesz pytanie o świadczenie, termin ZUS, wniosek lub fakturę. Agent odpowiada na podstawie Twojego profilu i aktualnej bazy przepisów.', icon: 'C' },
+  { label: 'Świadczenia do profilu', desc: 'Po wypełnieniu profilu (wiek, dochód, dzieci, JDG/prywatny) widzisz listę 117 świadczeń dopasowanych do Twojej sytuacji.', icon: 'S' },
+  { label: 'Aktualności w panelu', desc: 'Panel zbiera zmiany w przepisach z ZUS, GUS i innych instytucji. Odświeżane co 30 minut, bez przeszukiwania rządowych stron.', icon: 'A' },
+  { label: 'Digest e-mail', desc: 'Opcjonalne codzienne podsumowanie nowości i zmian w Twoich świadczeniach wysyłane na e-mail. Włączasz i wyłączasz w ustawieniach.', icon: 'D' },
 ];
 
 const PRZYKŁADY = [
@@ -131,7 +131,7 @@ function AgentContent() {
       {/* Hero */}
       <section style={{ position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', top: '20%', right: '5%', width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(34,160,107,0.15) 0%, transparent 70%)', pointerEvents: 'none' }} />
-        <div style={{ maxWidth: 960, margin: '0 auto', padding: 'clamp(40px, 5vw, 72px) 24px clamp(32px, 4vw, 48px)', position: 'relative' }}>
+        <div style={{ maxWidth: 960, margin: '0 auto', padding: 'clamp(32px, 4vw, 56px) 24px clamp(20px, 2vw, 28px)', position: 'relative' }}>
 
           {/* Eyebrow */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
@@ -234,7 +234,7 @@ function AgentContent() {
       )}
 
       {/* Przykłady pytań */}
-      <section style={{ maxWidth: 960, margin: '0 auto', padding: '0 24px' }}>
+      <section style={{ maxWidth: 960, margin: '0 auto', padding: '0 24px 16px' }}>
         <div style={{
           background: 'rgba(255,255,255,0.02)',
           border: '1px solid rgba(142,234,173,0.1)',
@@ -294,7 +294,7 @@ function AgentContent() {
       </section>
 
       {/* Cechy */}
-      <section style={{ maxWidth: 960, margin: '0 auto', padding: '24px 24px 0' }}>
+      <section style={{ maxWidth: 960, margin: '0 auto', padding: '0 24px' }}>
 
         {/* Eyebrow */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
@@ -347,7 +347,7 @@ function AgentContent() {
       </section>
 
       {/* Disclaimer */}
-      <section style={{ maxWidth: 960, margin: '0 auto', padding: '28px 24px 48px' }}>
+      <section style={{ maxWidth: 960, margin: '0 auto', padding: '20px 24px 40px' }}>
         <p style={{
           fontSize: 12, color: 'rgba(255,255,255,0.3)', lineHeight: 1.6, maxWidth: 640,
           fontFamily: 'var(--font-mono)',
