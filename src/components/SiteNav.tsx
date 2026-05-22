@@ -2,9 +2,10 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ThemeToggle } from './ThemeToggle';
 import { useTheme } from '@/hooks/useTheme';
+import { createBrowserClient } from '@supabase/ssr';
 
 const NAV_ITEMS = [
   { href: '/', label: 'Start', exact: true },
@@ -18,7 +19,22 @@ const NAV_ITEMS = [
 export function SiteNav() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
   const { theme, toggle } = useTheme();
+
+  useEffect(() => {
+    const supabase = createBrowserClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    );
+    supabase.auth.getSession().then(({ data }) => {
+      setLoggedIn(!!data.session);
+    });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setLoggedIn(!!session);
+    });
+    return () => subscription.unsubscribe();
+  }, []);
 
   function isActive(item: typeof NAV_ITEMS[number]) {
     if (item.exact) return pathname === item.href;
@@ -71,12 +87,20 @@ export function SiteNav() {
               )}
             </svg>
           </button>
-          <Link href="/logowanie" className="btn btn-ghost btn-sm hide-on-mobile">
-            Zaloguj
-          </Link>
-          <Link href="/" className="btn btn-primary btn-sm hide-on-mobile">
-            Sprawdź za darmo
-          </Link>
+          {loggedIn ? (
+            <Link href="/panel" className="btn btn-primary btn-sm hide-on-mobile">
+              Panel
+            </Link>
+          ) : (
+            <>
+              <Link href="/logowanie" className="btn btn-ghost btn-sm hide-on-mobile">
+                Zaloguj
+              </Link>
+              <Link href="/" className="btn btn-primary btn-sm hide-on-mobile">
+                Sprawdź za darmo
+              </Link>
+            </>
+          )}
           <ThemeToggle theme={theme} onToggle={toggle} />
         </div>
       </div>
@@ -95,12 +119,20 @@ export function SiteNav() {
             </Link>
           ))}
           <div className="mobile-nav-actions">
-            <Link href="/logowanie" className="btn btn-ghost btn-sm" onClick={() => setMobileOpen(false)}>
-              Zaloguj
-            </Link>
-            <Link href="/" className="btn btn-primary btn-sm" onClick={() => setMobileOpen(false)}>
-              Sprawdź za darmo
-            </Link>
+            {loggedIn ? (
+              <Link href="/panel" className="btn btn-primary btn-sm" onClick={() => setMobileOpen(false)}>
+                Panel
+              </Link>
+            ) : (
+              <>
+                <Link href="/logowanie" className="btn btn-ghost btn-sm" onClick={() => setMobileOpen(false)}>
+                  Zaloguj
+                </Link>
+                <Link href="/" className="btn btn-primary btn-sm" onClick={() => setMobileOpen(false)}>
+                  Sprawdź za darmo
+                </Link>
+              </>
+            )}
           </div>
         </div>
       )}

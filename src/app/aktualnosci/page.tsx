@@ -121,7 +121,7 @@ export default async function AktualnosciPage() {
             </p>
           </div>
           <Link
-            href="/logowanie"
+            href="/panel"
             className="aktualnosci-cta-btn"
             style={{
               fontFamily: 'var(--font-mono)', fontSize: 12, fontWeight: 600,

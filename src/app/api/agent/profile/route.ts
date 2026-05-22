@@ -12,8 +12,23 @@ export async function GET() {
     .eq('user_id', session.user.id)
     .single();
 
-  if (error || !data) {
-    return NextResponse.json({ error: 'Profil nie znaleziony.' }, { status: 404 });
+  // Profil nie istnieje - auto-utwórz domyślny (user zarejestrował się przez unified auth)
+  if (error && (error.code === 'PGRST116' || !data)) {
+    const { data: newProfile, error: createErr } = await supabase
+      .from('agent_user_profiles')
+      .insert({ user_id: session.user.id, type: 'private' })
+      .select()
+      .single();
+    if (createErr) {
+      console.error('[agent/profile GET] auto-create error:', createErr);
+      return NextResponse.json({ error: 'Błąd tworzenia profilu.' }, { status: 500 });
+    }
+    return NextResponse.json({ profile: newProfile });
+  }
+
+  if (error) {
+    console.error('[agent/profile GET]', error);
+    return NextResponse.json({ error: 'Błąd pobierania profilu.' }, { status: 500 });
   }
   return NextResponse.json({ profile: data });
 }
