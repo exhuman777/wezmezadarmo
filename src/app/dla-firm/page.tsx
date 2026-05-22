@@ -513,34 +513,78 @@ export default function DlaFirmPage() {
         borderRadius: '0 0 24px 24px',
         position: 'relative', overflow: 'hidden',
       }}>
-        <div style={{ position: 'absolute', top: '30%', right: '10%', width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(34,160,107,0.12) 0%, transparent 70%)', pointerEvents: 'none' }} />
-        <div style={{ maxWidth: 860, margin: '0 auto', padding: 'clamp(48px, 6vw, 80px) 20px clamp(40px, 5vw, 64px)', position: 'relative' }}>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'rgba(142,234,173,0.5)', letterSpacing: '0.04em', marginBottom: 16 }}>
-            {'// dla-firm.wezmezadarmo.v1'}
+        <div style={{ position: 'absolute', top: '20%', right: '8%', width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(34,160,107,0.10) 0%, transparent 70%)', pointerEvents: 'none' }} />
+        <div style={{ maxWidth: 860, margin: '0 auto', padding: 'clamp(48px, 6vw, 80px) 20px clamp(48px, 6vw, 72px)', position: 'relative' }}>
+
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'rgba(142,234,173,0.5)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 20 }}>
+            dla firm i JDG
           </div>
-          <h1 style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(28px, 5vw, 48px)', fontWeight: 500, lineHeight: 1.1, letterSpacing: '-0.03em', color: '#fff', margin: '0 0 20px', maxWidth: 700 }}>
-            Automatyzacje i API<br />
-            <span style={{ color: '#8EEAAD' }}>dla firm</span>
+
+          <h1 style={{ fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 700, lineHeight: 1.1, letterSpacing: '-0.03em', color: '#fff', margin: '0 0 16px', maxWidth: 640 }}>
+            Trzy narzędzia,<br />
+            <span style={{ color: '#8EEAAD' }}>które oszczędzają czas.</span>
           </h1>
-          <p style={{ fontFamily: 'var(--font-sans)', fontSize: 16, lineHeight: 1.65, color: 'rgba(255,255,255,0.7)', margin: '0 0 32px', maxWidth: 540 }}>
-            Gotowe automatyzacje procesów firmowych plus baza 117 polskich świadczeń jako REST API do Twojej aplikacji.
+          <p style={{ fontSize: 16, lineHeight: 1.6, color: 'rgba(255,255,255,0.6)', margin: '0 0 48px', maxWidth: 480 }}>
+            Automatyzacje procesów, gotowe API z bazą świadczeń i monitoring dofinansowań dopasowanych do Twojej firmy.
           </p>
-          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-            <a href="#automatyzacje" className="btn-hero-primary" style={{
-              fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500,
-              color: '#fff', padding: '12px 22px', borderRadius: 10, textDecoration: 'none',
-              display: 'inline-block',
-            }}>
-              Zobacz automatyzacje
-            </a>
-            <a href="#api" className="btn-hero-secondary" style={{
-              fontFamily: 'var(--font-mono)', fontSize: 13, color: 'rgba(255,255,255,0.85)',
-              border: '1px solid rgba(255,255,255,0.25)', padding: '12px 22px', borderRadius: 10,
-              textDecoration: 'none', display: 'inline-block',
-            }}>
-              Dokumentacja API
-            </a>
+
+          {/* 3 offering cards */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(240px, 100%), 1fr))', gap: 12, marginBottom: 40 }}>
+            {[
+              {
+                num: '01',
+                title: 'Automatyzacje',
+                desc: 'Gotowe systemy wdrażane w dni: faktury, KSeF, ZUS, OCR, windykacja i inne. Bez miesięcznych subskrypcji.',
+                anchor: '#automatyzacje',
+                label: 'Zobacz systemy',
+              },
+              {
+                num: '02',
+                title: 'API świadczeń',
+                desc: '117 świadczeń, ulg i dotacji jako REST API. Ręcznie weryfikowana baza, aktualizowana na bieżąco.',
+                anchor: '#api',
+                label: 'Dokumentacja API',
+              },
+              {
+                num: '03',
+                title: 'Monitoring dotacji',
+                desc: 'AI agent szuka otwartych naborów pasujących do profilu Twojej firmy i wysyła alert. Powered by VIA.',
+                anchor: 'https://www.tryvia.eu/#',
+                label: 'tryvia.eu',
+                external: true,
+              },
+            ].map((item) => (
+              <div key={item.num} style={{
+                background: 'rgba(255,255,255,0.05)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                borderRadius: 14,
+                padding: '20px 22px',
+                display: 'flex', flexDirection: 'column', gap: 10,
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'rgba(142,234,173,0.5)', letterSpacing: '0.08em' }}>{item.num}</span>
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 600, color: '#fff' }}>{item.title}</span>
+                </div>
+                <p style={{ fontSize: 13, lineHeight: 1.55, color: 'rgba(255,255,255,0.55)', margin: 0, flex: 1 }}>
+                  {item.desc}
+                </p>
+                <a
+                  href={item.anchor}
+                  {...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                  style={{
+                    fontFamily: 'var(--font-mono)', fontSize: 11,
+                    color: '#8EEAAD', textDecoration: 'none',
+                    display: 'inline-flex', alignItems: 'center', gap: 5,
+                    letterSpacing: '0.04em',
+                  }}
+                >
+                  {item.label}
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </a>
+              </div>
+            ))}
           </div>
+
         </div>
       </section>
 
