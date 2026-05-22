@@ -10,6 +10,7 @@ const NAV_ITEMS = [
   { href: '/dla-firm', label: 'Dla firm', prefixes: ['/dla-firm', '/dotacje', '/automatyzacje'] },
   { href: '/wnioski', label: 'Wnioski', prefixes: ['/wnioski'] },
   { href: '/agent', label: 'Asystent AI', prefixes: ['/agent'] },
+  { href: '/o-projekcie', label: 'O projekcie', prefixes: ['/o-projekcie'] },
 ];
 
 export function SiteNav() {

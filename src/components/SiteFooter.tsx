@@ -11,7 +11,7 @@ const PRODUKT = [
 const WIEDZA = [
   { href: '/swiadczenia', label: 'Baza 117 świadczeń' },
   { href: '/aktualnosci', label: 'Aktualizacje' },
-  { href: '/o-projekcie', label: 'Źródła' },
+  { href: '/o-projekcie', label: 'O projekcie' },
   { href: '/polityka-prywatnosci', label: 'Bezpieczeństwo' },
 ];
 
