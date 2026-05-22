@@ -5,12 +5,12 @@ const PRODUKT = [
   { href: '/', label: 'Świadczenia dla osoby' },
   { href: '/dla-firm', label: 'Agenci AI dla firm' },
   { href: '/wnioski', label: 'Wnioski' },
-  { href: '/dotacje', label: 'Cennik' },
+  { href: '/dotacje', label: 'AI dla Twojej firmy' },
 ];
 
 const WIEDZA = [
   { href: '/swiadczenia', label: 'Baza 117 świadczeń' },
-  { href: '/aktualnosci', label: 'Aktualizacje' },
+  { href: '/aktualnosci', label: 'Aktualności' },
   { href: '/o-projekcie', label: 'O projekcie' },
   { href: '/polityka-prywatnosci', label: 'Bezpieczeństwo' },
 ];
