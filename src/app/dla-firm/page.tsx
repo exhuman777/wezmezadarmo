@@ -4,10 +4,16 @@ import { useState } from 'react';
 
 /* ── VIA logo SVG ── */
 function VIALogo({ size = 52 }: { size?: number }) {
+  const h = Math.round(size * 0.42);
   return (
-    <svg width={size} height={Math.round(size * 0.52)} viewBox="0 0 52 27" fill="none">
-      <path d="M3 4L12 23L21 9L30 23L39 4" stroke="#1a1525" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"/>
-      <path d="M44 4L49 23" stroke="#1a1525" strokeWidth="5" strokeLinecap="round"/>
+    <svg width={size} height={h} viewBox="0 0 60 25" fill="none">
+      {/* V */}
+      <path d="M1 2L11 23L21 2" stroke="#1a1525" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round"/>
+      {/* I */}
+      <line x1="28" y1="2" x2="28" y2="23" stroke="#1a1525" strokeWidth="3.2" strokeLinecap="round"/>
+      {/* A */}
+      <path d="M36 23L46 2L56 23" stroke="#1a1525" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round"/>
+      <line x1="39" y1="15" x2="53" y2="15" stroke="#1a1525" strokeWidth="3.2" strokeLinecap="round"/>
     </svg>
   );
 }
@@ -236,7 +242,7 @@ function VIADotacjeCard() {
       <div style={{
         borderRadius: 20,
         padding: '32px 36px 28px',
-        background: 'linear-gradient(145deg, rgba(242,238,252,0.72) 0%, rgba(232,225,248,0.72) 40%, rgba(222,214,242,0.72) 100%)',
+        background: 'linear-gradient(145deg, rgba(235,230,250,0.85) 0%, rgba(220,212,245,0.85) 45%, rgba(205,196,238,0.85) 100%)',
         backdropFilter: 'blur(2px)',
         border: '1px solid rgba(82,72,204,0.1)',
         position: 'relative', overflow: 'hidden',
