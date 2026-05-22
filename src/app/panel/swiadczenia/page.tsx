@@ -1,2 +1,3 @@
 'use client';
-export { default } from '@/app/agent/panel/swiadczenia/page';
+import Page from '@/app/agent/panel/swiadczenia/page';
+export default Page;

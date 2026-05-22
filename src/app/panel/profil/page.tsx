@@ -1,2 +1,3 @@
 'use client';
-export { default } from '@/app/agent/panel/profil/page';
+import Page from '@/app/agent/panel/profil/page';
+export default Page;
