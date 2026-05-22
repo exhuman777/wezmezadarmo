@@ -39,6 +39,30 @@ const AUTOMATYZACJE = [
     opis: 'Ekstrakcja danych z paragonów i faktur delegacyjnych. OCR, kategoryzacja, wpis do arkusza kosztów.',
     tagi: ['delegacje', 'koszty', 'OCR'],
   },
+  {
+    ikona: 'W',
+    nazwa: 'Windykacja należności',
+    opis: 'Monitoring przeterminowanych faktur i automatyczne przypomnienia: po 7 dniach mail, po 14 dniach gotowy dokument wezwania do zapłaty. Wezwanie wymagane prawnie przed windykacją sądową.',
+    tagi: ['faktury', 'windykacja', 'cash flow'],
+  },
+  {
+    ikona: 'T',
+    nazwa: 'Terminarz compliance',
+    opis: 'Automatyczne przypomnienia o polskich terminach firmowych: DRA ZUS (25. każdego miesiąca), JPK-VAT, zaliczki PIT, raporty GUS. Kary za spóźnienie zaczynają się od 500 PLN.',
+    tagi: ['ZUS', 'VAT', 'terminy'],
+  },
+  {
+    ikona: 'P',
+    nazwa: 'Paragony i koszty OCR',
+    opis: 'Zdjęcie paragonu z telefonu trafia do skrzynki lub folderu. System odczytuje kwotę, datę i sprzedawcę, wpisuje do arkusza kosztów. Bez ręcznego przepisywania.',
+    tagi: ['OCR', 'koszty', 'JDG'],
+  },
+  {
+    ikona: 'U',
+    nazwa: 'Alerty wygaśnięcia umów',
+    opis: 'Skanujesz bazę umów, kontraktów i subskrypcji SaaS. System czyta daty i wysyła alerty 60, 30 i 7 dni przed wygaśnięciem. Koniec z nieświadomym auto-odnawianiem na starych warunkach.',
+    tagi: ['umowy', 'SaaS', 'koszty'],
+  },
 ];
 
 /* ── VIA logo SVG ── */
