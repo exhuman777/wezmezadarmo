@@ -3,8 +3,6 @@
 import { useState, useMemo } from 'react';
 import { getAllBenefits } from '@/engine/benefits';
 import { Benefit, BenefitCategory } from '@/engine/types';
-import { ThemeToggle } from '@/components/ThemeToggle';
-import { useTheme } from '@/hooks/useTheme';
 
 const CATEGORY_LABELS: Record<BenefitCategory, string> = {
   ZDROWIE: 'Zdrowie',
@@ -235,7 +233,6 @@ function BenefitRow({ benefit, isExpanded, onToggle }: { benefit: Benefit; isExp
 }
 
 export default function SwiadczeniaPage() {
-  const { theme, toggle: toggleTheme } = useTheme();
   const [search, setSearch] = useState('');
   const [activeCategory, setActiveCategory] = useState<BenefitCategory | 'ALL'>('ALL');
   const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -374,39 +371,6 @@ export default function SwiadczeniaPage() {
         }
       `}</style>
 
-      {/* Top bar */}
-      <div
-        className="flex items-center gap-2 sm:gap-3 px-3 sm:px-5 py-2.5 sm:py-3 border-b border-border sticky top-0 z-50"
-        style={{
-          background: 'rgba(240,246,241,0.88)',
-          backdropFilter: 'blur(14px)',
-          WebkitBackdropFilter: 'blur(14px)',
-          boxShadow: '0 1px 0 rgba(0,0,0,0.06)',
-        }}
-      >
-        <a href="/" className="flex items-center gap-2 no-underline hover:no-underline">
-          <span
-            className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full shrink-0"
-            style={{
-              background: 'var(--color-green)',
-              boxShadow: '0 0 8px var(--color-green-border)',
-            }}
-          />
-          <span className="text-[12px] sm:text-[14px] font-extrabold tracking-[1.5px] sm:tracking-[2px] text-text-1">
-            wezmezadarmo
-          </span>
-        </a>
-        <span className="flex-1" />
-        <a
-          href="/"
-          className="btn-nav-shimmer text-[12px] sm:text-[13px] text-accent font-semibold no-underline hover:underline"
-          style={{ padding: '4px 8px', borderRadius: 6 }}
-        >
-          Sprawdź swoje
-        </a>
-        <ThemeToggle theme={theme} onToggle={toggleTheme} />
-      </div>
-
       {/* Hero */}
       <div className="px-4 sm:px-6 py-6 sm:py-8 max-w-3xl mx-auto">
         <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginBottom: 10 }}>
@@ -423,18 +387,45 @@ export default function SwiadczeniaPage() {
             Baza wiedzy
           </span>
         </div>
-        <h1 className="text-[22px] sm:text-[28px] font-bold text-text-1 mb-2 leading-tight">
+        <h1 className="text-[22px] sm:text-[28px] font-bold text-text-1 mb-4 leading-tight">
           Baza świadczeń i programów rządowych
         </h1>
-        <p className="text-[14px] sm:text-[15px] text-text-2 mb-1">
-          {allBenefits.length} świadczeń w {CATEGORY_ORDER.length} kategoriach. Zasiłki, ulgi podatkowe, dotacje, darmowe badania, programy wsparcia.
-        </p>
-        <p className="text-[13px] sm:text-[14px] text-text-3 mb-5">
-          Każde świadczenie zawiera instrukcję krok po kroku, wymagane dokumenty, pułapki i link do źródła.
-        </p>
+
+        {/* Subtitle boxes */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))', gap: 10, marginBottom: 20 }}>
+          <div style={{
+            padding: '12px 16px',
+            background: 'rgba(34,160,107,0.06)',
+            border: '1px solid rgba(34,160,107,0.14)',
+            borderLeft: '2px solid #22A06B',
+            borderRadius: 10,
+            backdropFilter: 'blur(4px)',
+          }}>
+            <span style={{ fontSize: 22, fontWeight: 700, color: '#22A06B', fontFamily: 'var(--font-mono)', display: 'block', marginBottom: 4 }}>
+              {allBenefits.length}
+            </span>
+            <span className="text-[13px] text-text-2">
+              świadczeń w {CATEGORY_ORDER.length} kategoriach. Zasiłki, ulgi podatkowe, dotacje, darmowe badania, programy wsparcia.
+            </span>
+          </div>
+          <div style={{
+            padding: '12px 16px',
+            background: 'rgba(0,0,0,0.03)',
+            border: '1px solid var(--color-border)',
+            borderRadius: 10,
+            backdropFilter: 'blur(4px)',
+          }}>
+            <span style={{ fontSize: 13, fontFamily: 'var(--font-mono)', color: 'var(--color-text-3)', display: 'block', marginBottom: 4, textTransform: 'uppercase' as const, letterSpacing: '0.06em' }}>
+              Każde świadczenie
+            </span>
+            <span className="text-[13px] text-text-2">
+              Instrukcja krok po kroku, wymagane dokumenty, pułapki i link do źródła.
+            </span>
+          </div>
+        </div>
 
         {/* Search */}
-        <div className="relative mb-4">
+        <div className="relative mb-3">
           <input
             type="text"
             value={search}
@@ -456,6 +447,31 @@ export default function SwiadczeniaPage() {
             </button>
           )}
         </div>
+
+        {/* Sprawdź swoje CTA */}
+        <a
+          href="/"
+          className="btn-nav-shimmer"
+          style={{
+            display: 'inline-flex', alignItems: 'center', gap: 8,
+            padding: '10px 18px', marginBottom: 16,
+            background: 'rgba(34,160,107,0.08)',
+            border: '1px solid rgba(34,160,107,0.2)',
+            borderRadius: 10,
+            fontSize: 14, fontWeight: 600,
+            color: '#22A06B',
+            textDecoration: 'none',
+          }}
+        >
+          <span style={{
+            width: 6, height: 6, borderRadius: '50%',
+            background: '#22A06B',
+            boxShadow: '0 0 6px rgba(34,160,107,0.7)',
+            flexShrink: 0,
+          }} />
+          Sprawdź swoje świadczenia
+          <span style={{ fontSize: 13, opacity: 0.7 }}>→</span>
+        </a>
 
         {/* Category pills */}
         <div className="flex flex-wrap gap-1.5 mb-6">

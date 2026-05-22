@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
+import { ThemeToggle } from './ThemeToggle';
+import { useTheme } from '@/hooks/useTheme';
 
 const NAV_ITEMS = [
   { href: '/', label: 'Start', exact: true },
@@ -16,6 +18,7 @@ const NAV_ITEMS = [
 export function SiteNav() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { theme, toggle } = useTheme();
 
   function isActive(item: typeof NAV_ITEMS[number]) {
     if (item.exact) return pathname === item.href;
@@ -74,6 +77,7 @@ export function SiteNav() {
           <Link href="/" className="btn btn-primary btn-sm hide-on-mobile">
             Sprawdź za darmo
           </Link>
+          <ThemeToggle theme={theme} onToggle={toggle} />
         </div>
       </div>
 
