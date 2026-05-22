@@ -403,6 +403,7 @@ export default function Home() {
     }
 
     setPhase('questions');
+    window.scrollTo(0, 0);
   }
 
   function handleQuestionAnswer(value: string) {
@@ -428,6 +429,7 @@ export default function Home() {
 
     if (questionIndex < QUESTIONS.length - 1) {
       setQuestionIndex(questionIndex + 1);
+      window.scrollTo(0, 0);
     } else {
       runVerification(updated as UserProfile);
     }
@@ -766,8 +768,8 @@ export default function Home() {
           {/* Gradient fade -- clipped by section's overflow:hidden + borderRadius */}
           <div style={{
             position: 'absolute', bottom: 0, left: 0, right: 0,
-            height: 120,
-            background: 'linear-gradient(to bottom, transparent 0%, #f0f6f1 100%)',
+            height: 64,
+            background: 'linear-gradient(to bottom, transparent 0%, rgba(240,246,241,0.85) 65%, #f0f6f1 100%)',
             pointerEvents: 'none',
           }} />
         </section>
@@ -882,7 +884,6 @@ export default function Home() {
 
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 28 }}>
                     <span className="label-eyebrow">Formularz | krok 1 / 3</span>
-                    <Chip tone="success" mono>ANONIMOWO</Chip>
                   </div>
 
                   <h3 style={{ fontSize: 22, marginBottom: 6, letterSpacing: '-0.02em' }}>Podaj swoje dane</h3>
