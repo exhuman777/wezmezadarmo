@@ -1,57 +1,120 @@
 import { createSupabaseServer } from '@/lib/dotacje/supabase';
-import { fetchAllFeeds, fetchFeeds, FEEDS, type FeedMeta } from '@/app/aktualnosci/rss';
+import { createClient } from '@supabase/supabase-js';
+import { fetchAllFeeds, fetchFeeds, FEEDS, type FeedMeta, type FeedItem } from '@/app/aktualnosci/rss';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
+// Źródła które działają bezpośrednio z Vercel (nie potrzebują cache)
+const LIVE_SOURCE_IDS = new Set(['zus', 'gus']);
+
+// Pobiera artykuły z Supabase rss_cache dla zablokowanych źródeł
+async function fetchFromCache(sourceIds: string[]): Promise<FeedItem[]> {
+  if (sourceIds.length === 0) return [];
+
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL ?? process.env.SUPABASE_URL ?? '';
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.SUPABASE_ANON_KEY ?? '';
+  if (!url || !key) return [];
+
+  try {
+    const client = createClient(url, key);
+    const { data, error } = await client
+      .from('rss_cache')
+      .select('id, source_id, source_name, title, link, description, pub_date, audiences')
+      .in('source_id', sourceIds)
+      .order('fetched_at', { ascending: false })
+      .limit(150);
+
+    if (error || !data) return [];
+
+    return data.map(row => ({
+      id: row.id as string,
+      title: row.title as string,
+      link: row.link as string,
+      description: row.description as string,
+      pubDate: row.pub_date as string | null,
+      source: row.source_name as string,
+      sourceId: row.source_id as string,
+      audiences: row.audiences as FeedItem['audiences'],
+    }));
+  } catch {
+    return [];
+  }
+}
+
 // GET /api/aktualnosci
-// Niezalogowany: zwraca artykuły z domyślnych feedów
-// Zalogowany: zwraca artykuły z domyślnych feedów + własnych feedów firmy
+// Live: ZUS, GUS (działają bezpośrednio)
+// Cache: NBP, Sejm, UOKiK, Fundusze EU, e-Zdrowie, ARiMR (GitHub Actions 2x/dzień)
+// Zalogowany: + własne feedy firmy
 export async function GET() {
   try {
     const supabase = await createSupabaseServer();
     const { data: { session } } = await supabase.auth.getSession();
 
-    if (!session) {
-      const result = await fetchAllFeeds();
-      return NextResponse.json({ ...result, fetchedAt: new Date().toISOString() });
+    // Źródła live (ZUS, GUS)
+    const liveFeeds = FEEDS.filter(f => LIVE_SOURCE_IDS.has(f.id));
+    // Źródła przez cache
+    const cachedSourceIds = FEEDS
+      .filter(f => !LIVE_SOURCE_IDS.has(f.id))
+      .map(f => f.id);
+
+    // Pobieraj live i cache równolegle
+    const [liveResult, cachedItems] = await Promise.all([
+      fetchFeeds(liveFeeds),
+      fetchFromCache(cachedSourceIds),
+    ]);
+
+    const active = [
+      ...liveResult.active,
+      ...cachedSourceIds.filter(id => cachedItems.some(i => i.sourceId === id)),
+    ];
+    const failed = [
+      ...liveResult.failed,
+      ...cachedSourceIds.filter(id => !cachedItems.some(i => i.sourceId === id)),
+    ];
+
+    let allItems: FeedItem[] = [...liveResult.items, ...cachedItems];
+
+    // Własne feedy firmy (jeśli zalogowany)
+    if (session) {
+      const { data: companyFeeds } = await supabase
+        .from('company_rss_feeds')
+        .select('id, feed_url, feed_name, kategoria')
+        .eq('user_id', session.user.id)
+        .eq('aktywna', true);
+
+      if (companyFeeds && companyFeeds.length > 0) {
+        const customMetas: FeedMeta[] = companyFeeds.map(f => ({
+          id: f.id as string,
+          name: f.feed_name as string,
+          fullName: f.feed_name as string,
+          url: f.feed_url as string,
+          audiences: ['firmy'],
+          tags: f.kategoria ? [f.kategoria as string] : [],
+        }));
+        const customResult = await fetchFeeds(customMetas);
+        allItems = [...allItems, ...customResult.items];
+      }
     }
 
-    // Pobierz własne feedy firmy
-    const { data: companyFeeds, error: feedsError } = await supabase
-      .from('company_rss_feeds')
-      .select('id, feed_url, feed_name, kategoria')
-      .eq('user_id', session.user.id)
-      .eq('aktywna', true);
-
-    if (feedsError) {
-      console.error('[aktualnosci/GET] błąd pobierania feedów firmy:', feedsError);
-      // Fallback do domyślnych
-      const result = await fetchAllFeeds();
-      return NextResponse.json({ ...result, fetchedAt: new Date().toISOString() });
-    }
-
-    // Buduj listę feedów: domyślne + własne firmy
-    const customMetas: FeedMeta[] = (companyFeeds ?? []).map(f => ({
-      id: f.id as string,
-      name: f.feed_name as string,
-      fullName: f.feed_name as string,
-      url: f.feed_url as string,
-      audiences: ['firmy'],
-      tags: f.kategoria ? [f.kategoria as string] : [],
-    }));
-
-    const allFeeds = [...FEEDS, ...customMetas];
-    const result = await fetchFeeds(allFeeds);
+    // Sortuj po dacie malejąco
+    allItems.sort((a, b) => {
+      if (!a.pubDate && !b.pubDate) return 0;
+      if (!a.pubDate) return 1;
+      if (!b.pubDate) return -1;
+      return new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime();
+    });
 
     return NextResponse.json({
-      ...result,
+      items: allItems,
+      active,
+      failed,
       fetchedAt: new Date().toISOString(),
-      customFeedsCount: customMetas.length,
+      cacheEnabled: true,
     });
   } catch (err) {
-    console.error('[aktualnosci/GET] nieoczekiwany błąd:', err);
+    console.error('[aktualnosci/GET] błąd:', err);
     return NextResponse.json({ error: 'Błąd pobierania aktualności.' }, { status: 500 });
   }
 }
