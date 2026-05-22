@@ -313,37 +313,6 @@ export default function WnioskiPage() {
   return (
     <div style={{ minHeight: '100vh', background: 'var(--color-bg-0)' }}>
 
-      {/* Header */}
-      <header style={{
-        position: 'sticky', top: 0, zIndex: 50,
-        background: 'rgba(240,246,241,0.85)',
-        backdropFilter: 'saturate(140%) blur(14px)',
-        WebkitBackdropFilter: 'saturate(140%) blur(14px)',
-        borderBottom: '1px solid var(--color-border)',
-      }}>
-        <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
-          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
-            <span style={{
-              display: 'inline-block', width: 9, height: 9,
-              background: 'var(--color-pl-red)', borderRadius: '50%',
-            }} />
-            <span style={{ fontWeight: 600, fontSize: 17, letterSpacing: '-0.02em', color: 'var(--color-text-1)' }}>
-              wezmezadarmo
-              <span className="mono" style={{ color: 'var(--color-text-3)', fontWeight: 400, fontSize: 11 }}>.com</span>
-            </span>
-          </Link>
-          <Link href="/" style={{
-            fontSize: 13, color: 'var(--color-text-2)',
-            display: 'flex', alignItems: 'center', gap: 6,
-          }}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M19 12H5M11 6l-6 6 6 6"/>
-            </svg>
-            Strona główna
-          </Link>
-        </div>
-      </header>
-
       {/* Hero */}
       <section style={{ position: 'relative', paddingTop: 48, paddingBottom: 48, overflow: 'hidden' }}>
         <div className="grain-bg" />
