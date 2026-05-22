@@ -57,6 +57,7 @@ const MODULES = [
 export default function PanelDashboard() {
   const router = useRouter();
   const [user, setUser] = useState<UserInfo | null>(null);
+  const [profileEmpty, setProfileEmpty] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -64,12 +65,23 @@ export default function PanelDashboard() {
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     );
-    supabase.auth.getSession().then(({ data }) => {
+    supabase.auth.getSession().then(async ({ data }) => {
       if (!data.session) {
         router.push('/logowanie');
         return;
       }
       setUser({ email: data.session.user.email ?? '' });
+
+      // Sprawdź czy profil agenta jest uzupełniony
+      try {
+        const res = await fetch('/api/agent/profile');
+        if (res.ok) {
+          const { profile } = await res.json();
+          const isEmpty = !profile?.wiek && !profile?.zatrudnienie && !profile?.nip;
+          setProfileEmpty(isEmpty);
+        }
+      } catch { /* ignoruj */ }
+
       setLoading(false);
     });
   }, [router]);
@@ -85,6 +97,39 @@ export default function PanelDashboard() {
 
   return (
     <div style={{ maxWidth: 900, margin: '0 auto', padding: '48px 28px' }}>
+
+      {/* Baner dla nowych użytkowników z pustym profilem */}
+      {profileEmpty && (
+        <div style={{
+          marginBottom: 28,
+          padding: '20px 24px',
+          background: 'linear-gradient(135deg, rgba(34,160,107,0.1) 0%, rgba(34,160,107,0.05) 100%)',
+          border: '1px solid rgba(34,160,107,0.3)',
+          borderLeft: '3px solid #22A06B',
+          borderRadius: 'var(--r-md)',
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          gap: 16, flexWrap: 'wrap',
+        }}>
+          <div>
+            <div style={{ fontWeight: 600, fontSize: 15, color: 'var(--ink-900)', marginBottom: 4 }}>
+              Uzupełnij profil, żeby agent AI mógł dopasować wyniki
+            </div>
+            <div style={{ fontSize: 13, color: 'var(--ink-500)', lineHeight: 1.5 }}>
+              Wystarczy wiek, forma zatrudnienia i dochód - zajmie to 2 minuty.
+            </div>
+          </div>
+          <Link href="/panel/profil" style={{
+            flexShrink: 0, padding: '10px 20px',
+            background: '#22A06B', color: '#fff',
+            fontSize: 13, fontWeight: 600,
+            borderRadius: 'var(--r-sm)', textDecoration: 'none',
+            boxShadow: '0 2px 8px rgba(34,160,107,0.3)',
+          }}>
+            Uzupełnij profil →
+          </Link>
+        </div>
+      )}
+
       <div style={{ marginBottom: 36 }}>
         <div className="eyebrow green" style={{ marginBottom: 12 }}>Panel</div>
         <h2 style={{ fontSize: 'clamp(24px, 3vw, 32px)', marginBottom: 8 }}>

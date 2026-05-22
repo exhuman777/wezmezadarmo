@@ -8,15 +8,15 @@ interface OnboardingBannerProps {
 }
 
 const STEPS_PRIVATE = [
-  { label: 'Sprawdź jakie świadczenia Ci przysługują', href: '/agent/panel/swiadczenia' },
-  { label: 'Skonfiguruj dzienny raport e-mail', href: '/agent/panel/powiadomienia' },
-  { label: 'Przeglądaj aktualne zmiany prawne', href: '/agent/panel/aktualnosci' },
+  { label: 'Sprawdź jakie świadczenia Ci przysługują', href: '/panel/swiadczenia' },
+  { label: 'Skonfiguruj dzienny raport e-mail', href: '/panel/powiadomienia' },
+  { label: 'Przeglądaj aktualne zmiany prawne', href: '/panel/aktualnosci' },
 ];
 
 const STEPS_JDG = [
-  { label: 'Sprawdź dostępne dofinansowania dla Twojej firmy', href: '/agent/panel/aktualnosci' },
-  { label: 'Skonfiguruj dzienny raport o dotacjach', href: '/agent/panel/powiadomienia' },
-  { label: 'Śledź zmiany przepisów podatkowych', href: '/agent/panel/aktualnosci' },
+  { label: 'Sprawdź dostępne dofinansowania dla Twojej firmy', href: '/panel/aktualnosci' },
+  { label: 'Skonfiguruj dzienny raport o dotacjach', href: '/panel/powiadomienia' },
+  { label: 'Śledź zmiany przepisów podatkowych', href: '/panel/aktualnosci' },
 ];
 
 export default function OnboardingBanner({ profileType }: OnboardingBannerProps) {
