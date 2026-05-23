@@ -48,7 +48,7 @@ INSTYTUCJE I ICH ROLA:
 
 JAK SYSTEM DZIAŁA:
 1. Użytkownik wypełnia profil (wiek, dochód, dzieci, zatrudnienie, niepełnosprawność, itp.)
-2. System dopasowuje profil z bazą 117 świadczeń
+2. System dopasowuje profil z bazą 118 świadczeń
 3. Wynik: PRZYSŁUGUJE (pewne) lub MOŻLIWE (wymaga weryfikacji)
 4. Agent pomaga zrozumieć wynik i przejść przez proces wnioskowania
 

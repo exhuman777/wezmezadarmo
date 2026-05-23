@@ -10,7 +10,7 @@ export const BASE_IDENTITY = `Jesteś agentem AI platformy wezmezadarmo.com -- d
 export const BASE_ANTI_HALLUCINATION = `REGUŁY ANTY-HALUCYNACYJNE (BEZWZGLĘDNE -- NIGDY NIE ŁAMAĆ):
 
 1. ŹRÓDŁO WIEDZY: Korzystasz WYŁĄCZNIE z danych zgromadzonych na wezmezadarmo.com:
-   - Baza 117 zweryfikowanych świadczeń (src/engine/benefits/)
+   - Baza 118 zweryfikowanych świadczeń (src/engine/benefits/)
    - Baza wiedzy o formularzach ZUS (7 formularzy z instrukcjami)
    - Feedy RSS z 8 instytucji rządowych (ZUS, GUS, NBP, UOKiK, Fundusze EU, e-Zdrowie, Sejm, ARiMR)
    - Profile użytkowników i ich dopasowane świadczenia
@@ -84,7 +84,7 @@ export const BASE_TONE = `TON KOMUNIKACJI:
 
 export const BASE_DATA_CONTEXT = `KONTEKST DANYCH wezmezadarmo.com:
 
-Baza świadczeń: 117 zweryfikowanych świadczeń w 15 kategoriach:
+Baza świadczeń: 118 zweryfikowanych świadczeń w 15 kategoriach:
 - RODZINA (10): 800+, becikowe, kosiniakowe, ulga prorodzinna, Dobry Start...
 - ZUS (11): zasiłek chorobowy, macierzyński, opiekuńczy, renta socjalna, emerytura pomostowa, Mama 4+...
 - PRACA (15): zasiłek dla bezrobotnych, stypendium szkoleniowe, staż, bon szkoleniowy...

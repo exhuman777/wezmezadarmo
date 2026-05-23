@@ -122,7 +122,7 @@ export default function OGImage() {
               }}
             >
               <div style={{ fontSize: '36px', fontWeight: 800, color: '#6DC08A', fontFamily: 'monospace' }}>
-                117
+                118
               </div>
               <div style={{ fontSize: '14px', color: '#C2D4C2', fontFamily: 'monospace', letterSpacing: '2px' }}>
                 SWIADCZEN

@@ -13,7 +13,7 @@ const MODULES = [
     badge: 'Bezpłatny',
     badgeTone: 'green',
     icon: 'S',
-    desc: 'Wypełniasz formularz (wiek, płeć, 11 pytań) i dostajesz spersonalizowaną listę 117 świadczeń z ZUS, NFZ, PFRON, KRUS, MOPS. Żadnych danych osobowych na serwerze.',
+    desc: 'Wypełniasz formularz (wiek, płeć, 11 pytań) i dostajesz spersonalizowaną listę 118 świadczeń z ZUS, NFZ, PFRON, KRUS, MOPS. Żadnych danych osobowych na serwerze.',
   },
   {
     href: '/wnioski',
@@ -98,7 +98,7 @@ const TECH = [
   { name: 'Silnik dopasowań', note: 'autorski algorytm TypeScript' },
   { name: 'Supabase', note: 'baza danych, serwery w UE' },
   { name: 'Vercel', note: 'hosting serverless, edge deployment' },
-  { name: 'Baza 117 świadczeń', note: 'ręcznie zweryfikowana, każda z datą i źródłem' },
+  { name: 'Baza 118 świadczeń', note: 'ręcznie zweryfikowana, każda z datą i źródłem' },
 ];
 
 const SECURITY = [
@@ -162,7 +162,7 @@ export default function OProjekciePage() {
             marginTop: 28,
           }}>
             {[
-              { num: '117', label: 'świadczeń w bazie' },
+              { num: '118', label: 'świadczeń w bazie' },
               { num: '15', label: 'kategorii' },
               { num: '2 min', label: 'średni czas analizy' },
             ].map((s, i) => (
@@ -199,7 +199,7 @@ export default function OProjekciePage() {
             </p>
             <p style={{ margin: 0 }}>
               wezmezadarmo powstało, żeby zebrać w jednym miejscu{' '}
-              <strong style={{ color: 'var(--color-text-1)' }}>117 świadczeń z 15 kategorii</strong>{' '}
+              <strong style={{ color: 'var(--color-text-1)' }}>118 świadczeń z 15 kategorii</strong>{' '}
               i dać każdemu możliwość sprawdzenia w 2 minuty, na co się kwalifikuje.
               Bez rejestracji, bez opłat, bez zbędnych kroków.
             </p>

@@ -541,7 +541,7 @@ export default function DlaFirmPage() {
               {
                 num: '02',
                 title: 'API świadczeń',
-                desc: '117 świadczeń, ulg i dotacji jako REST API. Ręcznie weryfikowana baza, aktualizowana na bieżąco.',
+                desc: '118 świadczeń, ulg i dotacji jako REST API. Ręcznie weryfikowana baza, aktualizowana na bieżąco.',
                 anchor: '#api',
                 label: 'Dokumentacja API',
               },
@@ -649,14 +649,14 @@ export default function DlaFirmPage() {
             API bazy świadczeń
           </h2>
           <p style={{ fontSize: 15, lineHeight: 1.65, color: 'var(--color-text-2)', margin: '0 0 28px', maxWidth: 540 }}>
-            117 zweryfikowanych świadczeń socjalnych, ulg i dotacji. Jeden endpoint REST, odpowiedź w &lt;200ms, aktualizowana baza.
+            118 zweryfikowanych świadczeń socjalnych, ulg i dotacji. Jeden endpoint REST, odpowiedź w &lt;200ms, aktualizowana baza.
           </p>
 
           <TerminalWindow />
 
           <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 28px', display: 'flex', flexDirection: 'column', gap: 8 }}>
             {[
-              '117 świadczeń w 13 kategoriach',
+              '118 świadczeń w 15 kategoriach',
               'Odpowiedź <200ms',
               'Brak przechowywania danych (RODO)',
               'Dokumentacja dla AI: wezmezadarmo.com/llm.md',

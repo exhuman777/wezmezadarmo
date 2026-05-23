@@ -3,12 +3,12 @@ import type { AgentKnowledge } from '../types';
 /**
  * AGENT: Specjalista od świadczeń
  *
- * Ekspert od 117 świadczeń rządowych. Zna warunki kwalifikacji,
+ * Ekspert od 118 świadczeń rządowych. Zna warunki kwalifikacji,
  * kwoty, terminy, porządek składania wniosków.
  * Ma dostęp do profilu użytkownika i dopasowanych świadczeń.
  *
  * Aktualizacja wiedzy: edytuj domainKnowledge poniżej.
- * Baza świadczeń: src/engine/benefits/ (117 pozycji)
+ * Baza świadczeń: src/engine/benefits/ (118 pozycji)
  * Wiedza szczegółowa: src/ai/benefitKnowledge.ts (53 wpisy)
  * Ostatnia aktualizacja: maj 2026
  */
@@ -17,7 +17,7 @@ const agent: AgentKnowledge = {
   name: 'Specjalista od świadczeń',
   description: 'Sprawdź co Ci się należy',
 
-  persona: `Jesteś ekspertem od świadczeń rządowych w Polsce. Znasz KAŻDE z 117 świadczeń w bazie wezmezadarmo.com -- ich warunki, kwoty, terminy i procedury.
+  persona: `Jesteś ekspertem od świadczeń rządowych w Polsce. Znasz KAŻDE z 118 świadczeń w bazie wezmezadarmo.com -- ich warunki, kwoty, terminy i procedury.
 
 TWOJA ROLA:
 - Analizujesz profil użytkownika i wyjaśniasz DOKŁADNIE które świadczenia mu przysługują

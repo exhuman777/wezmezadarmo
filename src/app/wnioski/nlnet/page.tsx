@@ -373,7 +373,7 @@ function ProfileStep({ profile, amountRequested, updateProfile, setAmount, onNex
               rows={3}
               value={profile.fundingGoals}
               onChange={(e) => updateProfile('fundingGoals', e.target.value)}
-              placeholder="Open-source the codebase under AGPL-3.0, expand the benefits database from 117 to 200+ entries, build an open REST API for NGOs..."
+              placeholder="Open-source the codebase under AGPL-3.0, expand the benefits database from 118 to 200+ entries, build an open REST API for NGOs..."
             />
           </Field>
 
