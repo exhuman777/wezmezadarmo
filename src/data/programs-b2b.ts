@@ -183,7 +183,7 @@ export const PROGRAMS: B2BProgram[] = [
     maxAmountDesc: 'Do 250 000 zł dotacji na wdrożenie cyfrowych technologii w MŚP; intensywność pomocy do 70%. Komponent C KPO: alokacja 4,1 mld EUR na transformację cyfrową.',
     eligibilityFlags: ['msp', 'cyfryzacja', 'innowacje'],
     voivodeships: ['all'],
-    url: 'https://www.parp.gov.pl/component/grants/grants/cyfryzacja-msp-kpo',
+    url: 'https://www.gov.pl/web/kpo/cyfryzacja-msp',
     lastVerified: '2026-05-23',
     notes: 'NABORY 2026: dwa okna w I i III kwartale. UWAGA - KRYTYCZNY TERMIN: środki KPO muszą być wydane i rozliczone do końca SIERPNIA 2026. Łączna pula dla biznesu w 2026: >60 mld zł (KPO + FENG + FEPW + 16 programów regionalnych). Zakres: wdrożenie ERP, CRM, automatyzacja, robotyzacja. Sprawdź aktualne nabory na funduszeeuropejskie.gov.pl i parp.gov.pl.',
   },
