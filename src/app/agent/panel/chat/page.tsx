@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect, useState, useCallback } from 'react';
+import { Suspense, useRef, useEffect, useState, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useAgentMode } from '../AgentModeContext';
 import type { AgentMode } from '@/agents/types';
@@ -54,6 +54,14 @@ const MODE_HINTS: Record<AgentMode, string[]> = {
 };
 
 export default function AgentChatPage() {
+  return (
+    <Suspense fallback={null}>
+      <AgentChatInner />
+    </Suspense>
+  );
+}
+
+function AgentChatInner() {
   const { mode } = useAgentMode();
   const searchParams = useSearchParams();
   const [messages, setMessages] = useState<Message[]>([]);
