@@ -88,44 +88,56 @@ Generowanie PDF: 5 formularzy z auto-wypełnianiem
 Źródła danych: gov.pl, zus.pl, nfz.gov.pl, podatki.gov.pl, pfron.org.pl, krus.gov.pl, praca.gov.pl, biznes.gov.pl
 Data weryfikacji: maj 2026`;
 
-export const BASE_LIVE_SOURCES = `ŻYWE ŹRÓDŁA DANYCH (publiczne polskie API):
+export const BASE_LIVE_SOURCES = `ŻYWE ŹRÓDŁA DANYCH (publiczne polskie API zintegrowane w wezmezadarmo.com):
 
-Możesz odsyłać użytkownika do dedykowanych narzędzi wezmezadarmo.com które wyciągają dane na żywo z oficjalnych polskich API:
+Wszystko dostępne pod hubem CENTRUM OBYWATELA: /centrum-obywatela
+Odsyłaj użytkownika do tych konkretnych URL gdy pyta o sprawy w nich opisane. NIE udawaj że masz bezpośredni dostęp do API; wskazuj URL gdzie user sam sprawdzi na żywo.
 
-1. NFZ -- wyszukiwarka kolejek, lekarzy, refundacji leków:
-   - /nfz -- pełna wyszukiwarka
-   - 3 tryby: kolejki (czas oczekiwania), świadczeniodawcy (znajdź lekarza/szpital/przychodnię), refundacja leków
-   - Filtruje po województwie, mieście, trybie (stabilny/pilny)
+1. NFZ -- kolejki, lekarze, refundacja leków:
+   - URL: /nfz
+   - Tryby: kolejki (czas oczekiwania do specjalisty), świadczeniodawcy (znajdź lekarza/szpital/przychodnię po nazwie/województwie/NIP), leki (refundacja)
+   - Backend API: /api/public/nfz?type={queues|providers|drugs|benefits} (30 req/min/IP)
    - Źródło: api.nfz.gov.pl (oficjalne)
-   - Polecaj gdy: użytkownik pyta o czas oczekiwania, gdzie pójść do lekarza NFZ, ile dopłaci za lek
+   - Polecaj gdy: "ile czekam do endokrynologa", "najbliższy POZ", "ile dopłacę za lek X"
 
-2. GIOŚ -- jakość powietrza:
-   - Widget dostępny na /aktualnosci
-   - Pokazuje PM10, PM2.5, NO2, O3, SO2 dla wybranego z 18 miast wojewódzkich
+2. Kursy walut NBP:
+   - URL: /centrum-obywatela/kursy
+   - Tabela A NBP, ~40 walut, konwerter na PLN, aktualizacja codziennie w dni robocze
+   - Backend API: /api/public/nbp (60 req/min/IP)
+   - Polecaj gdy: dochód zagraniczny, przeliczanie kwot do wniosków, faktury w obcej walucie, ulgi dla powracających z zagranicy
+
+3. Jakość powietrza GIOŚ:
+   - URL: /centrum-obywatela/powietrze
+   - Indeks PM10, PM2.5, SO2, NO2, O3 ze stacji najbliżej geolokalizacji lub miasta
+   - Backend API: /api/public/gios?lat=&lon= (30 req/min/IP)
    - Źródło: api.gios.gov.pl
-   - Polecaj gdy: użytkownik ma astmę/alergię/chore dziecko/seniora i pyta o świadczenia zdrowotne
+   - Polecaj gdy: user ma astmę/alergię/POChP/dziecko z problemami oddechowymi i pyta o świadczenia zdrowotne, dofinansowanie do oczyszczacza, Czyste Powietrze
 
-3. NBP -- kursy walut:
-   - Endpoint: /api/public/nbp
-   - Tabela A NBP (EUR, USD, CHF, GBP i inne) -- aktualizowana raz dziennie
-   - Polecaj gdy: użytkownik ma dochód zagraniczny i nie wie jak przeliczyć na PLN dla wniosków
+4. Biała Lista VAT (MF):
+   - URL: /centrum-obywatela/biala-lista
+   - Sprawdzenie kontrahenta po NIP: status VAT (Czynny/Zwolniony/Niezarejestrowany), REGON, KRS, adres, konta bankowe zarejestrowane w MF
+   - Backend API: /api/public/whitelist?nip=XXXXXXXXXX (10 req/min/IP)
+   - Źródło: wl-api.mf.gov.pl
+   - Polecaj gdy: user chce sprawdzić kontrahenta przed płatnością B2B >15k PLN (obowiązek prawny - brak weryfikacji = solidarna odpowiedzialność za VAT)
 
-4. CEIDG -- rejestr firm jednoosobowych:
-   - Endpoint: /api/ceidg (wbudowany w formularz NIP)
+5. CEIDG -- rejestr firm jednoosobowych:
+   - Endpoint: /api/ceidg (rate limit 10/dzień/IP, wbudowany w formularz NIP)
    - Sprawdza status JDG, datę rejestracji, kody PKD
    - Źródło: dane.biznes.gov.pl
-   - Polecaj gdy: użytkownik prowadzi działalność i nie wie czy jest aktywna
+   - Polecaj gdy: user prowadzi działalność i nie pamięta szczegółów / chce zweryfikować status
 
-5. Biała Lista VAT (MF):
-   - Endpoint: /api/public/whitelist
-   - Sprawdza status VAT firmy + rachunki bankowe zarejestrowane w MF
-   - Źródło: wl-api.mf.gov.pl
-   - Polecaj gdy: użytkownik chce sprawdzić kontrahenta przed płatnością >15k PLN
+6. Aktualności RSS (8 polskich instytucji):
+   - URL publiczny: /aktualnosci
+   - URL dla zalogowanych (z filtrem subskrypcji): /panel/aktualnosci
+   - Subskrypcja user (e-mail + filtr źródeł/kategorii/słów): /panel/powiadomienia
+   - Źródła: ZUS, GUS, NBP, UOKiK, Fundusze EU, e-Zdrowie, Sejm, ARiMR
+   - Aktualizacja 2x dziennie (~10:00 i ~15:00 PL)
+   - Polecaj gdy: "co nowego w ZUS", "kiedy nowy nabór", "zmiany w prawie podatkowym", "aktualności z sejmu"
 
 WAŻNE:
-- NIE udawaj że masz bezpośredni dostęp do tych API -- wskazuj użytkownikowi konkretne narzędzia (/nfz, /aktualnosci) gdzie może wyszukać sam
-- Te dane są LIVE -- mogą się różnić od tego co wiesz z bazy świadczeń
-- Wszystkie integracje są darmowe i nie wymagają od użytkownika rejestracji ani podawania PESEL`;
+- Wszystkie narzędzia są DARMOWE, bez rejestracji, bez PESEL.
+- Dane LIVE mogą różnić się od tego co masz w bazie świadczeń (statyczna baza, weryfikacja co kilka tygodni).
+- Gdy odsyłasz do narzędzia, podaj pełną ścieżkę: "Sprawdź na /nfz" albo "https://wezmezadarmo.com/centrum-obywatela/kursy".`;
 
 /**
  * Składa pełny system prompt z części bazowych + części agenta

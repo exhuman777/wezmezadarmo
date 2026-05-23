@@ -31,6 +31,24 @@ export interface AgentKnowledge {
   sources: string[];
 }
 
+export interface RssContextItem {
+  sourceId: string;
+  source: string;
+  title: string;
+  description: string;
+  link: string;
+  pubDate: string | null;
+  audiences: string[];
+}
+
+export interface RssSubscriptionContext {
+  active: boolean;
+  source_ids: string[];
+  audiences: string[];
+  keywords: string[];
+  last_sent_at: string | null;
+}
+
 export interface AgentContext {
   profile: Record<string, unknown> | null;
   profileType: 'jdg' | 'private' | null;
@@ -39,6 +57,12 @@ export interface AgentContext {
 
   /** Public chat: focus on a specific benefit with enriched knowledge */
   focusedBenefitId?: string | null;
+
+  /** Live RSS items from rss_cache (top 10-20 fresh, optionally filtered by user audience) */
+  recentRssItems?: RssContextItem[] | null;
+
+  /** User's RSS subscription filters */
+  rssSubscription?: RssSubscriptionContext | null;
 
   /** Extra context appended to the prompt (company data, live intel, etc.) */
   extraContext?: string | null;

@@ -128,12 +128,61 @@ function buildRuntimeContext(ctx: AgentContext): string | null {
     blocks.push(buildBenefitsBlock(ctx.matchedBenefits, ctx.focusedBenefitId));
   }
 
+  // --- Swieze aktualnosci RSS ---
+  if (ctx.recentRssItems && ctx.recentRssItems.length > 0) {
+    blocks.push(buildRssBlock(ctx.recentRssItems));
+  }
+
+  // --- Subskrypcja RSS usera ---
+  if (ctx.rssSubscription && ctx.rssSubscription.active) {
+    blocks.push(buildRssSubscriptionBlock(ctx.rssSubscription));
+  }
+
   // --- Extra context (company data, live intel, etc.) ---
   if (ctx.extraContext) {
     blocks.push(ctx.extraContext);
   }
 
   return blocks.length > 0 ? blocks.join('\n\n') : null;
+}
+
+/**
+ * Blok swiezych aktualnosci RSS -- top 10-15 ostatnich items z cache.
+ * AI moze cytowac konkretne newsy odpowiadajac na pytania typu "co nowego w X".
+ */
+function buildRssBlock(items: import('./types').RssContextItem[]): string {
+  const lines: string[] = [
+    'ŚWIEŻE AKTUALNOŚCI Z POLSKICH INSTYTUCJI (cache, ostatnia aktualizacja max 12h):',
+    'Możesz cytować te wiadomości w odpowiedziach. Zawsze podawaj źródło i link.',
+    '',
+  ];
+  for (const item of items.slice(0, 15)) {
+    const date = item.pubDate ? new Date(item.pubDate).toLocaleDateString('pl-PL') : '?';
+    lines.push(`[${item.source}] ${date} - ${item.title}`);
+    if (item.description) lines.push(`  ${item.description.slice(0, 200)}`);
+    lines.push(`  ${item.link}`);
+  }
+  if (items.length > 15) {
+    lines.push(`...i ${items.length - 15} wiecej (pelna lista na /panel/aktualnosci)`);
+  }
+  return lines.join('\n');
+}
+
+/**
+ * Blok subskrypcji RSS uzytkownika -- AI wie co user sledzi i moze sugerowac dopasowane wiesci.
+ */
+function buildRssSubscriptionBlock(sub: import('./types').RssSubscriptionContext): string {
+  const parts: string[] = ['SUBSKRYPCJA RSS UŻYTKOWNIKA (aktywna):'];
+  if (sub.source_ids.length > 0) parts.push(`Śledzi źródła: ${sub.source_ids.join(', ')}`);
+  else parts.push('Śledzi: wszystkie źródła');
+  if (sub.audiences.length > 0) parts.push(`Grupa: ${sub.audiences.join(', ')}`);
+  if (sub.keywords.length > 0) parts.push(`Słowa kluczowe: ${sub.keywords.join(', ')}`);
+  if (sub.last_sent_at) {
+    const date = new Date(sub.last_sent_at).toLocaleString('pl-PL');
+    parts.push(`Ostatni e-mail alertu: ${date}`);
+  }
+  parts.push('Możesz odsyłać do /panel/aktualnosci po jego spersonalizowany widok.');
+  return parts.join('\n');
 }
 
 /**

@@ -14,11 +14,16 @@ async function fetchFromCache(sourceIds: string[]): Promise<FeedItem[]> {
   if (sourceIds.length === 0) return [];
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL ?? process.env.SUPABASE_URL ?? '';
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.SUPABASE_ANON_KEY ?? '';
-  if (!url || !key) return [];
+  // Anon key first - publiczny endpoint, RLS policy rss_cache_public_read pozwala anon na SELECT
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? process.env.SUPABASE_SERVICE_ROLE_KEY ?? '';
+
+  if (!url || !key) {
+    console.error('[rss-cache] BRAK env: NEXT_PUBLIC_SUPABASE_URL lub NEXT_PUBLIC_SUPABASE_ANON_KEY');
+    return [];
+  }
 
   try {
-    const client = createClient(url, key);
+    const client = createClient(url, key, { auth: { persistSession: false } });
     const { data, error } = await client
       .from('rss_cache')
       .select('id, source_id, source_name, title, link, description, pub_date, audiences')
@@ -26,7 +31,16 @@ async function fetchFromCache(sourceIds: string[]): Promise<FeedItem[]> {
       .order('fetched_at', { ascending: false })
       .limit(150);
 
-    if (error || !data) return [];
+    if (error) {
+      console.error('[rss-cache] Supabase error:', error.code, error.message, error.details);
+      return [];
+    }
+    if (!data || data.length === 0) {
+      console.warn('[rss-cache] brak wpisow dla source_ids:', sourceIds.join(','));
+      return [];
+    }
+
+    console.log(`[rss-cache] OK: ${data.length} wpisow z ${new Set(data.map(d => d.source_id)).size} zrodel`);
 
     return data.map(row => ({
       id: row.id as string,
@@ -38,7 +52,8 @@ async function fetchFromCache(sourceIds: string[]): Promise<FeedItem[]> {
       sourceId: row.source_id as string,
       audiences: row.audiences as FeedItem['audiences'],
     }));
-  } catch {
+  } catch (e) {
+    console.error('[rss-cache] EXCEPTION:', (e as Error).message);
     return [];
   }
 }
