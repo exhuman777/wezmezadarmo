@@ -16,14 +16,14 @@ import { createClient } from '@supabase/supabase-js';
 // ---------------------------------------------------------------------------
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY;
+const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const FIRECRAWL_API_KEY = process.env.FIRECRAWL_API_KEY;
 const MAX_ITEMS_PER_FEED = 20;
 const FETCH_TIMEOUT_MS = 15_000;
 const FIRECRAWL_TIMEOUT_MS = 45_000;
 
-if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
-  console.error('Brak SUPABASE_URL lub SUPABASE_SERVICE_KEY');
+if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
+  console.error('Brak SUPABASE_URL lub SUPABASE_SERVICE_ROLE_KEY');
   process.exit(1);
 }
 
@@ -31,7 +31,7 @@ if (!FIRECRAWL_API_KEY) {
   console.warn('FIRECRAWL_API_KEY brak — fallback wyłączony (zablokowane źródła zostaną pominięte)');
 }
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
+const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
 const BROWSER_HEADERS = {
   'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',

@@ -51,7 +51,7 @@ The benefits database (`src/engine/benefits/`) is covered by AGPL-3.0 for open-s
 ```bash
 npm install
 cp .env.example .env.local
-# Add: OPENROUTER_API_KEY, NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY, SUPABASE_SERVICE_KEY
+# Add: OPENROUTER_API_KEY, NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY
 npm run dev
 ```
 
