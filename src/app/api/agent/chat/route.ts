@@ -471,8 +471,8 @@ async function maybeFetchBdlGus(text: string, userProvince: string | null): Prom
     const unit = (sData.results ?? [])[0] as { id: string; name: string; parentName?: string } | undefined;
     if (!unit) return `BDL GUS: nie znaleziono gminy "${gmina}". Sprawdz pisownie na https://wezmezadarmo.com/centrum-obywatela/gus`;
 
-    const vars = ['60559', '459163', '60270'].join(',');
-    const dRes = await fetch(`https://bdl.stat.gov.pl/api/v1/data/by-unit/${unit.id}?var-id=${vars}&format=json`, {
+    const varParams = ['60559', '459163', '60270'].map(v => `var-id=${v}`).join('&');
+    const dRes = await fetch(`https://bdl.stat.gov.pl/api/v1/data/by-unit/${unit.id}?${varParams}&format=json`, {
       headers: { Accept: 'application/json' },
       next: { revalidate: 86400 },
     });

@@ -27,8 +27,8 @@ export const BDL_VARS = {
   populationTotal: '60559',
   populationPreproductive: '60565',
   populationPostproductive: '60567',
-  unemploymentRate: '459163',
-  averageGrossSalary: '60270',
+  unemploymentRate: '60270',
+  averageGrossSalary: '459163',
 } as const;
 
 interface RawResult {
@@ -106,10 +106,10 @@ export async function searchUnitSmart(rawName: string): Promise<BdlUnit[]> {
 }
 
 export async function fetchUnitData(terytId: string): Promise<BdlUnitData> {
-  const varIds = Object.values(BDL_VARS).join(',');
-  const params = new URLSearchParams({
-    'var-id': varIds, format: 'json',
-  });
+  const params = new URLSearchParams({ format: 'json' });
+  for (const vid of Object.values(BDL_VARS)) {
+    params.append('var-id', vid);
+  }
   const res = await fetch(`${BASE}/data/by-unit/${terytId}?${params}`, {
     headers: { Accept: 'application/json' },
     next: { revalidate: 86400 },
