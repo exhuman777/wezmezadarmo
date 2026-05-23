@@ -376,7 +376,7 @@ export default function Home() {
     return () => clearInterval(id);
   }, [phase]);
 
-  async function handleIntakeSubmit(data: { wiek: number; plec: 'K' | 'M'; nip?: string; pesel?: string }) {
+  async function handleIntakeSubmit(data: { wiek: number; plec: 'K' | 'M'; nip?: string }) {
     setProfile((prev) => ({ ...prev, wiek: data.wiek, plec: data.plec }));
 
     if (data.nip) {
@@ -852,7 +852,7 @@ export default function Home() {
                 }}>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                     {[
-                      { label: 'PESEL dekodowany lokalnie w przeglądarce', icon: <IconLock /> },
+                      { label: 'Bez rejestracji i konta', icon: <IconLock /> },
                       { label: 'Kalkulator bez bazy danych', icon: <IconShield /> },
                       { label: 'Połączenie HTTPS', icon: <IconCheck /> },
                     ].map((item, i) => (
@@ -1122,7 +1122,7 @@ export default function Home() {
               </h2>
               <div className="steps-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 0 }}>
                 {[
-                  { num: '01', title: 'Podaj minimum danych', desc: 'PESEL (lub wiek + płeć) i opcjonalnie NIP. PESEL dekodowany lokalnie w przeglądarce -- nigdy nie wysyłany na serwer.', iconPath: 'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 5v5l4 2' },
+                  { num: '01', title: 'Podaj minimum danych', desc: 'Wiek i płeć wystarczą. Opcjonalnie NIP, jeśli prowadzisz firmę - wtedy sprawdzimy też świadczenia i ulgi dla JDG.', iconPath: 'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 5v5l4 2' },
                   { num: '02', title: 'Odpowiedz na 11 pytań', desc: 'Stan cywilny, dzieci, dochód, zatrudnienie, niepełnosprawność, mieszkanie, województwo. Klikasz, nie piszesz.', iconPath: 'M13 2L3 14h9l-1 8 10-12h-9l1-8' },
                   { num: '03', title: 'Dostań spersonalizowaną listę', desc: 'Kwoty, dokumenty, kroki i pułapki. Pobierasz .MD lub PDF. Pytasz asystenta o szczegóły.', iconPath: 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6 M16 13H8 M16 17H8 M10 9H8' },
                 ].map((step, i) => (

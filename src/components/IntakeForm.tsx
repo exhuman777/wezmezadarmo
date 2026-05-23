@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 interface IntakeFormProps {
-  onSubmit: (data: { wiek: number; plec: 'K' | 'M'; nip?: string; pesel?: string }) => void;
+  onSubmit: (data: { wiek: number; plec: 'K' | 'M'; nip?: string }) => void;
   isLoading: boolean;
 }
 
@@ -38,7 +38,6 @@ export function IntakeForm({ onSubmit, isLoading }: IntakeFormProps) {
       wiek,
       plec: plec as 'K' | 'M',
       nip: cleanNip.length === 10 ? cleanNip : undefined,
-      pesel: cleanNip.length === 11 ? cleanNip : undefined,
     });
   }
 
@@ -81,13 +80,13 @@ export function IntakeForm({ onSubmit, isLoading }: IntakeFormProps) {
         </div>
       </Field>
 
-      <Field label="NIP lub PESEL" hint="Opcjonalnie, dla dokładniejszego dopasowania">
+      <Field label="NIP firmy" hint="Opcjonalnie, dla JDG i przedsiębiorców">
         <input
           type="text"
           inputMode="numeric"
           value={nip}
-          onChange={(e) => setNip(e.target.value.replace(/\D/g, '').slice(0, 11))}
-          placeholder="NIP (10 cyfr) lub PESEL (11 cyfr)"
+          onChange={(e) => setNip(e.target.value.replace(/\D/g, '').slice(0, 10))}
+          placeholder="NIP (10 cyfr)"
           style={fieldStyle}
           disabled={isLoading}
           onFocus={e => e.currentTarget.style.borderColor = 'var(--color-accent)'}
