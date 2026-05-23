@@ -21,6 +21,45 @@ import { CORS_HEADERS } from '@/lib/apiAuth';
 import type { AgentMode } from '@/agents/types';
 import type { RssContextItem, RssSubscriptionContext } from '@/agents/types';
 import { buildAgentSystemPrompt, profileToUserProfile } from '@/agents/registry';
+import { getQueues, NFZ_PROVINCE_CODES, PROVINCE_LABELS } from '@/lib/sources/nfz';
+
+// Stolice wojewodztw (lat/lon) -- dla GIOS prefetch gdy user nie podal lokalizacji
+const PROVINCE_CAPITALS: Record<string, { lat: number; lon: number; city: string }> = {
+  dolnoslaskie: { lat: 51.1079, lon: 17.0385, city: 'Wrocław' },
+  'kujawsko-pomorskie': { lat: 53.0138, lon: 18.5984, city: 'Bydgoszcz' },
+  lubelskie: { lat: 51.2465, lon: 22.5684, city: 'Lublin' },
+  lubuskie: { lat: 52.7325, lon: 15.2369, city: 'Gorzów Wielkopolski' },
+  lodzkie: { lat: 51.7592, lon: 19.4560, city: 'Łódź' },
+  malopolskie: { lat: 50.0647, lon: 19.9450, city: 'Kraków' },
+  mazowieckie: { lat: 52.2297, lon: 21.0122, city: 'Warszawa' },
+  opolskie: { lat: 50.6751, lon: 17.9213, city: 'Opole' },
+  podkarpackie: { lat: 50.0413, lon: 21.9990, city: 'Rzeszów' },
+  podlaskie: { lat: 53.1325, lon: 23.1688, city: 'Białystok' },
+  pomorskie: { lat: 54.3520, lon: 18.6466, city: 'Gdańsk' },
+  slaskie: { lat: 50.2649, lon: 19.0238, city: 'Katowice' },
+  swietokrzyskie: { lat: 50.8661, lon: 20.6286, city: 'Kielce' },
+  'warminsko-mazurskie': { lat: 53.7784, lon: 20.4801, city: 'Olsztyn' },
+  wielkopolskie: { lat: 52.4064, lon: 16.9252, city: 'Poznań' },
+  zachodniopomorskie: { lat: 53.4285, lon: 14.5528, city: 'Szczecin' },
+};
+
+const NFZ_SPECIALTY_MAP: Record<string, string> = {
+  endokrynolog: 'PORADNIA ENDOKRYNOLOGICZNA',
+  kardiolog: 'PORADNIA KARDIOLOGICZNA',
+  ortopeda: 'PORADNIA CHIRURGII URAZOWO-ORTOPEDYCZNEJ',
+  neurolog: 'PORADNIA NEUROLOGICZNA',
+  dermatolog: 'PORADNIA DERMATOLOGICZNA',
+  okulist: 'PORADNIA OKULISTYCZNA',
+  urolog: 'PORADNIA UROLOGICZNA',
+  gastrolog: 'PORADNIA GASTROENTEROLOGICZNA',
+  psychiatr: 'PORADNIA ZDROWIA PSYCHICZNEGO',
+  ginekolog: 'PORADNIA GINEKOLOGICZNO-POLOZNICZA',
+  reumatolog: 'PORADNIA REUMATOLOGICZNA',
+  alergolog: 'PORADNIA ALERGOLOGICZNA',
+  diabetolog: 'PORADNIA DIABETOLOGICZNA',
+  onkolog: 'PORADNIA ONKOLOGICZNA',
+  rehabilitac: 'PORADNIA REHABILITACYJNA',
+};
 
 const VALID_MODES: Set<string> = new Set<string>([
   'ogolny', 'swiadczenie', 'wniosek', 'nabor', 'faktura', 'termin',
@@ -157,47 +196,172 @@ async function maybeFetchWhitelist(text: string): Promise<string | null> {
   }
 }
 
-// Smart prefetch: NFZ kolejki/lekarze gdy user pyta o czas oczekiwania
-async function maybeFetchNfz(text: string): Promise<string | null> {
+// Smart prefetch: NFZ live kolejki gdy user pyta o czas oczekiwania
+async function maybeFetchNfz(text: string, userProvince: string | null): Promise<string | null> {
   const lc = text.toLowerCase();
   const wantsQueues = /\b(kolejk|czekam|czeka|czeka[lć]|oczekiwan|terminu wizyt|kiedy.*wizyt|wolne terminy)/.test(lc);
   if (!wantsQueues) return null;
 
-  const specialty = (() => {
-    const map: Record<string, string> = {
-      endokrynolog: 'PORADNIA ENDOKRYNOLOGICZNA',
-      kardiolog: 'PORADNIA KARDIOLOGICZNA',
-      ortopeda: 'PORADNIA CHIRURGII URAZOWO-ORTOPEDYCZNEJ',
-      neurolog: 'PORADNIA NEUROLOGICZNA',
-      dermatolog: 'PORADNIA DERMATOLOGICZNA',
-      okulist: 'PORADNIA OKULISTYCZNA',
-      urolog: 'PORADNIA UROLOGICZNA',
-      gastrolog: 'PORADNIA GASTROENTEROLOGICZNA',
-      psychiatr: 'PORADNIA ZDROWIA PSYCHICZNEGO',
-      ginekolog: 'PORADNIA GINEKOLOGICZNO-POLOZNICZA',
-      reumatolog: 'PORADNIA REUMATOLOGICZNA',
-    };
-    for (const [keyword, benefit] of Object.entries(map)) {
-      if (lc.includes(keyword)) return benefit;
-    }
-    return null;
-  })();
-
-  if (!specialty) {
-    return `Aby sprawdzic kolejki NFZ otworz /nfz i wpisz nazwe specjalisty oraz wojewodztwo. Mozesz tez podac specjaliste w pytaniu (np. "ile czekam do endokrynologa w Warszawie?").`;
+  let specialty: string | null = null;
+  for (const [keyword, benefit] of Object.entries(NFZ_SPECIALTY_MAP)) {
+    if (lc.includes(keyword)) { specialty = benefit; break; }
   }
 
-  return `Sprawdz aktualne kolejki dla "${specialty}" na /nfz?benefit=${encodeURIComponent(specialty)}. Czas oczekiwania moze sie roznic per wojewodztwo i tryb (stabilny/pilny).`;
+  if (!specialty) {
+    return `Aby sprawdzic kolejki NFZ otworz /nfz i wpisz nazwe specjalisty oraz wojewodztwo. Lista popularnych specjalistow: ${Object.keys(NFZ_SPECIALTY_MAP).slice(0, 8).join(', ')}.`;
+  }
+
+  // Wyciagnij wojewodztwo z wiadomosci lub uzyj profilu
+  let province: string | undefined;
+  for (const [slug, label] of Object.entries(PROVINCE_LABELS)) {
+    if (lc.includes(label.toLowerCase()) || lc.includes(slug)) {
+      province = NFZ_PROVINCE_CODES[slug];
+      break;
+    }
+  }
+  if (!province && userProvince && NFZ_PROVINCE_CODES[userProvince]) {
+    province = NFZ_PROVINCE_CODES[userProvince];
+  }
+
+  // Tryb pilny/stabilny
+  const isPilny = /\b(pilny|pilne|pilna)\b/.test(lc);
+  const caseType: 1 | 2 = isPilny ? 2 : 1;
+
+  try {
+    const queues = await getQueues({ benefit: specialty, province, caseType, limit: 5 });
+    if (!queues.data || queues.data.length === 0) {
+      return `NFZ kolejki dla "${specialty}"${province ? ' w wybranym wojewodztwie' : ''}: brak danych. Sprobuj /nfz?benefit=${encodeURIComponent(specialty)}.`;
+    }
+    const lines = [
+      `NFZ - kolejki LIVE dla "${specialty}"${province ? ` (woj. ${Object.entries(NFZ_PROVINCE_CODES).find(([, c]) => c === province)?.[0]})` : ''}, tryb ${isPilny ? 'PILNY' : 'STABILNY'}:`,
+      `Znaleziono ${queues.meta?.count ?? queues.data.length} placowek. Top 5 z najkrotszym oczekiwaniem:`,
+    ];
+    for (const q of queues.data.slice(0, 5)) {
+      const a = q.attributes;
+      const days = a.dates?.['date-situation-as-at']
+        ? `~${a['statistics']?.['provider-data']?.['awaiting'] ?? '?'} osob w kolejce`
+        : '?';
+      lines.push(`  - ${a.provider} (${a.locality}): ${days}`);
+    }
+    lines.push(`Pelne dane: https://wezmezadarmo.com/nfz?benefit=${encodeURIComponent(specialty)}`);
+    return lines.join('\n');
+  } catch {
+    return `Nie udalo sie pobrac live kolejek. Sprawdz /nfz?benefit=${encodeURIComponent(specialty)} reczne.`;
+  }
 }
 
-// Glowna funkcja prefetch - rownoleglie
-async function buildLivePrefetch(lastUserMsg: string): Promise<string | null> {
-  const [nbp, whitelist, nfz] = await Promise.all([
+// Smart prefetch: GIOS jakosc powietrza gdy user pyta o smog/astma/alergie
+async function maybeFetchGios(text: string, userProvince: string | null): Promise<string | null> {
+  const lc = text.toLowerCase();
+  const wants = /\b(powietrze|smog|jakosc powietrza|pm10|pm2|pm 2|pm25|alergi|astm|pylenie|oddychan)/.test(lc);
+  if (!wants) return null;
+
+  // Spróbuj wykryć miasto z wiadomości
+  let coords: { lat: number; lon: number; city: string } | null = null;
+  for (const [, info] of Object.entries(PROVINCE_CAPITALS)) {
+    if (lc.includes(info.city.toLowerCase())) {
+      coords = info;
+      break;
+    }
+  }
+  // Fallback: użyj stolicy województwa z profilu
+  if (!coords && userProvince && PROVINCE_CAPITALS[userProvince]) {
+    coords = PROVINCE_CAPITALS[userProvince];
+  }
+  if (!coords) {
+    return `Aby sprawdzic jakosc powietrza otworz /centrum-obywatela/powietrze i wybierz miasto lub zezwol na geolokalizacje.`;
+  }
+
+  try {
+    const res = await fetch(`https://api.gios.gov.pl/pjp-api/rest/aqindex/getIndex/${coords.lat}/${coords.lon}`, {
+      headers: { Accept: 'application/json' },
+      next: { revalidate: 1800 },
+    });
+    // Mozemy nie miec exactly tego endpointa - uzyjmy naszego API
+    if (!res.ok) {
+      const internal = await fetch(`https://www.wezmezadarmo.com/api/public/gios?lat=${coords.lat}&lon=${coords.lon}`, {
+        cache: 'no-store',
+      });
+      if (!internal.ok) return null;
+      const data = await internal.json();
+      return formatGios(data, coords.city);
+    }
+    return null;
+  } catch {
+    return `Aby sprawdzic jakosc powietrza w ${coords.city} otworz /centrum-obywatela/powietrze.`;
+  }
+}
+
+function formatGios(data: {
+  station?: { name: string };
+  index?: {
+    stIndexLevel?: { indexLevelName: string };
+    pm10IndexLevel?: { indexLevelName: string };
+    pm25IndexLevel?: { indexLevelName: string };
+  };
+}, city: string): string {
+  if (!data.index) return `Brak danych pomiarowych dla ${city}.`;
+  const idx = data.index;
+  const lines = [`GIOS - jakosc powietrza w ${city} (stacja: ${data.station?.name ?? 'najblizsza'}):`];
+  if (idx.stIndexLevel) lines.push(`  Indeks ogolny: ${idx.stIndexLevel.indexLevelName}`);
+  if (idx.pm10IndexLevel) lines.push(`  PM10: ${idx.pm10IndexLevel.indexLevelName}`);
+  if (idx.pm25IndexLevel) lines.push(`  PM2.5: ${idx.pm25IndexLevel.indexLevelName}`);
+  lines.push(`  Wiecej miast: https://wezmezadarmo.com/centrum-obywatela/powietrze`);
+  return lines.join('\n');
+}
+
+// Smart prefetch: CEIDG dla zalogowanych JDG ktorzy pytaja o swoja firme
+async function maybeFetchCeidg(text: string, profileNip: string | null, isJdg: boolean): Promise<string | null> {
+  const lc = text.toLowerCase();
+  const wantsCompany = /\b(moja firm|moj nip|moja dzialal|status firmy|moj jdg|moj pkd|wpis ceidg)/.test(lc);
+  if (!wantsCompany || !isJdg || !profileNip) return null;
+
+  const ceidgToken = process.env.CEIDG_API_TOKEN;
+  if (!ceidgToken) {
+    return `Twoj profil JDG: NIP ${profileNip}. Sprawdz pelne dane firmy na biznes.gov.pl.`;
+  }
+
+  try {
+    const res = await fetch(`https://dane.biznes.gov.pl/api/ceidg/v3/firmy?nip=${profileNip}`, {
+      headers: {
+        Authorization: `Bearer ${ceidgToken}`,
+        Accept: 'application/json',
+      },
+      cache: 'no-store',
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    const firma = data?.firmy?.[0];
+    if (!firma) return `CEIDG: brak wpisu dla NIP ${profileNip}.`;
+    return [
+      `CEIDG - Twoja firma (NIP ${profileNip}):`,
+      `  Nazwa: ${firma.nazwa ?? '-'}`,
+      `  Status: ${firma.status ?? '-'}`,
+      firma.dataRozpoczecia ? `  Dzialalnosc od: ${firma.dataRozpoczecia}` : '',
+      firma.pkdGlowny ? `  PKD glowny: ${firma.pkdGlowny.kod ?? ''} ${firma.pkdGlowny.nazwa ?? ''}` : '',
+      firma.adresGlowny ? `  Adres: ${firma.adresGlowny.miasto ?? ''} ${firma.adresGlowny.kodPocztowy ?? ''}` : '',
+    ].filter(Boolean).join('\n');
+  } catch {
+    return null;
+  }
+}
+
+interface PrefetchOpts {
+  userProvince: string | null;
+  isJdg: boolean;
+  profileNip: string | null;
+}
+
+// Glowna funkcja prefetch - rownoleglie wszystkie 5 zrodel live
+async function buildLivePrefetch(lastUserMsg: string, opts: PrefetchOpts): Promise<string | null> {
+  const [nbp, whitelist, nfz, gios, ceidg] = await Promise.all([
     maybeFetchNbp(lastUserMsg),
     maybeFetchWhitelist(lastUserMsg),
-    maybeFetchNfz(lastUserMsg),
+    maybeFetchNfz(lastUserMsg, opts.userProvince),
+    maybeFetchGios(lastUserMsg, opts.userProvince),
+    maybeFetchCeidg(lastUserMsg, opts.profileNip, opts.isJdg),
   ]);
-  const parts = [nbp, whitelist, nfz].filter((p): p is string => p !== null);
+  const parts = [nbp, whitelist, nfz, gios, ceidg].filter((p): p is string => p !== null);
   if (parts.length === 0) return null;
   return `DANE LIVE POBRANE NA POTRZEBY TEJ ROZMOWY:\n\n${parts.join('\n\n')}`;
 }
@@ -262,10 +426,14 @@ export async function POST(request: NextRequest) {
 
   // Parallel fetch all live context
   const userProfile = profile ? profileToUserProfile(profile as Record<string, unknown>) : null;
+  const userProvince = (profile?.wojewodztwo as string | null) ?? null;
+  const profileNip = (profile?.nip as string | null) ?? null;
+  const isJdg = profileType === 'jdg';
+
   const [recentRssItems, rssSubscription, livePrefetch] = await Promise.all([
     fetchRecentRss(audienceHint),
     fetchUserSubscription(session.user.id),
-    buildLivePrefetch(lastUserMsg),
+    buildLivePrefetch(lastUserMsg, { userProvince, isJdg, profileNip }),
   ]);
 
   let matchedBenefits = null;
