@@ -69,6 +69,42 @@ export async function searchUnit(name: string, level: number = 5): Promise<BdlUn
     .map(u => ({ id: u.id, name: u.name, level: u.level ?? level, parentName: u.parentName }));
 }
 
+/**
+ * Smart search z fallback'iem -- BDL wymaga capitalized prefix matchu.
+ * "łomianki" -> 0 wynikow, "Łom" -> 3 wyniki (Łomianki, Łomża, Łomża m.).
+ * Dlatego: capitalize + try gmina, potem powiat, potem prefix dla dluzszych nazw.
+ */
+export async function searchUnitSmart(rawName: string): Promise<BdlUnit[]> {
+  const trimmed = rawName.trim();
+  if (trimmed.length < 2) return [];
+
+  // Capitalize 1st letter (locale-aware dla polskich znakow: ł, ą, ę itp.)
+  const capitalized = trimmed.charAt(0).toLocaleUpperCase('pl-PL') + trimmed.slice(1);
+
+  // 1. Exact gmina (level 5)
+  let units = await searchUnit(capitalized, 5);
+  if (units.length > 0) return units;
+
+  // 2. Powiat (level 4) -- np. "Warszawa" jako miasto na prawach powiatu
+  units = await searchUnit(capitalized, 4);
+  if (units.length > 0) return units;
+
+  // 3. Prefix fallback dla dluzszych nazw (BDL match jest "starts with")
+  //    "Łomianki" -> "Łom" -> znajduje "Łomianki gm. miejska"
+  if (capitalized.length > 4) {
+    const prefix = capitalized.slice(0, Math.min(5, capitalized.length));
+    const prefixUnits = await searchUnit(prefix, 5);
+    // Filter -- zostawiamy te ktore zawieraja oryginalna nazwe
+    const lower = trimmed.toLocaleLowerCase('pl-PL');
+    const filtered = prefixUnits.filter(u => u.name.toLocaleLowerCase('pl-PL').includes(lower));
+    if (filtered.length > 0) return filtered;
+    // Bez filtra: jesli i tak nic z prefix nie pasuje, pokaz najlepsze dopasowania
+    if (prefixUnits.length > 0) return prefixUnits;
+  }
+
+  return [];
+}
+
 export async function fetchUnitData(terytId: string): Promise<BdlUnitData> {
   const varIds = Object.values(BDL_VARS).join(',');
   const params = new URLSearchParams({

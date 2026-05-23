@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { searchUnit, fetchUnitData } from '@/lib/sources/bdl-gus';
+import { searchUnitSmart, fetchUnitData } from '@/lib/sources/bdl-gus';
 import { rateLimit, publicError } from '@/lib/sources/_helpers';
 
 export async function GET(request: NextRequest) {
@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ terytId, data });
     }
     if (gmina) {
-      const units = await searchUnit(gmina, 5);
+      const units = await searchUnitSmart(gmina);
       return NextResponse.json({ units });
     }
     return NextResponse.json({ error: 'Podaj ?gmina= lub ?terytId=' }, { status: 400 });

@@ -30,6 +30,9 @@ export default function GusPage() {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const json = await res.json();
       setUnits(json.units ?? []);
+      if ((json.units ?? []).length === 0) {
+        setError(`Nie znaleziono gminy "${q.trim()}". Spróbuj wpisać samą początkową część nazwy (np. "Łom" zamiast "Łomianki"). Niektóre miejscowości to nie samodzielne gminy - są częścią innej (np. Głusk to dzielnica Lublina).`);
+      }
     } catch (e) { setError(String(e)); }
     setLoading(false);
   }
