@@ -41,7 +41,7 @@ export const POMOC_SPOLECZNA: Benefit[] = [
       odwolanie: 'Odwołanie do Samorządowego Kolegium Odwoławczego w ciągu 14 dni',
     },
     zrodloUrl: 'https://www.gov.pl/web/rodzina/karta-duzej-rodziny-ogolne',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'zasilek-staly-mops', nazwa: 'Zasiłek stały (MOPS)',
@@ -82,7 +82,7 @@ export const POMOC_SPOLECZNA: Benefit[] = [
       odwolanie: 'Odwołanie do Samorządowego Kolegium Odwoławczego w ciągu 14 dni',
     },
     zrodloUrl: 'https://www.gov.pl/web/rodzina/zasilek-staly',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'zasilek-okresowy-mops', nazwa: 'Zasiłek okresowy (MOPS)',
@@ -122,7 +122,7 @@ export const POMOC_SPOLECZNA: Benefit[] = [
       odwolanie: 'Odwołanie do Samorządowego Kolegium Odwoławczego w ciągu 14 dni',
     },
     zrodloUrl: 'https://www.gov.pl/web/rodzina/zasilek-okresowy',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'zasilek-celowy-mops', nazwa: 'Zasiłek celowy (MOPS)',
@@ -160,7 +160,7 @@ export const POMOC_SPOLECZNA: Benefit[] = [
       odwolanie: 'Odwołanie do Samorządowego Kolegium Odwoławczego w ciągu 14 dni',
     },
     zrodloUrl: 'https://www.gov.pl/web/rodzina/zasilki-celowe',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'zasilek-celowy-specjalny', nazwa: 'Specjalny zasiłek celowy (MOPS)',
@@ -195,7 +195,7 @@ export const POMOC_SPOLECZNA: Benefit[] = [
       odwolanie: 'Odwołanie do Samorządowego Kolegium Odwoławczego w ciągu 14 dni od doręczenia decyzji',
     },
     zrodloUrl: 'https://www.gov.pl/web/rodzina/zasilki-celowe',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'schronienie-posilek-ubranie', nazwa: 'Schronienie, posiłek, ubranie (MOPS)',
@@ -231,7 +231,7 @@ export const POMOC_SPOLECZNA: Benefit[] = [
       odwolanie: 'Odwołanie do Samorządowego Kolegium Odwoławczego w ciągu 14 dni (jeśli wydano decyzję)',
     },
     zrodloUrl: 'https://www.gov.pl/web/rodzina/pomoc-spoleczna',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'posilek-w-szkole-i-w-domu', nazwa: 'Program Posiłek w Szkole i w Domu',
@@ -271,7 +271,7 @@ export const POMOC_SPOLECZNA: Benefit[] = [
       odwolanie: 'Odwołanie do Samorządowego Kolegium Odwoławczego w ciągu 14 dni',
     },
     zrodloUrl: 'https://www.gov.pl/web/rodzina/posilek-w-szkole-i-w-domu',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-10', dataWaznosci: '2028-12-31',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-23', dataWaznosci: '2028-12-31',
   },
   {
     id: 'stypendium-sportowe-gminne', nazwa: 'Stypendium sportowe gminne',
@@ -310,7 +310,7 @@ export const POMOC_SPOLECZNA: Benefit[] = [
       odwolanie: 'Zależy od gminy, zazwyczaj brak trybu odwoławczego (uznaniowe)',
     },
     zrodloUrl: 'https://www.gov.pl/web/sport/stypendia-son-dsw',
-    zrodloNazwa: 'Ministerstwo Sportu', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Sportu', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'opieka-wytchnieniowa', nazwa: 'Opieka wytchnieniowa (dla opiekunów osób niepełnosprawnych)',
@@ -350,7 +350,7 @@ export const POMOC_SPOLECZNA: Benefit[] = [
       odwolanie: 'Odwołanie do Samorządowego Kolegium Odwoławczego w ciągu 14 dni',
     },
     zrodloUrl: 'https://www.gov.pl/web/rodzina/opieka-wytchnieniowa',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-14', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'nieodplatna-pomoc-prawna', nazwa: 'Nieodpłatna pomoc prawna (bezpłatny prawnik)',
@@ -387,6 +387,6 @@ export const POMOC_SPOLECZNA: Benefit[] = [
       odwolanie: 'Nie dotyczy',
     },
     zrodloUrl: 'https://www.gov.pl/web/nieodplatna-pomoc',
-    zrodloNazwa: 'Ministerstwo Sprawiedliwości', dataWeryfikacji: '2026-05-14', dataWaznosci: '2027-12-31',
+    zrodloNazwa: 'Ministerstwo Sprawiedliwości', dataWeryfikacji: '2026-05-23', dataWaznosci: '2027-12-31',
   },
 ];

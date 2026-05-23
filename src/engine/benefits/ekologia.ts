@@ -41,7 +41,7 @@ export const EKOLOGIA: Benefit[] = [
       odwolanie: 'Odwołanie do WFOSiGW w ciągu 14 dni od decyzji',
     },
     zrodloUrl: 'https://czystepowietrze.gov.pl',
-    zrodloNazwa: 'NFOŚiGW, Program Czyste Powietrze', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'NFOŚiGW, Program Czyste Powietrze', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'moj-prad', nazwa: 'Mój Prąd (zakończony)',
@@ -76,7 +76,7 @@ export const EKOLOGIA: Benefit[] = [
       odwolanie: 'Nie dotyczy (program zakończony)',
     },
     zrodloUrl: 'https://mojprad.gov.pl',
-    zrodloNazwa: 'NFOŚiGW, Program Mój Prąd (zakończony)', dataWeryfikacji: '2026-05-12', dataWaznosci: '2025-09-30',
+    zrodloNazwa: 'NFOŚiGW, Program Mój Prąd (zakończony)', dataWeryfikacji: '2026-05-23', dataWaznosci: '2025-09-30',
   },
   {
     id: 'moje-cieplo', nazwa: 'Moje Ciepło',
@@ -117,7 +117,7 @@ export const EKOLOGIA: Benefit[] = [
       odwolanie: 'Wniosek o ponowne rozpatrzenie do NFOŚiGW w ciągu 14 dni',
     },
     zrodloUrl: 'https://mojecieplo.gov.pl',
-    zrodloNazwa: 'NFOŚiGW, Program Moje Ciepło', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'NFOŚiGW, Program Moje Ciepło', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'cieple-mieszkanie', nazwa: 'Ciepłe Mieszkanie',
@@ -158,7 +158,7 @@ export const EKOLOGIA: Benefit[] = [
       odwolanie: 'Odwołanie do gminy lub WFOŚiGW',
     },
     zrodloUrl: 'https://czystepowietrze.gov.pl/inne-programy/cieple-mieszkanie',
-    zrodloNazwa: 'NFOŚiGW, Program Ciepłe Mieszkanie', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'NFOŚiGW, Program Ciepłe Mieszkanie', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'stop-smog', nazwa: 'Stop Smog',
@@ -199,7 +199,7 @@ export const EKOLOGIA: Benefit[] = [
       odwolanie: 'Nie dotyczy (program zakończony)',
     },
     zrodloUrl: 'https://czystepowietrze.gov.pl/inne-programy/stop-smog',
-    zrodloNazwa: 'NFOŚiGW, Program Stop Smog (zakończony)', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'NFOŚiGW, Program Stop Smog (zakończony)', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'dodatek-oslonowy', nazwa: 'Dodatek osłonowy',
@@ -236,6 +236,6 @@ export const EKOLOGIA: Benefit[] = [
       odwolanie: 'Nie dotyczy (program zakończony)',
     },
     zrodloUrl: 'https://www.gov.pl/web/klimat/dodatek-oslonowy',
-    zrodloNazwa: 'Ministerstwo Klimatu i Środowiska (program zakończony)', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Klimatu i Środowiska (program zakończony)', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
 ];

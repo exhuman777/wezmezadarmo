@@ -28,7 +28,7 @@ export const NIEPELNOSPRAWNOSC: Benefit[] = [
       odwolanie: 'Odwołanie od decyzji WZON do Sądu Pracy w ciągu 30 dni',
     },
     zrodloUrl: 'https://www.gov.pl/web/rodzina/swiadczenie-wspierajace',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'dodatek-pielegnacyjny', nazwa: 'Dodatek pielęgnacyjny',
@@ -47,7 +47,7 @@ export const NIEPELNOSPRAWNOSC: Benefit[] = [
       odwolanie: 'Odwołanie do Sądu Pracy',
     },
     zrodloUrl: 'https://www.zus.pl/swiadczenia/dodatek-pielegnacyjny',
-    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'dofinansowanie-pfron', nazwa: 'Dofinansowanie PFRON',
@@ -70,7 +70,7 @@ export const NIEPELNOSPRAWNOSC: Benefit[] = [
       odwolanie: 'Odwołanie do Starosty',
     },
     zrodloUrl: 'https://www.pfron.org.pl/',
-    zrodloNazwa: 'PFRON', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'PFRON', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'pfron-aktywny-samorzad', nazwa: 'PFRON Aktywny Samorząd 2026',
@@ -109,7 +109,7 @@ export const NIEPELNOSPRAWNOSC: Benefit[] = [
       odwolanie: 'Odwołanie do Starosty w ciągu 14 dni od decyzji PCPR',
     },
     zrodloUrl: 'https://www.pfron.org.pl/aktualnosci/szczegoly-aktualnosci/news/aktywny-samorzad-2026/',
-    zrodloNazwa: 'PFRON', dataWeryfikacji: '2026-05-12', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'PFRON', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'turnusy-rehabilitacyjne', nazwa: 'Turnusy rehabilitacyjne',
@@ -133,6 +133,6 @@ export const NIEPELNOSPRAWNOSC: Benefit[] = [
       odwolanie: 'Odwołanie do Starosty',
     },
     zrodloUrl: 'https://www.pfron.org.pl/',
-    zrodloNazwa: 'PFRON', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'PFRON', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
 ];

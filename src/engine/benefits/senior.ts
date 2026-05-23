@@ -36,7 +36,7 @@ export const SENIOR: Benefit[] = [
       odwolanie: 'Odwołanie do Samorządowego Kolegium Odwoławczego w ciągu 14 dni od decyzji',
     },
     zrodloUrl: 'https://www.gov.pl/web/rodzina/program-opieka-75-na-rok-2026',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'korpus-wsparcia-seniorow', nazwa: 'Korpus Wsparcia Seniorów (Teleopieka)',
@@ -71,7 +71,7 @@ export const SENIOR: Benefit[] = [
       odwolanie: 'Program dobrowolny, decyzja gminy',
     },
     zrodloUrl: 'https://www.gov.pl/web/rodzina/program-korpus-wsparcia-seniorow-na-rok-2026',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'karta-seniora', nazwa: 'Ogólnopolska Karta Seniora',
@@ -106,7 +106,7 @@ export const SENIOR: Benefit[] = [
       odwolanie: 'Nie dotyczy, program dobrowolny',
     },
     zrodloUrl: 'https://glosseniora.pl/ogolnopolska-karta-seniora/',
-    zrodloNazwa: 'Stowarzyszenie MANKO', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Stowarzyszenie MANKO', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'zasilek-pielegnacyjny', nazwa: 'Zasiłek pielęgnacyjny',
@@ -144,7 +144,7 @@ export const SENIOR: Benefit[] = [
       odwolanie: 'Odwołanie do Samorządowego Kolegium Odwoławczego w ciągu 14 dni',
     },
     zrodloUrl: 'https://www.gov.pl/web/rodzina/zasilek-pielegnacyjny',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-10', dataWaznosci: '2027-10-31',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-23', dataWaznosci: '2027-10-31',
   },
   {
     id: 'swiadczenie-pielegnacyjne', nazwa: 'Świadczenie pielęgnacyjne (nowe zasady 2024+)',
@@ -185,7 +185,7 @@ export const SENIOR: Benefit[] = [
       odwolanie: 'Odwołanie do Samorządowego Kolegium Odwoławczego w ciągu 14 dni',
     },
     zrodloUrl: 'https://www.gov.pl/web/rodzina/swiadczenie-pielegnacyjne',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'dzienny-dom-pomocy', nazwa: 'Dzienny Dom Pomocy / Senior+',
@@ -221,7 +221,7 @@ export const SENIOR: Benefit[] = [
       odwolanie: 'Odwołanie do Samorządowego Kolegium Odwoławczego w ciągu 14 dni od decyzji',
     },
     zrodloUrl: 'https://www.gov.pl/web/rodzina/program-senior',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'leki-senior-65plus', nazwa: 'Bezpłatne leki dla seniorów 65+',
@@ -257,7 +257,7 @@ export const SENIOR: Benefit[] = [
       odwolanie: 'Reklamacja do oddziału NFZ lub Rzecznika Praw Pacjenta',
     },
     zrodloUrl: 'https://www.gov.pl/web/zdrowie/leki-dla-seniora-65-',
-    zrodloNazwa: 'Ministerstwo Zdrowia', dataWeryfikacji: '2026-05-12', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Zdrowia', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'bon-senioralny', nazwa: 'Bon senioralny (domowe usługi opiekuńcze)',
@@ -297,6 +297,6 @@ export const SENIOR: Benefit[] = [
       odwolanie: 'Odwołanie do Samorządowego Kolegium Odwoławczego w ciągu 14 dni od decyzji',
     },
     zrodloUrl: 'https://www.infor.pl/twoje-pieniadze/swiadczenia/7516106,bon-senioralny-2026-nawet-2150-zl-na-opieke-nad-seniorem-dla-kogo-i-jak-zlozyc-wniosek.html',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-14', dataWaznosci: '2027-12-31',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-23', dataWaznosci: '2027-12-31',
   },
 ];

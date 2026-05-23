@@ -31,7 +31,7 @@ export const BIZNES: Benefit[] = [
       odwolanie: 'Odwołanie do Sądu Pracy',
     },
     zrodloUrl: 'https://www.biznes.gov.pl/pl/portal/00271',
-    zrodloNazwa: 'biznes.gov.pl', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'biznes.gov.pl', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'preferencyjny-zus', nazwa: 'Preferencyjny ZUS (mały ZUS)',
@@ -55,7 +55,7 @@ export const BIZNES: Benefit[] = [
       odwolanie: 'Odwołanie do Sądu Pracy',
     },
     zrodloUrl: 'https://www.biznes.gov.pl/pl/portal/00126',
-    zrodloNazwa: 'biznes.gov.pl', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'biznes.gov.pl', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'maly-zus-plus', nazwa: 'Mały ZUS Plus',
@@ -82,7 +82,7 @@ export const BIZNES: Benefit[] = [
       odwolanie: 'Odwołanie do Sądu Pracy',
     },
     zrodloUrl: 'https://www.zus.pl/firmy/przedsiebiorco-to-ciebie-dotyczy/maly-zus-plus',
-    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'wakacje-skladkowe', nazwa: 'Wakacje składkowe (1 miesiąc wolny od ZUS)',
@@ -109,7 +109,7 @@ export const BIZNES: Benefit[] = [
       odwolanie: 'Odwołanie do Prezesa ZUS',
     },
     zrodloUrl: 'https://www.zus.pl/firmy/wakacje-od-zus',
-    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'ryczalt', nazwa: 'Ryczałt od przychodów ewidencjonowanych',
@@ -131,7 +131,7 @@ export const BIZNES: Benefit[] = [
       odwolanie: 'Zmiana formy opodatkowania do 20 lutego następnego roku',
     },
     zrodloUrl: 'https://www.podatki.gov.pl/pit/ryczalt-od-przychodow-ewidencjonowanych/',
-    zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'ulga-robotyzacja', nazwa: 'Ulga na robotyzację',
@@ -153,6 +153,6 @@ export const BIZNES: Benefit[] = [
       odwolanie: 'Odwołanie od decyzji US',
     },
     zrodloUrl: 'https://www.podatki.gov.pl/cit/ulgi-i-odliczenia/ulga-na-robotyzacje/',
-    zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
 ];

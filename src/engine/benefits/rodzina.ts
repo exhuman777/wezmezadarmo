@@ -3,7 +3,7 @@ import { Benefit } from '../types';
 export const RODZINA: Benefit[] = [
   {
     id: '800-plus', nazwa: 'Świadczenie wychowawcze 800+',
-    opis: 'Świadczenie 800 PLN miesięcznie na każde dziecko do ukończenia 18 roku życia, niezależnie od dochodu rodziny. Przysługuje obywatelom polskim oraz cudzoziemcom legalnie przebywającym w Polsce. Nie trzeba być zatrudnionym, świadczenie dostaje każdy rodzic, opiekun prawny lub opiekun faktyczny dziecka. Wniosek składa się wyłącznie elektronicznie: przez PUE ZUS, bankowość elektroniczną lub portal Empatia. Wypłata następuje co miesiąc na wskazane konto bankowe. Nowy okres świadczeniowy zaczyna się 1 czerwca, a wnioski na nowy okres przyjmowane są od 1 lutego. Jeśli złożysz wniosek po 30 kwietnia, stracisz wypłatę za wcześniejsze miesiące (nie ma wyrównania wstecz). Świadczenie nie jest wliczane do dochodu przy ustalaniu prawa do innych świadczeń. Nie podlega opodatkowaniu PIT. W przypadku rodziców żyjących w rozłączeniu świadczenie przysługuje temu, kto faktycznie sprawuje opiekę nad dzieckiem. Przy opiece naprzemiennej kwota jest dzielona po połowie (400 PLN na każdego rodzica).',
+    opis: 'Świadczenie 800 PLN miesięcznie na każde dziecko do ukończenia 18 roku życia, niezależnie od dochodu rodziny. Przysługuje obywatelom polskim oraz cudzoziemcom legalnie przebywającym w Polsce. Wniosek składa się wyłącznie elektronicznie: przez PUE ZUS, bankowość elektroniczną lub portal Empatia. Wypłata co miesiąc na wskazane konto. Aktualny okres świadczeniowy 1.06.2025-31.05.2026; nowy okres 1.06.2026-31.05.2027, wnioski od 1 lutego 2026. Złożenie do 30 kwietnia 2026 zapewnia ciągłość wypłat. Po tej dacie wypłata dopiero od miesiąca złożenia wniosku, bez wyrównania wstecz. UWAGA - NOWE KONTROLE 2026: ZUS zintegrował eZUS z bazami Straży Granicznej, MEN i PESEL. Świadczenie może zostać automatycznie WSTRZYMANE jeśli: 1) dziecko nie uczęszcza do szkoły/przedszkola bez uzasadnienia medycznego, 2) rodzina przebywa poza Polską ponad 30 dni, 3) zmieniła się sytuacja rezydencyjna rodzica (zwłaszcza cudzoziemcy spoza UE/EFTA - od 1.06.2026 zaostrzone wymogi aktywności zawodowej). Świadczenie nie jest wliczane do dochodu przy ustalaniu prawa do innych świadczeń. Nie podlega opodatkowaniu PIT. W przypadku opieki naprzemiennej kwota dzielona po równo (400 PLN na każdego rodzica). Jeśli wstrzymanie nastąpiło niesłusznie - złóż wyjaśnienie przez PUE ZUS, czekaj na ponowną weryfikację.',
     kategoria: 'RODZINA',
     kwota: '800 PLN miesięcznie na dziecko', kwotaMin: 800, kwotaMax: 800,
     czestotliwosc: 'miesięcznie',
@@ -28,7 +28,7 @@ export const RODZINA: Benefit[] = [
       odwolanie: 'Odwołanie do Prezesa ZUS w ciągu 14 dni od decyzji',
     },
     zrodloUrl: 'https://www.gov.pl/web/rodzina/800plus',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'becikowe', nazwa: 'Becikowe (jednorazowa zapomoga)',
@@ -61,7 +61,7 @@ export const RODZINA: Benefit[] = [
       odwolanie: 'Odwołanie do Samorządowego Kolegium Odwoławczego w ciągu 14 dni',
     },
     zrodloUrl: 'https://www.gov.pl/web/rodzina/becikowe',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'kosiniakowe', nazwa: 'Świadczenie rodzicielskie (kosiniakowe)',
@@ -92,7 +92,7 @@ export const RODZINA: Benefit[] = [
       odwolanie: 'Odwołanie do SKO w ciągu 14 dni',
     },
     zrodloUrl: 'https://www.gov.pl/web/rodzina/swiadczenie-rodzicielskie',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'ulga-prorodzinna', nazwa: 'Ulga prorodzinna (na dzieci)',
@@ -122,7 +122,7 @@ export const RODZINA: Benefit[] = [
       odwolanie: 'Korekta zeznania PIT',
     },
     zrodloUrl: 'https://www.podatki.gov.pl/pit/ulgi-odliczenia-i-zwolnienia/ulga-na-dzieci/',
-    zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'dobry-start', nazwa: 'Dobry Start (300+)',
@@ -150,7 +150,7 @@ export const RODZINA: Benefit[] = [
       odwolanie: 'Odwołanie do Prezesa ZUS w ciągu 14 dni',
     },
     zrodloUrl: 'https://www.gov.pl/web/rodzina/dobry-start',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'aktywnie-w-zlobku', nazwa: 'Aktywnie w żłobku (Aktywny Rodzic)',
@@ -189,7 +189,7 @@ export const RODZINA: Benefit[] = [
       odwolanie: 'Odwołanie do Prezesa ZUS w ciągu 14 dni od decyzji',
     },
     zrodloUrl: 'https://www.gov.pl/web/rodzina/aktywny-rodzic',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-12', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'aktywnie-w-domu', nazwa: 'Aktywnie w domu (Aktywny Rodzic)',
@@ -223,7 +223,7 @@ export const RODZINA: Benefit[] = [
       odwolanie: 'Odwołanie do Prezesa ZUS w ciągu 14 dni od decyzji',
     },
     zrodloUrl: 'https://www.gov.pl/web/rodzina/aktywny-rodzic',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-12', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'aktywni-rodzice-w-pracy', nazwa: 'Aktywni Rodzice w Pracy (Aktywny Rodzic)',
@@ -260,7 +260,7 @@ export const RODZINA: Benefit[] = [
       odwolanie: 'Odwołanie do Prezesa ZUS w ciągu 14 dni od decyzji',
     },
     zrodloUrl: 'https://www.gov.pl/web/rodzina/aktywny-rodzic',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-12', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'renta-rodzinna', nazwa: 'Renta rodzinna',
@@ -292,7 +292,7 @@ export const RODZINA: Benefit[] = [
       odwolanie: 'Odwołanie do Sądu Pracy w ciągu 30 dni od decyzji ZUS',
     },
     zrodloUrl: 'https://www.zus.pl/swiadczenia/renty/renta-rodzinna',
-    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'fundusz-alimentacyjny', nazwa: 'Fundusz alimentacyjny',
@@ -335,6 +335,6 @@ export const RODZINA: Benefit[] = [
       odwolanie: 'Odwołanie do Samorządowego Kolegium Odwoławczego w ciągu 14 dni od decyzji',
     },
     zrodloUrl: 'https://www.gov.pl/web/rodzina/swiadczenia-z-funduszu-alimentacyjnego---wzor-wniosku-i-zalacznikow-do-stosowania-na-nowy-okres-20212022',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-14', dataWaznosci: '2026-09-30',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-09-30',
   },
 ];

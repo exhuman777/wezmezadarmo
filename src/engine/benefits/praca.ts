@@ -55,7 +55,7 @@ export const PRACA: Benefit[] = [
     },
     zrodloUrl: 'https://psz.praca.gov.pl/dla-bezrobotnych-i-poszukujacych-pracy/swiadczenia-pieniezne/zasilek-dla-osob-bezrobotnych',
     zrodloNazwa: 'Ministerstwo Rodziny, Pracy i Polityki Społecznej',
-    dataWeryfikacji: '2026-05-10',
+    dataWeryfikacji: '2026-05-23',
     dataWaznosci: '2026-12-31',
   },
 
@@ -108,7 +108,7 @@ export const PRACA: Benefit[] = [
     },
     zrodloUrl: 'https://psz.praca.gov.pl/dla-bezrobotnych-i-poszukujacych-pracy/formy-wsparcia/staze',
     zrodloNazwa: 'Ministerstwo Rodziny, Pracy i Polityki Społecznej',
-    dataWeryfikacji: '2026-05-10',
+    dataWeryfikacji: '2026-05-23',
     dataWaznosci: '2026-12-31',
   },
 
@@ -163,7 +163,7 @@ export const PRACA: Benefit[] = [
     },
     zrodloUrl: 'https://psz.praca.gov.pl/dla-bezrobotnych-i-poszukujacych-pracy/formy-wsparcia/bon-na-zasiedlenie',
     zrodloNazwa: 'Ministerstwo Rodziny, Pracy i Polityki Społecznej',
-    dataWeryfikacji: '2026-05-10',
+    dataWeryfikacji: '2026-05-23',
     dataWaznosci: '2026-12-31',
   },
 
@@ -216,7 +216,7 @@ export const PRACA: Benefit[] = [
     },
     zrodloUrl: 'https://psz.praca.gov.pl/dla-bezrobotnych-i-poszukujacych-pracy/formy-wsparcia/bony/bon-szkoleniowy',
     zrodloNazwa: 'Ministerstwo Rodziny, Pracy i Polityki Społecznej',
-    dataWeryfikacji: '2026-05-10',
+    dataWeryfikacji: '2026-05-23',
     dataWaznosci: '2026-12-31',
   },
 
@@ -269,7 +269,7 @@ export const PRACA: Benefit[] = [
     },
     zrodloUrl: 'https://psz.praca.gov.pl/dla-bezrobotnych-i-poszukujacych-pracy/formy-wsparcia/bony/bon-stazowy',
     zrodloNazwa: 'Ministerstwo Rodziny, Pracy i Polityki Społecznej',
-    dataWeryfikacji: '2026-05-10',
+    dataWeryfikacji: '2026-05-23',
     dataWaznosci: '2026-12-31',
   },
 
@@ -334,7 +334,7 @@ export const PRACA: Benefit[] = [
     },
     zrodloUrl: 'https://psz.praca.gov.pl/dla-bezrobotnych-i-poszukujacych-pracy/formy-wsparcia/dotacje-jednorazowe-srodki-na-podjecie-dzialalnosci-gospodarczej',
     zrodloNazwa: 'Ministerstwo Rodziny, Pracy i Polityki Społecznej',
-    dataWeryfikacji: '2026-05-10',
+    dataWeryfikacji: '2026-05-23',
     dataWaznosci: '2026-12-31',
   },
 
@@ -388,7 +388,7 @@ export const PRACA: Benefit[] = [
     },
     zrodloUrl: 'https://psz.praca.gov.pl/dla-bezrobotnych-i-poszukujacych-pracy/formy-wsparcia/refundacja-kosztow-opieki-nad-dzieckiem-do-lat-7-lub-osoba-zalezna',
     zrodloNazwa: 'Ministerstwo Rodziny, Pracy i Polityki Społecznej',
-    dataWeryfikacji: '2026-05-10',
+    dataWeryfikacji: '2026-05-23',
     dataWaznosci: '2026-12-31',
   },
 
@@ -442,7 +442,7 @@ export const PRACA: Benefit[] = [
     },
     zrodloUrl: 'https://psz.praca.gov.pl/dla-pracodawcow-i-przedsiebiorcow/wsparcie-tworzenia-miejsc-pracy/dofinansowanie-wynagrodzenia',
     zrodloNazwa: 'Ministerstwo Rodziny, Pracy i Polityki Społecznej',
-    dataWeryfikacji: '2026-05-10',
+    dataWeryfikacji: '2026-05-23',
     dataWaznosci: '2026-12-31',
   },
 
@@ -497,7 +497,7 @@ export const PRACA: Benefit[] = [
     },
     zrodloUrl: 'https://psz.praca.gov.pl/dla-pracodawcow-i-przedsiebiorcow/wsparcie-tworzenia-miejsc-pracy/prace-interwencyjne',
     zrodloNazwa: 'Ministerstwo Rodziny, Pracy i Polityki Społecznej',
-    dataWeryfikacji: '2026-05-10',
+    dataWeryfikacji: '2026-05-23',
     dataWaznosci: '2026-12-31',
   },
 
@@ -549,7 +549,7 @@ export const PRACA: Benefit[] = [
     },
     zrodloUrl: 'https://psz.praca.gov.pl/dla-pracodawcow-i-przedsiebiorcow/wsparcie-tworzenia-miejsc-pracy/roboty-publiczne',
     zrodloNazwa: 'Ministerstwo Rodziny, Pracy i Polityki Społecznej',
-    dataWeryfikacji: '2026-05-10',
+    dataWeryfikacji: '2026-05-23',
     dataWaznosci: '2026-12-31',
   },
 
@@ -604,7 +604,7 @@ export const PRACA: Benefit[] = [
     },
     zrodloUrl: 'https://psz.praca.gov.pl/dla-bezrobotnych-i-poszukujacych-pracy/podnoszenie-kwalifikacji/szkolenia',
     zrodloNazwa: 'Ministerstwo Rodziny, Pracy i Polityki Społecznej',
-    dataWeryfikacji: '2026-05-10',
+    dataWeryfikacji: '2026-05-23',
     dataWaznosci: '2026-12-31',
   },
 
@@ -657,7 +657,7 @@ export const PRACA: Benefit[] = [
     },
     zrodloUrl: 'https://psz.praca.gov.pl/dla-bezrobotnych-i-poszukujacych-pracy/formy-wsparcia/przygotowanie-zawodowe-doroslych',
     zrodloNazwa: 'Ministerstwo Rodziny, Pracy i Polityki Społecznej',
-    dataWeryfikacji: '2026-05-10',
+    dataWeryfikacji: '2026-05-23',
     dataWaznosci: '2026-12-31',
   },
 
@@ -710,7 +710,7 @@ export const PRACA: Benefit[] = [
     },
     zrodloUrl: 'https://pozyczkinaksztalcenie.pl/',
     zrodloNazwa: 'Ministerstwo Funduszy i Polityki Regionalnej / BGK',
-    dataWeryfikacji: '2026-05-10',
+    dataWeryfikacji: '2026-05-23',
     dataWaznosci: '2026-12-31',
   },
 
@@ -761,7 +761,7 @@ export const PRACA: Benefit[] = [
     },
     zrodloUrl: 'https://psz.praca.gov.pl/dla-bezrobotnych-i-poszukujacych-pracy/formy-wsparcia/program-aktywizacja-i-integracja',
     zrodloNazwa: 'Ministerstwo Rodziny, Pracy i Polityki Społecznej',
-    dataWeryfikacji: '2026-05-10',
+    dataWeryfikacji: '2026-05-23',
     dataWaznosci: '2026-12-31',
   },
   {
@@ -802,6 +802,6 @@ export const PRACA: Benefit[] = [
       odwolanie: 'Skarga do Państwowej Inspekcji Pracy (pip.gov.pl, bezpłatna) lub pozew do sądu pracy',
     },
     zrodloUrl: 'https://www.pip.gov.pl/pl/porady-prawne/stosunek-pracy/rozwiazanie-stosunku-pracy/odprawa-pieniezna',
-    zrodloNazwa: 'Państwowa Inspekcja Pracy', dataWeryfikacji: '2026-05-14', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Państwowa Inspekcja Pracy', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
 ];

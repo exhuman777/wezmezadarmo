@@ -22,7 +22,7 @@ export const PODATKI: Benefit[] = [
       odwolanie: 'Korekta PIT',
     },
     zrodloUrl: 'https://www.podatki.gov.pl/pit/ulgi-odliczenia-i-zwolnienia/ulga-termomodernizacyjna/',
-    zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'ulga-rehabilitacyjna', nazwa: 'Ulga rehabilitacyjna',
@@ -44,7 +44,7 @@ export const PODATKI: Benefit[] = [
       odwolanie: 'Korekta PIT',
     },
     zrodloUrl: 'https://www.podatki.gov.pl/pit/ulgi-odliczenia-i-zwolnienia/ulga-rehabilitacyjna/',
-    zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'ulga-internetowa', nazwa: 'Ulga na internet',
@@ -62,7 +62,7 @@ export const PODATKI: Benefit[] = [
       odwolanie: 'Korekta PIT',
     },
     zrodloUrl: 'https://www.podatki.gov.pl/pit/ulgi-odliczenia-i-zwolnienia/ulga-na-internet/',
-    zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'ulga-ikze', nazwa: 'Ulga na IKZE',
@@ -80,7 +80,7 @@ export const PODATKI: Benefit[] = [
       odwolanie: 'Korekta PIT',
     },
     zrodloUrl: 'https://www.podatki.gov.pl/pit/ulgi-odliczenia-i-zwolnienia/',
-    zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'wspolne-rozliczenie', nazwa: 'Wspólne rozliczenie małżonków',
@@ -98,7 +98,7 @@ export const PODATKI: Benefit[] = [
       odwolanie: 'Korekta PIT',
     },
     zrodloUrl: 'https://www.podatki.gov.pl/pit/',
-    zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'ulga-dla-mlodych', nazwa: 'Ulga dla młodych (PIT-0)',
@@ -116,7 +116,7 @@ export const PODATKI: Benefit[] = [
       odwolanie: 'Nie dotyczy',
     },
     zrodloUrl: 'https://www.podatki.gov.pl/pit/ulgi-odliczenia-i-zwolnienia/ulga-dla-mlodych/',
-    zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'opp-1-5-procent', nazwa: '1,5% podatku na OPP',
@@ -134,7 +134,7 @@ export const PODATKI: Benefit[] = [
       odwolanie: 'Korekta PIT',
     },
     zrodloUrl: 'https://www.podatki.gov.pl/pit/1-5-procent/',
-    zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'ip-box', nazwa: 'IP Box (5% podatku od własności intelektualnej)',
@@ -156,6 +156,6 @@ export const PODATKI: Benefit[] = [
       odwolanie: 'Odwołanie od decyzji US',
     },
     zrodloUrl: 'https://www.podatki.gov.pl/pit/ulgi-odliczenia-i-zwolnienia/ip-box/',
-    zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
 ];

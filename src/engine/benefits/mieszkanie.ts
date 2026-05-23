@@ -22,7 +22,7 @@ export const MIESZKANIE: Benefit[] = [
       odwolanie: 'Odwołanie do SKO w ciągu 14 dni',
     },
     zrodloUrl: 'https://www.gov.pl/web/rodzina/dodatek-mieszkaniowy',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'mieszkanie-na-start', nazwa: 'Mieszkanie na Start (kredyt #naStart)',
@@ -45,7 +45,7 @@ export const MIESZKANIE: Benefit[] = [
       odwolanie: 'Reklamacja w banku',
     },
     zrodloUrl: 'https://www.gov.pl/web/rozwoj-technologia/mieszkanie-na-start',
-    zrodloNazwa: 'Ministerstwo Rozwoju', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Rozwoju', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'dodatek-energetyczny', nazwa: 'Dodatek energetyczny',
@@ -64,7 +64,7 @@ export const MIESZKANIE: Benefit[] = [
       odwolanie: 'Odwołanie do SKO',
     },
     zrodloUrl: 'https://www.gov.pl/web/energia/dodatek-energetyczny',
-    zrodloNazwa: 'Ministerstwo Energii', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Energii', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'fundusz-wsparcia-kredytobiorcow', nazwa: 'Fundusz Wsparcia Kredytobiorców (FWK)',
@@ -105,6 +105,6 @@ export const MIESZKANIE: Benefit[] = [
       odwolanie: 'Odwołanie do BGK w ciągu 14 dni od decyzji odmownej',
     },
     zrodloUrl: 'https://www.bgk.pl/produkty/fundusz-wsparcia-kredytobiorcow/',
-    zrodloNazwa: 'BGK (Bank Gospodarstwa Krajowego)', dataWeryfikacji: '2026-05-14', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'BGK (Bank Gospodarstwa Krajowego)', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
 ];

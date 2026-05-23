@@ -39,7 +39,7 @@ export const ZUS: Benefit[] = [
       odwolanie: 'Sprzeciw do Komisji Lekarskiej ZUS w ciągu 14 dni, potem odwołanie do Sądu Pracy',
     },
     zrodloUrl: 'https://www.zus.pl/swiadczenia/zasilki/zasilek-chorobowy',
-    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'zasilek-macierzynski', nazwa: 'Zasiłek macierzyński',
@@ -80,7 +80,7 @@ export const ZUS: Benefit[] = [
       odwolanie: 'Odwołanie do Sądu Pracy w ciągu 30 dni od decyzji ZUS',
     },
     zrodloUrl: 'https://www.zus.pl/swiadczenia/zasilki/zasilek-macierzynski',
-    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'zasilek-opiekunczy', nazwa: 'Zasiłek opiekuńczy',
@@ -119,7 +119,7 @@ export const ZUS: Benefit[] = [
       odwolanie: 'Odwołanie do Sądu Pracy w ciągu 30 dni od decyzji ZUS',
     },
     zrodloUrl: 'https://www.zus.pl/swiadczenia/zasilki/zasilek-opiekunczy',
-    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'swiadczenie-rehabilitacyjne', nazwa: 'Świadczenie rehabilitacyjne',
@@ -160,7 +160,7 @@ export const ZUS: Benefit[] = [
       odwolanie: 'Sprzeciw do Komisji Lekarskiej ZUS w ciągu 14 dni od orzeczenia, potem odwołanie do Sądu Pracy',
     },
     zrodloUrl: 'https://www.zus.pl/swiadczenia/zasilki/swiadczenie-rehabilitacyjne',
-    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'zasilek-pogrzebowy', nazwa: 'Zasiłek pogrzebowy',
@@ -200,7 +200,7 @@ export const ZUS: Benefit[] = [
       odwolanie: 'Odwołanie do Sądu Pracy w ciągu 30 dni od decyzji ZUS',
     },
     zrodloUrl: 'https://www.zus.pl/swiadczenia/zasilki/zasilek-pogrzebowy',
-    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'renta-socjalna', nazwa: 'Renta socjalna',
@@ -245,7 +245,7 @@ export const ZUS: Benefit[] = [
       odwolanie: 'Sprzeciw do Komisji Lekarskiej ZUS w ciągu 14 dni, potem odwołanie do Sądu Pracy w ciągu 30 dni',
     },
     zrodloUrl: 'https://www.zus.pl/swiadczenia/renty/renta-socjalna',
-    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'emerytura-pomostowa', nazwa: 'Emerytura pomostowa',
@@ -290,7 +290,7 @@ export const ZUS: Benefit[] = [
       odwolanie: 'Odwołanie do Sądu Pracy w ciągu 30 dni od decyzji ZUS',
     },
     zrodloUrl: 'https://www.zus.pl/swiadczenia/emerytury/emerytury-pomostowe',
-    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'swiadczenie-przedemerytalne', nazwa: 'Świadczenie przedemerytalne',
@@ -335,7 +335,7 @@ export const ZUS: Benefit[] = [
       odwolanie: 'Odwołanie do Sądu Pracy w ciągu 30 dni od decyzji ZUS',
     },
     zrodloUrl: 'https://www.zus.pl/swiadczenia/swiadczenia-przedemerytalne',
-    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'mama-4-plus', nazwa: 'Rodzicielskie świadczenie uzupełniające (Mama 4+)',
@@ -384,7 +384,7 @@ export const ZUS: Benefit[] = [
       odwolanie: 'Wniosek o ponowne rozpatrzenie sprawy do Prezesa ZUS, potem skarga do WSA',
     },
     zrodloUrl: 'https://www.zus.pl/swiadczenia/rodzicielskie-swiadczenie-uzupelniajace',
-    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: '13-emerytura', nazwa: '13. emerytura (trzynastka)',
@@ -417,7 +417,7 @@ export const ZUS: Benefit[] = [
       odwolanie: 'Odwołanie do Sądu Pracy w ciągu 30 dni od decyzji (jeśli ZUS odmówi)',
     },
     zrodloUrl: 'https://www.zus.pl/swiadczenia/emerytury/dodatkowe-roczne-swiadczenie-pieniezne',
-    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: '14-emerytura', nazwa: '14. emerytura (czternastka)',
@@ -453,6 +453,47 @@ export const ZUS: Benefit[] = [
       odwolanie: 'Odwołanie do Sądu Pracy w ciągu 30 dni od decyzji (jeśli ZUS odmówi)',
     },
     zrodloUrl: 'https://www.zus.pl/swiadczenia/emerytury/kolejne-dodatkowe-roczne-swiadczenie-pieniezne',
-    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
+  },
+  {
+    id: 'renta-wdowia', nazwa: 'Renta wdowia (zbieg świadczeń)',
+    opis: 'Renta wdowia to możliwość łączenia własnej emerytury/renty z rentą rodzinną po zmarłym małżonku. Obowiązuje od 1 lipca 2025 r. W 2026 wdowiec/wdowa może pobierać 100% jednego świadczenia + 15% drugiego (od 1 stycznia 2027 r. drugie świadczenie wzrośnie do 25%). Limit łączny: 5935,47 PLN brutto miesięcznie (3-krotność minimalnej emerytury 1978,49 PLN po waloryzacji 5,3% z marca 2026). Powyżej tego limitu drugie świadczenie jest pomniejszane. Warunki łącznie: minimum 60 lat dla kobiet / 65 dla mężczyzn, pozostawanie w małżeństwie do dnia śmierci współmałżonka, nabycie prawa do renty rodzinnej nie wcześniej niż 5 lat przed osiągnięciem wieku emerytalnego, brak ponownego małżeństwa po śmierci współmałżonka. Wniosek ZUS-Rwd składa się w ZUS osobiście, pocztą, przez PUE ZUS albo Empatia. Decyzja w ciągu 30 dni. Świadczenie wypłacane od miesiąca złożenia wniosku (nie ma wyrównania wstecz). Waloryzacja 1 marca każdego roku z urzędu (bez wniosku). Częsty błąd: składanie wniosku tylko o świadczenie wyższe – nie ma to sensu, ZUS sam wybiera korzystniejszy wariant. Korzysta ok. 1,6 mln osób.',
+    kategoria: 'ZUS',
+    kwota: 'do 5935,47 PLN brutto miesięcznie (100% wyższego + 15% niższego)',
+    kwotaMin: 297, kwotaMax: 5935,
+    czestotliwosc: 'miesięcznie',
+    wymagania: { wiekMin: 60, statusWdowiec: true, emeryt: true },
+    wykluczenia: [
+      { opis: 'Brak prawa do renty rodzinnej po małżonku', sprawdz: 'renta_rodzinna' },
+      { opis: 'Ponowne małżeństwo po śmierci współmałżonka', sprawdz: 'stan_cywilny' },
+    ],
+    wniosek: {
+      kanal: ['PUE_ZUS', 'EMPATIA', 'ePUAP'], formularz: 'ZUS-Rwd',
+      dokumenty: [
+        'Akt zgonu współmałżonka',
+        'Akt małżeństwa',
+        'Decyzja o przyznaniu renty rodzinnej',
+        'Decyzja o przyznaniu własnej emerytury/renty',
+      ],
+      kroki: [
+        'Sprawdź czy pobierasz jednocześnie własną emeryturę/rentę i rentę rodzinną',
+        'Pobierz formularz ZUS-Rwd ze strony ZUS lub złóż przez PUE ZUS',
+        'Załącz akt zgonu współmałżonka i akt małżeństwa',
+        'Złóż wniosek elektronicznie (PUE ZUS), w oddziale ZUS lub pocztą',
+        'Czekaj na decyzję ZUS - max 30 dni',
+        'Wypłata od miesiąca złożenia wniosku',
+      ],
+      terminRealizacji: '30 dni od złożenia wniosku',
+      pulapki: [
+        'Nie ma wyrównania wstecz - wypłata od miesiąca wniosku',
+        'Limit 5935,47 PLN brutto łącznie, powyżej pomniejszenie drugiego świadczenia',
+        'Ponowne małżeństwo po śmierci małżonka wyklucza świadczenie',
+        'Renta rodzinna musiała być nabyta najpóźniej 5 lat przed osiągnięciem wieku emerytalnego',
+        'Od 2027 drugie świadczenie wzrośnie do 25% (z 15% w 2026)',
+      ],
+      odwolanie: 'Odwołanie do sądu okręgowego w ciągu 30 dni od decyzji',
+    },
+    zrodloUrl: 'https://www.zus.pl/-/wyp%C5%82ata-%C5%9Bwiadcze%C5%84-%C5%82%C4%85cznie-z-rent%C4%85-rodzinn%C4%85-czyli-tzw.-renta-wdowia',
+    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
 ];

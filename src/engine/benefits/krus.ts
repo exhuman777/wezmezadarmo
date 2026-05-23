@@ -39,7 +39,7 @@ export const KRUS: Benefit[] = [
       odwolanie: 'Odwołanie do Sądu Okręgowego, Wydział Pracy i Ubezpieczeń Społecznych w ciągu 30 dni',
     },
     zrodloUrl: 'https://www.gov.pl/web/krus/waloryzacja-emerytur-i-rent-rolniczych-od-1-marca-2026-r',
-    zrodloNazwa: 'KRUS', dataWeryfikacji: '2026-05-10', dataWaznosci: '2027-02-28',
+    zrodloNazwa: 'KRUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2027-02-28',
   },
   {
     id: 'renta-rolnicza', nazwa: 'Renta rolnicza z tytułu niezdolności do pracy',
@@ -80,7 +80,7 @@ export const KRUS: Benefit[] = [
       odwolanie: 'Odwołanie do Sądu Okręgowego, Wydział Pracy i Ubezpieczeń Społecznych w ciągu 30 dni',
     },
     zrodloUrl: 'https://www.gov.pl/web/krus/waloryzacja-emerytur-i-rent-rolniczych-od-1-marca-2026-r',
-    zrodloNazwa: 'KRUS', dataWeryfikacji: '2026-05-10', dataWaznosci: '2027-02-28',
+    zrodloNazwa: 'KRUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2027-02-28',
   },
   {
     id: 'zasilek-macierzynski-krus', nazwa: 'Zasiłek macierzyński KRUS',
@@ -117,7 +117,7 @@ export const KRUS: Benefit[] = [
       odwolanie: 'Odwołanie do Sądu Rejonowego, Wydział Pracy w ciągu 30 dni',
     },
     zrodloUrl: 'https://www.gov.pl/web/krus/zasilek-macierzynski',
-    zrodloNazwa: 'KRUS', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'KRUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'zasilek-chorobowy-krus', nazwa: 'Zasiłek chorobowy KRUS',
@@ -155,7 +155,7 @@ export const KRUS: Benefit[] = [
       odwolanie: 'Odwołanie do Sądu Rejonowego, Wydział Pracy w ciągu 30 dni',
     },
     zrodloUrl: 'https://www.gov.pl/web/krus/zasilek-chorobowy',
-    zrodloNazwa: 'KRUS', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'KRUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'odszkodowanie-krus', nazwa: 'Jednorazowe odszkodowanie KRUS (wypadek przy pracy rolniczej)',
@@ -197,7 +197,7 @@ export const KRUS: Benefit[] = [
       odwolanie: 'Odwołanie do Sądu Rejonowego, Wydział Pracy w ciągu 30 dni od decyzji',
     },
     zrodloUrl: 'https://www.gov.pl/web/krus/jednorazowe-odszkodowanie-za-wypadek-przy-pracy-rolniczej',
-    zrodloNazwa: 'KRUS', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'KRUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'zasilek-opiekunczy-krus', nazwa: 'Zasiłek opiekuńczy KRUS',
@@ -236,7 +236,7 @@ export const KRUS: Benefit[] = [
       odwolanie: 'Odwołanie do Sądu Rejonowego, Wydział Pracy i Ubezpieczeń Społecznych w ciągu 30 dni',
     },
     zrodloUrl: 'https://www.krus.gov.pl/swiadczenia/zasilek-opiekunczy/',
-    zrodloNazwa: 'KRUS', dataWeryfikacji: '2026-05-14', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'KRUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'dodatek-pielegnacyjny-krus', nazwa: 'Dodatek pielęgnacyjny KRUS',
@@ -271,7 +271,7 @@ export const KRUS: Benefit[] = [
       odwolanie: 'Odwołanie do Sądu Okręgowego, Wydział Pracy i Ubezpieczeń Społecznych',
     },
     zrodloUrl: 'https://www.agrofakt.pl/dodatek-pielegnacyjny-krus-2026-nowa-kwota-po-waloryzacji-zasady-i-wniosek-krok-po-kroku/',
-    zrodloNazwa: 'KRUS', dataWeryfikacji: '2026-05-14', dataWaznosci: '2027-02-28',
+    zrodloNazwa: 'KRUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2027-02-28',
   },
   {
     id: 'zwrot-akcyzy-paliwa-rolniczego', nazwa: 'Zwrot podatku akcyzowego od paliwa rolniczego',
@@ -308,7 +308,7 @@ export const KRUS: Benefit[] = [
       odwolanie: 'Odwołanie do Samorządowego Kolegium Odwoławczego w ciągu 14 dni od decyzji',
     },
     zrodloUrl: 'https://www.gov.pl/web/rolnictwo/zwrot-podatku-akcyzowego-zawartego-w-cenie-oleju-napedowego-wykorzystywanego-do-produkcji-rolnej',
-    zrodloNazwa: 'Ministerstwo Rolnictwa', dataWeryfikacji: '2026-05-14', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Rolnictwa', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'premia-dla-mlodego-rolnika', nazwa: 'Premia dla młodego rolnika (ARiMR)',
@@ -353,7 +353,7 @@ export const KRUS: Benefit[] = [
       odwolanie: 'Odwołanie do Dyrektora Oddziału Regionalnego ARiMR, następnie do sądu administracyjnego',
     },
     zrodloUrl: 'https://www.arimr.gov.pl/dla-beneficjenta/wszystkie-dzialania-i-poddzialania/premia-dla-mlodego-rolnika.html',
-    zrodloNazwa: 'ARiMR', dataWeryfikacji: '2026-05-14', dataWaznosci: '2026-07-31',
+    zrodloNazwa: 'ARiMR', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-07-31',
   },
   {
     id: 'doplaty-bezposrednie-arimr', nazwa: 'Dopłaty bezpośrednie ARiMR (płatności obszarowe)',
@@ -392,7 +392,7 @@ export const KRUS: Benefit[] = [
       odwolanie: 'Odwołanie do Dyrektora Oddziału Regionalnego ARiMR, następnie do sądu administracyjnego',
     },
     zrodloUrl: 'https://www.arimr.gov.pl/dla-beneficjenta/platnosci-bezposrednie.html',
-    zrodloNazwa: 'ARiMR', dataWeryfikacji: '2026-05-14', dataWaznosci: '2026-06-01',
+    zrodloNazwa: 'ARiMR', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-06-01',
   },
   {
     id: 'doplaty-do-ubezpieczen-upraw', nazwa: 'Dofinansowanie ubezpieczenia upraw i zwierząt (65%)',
@@ -428,6 +428,6 @@ export const KRUS: Benefit[] = [
       odwolanie: 'Spory z ubezpieczycielem: Rzecznik Finansowy lub sąd cywilny',
     },
     zrodloUrl: 'https://www.gov.pl/web/rolnictwo/ubezpieczenie-upraw-rolnych-i-zwierzat-gospodarskich-w-2026-r-z-doplata-skladki-z-budzetu-panstwa',
-    zrodloNazwa: 'Ministerstwo Rolnictwa', dataWeryfikacji: '2026-05-14', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Rolnictwa', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
 ];

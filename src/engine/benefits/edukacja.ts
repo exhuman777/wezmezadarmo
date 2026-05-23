@@ -38,7 +38,7 @@ export const EDUKACJA: Benefit[] = [
       odwolanie: 'Odwołanie do rektora w ciągu 14 dni od decyzji komisji stypendialnej',
     },
     zrodloUrl: 'https://www.gov.pl/web/nauka/swiadczenia-dla-studentow-w-roku-akademickim-2025-2026',
-    zrodloNazwa: 'Ministerstwo Nauki i Szkolnictwa Wyższego', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Nauki i Szkolnictwa Wyższego', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'stypendium-rektora', nazwa: 'Stypendium rektora',
@@ -75,7 +75,7 @@ export const EDUKACJA: Benefit[] = [
       odwolanie: 'Odwołanie do rektora w ciągu 14 dni od decyzji komisji stypendialnej',
     },
     zrodloUrl: 'https://www.gov.pl/web/nauka/swiadczenia-dla-studentow-w-roku-akademickim-2025-2026',
-    zrodloNazwa: 'Ministerstwo Nauki i Szkolnictwa Wyższego', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Nauki i Szkolnictwa Wyższego', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'kredyt-studencki', nazwa: 'Kredyt studencki',
@@ -114,7 +114,7 @@ export const EDUKACJA: Benefit[] = [
       odwolanie: 'Reklamacja do banku, następnie do Rzecznika Finansowego',
     },
     zrodloUrl: 'https://www.gov.pl/web/nauka/kredyty-studenckie',
-    zrodloNazwa: 'Ministerstwo Nauki i Szkolnictwa Wyższego', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Nauki i Szkolnictwa Wyższego', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'stypendium-szkolne', nazwa: 'Stypendium szkolne',
@@ -150,7 +150,7 @@ export const EDUKACJA: Benefit[] = [
       odwolanie: 'Odwołanie do Samorządowego Kolegium Odwoławczego w ciągu 14 dni',
     },
     zrodloUrl: 'https://www.gov.pl/web/edukacja/stypendium-szkolne-oraz-zasilek-szkolny',
-    zrodloNazwa: 'Ministerstwo Edukacji Narodowej', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Edukacji Narodowej', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'zasilek-szkolny', nazwa: 'Zasiłek szkolny',
@@ -185,7 +185,7 @@ export const EDUKACJA: Benefit[] = [
       odwolanie: 'Odwołanie do Samorządowego Kolegium Odwoławczego w ciągu 14 dni',
     },
     zrodloUrl: 'https://www.gov.pl/web/edukacja/stypendium-szkolne-oraz-zasilek-szkolny',
-    zrodloNazwa: 'Ministerstwo Edukacji Narodowej', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Edukacji Narodowej', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'wyprawka-szkolna', nazwa: 'Wyprawka szkolna (dofinansowanie podręczników)',
@@ -222,7 +222,7 @@ export const EDUKACJA: Benefit[] = [
       odwolanie: 'Odwołanie do wójta/burmistrza/prezydenta miasta',
     },
     zrodloUrl: 'https://www.gov.pl/web/edukacja/rzadowy-program-pomocy-uczniom-niepelnosprawnym-w-formie-dofinansowania-zakupu-podrecznikow-materialow-edukacyjnych-i-materialow-cwiczeniowych-w-latach-20232025',
-    zrodloNazwa: 'Ministerstwo Edukacji Narodowej', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Edukacji Narodowej', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'stypendium-mnisw', nazwa: 'Stypendium Ministra Nauki za znaczące osiągnięcia',
@@ -261,6 +261,6 @@ export const EDUKACJA: Benefit[] = [
       odwolanie: 'Wniosek o ponowne rozpatrzenie do Ministra Nauki w ciągu 14 dni',
     },
     zrodloUrl: 'https://www.gov.pl/web/nauka/stypendia-ministra-dla-studentow-za-znaczace-osiagniecia',
-    zrodloNazwa: 'Ministerstwo Nauki i Szkolnictwa Wyższego', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Nauki i Szkolnictwa Wyższego', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
 ];

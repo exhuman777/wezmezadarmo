@@ -37,7 +37,7 @@ export const INNE: Benefit[] = [
       odwolanie: 'Reklamacja do oddziału NFZ',
     },
     zrodloUrl: 'https://www.nfz.gov.pl/dla-pacjenta/wyroby-medyczne/',
-    zrodloNazwa: 'NFZ', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'NFZ', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'karta-ekuz', nazwa: 'Europejska Karta Ubezpieczenia Zdrowotnego (EKUZ)',
@@ -76,7 +76,7 @@ export const INNE: Benefit[] = [
       odwolanie: 'Reklamacja do oddziału NFZ',
     },
     zrodloUrl: 'https://pacjent.gov.pl/ekuz',
-    zrodloNazwa: 'NFZ / Ministerstwo Zdrowia', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'NFZ / Ministerstwo Zdrowia', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'ulga-na-leki', nazwa: 'Zwrot podatku za leki (ulga rehabilitacyjna na leki)',
@@ -117,7 +117,7 @@ export const INNE: Benefit[] = [
       odwolanie: 'Korekta zeznania PIT w ciągu 5 lat od terminu złożenia',
     },
     zrodloUrl: 'https://www.pit.pl/ulga-rehabilitacyjna/',
-    zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-10', dataWaznosci: '2027-04-30',
+    zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-23', dataWaznosci: '2027-04-30',
   },
   {
     id: 'bon-turystyczny-regionalny', nazwa: 'Bon turystyczny (regionalny)',
@@ -156,6 +156,6 @@ export const INNE: Benefit[] = [
       odwolanie: 'Nie dotyczy, program dobrowolny',
     },
     zrodloUrl: 'https://www.gov.pl/web/sport/bonturystyczny',
-    zrodloNazwa: 'Ministerstwo Sportu', dataWeryfikacji: '2026-05-10', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Sportu', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
 ];

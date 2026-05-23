@@ -28,7 +28,7 @@ export const ZDROWIE: Benefit[] = [
       odwolanie: 'Program dobrowolny, nie wymaga odwołania',
     },
     zrodloUrl: 'https://pacjent.gov.pl/program-moje-zdrowie',
-    zrodloNazwa: 'Ministerstwo Zdrowia', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Zdrowia', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'mammografia', nazwa: 'Mammografia profilaktyczna',
@@ -51,7 +51,7 @@ export const ZDROWIE: Benefit[] = [
       odwolanie: 'Nie dotyczy',
     },
     zrodloUrl: 'https://www.nfz.gov.pl/dla-pacjenta/programy-profilaktyczne/',
-    zrodloNazwa: 'NFZ', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'NFZ', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'cytologia', nazwa: 'Cytologia profilaktyczna',
@@ -74,7 +74,7 @@ export const ZDROWIE: Benefit[] = [
       odwolanie: 'Nie dotyczy',
     },
     zrodloUrl: 'https://www.nfz.gov.pl/dla-pacjenta/programy-profilaktyczne/',
-    zrodloNazwa: 'NFZ', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'NFZ', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'kolonoskopia', nazwa: 'Kolonoskopia profilaktyczna',
@@ -100,7 +100,7 @@ export const ZDROWIE: Benefit[] = [
       odwolanie: 'Nie dotyczy',
     },
     zrodloUrl: 'https://www.nfz.gov.pl/dla-pacjenta/programy-profilaktyczne/',
-    zrodloNazwa: 'NFZ', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'NFZ', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'prostata', nazwa: 'Badania prostaty (PSA)',
@@ -122,7 +122,7 @@ export const ZDROWIE: Benefit[] = [
       odwolanie: 'Nie dotyczy',
     },
     zrodloUrl: 'https://www.nfz.gov.pl/dla-pacjenta/programy-profilaktyczne/',
-    zrodloNazwa: 'NFZ', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'NFZ', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'szczepienia-hpv', nazwa: 'Szczepienia przeciwko HPV',
@@ -145,7 +145,7 @@ export const ZDROWIE: Benefit[] = [
       odwolanie: 'Nie dotyczy',
     },
     zrodloUrl: 'https://www.nfz.gov.pl/dla-pacjenta/programy-profilaktyczne/',
-    zrodloNazwa: 'NFZ', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'NFZ', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'profilaktyka-krazenia', nazwa: 'Profilaktyka chorób układu krążenia',
@@ -168,7 +168,7 @@ export const ZDROWIE: Benefit[] = [
       odwolanie: 'Nie dotyczy',
     },
     zrodloUrl: 'https://www.nfz.gov.pl/dla-pacjenta/programy-profilaktyczne/',
-    zrodloNazwa: 'NFZ', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'NFZ', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'rak-pluc', nazwa: 'Wczesne wykrywanie raka płuc',
@@ -191,7 +191,7 @@ export const ZDROWIE: Benefit[] = [
       odwolanie: 'Nie dotyczy',
     },
     zrodloUrl: 'https://www.nfz.gov.pl/dla-pacjenta/programy-profilaktyczne/',
-    zrodloNazwa: 'NFZ', dataWeryfikacji: '2026-05-09', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'NFZ', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
     id: 'prawo-do-dokumentacji-medycznej', nazwa: 'Prawo do bezpłatnej dokumentacji medycznej',
@@ -227,7 +227,7 @@ export const ZDROWIE: Benefit[] = [
       odwolanie: 'Skarga do Rzecznika Praw Pacjenta: tel. 800 190 590 (bezpłatna infolinia), rpp.gov.pl',
     },
     zrodloUrl: 'https://www.gov.pl/web/rpp/prawo-do-dokumentacji-medycznej',
-    zrodloNazwa: 'Rzecznik Praw Pacjenta', dataWeryfikacji: '2026-05-14', dataWaznosci: '2027-12-31',
+    zrodloNazwa: 'Rzecznik Praw Pacjenta', dataWeryfikacji: '2026-05-23', dataWaznosci: '2027-12-31',
   },
   {
     id: 'fundusz-kompensacyjny-zdarzen-medycznych', nazwa: 'Odszkodowanie za błąd medyczny bez sądu (Fundusz Kompensacyjny)',
@@ -268,6 +268,6 @@ export const ZDROWIE: Benefit[] = [
       odwolanie: 'Odrzucenie propozycji Funduszu umożliwia drogę sądową. Skarga na działanie Funduszu: Rzecznik Praw Pacjenta rpp.gov.pl',
     },
     zrodloUrl: 'https://www.gov.pl/web/rpp/fundusz-kompensacyjny-zdarzen-medycznych',
-    zrodloNazwa: 'Rzecznik Praw Pacjenta', dataWeryfikacji: '2026-05-14', dataWaznosci: '2027-12-31',
+    zrodloNazwa: 'Rzecznik Praw Pacjenta', dataWeryfikacji: '2026-05-23', dataWaznosci: '2027-12-31',
   },
 ];
