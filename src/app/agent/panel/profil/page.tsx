@@ -538,6 +538,158 @@ export default function AgentProfil() {
             );
           })}
       </div>
+
+      <DaneDoWnioskow
+        initial={profile as Record<string, unknown>}
+        onSaved={(updated) => { setProfile(updated); setDraft({ ...updated }); }}
+      />
+    </div>
+  );
+}
+
+/* ── Dane do wnioskow: 10 osobnych pol osobistych + adres + konto ── */
+const WNIOSKI_FIELDS: { key: string; label: string; placeholder: string; type?: 'text' }[] = [
+  { key: 'imie', label: 'Imię', placeholder: 'np. Jan' },
+  { key: 'nazwisko', label: 'Nazwisko', placeholder: 'np. Kowalski' },
+  { key: 'pesel', label: 'PESEL', placeholder: '11 cyfr' },
+  { key: 'telefon', label: 'Telefon', placeholder: 'np. 600 000 000' },
+  { key: 'ulica', label: 'Ulica', placeholder: 'np. Marszałkowska' },
+  { key: 'nr_domu', label: 'Nr domu', placeholder: 'np. 12' },
+  { key: 'nr_lokalu', label: 'Nr lokalu', placeholder: 'opcjonalnie' },
+  { key: 'kod_pocztowy', label: 'Kod pocztowy', placeholder: 'NN-NNN' },
+  { key: 'miejscowosc', label: 'Miejscowość', placeholder: 'np. Warszawa' },
+  { key: 'nr_konta', label: 'Numer konta', placeholder: 'PL26 NNNN NNNN ...' },
+];
+
+function DaneDoWnioskow({
+  initial,
+  onSaved,
+}: {
+  initial: Record<string, unknown>;
+  onSaved: (updated: Record<string, unknown>) => void;
+}) {
+  const [form, setForm] = useState<Record<string, string>>(() => {
+    const out: Record<string, string> = {};
+    for (const f of WNIOSKI_FIELDS) out[f.key] = String(initial[f.key] ?? '');
+    return out;
+  });
+  const [saving, setSaving] = useState(false);
+  const [savedMsg, setSavedMsg] = useState(false);
+  const [err, setErr] = useState('');
+
+  // Walidacja PESEL: 11 cyfr (warning, nie blokuje zapisu)
+  const peselWarn = form.pesel && !/^\d{11}$/.test(form.pesel);
+  const kodWarn = form.kod_pocztowy && !/^\d{2}-\d{3}$/.test(form.kod_pocztowy);
+
+  // Format konta: usuwa spacje, dodaje co 4 cyfry przy zapisie do state
+  function formatKonto(v: string) {
+    const clean = v.replace(/\s+/g, '').toUpperCase();
+    return clean.replace(/(.{4})/g, '$1 ').trim();
+  }
+
+  function update(k: string, v: string) {
+    if (k === 'nr_konta') v = formatKonto(v);
+    if (k === 'pesel') v = v.replace(/\D/g, '').slice(0, 11);
+    if (k === 'kod_pocztowy') {
+      const digits = v.replace(/\D/g, '').slice(0, 5);
+      v = digits.length > 2 ? `${digits.slice(0, 2)}-${digits.slice(2)}` : digits;
+    }
+    setForm(p => ({ ...p, [k]: v }));
+  }
+
+  async function save() {
+    setSaving(true);
+    setErr('');
+    try {
+      const payload: Record<string, string | null> = {};
+      for (const f of WNIOSKI_FIELDS) payload[f.key] = form[f.key] || null;
+      const res = await fetch('/api/agent/profile', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) {
+        setErr('Błąd zapisu. Spróbuj ponownie.');
+      } else {
+        const { profile: updated } = await res.json();
+        onSaved(updated);
+        setSavedMsg(true);
+        setTimeout(() => setSavedMsg(false), 3500);
+      }
+    } catch {
+      setErr('Błąd sieci. Sprawdź połączenie.');
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return (
+    <div style={{ marginTop: 40 }}>
+      <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.08em', color: 'var(--color-text-3)', textTransform: 'uppercase' as const, marginBottom: 4 }}>
+        Wnioski
+      </div>
+      <h2 style={{ fontSize: 20, fontWeight: 700, letterSpacing: '-0.02em', marginBottom: 12 }}>Dane do wniosków</h2>
+
+      <div style={{ padding: '12px 16px', background: 'rgba(34,160,107,0.08)', border: '1px solid rgba(34,160,107,0.3)', borderRadius: 8, marginBottom: 20, fontSize: 13, color: 'var(--color-text-2)', lineHeight: 1.5 }}>
+        Te dane będą automatycznie wstawiane do wszystkich formularzy ZUS - wypełnij raz, oszczędzaj czas przy każdym wniosku.
+      </div>
+
+      {savedMsg && (
+        <div style={{ padding: '12px 16px', background: 'rgba(34,160,107,0.1)', border: '1px solid #22A06B', borderRadius: 10, marginBottom: 16, fontSize: 13, color: '#22A06B', fontFamily: 'var(--font-mono)' }}>
+          Zapisano. Wnioski będą teraz auto-wypełniane.
+        </div>
+      )}
+
+      <div style={{ border: '1px solid var(--color-border)', borderRadius: 12, padding: 20, background: 'var(--color-bg-1)' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 14 }}>
+          {WNIOSKI_FIELDS.map(f => (
+            <div key={f.key}>
+              <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: 'var(--color-text-2)', marginBottom: 6 }}>
+                {f.label}
+              </label>
+              <input
+                type="text"
+                value={form[f.key] ?? ''}
+                onChange={e => update(f.key, e.target.value)}
+                placeholder={f.placeholder}
+                style={{
+                  width: '100%', padding: '10px 12px', fontSize: 14,
+                  border: '1px solid var(--color-border)', borderRadius: 8,
+                  background: 'var(--color-bg-2)', color: 'var(--color-text-1)',
+                  outline: 'none', boxSizing: 'border-box' as const,
+                  fontFamily: f.key === 'pesel' || f.key === 'nr_konta' || f.key === 'kod_pocztowy' ? 'var(--font-mono)' : undefined,
+                }}
+                onFocus={e => { e.currentTarget.style.borderColor = '#22A06B'; }}
+                onBlur={e => { e.currentTarget.style.borderColor = 'var(--color-border)'; }}
+              />
+              {f.key === 'pesel' && peselWarn && (
+                <div style={{ fontSize: 11, color: '#e6993a', marginTop: 4 }}>PESEL musi mieć 11 cyfr.</div>
+              )}
+              {f.key === 'kod_pocztowy' && kodWarn && (
+                <div style={{ fontSize: 11, color: '#e6993a', marginTop: 4 }}>Format: NN-NNN.</div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {err && <p style={{ fontSize: 13, color: 'var(--red-400)', marginTop: 14 }}>{err}</p>}
+
+        <div style={{ marginTop: 20, display: 'flex', justifyContent: 'flex-end' }}>
+          <button
+            onClick={save}
+            disabled={saving}
+            style={{
+              padding: '12px 24px', fontSize: 14, fontWeight: 600,
+              background: saving ? 'var(--color-border)' : '#22A06B',
+              color: '#fff', border: 'none', borderRadius: 10,
+              cursor: saving ? 'not-allowed' : 'pointer',
+              boxShadow: saving ? 'none' : '0 2px 8px rgba(34,160,107,0.3)',
+            }}
+          >
+            {saving ? 'Zapisuję...' : 'Zapisz dane do wniosków'}
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
