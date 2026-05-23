@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { DateInput } from '@/components/DateInput';
 import { FormChatWidget } from '@/components/FormChatWidget';
+import { useFormPrefill } from '@/lib/wnioski/useFormPrefill';
+import { PrefillBanner } from '@/components/PrefillBanner';
 
 // ---- TYPES ----
 
@@ -102,6 +104,19 @@ const STEPS: { key: Step; label: string }[] = [
   { key: 'podgląd', label: 'Podgląd' },
 ];
 
+const FIELD_MAP: Partial<Record<keyof Z15bData, string>> = {
+  imie: 'imie',
+  nazwisko: 'nazwisko',
+  pesel: 'pesel',
+  ulica: 'ulica',
+  nrDomu: 'nr_domu',
+  nrLokalu: 'nr_lokalu',
+  kodPocztowy: 'kod_pocztowy',
+  miejscowość: 'miejscowosc',
+  telefon: 'telefon',
+  nrKonta: 'nr_konta',
+};
+
 const RELACJA_LABELS: Record<RelacjaOpiekun, string> = {
   małżonek: 'Małżonek / małżonka',
   rodzic: 'Rodzic (ojciec / matka)',
@@ -117,7 +132,7 @@ const RELACJA_LABELS: Record<RelacjaOpiekun, string> = {
 
 export default function ZusZ15bPage() {
   const [step, setStep] = useState<Step>('wnioskodawca');
-  const [data, setData] = useState<Z15bData>(EMPTY);
+  const { data, setData, prefillStatus, prefillCount, isLoggedIn } = useFormPrefill<Z15bData>('zus-z15b', EMPTY, FIELD_MAP);
   const [copied, setCopied] = useState(false);
   const [downloadingPdf, setDownloadingPdf] = useState(false);
 
@@ -229,6 +244,9 @@ export default function ZusZ15bPage() {
           </div>
         )}
 
+        {step === 'wnioskodawca' && (
+          <PrefillBanner status={prefillStatus} count={prefillCount} isLoggedIn={isLoggedIn} />
+        )}
         {step === 'wnioskodawca' && <StepWnioskodawca data={data} update={update} onNext={() => setStep('platnik')} />}
         {step === 'platnik' && <StepPłatnik data={data} update={update} onBack={() => setStep('wnioskodawca')} onNext={() => setStep('ezla')} />}
         {step === 'ezla' && <StepEzla data={data} update={update} onBack={() => setStep('platnik')} onNext={() => setStep('chory')} />}

@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { DateInput } from '@/components/DateInput';
 import { FormChatWidget } from '@/components/FormChatWidget';
+import { useFormPrefill } from '@/lib/wnioski/useFormPrefill';
+import { PrefillBanner } from '@/components/PrefillBanner';
 
 // ---- TYPES ----
 
@@ -70,6 +72,19 @@ const STEPS: { key: Step; label: string }[] = [
   { key: 'podgląd', label: 'Podgląd' },
 ];
 
+const FIELD_MAP: Partial<Record<keyof Zas53Data, string>> = {
+  imie: 'imie',
+  nazwisko: 'nazwisko',
+  pesel: 'pesel',
+  ulica: 'ulica',
+  nrDomu: 'nr_domu',
+  nrLokalu: 'nr_lokalu',
+  kodPocztowy: 'kod_pocztowy',
+  miejscowość: 'miejscowosc',
+  telefon: 'telefon',
+  nrKonta: 'nr_konta',
+};
+
 const RODZAJ_LABELS: Record<RodzajNiezdolnośći, string> = {
   'nie-dotyczy': 'Nie dotyczy (zwykła choroba)',
   'choroba-zawodowa': 'Choroba zawodowa',
@@ -81,7 +96,7 @@ const RODZAJ_LABELS: Record<RodzajNiezdolnośći, string> = {
 
 export default function ZusZas53Page() {
   const [step, setStep] = useState<Step>('wnioskodawca');
-  const [data, setData] = useState<Zas53Data>(EMPTY);
+  const { data, setData, prefillStatus, prefillCount, isLoggedIn } = useFormPrefill<Zas53Data>('zus-zas53', EMPTY, FIELD_MAP);
   const [copied, setCopied] = useState(false);
   const [downloadingPdf, setDownloadingPdf] = useState(false);
 
@@ -185,6 +200,9 @@ export default function ZusZas53Page() {
           </div>
         )}
 
+        {step === 'wnioskodawca' && (
+          <PrefillBanner status={prefillStatus} count={prefillCount} isLoggedIn={isLoggedIn} />
+        )}
         {step === 'wnioskodawca' && <StepWnioskodawca data={data} update={update} onNext={() => setStep('platnik')} />}
         {step === 'platnik' && <StepPłatnik data={data} update={update} onBack={() => setStep('wnioskodawca')} onNext={() => setStep('zasiłek')} />}
         {step === 'zasiłek' && <StepZasiłek data={data} update={update} onBack={() => setStep('platnik')} onNext={() => setStep('podgląd')} />}

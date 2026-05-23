@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { DateInput } from '@/components/DateInput';
 import { FormChatWidget } from '@/components/FormChatWidget';
+import { useFormPrefill } from '@/lib/wnioski/useFormPrefill';
+import { PrefillBanner } from '@/components/PrefillBanner';
 
 // ---- TYPES ----
 
@@ -101,6 +103,19 @@ const EMPTY: EruData = {
   matka_imie: '',
   matka_nazwisko: '',
   matka_dataUrodzenia: '',
+};
+
+const FIELD_MAP: Partial<Record<keyof EruData, string>> = {
+  imie: 'imie',
+  nazwisko: 'nazwisko',
+  pesel: 'pesel',
+  ulica: 'ulica',
+  nrDomu: 'nr_domu',
+  nrLokalu: 'nr_lokalu',
+  kodPocztowy: 'kod_pocztowy',
+  miejscowość: 'miejscowosc',
+  telefon: 'telefon',
+  płeć: 'plec',
 };
 
 // ---- HELPERS ----
@@ -567,7 +582,7 @@ function StepDone({ onCopy, copied, onRestart }: { onCopy: () => void; copied: b
 
 export default function ZusErsuPage() {
   const [step, setStep] = useState<Step>('wnioskodawca');
-  const [data, setData] = useState<EruData>(EMPTY);
+  const { data, setData, prefillStatus, prefillCount, isLoggedIn } = useFormPrefill<EruData>('zus-ersu', EMPTY, FIELD_MAP);
   const [copied, setCopied] = useState(false);
 
   const update = (key: keyof EruData, value: string | boolean | Okres[] | PrzerwaPraca[]) =>
@@ -663,6 +678,9 @@ export default function ZusErsuPage() {
           </div>
         )}
 
+        {step === 'wnioskodawca' && (
+          <PrefillBanner status={prefillStatus} count={prefillCount} isLoggedIn={isLoggedIn} />
+        )}
         {step === 'wnioskodawca' && <StepWnioskodawca data={data} update={update} onNext={() => setStep('dzieci')} />}
         {step === 'dzieci' && <StepDzieci data={data} update={update} onBack={() => setStep('wnioskodawca')} onNext={() => setStep('sytuacja')} />}
         {step === 'sytuacja' && <StepSytuacja data={data} update={update} onBack={() => setStep('dzieci')} onNext={() => setStep('przerwy')} />}

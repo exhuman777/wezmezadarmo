@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { DateInput } from '@/components/DateInput';
 import { FormChatWidget } from '@/components/FormChatWidget';
+import { useFormPrefill } from '@/lib/wnioski/useFormPrefill';
+import { PrefillBanner } from '@/components/PrefillBanner';
 
 // ---- TYPES ----
 
@@ -67,11 +69,24 @@ const STEPS: { key: Step; label: string }[] = [
   { key: 'podgląd', label: 'Podgląd' },
 ];
 
+// Tylko sekcja mocodawcy - pelnomocnik to inna osoba (nie prefillowac).
+const FIELD_MAP: Partial<Record<keyof PelData, string>> = {
+  imie: 'imie',
+  nazwisko: 'nazwisko',
+  pesel: 'pesel',
+  ulica: 'ulica',
+  nrDomu: 'nr_domu',
+  nrLokalu: 'nr_lokalu',
+  kodPocztowy: 'kod_pocztowy',
+  miejscowość: 'miejscowosc',
+  telefon: 'telefon',
+};
+
 // ---- COMPONENT ----
 
 export default function ZusPelPage() {
   const [step, setStep] = useState<Step>('mocodawca');
-  const [data, setData] = useState<PelData>(EMPTY);
+  const { data, setData, prefillStatus, prefillCount, isLoggedIn } = useFormPrefill<PelData>('zus-pel', EMPTY, FIELD_MAP);
   const [copied, setCopied] = useState(false);
 
   const update = (key: keyof PelData, value: string | boolean) =>
@@ -156,6 +171,9 @@ export default function ZusPelPage() {
           </div>
         )}
 
+        {step === 'mocodawca' && (
+          <PrefillBanner status={prefillStatus} count={prefillCount} isLoggedIn={isLoggedIn} />
+        )}
         {step === 'mocodawca' && <StepMocodawca data={data} update={update} onNext={() => setStep('pełnomocnik')} />}
         {step === 'pełnomocnik' && <StepPełnomocnik data={data} update={update} onBack={() => setStep('mocodawca')} onNext={() => setStep('zakres')} />}
         {step === 'zakres' && <StepZakres data={data} update={update} onBack={() => setStep('pełnomocnik')} onNext={() => setStep('podgląd')} />}

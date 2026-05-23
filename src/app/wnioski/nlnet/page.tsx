@@ -1,8 +1,10 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import type { FormProfile } from '@/app/api/form-assist/route';
+import { useFormPrefill } from '@/lib/wnioski/useFormPrefill';
+import { PrefillBanner } from '@/components/PrefillBanner';
 
 // ---- FORM FIELDS DEFINITION ----
 
@@ -114,20 +116,47 @@ const EMPTY_PROFILE: FormProfile = {
   isOpenSource: true,
   license: 'AGPL-3.0',
   amountRequested: '50000',
-  organizationName: 'individual developer',
-  country: 'Poland',
+  organizationName: '',
+  country: '',
   priorFunding: '',
   teamDescription: '',
 };
 
+// FormProfile NLnet nie ma bezposrednich odpowiednikow w polskim profilu wnioski-data.
+// Country i organizationName ustawiamy ponizej w useEffect z imie+nazwisko/staly 'Poland'.
+const NLNET_FIELD_MAP: Partial<Record<keyof FormProfile, string>> = {};
+
 export default function NLnetWizardPage() {
   const [step, setStep] = useState<Step>('profile');
-  const [profile, setProfile] = useState<FormProfile>(EMPTY_PROFILE);
+  const { data: profile, setData: setProfile, prefillStatus, prefillCount, isLoggedIn } =
+    useFormPrefill<FormProfile>('nlnet', EMPTY_PROFILE, NLNET_FIELD_MAP);
   const [amountRequested, setAmountRequested] = useState('50000');
   const [fields, setFields] = useState<Record<string, FieldState>>({});
   const [generatingIdx, setGeneratingIdx] = useState(0);
   const [currentReviewIdx, setCurrentReviewIdx] = useState(0);
   const [copied, setCopied] = useState<string | null>(null);
+
+  // NLnet: fixed defaults + soft prefill z polskiego profilu jezeli puste.
+  useEffect(() => {
+    let cancelled = false;
+    const applyDefaults = (fullName: string) => {
+      if (cancelled) return;
+      setProfile(prev => ({
+        ...prev,
+        country: prev.country || 'Poland',
+        organizationName: prev.organizationName || (fullName ? `${fullName} (individual developer)` : 'individual developer'),
+      }));
+    };
+    fetch('/api/agent/profile', { credentials: 'include' }).then(async (res) => {
+      if (res.status !== 200) { applyDefaults(''); return; }
+      const { profile: dbProfile } = (await res.json()) as { profile?: Record<string, unknown> };
+      const imie = String(dbProfile?.imie ?? '').trim();
+      const nazwisko = String(dbProfile?.nazwisko ?? '').trim();
+      applyDefaults([imie, nazwisko].filter(Boolean).join(' '));
+    }).catch(() => applyDefaults(''));
+    return () => { cancelled = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const updateProfile = (key: keyof FormProfile, value: string | boolean) => {
     setProfile((p) => ({ ...p, [key]: value }));
@@ -240,7 +269,7 @@ export default function NLnetWizardPage() {
 
   // ---- RENDER ----
 
-  if (step === 'profile') return <ProfileStep profile={profile} amountRequested={amountRequested} updateProfile={updateProfile} setAmount={setAmountRequested} onNext={generateAll} valid={profileValid} />;
+  if (step === 'profile') return <ProfileStep profile={profile} amountRequested={amountRequested} updateProfile={updateProfile} setAmount={setAmountRequested} onNext={generateAll} valid={profileValid} banner={<PrefillBanner status={prefillStatus} count={prefillCount} isLoggedIn={isLoggedIn} english />} />;
   if (step === 'generating') return <GeneratingStep generatingIdx={generatingIdx} total={AI_FIELDS.length} fields={fields} />;
   if (step === 'review') return (
     <ReviewStep
@@ -297,13 +326,14 @@ function WizardShell({ children, step, total }: { children: React.ReactNode; ste
   );
 }
 
-function ProfileStep({ profile, amountRequested, updateProfile, setAmount, onNext, valid }: {
+function ProfileStep({ profile, amountRequested, updateProfile, setAmount, onNext, valid, banner }: {
   profile: FormProfile;
   amountRequested: string;
   updateProfile: (k: keyof FormProfile, v: string | boolean) => void;
   setAmount: (v: string) => void;
   onNext: () => void;
   valid: boolean;
+  banner?: React.ReactNode;
 }) {
   return (
     <WizardShell>
@@ -312,11 +342,13 @@ function ProfileStep({ profile, amountRequested, updateProfile, setAmount, onNex
           <span className="label-eyebrow">NLnet NGI Zero Commons Fund</span>
         </div>
         <h1 className="display" style={{ fontSize: 'clamp(28px, 4vw, 42px)', marginBottom: 12, marginTop: 16 }}>Opisz swój projekt</h1>
-        <p style={{ fontSize: 14, color: 'var(--color-text-2)', marginBottom: 40, lineHeight: 1.65 }}>
+        <p style={{ fontSize: 14, color: 'var(--color-text-2)', marginBottom: 24, lineHeight: 1.65 }}>
           Deadline:{' '}
           <span style={{ color: 'var(--color-warn)', fontWeight: 600 }}>1 czerwca 2026, 12:00 CEST</span>
           {' '}. Wypełnij pola poniżej: AI wygeneruje wszystkie sekcje formularza.
         </p>
+
+        {banner}
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
           <Field label="Nazwa projektu *" hint="np. WezmeZadarmo, OpenBudget, ClimateDashboard">

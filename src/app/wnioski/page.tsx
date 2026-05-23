@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Pomoc w wypełnieniu wniosku z AI | wezmezadarmo',
-  description: 'Wypełniaj wnioski ZUS, PFRON, MOPS, granty i dofinansowania krok po kroku z pomocą AI. Twoje dane nie wychodzą poza przeglądarkę.',
+  description: 'Wypełniaj wnioski ZUS, granty i dofinansowania krok po kroku z pomocą AI. Twoje dane zapisywane lokalnie w przeglądarce, prefill z profilu dla zalogowanych.',
 };
 
 interface Form {
@@ -15,7 +15,6 @@ interface Form {
   deadline?: string;
   deadlineUrgent?: boolean;
   description: string;
-  available: boolean;
 }
 
 interface Category {
@@ -38,7 +37,6 @@ const CATEGORIES: Category[] = [
         institution: 'ZUS / pracodawca',
         amount: '80% wynagrodzenia',
         description: 'Przysługuje gdy nie możesz pracować bo opiekujesz się chorym dzieckiem do 14 lat lub gdy zamknięto żłobek/przedszkole/szkołę.',
-        available: true,
       },
       {
         slug: 'zus-z15b',
@@ -47,7 +45,6 @@ const CATEGORIES: Category[] = [
         institution: 'ZUS / pracodawca',
         amount: '80% wynagrodzenia',
         description: 'Przysługuje gdy opiekujesz się chorym małżonkiem, rodzicem lub innym dorosłym członkiem rodziny powyżej 14 lat.',
-        available: true,
       },
       {
         slug: 'zus-zas53',
@@ -56,16 +53,14 @@ const CATEGORIES: Category[] = [
         institution: 'ZUS',
         amount: '80% wynagrodzenia (100% w ciąży)',
         description: 'Gdy pracodawca nie wypłaca zasiłku chorobowego lub jesteś osobą prowadzącą działalność.',
-        available: true,
       },
       {
         slug: 'zus-z3',
         symbol: 'Z-3',
         name: 'Zaświadczenie płatnika składek: przewodnik dla pracownika',
         institution: 'ZUS / pracodawca',
-        amount: '--',
+        amount: 'narzędzie informacyjne',
         description: 'Zaświadczenie wypełnia pracodawca. Ten kreator pomaga sprawdzić dokument i przygotować pismo do działu kadr.',
-        available: true,
       },
       {
         slug: 'zus-erpo',
@@ -74,16 +69,14 @@ const CATEGORIES: Category[] = [
         institution: 'ZUS',
         amount: 'indywidualnie',
         description: 'Kreator przygotowuje dane do wniosku ERPO. Można złożyć online przez PUE ZUS z profilem zaufanym.',
-        available: true,
       },
       {
         slug: 'zus-pel',
         symbol: 'PEL',
         name: 'Pełnomocnictwo do ZUS',
         institution: 'ZUS',
-        amount: '--',
+        amount: 'pełnomocnictwo',
         description: 'Upoważnij kogoś do reprezentowania Cię przed ZUS: w sprawach ubezpieczeniowych, PIT lub w eZUS.',
-        available: true,
       },
       {
         slug: 'zus-ersu',
@@ -92,172 +85,13 @@ const CATEGORIES: Category[] = [
         institution: 'ZUS',
         amount: '1901 PLN / mies.',
         description: 'Dla rodziców 4+ dzieci którzy zrezygnowali z pracy by wychowywać dzieci i nie mają prawa do emerytury lub mają ją poniżej minimum.',
-        available: true,
-      },
-      {
-        slug: 'zus-ern',
-        symbol: 'ERN',
-        name: 'Renta z tytułu niezdolności do pracy',
-        institution: 'ZUS',
-        amount: 'od 1901 PLN',
-        description: 'Dla osób które stały się niezdolne do pracy w wyniku choroby lub wypadku i mają odpowiedni staż składkowy.',
-        available: false,
-      },
-      {
-        slug: 'zus-esun',
-        symbol: 'ESUN',
-        name: 'Świadczenie uzupełniające dla osób niezdolnych do samodzielnej egzystencji',
-        institution: 'ZUS',
-        amount: 'do 1901 PLN',
-        description: 'Dla osób ze znacznym stopniem niepełnosprawności lub orzeczeniem lekarskim o niezdolności do samodzielnej egzystencji.',
-        available: false,
-      },
-    ],
-  },
-  {
-    id: 'pfron',
-    label: 'PFRON',
-    icon: '02',
-    forms: [
-      {
-        slug: 'pfron-as1',
-        name: 'Aktywny Samorząd Moduł I: sprzęt rehabilitacyjny i elektryczny wózek',
-        institution: 'PFRON / PCPR',
-        amount: 'do 10 000 PLN',
-        description: 'Dofinansowanie do wózka elektrycznego, protezy, urządzenia lektorskiego, utrzymania sprawności technicznej wózka.',
-        available: false,
-      },
-      {
-        slug: 'pfron-as2',
-        name: 'Aktywny Samorząd Moduł II: dofinansowanie do studiów',
-        institution: 'PFRON / PCPR',
-        amount: 'do 1100 PLN/mies.',
-        description: 'Dofinansowanie kosztów nauki dla studentów ze znacznym lub umiarkowanym stopniem niepełnosprawności.',
-        available: false,
-      },
-      {
-        slug: 'pfron-turnusy',
-        name: 'Dofinansowanie do turnusu rehabilitacyjnego',
-        institution: 'PFRON / PCPR',
-        amount: 'do 2079 PLN',
-        description: 'Jednorazowe dofinansowanie rocznego udziału w turnusie rehabilitacyjnym dla osób z orzeczeniem.',
-        available: false,
-      },
-    ],
-  },
-  {
-    id: 'mops',
-    label: 'MOPS / Gmina',
-    icon: '03',
-    forms: [
-      {
-        slug: 'mops-800plus',
-        name: 'Świadczenie wychowawcze 800+',
-        institution: 'ZUS (od 2024) / gmina',
-        amount: '800 PLN / mies. na dziecko',
-        description: 'Dla każdego dziecka do 18 roku życia bez progu dochodowego. Składany przez PUE ZUS lub bankowość elektroniczną.',
-        available: false,
-      },
-      {
-        slug: 'mops-becikowe',
-        name: 'Becikowe: jednorazowa zapomoga z tytułu urodzenia dziecka',
-        institution: 'Gmina / MOPS',
-        amount: '1000 PLN',
-        description: 'Jednorazowe świadczenie dla rodzin z dochodem do 1922 PLN netto na osobę. Złożyć w ciągu 12 miesięcy od urodzenia.',
-        available: false,
-      },
-      {
-        slug: 'mops-dobrystart',
-        name: 'Dobry Start 300+',
-        institution: 'ZUS',
-        amount: '300 PLN / rok na dziecko',
-        description: 'Jednorazowe świadczenie na wyprawkę szkolną dla dzieci uczących się do 20 lat (24 lata przy niepełnosprawności).',
-        available: false,
-      },
-      {
-        slug: 'mops-zasilekokresowyStaly',
-        name: 'Zasiłek stały i zasiłek okresowy',
-        institution: 'MOPS / OPS',
-        amount: 'do 1901 PLN',
-        description: 'Dla osób w trudnej sytuacji materialnej: zasiłek stały dla niezdolnych do pracy, okresowy dla bezrobotnych w trakcie trudności.',
-        available: false,
-      },
-      {
-        slug: 'mops-pomoc-mieszkaniowa',
-        name: 'Dodatek mieszkaniowy i energetyczny',
-        institution: 'Gmina',
-        amount: 'do 1500 PLN / mies.',
-        description: 'Dopłata do czynszu i rachunków za energię dla osób z niskim dochodem. Składany w urzędzie gminy.',
-        available: false,
-      },
-    ],
-  },
-  {
-    id: 'pracagov',
-    label: 'Urząd Pracy',
-    icon: '04',
-    forms: [
-      {
-        slug: 'pup-jednorazowe',
-        name: 'Jednorazowe środki na podjęcie działalności gospodarczej',
-        institution: 'Powiatowy Urząd Pracy',
-        amount: 'do 45 000 PLN',
-        description: 'Dla zarejestrowanych bezrobotnych chcących założyć firmę. Bezzwrotna dotacja z Funduszu Pracy.',
-        available: false,
-      },
-      {
-        slug: 'pup-bon-szkoleniowy',
-        name: 'Bon szkoleniowy',
-        institution: 'Powiatowy Urząd Pracy',
-        amount: 'do 16 000 PLN',
-        description: 'Dofinansowanie szkoleń i kursów dla bezrobotnych do 30 roku życia. Pokrywa koszty szkolenia, przejazdu, zakwaterowania.',
-        available: false,
-      },
-      {
-        slug: 'pup-bon-zasiedlenie',
-        name: 'Bon na zasiedlenie',
-        institution: 'Powiatowy Urząd Pracy',
-        amount: 'do 15 669 PLN',
-        description: 'Dla bezrobotnych do 30 lat którzy znajdą pracę lub założą firmę w odległości ponad 80 km od miejsca zamieszkania.',
-        available: false,
-      },
-      {
-        slug: 'pup-staz',
-        name: 'Wniosek o staż z urzędu pracy',
-        institution: 'Powiatowy Urząd Pracy',
-        amount: 'stypendium ok. 1901 PLN',
-        description: 'Dla pracodawców i bezrobotnych chcących zorganizować staż finansowany przez PUP. Czas trwania: 3-6 miesięcy.',
-        available: false,
-      },
-    ],
-  },
-  {
-    id: 'nfz',
-    label: 'NFZ',
-    icon: '05',
-    forms: [
-      {
-        slug: 'nfz-okulary',
-        name: 'Refundacja okularów i soczewek kontaktowych',
-        institution: 'NFZ',
-        amount: '50-700 PLN na okulary / do 600 PLN na soczewki',
-        description: 'Co 2 lata (częściej u dzieci). Wymagane zlecenie od okulisty z NFZ. Realizowane w optykach z umową.',
-        available: false,
-      },
-      {
-        slug: 'nfz-aparat-sluchowy',
-        name: 'Dofinansowanie aparatu słuchowego',
-        institution: 'NFZ',
-        amount: 'do 2700 PLN / 5 lat',
-        description: 'Dla osób z ubytkiem słuchu potwierdzonym badaniem audiologicznym. Wymagane skierowanie od laryngologa z NFZ.',
-        available: false,
       },
     ],
   },
   {
     id: 'granty',
     label: 'Granty',
-    icon: '06',
+    icon: '02',
     forms: [
       {
         slug: 'nlnet',
@@ -267,53 +101,53 @@ const CATEGORIES: Category[] = [
         deadline: '1 czerwca 2026, 12:00',
         deadlineUrgent: true,
         description: 'Grant dla projektów open-source z impaktem społecznym. Dla civic tech, narzędzi AI, infrastruktury cyfrowej. Bez wymogu spółki, solo-founder OK.',
-        available: true,
-      },
-      {
-        slug: 'step',
-        name: 'NCBiR STEP Sciezka A',
-        institution: 'NCBiR / FENG 2021-2027',
-        amount: 'do 18 mln PLN',
-        deadline: '17 czerwca 2026',
-        description: 'Dofinansowanie na projekty B+R w obszarze technologii cyfrowych i krytycznych.',
-        available: false,
-      },
-      {
-        slug: 'eic',
-        name: 'EIC Accelerator',
-        institution: 'European Innovation Council',
-        amount: 'do 2,5 mln EUR',
-        deadline: '8 lipca 2026',
-        description: 'Europejski program dla startupów z przełomowymi innowacjami i globalnym potencjałem.',
-        available: false,
-      },
-      {
-        slug: 'parp-startup',
-        name: 'PARP Startup Booster Tech Impact',
-        institution: 'PARP / FENG',
-        amount: 'do 400 000 PLN',
-        description: 'Dla startupów realizujących Cele Zrównoważonego Rozwoju ONZ. Przez akredytowane akceleratory.',
-        available: false,
       },
     ],
   },
 ];
 
+interface RoadmapItem {
+  category: string;
+  symbol?: string;
+  name: string;
+  amount: string;
+}
+
+const ROADMAP: RoadmapItem[] = [
+  { category: 'ZUS', symbol: 'ERN', name: 'Renta z tytułu niezdolności do pracy', amount: 'od 1901 PLN' },
+  { category: 'ZUS', symbol: 'ESUN', name: 'Świadczenie uzupełniające dla niezdolnych do samodzielnej egzystencji', amount: 'do 1901 PLN' },
+  { category: 'PFRON', name: 'Aktywny Samorząd Moduł I - wózek elektryczny, proteza', amount: 'do 10 000 PLN' },
+  { category: 'PFRON', name: 'Aktywny Samorząd Moduł II - dofinansowanie do studiów', amount: 'do 1100 PLN/mies.' },
+  { category: 'PFRON', name: 'Dofinansowanie do turnusu rehabilitacyjnego', amount: 'do 2079 PLN' },
+  { category: 'MOPS', name: 'Świadczenie 800+ (już składane przez PUE ZUS)', amount: '800 PLN/mies. na dziecko' },
+  { category: 'MOPS', name: 'Becikowe (gmina/MOPS)', amount: '1000 PLN' },
+  { category: 'MOPS', name: 'Dobry Start 300+', amount: '300 PLN/rok na dziecko' },
+  { category: 'MOPS', name: 'Zasiłek stały i okresowy', amount: 'do 1901 PLN' },
+  { category: 'MOPS', name: 'Dodatek mieszkaniowy i energetyczny', amount: 'do 1500 PLN/mies.' },
+  { category: 'PUP', name: 'Jednorazowe środki na podjęcie działalności', amount: 'do 45 000 PLN' },
+  { category: 'PUP', name: 'Bon szkoleniowy', amount: 'do 16 000 PLN' },
+  { category: 'PUP', name: 'Bon na zasiedlenie', amount: 'do 15 669 PLN' },
+  { category: 'PUP', name: 'Wniosek o staż z urzędu pracy', amount: 'stypendium ok. 1901 PLN' },
+  { category: 'NFZ', name: 'Refundacja okularów i soczewek kontaktowych', amount: '50-700 PLN' },
+  { category: 'NFZ', name: 'Dofinansowanie aparatu słuchowego', amount: 'do 2700 PLN / 5 lat' },
+  { category: 'Granty', name: 'NCBiR STEP Ścieżka A', amount: 'do 18 mln PLN' },
+  { category: 'Granty', name: 'EIC Accelerator', amount: 'do 2,5 mln EUR' },
+  { category: 'Granty', name: 'PARP Startup Booster Tech Impact', amount: 'do 400 000 PLN' },
+];
+
 const STEPS = [
-  { n: '01', text: 'Wybierz formularz i wpisz swoje dane. AI wyjaśni co znaczy każde pole.' },
-  { n: '02', text: 'AI automatycznie generuje treść wszystkich pól na podstawie tego co podałeś.' },
-  { n: '03', text: 'Przechodzisz pole po polu, czytasz, poprawiasz i akceptujesz.' },
+  { n: '01', text: 'Wybierz formularz. Zalogowanym auto-wypełniamy dane z profilu (PESEL, imię, adres, nr konta).' },
+  { n: '02', text: 'AI generuje treść pól na podstawie kontekstu wniosku - Ty tylko czytasz i potwierdzasz.' },
+  { n: '03', text: 'Dane zostają zapisane w Twojej przeglądarce - następnym razem wypełnisz wniosek w 2 minuty.' },
   { n: '04', text: 'Pobierasz gotowy PDF z wypełnionymi danymi, instrukcją złożenia i wskazówkami. Drukujesz, podpisujesz i składasz.' },
 ];
 
 export default function WnioskiPage() {
   const totalForms = CATEGORIES.reduce((s, c) => s + c.forms.length, 0);
-  const availableForms = CATEGORIES.reduce((s, c) => s + c.forms.filter(f => f.available).length, 0);
 
   return (
     <div style={{ minHeight: '100vh', background: 'var(--color-bg-0)' }}>
 
-      {/* Hero */}
       <section style={{ position: 'relative', paddingTop: 48, paddingBottom: 48, overflow: 'hidden' }}>
         <div className="grain-bg" />
         <div className="container" style={{ position: 'relative' }}>
@@ -324,7 +158,7 @@ export default function WnioskiPage() {
             <span className="label-eyebrow" style={{ color: 'var(--color-muted-2)' }}>Beta: bezpłatne</span>
           </div>
 
-          <div style={{ maxWidth: 720 }}>
+          <div style={{ maxWidth: 760 }}>
             <h1 className="display rise" style={{ fontSize: 'clamp(40px, 6vw, 80px)', marginBottom: 24, animationDelay: '60ms' }}>
               Wypełnij wniosek<br />
               <span style={{ color: 'var(--color-accent)' }}>z pomocą AI</span>
@@ -333,15 +167,14 @@ export default function WnioskiPage() {
               fontSize: 18, lineHeight: 1.6,
               color: 'var(--color-text-2)',
               marginBottom: 20,
-              maxWidth: 580,
+              maxWidth: 620,
               animationDelay: '120ms',
             }}>
-              Podaj swoje dane. AI automatycznie wypełnia formularz.
-              Ty przeglądasz pole po polu i pobierasz gotowy tekst.
-              {' '}Twoje dane nie wychodzą poza przeglądarkę.
+              Zalogowanym auto-wypełniamy formularz z profilu (PESEL, imię, adres, konto).
+              AI tłumaczy każde pole i generuje sugestie treści.
+              Pobierasz gotowy PDF do podpisania i złożenia.
             </p>
 
-            {/* Stats row */}
             <div className="rise grid-stats" style={{
               display: 'grid', gridTemplateColumns: 'repeat(3, auto)',
               gap: 0, marginTop: 28, marginBottom: 0,
@@ -353,9 +186,9 @@ export default function WnioskiPage() {
               minWidth: 0,
             }}>
               {[
-                { n: totalForms, label: 'formularzy w bazie' },
-                { n: availableForms, label: 'dostępnych teraz' },
-                { n: 6, label: 'kategorii wniosków' },
+                { n: totalForms, label: 'gotowych formularzy' },
+                { n: 2, label: 'minuty na wypełnienie (z profilu)' },
+                { n: 0, label: 'PLN, bez rejestracji' },
               ].map((s, i) => (
                 <div key={i} style={{ paddingLeft: i ? 'clamp(12px, 2vw, 36px)' : 0, paddingRight: 'clamp(12px, 2vw, 36px)', borderLeft: i ? '1px solid var(--color-border)' : 'none' }}>
                   <div className="mono" style={{ fontSize: 10, color: 'var(--color-text-3)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 6 }}>
@@ -373,11 +206,10 @@ export default function WnioskiPage() {
         </div>
       </section>
 
-      {/* Beta notice */}
       <div className="container" style={{ paddingBottom: 8 }}>
         <div style={{
-          display: 'flex', alignItems: 'center', gap: 12,
-          padding: '12px 16px',
+          display: 'flex', alignItems: 'flex-start', gap: 12,
+          padding: '14px 18px',
           background: 'var(--color-accent-soft)',
           border: '1px solid var(--color-amber-border)',
           borderRadius: 10,
@@ -385,20 +217,18 @@ export default function WnioskiPage() {
           color: 'var(--color-text-2)',
           lineHeight: 1.6,
         }}>
-          <span style={{ color: 'var(--color-accent)', fontSize: 16, lineHeight: 1 }}>i</span>
+          <span style={{ color: 'var(--color-accent)', fontSize: 16, lineHeight: 1, flexShrink: 0, marginTop: 1 }}>i</span>
           <span>
-            Usługa w fazie beta: aktualnie bezpłatna. Generujemy PDF z Twoimi danymi, instrukcją złożenia i wskazówkami.
-            Ty podpisujesz i składasz wniosek samodzielnie. Serwis nie działa jako pełnomocnik ani kancelaria.
+            <strong>Beta - bezpłatne.</strong> Twoje dane zostają w Twojej przeglądarce (localStorage) plus opcjonalnie w Twoim profilu na koncie.
+            PDF generowany jednorazowo, niezachowywany na serwerze. Serwis nie składa wniosków za Ciebie - generuje gotowy dokument, który Ty podpisujesz i składasz.
           </span>
         </div>
       </div>
 
-      {/* Form categories */}
       <main className="container" style={{ paddingTop: 48, paddingBottom: 80 }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 36 }}>
           {CATEGORIES.map((cat) => (
             <section key={cat.id}>
-              {/* Category header */}
               <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 14 }}>
                 <span className="mono" style={{ fontSize: 11, color: 'var(--color-text-3)', letterSpacing: '0.1em' }}>
                   {cat.icon}
@@ -408,12 +238,11 @@ export default function WnioskiPage() {
                 </h2>
                 <span style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
                 <span style={{ fontSize: 12, color: 'var(--color-text-3)' }}>
-                  {cat.forms.length} {cat.forms.length === 1 ? 'formularz' : 'formularzy'}
+                  {cat.forms.length} {cat.forms.length === 1 ? 'formularz' : cat.forms.length < 5 ? 'formularze' : 'formularzy'}
                 </span>
               </div>
 
-              {/* Form cards */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                 {cat.forms.map((form) => (
                   <FormCard key={form.slug} form={form} />
                 ))}
@@ -422,7 +251,82 @@ export default function WnioskiPage() {
           ))}
         </div>
 
-        {/* How it works */}
+        {/* Roadmap section */}
+        <div style={{
+          marginTop: 56,
+          padding: '24px 26px',
+          background: 'var(--color-bg-1)',
+          border: '1px dashed var(--color-border)',
+          borderRadius: 14,
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 14 }}>
+            <span className="mono" style={{ fontSize: 11, color: 'var(--color-text-3)', letterSpacing: '0.1em' }}>
+              ROADMAP
+            </span>
+            <h2 className="label-eyebrow" style={{ color: 'var(--color-text-2)', letterSpacing: '0.06em' }}>
+              Następne formularze ({ROADMAP.length})
+            </h2>
+            <span style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
+          </div>
+          <p style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 16, lineHeight: 1.6 }}>
+            Te formularze są na liście do dodania. Kolejność ustalamy na podstawie zapotrzebowania -
+            zgłoś którego potrzebujesz najpilniej.
+          </p>
+          <div style={{
+            display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 8,
+          }}>
+            {ROADMAP.map((r, i) => (
+              <div key={i} style={{
+                padding: '10px 12px',
+                background: 'var(--color-bg-0)',
+                border: '1px solid var(--color-border)',
+                borderRadius: 8,
+                display: 'flex', flexDirection: 'column', gap: 4,
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+                  <span className="mono" style={{
+                    fontSize: 9, color: 'var(--color-text-3)', letterSpacing: '0.06em',
+                    textTransform: 'uppercase',
+                    padding: '2px 6px', borderRadius: 4,
+                    background: 'var(--color-bg-1)',
+                    border: '1px solid var(--color-border)',
+                  }}>
+                    {r.category}
+                  </span>
+                  {r.symbol && (
+                    <span className="mono" style={{
+                      fontSize: 10, color: 'var(--color-accent)',
+                      background: 'var(--color-accent-soft)',
+                      padding: '2px 6px', borderRadius: 4,
+                    }}>
+                      {r.symbol}
+                    </span>
+                  )}
+                </div>
+                <div style={{ fontSize: 12, color: 'var(--color-text-2)', lineHeight: 1.4 }}>
+                  {r.name}
+                </div>
+                <div className="mono" style={{ fontSize: 11, color: 'var(--color-text-3)' }}>
+                  {r.amount}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div style={{
+            marginTop: 18, padding: '12px 16px',
+            background: 'var(--color-accent-soft)',
+            border: '1px solid var(--color-amber-border)',
+            borderRadius: 10,
+            fontSize: 13, color: 'var(--color-text-2)',
+          }}>
+            <strong>Potrzebujesz któregoś?</strong>{' '}
+            <a href="/dla-firm#kontakt" style={{ color: 'var(--color-accent)' }}>
+              Napisz przez kontakt
+            </a>
+            {' '}- dodamy do priorytetów. Każde zgłoszenie liczy się jak głos.
+          </div>
+        </div>
+
         <div style={{
           marginTop: 48,
           paddingTop: 32,
@@ -433,7 +337,7 @@ export default function WnioskiPage() {
           </div>
           <div className="grid-4" style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(200px, 100%), 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(220px, 100%), 1fr))',
             gap: 'clamp(12px, 2vw, 24px)',
           }}>
             {STEPS.map((s) => (
@@ -455,7 +359,6 @@ export default function WnioskiPage() {
           </div>
         </div>
 
-        {/* Privacy */}
         <div style={{
           marginTop: 24,
           padding: '18px 22px',
@@ -468,16 +371,13 @@ export default function WnioskiPage() {
             Prywatność
           </p>
           <p style={{ fontSize: 14, color: 'var(--color-text-2)', lineHeight: 1.7 }}>
-            Twoje dane osobowe (PESEL, imię, adres) trafiają tylko do serwera w momencie generowania PDF, wyłącznie do wypełnienia dokumentu.
-            Nie są zapisywane, nie są przetwarzane do celów marketingowych. PDF generowany jest jednorazowo i nie jest archiwizowany.
+            Twoje dane osobowe (PESEL, imię, adres) są zapisywane w localStorage Twojej przeglądarki.
+            Dla zalogowanych - opcjonalnie w profilu (szyfrowane na poziomie bazy Supabase, dostępne tylko dla Ciebie).
+            Podczas generowania PDF dane trafiają tylko jednorazowo do serwera, do wypełnienia dokumentu.
+            Nie są przekazywane stronom trzecim, nie służą marketingowi.
           </p>
         </div>
 
-        {/* Contact */}
-        <div style={{ marginTop: 16, fontSize: 13, color: 'var(--color-text-3)' }}>
-          Brakuje wniosku który potrzebujesz?{' '}
-          <a href="/dla-firm#kontakt" style={{ color: 'var(--color-accent)' }}>Napisz przez formularz kontaktowy</a>
-        </div>
       </main>
 
     </div>
@@ -485,24 +385,21 @@ export default function WnioskiPage() {
 }
 
 function FormCard({ form }: { form: Form }) {
-  const isAvailable = form.available;
-
   const cardStyle: React.CSSProperties = {
     display: 'flex',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
     gap: 20,
-    padding: isAvailable ? '16px 20px' : '14px 18px',
+    padding: '16px 20px',
     borderRadius: 12,
-    border: `1px solid ${isAvailable ? 'var(--color-accent)' : 'var(--color-border)'}`,
-    background: isAvailable ? 'var(--color-bg-1)' : 'var(--color-bg-0)',
-    boxShadow: isAvailable ? 'var(--shadow-card)' : 'none',
+    border: '1px solid var(--color-accent)',
+    background: 'var(--color-bg-1)',
+    boxShadow: 'var(--shadow-card)',
     transition: 'transform 320ms cubic-bezier(.2,.7,.1,1), box-shadow 320ms cubic-bezier(.2,.7,.1,1)',
-    opacity: isAvailable ? 1 : 0.6,
   };
 
   return (
-    <div style={cardStyle} className={isAvailable ? 'hover-lift' : ''}>
+    <div style={cardStyle} className="hover-lift">
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 8, marginBottom: 6 }}>
           {form.symbol && (
@@ -517,29 +414,19 @@ function FormCard({ form }: { form: Form }) {
           )}
           <h3 style={{
             fontSize: 15, fontWeight: 500,
-            color: isAvailable ? 'var(--color-text-1)' : 'var(--color-text-2)',
+            color: 'var(--color-text-1)',
             letterSpacing: '-0.01em',
             lineHeight: 1.3,
           }}>
             {form.name}
           </h3>
-          {!isAvailable && (
-            <span style={{
-              fontSize: 10, color: 'var(--color-text-3)',
-              border: '1px solid var(--color-border)',
-              padding: '2px 7px', borderRadius: 4,
-              letterSpacing: '0.04em', textTransform: 'uppercase',
-            }}>
-              wkrótce
-            </span>
-          )}
         </div>
 
         <p style={{ fontSize: 12, color: 'var(--color-text-3)', marginBottom: 8 }}>
           {form.institution}
         </p>
 
-        <p style={{ fontSize: isAvailable ? 13 : 12, color: 'var(--color-text-2)', lineHeight: 1.65 }}>
+        <p style={{ fontSize: 13, color: 'var(--color-text-2)', lineHeight: 1.65 }}>
           {form.description}
         </p>
 
@@ -576,24 +463,13 @@ function FormCard({ form }: { form: Form }) {
           {form.amount}
         </span>
 
-        {isAvailable ? (
-          <Link
-            href={`/wnioski/${form.slug}`}
-            className="btn btn-primary"
-            style={{ height: 38, padding: '0 16px', borderRadius: 999, fontSize: 13 }}
-          >
-            Wypełnij z AI
-          </Link>
-        ) : (
-          <span style={{
-            fontSize: 12, color: 'var(--color-text-3)',
-            padding: '6px 14px',
-            border: '1px solid var(--color-border)',
-            borderRadius: 999,
-          }}>
-            Wkrótce
-          </span>
-        )}
+        <Link
+          href={`/wnioski/${form.slug}`}
+          className="btn btn-primary"
+          style={{ height: 38, padding: '0 16px', borderRadius: 999, fontSize: 13 }}
+        >
+          Wypełnij z AI
+        </Link>
       </div>
     </div>
   );

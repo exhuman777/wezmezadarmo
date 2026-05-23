@@ -1,9 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { DateInput } from '@/components/DateInput';
 import { FormChatWidget } from '@/components/FormChatWidget';
+import { useFormPrefill } from '@/lib/wnioski/useFormPrefill';
+import { PrefillBanner } from '@/components/PrefillBanner';
 
 // ---- TYPES ----
 
@@ -63,6 +65,14 @@ const STEPS: { key: Step; label: string }[] = [
   { key: 'podgląd', label: 'Podgląd' },
 ];
 
+// imieNazwisko i adres skladane z osobnych pol profilu w useEffect ponizej.
+const FIELD_MAP: Partial<Record<keyof ErpoData, string>> = {
+  pesel: 'pesel',
+  telefon: 'telefon',
+  nrKonta: 'nr_konta',
+  płeć: 'plec',
+};
+
 const RODZAJ_LABELS: Record<RodzajEmerytury, string> = {
   zwykła: 'Emerytura zwykła (po osiągnięciu wieku emerytalnego)',
   częściowa: 'Emerytura częściowa (wiek emerytalny - 5 lat i 25/30 lat stażu)',
@@ -84,9 +94,39 @@ const WIEK_EMERYTALNY = { K: 60, M: 65 }; // lata
 
 export default function ZusErpoPage() {
   const [step, setStep] = useState<Step>('wnioskodawca');
-  const [data, setData] = useState<ErpoData>(EMPTY);
+  const { data, setData, prefillStatus, prefillCount, isLoggedIn } = useFormPrefill<ErpoData>('zus-erpo', EMPTY, FIELD_MAP);
   const [copied, setCopied] = useState(false);
   const [downloadingPdf, setDownloadingPdf] = useState(false);
+
+  // ERPO ma imieNazwisko i adres jako pojedyncze pola - skladamy z osobnych pol profilu.
+  useEffect(() => {
+    let cancelled = false;
+    fetch('/api/agent/profile', { credentials: 'include' }).then(async (res) => {
+      if (cancelled || res.status !== 200) return;
+      const { profile } = (await res.json()) as { profile?: Record<string, unknown> };
+      if (!profile) return;
+      const imie = String(profile.imie ?? '').trim();
+      const nazwisko = String(profile.nazwisko ?? '').trim();
+      const full = [imie, nazwisko].filter(Boolean).join(' ');
+      const ul = String(profile.ulica ?? '').trim();
+      const nr = String(profile.nr_domu ?? '').trim();
+      const lok = String(profile.nr_lokalu ?? '').trim();
+      const kod = String(profile.kod_pocztowy ?? '').trim();
+      const m = String(profile.miejscowosc ?? '').trim();
+      const adresParts = [
+        [ul, nr + (lok ? `/${lok}` : '')].filter(Boolean).join(' '),
+        [kod, m].filter(Boolean).join(' '),
+      ].filter(Boolean);
+      const adres = adresParts.join(', ');
+      setData(prev => ({
+        ...prev,
+        imieNazwisko: prev.imieNazwisko || full,
+        adres: prev.adres || adres,
+      }));
+    }).catch(() => {});
+    return () => { cancelled = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const update = (key: keyof ErpoData, value: string) =>
     setData(prev => ({ ...prev, [key]: value }));
@@ -208,6 +248,9 @@ export default function ZusErpoPage() {
           </div>
         )}
 
+        {step === 'wnioskodawca' && (
+          <PrefillBanner status={prefillStatus} count={prefillCount} isLoggedIn={isLoggedIn} />
+        )}
         {step === 'wnioskodawca' && <StepWnioskodawca data={data} update={update} onNext={() => setStep('emerytura')} />}
         {step === 'emerytura' && <StepEmerytura data={data} update={update} wiekEmerytalny={wiekEmerytalny} minStaz={minStaz} onBack={() => setStep('wnioskodawca')} onNext={() => setStep('dokumenty')} />}
         {step === 'dokumenty' && <StepDokumenty data={data} onBack={() => setStep('emerytura')} onNext={() => setStep('konto')} />}

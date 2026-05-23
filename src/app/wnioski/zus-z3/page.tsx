@@ -1,9 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { DateInput } from '@/components/DateInput';
 import { FormChatWidget } from '@/components/FormChatWidget';
+import { useFormPrefill } from '@/lib/wnioski/useFormPrefill';
+import { PrefillBanner } from '@/components/PrefillBanner';
 
 // Z-3 to zaświadczenie wypełniane przez pracodawcę, nie pracownika.
 // Ten wizard pomaga pracownikowi:
@@ -40,6 +42,11 @@ const STEPS: { key: Step; label: string }[] = [
   { key: 'pismo', label: 'Pismo do kadr' },
 ];
 
+// pesel mapowany przez hook; imieNazwisko skladane z imie+nazwisko ponizej.
+const FIELD_MAP: Partial<Record<keyof Z3CheckData, string>> = {
+  pesel: 'pesel',
+};
+
 const CHECKLIST_ITEMS = [
   { id: 'dane_pracownika', label: 'Dane pracownika: imię i nazwisko, PESEL, adres. Czy są poprawne?' },
   { id: 'dane_platnika', label: 'Dane płatnika składek: NIP, REGON, nazwa firmy. Czy odpowiadają rzeczywistości?' },
@@ -53,9 +60,25 @@ const CHECKLIST_ITEMS = [
 
 export default function ZusZ3Page() {
   const [step, setStep] = useState<Step>('intro');
-  const [data, setData] = useState<Z3CheckData>(EMPTY);
+  const { data, setData, prefillStatus, prefillCount, isLoggedIn } = useFormPrefill<Z3CheckData>('zus-z3', EMPTY, FIELD_MAP);
   const [checked, setChecked] = useState<Record<string, boolean>>({});
   const [copied, setCopied] = useState(false);
+
+  // Z3 ma imieNazwisko jako jedno pole - skladamy z profilu imie+nazwisko jezeli puste.
+  useEffect(() => {
+    if (data.imieNazwisko) return;
+    let cancelled = false;
+    fetch('/api/agent/profile', { credentials: 'include' }).then(async (res) => {
+      if (cancelled || res.status !== 200) return;
+      const { profile } = (await res.json()) as { profile?: Record<string, unknown> };
+      const imie = String(profile?.imie ?? '').trim();
+      const nazwisko = String(profile?.nazwisko ?? '').trim();
+      const full = [imie, nazwisko].filter(Boolean).join(' ');
+      if (full) setData(prev => prev.imieNazwisko ? prev : { ...prev, imieNazwisko: full });
+    }).catch(() => {});
+    return () => { cancelled = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const update = (key: keyof Z3CheckData, value: string) =>
     setData(prev => ({ ...prev, [key]: value }));
@@ -175,6 +198,7 @@ export default function ZusZ3Page() {
 
         {step === 'dane' && (
           <div>
+            <PrefillBanner status={prefillStatus} count={prefillCount} isLoggedIn={isLoggedIn} />
             <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 24, letterSpacing: '-0.01em' }}>Twoje dane</h2>
             <p style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 24 }}>Użyjemy ich do przygotowania pisma do pracodawcy.</p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
