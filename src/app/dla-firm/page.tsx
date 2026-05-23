@@ -2,18 +2,18 @@
 
 import { useState } from 'react';
 
-/* ── VIA logo SVG ── */
+/* ── VIA logo SVG (oficjalne logo V/A) ── */
 function VIALogo({ size = 52 }: { size?: number }) {
-  const h = Math.round(size * 0.42);
+  const w = size;
+  const h = Math.round(size * 0.55);
   return (
-    <svg width={size} height={h} viewBox="0 0 60 25" fill="none">
-      {/* V */}
-      <path d="M1 2L11 23L21 2" stroke="#1a1525" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round"/>
-      {/* I */}
-      <line x1="28" y1="2" x2="28" y2="23" stroke="#1a1525" strokeWidth="3.2" strokeLinecap="round"/>
-      {/* A */}
-      <path d="M36 23L46 2L56 23" stroke="#1a1525" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round"/>
-      <line x1="39" y1="15" x2="53" y2="15" stroke="#1a1525" strokeWidth="3.2" strokeLinecap="round"/>
+    <svg width={w} height={h} viewBox="0 0 200 110" fill="#1a1525" xmlns="http://www.w3.org/2000/svg">
+      {/* V (lewa litera, trojkat z notch'em u gory) */}
+      <path d="M 0 0 L 26 0 L 40 26 L 54 0 L 80 0 L 40 110 Z"/>
+      {/* slash (parallelogram) */}
+      <path d="M 108 0 L 100 0 L 87 110 L 95 110 Z"/>
+      {/* A (prawa litera, trojkat z notch'em u dolu) */}
+      <path d="M 120 110 L 146 110 L 160 84 L 174 110 L 200 110 L 160 0 Z"/>
     </svg>
   );
 }
