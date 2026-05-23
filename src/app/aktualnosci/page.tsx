@@ -3,6 +3,7 @@ import { fetchAllFeeds, FEEDS } from './rss';
 import FeedClient from './FeedClient';
 import Link from 'next/link';
 import { AirQualityWidget } from '@/components/AirQualityWidget';
+import { NbpRatesWidget } from '@/components/NbpRatesWidget';
 
 export const revalidate = 1800;
 
@@ -137,9 +138,10 @@ export default async function AktualnosciPage() {
           </Link>
         </div>
 
-        {/* Live data widget: air quality */}
-        <div style={{ marginBottom: 20 }}>
+        {/* Live data widgets: air quality + currency rates */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 12, marginBottom: 20 }}>
           <AirQualityWidget />
+          <NbpRatesWidget />
         </div>
 
         {/* Feed client */}
