@@ -351,7 +351,7 @@ async function fetchDirectWithRetry(url, feedId) {
 }
 
 async function fetchFirecrawl(url, feedId) {
-  if (!FIRECRAWL_API_KEY) return { html: null, error: 'no api key' };
+  if (!FIRECRAWL_API_KEY) return { html: null, markdown: null, error: 'no api key' };
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), FIRECRAWL_TIMEOUT_MS);
   try {
@@ -363,28 +363,96 @@ async function fetchFirecrawl(url, feedId) {
       },
       body: JSON.stringify({
         url,
-        formats: ['html'],
+        formats: ['html', 'markdown'],
         onlyMainContent: false,
-        waitFor: 3000,
-        timeout: 50_000,
+        waitFor: 5000,
+        timeout: 55_000,
       }),
       signal: controller.signal,
     });
     if (!res.ok) {
       const text = await res.text();
-      return { html: null, error: `Firecrawl HTTP ${res.status}: ${text.slice(0, 200)}` };
+      return { html: null, markdown: null, error: `Firecrawl HTTP ${res.status}: ${text.slice(0, 200)}` };
     }
     const json = await res.json();
     if (!json.success || !json.data?.html) {
-      return { html: null, error: `Firecrawl: ${json.error || 'brak HTML'}` };
+      return { html: null, markdown: null, error: `Firecrawl: ${json.error || 'brak HTML'}` };
     }
-    console.log(`  [${feedId}] Firecrawl OK (${json.data.html.length} bajtow)`);
-    return { html: json.data.html, error: null };
+    console.log(`  [${feedId}] Firecrawl OK (html=${json.data.html.length}b, md=${(json.data.markdown || '').length}b)`);
+    return { html: json.data.html, markdown: json.data.markdown || null, error: null };
   } catch (e) {
-    return { html: null, error: `Firecrawl: ${e.message}` };
+    return { html: null, markdown: null, error: `Firecrawl: ${e.message}` };
   } finally {
     clearTimeout(timer);
   }
+}
+
+// Per-feed filter: czy link wyglada na artykul-aktualnosc
+function isArticleLink(link, feedId) {
+  const lc = link.toLowerCase();
+  // Skip oczywiste smieci
+  if (lc.startsWith('#') || lc.startsWith('javascript:') || lc.startsWith('mailto:')) return false;
+  if (lc.endsWith('.pdf') || lc.endsWith('.doc') || lc.endsWith('.docx') || lc.endsWith('.xlsx')) return false;
+  if (lc.includes('facebook.com') || lc.includes('twitter.com') || lc.includes('linkedin.com')) return false;
+  if (lc.includes('/login') || lc.includes('/rejestracja') || lc.includes('/kontakt')) return false;
+
+  switch (feedId) {
+    case 'nbp':
+      return lc.includes('nbp.pl') && !lc.endsWith('nbp.pl/') && !lc.endsWith('aktualnosci.html')
+        && (lc.includes('aktualnosci') || lc.includes('komunikat') || lc.match(/\/20\d{2}\//));
+    case 'sejm':
+      return lc.includes('sejm.gov.pl')
+        && (lc.includes('news') || lc.includes('aktualnosci') || lc.includes('komunikat') || lc.includes('/sejm10.nsf/'));
+    case 'fundusze':
+      return lc.includes('funduszeeuropejskie.gov.pl') && lc.includes('/strony/')
+        && !lc.endsWith('/aktualnosci/') && !lc.endsWith('/strony/');
+    case 'arimr':
+      return lc.includes('arimr.gov.pl') && !lc.endsWith('arimr.gov.pl/')
+        && (lc.includes('aktualnosci') || lc.includes('komunikat') || lc.match(/\/20\d{2}\//));
+    case 'ezdrowie':
+      return lc.includes('ezdrowie.gov.pl/portal/') && !lc.endsWith('/aktualnosci');
+    case 'uokik':
+      return lc.includes('uokik.gov.pl') && lc.length > 30;
+    default:
+      return true;
+  }
+}
+
+// Ekstrakcja linkow z markdown -- bardziej niezawodna niz regex HTML
+// Firecrawl renderuje JS i zwraca clean markdown z linkami [tytul](url)
+function parseMarkdownLinks(markdown, feed) {
+  if (!markdown) return [];
+  const items = [];
+  const seen = new Set();
+  const baseUrl = new URL(feed.url);
+
+  // Markdown link: [tekst](url) lub [tekst](url "title")
+  const linkRe = /\[([^\]]{8,300})\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g;
+  let m;
+  while ((m = linkRe.exec(markdown)) !== null && items.length < MAX_ITEMS_PER_FEED * 3) {
+    const title = stripHtml(m[1]).trim().replace(/\\\n/g, ' ').replace(/\s+/g, ' ');
+    let link = m[2].trim();
+
+    if (title.length < 15) continue;
+
+    // Skip image-only labels
+    if (m[1].startsWith('!')) continue;
+
+    // Resolve relative URLs
+    if (link.startsWith('/')) link = baseUrl.origin + link;
+    else if (!link.startsWith('http')) continue;
+
+    // Strip URL fragment
+    const hashIdx = link.indexOf('#');
+    if (hashIdx >= 0) link = link.slice(0, hashIdx);
+
+    if (!isArticleLink(link, feed.id)) continue;
+    if (seen.has(link)) continue;
+    seen.add(link);
+
+    items.push({ title, link, description: '', pubDate: null });
+  }
+  return items.slice(0, MAX_ITEMS_PER_FEED);
 }
 
 function looksBlockedOrEmpty(html) {
@@ -424,6 +492,7 @@ async function processFeed(feed) {
   // 1. Direct fetch z retry
   let { html, error: directError } = await fetchDirectWithRetry(feed.url, feed.id);
   let source = 'direct';
+  let firecrawlMarkdown = null;
 
   // 2. Fallback do Firecrawl jesli bot-check / empty
   if (looksBlockedOrEmpty(html)) {
@@ -431,6 +500,7 @@ async function processFeed(feed) {
     const fc = await fetchFirecrawl(feed.url, feed.id);
     if (fc.html && !looksBlockedOrEmpty(fc.html)) {
       html = fc.html;
+      firecrawlMarkdown = fc.markdown;
       source = 'firecrawl';
     } else {
       const duration = Date.now() - started;
@@ -441,7 +511,7 @@ async function processFeed(feed) {
     }
   }
 
-  // 3. Parse
+  // 3. Parse HTML
   const isXml = html.trimStart().startsWith('<?xml') || html.includes('<rss') || html.includes('<feed');
   const parser = isXml ? PARSERS.rss : PARSERS[feed.parser];
   if (!parser) {
@@ -451,18 +521,31 @@ async function processFeed(feed) {
   }
 
   let rawItems = parser(html, feed);
-  console.log(`${logPrefix} parsed=${rawItems.length} (${source})`);
+  console.log(`${logPrefix} parsed=${rawItems.length} (${source}, html)`);
 
-  // 4. Jesli direct dal HTML ale parser=0 (np. JS SPA bez SSR), sprobuj Firecrawl
-  if (rawItems.length === 0 && source === 'direct' && FIRECRAWL_API_KEY) {
-    console.log(`${logPrefix} parser=0 -> Firecrawl (JS render)`);
-    const fc = await fetchFirecrawl(feed.url, feed.id);
-    if (fc.html && !looksBlockedOrEmpty(fc.html)) {
-      const rendered = parser(fc.html, feed);
-      console.log(`${logPrefix} po Firecrawl: ${rendered.length}`);
-      if (rendered.length > 0) {
-        rawItems = rendered;
-        source = 'firecrawl';
+  // 4. Jesli HTML parser zwrocil 0, sprobuj markdown extraction (z istniejacego firecrawl call lub nowego)
+  if (rawItems.length === 0) {
+    // Jesli juz mamy markdown z Firecrawl (source=firecrawl), uzyj go
+    if (firecrawlMarkdown) {
+      const mdItems = parseMarkdownLinks(firecrawlMarkdown, feed);
+      console.log(`${logPrefix} markdown extraction: ${mdItems.length}`);
+      if (mdItems.length > 0) rawItems = mdItems;
+    }
+    // Jesli source=direct (jeszcze nie wolalismy Firecrawl), wez go teraz z markdown
+    else if (source === 'direct' && FIRECRAWL_API_KEY) {
+      console.log(`${logPrefix} parser=0 -> Firecrawl (JS render + markdown)`);
+      const fc = await fetchFirecrawl(feed.url, feed.id);
+      if (fc.html && !looksBlockedOrEmpty(fc.html)) {
+        const renderedHtml = parser(fc.html, feed);
+        const renderedMd = parseMarkdownLinks(fc.markdown, feed);
+        console.log(`${logPrefix} po Firecrawl: html=${renderedHtml.length}, md=${renderedMd.length}`);
+        if (renderedHtml.length > 0) {
+          rawItems = renderedHtml;
+          source = 'firecrawl';
+        } else if (renderedMd.length > 0) {
+          rawItems = renderedMd;
+          source = 'firecrawl-md';
+        }
       }
     }
   }
