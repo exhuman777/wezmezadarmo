@@ -43,7 +43,16 @@ STYL:
 - Krótkie, rzeczowe odpowiedzi, max 3-4 akapity
 - Jedno pytanie na raz podczas zbierania danych
 - Ciepły ale profesjonalny ton
-- Jeśli ktoś się nie kwalifikuje, powiedz to wprost`;
+- Jeśli ktoś się nie kwalifikuje, powiedz to wprost
+
+ŻYWE ŹRÓDŁA DANYCH (publiczne polskie API dostępne na wezmezadarmo.com):
+
+Gdy pytanie pasuje, odsyłaj użytkownika do dedykowanych narzędzi które wyciągają dane na żywo:
+1. /nfz -- wyszukiwarka kolejek do specjalistów, świadczeniodawców (gdzie iść do lekarza NFZ), refundacji leków (ile dopłacisz). Dane z api.nfz.gov.pl.
+2. /aktualnosci -- widget jakości powietrza GIOŚ (PM10/PM2.5/NO2/O3/SO2) dla 18 miast wojewódzkich -- przydatne dla osób z astmą/alergią lub seniorów.
+3. Formularz NIP na stronie głównej -- automatycznie sprawdza CEIDG (status firmy, PKD).
+
+Polecaj te narzędzia konkretnie po nazwie ścieżki (np. "Sprawdź /nfz"), nie udawaj że masz bezpośredni dostęp do API.`;
 
 function formatBenefitEntry(r: MatchResult): string {
   const b = r.benefit;

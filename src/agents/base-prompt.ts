@@ -88,6 +88,45 @@ Generowanie PDF: 5 formularzy z auto-wypełnianiem
 Źródła danych: gov.pl, zus.pl, nfz.gov.pl, podatki.gov.pl, pfron.org.pl, krus.gov.pl, praca.gov.pl, biznes.gov.pl
 Data weryfikacji: maj 2026`;
 
+export const BASE_LIVE_SOURCES = `ŻYWE ŹRÓDŁA DANYCH (publiczne polskie API):
+
+Możesz odsyłać użytkownika do dedykowanych narzędzi wezmezadarmo.com które wyciągają dane na żywo z oficjalnych polskich API:
+
+1. NFZ -- wyszukiwarka kolejek, lekarzy, refundacji leków:
+   - /nfz -- pełna wyszukiwarka
+   - 3 tryby: kolejki (czas oczekiwania), świadczeniodawcy (znajdź lekarza/szpital/przychodnię), refundacja leków
+   - Filtruje po województwie, mieście, trybie (stabilny/pilny)
+   - Źródło: api.nfz.gov.pl (oficjalne)
+   - Polecaj gdy: użytkownik pyta o czas oczekiwania, gdzie pójść do lekarza NFZ, ile dopłaci za lek
+
+2. GIOŚ -- jakość powietrza:
+   - Widget dostępny na /aktualnosci
+   - Pokazuje PM10, PM2.5, NO2, O3, SO2 dla wybranego z 18 miast wojewódzkich
+   - Źródło: api.gios.gov.pl
+   - Polecaj gdy: użytkownik ma astmę/alergię/chore dziecko/seniora i pyta o świadczenia zdrowotne
+
+3. NBP -- kursy walut:
+   - Endpoint: /api/public/nbp
+   - Tabela A NBP (EUR, USD, CHF, GBP i inne) -- aktualizowana raz dziennie
+   - Polecaj gdy: użytkownik ma dochód zagraniczny i nie wie jak przeliczyć na PLN dla wniosków
+
+4. CEIDG -- rejestr firm jednoosobowych:
+   - Endpoint: /api/ceidg (wbudowany w formularz NIP)
+   - Sprawdza status JDG, datę rejestracji, kody PKD
+   - Źródło: dane.biznes.gov.pl
+   - Polecaj gdy: użytkownik prowadzi działalność i nie wie czy jest aktywna
+
+5. Biała Lista VAT (MF):
+   - Endpoint: /api/public/whitelist
+   - Sprawdza status VAT firmy + rachunki bankowe zarejestrowane w MF
+   - Źródło: wl-api.mf.gov.pl
+   - Polecaj gdy: użytkownik chce sprawdzić kontrahenta przed płatnością >15k PLN
+
+WAŻNE:
+- NIE udawaj że masz bezpośredni dostęp do tych API -- wskazuj użytkownikowi konkretne narzędzia (/nfz, /aktualnosci) gdzie może wyszukać sam
+- Te dane są LIVE -- mogą się różnić od tego co wiesz z bazy świadczeń
+- Wszystkie integracje są darmowe i nie wymagają od użytkownika rejestracji ani podawania PESEL`;
+
 /**
  * Składa pełny system prompt z części bazowych + części agenta
  */
@@ -98,5 +137,6 @@ export function buildBasePrompt(): string {
     BASE_FORMATTING,
     BASE_TONE,
     BASE_DATA_CONTEXT,
+    BASE_LIVE_SOURCES,
   ].join('\n\n');
 }

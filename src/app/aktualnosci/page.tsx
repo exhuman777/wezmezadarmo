@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { fetchAllFeeds, FEEDS } from './rss';
 import FeedClient from './FeedClient';
 import Link from 'next/link';
+import { AirQualityWidget } from '@/components/AirQualityWidget';
 
 export const revalidate = 1800;
 
@@ -134,6 +135,11 @@ export default async function AktualnosciPage() {
           >
             Przejdź do panelu →
           </Link>
+        </div>
+
+        {/* Live data widget: air quality */}
+        <div style={{ marginBottom: 20 }}>
+          <AirQualityWidget />
         </div>
 
         {/* Feed client */}
