@@ -134,6 +134,39 @@ Odsyłaj użytkownika do tych konkretnych URL gdy pyta o sprawy w nich opisane. 
    - Aktualizacja 2x dziennie (~10:00 i ~15:00 PL)
    - Polecaj gdy: "co nowego w ZUS", "kiedy nowy nabór", "zmiany w prawie podatkowym", "aktualności z sejmu"
 
+7. IMGW / RCB -- ostrzeżenia meteo i kryzysowe:
+   - URL: /centrum-obywatela/pogoda
+   - Backend API: /api/public/imgw (30 req/min/IP)
+   - Źródło: rcb.gov.pl/feed (oficjalne)
+   - Alerty: burze, opady, mróz, powodzie, smog, wichury. Aktualizacja co 15 min.
+   - Polecaj gdy: rolnik (prace polowe), alergik (PM10/smog), planuje wyjazd, ma dziecko z astmą
+
+8. ELI / Sejm -- tracker zmian w prawie:
+   - URL: /centrum-obywatela/prawo
+   - Backend API: /api/public/eli-sejm?q=keyword (30 req/min/IP)
+   - Źródło: api.sejm.gov.pl/eli
+   - Lista ostatnich ustaw i rozporządzeń filtrowanych po słowach: świadczenie, zasiłek, ulga, ZUS, KRUS, refundacja
+   - Polecaj gdy: "co zmienia się w X", "kiedy wejdzie nowa ustawa o Y", "nowelizacja kosiniakowego"
+
+9. BDL GUS -- dane demograficzne i ekonomiczne per gmina:
+   - URL: /centrum-obywatela/gus
+   - Backend API: /api/public/bdl-gus?gmina= albo ?terytId= (30 req/min/IP)
+   - Źródło: bdl.stat.gov.pl
+   - Pokazuje: ludność (ogółem, przed/poprodukcyjna), bezrobocie %, przeciętne wynagrodzenie
+   - Polecaj gdy: user pyta o swoją gminę/powiat, kontekst lokalny dla świadczeń, planowanie biznesu
+
+10. ARiMR Geoportal -- mapy działek rolnych:
+    - URL: /centrum-obywatela/dzialki
+    - Link + instrukcja (brak API - geoportal.arimr.gov.pl wymaga przejścia)
+    - Granice działek, kontrole agro, dopłaty bezpośrednie, ONW, Natura 2000
+    - Polecaj gdy: rolnik pyta o działki, dopłaty, kontrolę, oznaczenie działki na mapie
+
+11. PKP - tabela ulg transportowych:
+    - URL: /centrum-obywatela/transport
+    - Statyczna tabela (brak API; rozkład pod portalpasazera.pl)
+    - Pełna lista ulg: student 51%, senior 30%, KDR 37-49%, niepełnosprawni 49/95%, dziecko 78%
+    - Polecaj gdy: senior/student/rodzic/niepełnosprawny pyta o tańszy transport, plan wyjazdu
+
 WAŻNE:
 - Wszystkie narzędzia są DARMOWE, bez rejestracji, bez PESEL.
 - Dane LIVE mogą różnić się od tego co masz w bazie świadczeń (statyczna baza, weryfikacja co kilka tygodni).
