@@ -70,8 +70,16 @@ export function buildAgentSystemPrompt(
   // 2. Persona agenta
   parts.push(`=== TWOJA SPECJALIZACJA ===\n${agent.persona}`);
 
-  // 3. Wiedza domenowa
+  // 3. Wiedza domenowa (primary + supplementary z innych agentow)
   parts.push(`=== TWOJA WIEDZA DOMENOWA ===\n${agent.domainKnowledge}`);
+
+  if (mode === 'ogolny') {
+    const supplementary = ['swiadczenie', 'wniosek', 'nabor'] as const;
+    for (const extra of supplementary) {
+      const a = AGENTS[extra];
+      if (a) parts.push(`=== WIEDZA DODATKOWA: ${a.name.toUpperCase()} ===\n${a.domainKnowledge}`);
+    }
+  }
 
   // 4. Reguly odpowiedzi
   parts.push(`=== REGULY ODPOWIEDZI ===\n${agent.responseRules}`);
