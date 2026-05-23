@@ -1014,3 +1014,96 @@ section.short { padding: 48px 0; }
     padding: 4px 9px !important;
   }
 }
+
+/* =======================================================
+   DESIGN SYSTEM -- unified helpers (2026-05-23)
+   ======================================================= */
+
+/* Aliasy tokenów - zapewnia że stary (--color-text-*) i nowy (--ink-*) są tożsame.
+   Strony moga uzywac dowolnego, oba renderuja sie identycznie. */
+:root {
+  /* Stary system tokenow (uzywany w / /swiadczenia /panel/swiadczenia /dla-firm) */
+  /* --color-text-1 = #0c1714 = --ink-900 */
+  /* --color-text-2 = #2f3d36 = --ink-700 */
+  /* --color-text-3 = #6b7a72 = --ink-500 */
+  /* --color-border = --ink-100 */
+  /* --color-bg-0 = jasny green-tint, --color-bg-1 = white */
+
+  /* Nowy system (uzywany w /centrum-obywatela/* /panel/dotacje) */
+  /* --ink-900..100 (skala tekstu czarnego do jasnego) */
+  /* --green-50..980 (skala zielonego) */
+  /* --line = --ink-200 (linia separator) */
+  /* --white = #ffffff */
+}
+
+/* Page shell - standardowy wrapper dla stron panelu */
+.page-shell {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 32px 24px 60px;
+}
+@media (max-width: 480px) {
+  .page-shell { padding: 24px 14px 48px; }
+}
+
+/* Page eyebrow row - kropka + uppercase mono label (uzywane na 95% stron) */
+.page-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.page-eyebrow::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green-500);
+  box-shadow: 0 0 8px rgba(34,160,107,0.55);
+  flex-shrink: 0;
+}
+.page-eyebrow-text {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-500);
+}
+
+/* Page H1 - standardowy tytul */
+.page-h1 {
+  font-size: clamp(22px, 3vw, 28px);
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--ink-900);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+/* Page sub - opis pod H1 */
+.page-sub {
+  font-size: 14px;
+  color: var(--ink-500);
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+/* Card variants - sprojonezowane padding */
+.card-tight { padding: 14px 16px; }
+.card-default { padding: 18px; }
+.card-spacious { padding: 22px 24px; }
+
+/* Text helpers - jasne dopasowanie do design tokens */
+.text-mono { font-family: var(--f-mono); }
+.text-sans { font-family: var(--f-sans); }
+.text-primary { color: var(--ink-900); }
+.text-secondary { color: var(--ink-700); }
+.text-muted { color: var(--ink-500); }
+.text-faint { color: var(--ink-400); }
+.text-accent { color: var(--green-500); }
+.text-accent-strong { color: var(--green-800); }
+
+/* Common spacing helpers (zapewnia spojnosc gap/padding) */
+.gap-xs { gap: 6px; }
+.gap-sm { gap: 10px; }
+.gap-md { gap: 14px; }
+.gap-lg { gap: 20px; }
