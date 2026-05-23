@@ -304,3 +304,88 @@ export async function fetchFeeds(feeds: FeedMeta[]): Promise<FetchResult> {
 export async function fetchAllFeeds(): Promise<FetchResult> {
   return fetchFeeds(FEEDS);
 }
+
+// Live source IDs - dzialaja bezposrednio bez proxy
+const LIVE_SOURCE_IDS = new Set(['zus', 'gus']);
+
+// Pobiera z Supabase rss_cache dla zablokowanych zrodel
+async function fetchFromSupabaseCache(sourceIds: string[]): Promise<FeedItem[]> {
+  if (sourceIds.length === 0) return [];
+
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL ?? process.env.SUPABASE_URL ?? '';
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? process.env.SUPABASE_SERVICE_ROLE_KEY ?? '';
+
+  if (!url || !key) {
+    console.error('[rss.fetchFromSupabaseCache] brak SUPABASE env');
+    return [];
+  }
+
+  try {
+    const params = new URLSearchParams({
+      select: 'id,source_id,source_name,title,link,description,pub_date,audiences',
+      source_id: `in.(${sourceIds.join(',')})`,
+      order: 'fetched_at.desc',
+      limit: '150',
+    });
+    const res = await fetch(`${url}/rest/v1/rss_cache?${params}`, {
+      headers: {
+        'apikey': key,
+        'Authorization': `Bearer ${key}`,
+      },
+      cache: 'no-store',
+    });
+    if (!res.ok) {
+      console.error('[rss.fetchFromSupabaseCache] HTTP', res.status, await res.text().then(t => t.slice(0, 200)));
+      return [];
+    }
+    const data = await res.json() as Array<{
+      id: string; source_id: string; source_name: string;
+      title: string; link: string; description: string;
+      pub_date: string | null; audiences: Audience[];
+    }>;
+    return data.map(row => ({
+      id: row.id,
+      title: row.title,
+      link: row.link,
+      description: row.description,
+      pubDate: row.pub_date,
+      source: row.source_name,
+      sourceId: row.source_id,
+      audiences: row.audiences,
+    }));
+  } catch (e) {
+    console.error('[rss.fetchFromSupabaseCache] EXCEPTION:', (e as Error).message);
+    return [];
+  }
+}
+
+// Combo: live dla ZUS+GUS, cache dla reszty. Glowna funkcja uzywana przez strone /aktualnosci.
+export async function fetchAllWithCache(): Promise<FetchResult> {
+  const liveFeeds = FEEDS.filter(f => LIVE_SOURCE_IDS.has(f.id));
+  const cachedSourceIds = FEEDS.filter(f => !LIVE_SOURCE_IDS.has(f.id)).map(f => f.id);
+
+  const [liveResult, cachedItems] = await Promise.all([
+    fetchFeeds(liveFeeds),
+    fetchFromSupabaseCache(cachedSourceIds),
+  ]);
+
+  const active = [
+    ...liveResult.active,
+    ...cachedSourceIds.filter(id => cachedItems.some(i => i.sourceId === id)),
+  ];
+  const failed = [
+    ...liveResult.failed,
+    ...cachedSourceIds.filter(id => !cachedItems.some(i => i.sourceId === id)),
+  ];
+
+  const items = [...liveResult.items, ...cachedItems];
+
+  items.sort((a, b) => {
+    if (!a.pubDate && !b.pubDate) return 0;
+    if (!a.pubDate) return 1;
+    if (!b.pubDate) return -1;
+    return new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime();
+  });
+
+  return { items, active, failed };
+}

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { fetchAllFeeds, FEEDS } from './rss';
+import { fetchAllWithCache, FEEDS } from './rss';
 import FeedClient from './FeedClient';
 import Link from 'next/link';
 import { AirQualityWidget } from '@/components/AirQualityWidget';
@@ -27,7 +27,7 @@ const SOURCE_COLORS: Record<string, string> = {
 };
 
 export default async function AktualnosciPage() {
-  const { items, active, failed } = await fetchAllFeeds();
+  const { items, active, failed } = await fetchAllWithCache();
 
   return (
     <div className="min-h-screen bg-bg-0">
