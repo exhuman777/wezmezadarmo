@@ -257,64 +257,49 @@ async function maybeFetchNfz(text: string, userProvince: string | null): Promise
   }
 }
 
-// Smart prefetch: GIOS jakosc powietrza gdy user pyta o smog/astma/alergie
+// Smart prefetch: GIOS jakosc powietrza (direct API v1, bez wolnego findNearestStation)
 async function maybeFetchGios(text: string, userProvince: string | null): Promise<string | null> {
   const lc = text.toLowerCase();
   const wants = /\b(powietrze|smog|jakosc powietrza|pm10|pm2|pm 2|pm25|alergi|astm|pylenie|oddychan)/.test(lc);
   if (!wants) return null;
 
-  // Spróbuj wykryć miasto z wiadomości
-  let coords: { lat: number; lon: number; city: string } | null = null;
-  for (const [, info] of Object.entries(PROVINCE_CAPITALS)) {
-    if (lc.includes(info.city.toLowerCase())) {
-      coords = info;
-      break;
-    }
+  let info: { lat: number; lon: number; city: string; stationId: number } | null = null;
+  for (const [, val] of Object.entries(PROVINCE_CAPITALS)) {
+    if (lc.includes(val.city.toLowerCase())) { info = val; break; }
   }
-  // Fallback: użyj stolicy województwa z profilu
-  if (!coords && userProvince && PROVINCE_CAPITALS[userProvince]) {
-    coords = PROVINCE_CAPITALS[userProvince];
+  if (!info && userProvince && PROVINCE_CAPITALS[userProvince]) {
+    info = PROVINCE_CAPITALS[userProvince];
   }
-  if (!coords) {
+  if (!info) {
     return `Aby sprawdzic jakosc powietrza otworz /centrum-obywatela/powietrze i wybierz miasto lub zezwol na geolokalizacje.`;
   }
 
   try {
-    const res = await fetch(`https://api.gios.gov.pl/pjp-api/rest/aqindex/getIndex/${coords.lat}/${coords.lon}`, {
+    const res = await fetch(`https://api.gios.gov.pl/pjp-api/v1/rest/aqindex/getIndex/${info.stationId}`, {
       headers: { Accept: 'application/json' },
       next: { revalidate: 1800 },
     });
-    // Mozemy nie miec exactly tego endpointa - uzyjmy naszego API
     if (!res.ok) {
-      const internal = await fetch(`https://www.wezmezadarmo.com/api/public/gios?lat=${coords.lat}&lon=${coords.lon}`, {
-        cache: 'no-store',
-      });
-      if (!internal.ok) return null;
-      const data = await internal.json();
-      return formatGios(data, coords.city);
+      return `Aby sprawdzic jakosc powietrza w ${info.city} otworz /centrum-obywatela/powietrze.`;
     }
-    return null;
-  } catch {
-    return `Aby sprawdzic jakosc powietrza w ${coords.city} otworz /centrum-obywatela/powietrze.`;
-  }
-}
+    const data = await res.json() as Record<string, unknown>;
+    const aqi = data.AqIndex as Record<string, unknown> | undefined;
+    if (!aqi) return null;
 
-function formatGios(data: {
-  station?: { name: string };
-  index?: {
-    stIndexLevel?: { indexLevelName: string };
-    pm10IndexLevel?: { indexLevelName: string };
-    pm25IndexLevel?: { indexLevelName: string };
-  };
-}, city: string): string {
-  if (!data.index) return `Brak danych pomiarowych dla ${city}.`;
-  const idx = data.index;
-  const lines = [`GIOS - jakosc powietrza w ${city} (stacja: ${data.station?.name ?? 'najblizsza'}):`];
-  if (idx.stIndexLevel) lines.push(`  Indeks ogolny: ${idx.stIndexLevel.indexLevelName}`);
-  if (idx.pm10IndexLevel) lines.push(`  PM10: ${idx.pm10IndexLevel.indexLevelName}`);
-  if (idx.pm25IndexLevel) lines.push(`  PM2.5: ${idx.pm25IndexLevel.indexLevelName}`);
-  lines.push(`  Wiecej miast: https://wezmezadarmo.com/centrum-obywatela/powietrze`);
-  return lines.join('\n');
+    const overall = aqi['Nazwa kategorii indeksu'] as string | null;
+    const pm10 = aqi['Nazwa kategorii indeksu dla wskażnika PM10'] as string | null;
+    const pm25 = aqi['Nazwa kategorii indeksu dla wskażnika PM2.5'] as string | null;
+    const calcDate = aqi['Data wykonania obliczeń indeksu'] as string | null;
+
+    const lines = [`GIOS - jakosc powietrza w ${info.city} (pomiar: ${calcDate ?? 'live'}):`];
+    if (overall) lines.push(`  Indeks ogolny: ${overall}`);
+    if (pm10) lines.push(`  PM10: ${pm10}`);
+    if (pm25) lines.push(`  PM2.5: ${pm25}`);
+    lines.push(`  Wiecej miast: https://wezmezadarmo.com/centrum-obywatela/powietrze`);
+    return lines.join('\n');
+  } catch {
+    return `Aby sprawdzic jakosc powietrza w ${info.city} otworz /centrum-obywatela/powietrze.`;
+  }
 }
 
 // Smart prefetch: CEIDG dla zalogowanych JDG ktorzy pytaja o swoja firme

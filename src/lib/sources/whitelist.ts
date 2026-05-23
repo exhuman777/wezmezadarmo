@@ -33,15 +33,26 @@ export interface WhitelistSearchResult {
   };
 }
 
+export class WhitelistInvalidNipError extends Error {
+  constructor(public code: string) {
+    super(`Whitelist invalid NIP: ${code}`);
+  }
+}
+
 export async function searchByNip(nip: string, dateIso?: string): Promise<WhitelistSubject | null> {
   const date = dateIso ?? new Date().toISOString().slice(0, 10);
   const cleanNip = nip.replace(/\D/g, '');
-  if (cleanNip.length !== 10) throw new Error('NIP musi miec 10 cyfr');
+  if (cleanNip.length !== 10) throw new WhitelistInvalidNipError('LENGTH');
 
   const res = await fetch(`${BASE}/search/nip/${cleanNip}?date=${date}`, {
     headers: { Accept: 'application/json' },
-    next: { revalidate: 21600 }, // 6h cache; rate limit is daily
+    next: { revalidate: 21600 },
   });
+
+  // 400 = niepoprawny NIP (zla suma kontrolna), 404 = nie znaleziono
+  if (res.status === 400 || res.status === 404) {
+    return null;
+  }
   if (!res.ok) throw new Error(`Whitelist API error: ${res.status}`);
   const data: WhitelistSearchResult = await res.json();
   return data.result.subject;

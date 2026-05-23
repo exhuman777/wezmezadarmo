@@ -68,20 +68,27 @@ function parseStation(r: RawStation): GiosStation {
   };
 }
 
+// In-memory cache (per Vercel instance, TTL 24h) -- omija powolne reladowanie 288 stacji
+let _stationsCache: { stations: GiosStation[]; loadedAt: number } | null = null;
+const STATIONS_TTL_MS = 24 * 60 * 60 * 1000;
+
 export async function getAllStations(): Promise<GiosStation[]> {
-  const stations: GiosStation[] = [];
-  for (let page = 0; page < 5; page++) {
-    const res = await fetch(`${BASE}/station/findAll?page=${page}&size=500`, {
-      headers: { Accept: 'application/ld+json' },
-      next: { revalidate: 86400 },
-    });
-    if (!res.ok) throw new Error(`GIOS stations error: ${res.status}`);
-    const data = await res.json() as Record<string, unknown>;
-    const list = (pickKey(data, 'lista stacji') ?? []) as RawStation[];
-    if (!Array.isArray(list) || list.length === 0) break;
-    stations.push(...list.map(parseStation));
-    if (list.length < 500) break;
+  if (_stationsCache && Date.now() - _stationsCache.loadedAt < STATIONS_TTL_MS) {
+    return _stationsCache.stations;
   }
+
+  // GIOS ma ~288 stacji - jedna strona size=500 wystarczy
+  const res = await fetch(`${BASE}/station/findAll?page=0&size=500`, {
+    headers: { Accept: 'application/ld+json' },
+    next: { revalidate: 86400 },
+  });
+  if (!res.ok) throw new Error(`GIOS stations error: ${res.status}`);
+  const data = await res.json() as Record<string, unknown>;
+  const list = (pickKey(data, 'lista stacji') ?? []) as RawStation[];
+  if (!Array.isArray(list)) throw new Error('GIOS: unexpected response shape');
+
+  const stations = list.map(parseStation);
+  _stationsCache = { stations, loadedAt: Date.now() };
   return stations;
 }
 
