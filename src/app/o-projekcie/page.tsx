@@ -45,7 +45,7 @@ const MODULES = [
     badge: 'Bezpłatny',
     badgeTone: 'green',
     icon: 'C',
-    desc: 'Hub publicznych danych: kursy walut NBP, jakość powietrza GIOŚ, biała lista VAT, CEIDG. Wszystko z oficjalnych polskich API, bez logowania.',
+    desc: 'Hub 11 publicznych narzędzi: NFZ (kolejki, lekarze), NBP (kursy walut), GIOŚ (powietrze), Biała Lista VAT, IMGW/RCB (ostrzeżenia), ELI/Sejm (zmiany w prawie), BDL GUS (dane gminy), ARiMR (mapy działek), PKP (tabela ulg). Wszystko z oficjalnych polskich API, bez logowania.',
   },
   {
     href: '/agent',
@@ -75,6 +75,11 @@ const SOURCES = [
   { id: 'nfos', name: 'nfosigw.gov.pl', desc: 'Czyste Powietrze, Mój Prąd, bon energetyczny, OZE' },
   { id: 'krus', name: 'krus.gov.pl', desc: 'świadczenia dla rolników, emerytura rolnicza, zasiłki KRUS' },
   { id: 'ceidg', name: 'biznes.gov.pl / CEIDG', desc: 'ulga na start, mały ZUS plus, preferencyjny ZUS dla nowych firm' },
+  { id: 'rcb', name: 'rcb.gov.pl', desc: 'ostrzeżenia meteo i kryzysowe (powódź, burze, mróz, smog)' },
+  { id: 'eli', name: 'api.sejm.gov.pl/eli', desc: 'zmiany w przepisach: Dziennik Ustaw, projekty ustaw' },
+  { id: 'bdl', name: 'bdl.stat.gov.pl', desc: 'GUS - dane demograficzne, bezrobocie, wynagrodzenia per gmina' },
+  { id: 'arimr', name: 'geoportal.arimr.gov.pl', desc: 'mapy działek rolnych, kontrole agrotechniczne, dopłaty' },
+  { id: 'pkp', name: 'portalpasazera.pl', desc: 'rozkład jazdy PKP + tabela ulg ustawowych dla pasażerów' },
 ];
 
 const AUDIENCE = [
@@ -368,7 +373,7 @@ export default function OProjekciePage() {
               <span className="mono" style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-text-3)', fontWeight: 600 }}>Dane</span>
               <h2 style={{ fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: 700, letterSpacing: '-0.025em', marginTop: 6, marginBottom: 0, color: 'var(--color-text-1)' }}>Źródła danych</h2>
             </div>
-            <span className="mono" style={{ fontSize: 11, color: 'var(--color-text-3)' }}>9 instytucji</span>
+            <span className="mono" style={{ fontSize: 11, color: 'var(--color-text-3)' }}>14 instytucji</span>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))', gap: 10 }}>
             {SOURCES.map((src) => (
