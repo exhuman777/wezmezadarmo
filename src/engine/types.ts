@@ -92,6 +92,7 @@ export interface UserProfile {
   dataDzialalnosci?: string;
   pkd?: string[];
   statusVat?: string;
+  nazwaFirmy?: string;
   ciaza?: boolean;
   student?: boolean;
   emeryt?: boolean;

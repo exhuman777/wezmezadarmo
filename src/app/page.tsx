@@ -396,6 +396,7 @@ export default function Home() {
             dataDzialalnosci: ceidg.dataRejestracji ?? undefined,
             pkd: ceidg.pkd,
             statusVat: ceidg.vat?.status ?? undefined,
+            nazwaFirmy: ceidg.nazwa ?? undefined,
           }));
         }
       } catch {
@@ -1443,6 +1444,35 @@ export default function Home() {
             <div className="label-eyebrow" style={{ marginBottom: 16 }}>
               Pytanie {questionIndex + 1} z {QUESTIONS.length}
             </div>
+
+            {questionIndex === 0 && profile.statusVat && (
+              <div style={{
+                margin: '0 0 24px',
+                padding: '12px 18px',
+                background: profile.statusVat === 'Czynny' ? 'var(--green-50)'
+                  : profile.statusVat === 'Zwolniony' ? 'rgba(196, 132, 26, 0.08)'
+                  : 'rgba(150, 150, 150, 0.08)',
+                border: `1px solid ${profile.statusVat === 'Czynny' ? 'var(--green-200)'
+                  : profile.statusVat === 'Zwolniony' ? 'rgba(196, 132, 26, 0.25)'
+                  : 'rgba(150, 150, 150, 0.25)'}`,
+                borderRadius: 12,
+                display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap',
+              }}>
+                <span style={{
+                  padding: '4px 10px', borderRadius: 999,
+                  background: profile.statusVat === 'Czynny' ? '#22A06B' : profile.statusVat === 'Zwolniony' ? '#c4841a' : '#888',
+                  color: '#fff', fontSize: 11, fontWeight: 600, fontFamily: 'var(--font-mono)', letterSpacing: '0.04em', textTransform: 'uppercase',
+                }}>
+                  VAT: {profile.statusVat}
+                </span>
+                <span style={{ fontSize: 13, color: 'var(--color-text-2)' }}>
+                  {profile.nazwaFirmy ? `Wykryto firmę: ${profile.nazwaFirmy}` : 'Status z Białej Listy MF'}
+                </span>
+                <a href="/centrum-obywatela/biala-lista" style={{ marginLeft: 'auto', fontSize: 12, color: 'var(--color-accent)', textDecoration: 'none' }}>
+                  Pełne dane →
+                </a>
+              </div>
+            )}
 
             <h2 className="display" style={{ fontSize: 'clamp(28px, 4vw, 44px)', marginBottom: 36 }}>
               {q.question}
