@@ -178,15 +178,15 @@ function AgentContent() {
             </span>
           </div>
 
-          <h1 style={{ fontSize: 'clamp(36px, 5.5vw, 64px)', fontWeight: 600, lineHeight: 1.08, letterSpacing: '-0.035em', color: '#fff', margin: '0 0 20px', maxWidth: 700 }}>
+          <h1 className="agent-hero-title" style={{ fontSize: 'clamp(28px, 5.5vw, 64px)', fontWeight: 600, lineHeight: 1.08, letterSpacing: '-0.035em', color: '#fff', margin: '0 0 20px', maxWidth: 700 }}>
             Twój agent AI.<br />
             <span style={{ color: '#8EEAAD' }}>Pilnuje spraw, gdy Ty żyjesz.</span>
           </h1>
-          <p style={{ fontSize: 18, lineHeight: 1.6, color: 'rgba(255,255,255,0.7)', margin: '0 0 28px', maxWidth: 560 }}>
+          <p style={{ fontSize: 'clamp(15px, 2.5vw, 18px)', lineHeight: 1.6, color: 'rgba(255,255,255,0.7)', margin: '0 0 28px', maxWidth: 560 }}>
             Dla JDG i osób prywatnych. Agent zna 118 świadczeń, śledzi 8 instytucji rządowych,
             ma dostęp do live API (NBP, NFZ, GIOŚ, Biała Lista VAT, CEIDG) i wysyła Ci spersonalizowane alerty na e-mail.
           </p>
-          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
+          <div className="cta-row" style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
             <Link
               href={primaryHref}
               className="btn-agent-primary"

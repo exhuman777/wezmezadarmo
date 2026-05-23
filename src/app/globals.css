@@ -955,3 +955,62 @@ section.short { padding: 48px 0; }
 }
 
 .aktualnosci-cta-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(34,160,107,0.4) !important; }
+
+/* ─────────── iPhone responsive (375-430px) ─────────── */
+@media (max-width: 480px) {
+  /* Hero / agent landing */
+  h1.hero-display, .agent-hero-title {
+    font-size: clamp(28px, 8vw, 38px) !important;
+    line-height: 1.1 !important;
+  }
+
+  /* CTA buttons - full width on mobile, stack pionowo */
+  .cta-row, .btn-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    width: 100% !important;
+  }
+  .cta-row > a, .cta-row > button,
+  .btn-row > a, .btn-row > button {
+    width: 100% !important;
+    text-align: center !important;
+    justify-content: center !important;
+  }
+
+  /* Tabele wszystkie scrollowane */
+  table { font-size: 12px !important; }
+  table th, table td { padding: 8px 10px !important; }
+
+  /* Cards padding mniejszy */
+  .card { padding: 16px !important; }
+
+  /* Formularze input/select */
+  input[type='text'], input[type='email'], input[type='password'],
+  input[type='number'], select, textarea {
+    font-size: 16px !important; /* zapobiega zoom-in na iOS */
+  }
+
+  /* Centrum Obywatela hub - kafelki single column */
+  .co-tools-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  /* Headers w panelach - mniej padding */
+  main {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  /* Disclaimer + drobny tekst */
+  .disclaimer { font-size: 11px !important; }
+}
+
+/* iPhone Pro Max (430px) i mniejsze */
+@media (max-width: 430px) {
+  /* Pillsy / chipy nie mogą overflow */
+  .chip, .pill, .badge {
+    font-size: 11px !important;
+    padding: 4px 9px !important;
+  }
+}

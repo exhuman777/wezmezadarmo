@@ -218,9 +218,20 @@ export default function AgentChatPage() {
   const hints = MODE_HINTS[mode] ?? MODE_HINTS.ogolny;
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+    <div className="chat-root" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      <style>{`
+        @media (max-width: 480px) {
+          .chat-root .chat-header { padding: 10px 14px !important; }
+          .chat-root .chat-messages { padding: 12px 14px !important; }
+          .chat-root .chat-input-form { padding: 10px 14px !important; gap: 6px !important; }
+          .chat-root .chat-input { font-size: 16px !important; padding: 11px 14px !important; }
+          .chat-root .chat-send-btn { padding: 0 14px !important; min-width: auto !important; }
+          .chat-root .chat-bubble { max-width: 92% !important; font-size: 14px !important; }
+          .chat-root .chat-hint { font-size: 13px !important; padding: 10px 12px !important; }
+        }
+      `}</style>
       {/* Header */}
-      <div style={{
+      <div className="chat-header" style={{
         padding: '14px 24px',
         borderBottom: '1px solid var(--color-border)',
         background: 'var(--color-bg-1)',
@@ -261,6 +272,7 @@ export default function AgentChatPage() {
       <div
         ref={messagesContainerRef}
         onScroll={handleScroll}
+        className="chat-messages"
         style={{
           flex: 1, overflowY: 'auto', padding: '16px 24px',
           display: 'flex', flexDirection: 'column',
@@ -360,6 +372,7 @@ export default function AgentChatPage() {
       {/* Input */}
       <form
         onSubmit={handleSubmit}
+        className="chat-input-form"
         style={{
           display: 'flex', gap: 8, alignItems: 'flex-end',
           padding: '12px 24px',
@@ -367,16 +380,18 @@ export default function AgentChatPage() {
           background: 'var(--color-bg-1)',
           flexShrink: 0,
         }}
+        // class added below via className on textarea/button via separate form
       >
         <textarea
           ref={textareaRef}
           value={input}
           onChange={handleTextareaChange}
           onKeyDown={handleKeyDown}
-          placeholder="Zadaj pytanie... (Shift+Enter = nowa linia)"
+          placeholder="Zadaj pytanie..."
 
           disabled={isStreaming}
           rows={1}
+          className="chat-input"
           style={{
             flex: 1,
             height: 48, minHeight: 48, maxHeight: 120,
@@ -398,7 +413,7 @@ export default function AgentChatPage() {
         <button
           type="submit"
           disabled={isStreaming || !input.trim()}
-          className="btn btn-primary"
+          className="btn btn-primary chat-send-btn"
           style={{
             height: 48, padding: '0 20px',
             borderRadius: 14,

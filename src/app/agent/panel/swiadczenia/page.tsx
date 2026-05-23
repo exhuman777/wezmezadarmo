@@ -499,12 +499,21 @@ export default function AgentSwiadczenia() {
         }
         .sw-chat-hint:hover { border-color: rgba(34,160,107,0.3); color: var(--color-text-1); }
 
+        @media (max-width: 900px) {
+          /* Schowaj chat sidebar na tabletach */
+          .sw-right { display: none !important; }
+        }
         @media (max-width: 700px) {
-          .sw-left { display: none !important; }
+          .sw-left { display: none !important; width: 100% !important; }
           .sw-left.show { display: flex !important; }
           .sw-center { display: none !important; }
           .sw-center.show { display: flex !important; }
           .sw-right { display: none !important; }
+          .sw-mobile-back { display: block !important; }
+        }
+        @media (max-width: 480px) {
+          .sw-list-item { padding: 12px 10px !important; }
+          .sw-btn-guide, .sw-btn-ask { padding: 10px 14px !important; font-size: 13px !important; }
         }
       `}</style>
 
