@@ -5,21 +5,31 @@ import { useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 
 const CECHY = [
-  { label: 'Chat AI', desc: 'Zadajesz pytanie o świadczenie, termin ZUS, wniosek lub fakturę. Agent odpowiada na podstawie Twojego profilu i aktualnej bazy przepisów.', icon: 'C' },
-  { label: 'Świadczenia do profilu', desc: 'Po wypełnieniu profilu (wiek, dochód, dzieci, JDG/prywatny) widzisz listę 117 świadczeń dopasowanych do Twojej sytuacji.', icon: 'S' },
-  { label: 'Aktualności w panelu', desc: 'Panel zbiera zmiany w przepisach z ZUS, GUS i innych instytucji. Odświeżane co 30 minut, bez przeszukiwania rządowych stron.', icon: 'A' },
-  { label: 'Digest e-mail', desc: 'Opcjonalne codzienne podsumowanie nowości i zmian w Twoich świadczeniach wysyłane na e-mail. Włączasz i wyłączasz w ustawieniach.', icon: 'D' },
+  { label: 'Chat AI ze świadomością profilu', desc: 'Zadajesz pytanie o świadczenie, ZUS, podatki lub formularz. Agent zna Twój profil (wiek, dochód, dzieci, JDG/prywatny, województwo) i odpowiada konkretnie pod Twoją sytuację.', icon: 'C' },
+  { label: '118 świadczeń dopasowanych', desc: 'Po wypełnieniu profilu silnik przelicza 118 świadczeń (ZUS, NFZ, PFRON, KRUS, MOPS, ulgi PIT) i pokazuje pewne (PRZYSŁUGUJE) + możliwe (MOŻLIWE) z linkami do źródeł.', icon: 'S' },
+  { label: 'Live API rządowych w czacie', desc: 'Pytasz o kurs euro → agent fetchuje NBP. Pytasz o kolejkę do kardiologa → fetchuje NFZ. Podajesz NIP → sprawdza Białą Listę VAT. Pytasz o smog → GIOŚ. Wszystko w jednej rozmowie.', icon: 'L' },
+  { label: 'Aktualności RSS w prompcie', desc: 'Agent ma dostęp do 8 polskich instytucji (ZUS, GUS, NBP, UOKiK, Fundusze EU, e-Zdrowie, Sejm, ARiMR) z cache 2x/dzień. Cytuje konkretne newsy z linkiem do źródła.', icon: 'R' },
+  { label: 'Wnioski ZUS krok po kroku', desc: '7 formularzy z asystentem AI (Z-15a, Z-15b, Z-3, PEL, ZAS-53, ERPO, ERSU). Wypełnianie pól, podpowiedzi, eksport do PDF gotowy do wysyłki.', icon: 'W' },
+  { label: 'Subskrypcja e-mail (alerty)', desc: 'Wybierasz źródła (ZUS/Sejm/UOKiK...) i kategorie (świadczenia/podatki/dotacje), agent wysyła e-mail max 2x/dzień z nowymi pasującymi wiadomościami. Bez duplikatów.', icon: 'E' },
+  { label: 'Centrum Obywatela', desc: '11 darmowych narzędzi rządowych w jednym hubie: NFZ, NBP, GIOŚ, Biała Lista VAT, IMGW/RCB, ELI/Sejm, BDL GUS, Geoportal ARiMR, ulgi PKP.', icon: 'O' },
+  { label: 'Anty-halucynacje', desc: 'Agent NIGDY nie wymyśla kwot, dat, formularzy. Cytuje dokładnie z bazy. Jeśli czegoś nie wie - mówi to wprost i odsyła do odpowiedniego urzędu.', icon: 'X' },
 ];
 
 const PRZYKŁADY = [
   'Jakie świadczenia mi przysługują?',
   'Czy mogę dostać 800+ na dziecko?',
+  'Renta wdowia - czy mi przysługuje?',
+  'Ile dziś kosztuje euro?',
+  'Sprawdź NIP 7342867148',
+  'Ile czekam do kardiologa?',
+  'Jakie powietrze jest dziś w Warszawie?',
+  'Co nowego w ZUS?',
   'Jak złożyć wniosek o zasiłek chorobowy?',
   'Jakie ulgi podatkowe mam jako JDG?',
-  'Co się zmieniło w przepisach ZUS?',
   'Pomóż mi wypełnić formularz Z-15a',
-  'Ile wynosi becikowe i jak je dostać?',
-  'Czy przysługuje mi dodatek mieszkaniowy?',
+  'Ile wynosi becikowe?',
+  'Bon ciepłowniczy 2026 - czy się kwalifikuję?',
+  'KSeF dla JDG - od kiedy obowiązkowy?',
 ];
 
 function onTiltEnter(e: React.MouseEvent<HTMLDivElement>) {
@@ -153,9 +163,9 @@ function AgentContent() {
             Twój agent AI.<br />
             <span style={{ color: '#8EEAAD' }}>Pilnuje spraw, gdy Ty żyjesz.</span>
           </h1>
-          <p style={{ fontSize: 18, lineHeight: 1.6, color: 'rgba(255,255,255,0.7)', margin: '0 0 28px', maxWidth: 540 }}>
-            Dla JDG i osób prywatnych. Agent sprawdza co Ci przysługuje, śledzi zmiany w prawie
-            i wysyła Ci codzienny raport na e-mail.
+          <p style={{ fontSize: 18, lineHeight: 1.6, color: 'rgba(255,255,255,0.7)', margin: '0 0 28px', maxWidth: 560 }}>
+            Dla JDG i osób prywatnych. Agent zna 118 świadczeń, śledzi 8 instytucji rządowych,
+            ma dostęp do live API (NBP, NFZ, GIOŚ, Biała Lista VAT, CEIDG) i wysyła Ci spersonalizowane alerty na e-mail.
           </p>
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
             <Link
@@ -352,8 +362,9 @@ function AgentContent() {
           fontSize: 12, color: 'rgba(255,255,255,0.3)', lineHeight: 1.6, maxWidth: 640,
           fontFamily: 'var(--font-mono)',
         }}>
-          Agent AI ma charakter wyłącznie informacyjny. Nie składamy wniosków bez Twojej akceptacji.
-          Żaden dokument nie jest wysyłany do urzędu bez Twojej wiedzy i zgody.
+          Agent AI ma charakter wyłącznie informacyjny. Cytuje z bazy 118 świadczeń (weryfikowana 2026-05-23) i live API rządowych.
+          Nie składa wniosków bez Twojej akceptacji. Żaden dokument nie idzie do urzędu bez Twojej wiedzy i zgody.
+          Powered by OpenRouter (Google Gemini 2.0 Flash) - dane zapytania nie są używane do treningu modeli.
         </p>
       </section>
     </main>
