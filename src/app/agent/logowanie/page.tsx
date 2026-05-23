@@ -38,7 +38,8 @@ function LogowanieForm() {
         setError(data.error ?? 'Nieprawidłowy email lub hasło.');
         return;
       }
-      router.push('/agent/panel');
+      const next = searchParams.get('next');
+      router.push(next && next.startsWith('/') ? next : '/panel');
     } catch {
       setError('Błąd połączenia. Spróbuj ponownie.');
     } finally {

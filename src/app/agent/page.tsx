@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { Suspense } from 'react';
+import { Suspense, useEffect, useState } from 'react';
+import { createBrowserClient } from '@supabase/ssr';
 
 const CECHY = [
   { label: 'Chat AI ze świadomością profilu', desc: 'Zadajesz pytanie o świadczenie, ZUS, podatki lub formularz. Agent zna Twój profil (wiek, dochód, dzieci, JDG/prywatny, województwo) i odpowiada konkretnie pod Twoją sytuację.', icon: 'C' },
@@ -54,6 +55,24 @@ function onTiltLeave(e: React.MouseEvent<HTMLDivElement>) {
 function AgentContent() {
   const searchParams = useSearchParams();
   const q = searchParams.get('q');
+  const [loggedIn, setLoggedIn] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const supabase = createBrowserClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    );
+    supabase.auth.getSession().then(({ data }) => setLoggedIn(!!data.session));
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => setLoggedIn(!!session));
+    return () => subscription.unsubscribe();
+  }, []);
+
+  // Auth-aware: zalogowany -> /panel, niezalogowany -> /agent/rejestracja
+  const primaryHref = loggedIn ? '/panel' : '/agent/rejestracja';
+  const secondaryHref = loggedIn ? '/panel/chat' : '/agent/logowanie';
+  const primaryLabel = loggedIn ? 'Przejdź do panelu' : 'Zacznij za darmo';
+  const secondaryLabel = loggedIn ? 'Otwórz Czat AI' : 'Mam już konto';
+  const queryHref = loggedIn ? '/panel/chat' : '/agent/logowanie';
 
   return (
     <main style={{ background: '#0a1f14', minHeight: '100vh' }}>
@@ -169,22 +188,22 @@ function AgentContent() {
           </p>
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
             <Link
-              href="/agent/rejestracja"
+              href={primaryHref}
               className="btn-agent-primary"
               style={{ fontSize: 15, fontWeight: 600, color: '#fff', padding: '14px 28px', borderRadius: 12, display: 'inline-block' }}
             >
-              Zacznij za darmo
+              {primaryLabel}
             </Link>
             <Link
-              href="/agent/logowanie"
+              href={secondaryHref}
               className="btn-agent-secondary"
               style={{ fontSize: 15, fontWeight: 500, color: 'rgba(255,255,255,0.85)', border: '1px solid rgba(255,255,255,0.25)', padding: '14px 28px', borderRadius: 12, display: 'inline-block' }}
             >
-              Mam już konto
+              {secondaryLabel}
             </Link>
           </div>
           <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.35)', margin: '16px 0 0', fontFamily: 'var(--font-mono)' }}>
-            Bez karty kredytowej. 3 pytania dziennie za darmo.
+            {loggedIn ? 'Witaj z powrotem. Pełen dostęp do Asystenta AI.' : 'Bez karty kredytowej. 3 pytania dziennie za darmo.'}
           </p>
         </div>
       </section>
@@ -220,22 +239,35 @@ function AgentContent() {
                   &ldquo;{q}&rdquo;
                 </p>
                 <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.6)', margin: '0 0 20px' }}>
-                  Zaloguj się, żeby Asystent AI odpowiedział na Twoje pytanie.
+                  {loggedIn
+                    ? 'Otwieram Czat AI z Twoim pytaniem...'
+                    : 'Zaloguj się żeby Asystent AI odpowiedział z dostępem do Twojego profilu, świadczeń i dotacji. Albo sprawdź bez logowania w bazie.'}
                 </p>
                 <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', alignItems: 'center' }}>
                   <Link
-                    href="/agent/logowanie"
+                    href={loggedIn ? `/panel/chat?q=${encodeURIComponent(q!)}` : `/agent/logowanie?next=${encodeURIComponent('/panel/chat?q=' + q)}`}
                     className="btn-agent-primary"
                     style={{ fontSize: 15, fontWeight: 600, color: '#fff', padding: '12px 24px', borderRadius: 12, display: 'inline-block' }}
                   >
-                    Zaloguj się
+                    {loggedIn ? 'Otwórz Czat AI →' : 'Zaloguj się i zapytaj AI'}
                   </Link>
-                  <span style={{ fontSize: 14, color: 'rgba(255,255,255,0.45)' }}>
-                    Nie masz konta?{' '}
-                    <Link href="/agent/rejestracja" style={{ color: '#8EEAAD', textDecoration: 'underline', textUnderlineOffset: 3 }}>
-                      Zacznij za darmo
-                    </Link>
-                  </span>
+                  {!loggedIn && (
+                    <>
+                      <Link
+                        href={`/swiadczenia?q=${encodeURIComponent(q!)}`}
+                        className="btn-agent-secondary"
+                        style={{ fontSize: 14, color: 'rgba(255,255,255,0.85)', border: '1px solid rgba(255,255,255,0.25)', padding: '12px 20px', borderRadius: 12, display: 'inline-block' }}
+                      >
+                        Sprawdź w bazie (bez logowania)
+                      </Link>
+                      <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)' }}>
+                        lub{' '}
+                        <Link href="/agent/rejestracja" style={{ color: '#8EEAAD', textDecoration: 'underline', textUnderlineOffset: 3 }}>
+                          załóż konto
+                        </Link>
+                      </span>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
@@ -280,25 +312,32 @@ function AgentContent() {
             Co może Asystent AI
           </h2>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
-            {PRZYKŁADY.map((text) => (
-              <Link
-                key={text}
-                href={`/agent/logowanie?q=${encodeURIComponent(text)}`}
-                className="example-chip"
-                style={{
-                  fontSize: 15,
-                  color: '#fff',
-                  background: 'rgba(142,234,173,0.07)',
-                  border: '1px solid rgba(142,234,173,0.18)',
-                  borderRadius: 12,
-                  padding: '12px 20px',
-                  lineHeight: 1.4,
-                  display: 'inline-block',
-                }}
-              >
-                {text}
-              </Link>
-            ))}
+            {PRZYKŁADY.map((text) => {
+              // Zalogowany -> bezposrednio do chatu z pytaniem
+              // Niezalogowany -> banner na /agent z opcjami (login / sprawdz bez logowania)
+              const href = loggedIn
+                ? `/panel/chat?q=${encodeURIComponent(text)}`
+                : `/agent?q=${encodeURIComponent(text)}`;
+              return (
+                <Link
+                  key={text}
+                  href={href}
+                  className="example-chip"
+                  style={{
+                    fontSize: 15,
+                    color: '#fff',
+                    background: 'rgba(142,234,173,0.07)',
+                    border: '1px solid rgba(142,234,173,0.18)',
+                    borderRadius: 12,
+                    padding: '12px 20px',
+                    lineHeight: 1.4,
+                    display: 'inline-block',
+                  }}
+                >
+                  {text}
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>

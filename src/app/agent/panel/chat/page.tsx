@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useEffect, useState, useCallback } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useAgentMode } from '../AgentModeContext';
 import type { AgentMode } from '@/agents/types';
 
@@ -54,6 +55,7 @@ const MODE_HINTS: Record<AgentMode, string[]> = {
 
 export default function AgentChatPage() {
   const { mode } = useAgentMode();
+  const searchParams = useSearchParams();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isStreaming, setIsStreaming] = useState(false);
@@ -62,6 +64,7 @@ export default function AgentChatPage() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const abortRef = useRef<AbortController | null>(null);
   const shouldAutoScrollRef = useRef(true);
+  const autoSentRef = useRef(false);
 
   // Scroll only container, only if user is near the bottom
   useEffect(() => {
@@ -175,6 +178,15 @@ export default function AgentChatPage() {
     setIsStreaming(false);
     abortRef.current = null;
   }, [messages, mode, isStreaming]);
+
+  // Auto-send query z URL (?q=...) - dziala raz przy mount, np. przy przekierowaniu z /agent
+  useEffect(() => {
+    const q = searchParams.get('q');
+    if (q && !autoSentRef.current && !isStreaming && messages.length === 0) {
+      autoSentRef.current = true;
+      sendMessage(q);
+    }
+  }, [searchParams, isStreaming, messages.length, sendMessage]);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
