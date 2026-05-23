@@ -102,7 +102,19 @@ KLUCZOWE KWOTY 2026 (po waloryzacji):
    - KSeF obowiązkowy (etapami od 1 lutego 2026)
    - Limit zwolnienia VAT: 240 000 PLN (z 200 000)
    - Zasiłek pogrzebowy: 7 000 PLN (z 4 000)
-   - Świadczenie wspierające: próg od 70 pkt (z 87)`,
+   - Świadczenie wspierające: próg od 70 pkt (z 87)
+
+5. NARZĘDZIA LIVE (Centrum Obywatela) -- gdy user pyta o coś z poniższych, ZAWSZE odsyłaj do konkretnego URL:
+   - Czas oczekiwania NFZ / lekarz / lek -> /nfz
+   - Kursy walut, przelicznik na PLN -> /centrum-obywatela/kursy
+   - Jakość powietrza, smog, PM10/PM2.5 -> /centrum-obywatela/powietrze
+   - Sprawdzenie kontrahenta po NIP, VAT, konta bankowe -> /centrum-obywatela/biala-lista
+   - Aktualności RSS (8 instytucji) -> /aktualnosci (publiczne) lub /panel/aktualnosci (z subskrypcją)
+   - Subskrypcja e-mail aktualności -> /panel/powiadomienia
+
+6. KONTEKST LIVE: jeśli w prompt-cie masz blok "DANE LIVE POBRANE NA POTRZEBY TEJ ROZMOWY", użyj ich w odpowiedzi (kursy NBP, biała lista, kolejki NFZ -- te dane są aktualne, możesz je cytować). Zawsze dodaj URL do narzędzia gdzie user może sprawdzić więcej.
+
+7. KONTEKST RSS: jeśli masz blok "ŚWIEŻE AKTUALNOŚCI", możesz cytować newsy gdy są związane z pytaniem. Zawsze podawaj źródło i link.`,
 
   boundaries: `CZEGO NIE ROBISZ:
 

@@ -1,9 +1,11 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
-import { PROVINCE_LABELS, POPULAR_BENEFITS } from '@/lib/sources/nfz';
+import { useEffect, useState, useCallback, useMemo } from 'react';
+import { PROVINCE_LABELS } from '@/lib/sources/nfz';
+import { BENEFIT_GROUPS, DRUG_PRESETS, POPULAR_CITIES, PROVIDER_TYPES } from '@/lib/sources/nfz-presets';
 
 type SearchMode = 'queues' | 'providers' | 'drugs';
+type SortMode = 'fastest' | 'slowest' | 'name' | 'demand';
 
 interface QueueResult {
   provider: string;
@@ -42,23 +44,52 @@ interface DrugResult {
 
 const PROVINCE_KEYS = Object.keys(PROVINCE_LABELS);
 
+const RECENT_KEY = 'wzd_nfz_recent';
+const MAX_RECENT = 5;
+
+function loadRecent(mode: SearchMode): string[] {
+  if (typeof window === 'undefined') return [];
+  try {
+    const raw = window.localStorage.getItem(`${RECENT_KEY}_${mode}`);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveRecent(mode: SearchMode, value: string) {
+  if (typeof window === 'undefined') return;
+  try {
+    const list = loadRecent(mode);
+    const next = [value, ...list.filter(v => v !== value)].slice(0, MAX_RECENT);
+    window.localStorage.setItem(`${RECENT_KEY}_${mode}`, JSON.stringify(next));
+  } catch {
+    // storage full
+  }
+}
+
 export default function NFZSearchClient() {
   const [mode, setMode] = useState<SearchMode>('queues');
 
   // Queues state
   const [benefit, setBenefit] = useState('PORADNIA KARDIOLOGICZNA');
+  const [activeGroup, setActiveGroup] = useState<string>('specjalisci');
   const [province, setProvince] = useState('');
   const [locality, setLocality] = useState('');
   const [caseType, setCaseType] = useState<'1' | '2'>('1');
   const [benefitSuggestions, setBenefitSuggestions] = useState<string[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [recentBenefits, setRecentBenefits] = useState<string[]>([]);
+  const [sortMode, setSortMode] = useState<SortMode>('fastest');
 
   // Providers state
   const [providerName, setProviderName] = useState('');
   const [providerProvince, setProviderProvince] = useState('');
+  const [recentProviders, setRecentProviders] = useState<string[]>([]);
 
   // Drugs state
   const [drugName, setDrugName] = useState('');
+  const [recentDrugs, setRecentDrugs] = useState<string[]>([]);
 
   // Common
   const [loading, setLoading] = useState(false);
@@ -67,6 +98,12 @@ export default function NFZSearchClient() {
   const [providerResults, setProviderResults] = useState<ProviderResult[] | null>(null);
   const [drugResults, setDrugResults] = useState<DrugResult[] | null>(null);
   const [resultCount, setResultCount] = useState(0);
+
+  useEffect(() => {
+    setRecentBenefits(loadRecent('queues'));
+    setRecentProviders(loadRecent('providers'));
+    setRecentDrugs(loadRecent('drugs'));
+  }, []);
 
   // Autocomplete benefits as user types
   useEffect(() => {
@@ -84,7 +121,7 @@ export default function NFZSearchClient() {
       } catch {
         // aborted
       }
-    }, 300);
+    }, 250);
     return () => {
       clearTimeout(t);
       ctrl.abort();
@@ -92,6 +129,7 @@ export default function NFZSearchClient() {
   }, [benefit, showSuggestions]);
 
   const runQueueSearch = useCallback(async () => {
+    if (!benefit) return;
     setLoading(true);
     setError(null);
     setQueueResults(null);
@@ -109,6 +147,8 @@ export default function NFZSearchClient() {
       const data = await res.json();
       setQueueResults(data.results ?? []);
       setResultCount(data.count ?? 0);
+      saveRecent('queues', benefit);
+      setRecentBenefits(loadRecent('queues'));
     } catch {
       setError('Nie udało się pobrać kolejek NFZ. Spróbuj później.');
     } finally {
@@ -133,6 +173,10 @@ export default function NFZSearchClient() {
       const data = await res.json();
       setProviderResults(data.providers ?? []);
       setResultCount(data.count ?? 0);
+      if (providerName.trim()) {
+        saveRecent('providers', providerName);
+        setRecentProviders(loadRecent('providers'));
+      }
     } catch {
       setError('Nie udało się pobrać świadczeniodawców.');
     } finally {
@@ -140,20 +184,24 @@ export default function NFZSearchClient() {
     }
   }, [providerName, providerProvince]);
 
-  const runDrugSearch = useCallback(async () => {
-    if (drugName.length < 3) {
+  const runDrugSearch = useCallback(async (query?: string) => {
+    const q = query ?? drugName;
+    if (q.length < 3) {
       setError('Podaj nazwę leku (min 3 znaki)');
       return;
     }
+    if (query) setDrugName(query);
     setLoading(true);
     setError(null);
     setDrugResults(null);
     try {
-      const res = await fetch(`/api/public/nfz?type=drugs&name=${encodeURIComponent(drugName)}&limit=25`);
+      const res = await fetch(`/api/public/nfz?type=drugs&name=${encodeURIComponent(q)}&limit=25`);
       if (!res.ok) throw new Error('Błąd');
       const data = await res.json();
       setDrugResults(data.drugs ?? []);
       setResultCount(data.count ?? 0);
+      saveRecent('drugs', q);
+      setRecentDrugs(loadRecent('drugs'));
     } catch {
       setError('Nie udało się pobrać refundacji leków.');
     } finally {
@@ -161,29 +209,47 @@ export default function NFZSearchClient() {
     }
   }, [drugName]);
 
+  // Stats from queue results
+  const queueStats = useMemo(() => {
+    if (!queueResults || queueResults.length === 0) return null;
+    const days = queueResults.map(r => r.averageDays).filter((d): d is number => d != null);
+    if (days.length === 0) return null;
+    const sorted = [...days].sort((a, b) => a - b);
+    return {
+      fastest: sorted[0],
+      slowest: sorted[sorted.length - 1],
+      median: sorted[Math.floor(sorted.length / 2)],
+      withData: days.length,
+      total: queueResults.length,
+    };
+  }, [queueResults]);
+
+  // Sort queue results
+  const sortedQueues = useMemo(() => {
+    if (!queueResults) return null;
+    const sorted = [...queueResults];
+    switch (sortMode) {
+      case 'fastest':
+        sorted.sort((a, b) => (a.averageDays ?? 9999) - (b.averageDays ?? 9999));
+        break;
+      case 'slowest':
+        sorted.sort((a, b) => (b.averageDays ?? -1) - (a.averageDays ?? -1));
+        break;
+      case 'name':
+        sorted.sort((a, b) => a.provider.localeCompare(b.provider));
+        break;
+      case 'demand':
+        sorted.sort((a, b) => (b.awaiting ?? -1) - (a.awaiting ?? -1));
+        break;
+    }
+    return sorted;
+  }, [queueResults, sortMode]);
+
   return (
     <main style={{ minHeight: '100vh' }}>
-      {/* Hero */}
-      <section style={{
-        background: 'linear-gradient(160deg, #062418 0%, #0a3a26 100%)',
-        borderRadius: '0 0 24px 24px',
-        position: 'relative', overflow: 'hidden',
-        padding: 'clamp(40px, 5vw, 64px) 20px clamp(36px, 4vw, 56px)',
-      }}>
-        <div className="wrap" style={{ position: 'relative' }}>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'rgba(142,234,173,0.6)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 14 }}>
-            Wyszukiwarka NFZ
-          </div>
-          <h1 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 700, lineHeight: 1.1, letterSpacing: '-0.03em', color: '#fff', margin: '0 0 12px', maxWidth: 720 }}>
-            Kolejki, lekarze, refundacja leków
-          </h1>
-          <p style={{ fontSize: 15, lineHeight: 1.6, color: 'rgba(255,255,255,0.65)', margin: 0, maxWidth: 560 }}>
-            Sprawdź czas oczekiwania do specjalisty, znajdź świadczeniodawcę NFZ, sprawdź refundację leków. Dane na żywo z api.nfz.gov.pl.
-          </p>
-        </div>
-      </section>
+      <Hero />
 
-      <section style={{ padding: 'clamp(28px, 4vw, 48px) 20px', maxWidth: 1080, margin: '0 auto' }}>
+      <section style={{ padding: 'clamp(24px, 4vw, 40px) 20px', maxWidth: 1080, margin: '0 auto' }}>
         {/* Mode tabs */}
         <div style={{ display: 'flex', gap: 8, marginBottom: 24, flexWrap: 'wrap' }}>
           {([
@@ -195,89 +261,130 @@ export default function NFZSearchClient() {
               key={t.id}
               onClick={() => { setMode(t.id); setError(null); }}
               style={{
-                padding: '12px 18px',
+                padding: '14px 22px',
                 background: mode === t.id ? 'var(--color-text-1)' : 'var(--color-surface)',
                 color: mode === t.id ? 'var(--color-bg-0)' : 'var(--color-text-2)',
                 border: '1px solid ' + (mode === t.id ? 'var(--color-text-1)' : 'var(--color-border)'),
-                borderRadius: 10,
+                borderRadius: 12,
                 cursor: 'pointer',
                 display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 2,
-                minWidth: 160,
+                minWidth: 170, flex: 1, maxWidth: 220,
+                transition: 'all 0.18s',
               }}
             >
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 600, letterSpacing: '-0.01em' }}>{t.label}</span>
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 14, fontWeight: 600, letterSpacing: '-0.01em' }}>{t.label}</span>
               <span style={{ fontSize: 11, opacity: 0.7 }}>{t.desc}</span>
             </button>
           ))}
         </div>
 
-        {/* Filter form */}
-        <div style={{
-          background: 'var(--color-surface)',
-          border: '1px solid var(--color-border)',
-          borderRadius: 16, padding: 20,
-          marginBottom: 24,
-        }}>
-          {mode === 'queues' && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-              <div style={{ position: 'relative' }}>
-                <label style={{ fontSize: 12, fontWeight: 500, color: 'var(--color-text-2)', display: 'block', marginBottom: 6 }}>
-                  Świadczenie (np. PORADNIA KARDIOLOGICZNA)
-                </label>
+        {/* ============ KOLEJKI ============ */}
+        {mode === 'queues' && (
+          <>
+            {/* Preset categories */}
+            <div style={{
+              background: 'var(--color-surface)',
+              border: '1px solid var(--color-border)',
+              borderRadius: 16, padding: 18,
+              marginBottom: 16,
+            }}>
+              <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--color-text-3)', letterSpacing: '0.08em', marginBottom: 10, textTransform: 'uppercase' as const }}>
+                Popularne kategorie
+              </div>
+              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 14 }}>
+                {BENEFIT_GROUPS.map(g => (
+                  <button
+                    key={g.id}
+                    onClick={() => setActiveGroup(g.id)}
+                    style={{
+                      padding: '6px 12px',
+                      background: activeGroup === g.id ? 'var(--color-text-1)' : 'var(--color-bg-2)',
+                      color: activeGroup === g.id ? 'var(--color-bg-0)' : 'var(--color-text-2)',
+                      border: '1px solid ' + (activeGroup === g.id ? 'var(--color-text-1)' : 'var(--color-border)'),
+                      borderRadius: 999,
+                      cursor: 'pointer',
+                      fontSize: 12, fontWeight: 500,
+                      display: 'inline-flex', alignItems: 'center', gap: 6,
+                      transition: 'all 0.15s',
+                    }}
+                  >
+                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, opacity: 0.6 }}>{g.icon}</span>
+                    {g.label}
+                  </button>
+                ))}
+              </div>
+              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                {(BENEFIT_GROUPS.find(g => g.id === activeGroup)?.benefits ?? []).map(p => (
+                  <button
+                    key={p}
+                    onClick={() => { setBenefit(p); setShowSuggestions(false); }}
+                    style={{
+                      padding: '5px 11px', borderRadius: 999,
+                      background: benefit === p ? 'var(--color-accent-soft, #fce4e6)' : 'transparent',
+                      color: benefit === p ? 'var(--color-accent, #b3262e)' : 'var(--color-text-3)',
+                      border: '1px solid ' + (benefit === p ? 'var(--color-accent, #b3262e)' : 'var(--color-border)'),
+                      fontSize: 11, fontFamily: 'var(--font-mono)', cursor: 'pointer',
+                      transition: 'all 0.15s',
+                    }}
+                  >{p}</button>
+                ))}
+              </div>
+            </div>
+
+            {/* Recent searches */}
+            {recentBenefits.length > 0 && (
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center', marginBottom: 16 }}>
+                <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--color-text-3)', letterSpacing: '0.06em' }}>OSTATNIO:</span>
+                {recentBenefits.map(r => (
+                  <button
+                    key={r}
+                    onClick={() => setBenefit(r)}
+                    style={{
+                      padding: '4px 10px', borderRadius: 6,
+                      background: 'var(--color-bg-2)', border: '1px solid var(--color-border)',
+                      fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--color-text-2)',
+                      cursor: 'pointer',
+                    }}
+                  >{r}</button>
+                ))}
+              </div>
+            )}
+
+            {/* Search form */}
+            <div style={{
+              background: 'var(--color-surface)',
+              border: '1px solid var(--color-border)',
+              borderRadius: 16, padding: 18,
+              marginBottom: 24,
+            }}>
+              <div style={{ position: 'relative', marginBottom: 12 }}>
+                <label style={labelStyle}>Świadczenie</label>
                 <input
                   type="text"
                   value={benefit}
                   onChange={(e) => { setBenefit(e.target.value.toUpperCase()); setShowSuggestions(true); }}
                   onFocus={() => setShowSuggestions(true)}
                   onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
-                  placeholder="np. PORADNIA OKULISTYCZNA"
+                  placeholder="np. PORADNIA KARDIOLOGICZNA"
                   style={inputStyle}
                 />
                 {showSuggestions && benefitSuggestions.length > 0 && (
-                  <div style={{
-                    position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 10,
-                    background: 'var(--color-surface)',
-                    border: '1px solid var(--color-border)',
-                    borderRadius: 8, marginTop: 4,
-                    maxHeight: 240, overflowY: 'auto',
-                    boxShadow: '0 8px 24px rgba(0,0,0,0.08)',
-                  }}>
+                  <div style={suggestStyle}>
                     {benefitSuggestions.map(s => (
                       <button
                         key={s}
                         type="button"
                         onMouseDown={(e) => { e.preventDefault(); setBenefit(s); setShowSuggestions(false); }}
-                        style={{
-                          display: 'block', width: '100%', textAlign: 'left',
-                          padding: '8px 12px', fontSize: 13,
-                          background: 'transparent', border: 'none',
-                          color: 'var(--color-text-2)', cursor: 'pointer',
-                        }}
+                        style={suggestItemStyle}
                       >{s}</button>
                     ))}
                   </div>
                 )}
               </div>
 
-              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                {POPULAR_BENEFITS.slice(0, 8).map(p => (
-                  <button
-                    key={p}
-                    onClick={() => setBenefit(p)}
-                    style={{
-                      padding: '4px 10px', borderRadius: 999,
-                      background: benefit === p ? 'var(--color-accent-soft)' : 'var(--color-bg-2)',
-                      color: benefit === p ? 'var(--color-accent)' : 'var(--color-text-3)',
-                      border: '1px solid ' + (benefit === p ? 'var(--color-accent)' : 'var(--color-border)'),
-                      fontSize: 11, fontFamily: 'var(--font-mono)', cursor: 'pointer',
-                    }}
-                  >{p}</button>
-                ))}
-              </div>
-
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 10 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 10, marginBottom: 14 }}>
                 <div>
-                  <label style={{ fontSize: 12, fontWeight: 500, color: 'var(--color-text-2)', display: 'block', marginBottom: 6 }}>Województwo</label>
+                  <label style={labelStyle}>Województwo</label>
                   <select value={province} onChange={(e) => setProvince(e.target.value)} style={inputStyle}>
                     <option value="">Wszystkie</option>
                     {PROVINCE_KEYS.map(k => (
@@ -286,11 +393,17 @@ export default function NFZSearchClient() {
                   </select>
                 </div>
                 <div>
-                  <label style={{ fontSize: 12, fontWeight: 500, color: 'var(--color-text-2)', display: 'block', marginBottom: 6 }}>Miasto (opcjonalnie)</label>
-                  <input type="text" value={locality} onChange={(e) => setLocality(e.target.value)} placeholder="np. WARSZAWA" style={inputStyle} />
+                  <label style={labelStyle}>Miasto</label>
+                  <input type="text" value={locality} onChange={(e) => setLocality(e.target.value.toUpperCase())} placeholder="np. WARSZAWA" style={inputStyle} />
+                  <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', marginTop: 6 }}>
+                    {POPULAR_CITIES.slice(0, 5).map(c => (
+                      <button key={c} onClick={() => setLocality(c)}
+                        style={miniPillStyle(locality === c)}>{c}</button>
+                    ))}
+                  </div>
                 </div>
                 <div>
-                  <label style={{ fontSize: 12, fontWeight: 500, color: 'var(--color-text-2)', display: 'block', marginBottom: 6 }}>Tryb</label>
+                  <label style={labelStyle}>Tryb przyjęcia</label>
                   <select value={caseType} onChange={(e) => setCaseType(e.target.value as '1' | '2')} style={inputStyle}>
                     <option value="1">Stabilny</option>
                     <option value="2">Pilny</option>
@@ -298,21 +411,99 @@ export default function NFZSearchClient() {
                 </div>
               </div>
 
-              <button onClick={runQueueSearch} disabled={loading || !benefit} style={primaryButton(loading || !benefit)}>
-                {loading ? 'Szukam...' : 'Sprawdź kolejki'}
-              </button>
+              <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
+                <button onClick={runQueueSearch} disabled={loading || !benefit} style={primaryButton(loading || !benefit)}>
+                  {loading ? 'Szukam...' : 'Sprawdź kolejki'}
+                </button>
+                {(province || locality || caseType !== '1') && (
+                  <button onClick={() => { setProvince(''); setLocality(''); setCaseType('1'); }}
+                    style={{ background: 'none', border: 'none', color: 'var(--color-text-3)', fontSize: 12, cursor: 'pointer', textDecoration: 'underline' }}>
+                    Wyczyść filtry
+                  </button>
+                )}
+              </div>
             </div>
-          )}
 
-          {mode === 'providers' && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 10 }}>
+            {error && <ErrorBox>{error}</ErrorBox>}
+
+            {/* Loading skeleton */}
+            {loading && <SkeletonRows />}
+
+            {/* Stats bar */}
+            {queueStats && !loading && (
+              <div style={statsBarStyle}>
+                <Stat label="Najszybciej" value={`${queueStats.fastest} dni`} color="#22A06B" />
+                <Stat label="Średnio" value={`${queueStats.median} dni`} color="var(--color-text-1)" />
+                <Stat label="Najdłużej" value={`${queueStats.slowest} dni`} color="#c0392b" />
+                <Stat label="Wyników" value={`${queueStats.total}`} color="var(--color-text-3)" />
+              </div>
+            )}
+
+            {/* Sort controls + results */}
+            {sortedQueues && !loading && (
+              <>
+                {sortedQueues.length > 0 && (
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12, flexWrap: 'wrap', gap: 8 }}>
+                    <span style={{ fontSize: 13, color: 'var(--color-text-3)' }}>
+                      Znaleziono <strong style={{ color: 'var(--color-text-1)' }}>{resultCount}</strong> placówek
+                    </span>
+                    <div style={{ display: 'flex', gap: 4 }}>
+                      {([
+                        { id: 'fastest' as const, label: 'Najszybciej' },
+                        { id: 'slowest' as const, label: 'Najdłużej' },
+                        { id: 'demand' as const, label: 'Najwięcej oczekujących' },
+                        { id: 'name' as const, label: 'A–Z' },
+                      ]).map(s => (
+                        <button key={s.id} onClick={() => setSortMode(s.id)}
+                          style={miniPillStyle(sortMode === s.id)}>{s.label}</button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {sortedQueues.length === 0 ? (
+                  <EmptyState mode={mode} />
+                ) : (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                    {sortedQueues.map((r, i) => <QueueCard key={i} r={r} />)}
+                  </div>
+                )}
+              </>
+            )}
+          </>
+        )}
+
+        {/* ============ ŚWIADCZENIODAWCY ============ */}
+        {mode === 'providers' && (
+          <>
+            {/* Provider type presets */}
+            <div style={{ marginBottom: 12 }}>
+              <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--color-text-3)', letterSpacing: '0.08em', marginBottom: 8 }}>TYP PLACÓWKI</div>
+              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                {PROVIDER_TYPES.map(t => (
+                  <button key={t.q} onClick={() => setProviderName(t.q)} style={miniPillStyle(providerName === t.q)}>
+                    {t.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {recentProviders.length > 0 && (
+              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 16 }}>
+                <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--color-text-3)' }}>OSTATNIO:</span>
+                {recentProviders.map(r => (
+                  <button key={r} onClick={() => setProviderName(r)} style={miniPillStyle(false)}>{r}</button>
+                ))}
+              </div>
+            )}
+
+            <div style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 16, padding: 18, marginBottom: 24 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 10, marginBottom: 14 }}>
                 <div>
-                  <label style={{ fontSize: 12, fontWeight: 500, color: 'var(--color-text-2)', display: 'block', marginBottom: 6 }}>Nazwa świadczeniodawcy</label>
+                  <label style={labelStyle}>Nazwa lub typ</label>
                   <input type="text" value={providerName} onChange={(e) => setProviderName(e.target.value)} placeholder="np. szpital wojewódzki" style={inputStyle} />
                 </div>
                 <div>
-                  <label style={{ fontSize: 12, fontWeight: 500, color: 'var(--color-text-2)', display: 'block', marginBottom: 6 }}>Województwo</label>
+                  <label style={labelStyle}>Województwo</label>
                   <select value={providerProvince} onChange={(e) => setProviderProvince(e.target.value)} style={inputStyle}>
                     <option value="">Wszystkie</option>
                     {PROVINCE_KEYS.map(k => (
@@ -325,102 +516,94 @@ export default function NFZSearchClient() {
                 {loading ? 'Szukam...' : 'Znajdź świadczeniodawców'}
               </button>
             </div>
-          )}
 
-          {mode === 'drugs' && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-              <div>
-                <label style={{ fontSize: 12, fontWeight: 500, color: 'var(--color-text-2)', display: 'block', marginBottom: 6 }}>Nazwa leku</label>
-                <input type="text" value={drugName} onChange={(e) => setDrugName(e.target.value)} placeholder="np. metformin" style={inputStyle} />
+            {error && <ErrorBox>{error}</ErrorBox>}
+            {loading && <SkeletonRows />}
+
+            {providerResults && !loading && (
+              <>
+                <div style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 12 }}>
+                  Znaleziono <strong style={{ color: 'var(--color-text-1)' }}>{resultCount}</strong> świadczeniodawców
+                </div>
+                {providerResults.length === 0 ? (
+                  <EmptyState mode={mode} />
+                ) : (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                    {providerResults.map((p) => <ProviderCard key={p.code} p={p} />)}
+                  </div>
+                )}
+              </>
+            )}
+          </>
+        )}
+
+        {/* ============ LEKI ============ */}
+        {mode === 'drugs' && (
+          <>
+            {/* Drug categories */}
+            <div style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 16, padding: 18, marginBottom: 16 }}>
+              <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--color-text-3)', letterSpacing: '0.08em', marginBottom: 12, textTransform: 'uppercase' as const }}>
+                Popularne grupy leków
               </div>
-              <button onClick={runDrugSearch} disabled={loading || drugName.length < 3} style={primaryButton(loading || drugName.length < 3)}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 12 }}>
+                {DRUG_PRESETS.map(cat => (
+                  <div key={cat.category}>
+                    <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--color-text-2)', marginBottom: 6 }}>{cat.category}</div>
+                    <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+                      {cat.items.map(item => (
+                        <button key={item.q} onClick={() => runDrugSearch(item.q)}
+                          style={miniPillStyle(drugName === item.q)}>
+                          {item.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {recentDrugs.length > 0 && (
+              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 16 }}>
+                <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--color-text-3)' }}>OSTATNIO:</span>
+                {recentDrugs.map(r => (
+                  <button key={r} onClick={() => runDrugSearch(r)} style={miniPillStyle(false)}>{r}</button>
+                ))}
+              </div>
+            )}
+
+            <div style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 16, padding: 18, marginBottom: 24 }}>
+              <div style={{ marginBottom: 14 }}>
+                <label style={labelStyle}>Nazwa leku lub substancji czynnej</label>
+                <input type="text" value={drugName} onChange={(e) => setDrugName(e.target.value)} placeholder="np. metformin, salbutamol" style={inputStyle}
+                  onKeyDown={(e) => e.key === 'Enter' && runDrugSearch()} />
+              </div>
+              <button onClick={() => runDrugSearch()} disabled={loading || drugName.length < 3} style={primaryButton(loading || drugName.length < 3)}>
                 {loading ? 'Szukam...' : 'Sprawdź refundację'}
               </button>
             </div>
-          )}
-        </div>
 
-        {error && (
-          <div style={{
-            padding: 14, marginBottom: 20,
-            background: 'var(--color-red-bg, #fce4e6)',
-            color: 'var(--color-red, #8b1f24)',
-            borderRadius: 10, fontSize: 13,
-          }}>{error}</div>
-        )}
+            {error && <ErrorBox>{error}</ErrorBox>}
+            {loading && <SkeletonRows />}
 
-        {/* Results */}
-        {mode === 'queues' && queueResults && (
-          <ResultsList count={resultCount}>
-            {queueResults.length === 0 && <Empty />}
-            {queueResults.map((r, i) => (
-              <div key={i} style={cardStyle}>
-                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12, marginBottom: 8 }}>
-                  <div style={{ fontWeight: 600, fontSize: 15, color: 'var(--color-text-1)', flex: 1 }}>{r.provider}</div>
-                  {r.averageDays != null && (
-                    <span style={{
-                      padding: '4px 10px', borderRadius: 999,
-                      background: r.averageDays > 90 ? '#fce4e6' : r.averageDays > 30 ? '#fff4e0' : '#e0f0db',
-                      color: r.averageDays > 90 ? '#8b1f24' : r.averageDays > 30 ? '#a05a1a' : '#2d6b2a',
-                      fontSize: 11, fontFamily: 'var(--font-mono)', fontWeight: 600, whiteSpace: 'nowrap',
-                    }}>~{r.averageDays} dni</span>
-                  )}
+            {drugResults && !loading && (
+              <>
+                <div style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 12 }}>
+                  Znaleziono <strong style={{ color: 'var(--color-text-1)' }}>{resultCount}</strong> leków
                 </div>
-                <div style={{ fontSize: 12, color: 'var(--color-text-3)', marginBottom: 4 }}>{r.benefit}</div>
-                <div style={{ fontSize: 13, color: 'var(--color-text-2)' }}>{r.address}, {r.locality}</div>
-                {r.phone && <div style={{ fontSize: 12, color: 'var(--color-text-3)', marginTop: 4 }}>Tel: {r.phone}</div>}
-                <div style={{ display: 'flex', gap: 16, marginTop: 8, fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--color-text-3)' }}>
-                  {r.firstAvailable && <span>Najwcześniej: {r.firstAvailable}</span>}
-                  {r.awaiting != null && <span>Oczekujących: {r.awaiting}</span>}
-                </div>
-              </div>
-            ))}
-          </ResultsList>
-        )}
-
-        {mode === 'providers' && providerResults && (
-          <ResultsList count={resultCount}>
-            {providerResults.length === 0 && <Empty />}
-            {providerResults.map((p) => (
-              <div key={p.code} style={cardStyle}>
-                <div style={{ fontWeight: 600, fontSize: 15, color: 'var(--color-text-1)', marginBottom: 6 }}>{p.name}</div>
-                {p.address && <div style={{ fontSize: 13, color: 'var(--color-text-2)' }}>{p.address}{p.postCode && `, ${p.postCode}`}{p.city && ` ${p.city}`}</div>}
-                <div style={{ display: 'flex', gap: 16, marginTop: 8, fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--color-text-3)', flexWrap: 'wrap' }}>
-                  {p.phone && <span>Tel: {p.phone}</span>}
-                  {p.nip && <span>NIP: {p.nip}</span>}
-                  {p.www && <a href={p.www.startsWith('http') ? p.www : `https://${p.www}`} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)', textDecoration: 'none' }}>{p.www}</a>}
-                </div>
-              </div>
-            ))}
-          </ResultsList>
-        )}
-
-        {mode === 'drugs' && drugResults && (
-          <ResultsList count={resultCount}>
-            {drugResults.length === 0 && <Empty />}
-            {drugResults.map((d, i) => (
-              <div key={i} style={cardStyle}>
-                <div style={{ fontWeight: 600, fontSize: 15, color: 'var(--color-text-1)' }}>{d.name}</div>
-                {d.commonName && <div style={{ fontSize: 12, color: 'var(--color-text-3)', marginTop: 2 }}>Subst. czynna: {d.commonName}</div>}
-                <div style={{ display: 'flex', gap: 12, marginTop: 8, fontSize: 12, color: 'var(--color-text-2)', flexWrap: 'wrap' }}>
-                  {d.power && <span>{d.power}</span>}
-                  {d.pack && <span>{d.pack}</span>}
-                </div>
-                <div style={{ display: 'flex', gap: 8, marginTop: 8, flexWrap: 'wrap' }}>
-                  {d.refund && <Pill label="Kategoria" value={d.refund} />}
-                  {d.lumpSumFee && <Pill label="Ryczałt" value={`${d.lumpSumFee} zł`} />}
-                  {d.thirty && <Pill label="30%" value={`${d.thirty} zł`} />}
-                  {d.fifty && <Pill label="50%" value={`${d.fifty} zł`} />}
-                  {d.hundred && <Pill label="100%" value={`${d.hundred} zł`} />}
-                  {d.free && <Pill label="bezpłatny" value="✓" tone="green" />}
-                </div>
-              </div>
-            ))}
-          </ResultsList>
+                {drugResults.length === 0 ? (
+                  <EmptyState mode={mode} />
+                ) : (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                    {drugResults.map((d, i) => <DrugCard key={i} d={d} />)}
+                  </div>
+                )}
+              </>
+            )}
+          </>
         )}
 
         {/* Source attribution */}
-        <div style={{ marginTop: 32, paddingTop: 16, borderTop: '1px solid var(--color-border)', fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--color-muted-2)', textAlign: 'center' }}>
+        <div style={{ marginTop: 40, paddingTop: 20, borderTop: '1px solid var(--color-border)', fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--color-muted-2)', textAlign: 'center' }}>
           Źródło: <a href="https://api.nfz.gov.pl" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)', textDecoration: 'none' }}>api.nfz.gov.pl</a> · Dane orientacyjne, weryfikuj na nfz.gov.pl
         </div>
       </section>
@@ -428,48 +611,169 @@ export default function NFZSearchClient() {
   );
 }
 
-const inputStyle: React.CSSProperties = {
-  width: '100%', padding: '10px 14px',
-  fontSize: 14, fontFamily: 'var(--font-mono)',
-  background: 'var(--color-bg-2)',
-  border: '1px solid var(--color-border)',
-  borderRadius: 8,
-  color: 'var(--color-text-1)',
-  outline: 'none',
-};
-
-const cardStyle: React.CSSProperties = {
-  padding: 16,
-  background: 'var(--color-surface)',
-  border: '1px solid var(--color-border)',
-  borderRadius: 12,
-};
-
-function primaryButton(disabled: boolean): React.CSSProperties {
-  return {
-    padding: '12px 24px',
-    background: disabled ? 'var(--color-surface-2)' : 'var(--color-text-1)',
-    color: disabled ? 'var(--color-muted-2)' : 'var(--color-bg-0)',
-    border: 'none', borderRadius: 10,
-    fontSize: 14, fontWeight: 500,
-    cursor: disabled ? 'not-allowed' : 'pointer',
-    alignSelf: 'flex-start',
-  };
+// ============================================================
+// HERO
+// ============================================================
+function Hero() {
+  return (
+    <section style={{
+      background: 'linear-gradient(160deg, #062418 0%, #0a3a26 100%)',
+      borderRadius: '0 0 24px 24px',
+      position: 'relative', overflow: 'hidden',
+      padding: 'clamp(36px, 4vw, 56px) 20px clamp(32px, 4vw, 48px)',
+    }}>
+      <div style={{ position: 'absolute', top: '20%', right: '5%', width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(34,160,107,0.12) 0%, transparent 70%)', pointerEvents: 'none' }} />
+      <div className="wrap" style={{ position: 'relative', maxWidth: 1080, margin: '0 auto' }}>
+        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'rgba(142,234,173,0.6)', letterSpacing: '0.1em', textTransform: 'uppercase' as const, marginBottom: 14 }}>
+          Wyszukiwarka NFZ
+        </div>
+        <h1 style={{ fontSize: 'clamp(26px, 4vw, 40px)', fontWeight: 700, lineHeight: 1.1, letterSpacing: '-0.03em', color: '#fff', margin: '0 0 10px', maxWidth: 720 }}>
+          Kolejki, lekarze, refundacja leków
+        </h1>
+        <p style={{ fontSize: 14, lineHeight: 1.6, color: 'rgba(255,255,255,0.6)', margin: 0, maxWidth: 560 }}>
+          Sprawdź czas oczekiwania do specjalisty, znajdź świadczeniodawcę NFZ, sprawdź refundację leków. Dane na żywo z api.nfz.gov.pl.
+        </p>
+      </div>
+    </section>
+  );
 }
 
-function ResultsList({ count, children }: { count: number; children: React.ReactNode }) {
+// ============================================================
+// COMPONENTS
+// ============================================================
+function QueueCard({ r }: { r: QueueResult }) {
+  const wait = r.averageDays;
+  const waitColor = wait == null ? 'var(--color-muted-2)' : wait > 90 ? '#c0392b' : wait > 30 ? '#a05a1a' : '#2d6b2a';
+  const waitBg = wait == null ? 'var(--color-bg-2)' : wait > 90 ? '#fce4e6' : wait > 30 ? '#fff4e0' : '#e0f0db';
+
+  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${r.provider} ${r.address} ${r.locality}`)}`;
+
   return (
-    <div>
-      <div style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 12, fontFamily: 'var(--font-mono)' }}>
-        Znaleziono: <strong style={{ color: 'var(--color-text-1)' }}>{count}</strong> wyników
+    <div style={cardStyle}>
+      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12, marginBottom: 8 }}>
+        <div style={{ fontWeight: 600, fontSize: 15, color: 'var(--color-text-1)', flex: 1, lineHeight: 1.3 }}>{r.provider}</div>
+        {wait != null && (
+          <span style={{
+            padding: '6px 12px', borderRadius: 999,
+            background: waitBg, color: waitColor,
+            fontSize: 12, fontFamily: 'var(--font-mono)', fontWeight: 700, whiteSpace: 'nowrap',
+          }}>~{wait} dni</span>
+        )}
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>{children}</div>
+      <div style={{ fontSize: 11, color: 'var(--color-text-3)', fontFamily: 'var(--font-mono)', letterSpacing: '0.04em', marginBottom: 6 }}>{r.benefit}</div>
+      <div style={{ fontSize: 13, color: 'var(--color-text-2)', marginBottom: 8 }}>{r.address}, {r.locality}</div>
+
+      <div style={{ display: 'flex', gap: 12, marginBottom: 8, fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--color-text-3)', flexWrap: 'wrap' }}>
+        {r.firstAvailable && <span>Najwcześniej: <strong style={{ color: 'var(--color-text-2)' }}>{r.firstAvailable}</strong></span>}
+        {r.awaiting != null && <span>Oczekujących: <strong style={{ color: 'var(--color-text-2)' }}>{r.awaiting}</strong></span>}
+      </div>
+
+      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 4 }}>
+        {r.phone && (
+          <a href={`tel:${r.phone.replace(/\s/g, '')}`} style={actionLinkStyle}>
+            Zadzwoń: {r.phone}
+          </a>
+        )}
+        <a href={mapsUrl} target="_blank" rel="noopener noreferrer" style={actionLinkStyle}>
+          Pokaż na mapie
+        </a>
+      </div>
     </div>
   );
 }
 
-function Empty() {
-  return <div style={{ padding: 24, textAlign: 'center', color: 'var(--color-text-3)', fontSize: 13 }}>Brak wyników</div>;
+function ProviderCard({ p }: { p: ProviderResult }) {
+  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${p.name} ${p.address ?? ''} ${p.city ?? ''}`)}`;
+  return (
+    <div style={cardStyle}>
+      <div style={{ fontWeight: 600, fontSize: 15, color: 'var(--color-text-1)', marginBottom: 6, lineHeight: 1.3 }}>{p.name}</div>
+      {p.address && <div style={{ fontSize: 13, color: 'var(--color-text-2)' }}>{p.address}{p.postCode && `, ${p.postCode}`}{p.city && ` ${p.city}`}</div>}
+      <div style={{ display: 'flex', gap: 12, marginTop: 8, fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--color-text-3)', flexWrap: 'wrap' }}>
+        {p.nip && <span>NIP: {p.nip}</span>}
+        {p.www && <a href={p.www.startsWith('http') ? p.www : `https://${p.www}`} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)', textDecoration: 'none' }}>{p.www}</a>}
+      </div>
+      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 8 }}>
+        {p.phone && <a href={`tel:${p.phone.replace(/\s/g, '')}`} style={actionLinkStyle}>Zadzwoń: {p.phone}</a>}
+        <a href={mapsUrl} target="_blank" rel="noopener noreferrer" style={actionLinkStyle}>Pokaż na mapie</a>
+      </div>
+    </div>
+  );
+}
+
+function DrugCard({ d }: { d: DrugResult }) {
+  return (
+    <div style={cardStyle}>
+      <div style={{ fontWeight: 600, fontSize: 15, color: 'var(--color-text-1)', lineHeight: 1.3 }}>{d.name}</div>
+      {d.commonName && <div style={{ fontSize: 12, color: 'var(--color-text-3)', marginTop: 2 }}>Subst. czynna: <strong>{d.commonName}</strong></div>}
+      <div style={{ display: 'flex', gap: 12, marginTop: 8, fontSize: 12, color: 'var(--color-text-2)', flexWrap: 'wrap' }}>
+        {d.power && <span>{d.power}</span>}
+        {d.pack && <span>{d.pack}</span>}
+      </div>
+      <div style={{ display: 'flex', gap: 8, marginTop: 10, flexWrap: 'wrap' }}>
+        {d.refund && <Pill label="Kategoria" value={d.refund} />}
+        {d.lumpSumFee && <Pill label="Ryczałt" value={`${d.lumpSumFee} zł`} />}
+        {d.thirty && <Pill label="30%" value={`${d.thirty} zł`} />}
+        {d.fifty && <Pill label="50%" value={`${d.fifty} zł`} />}
+        {d.hundred && <Pill label="100%" value={`${d.hundred} zł`} />}
+        {d.free && <Pill label="bezpłatny" value="✓" tone="green" />}
+      </div>
+    </div>
+  );
+}
+
+function Stat({ label, value, color }: { label: string; value: string; color: string }) {
+  return (
+    <div style={{ flex: 1, minWidth: 100 }}>
+      <div style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: 'var(--color-text-3)', letterSpacing: '0.08em', textTransform: 'uppercase' as const, marginBottom: 4 }}>{label}</div>
+      <div style={{ fontSize: 16, fontWeight: 700, color, fontFamily: 'var(--font-mono)', letterSpacing: '-0.02em' }}>{value}</div>
+    </div>
+  );
+}
+
+function SkeletonRows() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+      {[0, 1, 2].map(i => (
+        <div key={i} style={{
+          ...cardStyle,
+          height: 100,
+          background: 'linear-gradient(90deg, var(--color-bg-2) 0%, var(--color-surface) 50%, var(--color-bg-2) 100%)',
+          backgroundSize: '200% 100%',
+          animation: 'pulse 1.5s ease-in-out infinite',
+        }} />
+      ))}
+      <style>{`@keyframes pulse { 0% { background-position: 0% 0; } 100% { background-position: -200% 0; } }`}</style>
+    </div>
+  );
+}
+
+function ErrorBox({ children }: { children: React.ReactNode }) {
+  return (
+    <div style={{
+      padding: 14, marginBottom: 20,
+      background: '#fce4e6', color: '#8b1f24',
+      borderRadius: 10, fontSize: 13,
+    }}>{children}</div>
+  );
+}
+
+function EmptyState({ mode }: { mode: SearchMode }) {
+  const hints: Record<SearchMode, string> = {
+    queues: 'Spróbuj zmienić województwo lub poszerzyć kategorię świadczenia.',
+    providers: 'Spróbuj wpisać krótszą nazwę lub samo województwo.',
+    drugs: 'Spróbuj wpisać samą nazwę substancji czynnej (np. metformin zamiast Metformax).',
+  };
+  return (
+    <div style={{
+      padding: 32, textAlign: 'center',
+      background: 'var(--color-surface)',
+      border: '1px dashed var(--color-border)',
+      borderRadius: 12,
+    }}>
+      <div style={{ fontSize: 15, color: 'var(--color-text-2)', marginBottom: 6 }}>Brak wyników</div>
+      <div style={{ fontSize: 12, color: 'var(--color-text-3)' }}>{hints[mode]}</div>
+    </div>
+  );
 }
 
 function Pill({ label, value, tone = 'default' }: { label: string; value: string; tone?: 'default' | 'green' }) {
@@ -484,4 +788,90 @@ function Pill({ label, value, tone = 'default' }: { label: string; value: string
       <span style={{ opacity: 0.6 }}>{label}:</span> <strong>{value}</strong>
     </span>
   );
+}
+
+// ============================================================
+// STYLES
+// ============================================================
+const labelStyle: React.CSSProperties = {
+  fontSize: 11, fontFamily: 'var(--font-mono)',
+  letterSpacing: '0.06em', textTransform: 'uppercase',
+  color: 'var(--color-text-3)', display: 'block', marginBottom: 6,
+};
+
+const inputStyle: React.CSSProperties = {
+  width: '100%', padding: '11px 14px',
+  fontSize: 14, fontFamily: 'var(--font-mono)',
+  background: 'var(--color-bg-2)',
+  border: '1px solid var(--color-border)',
+  borderRadius: 8,
+  color: 'var(--color-text-1)',
+  outline: 'none',
+};
+
+const cardStyle: React.CSSProperties = {
+  padding: 16,
+  background: 'var(--color-surface)',
+  border: '1px solid var(--color-border)',
+  borderRadius: 12,
+  transition: 'border-color 0.15s',
+};
+
+const suggestStyle: React.CSSProperties = {
+  position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 10,
+  background: 'var(--color-surface)',
+  border: '1px solid var(--color-border)',
+  borderRadius: 8, marginTop: 4,
+  maxHeight: 240, overflowY: 'auto',
+  boxShadow: '0 8px 24px rgba(0,0,0,0.08)',
+};
+
+const suggestItemStyle: React.CSSProperties = {
+  display: 'block', width: '100%', textAlign: 'left',
+  padding: '8px 12px', fontSize: 12, fontFamily: 'var(--font-mono)',
+  background: 'transparent', border: 'none',
+  color: 'var(--color-text-2)', cursor: 'pointer',
+};
+
+const statsBarStyle: React.CSSProperties = {
+  display: 'flex',
+  gap: 20,
+  padding: '14px 18px',
+  background: 'var(--color-surface)',
+  border: '1px solid var(--color-border)',
+  borderRadius: 12,
+  marginBottom: 16,
+  flexWrap: 'wrap',
+};
+
+const actionLinkStyle: React.CSSProperties = {
+  display: 'inline-flex', alignItems: 'center', gap: 6,
+  padding: '6px 12px', borderRadius: 6,
+  background: 'var(--color-bg-2)',
+  border: '1px solid var(--color-border)',
+  fontSize: 11, fontFamily: 'var(--font-mono)',
+  color: 'var(--color-text-2)',
+  textDecoration: 'none',
+};
+
+function miniPillStyle(active: boolean): React.CSSProperties {
+  return {
+    padding: '4px 9px', borderRadius: 5,
+    background: active ? 'var(--color-text-1)' : 'var(--color-bg-2)',
+    color: active ? 'var(--color-bg-0)' : 'var(--color-text-2)',
+    border: '1px solid ' + (active ? 'var(--color-text-1)' : 'var(--color-border)'),
+    fontSize: 10, fontFamily: 'var(--font-mono)', cursor: 'pointer',
+    letterSpacing: '0.02em',
+  };
+}
+
+function primaryButton(disabled: boolean): React.CSSProperties {
+  return {
+    padding: '12px 24px',
+    background: disabled ? 'var(--color-surface-2)' : 'var(--color-text-1)',
+    color: disabled ? 'var(--color-muted-2)' : 'var(--color-bg-0)',
+    border: 'none', borderRadius: 10,
+    fontSize: 14, fontWeight: 500,
+    cursor: disabled ? 'not-allowed' : 'pointer',
+  };
 }
