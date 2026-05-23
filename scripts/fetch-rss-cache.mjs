@@ -403,8 +403,23 @@ async function processFeed(feed) {
     return { id: feed.id, count: 0, status: 'no-parser' };
   }
 
-  const rawItems = parser(html, feed);
+  let rawItems = parser(html, feed);
   console.log(`[${feed.id}] Sparsowano ${rawItems.length} artykułów (${source})`);
+
+  // Jeśli direct fetch dostal odpowiedz ale parser znalazl 0 (np. JS SPA bez SSR),
+  // sprobuj Firecrawl ktory renderuje JS
+  if (rawItems.length === 0 && source === 'direct' && FIRECRAWL_API_KEY) {
+    console.log(`[${feed.id}] Parser zwrocil 0 - probuje Firecrawl (JS render)...`);
+    const renderedHtml = await fetchWithFirecrawl(feed.url);
+    if (renderedHtml && !looksBlockedOrEmpty(renderedHtml)) {
+      const rendered = parser(renderedHtml, feed);
+      console.log(`[${feed.id}] Po Firecrawl: ${rendered.length} artykulow`);
+      if (rendered.length > 0) {
+        rawItems = rendered;
+        source = 'firecrawl';
+      }
+    }
+  }
 
   if (rawItems.length === 0) {
     return { id: feed.id, count: 0, status: 'empty' };
