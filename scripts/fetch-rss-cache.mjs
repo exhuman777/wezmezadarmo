@@ -396,19 +396,30 @@ function isArticleLink(link, feedId) {
   if (lc.includes('facebook.com') || lc.includes('twitter.com') || lc.includes('linkedin.com')) return false;
   if (lc.includes('/login') || lc.includes('/rejestracja') || lc.includes('/kontakt')) return false;
 
+  // Generic: link musi miec wiecej niz 1 path segment (oprocz domeny)
+  // i nie byc root-em strony
+  try {
+    const u = new URL(link);
+    const pathSegments = u.pathname.split('/').filter(Boolean);
+    if (pathSegments.length < 1 || u.pathname === '/' || u.pathname === '') return false;
+  } catch { return false; }
+
   switch (feedId) {
     case 'nbp':
       return lc.includes('nbp.pl') && !lc.endsWith('nbp.pl/') && !lc.endsWith('aktualnosci.html')
-        && (lc.includes('aktualnosci') || lc.includes('komunikat') || lc.match(/\/20\d{2}\//));
+        && (lc.includes('aktualnosci') || lc.includes('komunikat') || lc.match(/\/20\d{2}\//) !== null);
     case 'sejm':
       return lc.includes('sejm.gov.pl')
         && (lc.includes('news') || lc.includes('aktualnosci') || lc.includes('komunikat') || lc.includes('/sejm10.nsf/'));
     case 'fundusze':
-      return lc.includes('funduszeeuropejskie.gov.pl') && lc.includes('/strony/')
-        && !lc.endsWith('/aktualnosci/') && !lc.endsWith('/strony/');
+      // Wszystko na funduszeeuropejskie.gov.pl - artykuly maja dluga sciezke
+      return lc.includes('funduszeeuropejskie.gov.pl')
+        && !lc.endsWith('/aktualnosci/')
+        && !lc.endsWith('funduszeeuropejskie.gov.pl/')
+        && link.length > 50;
     case 'arimr':
-      return lc.includes('arimr.gov.pl') && !lc.endsWith('arimr.gov.pl/')
-        && (lc.includes('aktualnosci') || lc.includes('komunikat') || lc.match(/\/20\d{2}\//));
+      // ARiMR - wszystko na ich domenie, dluga sciezka
+      return lc.includes('arimr.gov.pl') && !lc.endsWith('arimr.gov.pl/') && link.length > 40;
     case 'ezdrowie':
       return lc.includes('ezdrowie.gov.pl/portal/') && !lc.endsWith('/aktualnosci');
     case 'uokik':
