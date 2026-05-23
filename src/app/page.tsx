@@ -11,7 +11,7 @@ type Phase = 'landing' | 'questions' | 'loading' | 'chat';
 
 const LOADING_MESSAGES = [
   'Szukamy pieniędzy dla Twojej rodziny...',
-  'Sprawdzamy 117 świadczeń w 15 kategoriach...',
+  'Sprawdzamy 118 świadczeń w 15 kategoriach...',
   'Szukam dla Ciebie funduszy...',
   'Analizujemy Twój profil...',
   'Twoje darmowe pieniądze od Państwa w zasięgu ręki...',
@@ -520,7 +520,7 @@ export default function Home() {
         welcomeText += 'Napisz pytanie, jestem tutaj żeby pomóc.';
       } else {
         welcomeText = 'Nie znalazłem świadczeń pasujących do Twojego profilu.\n\n';
-        welcomeText += 'Algorytm przeszukał 117 świadczeń z 15 kategorii. Opisz mi swoją sytuację, a sprawdzę czy czegoś nie przeoczyłem.\n\n';
+        welcomeText += 'Algorytm przeszukał 118 świadczeń z 15 kategorii. Opisz mi swoją sytuację, a sprawdzę czy czegoś nie przeoczyłem.\n\n';
         welcomeText += 'Jestem asystentem AI. Moje odpowiedzi opierają się na zweryfikowanej bazie danych, ale zawsze sprawdź informacje na stronach źródłowych.';
       }
 
@@ -802,10 +802,16 @@ export default function Home() {
                     color: 'var(--color-text-2)',
                     margin: 0,
                   }}>
-                    Polska ma ponad 110 świadczeń, ulg i dotacji wartych miliardy złotych rocznie.
+                    Polska ma ponad 118 świadczeń, ulg i dotacji wartych miliardy złotych rocznie.
                     Większość ludzi nie wie, że im przysługują.
                     Na tej stronie sprawdzisz to szybko i za darmo. W dwie minuty, bez zakładania konta.
                   </p>
+                  <div style={{
+                    marginTop: 14, fontSize: 12, color: 'var(--color-text-3)',
+                    fontFamily: 'var(--font-mono)', letterSpacing: '0.02em',
+                  }}>
+                    Aktualizacja bazy: 23.05.2026 · 118 świadczeń · 23 programy dotacyjne · 11 narzędzi Centrum Obywatela
+                  </div>
                 </div>
 
                 {/* Stat counters w boksie */}
@@ -823,9 +829,9 @@ export default function Home() {
                     gap: 0,
                   }}>
                     {[
-                      { n: 117, suf: '', lbl: 'świadczeń w bazie' },
-                      { n: 13, suf: '', lbl: 'kategorii życiowych' },
-                      { n: 2, suf: ' min', lbl: 'średni czas analizy' },
+                      { n: 118, suf: '', lbl: 'świadczeń w bazie' },
+                      { n: 23, suf: '', lbl: 'programy dotacyjne B2B' },
+                      { n: 11, suf: '', lbl: 'narzędzi Centrum Obywatela' },
                     ].map((s, i) => (
                       <div key={i} style={{ borderLeft: i ? '1px solid var(--color-border)' : 'none', paddingLeft: i ? 'clamp(12px, 2vw, 28px)' : 0 }}>
                         <div className="mono" style={{ fontSize: 11, color: 'var(--color-text-3)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 8 }}>
@@ -970,7 +976,7 @@ export default function Home() {
             <div className="rise" style={{ marginTop: 80, animationDelay: '420ms' }}>
               <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 20 }}>
                 <span className="label-eyebrow">Przykładowe świadczenia</span>
-                <span className="label-eyebrow" style={{ color: 'var(--color-muted-2)' }}>3 z 117</span>
+                <span className="label-eyebrow" style={{ color: 'var(--color-muted-2)' }}>3 z 118</span>
               </div>
               <div className="grid-benefits" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
                 {EXAMPLE_BENEFITS.slice(0, 3).map((b, i) => {
@@ -1351,7 +1357,7 @@ export default function Home() {
                 </p>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'center' }}>
                   <a
-                    href={`https://wa.me/?text=${encodeURIComponent('Sprawdź co Ci się należy od państwa! wezmezadarmo.com – 117 świadczeń, ulg i dotacji. Bez logowania, za darmo, w 2 minuty.')}`}
+                    href={`https://wa.me/?text=${encodeURIComponent('Sprawdź co Ci się należy od państwa! wezmezadarmo.com – 118 świadczeń, ulg i dotacji. Bez logowania, za darmo, w 2 minuty.')}`}
                     target="_blank" rel="noopener noreferrer"
                     style={{
                       display: 'inline-flex', alignItems: 'center', gap: 8,
@@ -1544,7 +1550,7 @@ export default function Home() {
 
   // ===================== LOADING =====================
   if (phase === 'loading') {
-    const counted = Math.round(loadingProgress * 117);
+    const counted = Math.round(loadingProgress * 118);
     const pct = Math.round(loadingProgress * 100);
     const segments = 13;
     const ringR = 130;
@@ -1571,12 +1577,12 @@ export default function Home() {
 
                 <h1 className="display" style={{ fontSize: 'clamp(40px, 6vw, 80px)', marginBottom: 36 }}>
                   Sprawdzamy<br />
-                  <span style={{ color: 'var(--color-accent)', fontVariantNumeric: 'tabular-nums' }}>{counted}/117</span>
+                  <span style={{ color: 'var(--color-accent)', fontVariantNumeric: 'tabular-nums' }}>{counted}/118</span>
                   <span style={{ color: 'var(--color-text-3)' }}> świadczeń</span>
                 </h1>
 
                 <p style={{ fontSize: 17, color: 'var(--color-text-2)', maxWidth: 480, marginBottom: 32, lineHeight: 1.5 }}>
-                  Dopasowujemy 117 świadczeń z 15 kategorii do Twojej sytuacji.
+                  Dopasowujemy 118 świadczeń z 15 kategorii do Twojej sytuacji.
                   Dopasowanie odbywa się na serwerze, ale dane nie są zapisywane.
                 </p>
 
@@ -1634,8 +1640,8 @@ export default function Home() {
                       );
                     })}
                     {/* Inner tick ring */}
-                    {Array.from({ length: 117 }).map((_, i) => {
-                      const a = (i / 117) * Math.PI * 2 - Math.PI / 2;
+                    {Array.from({ length: 118 }).map((_, i) => {
+                      const a = (i / 118) * Math.PI * 2 - Math.PI / 2;
                       const r1 = innerR - 4, r2 = innerR - 12;
                       const tickActive = i < counted;
                       return (

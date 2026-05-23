@@ -490,8 +490,16 @@ function isArticleLink(link, feedId) {
 
   switch (feedId) {
     case 'nbp':
+      // STRICT BLOCKLIST: NBP ma na stronie tony banknotów/monet/skarbów które nie są newsami
+      if (lc.match(/\/(banknoty|monety|skarby|kolekcjon|logotyp|footer|wzornik|emisja|nominal)/)) return false;
+      // Bona/Coin pages w URL
+      if (lc.match(/\/(rewers|awers|seria|polskie-banknoty|polskie-monety)/)) return false;
+      // Sekcje statyczne
+      if (lc.match(/\/(o-nbp|o-banku|kontakt|rzecznik|prawo|edukacja|wystawy)/)) return false;
       return lc.includes('nbp.pl') && !lc.endsWith('nbp.pl/') && !lc.endsWith('aktualnosci.html')
-        && (lc.includes('aktualnosci') || lc.includes('komunikat') || lc.match(/\/20\d{2}\//) !== null);
+        && (lc.includes('aktualnosci') || lc.includes('komunikat') || lc.includes('inflacja')
+            || lc.includes('stopy-procentowe') || lc.includes('rynek-walutowy')
+            || lc.match(/\/20\d{2}\//) !== null);
     case 'sejm':
       return lc.includes('sejm.gov.pl')
         && (lc.includes('news') || lc.includes('aktualnosci') || lc.includes('komunikat') || lc.includes('/sejm10.nsf/'));
@@ -560,11 +568,36 @@ function looksBlockedOrEmpty(html) {
 // Validation
 // ---------------------------------------------------------------------------
 
+// Tytuly ktore wygladaja na smieci (banknoty/monety/skarby/logotypy/etc) - nie newsy
+const TITLE_BLOCKLIST_PATTERNS = [
+  /\b(rewers|awers)\b/i,                              // strony banknotow/monet
+  /^(logotyp|footer|header|menu|nawigacja|skip)/i,    // elementy nawigacyjne
+  /\b(banknot|moneta) o nominale/i,                   // opisy banknotow NBP
+  /skarby? sztuki/i,                                  // kolekcjonerskie monety
+  /^(zobacz|kliknij|pobierz|wiecej|dalej|wstecz)$/i,  // labelki przyciskow
+  /^(pl|en|de|ru|ua)$/i,                              // language switchers
+  /^(cookie|polityka prywatnosci|regulamin|kontakt|o nas)$/i, // footer links
+  /(\.pdf|\.doc|\.docx|\.xlsx|\.zip)$/i,              // pliki do pobrania
+];
+
+function isJunkTitle(title) {
+  if (!title) return true;
+  const t = title.trim();
+  if (t.length < 20) return true;       // za krotki na artykul
+  if (t.length > 400) return true;      // pewnie cala strona
+  // Tytul bez ani jednej spacji = pewnie URL slug
+  if (!t.includes(' ')) return true;
+  for (const re of TITLE_BLOCKLIST_PATTERNS) {
+    if (re.test(t)) return true;
+  }
+  return false;
+}
+
 function validateAndDedup(items, feedId) {
   const seen = new Set();
   const valid = [];
   for (const item of items) {
-    if (!item.title || item.title.length < 10) continue;
+    if (isJunkTitle(item.title)) continue;
     if (!item.link || !/^https?:\/\//.test(item.link)) continue;
     if (item.link.length > 1000) continue;
     const key = simpleHash(item.link + feedId);
