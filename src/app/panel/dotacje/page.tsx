@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { PROGRAMS, type B2BProgram, type EligibilityFlag } from '@/data/programs-b2b';
+import { getPkdName, dominantSection } from '@/data/pkd-codes';
 
 interface CeidgData {
   aktywna: boolean;
@@ -167,16 +168,34 @@ export default function PanelDotacjePage() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 14 }}>
               {ceidg.wojewodztwo && <div><div style={{ fontFamily: 'var(--f-mono)', fontSize: 10, color: 'var(--ink-400)', textTransform: 'uppercase', marginBottom: 3 }}>Województwo</div><div style={{ fontSize: 13, color: 'var(--ink-700)' }}>{ceidg.wojewodztwo}</div></div>}
               {ceidg.dataRejestracji && <div><div style={{ fontFamily: 'var(--f-mono)', fontSize: 10, color: 'var(--ink-400)', textTransform: 'uppercase', marginBottom: 3 }}>Zarejestrowana</div><div style={{ fontSize: 13, color: 'var(--ink-700)' }}>{ceidg.dataRejestracji}</div></div>}
-              {ceidg.pkd.length > 0 && (
-                <div style={{ gridColumn: '1 / -1' }}>
-                  <div style={{ fontFamily: 'var(--f-mono)', fontSize: 10, color: 'var(--ink-400)', textTransform: 'uppercase', marginBottom: 6 }}>Kody PKD ({ceidg.pkd.length})</div>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
-                    {ceidg.pkd.map(code => (
-                      <span key={code} style={{ fontSize: 11, padding: '2px 8px', borderRadius: 4, background: 'var(--green-50)', border: '1px solid var(--green-200)', color: 'var(--ink-700)', fontFamily: 'var(--f-mono)' }}>{code}</span>
-                    ))}
+              {ceidg.pkd.length > 0 && (() => {
+                const section = dominantSection(ceidg.pkd);
+                return (
+                  <div style={{ gridColumn: '1 / -1' }}>
+                    {section && (
+                      <div style={{ marginBottom: 12, padding: '10px 14px', background: 'var(--green-50)', border: '1px solid var(--green-200)', borderRadius: 8 }}>
+                        <div style={{ fontFamily: 'var(--f-mono)', fontSize: 10, color: 'var(--ink-400)', textTransform: 'uppercase', marginBottom: 3 }}>Branża (główna sekcja PKD)</div>
+                        <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--ink-900)' }}>{section.label}</div>
+                      </div>
+                    )}
+                    <div style={{ fontFamily: 'var(--f-mono)', fontSize: 10, color: 'var(--ink-400)', textTransform: 'uppercase', marginBottom: 8 }}>Kody PKD ({ceidg.pkd.length})</div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                      {ceidg.pkd.slice(0, 12).map(code => {
+                        const name = getPkdName(code);
+                        return (
+                          <div key={code} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', padding: '6px 0', fontSize: 12 }}>
+                            <span style={{ fontFamily: 'var(--f-mono)', fontWeight: 600, color: '#22A06B', flexShrink: 0, minWidth: 60 }}>{code}</span>
+                            <span style={{ color: 'var(--ink-700)', lineHeight: 1.4 }}>{name ?? <span style={{ color: 'var(--ink-400)', fontStyle: 'italic' }}>brak opisu w słowniku</span>}</span>
+                          </div>
+                        );
+                      })}
+                      {ceidg.pkd.length > 12 && (
+                        <div style={{ fontSize: 11, color: 'var(--ink-400)', marginTop: 4 }}>... i {ceidg.pkd.length - 12} więcej</div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              )}
+                );
+              })()}
             </div>
           </div>
 
@@ -194,7 +213,12 @@ export default function PanelDotacjePage() {
                     Pasujące dla Twojej firmy ({matchResult.matched.length})
                   </h2>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                    {matchResult.matched.map(p => <ProgramCard key={p.id} program={p} />)}
+                    {matchResult.matched.map((p, i) => (
+                      <div key={p.id}>
+                        <ProgramCard program={p} />
+                        {i === 0 && <ViaPromoCard />}
+                      </div>
+                    ))}
                   </div>
                 </div>
               )}
@@ -276,6 +300,67 @@ function ProgramCard({ program }: { program: B2BProgram }) {
       <a href={program.url} target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: '#22A06B', textDecoration: 'none' }}>
         Szczegóły programu →
       </a>
+    </div>
+  );
+}
+
+function ViaPromoCard() {
+  return (
+    <div style={{
+      marginTop: 10,
+      padding: 18,
+      background: 'linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%)',
+      border: '1px solid #c4b5fd',
+      borderLeft: '3px solid #7c3aed',
+      borderRadius: 10,
+      position: 'relative', overflow: 'hidden',
+    }}>
+      <div style={{
+        position: 'absolute', top: 12, right: 14,
+        fontSize: 9, padding: '2px 7px', borderRadius: 3,
+        background: '#7c3aed', color: '#fff', fontWeight: 700,
+        fontFamily: 'var(--f-mono)', letterSpacing: '0.06em',
+      }}>
+        PROMOWANE
+      </div>
+
+      <div style={{ display: 'flex', gap: 6, alignItems: 'center', marginBottom: 6, flexWrap: 'wrap' }}>
+        <span style={{ fontSize: 9, padding: '2px 7px', borderRadius: 3, background: '#7c3aed', color: '#fff', fontWeight: 700, fontFamily: 'var(--f-mono)', letterSpacing: '0.04em' }}>
+          AI AGENT
+        </span>
+        <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 3, background: 'rgba(124,58,237,0.1)', color: '#5b21b6', fontFamily: 'var(--f-mono)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+          27 KRAJÓW UE
+        </span>
+      </div>
+
+      <div style={{ fontSize: 16, fontWeight: 700, color: '#2e1065', lineHeight: 1.3, marginBottom: 4, letterSpacing: '-0.01em' }}>
+        VIA - autonomiczny agent dla Twojego biznesu
+      </div>
+      <div style={{ fontSize: 12, color: '#5b21b6', marginBottom: 10, fontFamily: 'var(--f-mono)' }}>
+        Sourcing przetargów + B+R + zatrudnienia + regulacji w 27 krajach UE
+      </div>
+
+      <p style={{ fontSize: 13, color: '#3b0764', lineHeight: 1.6, margin: '0 0 12px' }}>
+        VIA czyta przetargi w 27 krajach UE, rundy finansowania, aktywność rekrutacyjną
+        i zmiany regulacyjne — następnie krzyżuje każdy sygnał z Twoim profilem kompetencji,
+        pozycją konkurencyjną i celami, zanim trafi do Ciebie. Nigdy nie przeglądasz surowego
+        feedu; otwierasz krótką listę okazji już ocenionych pod kątem tego, jak dobrze pasują
+        do tego, co możesz wygrać.
+      </p>
+
+      <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
+        <a href="https://via.day" target="_blank" rel="noopener noreferrer" style={{
+          display: 'inline-flex', alignItems: 'center', gap: 6,
+          fontSize: 13, fontWeight: 600,
+          padding: '8px 16px', borderRadius: 8,
+          background: '#7c3aed', color: '#fff', textDecoration: 'none',
+          boxShadow: '0 3px 10px rgba(124,58,237,0.3)',
+          transition: 'transform 150ms, box-shadow 150ms',
+        }}>
+          Sprawdź VIA →
+        </a>
+        <span style={{ fontSize: 11, color: '#7c3aed', fontFamily: 'var(--f-mono)' }}>via.day · poza wezmezadarmo</span>
+      </div>
     </div>
   );
 }

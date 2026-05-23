@@ -92,6 +92,11 @@ export async function POST(request: NextRequest) {
         : null,
     };
 
+    // Fallback nazwy + adresu z Bialej Listy gdy CEIDG nie znalazl (spolki SA/sp.z.o.o nie sa w CEIDG)
+    if (!enriched.nazwa && vatResult.status === 'fulfilled' && vatResult.value) {
+      enriched.nazwa = vatResult.value.name ?? null;
+    }
+
     nipCache.set(cleanNip, { data: enriched, ts: Date.now() });
     return NextResponse.json(enriched);
   } catch (error) {
