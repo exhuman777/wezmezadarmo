@@ -32,12 +32,12 @@ export const BDL_VARS = {
 } as const;
 
 interface RawResult {
-  id: string;
+  id: string | number;
   values: Array<{ year: string; val: number }>;
 }
 
 export function mapUnitData(raw: { results?: RawResult[] }): BdlUnitData {
-  const byId = new Map((raw.results ?? []).map(r => [r.id, r]));
+  const byId = new Map((raw.results ?? []).map(r => [String(r.id), r]));
   const get = (id: string): { val: number; year: string } | null => {
     const r = byId.get(id);
     if (!r || !r.values || r.values.length === 0) return null;
