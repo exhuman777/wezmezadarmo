@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import RssSubscriptionForm from '@/components/RssSubscriptionForm';
 
 const KATEGORIE = [
   { value: 'dofinansowania', label: 'Dofinansowania' },
@@ -100,6 +101,16 @@ export default function AgentPowiadomienia() {
         }}>
           {saved ? 'Zapisano' : saving ? 'Zapisuję...' : 'Zapisz ustawienia'}
         </button>
+
+        <div style={{ marginTop: 32, paddingTop: 24, borderTop: '1px solid var(--color-border)' }}>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--color-text-3)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 8 }}>
+            Custom alerty RSS
+          </div>
+          <h2 style={{ fontSize: 18, fontWeight: 500, marginBottom: 16, color: 'var(--color-text-1)' }}>
+            Subskrypcja źródeł aktualności
+          </h2>
+          <RssSubscriptionForm />
+        </div>
 
         <div>
           {testSent ? (

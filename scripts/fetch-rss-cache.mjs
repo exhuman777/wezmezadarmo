@@ -27,12 +27,16 @@ import { randomUUID } from 'node:crypto';
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const FIRECRAWL_API_KEY = process.env.FIRECRAWL_API_KEY;
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
+const RESEND_FROM = process.env.RESEND_FROM_EMAIL || 'alerty@wezmezadarmo.com';
+const SITE_URL = process.env.SITE_URL || 'https://www.wezmezadarmo.com';
 const MAX_ITEMS_PER_FEED = 20;
 const FETCH_TIMEOUT_MS = 15_000;
 const FIRECRAWL_TIMEOUT_MS = 60_000;
 const DIRECT_RETRY_COUNT = 2;
 const CONCURRENT_FEEDS = 3;
 const RETENTION_DAYS = 30;
+const ALERT_THROTTLE_HOURS = 4; // min. odstep miedzy alertami per user
 
 if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
   console.error('FATAL: brak SUPABASE_URL lub SUPABASE_SERVICE_ROLE_KEY');
@@ -63,6 +67,10 @@ const BROWSER_HEADERS = {
 // ---------------------------------------------------------------------------
 
 const FEEDS = [
+  // Live RSS (dzialaja bez proxy)
+  { id: 'zus',      name: 'ZUS',          url: 'https://www.zus.pl/o-zus/aktualnosci/-/asset_publisher/aktualnosci/rss', audiences: ['wszyscy', 'jdg', 'firmy'], parser: 'rss' },
+  { id: 'gus',      name: 'GUS',          url: 'https://stat.gov.pl/rss/pl/5438/8.xml',                        audiences: ['wszyscy', 'firmy'],         parser: 'rss' },
+  // Blokowane przez Incapsula/Imperva - direct -> Firecrawl fallback
   { id: 'nbp',      name: 'NBP',          url: 'https://www.nbp.pl/home.aspx?f=/aktualnosci/aktualnosci.html', audiences: ['wszyscy', 'firmy'],         parser: 'html-nbp' },
   { id: 'sejm',     name: 'Sejm',         url: 'https://www.sejm.gov.pl/sejm10.nsf/rss.xsp',                   audiences: ['wszyscy', 'jdg', 'firmy'],  parser: 'rss' },
   { id: 'uokik',    name: 'UOKiK',        url: 'https://uokik.gov.pl/aktualnosci',                             audiences: ['wszyscy', 'firmy'],         parser: 'html-uokik' },
@@ -97,6 +105,30 @@ async function supabaseInsert(table, rows) {
   if (!res.ok) {
     const text = await res.text();
     return { error: { message: `HTTP ${res.status}: ${text.slice(0, 300)}` } };
+  }
+  return { error: null };
+}
+
+async function supabaseGet(path) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
+    headers: SUPABASE_HEADERS,
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    return { data: null, error: { message: `HTTP ${res.status}: ${text.slice(0, 200)}` } };
+  }
+  return { data: await res.json(), error: null };
+}
+
+async function supabasePatch(path, body) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
+    method: 'PATCH',
+    headers: { ...SUPABASE_HEADERS, 'Prefer': 'return=minimal' },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    return { error: { message: `HTTP ${res.status}: ${text.slice(0, 200)}` } };
   }
   return { error: null };
 }
@@ -647,6 +679,212 @@ async function cleanupRunLog() {
 }
 
 // ---------------------------------------------------------------------------
+// Alert email pipeline
+// ---------------------------------------------------------------------------
+
+function escHtml(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function buildAlertHtml(sub, items) {
+  const itemsHtml = items.map(item => `
+    <tr>
+      <td style="padding:14px 0;border-bottom:1px solid #e8eae5;">
+        <div style="font-size:11px;color:#6b7a72;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;font-family:ui-monospace,monospace">
+          ${escHtml(item.source_name)}
+        </div>
+        <a href="${escHtml(item.link)}" style="font-size:15px;color:#0c1714;text-decoration:none;font-weight:500;line-height:1.4;display:block;margin-bottom:6px">
+          ${escHtml(item.title)}
+        </a>
+        ${item.description ? `<div style="font-size:13px;color:#4a5750;line-height:1.5">${escHtml(item.description.slice(0, 200))}</div>` : ''}
+      </td>
+    </tr>`).join('');
+
+  const filterSummary = [];
+  if (sub.source_ids?.length) filterSummary.push(`Źródła: ${sub.source_ids.join(', ')}`);
+  if (sub.audiences?.length) filterSummary.push(`Grupy: ${sub.audiences.join(', ')}`);
+  if (sub.keywords?.length) filterSummary.push(`Słowa: ${sub.keywords.join(', ')}`);
+  const filters = filterSummary.length ? filterSummary.join(' | ') : 'Wszystkie aktualności';
+
+  return `<!DOCTYPE html>
+<html><body style="margin:0;padding:0;background:#f5f6f3;font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif">
+<div style="max-width:600px;margin:0 auto;padding:32px 16px">
+  <div style="background:#fff;border:1px solid #e8eae5;border-radius:12px;padding:28px">
+    <div style="font-size:11px;color:#22A06B;text-transform:uppercase;letter-spacing:0.08em;font-family:ui-monospace,monospace;margin-bottom:8px">
+      WezmeZadarmo - Twoje aktualności
+    </div>
+    <h1 style="font-size:22px;font-weight:600;color:#0c1714;margin:0 0 8px">
+      ${items.length} ${items.length === 1 ? 'nowa aktualność' : items.length < 5 ? 'nowe aktualności' : 'nowych aktualności'}
+    </h1>
+    <div style="font-size:12px;color:#6b7a72;margin-bottom:24px">${escHtml(filters)}</div>
+    <table style="width:100%;border-collapse:collapse">${itemsHtml}</table>
+    <div style="margin-top:24px;padding-top:16px;border-top:1px solid #e8eae5;font-size:12px;color:#6b7a72;line-height:1.6">
+      Alerty wysylane maks. 2x dziennie (10:00 i 15:00).
+      <a href="${SITE_URL}/panel/powiadomienia" style="color:#22A06B;text-decoration:none">Zmień ustawienia subskrypcji</a>
+      lub <a href="${SITE_URL}/panel/powiadomienia?unsubscribe=1" style="color:#6b7a72;text-decoration:none">wypisz się</a>.
+    </div>
+  </div>
+</div></body></html>`;
+}
+
+async function sendEmailViaResend(to, subject, html) {
+  if (!RESEND_API_KEY) return { error: 'no RESEND_API_KEY' };
+  const res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${RESEND_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ from: RESEND_FROM, to, subject, html }),
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    return { error: `Resend HTTP ${res.status}: ${text.slice(0, 200)}` };
+  }
+  return { error: null };
+}
+
+async function logAlertResult(sub, itemsCount, status, errorMessage = null) {
+  try {
+    await supabaseInsert('rss_alert_log', [{
+      run_id: RUN_ID,
+      subscription_id: sub.id,
+      user_id: sub.user_id,
+      email: sub.email,
+      items_count: itemsCount,
+      status,
+      error_message: errorMessage ? errorMessage.slice(0, 1000) : null,
+    }]);
+  } catch (e) {
+    console.warn(`  [alert-log] ${e.message}`);
+  }
+}
+
+// Filtruje nowe items per subskrypcja - bez duplikatow vs last_sent_item_ids
+function filterItemsForSubscription(allItems, sub) {
+  const sentIds = new Set(sub.last_sent_item_ids || []);
+  const lastSentAt = sub.last_sent_at ? new Date(sub.last_sent_at).getTime() : 0;
+
+  return allItems.filter(item => {
+    // Skip jesli juz wyslane
+    if (sentIds.has(item.id)) return false;
+
+    // Source filter (pusta lista = wszystkie)
+    if (sub.source_ids?.length > 0 && !sub.source_ids.includes(item.source_id)) return false;
+
+    // Audience filter (pusta = wszystkie)
+    if (sub.audiences?.length > 0) {
+      const hasAudience = (item.audiences || []).some(a => sub.audiences.includes(a));
+      if (!hasAudience) return false;
+    }
+
+    // Keyword filter (pusta = bez filtra)
+    if (sub.keywords?.length > 0) {
+      const text = `${item.title} ${item.description || ''}`.toLowerCase();
+      const hasKw = sub.keywords.some(kw => text.includes(kw.toLowerCase()));
+      if (!hasKw) return false;
+    }
+
+    // Nie wysylaj zbyt starych (>7 dni)
+    if (item.fetched_at && new Date(item.fetched_at).getTime() < Date.now() - 7 * 24 * 60 * 60 * 1000) {
+      return false;
+    }
+
+    return true;
+  });
+}
+
+async function sendAlerts() {
+  console.log('\n=== Alerty email ===');
+  if (!RESEND_API_KEY) {
+    console.log('Brak RESEND_API_KEY - pomijam alerty');
+    return;
+  }
+
+  // 1. Pobierz wszystkie freshly cached items (z tego runa lub ostatnich 24h)
+  const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+  const { data: items, error: itemsErr } = await supabaseGet(
+    `rss_cache?fetched_at=gte.${encodeURIComponent(since)}&order=fetched_at.desc&limit=200`
+  );
+  if (itemsErr) { console.error('Blad pobierania items:', itemsErr.message); return; }
+  if (!items || items.length === 0) { console.log('Brak swiezych items (24h) - pomijam alerty'); return; }
+  console.log(`Swieze items (24h): ${items.length}`);
+
+  // 2. Pobierz aktywne subskrypcje
+  const { data: subs, error: subsErr } = await supabaseGet(
+    `rss_subscriptions?active=eq.true&order=last_sent_at.asc.nullsfirst&limit=500`
+  );
+  if (subsErr) { console.error('Blad pobierania subscriptions:', subsErr.message); return; }
+  if (!subs || subs.length === 0) { console.log('Brak aktywnych subskrypcji'); return; }
+  console.log(`Aktywne subskrypcje: ${subs.length}`);
+
+  let sentCount = 0;
+  let skippedThrottled = 0;
+  let noItems = 0;
+  let errors = 0;
+
+  // 3. Per subskrypcja
+  for (const sub of subs) {
+    // Throttle: min ALERT_THROTTLE_HOURS odstep
+    if (sub.last_sent_at) {
+      const sinceLast = Date.now() - new Date(sub.last_sent_at).getTime();
+      if (sinceLast < ALERT_THROTTLE_HOURS * 60 * 60 * 1000) {
+        skippedThrottled++;
+        await logAlertResult(sub, 0, 'skipped-throttled');
+        continue;
+      }
+    }
+
+    const matching = filterItemsForSubscription(items, sub);
+    if (matching.length === 0) {
+      noItems++;
+      await logAlertResult(sub, 0, 'no-items');
+      continue;
+    }
+
+    // Wyslij email
+    const subject = `${matching.length} ${matching.length === 1 ? 'nowa aktualność' : 'nowych aktualności'} - WezmeZadarmo`;
+    const html = buildAlertHtml(sub, matching);
+    const { error: emailErr } = await sendEmailViaResend(sub.email, subject, html);
+
+    if (emailErr) {
+      errors++;
+      console.warn(`  [${sub.email}] FAIL: ${emailErr}`);
+      await logAlertResult(sub, matching.length, 'error', emailErr);
+      continue;
+    }
+
+    // Aktualizuj last_sent + dopisz item.ids do last_sent_item_ids
+    // Trzymamy max 500 ostatnich id zeby tabela nie pucnela
+    const newSentIds = [
+      ...matching.map(i => i.id),
+      ...(sub.last_sent_item_ids || []),
+    ].slice(0, 500);
+
+    const { error: updErr } = await supabasePatch(
+      `rss_subscriptions?id=eq.${sub.id}`,
+      {
+        last_sent_at: new Date().toISOString(),
+        last_sent_item_ids: newSentIds,
+        updated_at: new Date().toISOString(),
+      }
+    );
+    if (updErr) console.warn(`  [${sub.email}] update FAIL: ${updErr.message}`);
+
+    sentCount++;
+    console.log(`  [${sub.email}] OK: ${matching.length} items`);
+    await logAlertResult(sub, matching.length, 'sent');
+  }
+
+  console.log(`Alerty: ${sentCount} sent, ${noItems} no-items, ${skippedThrottled} throttled, ${errors} errors`);
+}
+
+// ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 
@@ -661,6 +899,7 @@ async function main() {
   const results = await runConcurrent(FEEDS, CONCURRENT_FEEDS);
   await cleanupRssCache();
   await cleanupRunLog();
+  await sendAlerts();
 
   const totalDuration = Date.now() - RUN_STARTED;
   const okCount = results.filter(r => r.status === 'ok').length;
