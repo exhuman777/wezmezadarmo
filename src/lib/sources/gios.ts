@@ -31,63 +31,64 @@ export interface GiosAqi {
   o3: string | null;
 }
 
-interface RawStation {
-  'Identyfikator stacji': number;
-  'Kod stacji': string;
-  'Nazwa stacji': string;
-  'WGS84 φ N': string;
-  'WGS84 λ E': string;
-  'Identyfikator miasta'?: number;
-  'Nazwa miasta'?: string;
-  'Gmina'?: string;
-  'Powiat'?: string;
-  'Województwo'?: string;
-  'Ulica'?: string | null;
-}
+type RawStation = Record<string, unknown>;
+type RawAqi = Record<string, unknown>;
 
-interface RawAqi {
-  'Identyfikator stacji pomiarowej': number;
-  'Data wykonania obliczeń indeksu': string;
-  'Nazwa kategorii indeksu': string | null;
-  'Data danych źródłowych, z których policzono wartość indeksu dla wskaźnika st'?: string | null;
-  'Nazwa kategorii indeksu dla wskażnika SO2'?: string | null;
-  'Nazwa kategorii indeksu dla wskażnika NO2'?: string | null;
-  'Nazwa kategorii indeksu dla wskażnika PM10'?: string | null;
-  'Nazwa kategorii indeksu dla wskażnika PM2.5'?: string | null;
-  'Nazwa kategorii indeksu dla wskażnika O3'?: string | null;
+/** Find first object key matching a substring (case-insensitive). Defensive against
+ *  Polish field-name encoding issues across runtimes / different Unicode normal forms. */
+function pickKey(obj: Record<string, unknown>, ...substrings: string[]): unknown {
+  const keys = Object.keys(obj);
+  for (const k of keys) {
+    const lower = k.toLowerCase();
+    if (substrings.every(s => lower.includes(s.toLowerCase()))) {
+      return obj[k];
+    }
+  }
+  return undefined;
 }
 
 function parseStation(r: RawStation): GiosStation {
+  const id = Number(pickKey(r, 'identyfikator stacji'));
+  const code = String(pickKey(r, 'kod stacji') ?? '');
+  const name = String(pickKey(r, 'nazwa stacji') ?? '');
+  // lat/lon keys contain Greek letters phi/lambda; match by 'wgs84' + 'n'/'e'
+  const latStr = pickKey(r, 'wgs84', 'n');
+  const lonStr = pickKey(r, 'wgs84', 'e');
   return {
-    id: r['Identyfikator stacji'],
-    stationCode: r['Kod stacji'],
-    stationName: r['Nazwa stacji'],
-    lat: parseFloat(r['WGS84 φ N']),
-    lon: parseFloat(r['WGS84 λ E']),
-    city: r['Nazwa miasta'] ?? '',
-    commune: r['Gmina'] ?? '',
-    district: r['Powiat'] ?? '',
-    province: r['Województwo'] ?? '',
-    street: r['Ulica'] ?? null,
+    id,
+    stationCode: code,
+    stationName: name,
+    lat: parseFloat(String(latStr ?? '')),
+    lon: parseFloat(String(lonStr ?? '')),
+    city: String(pickKey(r, 'nazwa miasta') ?? ''),
+    commune: String(pickKey(r, 'gmina') ?? ''),
+    district: String(pickKey(r, 'powiat') ?? ''),
+    province: String(pickKey(r, 'wojewodztwo') ?? pickKey(r, 'województwo') ?? ''),
+    street: (pickKey(r, 'ulica') as string | null) ?? null,
   };
 }
 
 export async function getAllStations(): Promise<GiosStation[]> {
-  // v1 paginates; use size=500 to get most in one page (~1800 total stations)
   const stations: GiosStation[] = [];
   for (let page = 0; page < 5; page++) {
     const res = await fetch(`${BASE}/station/findAll?page=${page}&size=500`, {
       headers: { Accept: 'application/json' },
       next: { revalidate: 86400 },
     });
-    if (!res.ok) throw new Error(`GIOŚ stations error: ${res.status}`);
-    const data = await res.json();
-    const list = (data['Lista stacji pomiarowych'] ?? []) as RawStation[];
-    if (list.length === 0) break;
+    if (!res.ok) throw new Error(`GIOS stations error: ${res.status}`);
+    const data = await res.json() as Record<string, unknown>;
+    const list = (pickKey(data, 'lista stacji') ?? []) as RawStation[];
+    if (!Array.isArray(list) || list.length === 0) break;
     stations.push(...list.map(parseStation));
     if (list.length < 500) break;
   }
   return stations;
+}
+
+/** Helper: get pollutant level from AqIndex by indicator name. */
+function pollutantLevel(aqi: RawAqi, indicator: string): string | null {
+  const value = pickKey(aqi, 'nazwa kategorii', indicator.toLowerCase());
+  return value ? String(value) : null;
 }
 
 export async function getAirIndex(stationId: number): Promise<GiosAqi> {
@@ -95,19 +96,29 @@ export async function getAirIndex(stationId: number): Promise<GiosAqi> {
     headers: { Accept: 'application/json' },
     next: { revalidate: 1800 },
   });
-  if (!res.ok) throw new Error(`GIOŚ AQI error: ${res.status}`);
-  const data = await res.json();
-  const aqi = (data.AqIndex ?? {}) as RawAqi;
+  if (!res.ok) throw new Error(`GIOS AQI error: ${res.status}`);
+  const data = await res.json() as Record<string, unknown>;
+  const aqi = (pickKey(data, 'aqindex') ?? {}) as RawAqi;
   return {
-    stationId: aqi['Identyfikator stacji pomiarowej'],
-    calcDate: aqi['Data wykonania obliczeń indeksu'],
-    sourceDate: aqi['Data danych źródłowych, z których policzono wartość indeksu dla wskaźnika st'] ?? null,
-    overall: aqi['Nazwa kategorii indeksu'] ?? null,
-    pm10: aqi['Nazwa kategorii indeksu dla wskażnika PM10'] ?? null,
-    pm25: aqi['Nazwa kategorii indeksu dla wskażnika PM2.5'] ?? null,
-    no2: aqi['Nazwa kategorii indeksu dla wskażnika NO2'] ?? null,
-    so2: aqi['Nazwa kategorii indeksu dla wskażnika SO2'] ?? null,
-    o3: aqi['Nazwa kategorii indeksu dla wskażnika O3'] ?? null,
+    stationId: Number(pickKey(aqi, 'identyfikator stacji')),
+    calcDate: String(pickKey(aqi, 'data wykonania') ?? ''),
+    sourceDate: (pickKey(aqi, 'data danych') as string | null) ?? null,
+    // Overall: just "Nazwa kategorii indeksu" without indicator suffix
+    overall: (() => {
+      const keys = Object.keys(aqi);
+      for (const k of keys) {
+        const l = k.toLowerCase();
+        if (l.includes('nazwa kategorii indeksu') && !l.includes('wsk')) {
+          return String(aqi[k] ?? '') || null;
+        }
+      }
+      return null;
+    })(),
+    pm10: pollutantLevel(aqi, 'pm10'),
+    pm25: pollutantLevel(aqi, 'pm2.5'),
+    no2: pollutantLevel(aqi, 'no2'),
+    so2: pollutantLevel(aqi, 'so2'),
+    o3: pollutantLevel(aqi, 'o3'),
   };
 }
 
