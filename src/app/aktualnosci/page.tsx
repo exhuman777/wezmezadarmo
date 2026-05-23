@@ -4,6 +4,8 @@ import FeedClient from './FeedClient';
 import Link from 'next/link';
 import { AirQualityWidget } from '@/components/AirQualityWidget';
 import { NbpRatesWidget } from '@/components/NbpRatesWidget';
+import { ImgwAlertWidget } from '@/components/ImgwAlertWidget';
+import { EliChangesWidget } from '@/components/EliChangesWidget';
 
 export const revalidate = 1800;
 
@@ -142,6 +144,8 @@ export default async function AktualnosciPage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 12, marginBottom: 20 }}>
           <AirQualityWidget />
           <NbpRatesWidget />
+          <ImgwAlertWidget />
+          <EliChangesWidget />
         </div>
 
         {/* Feed client */}
