@@ -22,6 +22,8 @@ import type { AgentMode } from '@/agents/types';
 import type { RssContextItem, RssSubscriptionContext } from '@/agents/types';
 import { buildAgentSystemPrompt, profileToUserProfile } from '@/agents/registry';
 import { getQueues, NFZ_PROVINCE_CODES, PROVINCE_LABELS } from '@/lib/sources/nfz';
+import { PROGRAMS, type EligibilityFlag } from '@/data/programs-b2b';
+import { getPkdName, dominantSection } from '@/data/pkd-codes';
 
 // Stolice wojewodztw + hardcoded GIOS stationId (znalezione przez api.gios.gov.pl)
 // Pozwala omijac wolne findNearestStation w chat prefetch
@@ -302,6 +304,48 @@ async function maybeFetchGios(text: string, userProvince: string | null): Promis
   }
 }
 
+// Matching dotacji B2B na podstawie PKD + wojewodztwa (gdy user ma NIP w profilu)
+function buildDotacjeContext(pkd: string[], voivodeship: string | null): string | null {
+  if (!pkd || pkd.length === 0) return null;
+
+  const flags = new Set<EligibilityFlag>(['msp']);
+  for (const code of pkd) {
+    const prefix = code.slice(0, 2);
+    if (prefix >= '10' && prefix <= '33') flags.add('sektor_produkcja');
+    if (prefix === '62' || prefix === '63') { flags.add('sektor_it'); flags.add('cyfryzacja'); }
+    if ((prefix >= '69' && prefix <= '82') || (prefix >= '85' && prefix <= '93')) flags.add('sektor_usluga');
+    if (prefix >= '45' && prefix <= '47') flags.add('sektor_handel');
+    if (prefix >= '01' && prefix <= '03') flags.add('sektor_rolnictwo');
+  }
+
+  const matched = PROGRAMS.filter(p => {
+    const wojOk = p.voivodeships.includes('all')
+      || (voivodeship ? p.voivodeships.includes(voivodeship.toLowerCase()) : false);
+    if (!wojOk) return false;
+    if (p.eligibilityFlags.length === 0) return true;
+    const overlap = p.eligibilityFlags.filter(f => flags.has(f));
+    return overlap.length / p.eligibilityFlags.length >= 0.5;
+  });
+
+  if (matched.length === 0) return null;
+
+  const branża = dominantSection(pkd);
+  const lines: string[] = [
+    'PROGRAMY DOTACYJNE B2B DOPASOWANE DO FIRMY UZYTKOWNIKA:',
+    branża ? `Branza glowna: ${branża.label}` : '',
+    `PKD: ${pkd.slice(0, 5).map(c => `${c}${getPkdName(c) ? ' (' + getPkdName(c) + ')' : ''}`).join(', ')}`,
+    `Dopasowane programy: ${matched.length}/23`,
+    '',
+  ].filter(Boolean);
+  for (const p of matched.slice(0, 10)) {
+    const kwota = p.maxAmountPLN ? (p.maxAmountPLN >= 1_000_000 ? `${(p.maxAmountPLN/1_000_000).toFixed(1)} mln zl` : `${(p.maxAmountPLN/1_000).toFixed(0)} tys. zl`) : '?';
+    lines.push(`[${p.status.toUpperCase()}] ${p.name} - do ${kwota} (${p.institution})`);
+  }
+  lines.push('');
+  lines.push('Pelna lista i szczegoly: /panel/dotacje');
+  return lines.join('\n');
+}
+
 // Smart prefetch: CEIDG dla zalogowanych JDG ktorzy pytaja o swoja firme
 async function maybeFetchCeidg(text: string, profileNip: string | null, isJdg: boolean): Promise<string | null> {
   const lc = text.toLowerCase();
@@ -532,15 +576,24 @@ export async function POST(request: NextRequest) {
 
   // Parallel fetch all live context
   const userProfile = profile ? profileToUserProfile(profile as Record<string, unknown>) : null;
-  const userProvince = (profile?.wojewodztwo as string | null) ?? null;
+  const userProvince = (profile?.wojewodztwo as string | null) ?? (profile?.company_voivodeship as string | null) ?? null;
   const profileNip = (profile?.nip as string | null) ?? null;
   const isJdg = profileType === 'jdg';
+  const profilePkd = (profile?.pkd_codes as string[] | null) ?? null;
 
   const [recentRssItems, rssSubscription, livePrefetch] = await Promise.all([
     fetchRecentRss(audienceHint),
     fetchUserSubscription(session.user.id),
     buildLivePrefetch(lastUserMsg, { userProvince, isJdg, profileNip }),
   ]);
+
+  // Dotacje B2B - gdy user ma NIP w profilu (niezaleznie czy JDG czy prywatny z firma)
+  const dotacjeContext = profilePkd && profilePkd.length > 0
+    ? buildDotacjeContext(profilePkd, userProvince)
+    : null;
+
+  // Polacz live prefetch + dotacje w jeden extraContext
+  const combinedExtra = [livePrefetch, dotacjeContext].filter(Boolean).join('\n\n');
 
   let matchedBenefits = null;
   if (userProfile && (mode === 'swiadczenie' || mode === 'ogolny')) {
@@ -557,7 +610,7 @@ export async function POST(request: NextRequest) {
     userProfile,
     recentRssItems,
     rssSubscription,
-    extraContext: livePrefetch,
+    extraContext: combinedExtra || null,
   });
 
   try {

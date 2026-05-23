@@ -155,6 +155,13 @@ const PRIVATE_STEPS = [
       { v: 'bezrobotny_zarejestrowany', l: 'Zarejestrowany bezrobotny' },
     ],
   },
+  {
+    title: 'NIP firmy (opcjonalne)',
+    sub: 'Jeśli prowadzisz działalność lub spółkę, podaj NIP. Agent dopasuje wtedy też dotacje B2B (KFS, PARP, NCBR) i będzie wiedział o branży Twojej firmy. Możesz pominąć - kliknij Dalej.',
+    field: 'nip', type: 'text',
+    placeholder: 'np. 1234567890 (puste = pomiń)',
+    optional: true,
+  },
 ];
 
 const JDG_STEPS = [
