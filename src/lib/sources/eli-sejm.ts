@@ -30,12 +30,20 @@ function normalize(s: string): string {
   return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 }
 
+// Prosty polski stemmer: obcina typowe końcówki fleksyjne (przypadki, liczby).
+// Pozwala dopasować "świadczenie" do "świadczeniu", "zasiłek" do "zasiłku".
+function stem(w: string): string {
+  if (w.length <= 4) return w;
+  return w.replace(/(?:iego|emu|owi|ach|ami|ego|ym|om|ie|iu|em|ej|ek|ka|ki|ku|a|e|i|o|u|y|ą|ę)$/i, '');
+}
+
 export function filterByKeywords(acts: EliAct[], keywords: string[]): EliAct[] {
   if (keywords.length === 0) return acts;
-  const norms = keywords.map(normalize);
+  const kStems = keywords.map(k => stem(normalize(k)));
   return acts.filter(a => {
-    const hay = normalize(a.title);
-    return norms.some(k => hay.includes(k));
+    const hayWords = normalize(a.title).split(/[^\p{L}\p{N}+]+/u).filter(Boolean);
+    const hayStems = hayWords.map(stem);
+    return kStems.some(ks => hayStems.some(hs => hs === ks || hs.startsWith(ks) || ks.startsWith(hs) && hs.length >= 4));
   });
 }
 
