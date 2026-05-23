@@ -84,147 +84,173 @@ function BenefitRow({ benefit, isExpanded, onToggle }: { benefit: Benefit; isExp
       </button>
 
       {isExpanded && (
-        <div className="px-4 pb-3 pt-0 border-t border-border overflow-hidden" style={{ animation: 'fadeIn 0.3s ease', wordBreak: 'break-word' }}>
+        <div className="px-4 pb-4 pt-0 border-t border-border overflow-hidden" style={{ animation: 'fadeIn 0.3s ease', wordBreak: 'break-word' }}>
+          {/* Description */}
+          {benefit.opis && (
+            <p style={{ fontSize: 13, lineHeight: 1.75, color: 'var(--color-text-2)', margin: '12px 0', paddingLeft: 12, borderLeft: '2px solid rgba(34,160,107,0.3)' }}>
+              {benefit.opis}
+            </p>
+          )}
+
+          {/* Timeline */}
+          {benefit.wniosek.terminRealizacji && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 12, color: 'var(--color-text-3)', fontStyle: 'italic', marginBottom: 14, marginTop: benefit.opis ? 0 : 12 }}>
+              <span style={{ fontSize: 11 }}>&#x25F7;</span>
+              {benefit.wniosek.terminRealizacji}
+            </div>
+          )}
+
+          {/* CTAs */}
+          <div style={{ display: 'flex', gap: 8, marginTop: 12, marginBottom: 16, flexWrap: 'wrap' }}>
+            <a
+              href={benefit.zrodloUrl}
+              target="_blank" rel="noopener noreferrer"
+              className="br-btn-guide"
+            >
+              Pełny przewodnik <span style={{ fontSize: 12 }}>→</span>
+            </a>
+            <a
+              href="/panel/chat"
+              className="br-btn-ask"
+            >
+              <svg width="12" height="12" viewBox="0 0 15 15" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round">
+                <path d="M1 1h13v9H8.5L4 14v-4H1z" />
+              </svg>
+              Zapytaj AI
+            </a>
+          </div>
+
+          {/* CO POTRZEBUJESZ + KROK PO KROKU */}
+          {(benefit.wniosek.dokumenty.length > 0 || benefit.wniosek.kroki.length > 0) && (
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(220px, 100%), 1fr))', gap: 10, marginBottom: 12 }}>
+              {benefit.wniosek.dokumenty.length > 0 && (
+                <div style={{ background: 'var(--color-bg-0)', border: '1px solid var(--color-border)', borderTop: '2px solid rgba(34,160,107,0.4)', borderRadius: 10, padding: '12px 14px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginBottom: 10 }}>
+                    <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--color-accent)', flexShrink: 0 }} />
+                    <span style={{ fontSize: 9, fontFamily: 'var(--font-mono)', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-text-3)' }}>
+                      Co potrzebujesz
+                    </span>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                    {benefit.wniosek.dokumenty.map((doc, i) => (
+                      <div key={i} style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
+                        <span style={{
+                          width: 17, height: 17, flexShrink: 0,
+                          display: 'flex', alignItems: 'center', justifyContent: 'center',
+                          borderRadius: 4, background: 'rgba(34,160,107,0.1)',
+                          fontSize: 9, fontWeight: 700, color: 'var(--color-accent)',
+                          fontFamily: 'var(--font-mono)', marginTop: 1,
+                        }}>
+                          {i + 1}
+                        </span>
+                        <span className="text-[12px] text-text-2" style={{ lineHeight: 1.5 }}>{doc}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {benefit.wniosek.kroki.length > 0 && (
+                <div style={{ background: 'var(--color-bg-0)', border: '1px solid var(--color-border)', borderTop: '2px solid rgba(34,160,107,0.4)', borderRadius: 10, padding: '12px 14px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginBottom: 10 }}>
+                    <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--color-accent)', flexShrink: 0 }} />
+                    <span style={{ fontSize: 9, fontFamily: 'var(--font-mono)', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-text-3)' }}>
+                      Krok po kroku
+                    </span>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                    {benefit.wniosek.kroki.map((krok, i) => (
+                      <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+                        <span style={{
+                          width: 19, height: 19, flexShrink: 0,
+                          display: 'flex', alignItems: 'center', justifyContent: 'center',
+                          borderRadius: '50%',
+                          background: 'linear-gradient(135deg, #22A06B, #1d9060)',
+                          fontSize: 9, fontWeight: 700, color: '#fff',
+                          fontFamily: 'var(--font-mono)',
+                          boxShadow: '0 2px 5px rgba(34,160,107,0.25)',
+                        }}>
+                          {i + 1}
+                        </span>
+                        <span className="text-[12px] text-text-2" style={{ lineHeight: 1.55, paddingTop: 2 }}>{krok}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Wymagania */}
           {benefit.wymagania && Object.keys(benefit.wymagania).length > 0 && (
-            <div className="mt-3">
-              <div
-                className="uppercase mb-1.5"
-                style={{
-                  display: 'flex', alignItems: 'center', gap: 6,
-                  fontSize: 11, fontWeight: 700, letterSpacing: '0.08em',
-                  color: 'var(--color-text-3)',
-                }}
-              >
-                <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--color-accent)', opacity: 0.6, flexShrink: 0 }} />
+            <div style={{ marginBottom: 10, padding: '10px 12px', background: 'rgba(0,0,0,0.025)', border: '1px solid var(--color-border)', borderRadius: 8 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginBottom: 8, fontSize: 9, fontFamily: 'var(--font-mono)', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-text-3)' }}>
+                <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--color-accent)', opacity: 0.5, flexShrink: 0 }} />
                 Wymagania
               </div>
-              <div className="space-y-1 pl-3">
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
                 {benefit.wymagania.wiekMin != null && (
-                  <div className="text-[13px] text-text-2">Wiek minimum: {benefit.wymagania.wiekMin} lat</div>
+                  <span className="req-tag">Wiek min. {benefit.wymagania.wiekMin} lat</span>
                 )}
                 {benefit.wymagania.wiekMax != null && (
-                  <div className="text-[13px] text-text-2">Wiek maksymalny: {benefit.wymagania.wiekMax} lat</div>
+                  <span className="req-tag">Wiek maks. {benefit.wymagania.wiekMax} lat</span>
                 )}
                 {benefit.wymagania.dochodMax != null && (
-                  <div className="text-[13px] text-text-2">Dochód maksymalny: {benefit.wymagania.dochodMax} PLN na osobę</div>
+                  <span className="req-tag">Dochód maks. {benefit.wymagania.dochodMax} PLN/os.</span>
                 )}
                 {benefit.wymagania.dzieci && (
-                  <div className="text-[13px] text-text-2">
-                    Dzieci: min. {benefit.wymagania.dzieci.min}
+                  <span className="req-tag">
+                    Dzieci min. {benefit.wymagania.dzieci.min}
                     {benefit.wymagania.dzieci.wiekMax ? ` (do ${benefit.wymagania.dzieci.wiekMax} lat)` : ''}
-                  </div>
+                  </span>
                 )}
                 {benefit.wymagania.zatrudnienie && (
-                  <div className="text-[13px] text-text-2">Zatrudnienie: {benefit.wymagania.zatrudnienie.join(', ')}</div>
+                  <span className="req-tag">{benefit.wymagania.zatrudnienie.join(' / ')}</span>
                 )}
                 {benefit.wymagania.niepelnosprawnosc && (
-                  <div className="text-[13px] text-text-2">Niepełnosprawność: {benefit.wymagania.niepelnosprawnosc.join(', ')}</div>
+                  <span className="req-tag">Niepełnosprawność: {benefit.wymagania.niepelnosprawnosc.join(' / ')}</span>
                 )}
-                {benefit.wymagania.emeryt && (
-                  <div className="text-[13px] text-text-2">Wymagany status emeryta/rencisty</div>
-                )}
-                {benefit.wymagania.student && (
-                  <div className="text-[13px] text-text-2">Wymagany status studenta</div>
-                )}
-                {benefit.wymagania.ciaza && (
-                  <div className="text-[13px] text-text-2">Wymagana ciąża</div>
-                )}
-                {benefit.wymagania.rolnik && (
-                  <div className="text-[13px] text-text-2">Wymagane ubezpieczenie KRUS</div>
-                )}
+                {benefit.wymagania.emeryt && <span className="req-tag">Emeryt/rencista</span>}
+                {benefit.wymagania.student && <span className="req-tag">Student</span>}
+                {benefit.wymagania.ciaza && <span className="req-tag">Ciąża</span>}
+                {benefit.wymagania.rolnik && <span className="req-tag">KRUS</span>}
               </div>
             </div>
           )}
 
-          <div className="mt-3">
-            <div
-              className="uppercase mb-1.5"
-              style={{
-                display: 'flex', alignItems: 'center', gap: 6,
-                fontSize: 11, fontWeight: 700, letterSpacing: '0.08em',
-                color: 'var(--color-text-3)',
-              }}
-            >
-              <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--color-accent)', opacity: 0.6, flexShrink: 0 }} />
-              Jak złożyć wniosek
-            </div>
-            <div className="space-y-1 pl-3">
-              {benefit.wniosek.kroki.map((krok, i) => (
-                <div key={i} className="text-[13px] text-text-2 flex gap-2">
-                  <span
-                    style={{
-                      color: 'var(--color-accent)', fontWeight: 700, flexShrink: 0,
-                      fontFamily: 'var(--font-mono)', fontSize: 11,
-                    }}
-                  >
-                    {i + 1}.
-                  </span>
-                  <span>{krok}</span>
+          {/* Na co uważać */}
+          {benefit.wniosek.pulapki.length > 0 && (
+            <div style={{ marginBottom: 10, padding: '10px 12px', background: 'rgba(220,80,80,0.04)', border: '1px solid rgba(220,80,80,0.18)', borderRadius: 8 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginBottom: 7, fontSize: 9, fontFamily: 'var(--font-mono)', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#e05c5c' }}>
+                <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#e05c5c', flexShrink: 0 }} />
+                Na co uważać
+              </div>
+              {benefit.wniosek.pulapki.map((p, i) => (
+                <div key={i} style={{ fontSize: 12, color: '#c05555', lineHeight: 1.6, marginBottom: 2, display: 'flex', gap: 6 }}>
+                  <span style={{ flexShrink: 0 }}>!</span><span>{p}</span>
                 </div>
               ))}
             </div>
-          </div>
+          )}
 
-          {benefit.wniosek.dokumenty.length > 0 && (
-            <div className="mt-3">
-              <div
-                className="uppercase mb-1.5"
-                style={{
-                  display: 'flex', alignItems: 'center', gap: 6,
-                  fontSize: 11, fontWeight: 700, letterSpacing: '0.08em',
-                  color: 'var(--color-text-3)',
-                }}
-              >
-                <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--color-accent)', opacity: 0.6, flexShrink: 0 }} />
-                Dokumenty
+          {/* Odwołanie */}
+          {benefit.wniosek.odwolanie && (
+            <div style={{ marginBottom: 10, padding: '10px 12px', background: 'rgba(0,0,0,0.02)', border: '1px solid var(--color-border)', borderRadius: 8 }}>
+              <div style={{ fontSize: 9, fontFamily: 'var(--font-mono)', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-text-3)', marginBottom: 5 }}>
+                Odwołanie
               </div>
-              <div className="space-y-0.5 pl-3">
-                {benefit.wniosek.dokumenty.map((doc, i) => (
-                  <div key={i} className="text-[13px] text-text-2 flex gap-2">
-                    <span style={{ color: 'var(--color-accent)', flexShrink: 0 }}>{'•'}</span>
-                    {doc}
-                  </div>
-                ))}
-              </div>
+              <div style={{ fontSize: 12, color: 'var(--color-text-2)', lineHeight: 1.6 }}>{benefit.wniosek.odwolanie}</div>
             </div>
           )}
 
-          {benefit.wniosek.pulapki.length > 0 && (
-            <div className="mt-3">
-              <div
-                className="uppercase mb-1.5"
-                style={{
-                  display: 'flex', alignItems: 'center', gap: 6,
-                  fontSize: 11, fontWeight: 700, letterSpacing: '0.08em',
-                  color: 'var(--color-text-3)',
-                }}
-              >
-                <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#e06c75', opacity: 0.7, flexShrink: 0 }} />
-                Na co uważać
-              </div>
-              <div className="space-y-0.5 pl-3">
-                {benefit.wniosek.pulapki.map((p, i) => (
-                  <div key={i} className="text-[13px] flex gap-2" style={{ color: 'var(--color-red)' }}>
-                    <span style={{ flexShrink: 0 }}>!</span>
-                    {p}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
-            <a
-              href={benefit.zrodloUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[13px] text-accent hover:underline"
-            >
-              Źródło: {benefit.zrodloNazwa} {'→'}
+          {/* Source + date */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 12, paddingTop: 10, borderTop: '1px solid var(--color-border)', marginTop: 4 }}>
+            <a href={benefit.zrodloUrl} target="_blank" rel="noopener noreferrer"
+              style={{ fontSize: 12, color: 'var(--color-accent)', textDecoration: 'none' }}>
+              Źródło: {benefit.zrodloNazwa} →
             </a>
-            <span className="text-[11px] text-text-3">
-              Zweryfikowano: {benefit.dataWeryfikacji}
-            </span>
+            <span className="text-[11px] text-text-3">Zweryfikowano: {benefit.dataWeryfikacji}</span>
+            {benefit.dataWaznosci && <span className="text-[11px] text-text-3">Ważne do: {benefit.dataWaznosci}</span>}
           </div>
         </div>
       )}
@@ -368,6 +394,40 @@ export default function SwiadczeniaPage() {
 
         @media (min-width: 640px) {
           .category-header { font-size: 12px; }
+        }
+
+        .br-btn-guide {
+          display: inline-flex; align-items: center; gap: 7;
+          padding: 8px 16px; border-radius: 9px;
+          background: linear-gradient(135deg, #22A06B, #1d9060);
+          color: #fff; font-size: 13px; font-weight: 600;
+          text-decoration: none; position: relative; overflow: hidden;
+          box-shadow: 0 3px 10px rgba(34,160,107,0.28);
+          transition: transform 150ms, box-shadow 150ms;
+        }
+        .br-btn-guide:hover { transform: translateY(-1px); box-shadow: 0 5px 16px rgba(34,160,107,0.38); }
+        .br-btn-guide::after {
+          content: ''; position: absolute; top: 0; left: -100%;
+          width: 55%; height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+          transform: skewX(-12deg); transition: left 0.4s;
+        }
+        .br-btn-guide:hover::after { left: 160%; }
+
+        .br-btn-ask {
+          display: inline-flex; align-items: center; gap: 6;
+          padding: 8px 14px; border-radius: 9px;
+          background: transparent; color: var(--color-text-2);
+          font-size: 13px; font-weight: 500;
+          border: 1px solid var(--color-border); text-decoration: none;
+          transition: border-color 150ms, color 150ms;
+        }
+        .br-btn-ask:hover { border-color: rgba(34,160,107,0.4); color: #22A06B; }
+
+        .req-tag {
+          font-size: 11px; padding: 2px 8px; border-radius: 4px;
+          background: rgba(0,0,0,0.04); border: 1px solid var(--color-border);
+          color: var(--color-text-2);
         }
       `}</style>
 

@@ -58,12 +58,25 @@ export default function AgentChatPage() {
   const [input, setInput] = useState('');
   const [isStreaming, setIsStreaming] = useState(false);
   const chatBottomRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const abortRef = useRef<AbortController | null>(null);
+  const shouldAutoScrollRef = useRef(true);
 
+  // Scroll only container, only if user is near the bottom
   useEffect(() => {
-    chatBottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    const container = messagesContainerRef.current;
+    if (!container || !shouldAutoScrollRef.current) return;
+    container.scrollTop = container.scrollHeight;
   }, [messages]);
+
+  // Track if user manually scrolled up
+  function handleScroll() {
+    const container = messagesContainerRef.current;
+    if (!container) return;
+    const distanceFromBottom = container.scrollHeight - container.scrollTop - container.clientHeight;
+    shouldAutoScrollRef.current = distanceFromBottom < 80;
+  }
 
   // Reset chat on mode change
   useEffect(() => {
@@ -73,6 +86,7 @@ export default function AgentChatPage() {
 
   const sendMessage = useCallback(async (text: string) => {
     if (!text.trim() || isStreaming) return;
+    shouldAutoScrollRef.current = true;
 
     const userMsg: Message = {
       id: `u-${Date.now()}`,
@@ -232,10 +246,13 @@ export default function AgentChatPage() {
       </div>
 
       {/* Messages */}
-      <div style={{
-        flex: 1, overflowY: 'auto', padding: '16px 24px',
-        display: 'flex', flexDirection: 'column',
-      }}>
+      <div
+        ref={messagesContainerRef}
+        onScroll={handleScroll}
+        style={{
+          flex: 1, overflowY: 'auto', padding: '16px 24px',
+          display: 'flex', flexDirection: 'column',
+        }}>
         {messages.length === 0 && (
           <div style={{
             flex: 1, display: 'flex', flexDirection: 'column',

@@ -12,27 +12,33 @@ WezmeZadarmo ("I'll take it for free") solves this. Answer 10 anonymous question
 
 ## What it does
 
-- Matches your demographic profile against a hand-verified database of 117 Polish government benefits
+- Matches your demographic profile against a hand-verified database of 117+ Polish government benefits
 - Covers: ZUS (social insurance), NFZ (healthcare), PFRON (disability), KRUS (farmers), MOPS (social welfare), local government programs
 - AI assistant (Google Gemini via OpenRouter) answers follow-up questions with citation-enforced answers
+- Personal agent panel (`/panel`): saved profile, matched benefits with embedded AI chat, RSS news monitoring, daily email digest
+- B2B dotacje panel (`/dotacje/panel`): company-specific grant monitoring, AI matching, RSS feeds per firm, Stripe subscription
+- ZUS forms wizard (`/wnioski`): AI-assisted form filling with PDF export
+- Automations marketplace (`/automatyzacje`): KSeF, foreign invoices, custom workflows for SMBs
 - B2B API for companies integrating benefit eligibility into HR portals, fintech apps, NGO case management
 
 ## Privacy by design
 
-- No user accounts, no registration, no email required
-- No PESEL (national ID) collected -- ever
-- Demographic data processed in server RAM for milliseconds, then discarded
+- Anonymous mode (calculator on `/`): no account, no PESEL, demographic data discarded after computation
+- Authenticated agent panel: Supabase auth, profile data encrypted at rest, deleteable on demand
 - Chat history stored only in browser localStorage, auto-expires after 7 days
 - IP address held in RAM for 24h for rate limiting only (not logged, not stored)
 - AI queries contain only anonymised demographic data -- no identifying information
 
 ## Tech stack
 
-- **Frontend:** Next.js 15 (App Router), TypeScript, Tailwind CSS v4
+- **Frontend:** Next.js 16 (App Router), TypeScript, Tailwind CSS v4
 - **AI:** Google Gemini 2.0 Flash via OpenRouter (chat), Gemini 2.0 Flash Lite (verification)
 - **Eligibility engine:** deterministic rule-based matcher in TypeScript
 - **Benefits database:** hand-verified YAML/TypeScript, sourced from gov.pl, zus.pl, nfz.gov.pl, pfron.org.pl, krus.gov.pl, praca.gov.pl
-- **Deployment:** Vercel (serverless, edge)
+- **Auth + DB:** Supabase (SSR, agent profiles, RSS cache, B2B subscriptions)
+- **RSS monitoring:** GitHub Actions cron (2x/dzień) for IP-blocked sources (NBP, Sejm, UOKiK, Fundusze EU, e-Zdrowie, ARiMR), Cloudflare Worker proxy for real-time
+- **Payments:** Stripe (B2B dotacje panel)
+- **Deployment:** Vercel (serverless, edge) + GitHub Actions cron + Cloudflare Worker
 
 ## License
 
@@ -45,11 +51,52 @@ The benefits database (`src/engine/benefits/`) is covered by AGPL-3.0 for open-s
 ```bash
 npm install
 cp .env.example .env.local
-# Add your OPENROUTER_API_KEY to .env.local
+# Add: OPENROUTER_API_KEY, NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY, SUPABASE_SERVICE_KEY
 npm run dev
 ```
 
 Open http://localhost:3000
+
+## Project map
+
+Public pages:
+- `/` -- benefits calculator (anonymous, 10-question form)
+- `/swiadczenia` -- browse all 117+ benefits with embedded AI chat
+- `/wnioski` -- AI-assisted ZUS form wizard with PDF export
+- `/aktualnosci` -- RSS news monitoring (public preview + B2B panel for firms)
+- `/automatyzacje` -- AI automations for SMBs (KSeF, foreign invoices, custom workflows)
+- `/dotacje` -- B2B SaaS landing for grant monitoring
+- `/dla-firm` -- B2B landing for firms and sole proprietors
+- `/agent` -- AI agent landing for individuals
+- `/o-projekcie`, `/polityka-prywatnosci`, `/regulamin` -- info pages
+
+Agent panel (`/panel/*`):
+- `/panel` -- dashboard with module cards + empty-profile onboarding banner
+- `/panel/swiadczenia` -- master-detail view of matched benefits with embedded AI chat
+- `/panel/chat` -- standalone AI assistant
+- `/panel/aktualnosci` -- personalized RSS feed
+- `/panel/profil` -- step-by-step profile wizard
+- `/panel/powiadomienia` -- daily email digest settings
+
+B2B dotacje panel (`/dotacje/panel/*`):
+- Dashboard, AI agent config, active monitoring, RSS per firma, Stripe subscription
+
+API:
+- `/api/chat` -- public AI chat (rate limit 3/day)
+- `/api/agent/*` -- authenticated agent endpoints (chat, profile, verify)
+- `/api/aktualnosci` -- merged RSS (live + Supabase cache)
+- `/api/dotacje/*` -- B2B endpoints (auth, company, monitoring, Stripe, cron)
+- `/api/ceidg` -- Polish business registry integration
+- `/api/digest` -- Vercel Cron endpoint for daily emails
+- `/api/contact` -- contact form
+
+## RSS monitoring architecture
+
+Some Polish government sites (NBP, Sejm, UOKiK) block Vercel IPs via Incapsula/Imperva. Solution: 2-tier fetch.
+
+1. **Live fetch** (ZUS, GUS): direct from `/api/aktualnosci` with corrected feed URLs
+2. **Cached** (NBP, Sejm, UOKiK, Fundusze EU, e-Zdrowie, ARiMR): GitHub Actions cron runs `scripts/fetch-rss-cache.mjs` 2x/day from Azure IPs, upserts to Supabase `rss_cache` table
+3. **Real-time proxy** (optional): Cloudflare Worker in `cf-worker/` with browser-like headers + HTML scrapers
 
 ## Contributing
 
