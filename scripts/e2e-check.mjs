@@ -71,7 +71,7 @@ const publicApis = [
   ['/api/public/gios?lat=50.0647&lon=19.945', 'GIOS air quality (Krakow)'],
   ['/api/public/whitelist?nip=5260250274', 'Biala Lista VAT (mBank NIP)'],
   ['/api/public/nfz?type=benefits&q=KARD', 'NFZ benefit autocomplete'],
-  ['/api/public/nfz?type=queues&benefit=PORADNIA+KARDIOLOGICZNA&province=mazowieckie&case=1&limit=5', 'NFZ kolejki cardiology Warsaw'],
+  ['/api/public/nfz?type=queues&benefit=PORADNIA+ALERGOLOGICZNA&province=mazowieckie&case=1&limit=5', 'NFZ kolejki alergologia Warsaw'],
   ['/api/public/nfz?type=providers&province=mazowieckie&limit=5', 'NFZ swiadczeniodawcy mazowieckie'],
 ];
 const publicApiResults = await Promise.all(publicApis.map(([p, l]) => get(p, l, { json: true })));
@@ -91,7 +91,7 @@ const wl = publicApiResults.find(r => r.label === 'Biala Lista VAT (mBank NIP)')
 if (wl?.data) {
   console.log(`   WL found: ${wl.data.found}, VAT: ${wl.data.statusVat ?? 'n/a'}, name: ${wl.data.name?.slice(0, 50) ?? 'n/a'}`);
 }
-const nfzQ = publicApiResults.find(r => r.label === 'NFZ kolejki cardiology Warsaw');
+const nfzQ = publicApiResults.find(r => r.label === 'NFZ kolejki alergologia Warsaw');
 if (nfzQ?.data) {
   console.log(`   NFZ kolejki: ${nfzQ.data.count ?? 0} wynikow, sample: ${nfzQ.data.results?.[0]?.provider?.slice(0, 50) ?? 'n/a'}`);
 }

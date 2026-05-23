@@ -41,6 +41,14 @@ export function parseCeidgResponse(data: any): CeidgBusinessData {
   };
 }
 
+function emptyCeidgData(): CeidgBusinessData {
+  return {
+    aktywna: false, nazwa: null, dataRejestracji: null,
+    dataZawieszenia: null, dataZakonczenia: null, pkd: [], status: null,
+    wojewodztwo: null,
+  };
+}
+
 export async function lookupNip(nip: string): Promise<CeidgBusinessData> {
   if (!validateNip(nip)) {
     throw new Error('Nieprawidlowy numer NIP');
@@ -61,6 +69,8 @@ export async function lookupNip(nip: string): Promise<CeidgBusinessData> {
     },
   );
 
+  // 404 = NIP nie istnieje w CEIDG (np. spolka, nie JDG) -- graceful empty response
+  if (response.status === 404) return emptyCeidgData();
   if (!response.ok) {
     throw new Error(`CEIDG API error: ${response.status}`);
   }

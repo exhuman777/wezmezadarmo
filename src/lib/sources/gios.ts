@@ -72,7 +72,7 @@ export async function getAllStations(): Promise<GiosStation[]> {
   const stations: GiosStation[] = [];
   for (let page = 0; page < 5; page++) {
     const res = await fetch(`${BASE}/station/findAll?page=${page}&size=500`, {
-      headers: { Accept: 'application/json' },
+      headers: { Accept: 'application/ld+json' },
       next: { revalidate: 86400 },
     });
     if (!res.ok) throw new Error(`GIOS stations error: ${res.status}`);

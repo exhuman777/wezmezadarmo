@@ -23,41 +23,48 @@ import type { RssContextItem, RssSubscriptionContext } from '@/agents/types';
 import { buildAgentSystemPrompt, profileToUserProfile } from '@/agents/registry';
 import { getQueues, NFZ_PROVINCE_CODES, PROVINCE_LABELS } from '@/lib/sources/nfz';
 
-// Stolice wojewodztw (lat/lon) -- dla GIOS prefetch gdy user nie podal lokalizacji
-const PROVINCE_CAPITALS: Record<string, { lat: number; lon: number; city: string }> = {
-  dolnoslaskie: { lat: 51.1079, lon: 17.0385, city: 'Wrocław' },
-  'kujawsko-pomorskie': { lat: 53.0138, lon: 18.5984, city: 'Bydgoszcz' },
-  lubelskie: { lat: 51.2465, lon: 22.5684, city: 'Lublin' },
-  lubuskie: { lat: 52.7325, lon: 15.2369, city: 'Gorzów Wielkopolski' },
-  lodzkie: { lat: 51.7592, lon: 19.4560, city: 'Łódź' },
-  malopolskie: { lat: 50.0647, lon: 19.9450, city: 'Kraków' },
-  mazowieckie: { lat: 52.2297, lon: 21.0122, city: 'Warszawa' },
-  opolskie: { lat: 50.6751, lon: 17.9213, city: 'Opole' },
-  podkarpackie: { lat: 50.0413, lon: 21.9990, city: 'Rzeszów' },
-  podlaskie: { lat: 53.1325, lon: 23.1688, city: 'Białystok' },
-  pomorskie: { lat: 54.3520, lon: 18.6466, city: 'Gdańsk' },
-  slaskie: { lat: 50.2649, lon: 19.0238, city: 'Katowice' },
-  swietokrzyskie: { lat: 50.8661, lon: 20.6286, city: 'Kielce' },
-  'warminsko-mazurskie': { lat: 53.7784, lon: 20.4801, city: 'Olsztyn' },
-  wielkopolskie: { lat: 52.4064, lon: 16.9252, city: 'Poznań' },
-  zachodniopomorskie: { lat: 53.4285, lon: 14.5528, city: 'Szczecin' },
+// Stolice wojewodztw + hardcoded GIOS stationId (znalezione przez api.gios.gov.pl)
+// Pozwala omijac wolne findNearestStation w chat prefetch
+const PROVINCE_CAPITALS: Record<string, { lat: number; lon: number; city: string; stationId: number }> = {
+  dolnoslaskie: { lat: 51.1079, lon: 17.0385, city: 'Wrocław', stationId: 114 },
+  'kujawsko-pomorskie': { lat: 53.0138, lon: 18.5984, city: 'Bydgoszcz', stationId: 109 },
+  lubelskie: { lat: 51.2465, lon: 22.5684, city: 'Lublin', stationId: 258 },
+  lubuskie: { lat: 52.7325, lon: 15.2369, city: 'Gorzów Wielkopolski', stationId: 230 },
+  lodzkie: { lat: 51.7592, lon: 19.4560, city: 'Łódź', stationId: 295 },
+  malopolskie: { lat: 50.0647, lon: 19.9450, city: 'Kraków', stationId: 400 },
+  mazowieckie: { lat: 52.2297, lon: 21.0122, city: 'Warszawa', stationId: 530 },
+  opolskie: { lat: 50.6751, lon: 17.9213, city: 'Opole', stationId: 478 },
+  podkarpackie: { lat: 50.0413, lon: 21.9990, city: 'Rzeszów', stationId: 568 },
+  podlaskie: { lat: 53.1325, lon: 23.1688, city: 'Białystok', stationId: 88 },
+  pomorskie: { lat: 54.3520, lon: 18.6466, city: 'Gdańsk', stationId: 706 },
+  slaskie: { lat: 50.2649, lon: 19.0238, city: 'Katowice', stationId: 814 },
+  swietokrzyskie: { lat: 50.8661, lon: 20.6286, city: 'Kielce', stationId: 250 },
+  'warminsko-mazurskie': { lat: 53.7784, lon: 20.4801, city: 'Olsztyn', stationId: 521 },
+  wielkopolskie: { lat: 52.4064, lon: 16.9252, city: 'Poznań', stationId: 931 },
+  zachodniopomorskie: { lat: 53.4285, lon: 14.5528, city: 'Szczecin', stationId: 11118 },
 };
 
+// Nazwy zgodne z faktycznym slownikiem NFZ (api.nfz.gov.pl/app-itl-api/benefits)
+// "SWIADCZENIA Z ZAKRESU X" to ambulatoryjne specjalistyczne, "PORADNIA X" to konkretne placowki
 const NFZ_SPECIALTY_MAP: Record<string, string> = {
-  endokrynolog: 'PORADNIA ENDOKRYNOLOGICZNA',
-  kardiolog: 'PORADNIA KARDIOLOGICZNA',
-  ortopeda: 'PORADNIA CHIRURGII URAZOWO-ORTOPEDYCZNEJ',
-  neurolog: 'PORADNIA NEUROLOGICZNA',
+  endokrynolog: 'ŚWIADCZENIA Z ZAKRESU ENDOKRYNOLOGII',
+  kardiolog: 'ŚWIADCZENIA Z ZAKRESU KARDIOLOGII',
+  ortopeda: 'ŚWIADCZENIA Z ZAKRESU ORTOPEDII I TRAUMATOLOGII NARZĄDU RUCHU',
+  neurolog: 'ŚWIADCZENIA Z ZAKRESU NEUROLOGII',
+  okulist: 'ŚWIADCZENIA Z ZAKRESU OKULISTYKI',
+  urolog: 'ŚWIADCZENIA Z ZAKRESU UROLOGII',
+  gastrolog: 'ŚWIADCZENIA Z ZAKRESU GASTROENTEROLOGII',
+  onkolog: 'ŚWIADCZENIA Z ZAKRESU ONKOLOGII',
+  diabetolog: 'ŚWIADCZENIA Z ZAKRESU DIABETOLOGII',
+  nefrolog: 'ŚWIADCZENIA Z ZAKRESU NEFROLOGII',
+  laryngolog: 'ŚWIADCZENIA Z ZAKRESU OTOLARYNGOLOGII',
+  otolaryngolog: 'ŚWIADCZENIA Z ZAKRESU OTOLARYNGOLOGII',
+  pulmonolog: 'ŚWIADCZENIA Z ZAKRESU GRUŹLICY I CHORÓB PŁUC',
   dermatolog: 'PORADNIA DERMATOLOGICZNA',
-  okulist: 'PORADNIA OKULISTYCZNA',
-  urolog: 'PORADNIA UROLOGICZNA',
-  gastrolog: 'PORADNIA GASTROENTEROLOGICZNA',
-  psychiatr: 'PORADNIA ZDROWIA PSYCHICZNEGO',
-  ginekolog: 'PORADNIA GINEKOLOGICZNO-POLOZNICZA',
   reumatolog: 'PORADNIA REUMATOLOGICZNA',
   alergolog: 'PORADNIA ALERGOLOGICZNA',
-  diabetolog: 'PORADNIA DIABETOLOGICZNA',
-  onkolog: 'PORADNIA ONKOLOGICZNA',
+  ginekolog: 'PORADNIA GINEKOLOGICZNA',
+  psychiatr: 'PORADNIA ZDROWIA PSYCHICZNEGO',
   rehabilitac: 'PORADNIA REHABILITACYJNA',
 };
 
