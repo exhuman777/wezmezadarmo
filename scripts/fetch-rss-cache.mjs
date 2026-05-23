@@ -17,12 +17,18 @@ import { createClient } from '@supabase/supabase-js';
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY;
+const FIRECRAWL_API_KEY = process.env.FIRECRAWL_API_KEY;
 const MAX_ITEMS_PER_FEED = 20;
 const FETCH_TIMEOUT_MS = 15_000;
+const FIRECRAWL_TIMEOUT_MS = 45_000;
 
 if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
   console.error('Brak SUPABASE_URL lub SUPABASE_SERVICE_KEY');
   process.exit(1);
+}
+
+if (!FIRECRAWL_API_KEY) {
+  console.warn('FIRECRAWL_API_KEY brak — fallback wyłączony (zablokowane źródła zostaną pominięte)');
 }
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
@@ -138,6 +144,52 @@ async function fetchWithTimeout(url) {
   } finally {
     clearTimeout(timer);
   }
+}
+
+// Firecrawl fallback: renderuje JS, omija bot-checks (Incapsula/Imperva)
+// Endpoint: POST https://api.firecrawl.dev/v1/scrape
+// Zwraca: { success, data: { html, markdown, metadata } }
+async function fetchWithFirecrawl(url) {
+  if (!FIRECRAWL_API_KEY) return null;
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), FIRECRAWL_TIMEOUT_MS);
+  try {
+    const res = await fetch('https://api.firecrawl.dev/v1/scrape', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${FIRECRAWL_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        url,
+        formats: ['html'],
+        onlyMainContent: false,
+        waitFor: 2000,
+      }),
+      signal: controller.signal,
+    });
+    if (!res.ok) {
+      console.warn(`  firecrawl error: HTTP ${res.status}`);
+      return null;
+    }
+    const json = await res.json();
+    if (!json.success || !json.data?.html) {
+      console.warn(`  firecrawl error: ${json.error || 'brak HTML w odpowiedzi'}`);
+      return null;
+    }
+    return json.data.html;
+  } catch (e) {
+    console.warn(`  firecrawl error: ${e.message}`);
+    return null;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+function looksBlockedOrEmpty(html) {
+  if (!html || html.length < 500) return true;
+  const blockers = ['Incapsula', 'Please Wait', 'CWUDNSAI', 'Access Denied', 'cf-error-details', 'Just a moment'];
+  return blockers.some(b => html.includes(b));
 }
 
 // ---------------------------------------------------------------------------
@@ -292,16 +344,23 @@ const PARSERS = {
 
 async function processFeed(feed) {
   console.log(`\n[${feed.id}] Pobieranie: ${feed.url}`);
-  const html = await fetchWithTimeout(feed.url);
-  if (!html) {
-    console.log(`[${feed.id}] Brak odpowiedzi - pomijam`);
-    return { id: feed.id, count: 0, status: 'failed' };
-  }
+  let html = await fetchWithTimeout(feed.url);
+  let source = 'direct';
 
-  // Sprawdź czy odpowiedź wygląda na bot-check
-  if (html.includes('Incapsula') || html.includes('Please Wait') || html.includes('CWUDNSAI') || html.length < 500) {
-    console.log(`[${feed.id}] Bot-check lub pusta odpowiedź (${html.length} bajtów) - pomijam`);
-    return { id: feed.id, count: 0, status: 'blocked' };
+  // Fallback do Firecrawl jeśli direct fetch nie zadziałał lub dostaliśmy bot-check
+  if (looksBlockedOrEmpty(html)) {
+    if (FIRECRAWL_API_KEY) {
+      console.log(`[${feed.id}] Direct fetch zablokowany/pusty — próbuję Firecrawl...`);
+      html = await fetchWithFirecrawl(feed.url);
+      source = 'firecrawl';
+      if (looksBlockedOrEmpty(html)) {
+        console.log(`[${feed.id}] Firecrawl też nie pomógł - pomijam`);
+        return { id: feed.id, count: 0, status: 'blocked' };
+      }
+    } else {
+      console.log(`[${feed.id}] Bot-check lub pusta odpowiedź - pomijam (brak FIRECRAWL_API_KEY)`);
+      return { id: feed.id, count: 0, status: 'blocked' };
+    }
   }
 
   const isXml = html.trimStart().startsWith('<?xml') || html.includes('<rss') || html.includes('<feed');
@@ -313,7 +372,7 @@ async function processFeed(feed) {
   }
 
   const rawItems = parser(html, feed);
-  console.log(`[${feed.id}] Sparsowano ${rawItems.length} artykułów`);
+  console.log(`[${feed.id}] Sparsowano ${rawItems.length} artykułów (${source})`);
 
   if (rawItems.length === 0) {
     return { id: feed.id, count: 0, status: 'empty' };

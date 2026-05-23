@@ -2,15 +2,16 @@ name: RSS Cache Fetch
 
 on:
   schedule:
-    # 08:00 i 16:00 czasu polskiego (UTC+2 latem)
-    - cron: '0 6,14 * * *'
+    # 10:00 i 15:00 czasu polskiego (CEST = UTC+2 latem, CET = UTC+1 zimą)
+    # Latem trafia w 10:00 i 15:00, zimą w 09:00 i 14:00 - akceptowalne
+    - cron: '0 8,13 * * *'
   # Ręczne uruchomienie z GitHub UI (do testów)
   workflow_dispatch:
 
 jobs:
   fetch:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
 
     steps:
       - name: Checkout
@@ -30,6 +31,7 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY }}
 
       - name: Report status
         if: failure()
