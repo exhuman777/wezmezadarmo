@@ -46,14 +46,14 @@ export async function GET(request: NextRequest) {
       stationId,
       stationName,
       distanceKm,
-      measuredAt: aqi.stCalcDate,
-      overall: aqi.stIndexLevel?.indexLevelName ?? null,
+      measuredAt: aqi.calcDate,
+      overall: aqi.overall,
       pollutants: {
-        pm10: aqi.pm10IndexLevel?.indexLevelName ?? null,
-        pm25: aqi.pm25IndexLevel?.indexLevelName ?? null,
-        so2: aqi.so2IndexLevel?.indexLevelName ?? null,
-        no2: aqi.no2IndexLevel?.indexLevelName ?? null,
-        o3: aqi.o3IndexLevel?.indexLevelName ?? null,
+        pm10: aqi.pm10,
+        pm25: aqi.pm25,
+        so2: aqi.so2,
+        no2: aqi.no2,
+        o3: aqi.o3,
       },
     });
   } catch (err) {

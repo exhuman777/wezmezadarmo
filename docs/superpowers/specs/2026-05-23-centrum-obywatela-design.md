@@ -143,6 +143,32 @@ Aktualnie 6 płaskich kart. Nowa struktura: 6 sekcji per grupa docelowa, każde 
 
 Hero pozostaje (pill "Centrum Obywatela", h1, paragraf opisu). Banner źródeł na dole - rozszerzony o nowe API (imgw/rcb, sejm/eli, bdl, arimr, portalpasazera).
 
+## Wpięcia w AI chat agenta (KLUCZOWE - dodane po review)
+
+`src/app/api/agent/chat/route.ts` ma system smart prefetch: 5 funkcji `maybeFetchX(text, ...)` ładowanych równolegle, plus `BASE_LIVE_SOURCES` w `src/agents/base-prompt.ts` opisujący 6 narzędzi AI. Nowe integracje MUSZĄ wpaść do obu.
+
+### Smart prefetch handlers (3 nowe)
+
+Wzorzec: każdy handler dostaje tekst ostatniej wiadomości, sprawdza regex triggery, fetchuje API, zwraca sformatowany string z URL Centrum Obywatela na końcu (lub null).
+
+- **maybeFetchImgw(text)** - trigger: `/\b(pogoda|burza|burze|mr[oó]z|przymrozk|powod[zź]|opad|wichura|alert.*pogod|rcb|ostrze[zż]eni)/`. Fetch RCB feed → top 3 alerty → format `IMGW/RCB OSTRZEZENIA AKTYWNE: ...` + link `/centrum-obywatela/pogoda`.
+- **maybeFetchEli(text)** - trigger: `/\b(zmian.*prawo|zmian.*przepis|nowelizacj|ustawa o|nowy przepis|kiedy wejdzie w [zż]ycie)/`. Fetch ELI top 5 ostatnich aktów filtrowanych po słowach kluczowych z tekstu → format `OSTATNIE ZMIANY W PRZEPISACH: ...` + link `/centrum-obywatela/prawo`.
+- **maybeFetchBdlGus(text)** - trigger: `/\b(moja gmina|w gminie|ludno[sś][cć]|bezrobocie w|dane.*gminy|statystyk.*gmin|GUS.*gmin)/` ORAZ user musi mieć województwo/gminę w profilu (albo wymienić w wiadomości). Fetch BDL → 3 podstawowe wskaźniki → link `/centrum-obywatela/gus`.
+
+ARiMR/PKP - bez prefetch (brak API). AI ma tylko wiedzę z BASE_LIVE_SOURCES że może odesłać do `/centrum-obywatela/dzialki` lub `/centrum-obywatela/transport`.
+
+### BASE_LIVE_SOURCES - 5 nowych pozycji
+
+W `src/agents/base-prompt.ts` po pozycji 6 (Aktualności RSS) dodać:
+
+7. **IMGW/RCB - ostrzeżenia meteo** - URL `/centrum-obywatela/pogoda`, źródło `rcb.gov.pl`, polecaj gdy rolnik/KRUS, alergik (PM10/smog), wyjazd, prace polowe.
+8. **ELI/Sejm - tracker zmian w prawie** - URL `/centrum-obywatela/prawo`, źródło `api.sejm.gov.pl/eli`, polecaj gdy "co zmienia się w X", "kiedy wejdzie nowy ZUS", "nowelizacja kosiniakowego".
+9. **BDL GUS - dane demograficzne per gmina** - URL `/centrum-obywatela/gus`, źródło `bdl.stat.gov.pl`, polecaj gdy user pyta o bezrobocie, ludność, wynagrodzenia w swojej gminie/powiecie.
+10. **ARiMR Geoportal - mapy działek** - URL `/centrum-obywatela/dzialki`, polecaj gdy rolnik pyta o działki, dopłaty bezpośrednie, kontrolę agro.
+11. **PKP - ulgi transportowe** - URL `/centrum-obywatela/transport`, polecaj gdy senior/student/KDR/niepełnosprawny pyta o tańsze podróżowanie.
+
+Update końca BASE_LIVE_SOURCES: "Wszystko dostępne pod hubem CENTRUM OBYWATELA: /centrum-obywatela" pozostaje, ale dopisać że teraz **11 narzędzi** (było 6).
+
 ## Wpięcia w istniejące strony
 
 ### Landing - VAT chip po CEIDG
@@ -199,10 +225,10 @@ SiteNav już ma link "Centrum Obywatela" z prefixem obejmującym `/nfz`. Po doda
 ## Kolejność wykonania
 
 1. Spec (ten dokument) + commit
-2. Lib + API per integracja (IMGW, ELI, BDL) - kolejność: IMGW (najprostszy), ELI, BDL
-3. Podstrony + widgety per integracja
-4. ARiMR + PKP (statyczne strony)
-5. Hub reorganizacja
-6. VAT chip na landingu
-7. /aktualnosci + /o-projekcie update
-8. tsc + raport
+2. Lib + API per integracja: IMGW → ELI → BDL (każda komplet: lib/source + /api/public + podstrona + widget jeśli aplikowalny)
+3. ARiMR + PKP (statyczne podstrony, bez API)
+4. Hub reorganizacja per audience (registry TOOLS z polem audiences)
+5. AI chat: 3 nowe prefetchery (maybeFetchImgw/Eli/BdlGus) + update BASE_LIVE_SOURCES o 5 nowych pozycji
+6. VAT chip na landingu (banner-success po CEIDG)
+7. /aktualnosci dodać widgety IMGW + ELI + /o-projekcie update opisu Centrum
+8. `npx tsc --noEmit` + raport zmian

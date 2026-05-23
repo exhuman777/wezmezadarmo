@@ -1,13 +1,17 @@
 /**
- * NFZ (Narodowy Fundusz Zdrowia) Public API
- * Public, no auth. Source: api.nfz.gov.pl
- * Endpoints: queues, providers, dictionaries, drug reimbursement.
+ * NFZ (Narodowy Fundusz Zdrowia) Public APIs
+ * Public, no auth. Sources:
+ *   - api.nfz.gov.pl/app-itl-api (Terminy leczenia): kolejki, słownik świadczeń, providers (tylko nazwy)
+ *   - api.nfz.gov.pl/app-umw-api (Umowy): pełne dane świadczeniodawców
+ *
+ * NOTE: Refundacja leków NIE jest w API NFZ (lista refundacyjna jest PDF/Excel
+ * od Min. Zdrowia, nie REST). Zakładka "leki" w UI nie korzysta z tego.
  */
 
-const BASE = 'https://api.nfz.gov.pl/app-itl-api';
-const UMOWY_BASE = 'https://api.nfz.gov.pl/app-umw-api';
+const BASE_ITL = 'https://api.nfz.gov.pl/app-itl-api';
+const BASE_UMW = 'https://api.nfz.gov.pl/app-umw-api';
 
-export type NfzCase = 1 | 2; // 1 = stable, 2 = urgent
+export type NfzCase = 1 | 2;
 
 export interface NfzQueueAttrs {
   case: number;
@@ -41,9 +45,8 @@ export interface NfzQueueResponse {
 }
 
 // ============================================================
-// 1. KOLEJKI (wait lists)
+// 1. KOLEJKI (itl-api)
 // ============================================================
-
 export async function getQueues(params: {
   benefit: string;
   caseType?: NfzCase;
@@ -52,12 +55,13 @@ export async function getQueues(params: {
   page?: number;
   limit?: number;
 }): Promise<NfzQueueResponse> {
-  const url = new URL(`${BASE}/queues`);
+  const url = new URL(`${BASE_ITL}/queues`);
   url.searchParams.set('format', 'json');
   url.searchParams.set('case', String(params.caseType ?? 1));
   url.searchParams.set('benefit', params.benefit);
   url.searchParams.set('page', String(params.page ?? 1));
   url.searchParams.set('limit', String(params.limit ?? 25));
+  url.searchParams.set('api-version', '1.3');
   if (params.province) url.searchParams.set('province', params.province);
   if (params.locality) url.searchParams.set('locality', params.locality);
 
@@ -70,72 +74,72 @@ export async function getQueues(params: {
 }
 
 // ============================================================
-// 2. BENEFIT DICTIONARY (autocomplete for search)
+// 2. SŁOWNIK ŚWIADCZEŃ (itl-api benefits)
 // ============================================================
-
-export interface NfzBenefit {
-  id: string;
-  type: string;
-  attributes: { name: string };
-}
+interface RawBenefit { id: string; type: string; attributes: { name: string } }
 
 export async function searchBenefits(query: string, limit: number = 25): Promise<string[]> {
-  const url = new URL(`${BASE}/benefits`);
+  if (query.length < 3) return [];
+  const url = new URL(`${BASE_ITL}/benefits`);
   url.searchParams.set('format', 'json');
   url.searchParams.set('name', query);
   url.searchParams.set('limit', String(limit));
+  url.searchParams.set('api-version', '1.3');
   const res = await fetch(url.toString(), {
     headers: { Accept: 'application/json' },
     next: { revalidate: 86400 },
   });
   if (!res.ok) throw new Error(`NFZ benefits error: ${res.status}`);
   const data = await res.json();
-  // The endpoint returns either array of strings or array of objects
-  return (data.data ?? []).map((item: NfzBenefit | string) =>
-    typeof item === 'string' ? item : item.attributes?.name,
-  ).filter(Boolean);
+  // Response shape: { data: [string, string, ...] } or { data: [{attributes:{name}}, ...] }
+  const items = data.data ?? [];
+  return items.map((it: RawBenefit | string) => typeof it === 'string' ? it : it.attributes?.name).filter(Boolean);
 }
 
 // ============================================================
-// 3. PROVIDERS (świadczeniodawcy)
+// 3. ŚWIADCZENIODAWCY (umw-api -- full data with NIP/phone/address)
 // ============================================================
-
 export interface NfzProviderAttrs {
+  branch: string;          // NFZ branch code (= TERYT province code)
   code: string;
-  'regon-14': string | null;
-  nip: string | null;
-  'registry-number': string | null;
   name: string;
-  'phone-pin': string | null;
-  'pin-puk': string | null;
-  email: string | null;
-  www: string | null;
-  'street-address': string | null;
+  nip: string | null;
+  regon: string | null;
+  'registry-number': string | null;
   'post-code': string | null;
-  'place-of-business': string | null;
-  province: string | null;
+  street: string | null;
+  place: string | null;
+  phone: string | null;
+  commune: string | null;
 }
 
 export interface NfzProvider {
   type: string;
-  id: string;
   attributes: NfzProviderAttrs;
+}
+
+export interface NfzProviderResponse {
+  meta: { count: number; page: number; limit: number };
+  data: { entries: NfzProvider[] };
 }
 
 export async function searchProviders(params: {
   name?: string;
   nip?: string;
-  province?: string;
+  branch?: string;            // NFZ oddział (= TERYT województwo)
+  year?: number;              // required by API; default = current year
   page?: number;
   limit?: number;
-}): Promise<{ data: NfzProvider[]; meta: { count: number } }> {
-  const url = new URL(`${UMOWY_BASE}/providers`);
+}): Promise<NfzProviderResponse> {
+  const url = new URL(`${BASE_UMW}/providers`);
   url.searchParams.set('format', 'json');
+  url.searchParams.set('api-version', '1.2');
+  url.searchParams.set('year', String(params.year ?? new Date().getFullYear()));
   url.searchParams.set('page', String(params.page ?? 1));
   url.searchParams.set('limit', String(params.limit ?? 25));
   if (params.name) url.searchParams.set('name', params.name);
   if (params.nip) url.searchParams.set('nip', params.nip);
-  if (params.province) url.searchParams.set('province', params.province);
+  if (params.branch) url.searchParams.set('branch', params.branch);
 
   const res = await fetch(url.toString(), {
     headers: { Accept: 'application/json' },
@@ -146,55 +150,8 @@ export async function searchProviders(params: {
 }
 
 // ============================================================
-// 4. DRUG REIMBURSEMENT (refundacja leków)
+// 4. SŁOWNIKI: kody województw
 // ============================================================
-
-export interface NfzDrugAttrs {
-  name: string;
-  'common-name': string | null;
-  power: string | null;
-  pack: string | null;
-  ean: string | null;
-  'drug-type': string | null;
-  refund: string | null; // refund category
-  'lump-sum-fee': string | null;
-  hundred: string | null; // 100% reimbursement
-  thirty: string | null;
-  fifty: string | null;
-  free: string | null;
-  validFrom: string | null;
-  validTo: string | null;
-}
-
-export interface NfzDrug {
-  type: string;
-  id: string;
-  attributes: NfzDrugAttrs;
-}
-
-export async function searchDrugs(params: {
-  name?: string;
-  page?: number;
-  limit?: number;
-}): Promise<{ data: NfzDrug[]; meta: { count: number } }> {
-  const url = new URL(`${BASE}/refunded-drugs`);
-  url.searchParams.set('format', 'json');
-  url.searchParams.set('page', String(params.page ?? 1));
-  url.searchParams.set('limit', String(params.limit ?? 25));
-  if (params.name) url.searchParams.set('name', params.name);
-
-  const res = await fetch(url.toString(), {
-    headers: { Accept: 'application/json' },
-    next: { revalidate: 86400 },
-  });
-  if (!res.ok) throw new Error(`NFZ drugs error: ${res.status}`);
-  return res.json();
-}
-
-// ============================================================
-// 5. PROVINCE CODES (TERYT 2-digit)
-// ============================================================
-
 export const NFZ_PROVINCE_CODES: Record<string, string> = {
   dolnoslaskie: '01',
   'kujawsko-pomorskie': '02',
@@ -233,10 +190,6 @@ export const PROVINCE_LABELS: Record<string, string> = {
   zachodniopomorskie: 'Zachodniopomorskie',
 };
 
-// ============================================================
-// 6. POPULAR BENEFITS (for quick filters)
-// ============================================================
-
 export const POPULAR_BENEFITS = [
   'PORADNIA KARDIOLOGICZNA',
   'PORADNIA DERMATOLOGICZNA',
@@ -246,15 +199,4 @@ export const POPULAR_BENEFITS = [
   'PORADNIA ORTOPEDYCZNA',
   'PORADNIA REUMATOLOGICZNA',
   'PORADNIA ALERGOLOGICZNA',
-  'PORADNIA GASTROENTEROLOGICZNA',
-  'PORADNIA UROLOGICZNA',
-  'PORADNIA STOMATOLOGICZNA',
-  'REZONANS MAGNETYCZNY',
-  'TOMOGRAFIA KOMPUTEROWA',
-  'USG',
-  'GASTROSKOPIA',
-  'KOLONOSKOPIA',
-  'FIZJOTERAPIA AMBULATORYJNA',
-  'REHABILITACJA OGÓLNOUSTROJOWA',
-  'PORADNIA ZDROWIA PSYCHICZNEGO',
 ];

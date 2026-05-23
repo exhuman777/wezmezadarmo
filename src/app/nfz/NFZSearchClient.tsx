@@ -2,9 +2,9 @@
 
 import { useEffect, useState, useCallback, useMemo } from 'react';
 import { PROVINCE_LABELS } from '@/lib/sources/nfz';
-import { BENEFIT_GROUPS, DRUG_PRESETS, POPULAR_CITIES, PROVIDER_TYPES } from '@/lib/sources/nfz-presets';
+import { BENEFIT_GROUPS, POPULAR_CITIES, PROVIDER_TYPES } from '@/lib/sources/nfz-presets';
 
-type SearchMode = 'queues' | 'providers' | 'drugs';
+type SearchMode = 'queues' | 'providers';
 type SortMode = 'fastest' | 'slowest' | 'name' | 'demand';
 
 interface QueueResult {
@@ -22,24 +22,10 @@ interface ProviderResult {
   code: string;
   name: string;
   nip: string | null;
-  address: string | null;
-  city: string | null;
+  street: string | null;
+  place: string | null;
   postCode: string | null;
   phone: string | null;
-  www: string | null;
-}
-
-interface DrugResult {
-  name: string;
-  commonName: string | null;
-  power: string | null;
-  pack: string | null;
-  refund: string | null;
-  lumpSumFee: string | null;
-  hundred: string | null;
-  thirty: string | null;
-  fifty: string | null;
-  free: string | null;
 }
 
 const PROVINCE_KEYS = Object.keys(PROVINCE_LABELS);
@@ -87,22 +73,16 @@ export default function NFZSearchClient() {
   const [providerProvince, setProviderProvince] = useState('');
   const [recentProviders, setRecentProviders] = useState<string[]>([]);
 
-  // Drugs state
-  const [drugName, setDrugName] = useState('');
-  const [recentDrugs, setRecentDrugs] = useState<string[]>([]);
-
   // Common
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [queueResults, setQueueResults] = useState<QueueResult[] | null>(null);
   const [providerResults, setProviderResults] = useState<ProviderResult[] | null>(null);
-  const [drugResults, setDrugResults] = useState<DrugResult[] | null>(null);
   const [resultCount, setResultCount] = useState(0);
 
   useEffect(() => {
     setRecentBenefits(loadRecent('queues'));
     setRecentProviders(loadRecent('providers'));
-    setRecentDrugs(loadRecent('drugs'));
   }, []);
 
   // Autocomplete benefits as user types
@@ -184,31 +164,6 @@ export default function NFZSearchClient() {
     }
   }, [providerName, providerProvince]);
 
-  const runDrugSearch = useCallback(async (query?: string) => {
-    const q = query ?? drugName;
-    if (q.length < 3) {
-      setError('Podaj nazwę leku (min 3 znaki)');
-      return;
-    }
-    if (query) setDrugName(query);
-    setLoading(true);
-    setError(null);
-    setDrugResults(null);
-    try {
-      const res = await fetch(`/api/public/nfz?type=drugs&name=${encodeURIComponent(q)}&limit=25`);
-      if (!res.ok) throw new Error('Błąd');
-      const data = await res.json();
-      setDrugResults(data.drugs ?? []);
-      setResultCount(data.count ?? 0);
-      saveRecent('drugs', q);
-      setRecentDrugs(loadRecent('drugs'));
-    } catch {
-      setError('Nie udało się pobrać refundacji leków.');
-    } finally {
-      setLoading(false);
-    }
-  }, [drugName]);
-
   // Stats from queue results
   const queueStats = useMemo(() => {
     if (!queueResults || queueResults.length === 0) return null;
@@ -255,7 +210,6 @@ export default function NFZSearchClient() {
           {([
             { id: 'queues', label: 'Kolejki', desc: 'Czas oczekiwania' },
             { id: 'providers', label: 'Świadczeniodawcy', desc: 'Znajdź lekarza' },
-            { id: 'drugs', label: 'Refundacja leków', desc: 'Sprawdź dopłatę' },
           ] as const).map(t => (
             <button
               key={t.id}
@@ -537,71 +491,6 @@ export default function NFZSearchClient() {
           </>
         )}
 
-        {/* ============ LEKI ============ */}
-        {mode === 'drugs' && (
-          <>
-            {/* Drug categories */}
-            <div style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 16, padding: 18, marginBottom: 16 }}>
-              <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--color-text-3)', letterSpacing: '0.08em', marginBottom: 12, textTransform: 'uppercase' as const }}>
-                Popularne grupy leków
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 12 }}>
-                {DRUG_PRESETS.map(cat => (
-                  <div key={cat.category}>
-                    <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--color-text-2)', marginBottom: 6 }}>{cat.category}</div>
-                    <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
-                      {cat.items.map(item => (
-                        <button key={item.q} onClick={() => runDrugSearch(item.q)}
-                          style={miniPillStyle(drugName === item.q)}>
-                          {item.label}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {recentDrugs.length > 0 && (
-              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 16 }}>
-                <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--color-text-3)' }}>OSTATNIO:</span>
-                {recentDrugs.map(r => (
-                  <button key={r} onClick={() => runDrugSearch(r)} style={miniPillStyle(false)}>{r}</button>
-                ))}
-              </div>
-            )}
-
-            <div style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 16, padding: 18, marginBottom: 24 }}>
-              <div style={{ marginBottom: 14 }}>
-                <label style={labelStyle}>Nazwa leku lub substancji czynnej</label>
-                <input type="text" value={drugName} onChange={(e) => setDrugName(e.target.value)} placeholder="np. metformin, salbutamol" style={inputStyle}
-                  onKeyDown={(e) => e.key === 'Enter' && runDrugSearch()} />
-              </div>
-              <button onClick={() => runDrugSearch()} disabled={loading || drugName.length < 3} style={primaryButton(loading || drugName.length < 3)}>
-                {loading ? 'Szukam...' : 'Sprawdź refundację'}
-              </button>
-            </div>
-
-            {error && <ErrorBox>{error}</ErrorBox>}
-            {loading && <SkeletonRows />}
-
-            {drugResults && !loading && (
-              <>
-                <div style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 12 }}>
-                  Znaleziono <strong style={{ color: 'var(--color-text-1)' }}>{resultCount}</strong> leków
-                </div>
-                {drugResults.length === 0 ? (
-                  <EmptyState mode={mode} />
-                ) : (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                    {drugResults.map((d, i) => <DrugCard key={i} d={d} />)}
-                  </div>
-                )}
-              </>
-            )}
-          </>
-        )}
-
         {/* Source attribution */}
         <div style={{ marginTop: 40, paddingTop: 20, borderTop: '1px solid var(--color-border)', fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--color-muted-2)', textAlign: 'center' }}>
           Źródło: <a href="https://api.nfz.gov.pl" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)', textDecoration: 'none' }}>api.nfz.gov.pl</a> · Dane orientacyjne, weryfikuj na nfz.gov.pl
@@ -628,10 +517,10 @@ function Hero() {
           Wyszukiwarka NFZ
         </div>
         <h1 style={{ fontSize: 'clamp(26px, 4vw, 40px)', fontWeight: 700, lineHeight: 1.1, letterSpacing: '-0.03em', color: '#fff', margin: '0 0 10px', maxWidth: 720 }}>
-          Kolejki, lekarze, refundacja leków
+          Kolejki i świadczeniodawcy NFZ
         </h1>
         <p style={{ fontSize: 14, lineHeight: 1.6, color: 'rgba(255,255,255,0.6)', margin: 0, maxWidth: 560 }}>
-          Sprawdź czas oczekiwania do specjalisty, znajdź świadczeniodawcę NFZ, sprawdź refundację leków. Dane na żywo z api.nfz.gov.pl.
+          Sprawdź czas oczekiwania do specjalisty, znajdź szpital lub przychodnię. Dane na żywo z api.nfz.gov.pl.
         </p>
       </div>
     </section>
@@ -683,39 +572,18 @@ function QueueCard({ r }: { r: QueueResult }) {
 }
 
 function ProviderCard({ p }: { p: ProviderResult }) {
-  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${p.name} ${p.address ?? ''} ${p.city ?? ''}`)}`;
+  const addressLine = [p.street, p.postCode, p.place].filter(Boolean).join(', ');
+  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${p.name} ${addressLine}`)}`;
   return (
     <div style={cardStyle}>
       <div style={{ fontWeight: 600, fontSize: 15, color: 'var(--color-text-1)', marginBottom: 6, lineHeight: 1.3 }}>{p.name}</div>
-      {p.address && <div style={{ fontSize: 13, color: 'var(--color-text-2)' }}>{p.address}{p.postCode && `, ${p.postCode}`}{p.city && ` ${p.city}`}</div>}
+      {addressLine && <div style={{ fontSize: 13, color: 'var(--color-text-2)' }}>{addressLine}</div>}
       <div style={{ display: 'flex', gap: 12, marginTop: 8, fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--color-text-3)', flexWrap: 'wrap' }}>
         {p.nip && <span>NIP: {p.nip}</span>}
-        {p.www && <a href={p.www.startsWith('http') ? p.www : `https://${p.www}`} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)', textDecoration: 'none' }}>{p.www}</a>}
       </div>
       <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 8 }}>
         {p.phone && <a href={`tel:${p.phone.replace(/\s/g, '')}`} style={actionLinkStyle}>Zadzwoń: {p.phone}</a>}
         <a href={mapsUrl} target="_blank" rel="noopener noreferrer" style={actionLinkStyle}>Pokaż na mapie</a>
-      </div>
-    </div>
-  );
-}
-
-function DrugCard({ d }: { d: DrugResult }) {
-  return (
-    <div style={cardStyle}>
-      <div style={{ fontWeight: 600, fontSize: 15, color: 'var(--color-text-1)', lineHeight: 1.3 }}>{d.name}</div>
-      {d.commonName && <div style={{ fontSize: 12, color: 'var(--color-text-3)', marginTop: 2 }}>Subst. czynna: <strong>{d.commonName}</strong></div>}
-      <div style={{ display: 'flex', gap: 12, marginTop: 8, fontSize: 12, color: 'var(--color-text-2)', flexWrap: 'wrap' }}>
-        {d.power && <span>{d.power}</span>}
-        {d.pack && <span>{d.pack}</span>}
-      </div>
-      <div style={{ display: 'flex', gap: 8, marginTop: 10, flexWrap: 'wrap' }}>
-        {d.refund && <Pill label="Kategoria" value={d.refund} />}
-        {d.lumpSumFee && <Pill label="Ryczałt" value={`${d.lumpSumFee} zł`} />}
-        {d.thirty && <Pill label="30%" value={`${d.thirty} zł`} />}
-        {d.fifty && <Pill label="50%" value={`${d.fifty} zł`} />}
-        {d.hundred && <Pill label="100%" value={`${d.hundred} zł`} />}
-        {d.free && <Pill label="bezpłatny" value="✓" tone="green" />}
       </div>
     </div>
   );
@@ -761,7 +629,6 @@ function EmptyState({ mode }: { mode: SearchMode }) {
   const hints: Record<SearchMode, string> = {
     queues: 'Spróbuj zmienić województwo lub poszerzyć kategorię świadczenia.',
     providers: 'Spróbuj wpisać krótszą nazwę lub samo województwo.',
-    drugs: 'Spróbuj wpisać samą nazwę substancji czynnej (np. metformin zamiast Metformax).',
   };
   return (
     <div style={{
