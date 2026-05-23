@@ -9,8 +9,6 @@
  * Używa natywnego fetch (Node 18+) - zero dodatkowych zależności.
  */
 
-import { createClient } from '@supabase/supabase-js';
-
 // ---------------------------------------------------------------------------
 // Config
 // ---------------------------------------------------------------------------
@@ -31,7 +29,41 @@ if (!FIRECRAWL_API_KEY) {
   console.warn('FIRECRAWL_API_KEY brak — fallback wyłączony (zablokowane źródła zostaną pominięte)');
 }
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
+// REST API zamiast supabase-js (omija problem WebSocket na Node 20)
+const SUPABASE_HEADERS = {
+  'apikey': SUPABASE_SERVICE_ROLE_KEY,
+  'Authorization': `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
+  'Content-Type': 'application/json',
+};
+
+async function supabaseUpsert(table, rows) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?on_conflict=id`, {
+    method: 'POST',
+    headers: { ...SUPABASE_HEADERS, 'Prefer': 'resolution=merge-duplicates,return=minimal' },
+    body: JSON.stringify(rows),
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    return { error: { message: `HTTP ${res.status}: ${text.slice(0, 200)}` } };
+  }
+  return { error: null };
+}
+
+async function supabaseDeleteOld(table, beforeIso) {
+  const res = await fetch(
+    `${SUPABASE_URL}/rest/v1/${table}?fetched_at=lt.${encodeURIComponent(beforeIso)}`,
+    {
+      method: 'DELETE',
+      headers: { ...SUPABASE_HEADERS, 'Prefer': 'return=representation' },
+    }
+  );
+  if (!res.ok) {
+    const text = await res.text();
+    return { error: { message: `HTTP ${res.status}: ${text.slice(0, 200)}` }, count: 0 };
+  }
+  const body = await res.json().catch(() => []);
+  return { error: null, count: Array.isArray(body) ? body.length : 0 };
+}
 
 const BROWSER_HEADERS = {
   'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
@@ -391,13 +423,8 @@ async function processFeed(feed) {
     fetched_at: new Date().toISOString(),
   }));
 
-  // Upsert - nie nadpisuj jeśli artykuł już istnieje (zachowaj oryginalną datę)
-  const { error } = await supabase
-    .from('rss_cache')
-    .upsert(rows, {
-      onConflict: 'id',
-      ignoreDuplicates: false,
-    });
+  // Upsert via REST API
+  const { error } = await supabaseUpsert('rss_cache', rows);
 
   if (error) {
     console.error(`[${feed.id}] Błąd Supabase:`, error.message);
@@ -411,11 +438,9 @@ async function processFeed(feed) {
 async function cleanup() {
   // Usuń wpisy starsze niż 30 dni
   const cutoff = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
-  const { error, count } = await supabase
-    .from('rss_cache')
-    .delete({ count: 'exact' })
-    .lt('fetched_at', cutoff);
-  if (!error) console.log(`\nCleanup: usunięto ${count ?? 0} starych wpisów`);
+  const { error, count } = await supabaseDeleteOld('rss_cache', cutoff);
+  if (error) console.warn(`Cleanup error: ${error.message}`);
+  else console.log(`\nCleanup: usunięto ${count} starych wpisów`);
 }
 
 async function main() {
