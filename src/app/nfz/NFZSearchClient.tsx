@@ -430,9 +430,9 @@ export default function NFZSearchClient() {
         {mode === 'providers' && (
           <>
             {/* Provider type presets */}
-            <div style={{ marginBottom: 12 }}>
-              <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--color-text-3)', letterSpacing: '0.08em', marginBottom: 8 }}>TYP PLACÓWKI</div>
-              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+            <div style={{ marginBottom: 16 }}>
+              <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 10 }}>Typ placówki</div>
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                 {PROVIDER_TYPES.map(t => (
                   <button key={t.q} onClick={() => setProviderName(t.q)} style={miniPillStyle(providerName === t.q)}>
                     {t.label}
@@ -442,16 +442,16 @@ export default function NFZSearchClient() {
             </div>
 
             {recentProviders.length > 0 && (
-              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 16 }}>
-                <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--color-text-3)' }}>OSTATNIO:</span>
+              <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center', marginBottom: 18 }}>
+                <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-text-2)' }}>Ostatnio:</span>
                 {recentProviders.map(r => (
                   <button key={r} onClick={() => setProviderName(r)} style={miniPillStyle(false)}>{r}</button>
                 ))}
               </div>
             )}
 
-            <div style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 16, padding: 18, marginBottom: 24 }}>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 10, marginBottom: 14 }}>
+            <div style={{ background: '#fff', border: '1px solid var(--color-border)', borderRadius: 16, padding: 22, marginBottom: 26 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 14, marginBottom: 18 }}>
                 <div>
                   <label style={labelStyle}>Nazwa lub typ</label>
                   <input type="text" value={providerName} onChange={(e) => setProviderName(e.target.value)} placeholder="np. szpital wojewódzki" style={inputStyle} />
@@ -476,13 +476,13 @@ export default function NFZSearchClient() {
 
             {providerResults && !loading && (
               <>
-                <div style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 12 }}>
-                  Znaleziono <strong style={{ color: 'var(--color-text-1)' }}>{resultCount}</strong> świadczeniodawców
+                <div style={{ fontSize: 15, color: 'var(--color-text-2)', marginBottom: 16 }}>
+                  Znaleziono <strong style={{ color: 'var(--color-text-1)', fontSize: 16 }}>{resultCount}</strong> świadczeniodawców
                 </div>
                 {providerResults.length === 0 ? (
                   <EmptyState mode={mode} />
                 ) : (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                     {providerResults.map((p) => <ProviderCard key={p.code} p={p} />)}
                   </div>
                 )}
@@ -492,8 +492,8 @@ export default function NFZSearchClient() {
         )}
 
         {/* Source attribution */}
-        <div style={{ marginTop: 40, paddingTop: 20, borderTop: '1px solid var(--color-border)', fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--color-muted-2)', textAlign: 'center' }}>
-          Źródło: <a href="https://api.nfz.gov.pl" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)', textDecoration: 'none' }}>api.nfz.gov.pl</a> · Dane orientacyjne, weryfikuj na nfz.gov.pl
+        <div style={{ marginTop: 44, paddingTop: 22, borderTop: '1px solid var(--color-border)', fontSize: 13, color: 'var(--color-text-2)', textAlign: 'center' }}>
+          Źródło: <a href="https://api.nfz.gov.pl" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)', textDecoration: 'none', fontWeight: 600 }}>api.nfz.gov.pl</a> · Dane orientacyjne, weryfikuj na nfz.gov.pl
         </div>
       </section>
     </main>
@@ -513,13 +513,13 @@ function Hero() {
     }}>
       <div style={{ position: 'absolute', top: '20%', right: '5%', width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(34,160,107,0.12) 0%, transparent 70%)', pointerEvents: 'none' }} />
       <div className="wrap" style={{ position: 'relative', maxWidth: 1080, margin: '0 auto' }}>
-        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'rgba(142,234,173,0.6)', letterSpacing: '0.1em', textTransform: 'uppercase' as const, marginBottom: 14 }}>
+        <div style={{ fontSize: 13, fontWeight: 600, color: 'rgba(142,234,173,0.95)', letterSpacing: '0.04em', textTransform: 'uppercase' as const, marginBottom: 16 }}>
           Wyszukiwarka NFZ
         </div>
-        <h1 style={{ fontSize: 'clamp(26px, 4vw, 40px)', fontWeight: 700, lineHeight: 1.1, letterSpacing: '-0.03em', color: '#fff', margin: '0 0 10px', maxWidth: 720 }}>
+        <h1 style={{ fontSize: 'clamp(30px, 4.5vw, 44px)', fontWeight: 700, lineHeight: 1.1, letterSpacing: '-0.02em', color: '#fff', margin: '0 0 14px', maxWidth: 720 }}>
           Kolejki i świadczeniodawcy NFZ
         </h1>
-        <p style={{ fontSize: 14, lineHeight: 1.6, color: 'rgba(255,255,255,0.6)', margin: 0, maxWidth: 560 }}>
+        <p style={{ fontSize: 17, lineHeight: 1.55, color: 'rgba(255,255,255,0.85)', margin: 0, maxWidth: 600 }}>
           Sprawdź czas oczekiwania do specjalisty, znajdź szpital lub przychodnię. Dane na żywo z api.nfz.gov.pl.
         </p>
       </div>
@@ -738,11 +738,13 @@ function miniPillStyle(active: boolean): React.CSSProperties {
 
 function primaryButton(disabled: boolean): React.CSSProperties {
   return {
-    padding: '12px 24px',
-    background: disabled ? 'var(--color-surface-2)' : 'var(--color-text-1)',
-    color: disabled ? 'var(--color-muted-2)' : 'var(--color-bg-0)',
+    padding: '16px 32px',
+    background: disabled ? '#d6dad4' : '#0d2b1c',
+    color: disabled ? '#7a807c' : '#fff',
     border: 'none', borderRadius: 10,
-    fontSize: 14, fontWeight: 500,
+    fontSize: 16, fontWeight: 600,
+    letterSpacing: '-0.005em',
     cursor: disabled ? 'not-allowed' : 'pointer',
+    transition: 'all 0.15s',
   };
 }
