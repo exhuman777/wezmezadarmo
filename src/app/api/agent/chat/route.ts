@@ -344,16 +344,130 @@ interface PrefetchOpts {
   profileNip: string | null;
 }
 
-// Glowna funkcja prefetch - rownoleglie wszystkie 5 zrodel live
+// Smart prefetch: IMGW/RCB ostrzezenia gdy user pyta o pogode/burze/alerty
+async function maybeFetchImgw(text: string): Promise<string | null> {
+  const lc = text.toLowerCase();
+  const wantsWeather = /\b(pogod|burz|mr[oó]z|przymrozk|pow[oó]d[zź]|opad|wichur|alert.*pogod|rcb|ostrze[zż]eni|gradobic|smog)/.test(lc);
+  if (!wantsWeather) return null;
+
+  try {
+    const res = await fetch('https://rcb.gov.pl/feed/', {
+      headers: { Accept: 'application/rss+xml,text/xml,*/*', 'User-Agent': 'wezmezadarmo/1.0' },
+      next: { revalidate: 900 },
+    });
+    if (!res.ok) return null;
+    const xml = await res.text();
+    const items: Array<{ title: string; link: string }> = [];
+    const itemRegex = /<item[^>]*>([\s\S]*?)<\/item>/g;
+    let m: RegExpExecArray | null;
+    while ((m = itemRegex.exec(xml)) !== null && items.length < 3) {
+      const titleMatch = m[1].match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+      const linkMatch = m[1].match(/<link[^>]*>([\s\S]*?)<\/link>/i);
+      const title = (titleMatch?.[1] ?? '').replace(/<!\[CDATA\[|\]\]>/g, '').trim();
+      const link = (linkMatch?.[1] ?? '').trim();
+      if (title) items.push({ title, link });
+    }
+    if (items.length === 0) {
+      return `IMGW/RCB: brak aktywnych ostrzezen. Sytuacja meteo w normie.`;
+    }
+    const lines = items.map(i => `  - ${i.title}${i.link ? ` (${i.link})` : ''}`).join('\n');
+    return `IMGW/RCB OSTRZEZENIA AKTYWNE (${items.length}):\n${lines}\n  Pelna lista: https://wezmezadarmo.com/centrum-obywatela/pogoda`;
+  } catch {
+    return null;
+  }
+}
+
+// Smart prefetch: ELI/Sejm zmiany w prawie gdy user pyta o nowelizacje
+async function maybeFetchEli(text: string): Promise<string | null> {
+  const lc = text.toLowerCase();
+  const wantsLaw = /\b(zmian.*praw|zmian.*przepis|nowelizacj|ustawa o|nowy przepis|kiedy wejdzie w [zż]ycie|projekt ustaw)/.test(lc);
+  if (!wantsLaw) return null;
+
+  try {
+    const year = new Date().getFullYear();
+    const res = await fetch(`https://api.sejm.gov.pl/eli/acts/DU/${year}?limit=30&offset=0`, {
+      headers: { Accept: 'application/json', 'User-Agent': 'wezmezadarmo/1.0' },
+      next: { revalidate: 1800 },
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    const items = (data.items ?? data ?? []) as Array<{ ELI?: string; title?: string; type?: string; announcementDate?: string }>;
+    const keywords = ['swiadczenie', 'zasilek', 'ulga', 'dodatek', 'emerytura', 'zus', 'krus', 'refundacj', '800+'];
+    const norm = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+    const matched = items.filter(it => it.title && keywords.some(k => norm(it.title!).includes(k))).slice(0, 5);
+    if (matched.length === 0) return null;
+    const lines = matched.map(a => `  - ${a.type ?? ''}: ${a.title}${a.announcementDate ? ` (ogl. ${a.announcementDate})` : ''}`).join('\n');
+    return `OSTATNIE ZMIANY W PRZEPISACH O SWIADCZENIACH (${year}, top ${matched.length}):\n${lines}\n  Pelna lista: https://wezmezadarmo.com/centrum-obywatela/prawo`;
+  } catch {
+    return null;
+  }
+}
+
+// Smart prefetch: BDL GUS dane gminy gdy user pyta o swoja gmine
+async function maybeFetchBdlGus(text: string, userProvince: string | null): Promise<string | null> {
+  const lc = text.toLowerCase();
+  const wantsGmina = /\b(moja gmina|w gminie|ludno[sś][cć]|bezrobocie w|dane.*gmin|statystyk.*gmin|gus.*gmin)/.test(lc);
+  if (!wantsGmina) return null;
+
+  // Wymaga gminy w wiadomosci albo wojewodztwa z profilu
+  const gminaMatch = text.match(/(?:gmin[aęy][\s:]+|w gminie\s+)([A-Za-zĄĆĘŁŃÓŚŹŻąćęłńóśźż-]+)/i);
+  const gmina = gminaMatch?.[1];
+  if (!gmina && !userProvince) {
+    return `BDL GUS: aby pobrac dane, podaj nazwe gminy ("dane gminy Warszawa") lub uzupelnij wojewodztwo w profilu. Wyszukiwarka: https://wezmezadarmo.com/centrum-obywatela/gus`;
+  }
+  if (!gmina) return null;
+
+  try {
+    const sRes = await fetch(`https://bdl.stat.gov.pl/api/v1/units/search?name=${encodeURIComponent(gmina)}&level=5&format=json&page-size=1`, {
+      headers: { Accept: 'application/json' },
+      next: { revalidate: 86400 },
+    });
+    if (!sRes.ok) return null;
+    const sData = await sRes.json();
+    const unit = (sData.results ?? [])[0] as { id: string; name: string; parentName?: string } | undefined;
+    if (!unit) return `BDL GUS: nie znaleziono gminy "${gmina}". Sprawdz pisownie na https://wezmezadarmo.com/centrum-obywatela/gus`;
+
+    const vars = ['60559', '459163', '60270'].join(',');
+    const dRes = await fetch(`https://bdl.stat.gov.pl/api/v1/data/by-unit/${unit.id}?var-id=${vars}&format=json`, {
+      headers: { Accept: 'application/json' },
+      next: { revalidate: 86400 },
+    });
+    if (!dRes.ok) return null;
+    const dData = await dRes.json();
+    const byId = new Map((dData.results ?? []).map((r: { id: string; values: Array<{ val: number; year: string }> }) => [r.id, r]));
+    const last = (id: string) => {
+      const r = byId.get(id) as { values: Array<{ val: number; year: string }> } | undefined;
+      const v = r?.values?.[r.values.length - 1];
+      return v ? { val: v.val, year: v.year } : null;
+    };
+    const pop = last('60559');
+    const unemp = last('459163');
+    const sal = last('60270');
+    return [
+      `BDL GUS - dane gminy ${unit.name}${unit.parentName ? ` (${unit.parentName})` : ''}:`,
+      pop ? `  Ludnosc: ${pop.val.toLocaleString('pl-PL')} (${pop.year})` : '',
+      unemp ? `  Bezrobocie: ${unemp.val}% (${unemp.year})` : '',
+      sal ? `  Przecietne wynagrodzenie: ${sal.val.toLocaleString('pl-PL')} PLN brutto (${sal.year})` : '',
+      `  Wiecej: https://wezmezadarmo.com/centrum-obywatela/gus`,
+    ].filter(Boolean).join('\n');
+  } catch {
+    return null;
+  }
+}
+
+// Glowna funkcja prefetch - rownoleglie wszystkie 8 zrodel live
 async function buildLivePrefetch(lastUserMsg: string, opts: PrefetchOpts): Promise<string | null> {
-  const [nbp, whitelist, nfz, gios, ceidg] = await Promise.all([
+  const [nbp, whitelist, nfz, gios, ceidg, imgw, eli, bdl] = await Promise.all([
     maybeFetchNbp(lastUserMsg),
     maybeFetchWhitelist(lastUserMsg),
     maybeFetchNfz(lastUserMsg, opts.userProvince),
     maybeFetchGios(lastUserMsg, opts.userProvince),
     maybeFetchCeidg(lastUserMsg, opts.profileNip, opts.isJdg),
+    maybeFetchImgw(lastUserMsg),
+    maybeFetchEli(lastUserMsg),
+    maybeFetchBdlGus(lastUserMsg, opts.userProvince),
   ]);
-  const parts = [nbp, whitelist, nfz, gios, ceidg].filter((p): p is string => p !== null);
+  const parts = [nbp, whitelist, nfz, gios, ceidg, imgw, eli, bdl].filter((p): p is string => p !== null);
   if (parts.length === 0) return null;
   return `DANE LIVE POBRANE NA POTRZEBY TEJ ROZMOWY:\n\n${parts.join('\n\n')}`;
 }
