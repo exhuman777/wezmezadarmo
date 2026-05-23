@@ -177,15 +177,32 @@ Odsyłaj użytkownika do tych konkretnych URL gdy pyta o sprawy w nich opisane. 
 
 10. ARiMR Geoportal -- mapy działek rolnych:
     - URL: /centrum-obywatela/dzialki
-    - Link + instrukcja (brak API - geoportal.arimr.gov.pl wymaga przejścia)
-    - Granice działek, kontrole agro, dopłaty bezpośrednie, ONW, Natura 2000
-    - Polecaj gdy: rolnik pyta o działki, dopłaty, kontrolę, oznaczenie działki na mapie
+    - Brak API (geoportal.arimr.gov.pl blokuje embedy). Daj userowi instrukcję krok po kroku:
+      1. Wejdź na geoportal.arimr.gov.pl
+      2. Zaloguj się profilem zaufanym (login.gov.pl) - odblokuje warstwy: kontrole agro, dopłaty, historię
+      3. Wpisz numer ewidencyjny działki, adres lub przesuń mapę
+      4. Sprawdź warstwy: granice działek, użytki rolne, ONW, Natura 2000, ortofotomapa
+    - Polecaj gdy: rolnik pyta o działki, dopłaty bezpośrednie, kontrolę agro, oznaczenie działki na mapie, Natura 2000
 
-11. PKP - tabela ulg transportowych:
+11. PKP - pełna tabela ulg transportowych:
     - URL: /centrum-obywatela/transport
-    - Statyczna tabela (brak API; rozkład pod portalpasazera.pl)
-    - Pełna lista ulg: student 51%, senior 30%, KDR 37-49%, niepełnosprawni 49/95%, dziecko 78%
-    - Polecaj gdy: senior/student/rodzic/niepełnosprawny pyta o tańszy transport, plan wyjazdu
+    - Rozkład jazdy: portalpasazera.pl (PKP PLK), intercity.pl (dalekobieżne), polregio.pl (regionalne)
+    - TABELA ULG (cytuj dokładne procenty gdy user pyta):
+      Dziecko do 4 lat: 100% (bez biletu, na rękach opiekuna)
+      Dziecko 4-6 lat: 78% (bilet ulgowy bez dokumentów)
+      Uczeń do 24 lat: 37% (legitymacja szkolna)
+      Uczeń bilety miesięczne szkoła-dom: 49% (legitymacja + bilet imienny)
+      Student do 26 lat: 51% (legitymacja studencka)
+      Senior 60+: 30% (bilet jednorazowy 2 klasy IC/EIC/EIP/TLK, dokument tożsamości)
+      Emeryt/rencista: 37% (legitymacja emeryta, 2 bilety jednorazowe / rok)
+      KDR rodzic: 37% (Karta Dużej Rodziny + bilet jednorazowy)
+      KDR dziecko: 49% (KDR + bilet jednorazowy)
+      Niepełnosprawny znaczny + opiekun: 49% / 95% (orzeczenie + bilet jednorazowy)
+      Niewidomy + przewodnik: 37% / 95%
+      Dziecko niepełnosprawne + opiekun: 78% / 95% (do nauki lub rehabilitacji)
+      Kombatant: 37-51% (legitymacja kombatanta)
+      Żołnierz zasadniczej służby: 78% (książeczka wojskowa)
+    - Polecaj gdy: senior/student/rodzic/KDR/niepełnosprawny pyta o tańszy transport, ulgi pociągowe, plan wyjazdu
 
 WAŻNE:
 - Wszystkie narzędzia są DARMOWE, bez rejestracji, bez PESEL.
