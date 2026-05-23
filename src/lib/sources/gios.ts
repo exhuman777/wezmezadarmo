@@ -99,8 +99,9 @@ function pollutantLevel(aqi: RawAqi, indicator: string): string | null {
 }
 
 export async function getAirIndex(stationId: number): Promise<GiosAqi> {
+  // GIOŚ v1 zwraca application/ld+json -- Accept: application/json daje 406
   const res = await fetch(`${BASE}/aqindex/getIndex/${stationId}`, {
-    headers: { Accept: 'application/json' },
+    headers: { Accept: 'application/ld+json' },
     next: { revalidate: 1800 },
   });
   if (!res.ok) throw new Error(`GIOS AQI error: ${res.status}`);
