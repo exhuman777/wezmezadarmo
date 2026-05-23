@@ -18,7 +18,6 @@ const CECHY = [
 const PRZYKŁADY = [
   'Jakie świadczenia mi przysługują?',
   'Czy mogę dostać 800+ na dziecko?',
-  'Renta wdowia - czy mi przysługuje?',
   'Ile dziś kosztuje euro?',
   'Sprawdź NIP 7342867148',
   'Ile czekam do kardiologa?',
@@ -30,6 +29,7 @@ const PRZYKŁADY = [
   'Ile wynosi becikowe?',
   'Bon ciepłowniczy 2026 - czy się kwalifikuję?',
   'KSeF dla JDG - od kiedy obowiązkowy?',
+  'Mały ZUS Plus - kiedy mogę skorzystać?',
 ];
 
 function onTiltEnter(e: React.MouseEvent<HTMLDivElement>) {

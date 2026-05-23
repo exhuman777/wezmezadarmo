@@ -330,6 +330,33 @@ export default function AgentSwiadczenia() {
   }, [chatStreaming, selected]);
 
   useEffect(() => {
+    const CACHE_KEY = 'panel_swiadczenia_cache_v1';
+    const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24h
+
+    function hashProfile(p: Record<string, unknown>): string {
+      // Stabilny hash kluczowych pol profilu - jesli sie zmienia, invalidate cache
+      const fields = [
+        p.wiek, p.plec, p.stan_cywilny, p.liczba_dzieci,
+        Array.isArray(p.wiek_dzieci) ? p.wiek_dzieci.join(',') : '',
+        p.dochod_miesiecznie, p.dochod_na_osobe, p.zatrudnienie,
+        p.niepelnosprawnosc, p.wlasnosc, p.wojewodztwo,
+        p.ciaza, p.student, p.emeryt, p.rolnik, p.bezrobotny_zarejestrowany,
+      ];
+      let h = 0;
+      const s = fields.join('|');
+      for (let i = 0; i < s.length; i++) h = (Math.imul(31, h) + s.charCodeAt(i)) | 0;
+      return (h >>> 0).toString(36);
+    }
+
+    function buildResultsFromMatches(matches: MatchResult[]): LocalResult[] {
+      const fullMap = new Map<string, Benefit>();
+      for (const b of getAllBenefits()) fullMap.set(b.id, b);
+      return matches
+        .filter(r => r.status === 'PRZYSLUGUJE' || r.status === 'MOZLIWE')
+        .sort((a, b) => (a.status === 'PRZYSLUGUJE' ? -1 : 1))
+        .map(r => ({ match: r, full: fullMap.get(r.benefit.id) ?? r.benefit as unknown as Benefit }));
+    }
+
     async function load() {
       const profileRes = await fetch('/api/agent/profile');
       if (profileRes.status === 401) { router.push('/agent/logowanie'); return; }
@@ -337,6 +364,24 @@ export default function AgentSwiadczenia() {
 
       const { profile } = await profileRes.json();
       if (profile.type !== 'private') { setLoading(false); return; }
+
+      const profileHash = hashProfile(profile);
+
+      // Sprawdz localStorage cache (24h, invalidacja po zmianie profilu)
+      try {
+        const raw = localStorage.getItem(CACHE_KEY);
+        if (raw) {
+          const cached = JSON.parse(raw) as { fetchedAt: number; profileHash: string; matches: MatchResult[] };
+          const age = Date.now() - cached.fetchedAt;
+          if (age < CACHE_TTL_MS && cached.profileHash === profileHash) {
+            const filtered = buildResultsFromMatches(cached.matches);
+            setResults(filtered);
+            if (filtered.length > 0) setSelected(filtered[0]);
+            setLoading(false);
+            return;
+          }
+        }
+      } catch { /* ignore corrupted cache */ }
 
       const verifyRes = await fetch('/api/verify', {
         method: 'POST',
@@ -362,15 +407,18 @@ export default function AgentSwiadczenia() {
 
       if (!verifyRes.ok) { setError('Błąd obliczania świadczeń.'); setLoading(false); return; }
       const data = await verifyRes.json();
+      const matches = data.results as MatchResult[];
 
-      const fullMap = new Map<string, Benefit>();
-      for (const b of getAllBenefits()) fullMap.set(b.id, b);
+      // Zapisz do cache (24h)
+      try {
+        localStorage.setItem(CACHE_KEY, JSON.stringify({
+          fetchedAt: Date.now(),
+          profileHash,
+          matches,
+        }));
+      } catch { /* localStorage full or disabled */ }
 
-      const filtered: LocalResult[] = (data.results as MatchResult[])
-        .filter(r => r.status === 'PRZYSLUGUJE' || r.status === 'MOZLIWE')
-        .sort((a, b) => (a.status === 'PRZYSLUGUJE' ? -1 : 1))
-        .map(r => ({ match: r, full: fullMap.get(r.benefit.id) ?? r.benefit as unknown as Benefit }));
-
+      const filtered = buildResultsFromMatches(matches);
       setResults(filtered);
       if (filtered.length > 0) setSelected(filtered[0]);
       setLoading(false);
