@@ -91,6 +91,7 @@ export interface UserProfile {
   pierwszaDzialalnosc: boolean;
   dataDzialalnosci?: string;
   pkd?: string[];
+  statusVat?: string;
   ciaza?: boolean;
   student?: boolean;
   emeryt?: boolean;

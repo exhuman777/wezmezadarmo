@@ -1,14 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { lookupNip, validateNip, type CeidgBusinessData } from '@/lib/ceidg';
+import { searchByNip } from '@/lib/sources/whitelist';
+
+interface EnrichedData extends CeidgBusinessData {
+  vat: {
+    status: 'Czynny' | 'Zwolniony' | 'Niezarejestrowany' | null;
+    registeredAt: string | null;
+    removedAt: string | null;
+  } | null;
+}
 
 // Rate limit: 10 lookups per IP per 24h
 const RATE_LIMIT = 10;
 const RATE_WINDOW_MS = 24 * 60 * 60 * 1000;
 const ipHits = new Map<string, number[]>();
 
-// Cache NIP lookups for 24h (CEIDG data rarely changes; saves API quota)
+// Cache enriched lookups for 24h (CEIDG data rarely changes; saves API quota)
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000;
-const nipCache = new Map<string, { data: CeidgBusinessData; ts: number }>();
+const nipCache = new Map<string, { data: EnrichedData; ts: number }>();
 
 function checkRate(ip: string): boolean {
   const now = Date.now();
@@ -22,7 +31,7 @@ function checkRate(ip: string): boolean {
   return true;
 }
 
-function getCached(nip: string): CeidgBusinessData | null {
+function getCached(nip: string): EnrichedData | null {
   const entry = nipCache.get(nip);
   if (!entry) return null;
   if (Date.now() - entry.ts > CACHE_TTL_MS) {
@@ -62,9 +71,29 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const data = await lookupNip(cleanNip);
-    nipCache.set(cleanNip, { data, ts: Date.now() });
-    return NextResponse.json(data);
+    // Fan-out: CEIDG + Biała Lista in parallel
+    const [ceidgData, vatResult] = await Promise.allSettled([
+      lookupNip(cleanNip),
+      searchByNip(cleanNip),
+    ]);
+
+    if (ceidgData.status === 'rejected') {
+      throw ceidgData.reason;
+    }
+
+    const enriched: EnrichedData = {
+      ...ceidgData.value,
+      vat: vatResult.status === 'fulfilled' && vatResult.value
+        ? {
+            status: vatResult.value.statusVat,
+            registeredAt: vatResult.value.registrationLegalDate,
+            removedAt: vatResult.value.removalDate,
+          }
+        : null,
+    };
+
+    nipCache.set(cleanNip, { data: enriched, ts: Date.now() });
+    return NextResponse.json(enriched);
   } catch (error) {
     // Log full error server-side, send sanitized to client
     console.error('[ceidg] lookup failed:', error);

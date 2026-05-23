@@ -388,12 +388,14 @@ export default function Home() {
           body: JSON.stringify({ nip: data.nip }),
         });
         if (res.ok) {
-          const ceidg: CeidgBusinessData = await res.json();
+          // CEIDG response is enriched with Biała Lista VAT status server-side
+          const ceidg: CeidgBusinessData & { vat?: { status: string | null; registeredAt: string | null; removedAt: string | null } | null } = await res.json();
           setProfile((prev) => ({
             ...prev,
             prowadzDzialalnosc: ceidg.aktywna,
             dataDzialalnosci: ceidg.dataRejestracji ?? undefined,
             pkd: ceidg.pkd,
+            statusVat: ceidg.vat?.status ?? undefined,
           }));
         }
       } catch {
