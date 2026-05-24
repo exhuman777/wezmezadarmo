@@ -46,7 +46,7 @@ export const NIEPELNOSPRAWNOSC: Benefit[] = [
       pulapki: ['75+: automatyczne. Poniżej 75: wymaga orzeczenia lekarskiego ZUS', 'Nie łączy się ze świadczeniem pielęgnacyjnym'],
       odwolanie: 'Odwołanie do Sądu Pracy',
     },
-    zrodloUrl: 'https://www.zus.pl/swiadczenia/dodatek-pielegnacyjny',
+    zrodloUrl: 'https://www.gov.pl/web/rodzina/dodatek-pielegnacyjny',
     zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {

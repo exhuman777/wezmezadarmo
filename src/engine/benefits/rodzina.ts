@@ -121,7 +121,7 @@ export const RODZINA: Benefit[] = [
       ],
       odwolanie: 'Korekta zeznania PIT',
     },
-    zrodloUrl: 'https://www.podatki.gov.pl/pit/ulgi-odliczenia-i-zwolnienia/ulga-na-dzieci/',
+    zrodloUrl: 'https://www.podatki.gov.pl/ulgi-i-odliczenia/ulga-na-dziecko-pit/',
     zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {

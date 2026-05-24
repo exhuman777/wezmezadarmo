@@ -81,7 +81,7 @@ export const BIZNES: Benefit[] = [
       pulapki: ['Można korzystać max 36 miesięcy w ciągu 60, potem 24 miesiące pełnego ZUS', 'Termin zgłoszenia: do 31 stycznia, jeśli spóźnisz, musisz czekać rok'],
       odwolanie: 'Odwołanie do Sądu Pracy',
     },
-    zrodloUrl: 'https://www.zus.pl/firmy/przedsiebiorco-to-ciebie-dotyczy/maly-zus-plus',
+    zrodloUrl: 'https://www.gov.pl/web/rozwoj-technologia/maly-zus-plus',
     zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
@@ -108,7 +108,7 @@ export const BIZNES: Benefit[] = [
       pulapki: ['Wniosek trzeba złożyć MIESIĄC WCZEŚNIEJ', 'Można skorzystać tylko 1 raz w roku', 'Limit 9 pracowników (wraz z samozatrudnionym)'],
       odwolanie: 'Odwołanie do Prezesa ZUS',
     },
-    zrodloUrl: 'https://www.zus.pl/firmy/wakacje-od-zus',
+    zrodloUrl: 'https://www.gov.pl/web/rozwoj-technologia/wakacje-skladkowe',
     zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
@@ -130,7 +130,7 @@ export const BIZNES: Benefit[] = [
       pulapki: ['Nie odliczysz kosztów uzyskania przychodu, płacisz od przychodu, nie od dochodu', 'Stawka zależy od rodzaju działalności (PKD)'],
       odwolanie: 'Zmiana formy opodatkowania do 20 lutego następnego roku',
     },
-    zrodloUrl: 'https://www.podatki.gov.pl/pit/ryczalt-od-przychodow-ewidencjonowanych/',
+    zrodloUrl: 'https://www.gov.pl/web/finanse/ryczalt-od-przychodow-ewidencjonowanych',
     zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
@@ -152,7 +152,7 @@ export const BIZNES: Benefit[] = [
       pulapki: ['Program działa do końca 2026 roku', 'Dotyczy TYLKO robotów przemysłowych w rozumieniu ISO 8373'],
       odwolanie: 'Odwołanie od decyzji US',
     },
-    zrodloUrl: 'https://www.podatki.gov.pl/cit/ulgi-i-odliczenia/ulga-na-robotyzacje/',
+    zrodloUrl: 'https://www.podatki.gov.pl/ulgi-i-odliczenia/ulga-na-robotyzacje-pit/',
     zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
 ];

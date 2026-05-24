@@ -21,7 +21,7 @@ export const PODATKI: Benefit[] = [
       pulapki: ['TYLKO domy jednorodzinne, mieszkania w bloku nie kwalifikują się', 'Limit 53 000 PLN na podatnika, nie na budynek', 'Faktura musi być na właściciela domu'],
       odwolanie: 'Korekta PIT',
     },
-    zrodloUrl: 'https://www.podatki.gov.pl/pit/ulgi-odliczenia-i-zwolnienia/ulga-termomodernizacyjna/',
+    zrodloUrl: 'https://www.podatki.gov.pl/ulgi-i-odliczenia/ulga-termomodernizacyjna-pit/',
     zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
@@ -43,7 +43,7 @@ export const PODATKI: Benefit[] = [
       pulapki: ['Leki: odliczasz nadwyżkę powyżej 100 PLN miesięcznie', 'Utrzymanie psa asystującego: ryczałt 2820 PLN bez dokumentowania'],
       odwolanie: 'Korekta PIT',
     },
-    zrodloUrl: 'https://www.podatki.gov.pl/pit/ulgi-odliczenia-i-zwolnienia/ulga-rehabilitacyjna/',
+    zrodloUrl: 'https://www.podatki.gov.pl/ulgi-i-odliczenia/ulga-rehabilitacyjna-pit/',
     zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
@@ -61,7 +61,7 @@ export const PODATKI: Benefit[] = [
       pulapki: ['TYLKO 2 kolejne lata podatkowe, potem ulga przepada na zawsze', 'Nie musiałeś używać internetu wcześniej, liczy się pierwszy rok odliczenia'],
       odwolanie: 'Korekta PIT',
     },
-    zrodloUrl: 'https://www.podatki.gov.pl/pit/ulgi-odliczenia-i-zwolnienia/ulga-na-internet/',
+    zrodloUrl: 'https://www.podatki.gov.pl/ulgi-i-odliczenia/ulga-na-internet-pit/',
     zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
@@ -115,7 +115,7 @@ export const PODATKI: Benefit[] = [
       pulapki: ['Nie dotyczy działalności gospodarczej', 'Nie dotyczy umów o dzieło', 'Po 26 urodzinach, ulga kończy się w dniu urodzin'],
       odwolanie: 'Nie dotyczy',
     },
-    zrodloUrl: 'https://www.podatki.gov.pl/pit/ulgi-odliczenia-i-zwolnienia/ulga-dla-mlodych/',
+    zrodloUrl: 'https://www.podatki.gov.pl/ulgi-i-odliczenia/ulga-dla-mlodych-pit/',
     zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
@@ -133,7 +133,7 @@ export const PODATKI: Benefit[] = [
       pulapki: ['To nie jest darowizna, to podatek który i tak płacisz, tylko kierujesz go na OPP', 'Jeśli nie wpiszesz KRS, pieniądze idą do budżetu ogólnego'],
       odwolanie: 'Korekta PIT',
     },
-    zrodloUrl: 'https://www.podatki.gov.pl/pit/1-5-procent/',
+    zrodloUrl: 'https://www.podatki.gov.pl/poradniki-i-informatory/jak-przekazac-1-5-podatku-na-rzecz-opp-pit/',
     zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
@@ -155,7 +155,7 @@ export const PODATKI: Benefit[] = [
       pulapki: ['Wymaga prowadzenia szczegółowej ewidencji, bez niej US może zakwestionować', 'Dotyczy patentów, praw autorskich do programów komputerowych, wzorów użytkowych'],
       odwolanie: 'Odwołanie od decyzji US',
     },
-    zrodloUrl: 'https://www.podatki.gov.pl/pit/ulgi-odliczenia-i-zwolnienia/ip-box/',
+    zrodloUrl: 'https://www.gov.pl/web/finanse/ulga-ip-box',
     zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
 ];
