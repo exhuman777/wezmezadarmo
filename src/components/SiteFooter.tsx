@@ -124,7 +124,7 @@ export function SiteFooter() {
             &copy; 2026 wezmezadarmo &middot; projekt obywatelski &middot; nie zarabiamy na Twoich danych
           </span>
           <span className="mono mute" style={{ fontSize: 12 }}>
-            baza zweryfikowana 14.05.2026
+            baza zweryfikowana 23.05.2026
           </span>
         </div>
       </div>
