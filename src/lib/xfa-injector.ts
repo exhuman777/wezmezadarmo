@@ -12,7 +12,7 @@
  *   - Page height for A4: 841.89 pt
  */
 
-import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
+import { PDFDocument, rgb } from 'pdf-lib';
 import fontkit from '@pdf-lib/fontkit';
 import fs from 'fs';
 import path from 'path';
@@ -60,6 +60,97 @@ export async function stampPdf(
       font,
       color: rgb(0, 0, 0),
     });
+  }
+
+  return Buffer.from(await doc.save());
+}
+
+/* ── AcroForm field-based filling ────────────────────────────── */
+
+export type FormFieldEntry = {
+  fieldName: string;
+  value: string;
+  type?: 'text' | 'check';
+};
+
+export async function fillFormByName(
+  pdfBytes: Buffer,
+  entries: FormFieldEntry[],
+): Promise<Buffer> {
+  const doc = await PDFDocument.load(pdfBytes);
+  const form = doc.getForm();
+
+  for (const entry of entries) {
+    if (!entry.value) continue;
+    try {
+      if (entry.type === 'check') {
+        const cb = form.getCheckBox(entry.fieldName);
+        if (entry.value === 'true' || entry.value === 'tak') cb.check();
+      } else {
+        const tf = form.getTextField(entry.fieldName);
+        tf.setText(entry.value.toUpperCase());
+      }
+    } catch {
+      // Field not found or wrong type - skip silently (some fields optional)
+    }
+  }
+
+  form.flatten();
+  return Buffer.from(await doc.save());
+}
+
+/* ── Text-only PDF generation (no template) ──────────────────── */
+
+export type TextSection = {
+  heading: string;
+  lines: string[];
+};
+
+export async function buildTextPdf(
+  title: string,
+  sections: TextSection[],
+): Promise<Buffer> {
+  const doc = await PDFDocument.create();
+  doc.registerFontkit(fontkit);
+
+  const robotoBytes = loadRobotoFont();
+  const font = await doc.embedFont(robotoBytes, { subset: true });
+
+  const margin = 50;
+  const pageW = 595.28;
+  const pageH = 841.89;
+  const lineH = 16;
+  const headingSize = 13;
+  const bodySize = 10;
+  const titleSize = 16;
+
+  let page = doc.addPage([pageW, pageH]);
+  let cursorY = pageH - margin;
+
+  const ensureSpace = (needed: number) => {
+    if (cursorY - needed < margin) {
+      page = doc.addPage([pageW, pageH]);
+      cursorY = pageH - margin;
+    }
+  };
+
+  // Title
+  page.drawText(title, { x: margin, y: cursorY, size: titleSize, font, color: rgb(0, 0, 0) });
+  cursorY -= lineH * 2;
+
+  for (const section of sections) {
+    ensureSpace(lineH * 3);
+    // Section heading
+    page.drawText(section.heading, { x: margin, y: cursorY, size: headingSize, font, color: rgb(0.2, 0.2, 0.2) });
+    cursorY -= lineH * 1.5;
+
+    for (const line of section.lines) {
+      if (!line) continue;
+      ensureSpace(lineH);
+      page.drawText(line, { x: margin + 10, y: cursorY, size: bodySize, font, color: rgb(0, 0, 0) });
+      cursorY -= lineH;
+    }
+    cursorY -= lineH * 0.5;
   }
 
   return Buffer.from(await doc.save());

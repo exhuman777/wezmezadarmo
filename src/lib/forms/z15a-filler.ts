@@ -1,33 +1,9 @@
 /**
- * Z-15A -- Wniosek o zasilek opiekunczy (rodzic, opieka nad dzieckiem)
- * Coordinates derived from pdftotext -bbox on Z-15A.pdf (A4, 595.28 x 841.89 pt)
- *
- * Page 0 -- Twoje dane (wnioskodawca)
- *   PESEL label yMin=423.2    -> text y=419
- *   Imie label yMin=533.5     -> text y=308
- *   Nazwisko label yMin=560.2 -> text y=282
- *   Ulica label yMin=587.0    -> text y=255
- *   Numer domu label yMin=613.8 left col -> text y=228
- *   Numer lokalu right col (label x=334-387) -> x=397 y=228
- *   Kod pocztowy label yMin=640.6 -> text y=201
- *   Miejscowosc right col yMin=667.4 x=175-226 -> x=397 y=174
- *   Numer telefonu label yMin=729.9 -> text y=112
- *
- * Page 1 -- Dane platnika skladek
- *   NIP label yMin=120.7   -> text y=721
- *   REGON label yMin=146.5 -> text y=695
- *   Nazwa platnika label yMin=250.9 -> text y=591
- *   Rachunek bankowy heading yMin=273.6 -> account input row ~y=557 (just below heading)
- *
- * Page 1 -- Period + eZLA
- *   "Okres, za ktory ubiegasz sie o zasilek opiekunczy" heading yMin=336.5
- *   "Podaj date lub daty (od-do)" instruction yMin=386.8
- *   "(jesli pamietasz)" eZLA instruction at yMin=395.8
- *   Input row for period dates ~y=410
- *   eZLA numer input ~y=421
+ * Z-15A - Wniosek o zasilek opiekunczy (opieka nad dzieckiem)
+ * AcroForm field-based filling via pdf-lib getForm().
  */
 
-import { loadZusPdf, stampPdf, type FieldStamp } from '../xfa-injector';
+import { loadZusPdf, fillFormByName, type FormFieldEntry } from '../xfa-injector';
 
 export interface Z15aWizardData {
   imie: string;
@@ -71,66 +47,70 @@ export interface Z15aWizardData {
   malzonekZasilek: 'tak' | 'nie';
 }
 
-const U = (s: string) => (s || '').toUpperCase();
-const PH = 841.89;
-
-function y(bboxYMin: number, offset = 0): number {
-  return Math.round(PH - bboxYMin + offset);
+function splitName(full: string): { imie: string; nazwisko: string } {
+  const parts = (full || '').trim().split(/\s+/);
+  if (parts.length <= 1) return { imie: parts[0] || '', nazwisko: '' };
+  return { imie: parts.slice(0, -1).join(' '), nazwisko: parts[parts.length - 1] };
 }
 
 export async function buildZ15aPdf(data: Z15aWizardData): Promise<Buffer> {
   const pdfBytes = loadZusPdf('Z-15A.pdf');
 
-  const stamps: FieldStamp[] = [
-    // ---- Page 0 -- Twoje dane ----
-    // PESEL (label yMin=423.2)
-    { page: 0, x: 232, y: y(423.2, -2), text: data.pesel },
+  const entries: FormFieldEntry[] = [
+    // ---- Page 1 - Wnioskodawca ----
+    { fieldName: 'topmostSubform[0].Page1[0].PESEL[0]', value: data.pesel },
+    { fieldName: 'topmostSubform[0].Page1[0].Imię[0]', value: data.imie },
+    { fieldName: 'topmostSubform[0].Page1[0].Nazwisko[0]', value: data.nazwisko },
+    { fieldName: 'topmostSubform[0].Page1[0].Ulica[0]', value: data.ulica },
+    { fieldName: 'topmostSubform[0].Page1[0].Numerdomu[0]', value: data.nrDomu },
+    { fieldName: 'topmostSubform[0].Page1[0].Numerlokalu[0]', value: data.nrLokalu },
+    { fieldName: 'topmostSubform[0].Page1[0].Kodpocztowy[0]', value: data.kodPocztowy },
+    { fieldName: 'topmostSubform[0].Page1[0].Miejscowość[0]', value: data.miejscowosc },
+    { fieldName: 'topmostSubform[0].Page1[0].Numertelefonu[0]', value: data.telefon },
+    { fieldName: 'topmostSubform[0].Page1[0].Nazwapaństwa[0]', value: 'POLSKA' },
 
-    // Imie (label yMin=533.5)
-    { page: 0, x: 232, y: y(533.5, -2), text: U(data.imie) },
+    // ---- Page 2 - Dziecko + Platnik ----
+    { fieldName: 'topmostSubform[0].Page2[0].PESEL[0]', value: data.peselDziecka },
+    { fieldName: 'topmostSubform[0].Page2[0].Imię[0]', value: data.imieDziecka },
+    { fieldName: 'topmostSubform[0].Page2[0].Nazwisko[0]', value: data.nazwiskoDziecka },
+    { fieldName: 'topmostSubform[0].Page2[0].Dataurodzenia[0]', value: data.dataUrodzDziecka },
+    { fieldName: 'topmostSubform[0].Page2[0].OrzeczenieTAK[0]', value: data.dzieckoNiepelnosprawne === 'tak' ? 'tak' : '', type: 'check' },
+    { fieldName: 'topmostSubform[0].Page2[0].OrzeczenieNIE[0]', value: data.dzieckoNiepelnosprawne === 'nie' ? 'tak' : '', type: 'check' },
+    { fieldName: 'topmostSubform[0].Page2[0].Numerrachunku[0]', value: data.nrKonta },
+    { fieldName: 'topmostSubform[0].Page2[0].NIP[0]', value: data.nipPlatnika },
+    { fieldName: 'topmostSubform[0].Page2[0].REGON[0]', value: data.regonPlatnika },
+    { fieldName: 'topmostSubform[0].Page2[0].Nazwapłatnika[0]', value: data.nazwaPlatnika },
+    { fieldName: 'topmostSubform[0].Page2[0].Tekst1a[0]', value: [data.dataOd, data.dataDo].filter(Boolean).join(' - ') },
+    { fieldName: 'topmostSubform[0].Page2[0].Tekst1[0]', value: data.numerEzla },
 
-    // Nazwisko (label yMin=560.2)
-    { page: 0, x: 232, y: y(560.2, -2), text: U(data.nazwisko) },
+    // ---- Page 3 - Oswiadczenia + malzonek ----
+    { fieldName: 'topmostSubform[0].Page3[0].Oświadczenie3TAK[0]', value: data.jestDomownik === 'tak' ? 'tak' : '', type: 'check' },
+    { fieldName: 'topmostSubform[0].Page3[0].Oświadczenie3NIE[0]', value: data.jestDomownik === 'nie' ? 'tak' : '', type: 'check' },
+    { fieldName: 'topmostSubform[0].Page3[0].Liczbadni3a[0]', value: data.domownikDni },
+    { fieldName: 'topmostSubform[0].Page3[0].Oświadczenie4TAK[0]', value: data.pracaZmianowa === 'tak' ? 'tak' : '', type: 'check' },
+    { fieldName: 'topmostSubform[0].Page3[0].Oświadczenie4NIE[0]', value: data.pracaZmianowa === 'nie' ? 'tak' : '', type: 'check' },
+    { fieldName: 'topmostSubform[0].Page3[0].Oświadczenie4NIEZMIENILEM[0]', value: data.zmianaPlatnika === 'nie-zmienialem' ? 'tak' : '', type: 'check' },
+    { fieldName: 'topmostSubform[0].Page3[0].Niemammalzonka[0]', value: data.brakMalzonka ? 'tak' : '', type: 'check' },
+    { fieldName: 'topmostSubform[0].Page3[0].PESEL[0]', value: data.peselMalzonka },
+    { fieldName: 'topmostSubform[0].Page3[0].Imię[0]', value: splitName(data.imieNazwiskoMalzonka).imie },
+    { fieldName: 'topmostSubform[0].Page3[0].Nazwisko[0]', value: splitName(data.imieNazwiskoMalzonka).nazwisko },
+    { fieldName: 'topmostSubform[0].Page3[0].Dane1TAK[0]', value: data.malzonekPracuje === 'tak' ? 'tak' : '', type: 'check' },
+    { fieldName: 'topmostSubform[0].Page3[0].Dane1NIE[0]', value: data.malzonekPracuje === 'nie' ? 'tak' : '', type: 'check' },
+    { fieldName: 'topmostSubform[0].Page3[0].Dane1BTAK[0]', value: data.malzonekZasilek === 'tak' ? 'tak' : '', type: 'check' },
+    { fieldName: 'topmostSubform[0].Page3[0].Dane1BNIE[0]', value: data.malzonekZasilek === 'nie' ? 'tak' : '', type: 'check' },
 
-    // Ulica (label yMin=587.0)
-    { page: 0, x: 232, y: y(587.0, -2), text: U(data.ulica) },
-
-    // Numer domu (label yMin=613.8)
-    { page: 0, x: 232, y: y(613.8, -2), text: data.nrDomu },
-
-    // Numer lokalu (right col)
-    { page: 0, x: 397, y: y(613.8, -2), text: data.nrLokalu },
-
-    // Kod pocztowy (label yMin=640.6)
-    { page: 0, x: 232, y: y(640.6, -2), text: data.kodPocztowy },
-
-    // Miejscowosc (right col, label yMin=667.4)
-    { page: 0, x: 397, y: y(667.4, -2), text: U(data.miejscowosc) },
-
-    // Numer telefonu (label yMin=729.9)
-    { page: 0, x: 232, y: y(729.9, -2), text: data.telefon },
-
-    // ---- Page 1 -- Dane platnika skladek ----
-    // NIP (label yMin=120.7)
-    { page: 1, x: 232, y: y(120.7, -2), text: data.nipPlatnika },
-
-    // REGON (label yMin=146.5)
-    { page: 1, x: 232, y: y(146.5, -2), text: data.regonPlatnika },
-
-    // Nazwa platnika (label yMin=250.9)
-    { page: 1, x: 232, y: y(250.9, -2), text: U(data.nazwaPlatnika) },
-
-    // Rachunek bankowy (heading yMin=273.6 -- input row below)
-    { page: 1, x: 42, y: y(288, 2), text: data.nrKonta },
-
-    // ---- Page 1 -- Period + eZLA ----
-    // Dates for the opieka period
-    { page: 1, x: 42, y: y(410, 2), text: data.dataOd ? `od: ${data.dataOd}` : '' },
-    { page: 1, x: 230, y: y(410, 2), text: data.dataDo ? `do: ${data.dataDo}` : '' },
-
-    // eZLA numer
-    { page: 1, x: 42, y: y(421, 2), text: data.numerEzla },
+    // ---- Page 4 - Drugi rodzic ----
+    { fieldName: 'topmostSubform[0].Page4[0].PESEL2[0]', value: data.peselRodzic2 },
+    { fieldName: 'topmostSubform[0].Page4[0].Imię2[0]', value: splitName(data.imieNazwiskoRodzic2).imie },
+    { fieldName: 'topmostSubform[0].Page4[0].Nazwisko2[0]', value: splitName(data.imieNazwiskoRodzic2).nazwisko },
+    { fieldName: 'topmostSubform[0].Page4[0].ZaznaczX2a[0]', value: data.wspolneGospodarstwo === 'tak' ? 'tak' : '', type: 'check' },
+    { fieldName: 'topmostSubform[0].Page4[0].ZaznaczX2b[0]', value: data.wspolneGospodarstwo === 'nie' ? 'tak' : '', type: 'check' },
+    { fieldName: 'topmostSubform[0].Page4[0].Danemałżonka1TAK[0]', value: data.rodzic2Pracuje === 'tak' ? 'tak' : '', type: 'check' },
+    { fieldName: 'topmostSubform[0].Page4[0].Danemałżonka1NIE[0]', value: data.rodzic2Pracuje === 'nie' ? 'tak' : '', type: 'check' },
+    { fieldName: 'topmostSubform[0].Page4[0].Danemałżonka2TAK[0]', value: data.rodzic2Zasilek === 'tak' ? 'tak' : '', type: 'check' },
+    { fieldName: 'topmostSubform[0].Page4[0].Danemałżonka2NIE[0]', value: data.rodzic2Zasilek === 'nie' ? 'tak' : '', type: 'check' },
+    { fieldName: 'topmostSubform[0].Page4[0].Liczbadni1[0]', value: data.rodzic2DniDzieci },
   ];
 
-  return stampPdf(pdfBytes, stamps);
+  return fillFormByName(pdfBytes, entries);
 }
