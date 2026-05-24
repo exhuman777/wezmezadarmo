@@ -4,6 +4,7 @@ import { Suspense, useRef, useEffect, useState, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useAgentMode } from '../AgentModeContext';
 import { ChatFallbackPrompt } from '@/components/ChatFallbackPrompt';
+import ChatSidebar from '@/components/ChatSidebar';
 import type { AgentMode } from '@/agents/types';
 
 interface Message {
@@ -68,12 +69,19 @@ function AgentChatInner() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isStreaming, setIsStreaming] = useState(false);
+  const [conversationId, setConversationId] = useState<string | null>(null);
+  const [refreshKey, setRefreshKey] = useState(0);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   const chatBottomRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const abortRef = useRef<AbortController | null>(null);
   const shouldAutoScrollRef = useRef(true);
   const autoSentRef = useRef(false);
+  const conversationIdRef = useRef<string | null>(null);
+
+  // Keep ref in sync ze stanem (potrzebne w sendMessage closure)
+  useEffect(() => { conversationIdRef.current = conversationId; }, [conversationId]);
 
   // Scroll only container, only if user is near the bottom
   useEffect(() => {
@@ -94,7 +102,79 @@ function AgentChatInner() {
   useEffect(() => {
     setMessages([]);
     setInput('');
+    setConversationId(null);
   }, [mode]);
+
+  // Save messages do bazy (po kazdym sendMessage komplecie)
+  const saveMessagesRef = useRef<(id: string, msgs: Message[]) => Promise<void>>(async () => {});
+  useEffect(() => {
+    saveMessagesRef.current = async (id: string, msgs: Message[]) => {
+      try {
+        await fetch(`/api/agent/chat/conversations/${id}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            messages: msgs.map(m => ({ role: m.role, content: m.content, ts: Date.now() })),
+          }),
+        });
+      } catch { /* fail silently - chat dziala bez save */ }
+    };
+  }, []);
+
+  const createConversationRef = useRef<(firstMsg: string) => Promise<string | null>>(async () => null);
+  useEffect(() => {
+    createConversationRef.current = async (firstMsg: string) => {
+      try {
+        const res = await fetch('/api/agent/chat/conversations', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ mode, firstMessage: firstMsg }),
+        });
+        if (!res.ok) return null;
+        const data = await res.json();
+        const id = data.conversation?.id ?? null;
+        if (id) {
+          setConversationId(id);
+          conversationIdRef.current = id;
+          setRefreshKey(k => k + 1);
+        }
+        return id;
+      } catch { return null; }
+    };
+  }, [mode]);
+
+  // Load istniejaca konwersacja po klik w sidebar
+  const loadConversation = useCallback(async (id: string) => {
+    try {
+      const res = await fetch(`/api/agent/chat/conversations/${id}`);
+      if (!res.ok) return;
+      const data = await res.json();
+      const conv = data.conversation;
+      if (!conv) return;
+      const loaded: Message[] = (conv.messages || []).map((m: { role: 'user' | 'assistant'; content: string }, i: number) => ({
+        id: `${conv.id}-${i}`,
+        role: m.role,
+        content: m.content,
+      }));
+      setMessages(loaded);
+      setConversationId(conv.id);
+      conversationIdRef.current = conv.id;
+    } catch { /* ignore */ }
+  }, []);
+
+  function handleNewConversation() {
+    setMessages([]);
+    setInput('');
+    setConversationId(null);
+    conversationIdRef.current = null;
+  }
+
+  function handleDeleteConversation(id: string) {
+    if (conversationIdRef.current === id) {
+      handleNewConversation();
+    }
+    setRefreshKey(k => k + 1);
+  }
 
   const sendMessage = useCallback(async (text: string) => {
     if (!text.trim() || isStreaming) return;
@@ -118,6 +198,7 @@ function AgentChatInner() {
 
     const ctrl = new AbortController();
     abortRef.current = ctrl;
+    let accum = '';
 
     try {
       const res = await fetch('/api/agent/chat', {
@@ -143,7 +224,6 @@ function AgentChatInner() {
 
       const reader = res.body?.getReader();
       const decoder = new TextDecoder();
-      let accum = '';
 
       if (reader) {
         while (true) {
@@ -186,6 +266,16 @@ function AgentChatInner() {
 
     setIsStreaming(false);
     abortRef.current = null;
+
+    // Auto-save: jesli nie ma jeszcze conversationId - utworz; potem PATCH messages
+    const finalMessages = [...newMessages, { ...assistantMsg, content: accum }];
+    let convId = conversationIdRef.current;
+    if (!convId) {
+      convId = await createConversationRef.current(text.trim());
+    }
+    if (convId) {
+      saveMessagesRef.current(convId, finalMessages);
+    }
   }, [messages, mode, isStreaming]);
 
   // Auto-send query z URL (?q=...) - dziala raz przy mount, np. przy przekierowaniu z /agent
@@ -227,7 +317,27 @@ function AgentChatInner() {
   const hints = MODE_HINTS[mode] ?? MODE_HINTS.ogolny;
 
   return (
-    <div className="chat-root" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+    <div style={{ display: 'flex', height: '100%', overflow: 'hidden' }}>
+      <style>{`
+        @media (max-width: 700px) {
+          .chat-sidebar-wrap { display: ${sidebarOpen ? 'flex' : 'none'} !important; width: 100% !important; }
+          .chat-main-wrap { display: ${sidebarOpen ? 'none' : 'flex'} !important; }
+        }
+      `}</style>
+
+      {/* Sidebar z historia rozmow */}
+      <div className="chat-sidebar-wrap" style={{ display: 'flex', height: '100%' }}>
+        <ChatSidebar
+          activeId={conversationId}
+          onSelect={(id) => { loadConversation(id); setSidebarOpen(false); }}
+          onNew={() => { handleNewConversation(); setSidebarOpen(false); }}
+          onDelete={handleDeleteConversation}
+          refreshKey={refreshKey}
+        />
+      </div>
+
+      {/* Glowny chat */}
+      <div className="chat-main-wrap chat-root" style={{ display: 'flex', flexDirection: 'column', height: '100%', flex: 1, minWidth: 0 }}>
       <style>{`
         @media (max-width: 480px) {
           .chat-root .chat-header { padding: 10px 14px !important; }
@@ -455,6 +565,7 @@ function AgentChatInner() {
           50% { opacity: 0; }
         }
       `}</style>
+      </div>
     </div>
   );
 }
