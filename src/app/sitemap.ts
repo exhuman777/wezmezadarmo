@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { getAllBenefits } from '@/engine/benefits';
+import { POSTS } from '@/data/blog-posts';
 
 const BASE = 'https://www.wezmezadarmo.com';
 
@@ -14,7 +15,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
+  // Blog posts
+  const blogUrls: MetadataRoute.Sitemap = POSTS.map(p => ({
+    url: `${BASE}/blog/${p.slug}`,
+    lastModified: new Date(p.date),
+    changeFrequency: 'monthly' as const,
+    priority: 0.8,
+  }));
+
   return [
+    { url: `${BASE}/blog`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
+    ...blogUrls,
     ...benefitUrls,
     // Core
     { url: BASE, lastModified: now, changeFrequency: 'weekly', priority: 1.0 },
@@ -60,5 +71,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Legal
     { url: `${BASE}/regulamin`, lastModified: now, changeFrequency: 'yearly', priority: 0.4 },
     { url: `${BASE}/polityka-prywatnosci`, lastModified: now, changeFrequency: 'yearly', priority: 0.4 },
+    { url: `${BASE}/press`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
   ];
 }
