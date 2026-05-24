@@ -103,10 +103,10 @@ export const ZDROWIE: Benefit[] = [
     zrodloNazwa: 'NFZ', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'prostata', nazwa: 'Badania prostaty (PSA)',
-    opis: 'Badanie PSA (antygen swoisty dla prostaty) to bezpłatne badanie krwi finansowane przez NFZ, służące do wczesnego wykrywania raka prostaty. Skierowane jest do mężczyzn od 50. roku życia. Mężczyźni z wywiadem rodzinnym (rak prostaty u ojca lub brata) powinni zacząć badania od 45. roku życia. Badanie polega na pobraniu próbki krwi z żyły i oznaczeniu poziomu PSA. Nie wymaga specjalnego przygotowania, ale przez 48 godzin przed badaniem nie należy jeździć na rowerze, odbywać stosunków seksualnych ani poddawać się badaniu per rectum, mogą fałszywie podwyższyć wynik. Do badania potrzebne jest skierowanie od lekarza POZ. Wynik jest dostępny w ciągu 3-7 dni. Podwyższony PSA (powyżej 4 ng/ml) nie oznacza automatycznie raka, może wskazywać na łagodny przerost prostaty lub zapalenie. Lekarz ocenia wynik w kontekście wieku, wielkości prostaty i dynamiki zmian. Częste nieporozumienie: badanie PSA nie jest tym samym co badanie per rectum (badanie palcem przez odbytnicę). To dwa różne badania i oba są ważne w diagnostyce. Badanie można powtarzać co rok.',
+    id: 'prostata', nazwa: 'Badania prostaty (PSA) w ramach Moje Zdrowie',
+    opis: 'Badanie PSA (antygen swoisty dla prostaty) to bezpłatne badanie krwi finansowane przez NFZ, służące do wczesnego wykrywania raka prostaty. NIE jest osobnym programem - od 1 października 2024 PSA jest częścią Programu Moje Zdrowie dla mężczyzn 50+ (badanie co 3 lata). Mężczyźni z wywiadem rodzinnym (rak prostaty u ojca lub brata) powinni rozważyć badania od 45. roku życia (poza programem - na skierowanie). Badanie polega na pobraniu próbki krwi z żyły i oznaczeniu poziomu PSA. Nie wymaga specjalnego przygotowania, ale przez 48 godzin przed badaniem nie należy jeździć na rowerze, odbywać stosunków seksualnych ani poddawać się badaniu per rectum (mogą fałszywie podwyższyć wynik). Do badania w ramach Moje Zdrowie wystarczy zgłoszenie do POZ. Wynik 3-7 dni. Podwyższony PSA (powyżej 4 ng/ml) nie oznacza automatycznie raka, może wskazywać na łagodny przerost prostaty lub zapalenie. Częste nieporozumienie: badanie PSA nie jest tym samym co badanie per rectum.',
     kategoria: 'ZDROWIE',
-    kwota: 'bezpłatne badanie', czestotliwosc: 'co rok',
+    kwota: 'bezpłatne badanie w ramach Moje Zdrowie', czestotliwosc: 'co 3 lata',
     wymagania: { wiekMin: 50, plec: 'M' },
     wykluczenia: [],
     wniosek: {
@@ -126,11 +126,11 @@ export const ZDROWIE: Benefit[] = [
   },
   {
     id: 'szczepienia-hpv', nazwa: 'Szczepienia przeciwko HPV',
-    opis: 'Bezpłatne szczepienie przeciwko wirusowi brodawczaka ludzkiego (HPV) finansowane przez NFZ w ramach Programu Szczepień Ochronnych. HPV jest główną przyczyną raka szyjki macicy, ale wywołuje też raka gardła, odbytu i prącia. Program obejmuje dziewczęta w wieku 12-13 lat (rocznikowo). Szczepienie składa się z 2 dawek podawanych w odstępie 6 miesięcy. Stosowana jest szczepionka 9-walentna (Gardasil 9), chroniąca przed 9 typami HPV, w tym typami 16 i 18 odpowiedzialnymi za ok. 70% przypadków raka szyjki macicy. Wartość rynkowa szczepienia to ok. 1500 PLN. Szczepienie wykonuje lekarz POZ, potrzebna jest zgoda rodzica lub opiekuna prawnego oraz książeczka zdrowia dziecka. Kwalifikacja odbywa się przez lekarza (badanie, wywiad). Częste nieporozumienie: program bezpłatny dotyczy dziewcząt, chłopcy nie są objęci refundacją (choć medycznie szczepienie jest dla nich też zalecane). Kolejny mit: szczepienie nie chroni przed HPV, jeśli do zakażenia już doszło, dlatego podaje się je przed rozpoczęciem aktywności seksualnej. Szczepienie nie zwalnia z regularnej cytologii w przyszłości, bo nie chroni przed wszystkimi typami HPV onkogennymi.',
+    opis: 'Bezpłatne szczepienie przeciwko wirusowi brodawczaka ludzkiego (HPV) finansowane przez NFZ w ramach Programu Szczepień Ochronnych. HPV jest główną przyczyną raka szyjki macicy, ale wywołuje też raka gardła, odbytu i prącia. Od 1 września 2024 program obejmuje DZIEWCZĘTA I CHŁOPCÓW w wieku 9-14 lat (rozszerzony zakres - wcześniej tylko 12-13 lat dziewcząt). Szczepienie składa się z 2 dawek podawanych w odstępie 6 miesięcy. Stosowana jest szczepionka 9-walentna (Gardasil 9), chroniąca przed 9 typami HPV, w tym typami 16 i 18 odpowiedzialnymi za ok. 70% przypadków raka szyjki macicy. Wartość rynkowa szczepienia to ok. 1500 PLN. Szczepienie wykonuje lekarz POZ, potrzebna jest zgoda rodzica lub opiekuna prawnego oraz książeczka zdrowia dziecka. Kwalifikacja odbywa się przez lekarza (badanie, wywiad). Najlepiej zaszczepić dziecko przed rozpoczęciem aktywności seksualnej. Szczepienie nie zwalnia z regularnej cytologii w przyszłości, bo nie chroni przed wszystkimi typami HPV onkogennymi.',
     kategoria: 'ZDROWIE',
     kwota: 'bezpłatne szczepienie (wartość ok. 1500 PLN)', kwotaMin: 1500, kwotaMax: 1500,
     czestotliwosc: 'jednorazowo',
-    wymagania: { wiekMin: 12, wiekMax: 13, plec: 'K' },
+    wymagania: { wiekMin: 9, wiekMax: 14 },
     wykluczenia: [],
     wniosek: {
       kanal: ['POZ'],
@@ -231,9 +231,9 @@ export const ZDROWIE: Benefit[] = [
   },
   {
     id: 'fundusz-kompensacyjny-zdarzen-medycznych', nazwa: 'Odszkodowanie za błąd medyczny bez sądu (Fundusz Kompensacyjny)',
-    opis: 'Od 1 lipca 2024 r. działa Fundusz Kompensacyjny Zdarzeń Medycznych przy Rzeczniku Praw Pacjenta - zastąpił zlikwidowane komisje wojewódzkie. Pozwala uzyskać odszkodowanie za błąd medyczny bez procesu sądowego, szybciej i taniej niż przez sąd. Maksymalne kwoty: 100 000 PLN za zakażenie, uszkodzenie ciała lub rozstrój zdrowia, 300 000 PLN za śmierć pacjenta (łącznie dla wszystkich uprawnionych). Decyzja w ciągu 4 miesięcy. Opłata za wniosek: 300 PLN (zwracana przy pozytywnej decyzji). Termin zgłoszenia: rok od dowiedzenia się o zdarzeniu, nie później niż 3 lata od zdarzenia. Dotyczy zdarzeń w podmiotach leczniczych. Nie wyklucza późniejszego procesu sądowego o wyższe odszkodowanie.',
+    opis: 'Od 1 lipca 2024 r. działa Fundusz Kompensacyjny Zdarzeń Medycznych przy Rzeczniku Praw Pacjenta - zastąpił zlikwidowane komisje wojewódzkie. Pozwala uzyskać odszkodowanie za błąd medyczny bez procesu sądowego, szybciej i taniej niż przez sąd. Maksymalne kwoty po waloryzacji 6.09.2025: do 230 821 PLN dla pacjenta za zakażenie/uszkodzenie ciała/rozstrój zdrowia, do 115 411 PLN per osoba bliska zmarłego pacjenta. Decyzja w ciągu 4 miesięcy. Opłata za wniosek: 300 PLN (zwracana przy pozytywnej decyzji). Termin zgłoszenia: rok od dowiedzenia się o zdarzeniu, nie później niż 3 lata od zdarzenia. Dotyczy zdarzeń w podmiotach leczniczych. Nie wyklucza późniejszego procesu sądowego o wyższe odszkodowanie.',
     kategoria: 'ZDROWIE',
-    kwota: 'do 100 000 PLN (uszkodzenie ciała/rozstrój zdrowia) lub do 300 000 PLN (śmierć)', kwotaMin: 0, kwotaMax: 100000,
+    kwota: 'do 230 821 PLN (uszkodzenie ciała/rozstrój zdrowia) lub do 115 411 PLN per osoba bliska zmarłego (od 6.09.2025)', kwotaMin: 0, kwotaMax: 230821,
     czestotliwosc: 'jednorazowo',
     wymagania: {},
     wykluczenia: [
@@ -261,7 +261,7 @@ export const ZDROWIE: Benefit[] = [
         'Od 1 VII 2024 r. to FUNDUSZ KOMPENSACYJNY przy RPP, NIE komisje wojewódzkie (te są zlikwidowane)',
         'Termin złożenia wniosku: rok od dowiedzenia się, max 3 lata od zdarzenia - po tym upływa',
         'Opłata 300 PLN: zwracana przy pozytywnej decyzji, zatrzymywana przy negatywnej',
-        'Maksimum to 100 000 PLN za uszkodzenie ciała, 300 000 PLN za śmierć (łącznie dla rodziny)',
+        'Maksimum (po waloryzacji 6.09.2025): 230 821 PLN za uszkodzenie ciała, 115 411 PLN per osoba bliska zmarłego',
         'Możesz odrzucić propozycję funduszu i iść do sądu - decyzja funduszu nie zamyka tej drogi',
         'Dotyczy zdarzeń w podmiotach leczniczych (szpital, klinika) - nie dotyczy prywatnych gabinetów nieprowadzonych jako podmiot leczniczy',
       ],

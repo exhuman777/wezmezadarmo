@@ -240,9 +240,9 @@ export const KRUS: Benefit[] = [
   },
   {
     id: 'dodatek-pielegnacyjny-krus', nazwa: 'Dodatek pielęgnacyjny KRUS',
-    opis: 'Dodatek pielęgnacyjny z KRUS przysługuje emerytom i rencistom rolniczym, którzy: (a) ukończyli 75 lat - przyznawany automatycznie z mocy prawa, lub (b) zostali uznani przez lekarza orzecznika KRUS za całkowicie niezdolnych do pracy i samodzielnej egzystencji. Kwota od marca 2026: 348,22 PLN brutto miesięcznie (waloryzacja 5,3%). Waloryzacja co roku 1 marca. Przyznawany automatycznie osobom 75+ pobierającym emeryturę lub rentę KRUS - nie trzeba składać wniosku. Nie można łączyć z zasiłkiem pielęgnacyjnym z urzędu gminy (wyższy jest korzystniejszy: 348,22 PLN vs. 215,84 PLN). Nie podlega opodatkowaniu PIT.',
+    opis: 'Dodatek pielęgnacyjny z KRUS przysługuje emerytom i rencistom rolniczym, którzy: (a) ukończyli 75 lat - przyznawany automatycznie z mocy prawa, lub (b) zostali uznani przez lekarza orzecznika KRUS za całkowicie niezdolnych do pracy i samodzielnej egzystencji. Kwota od marca 2026: 366,68 PLN brutto miesięcznie (waloryzacja 5,3%). Waloryzacja co roku 1 marca. Przyznawany automatycznie osobom 75+ pobierającym emeryturę lub rentę KRUS - nie trzeba składać wniosku. Nie można łączyć z zasiłkiem pielęgnacyjnym z urzędu gminy (wyższy jest korzystniejszy: 366,68 PLN vs. 215,84 PLN). Nie podlega opodatkowaniu PIT.',
     kategoria: 'SENIOR',
-    kwota: '348,22 PLN miesięcznie (od marca 2026)', kwotaMin: 348, kwotaMax: 348,
+    kwota: '366,68 PLN miesięcznie (od marca 2026)', kwotaMin: 367, kwotaMax: 367,
     czestotliwosc: 'miesięcznie',
     wymagania: { rolnik: true, emeryt: true, wiekMin: 75 },
     wykluczenia: [
@@ -262,7 +262,7 @@ export const KRUS: Benefit[] = [
       ],
       terminRealizacji: '30 dni od złożenia wniosku (lub automatycznie z chwilą ukończenia 75 lat)',
       pulapki: [
-        'Od marca 2026: 348,22 PLN/mies. (wyższy niż zasiłek pielęgnacyjny z gminy: 215,84 PLN)',
+        'Od marca 2026: 366,68 PLN/mies. (wyższy niż zasiłek pielęgnacyjny z gminy: 215,84 PLN)',
         'Dla osób 75+ przyznawany AUTOMATYCZNIE, nie trzeba wniosku',
         'NIE łączy się z zasiłkiem pielęgnacyjnym z urzędu gminy, wybierz korzystniejszy (KRUS jest wyższy)',
         'Waloryzacja co roku 1 marca (wskaźnik 5,3% w 2026)',

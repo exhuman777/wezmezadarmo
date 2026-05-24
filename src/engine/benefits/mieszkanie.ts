@@ -25,10 +25,10 @@ export const MIESZKANIE: Benefit[] = [
     zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'mieszkanie-na-start', nazwa: 'Mieszkanie na Start (kredyt #naStart)',
-    opis: 'Mieszkanie na Start (kredyt #naStart) to rządowy program dopłat do rat kredytu hipotecznego na pierwsze mieszkanie lub dom. Dopłata obniża ratę kredytu przez 10 lat. Skierowany do osób do 45. roku życia, które nie posiadają i nie posiadały innego mieszkania ani domu. Warunki: kredyt musi być udzielony przez bank uczestniczący w programie, a cena za m2 mieszkania nie może przekraczać limitów cenowych ustalanych dla każdej lokalizacji. Częsty błąd: założenie, że program jest zawsze dostępny, rząd może go zawieszać lub modyfikować warunki, dlatego przed planowaniem zakupu mieszkania trzeba sprawdzić aktualny status programu na gov.pl. Praktyczna rada: porównaj oferty kilku banków uczestniczących w programie, bo prowizje i marże mogą się znacząco różnić. Program nie obejmuje zakupu działki ani budowy domu systemem gospodarczym.',
+    id: 'mieszkanie-na-start', nazwa: 'Mieszkanie na Start (kredyt #naStart) - ZANIECHANY',
+    opis: 'UWAGA: program Mieszkanie na Start (kredyt #naStart) NIE WSZEDŁ w życie. Projekt został odwołany przez rząd w 2024/2025, w 2026 program nie funkcjonuje. Zastąpiony przez "Pierwsze Klucze" (dopłaty do mieszkań z rynku wtórnego) oraz kontynuację Rodzinnego Kredytu Mieszkaniowego (RKM). Jeśli planujesz zakup pierwszego mieszkania w 2026, sprawdź "Pierwsze Klucze" lub RKM. Aktualny status mieszkaniowych programów wsparcia: gov.pl/web/rozwoj-technologia. Historycznie planowane warunki #naStart: dopłaty do rat kredytu hipotecznego przez 10 lat, dla osób do 45 lat bez własnego mieszkania - te warunki nigdy nie zostały wdrożone.',
     kategoria: 'MIESZKANIE',
-    kwota: 'dopłata do kredytu (obniżenie raty)', czestotliwosc: 'miesięcznie (10 lat)',
+    kwota: 'PROGRAM NIE FUNKCJONUJE (zaniechany 2024/2025)', czestotliwosc: 'nie dotyczy',
     wymagania: { wiekMax: 45 },
     wykluczenia: [{ opis: 'Posiadanie innego mieszkania lub domu', sprawdz: 'inne_mieszkanie' }],
     wniosek: {
@@ -48,10 +48,10 @@ export const MIESZKANIE: Benefit[] = [
     zrodloNazwa: 'Ministerstwo Rozwoju', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'dodatek-energetyczny', nazwa: 'Dodatek energetyczny',
-    opis: 'Dodatek energetyczny to comiesięczna dopłata do kosztów energii elektrycznej dla tzw. odbiorców wrażliwych. Kwota wynosi ok. 15-44 PLN miesięcznie, zależnie od liczby osób w gospodarstwie domowym (1 osoba, 2-4 osoby, 5+ osób). Warunek kluczowy: musisz NAJPIERW mieć przyznany dodatek mieszkaniowy. Bez niego nie dostaniesz dodatku energetycznego. Wymagana jest też umowa kompleksowa lub umowa sprzedaży energii z dostawcą prądu na swoje nazwisko. Częsty błąd: składanie wniosku o dodatek energetyczny bez wcześniejszego uzyskania dodatku mieszkaniowego. Praktyczna rada: kwota jest niewielka, ale warto ją łączyć z innymi świadczeniami (dodatek mieszkaniowy, zasiłek celowy na opał). Wniosek składasz w urzędzie gminy.',
+    id: 'dodatek-energetyczny', nazwa: 'Dodatek energetyczny - ZAWIESZONY do 2027',
+    opis: 'UWAGA: tradycyjny dodatek energetyczny (kwoty ok. 15-44 PLN miesięcznie) został ZAWIESZONY od 4 stycznia 2022 do 31 grudnia 2027. W tym okresie wnioski nie są przyjmowane. Zamiast tego dostępne były czasowo inne formy wsparcia: bon energetyczny (edycja 2024, już zakończona) oraz dodatek osłonowy (edycja 2024, też zakończony). Aktualnie w 2026 jedyną aktywną pomocą dla osób w trudnej sytuacji energetycznej jest bon ciepłowniczy (jeśli ogrzewasz dom ciepłem systemowym). Po grudniu 2027 dodatek energetyczny ma wrócić - warunki: posiadanie dodatku mieszkaniowego + umowa z dostawcą energii. Sprawdzaj aktualny status na gov.pl/web/energia.',
     kategoria: 'MIESZKANIE',
-    kwota: 'ok. 15-44 PLN miesięcznie', kwotaMin: 15, kwotaMax: 44,
+    kwota: 'ZAWIESZONY do 31.12.2027 (historycznie 15-44 PLN/mies.)', kwotaMin: 0, kwotaMax: 44,
     czestotliwosc: 'miesięcznie',
     wymagania: { dochodMax: 2538 },
     wykluczenia: [{ opis: 'Wymaga posiadania umowy z dostawcą energii', sprawdz: 'umowa_energia' }],

@@ -3,7 +3,7 @@ import { Benefit } from '../types';
 export const RODZINA: Benefit[] = [
   {
     id: '800-plus', nazwa: 'Świadczenie wychowawcze 800+',
-    opis: 'Świadczenie 800 PLN miesięcznie na każde dziecko do ukończenia 18 roku życia, niezależnie od dochodu rodziny. Przysługuje obywatelom polskim oraz cudzoziemcom legalnie przebywającym w Polsce. Wniosek składa się wyłącznie elektronicznie: przez PUE ZUS, bankowość elektroniczną lub portal Empatia. Wypłata co miesiąc na wskazane konto. Aktualny okres świadczeniowy 1.06.2025-31.05.2026; nowy okres 1.06.2026-31.05.2027, wnioski od 1 lutego 2026. Złożenie do 30 kwietnia 2026 zapewnia ciągłość wypłat. Po tej dacie wypłata dopiero od miesiąca złożenia wniosku, bez wyrównania wstecz. UWAGA - NOWE KONTROLE 2026: ZUS zintegrował eZUS z bazami Straży Granicznej, MEN i PESEL. Świadczenie może zostać automatycznie WSTRZYMANE jeśli: 1) dziecko nie uczęszcza do szkoły/przedszkola bez uzasadnienia medycznego, 2) rodzina przebywa poza Polską ponad 30 dni, 3) zmieniła się sytuacja rezydencyjna rodzica (zwłaszcza cudzoziemcy spoza UE/EFTA - od 1.06.2026 zaostrzone wymogi aktywności zawodowej). Świadczenie nie jest wliczane do dochodu przy ustalaniu prawa do innych świadczeń. Nie podlega opodatkowaniu PIT. W przypadku opieki naprzemiennej kwota dzielona po równo (400 PLN na każdego rodzica). Jeśli wstrzymanie nastąpiło niesłusznie - złóż wyjaśnienie przez PUE ZUS, czekaj na ponowną weryfikację.',
+    opis: 'Świadczenie 800 PLN miesięcznie na każde dziecko do ukończenia 18 roku życia, niezależnie od dochodu rodziny. Przysługuje obywatelom polskim oraz cudzoziemcom legalnie przebywającym w Polsce. Wniosek składa się wyłącznie elektronicznie: przez PUE ZUS, bankowość elektroniczną lub portal Empatia. Wypłata co miesiąc na wskazane konto. Aktualny okres świadczeniowy 1.06.2025-31.05.2026; nowy okres 1.06.2026-31.05.2027, wnioski od 1 lutego 2026. Złożenie do 30 kwietnia 2026 zapewnia ciągłość wypłat. Po tej dacie wypłata dopiero od miesiąca złożenia wniosku, bez wyrównania wstecz. WAŻNE dla cudzoziemców spoza UE/EFTA: od 1.06.2026 zaostrzone wymogi aktywności zawodowej (sprawdź szczegóły na ZUS). Świadczenie nie jest wliczane do dochodu przy ustalaniu prawa do innych świadczeń. Nie podlega opodatkowaniu PIT. W przypadku opieki naprzemiennej kwota dzielona po równo (400 PLN na każdego rodzica). Jeśli przerwa w wypłacie - złóż wyjaśnienie przez PUE ZUS, czekaj na ponowną weryfikację.',
     kategoria: 'RODZINA',
     kwota: '800 PLN miesięcznie na dziecko', kwotaMin: 800, kwotaMax: 800,
     czestotliwosc: 'miesięcznie',
@@ -96,13 +96,13 @@ export const RODZINA: Benefit[] = [
   },
   {
     id: 'ulga-prorodzinna', nazwa: 'Ulga prorodzinna (na dzieci)',
-    opis: 'Ulga podatkowa odliczana od podatku PIT przy rozliczeniu rocznym. Przysługuje rodzicom, opiekunom prawnym i rodzicom zastępczym dzieci do 18 roku życia, a w przypadku dzieci uczących się, do 25 roku życia (pod warunkiem że dziecko nie zarobiło więcej niż 21 371 PLN rocznie). Kwoty roczne na dziecko: 1112,04 PLN za pierwsze i drugie dziecko, 2000,04 PLN za trzecie dziecko, 2700 PLN za czwarte i każde kolejne. Przy jednym dziecku obowiązuje próg dochodowy: 112 000 PLN brutto rocznie dla małżeństw rozliczających się wspólnie lub 56 000 PLN dla osób samotnie wychowujących dziecko. Przy dwójce i więcej dzieci NIE MA żadnego progu dochodowego. Częsty błąd: rodzice jednego dziecka z dochodem powyżej progu tracą prawo do ulgi, ale nie wiedzą że próg dotyczy tylko rodzin z jednym dzieckiem. Ulgę odlicza się w załączniku PIT/O do zeznania PIT-37 lub PIT-36. Jeśli podatek jest zbyt niski, aby odliczyć pełną ulgę, można otrzymać różnicę jako zwrot z urzędu skarbowego (do wysokości zapłaconych składek ZUS i zdrowotnych). Ulga jest dzielona między rodziców proporcjonalnie lub w całości przez jednego z nich, wymaga to zgodnego oświadczenia. W przypadku rozwodu ulgę rozlicza rodzic sprawujący faktyczną opiekę nad dzieckiem.',
+    opis: 'Ulga podatkowa odliczana od podatku PIT przy rozliczeniu rocznym. Przysługuje rodzicom, opiekunom prawnym i rodzicom zastępczym dzieci do 18 roku życia, a w przypadku dzieci uczących się, do 25 roku życia (pod warunkiem że dziecko nie zarobiło więcej niż 22 546,92 PLN rocznie - limit 12x renta socjalna 2025). Kwoty roczne na dziecko: 1112,04 PLN za pierwsze i drugie dziecko, 2000,04 PLN za trzecie dziecko, 2700 PLN za czwarte i każde kolejne. Przy jednym dziecku obowiązuje próg dochodowy: 112 000 PLN brutto rocznie - dla małżeństw rozliczających się wspólnie ORAZ dla osób samotnie wychowujących dziecko (osoby NIE w związku małżeńskim i NIE samotnie wychowujące mają próg 56 000 PLN). Przy dwójce i więcej dzieci NIE MA żadnego progu dochodowego. Częsty błąd: rodzice jednego dziecka z dochodem powyżej progu tracą prawo do ulgi, ale nie wiedzą że próg dotyczy tylko rodzin z jednym dzieckiem. Ulgę odlicza się w załączniku PIT/O do zeznania PIT-37 lub PIT-36. Jeśli podatek jest zbyt niski, aby odliczyć pełną ulgę, można otrzymać różnicę jako zwrot z urzędu skarbowego (do wysokości zapłaconych składek ZUS i zdrowotnych). Ulga jest dzielona między rodziców proporcjonalnie lub w całości przez jednego z nich, wymaga to zgodnego oświadczenia. W przypadku rozwodu ulgę rozlicza rodzic sprawujący faktyczną opiekę nad dzieckiem.',
     kategoria: 'RODZINA',
     kwota: '1112-2700 PLN rocznie na dziecko', kwotaMin: 1112, kwotaMax: 2700,
     czestotliwosc: 'rocznie (odliczenie w PIT)',
     wymagania: { dzieci: { min: 1, wiekMax: 25 } },
     wykluczenia: [
-      { opis: 'Na 1 dziecko: dochód rodzica nie może przekroczyć 112 000 PLN (lub 56 000 PLN dla samotnych)', sprawdz: 'dochod_prorodzinna' },
+      { opis: 'Na 1 dziecko: limit 112 000 PLN dla małżonków łącznie lub samotnych rodziców (56 000 PLN dla osób NIE w małżeństwie i NIE samotnych)', sprawdz: 'dochod_prorodzinna' },
     ],
     wniosek: {
       kanal: ['URZAD_SKARBOWY'], formularz: 'PIT/O (załącznik do PIT-37 lub PIT-36)',
@@ -117,7 +117,7 @@ export const RODZINA: Benefit[] = [
       pulapki: [
         'Na 1 dziecko obowiązuje próg dochodowy (112 000 PLN brutto rocznie)',
         'Na 2+ dzieci NIE MA progu dochodowego',
-        'Dzieci 18-25 lat: ulga tylko jeśli się uczą i nie zarobiły więcej niż 21 371 PLN rocznie',
+        'Dzieci 18-25 lat: ulga tylko jeśli się uczą i nie zarobiły więcej niż 22 546,92 PLN rocznie (limit 2025: 12x renta socjalna)',
       ],
       odwolanie: 'Korekta zeznania PIT',
     },

@@ -26,7 +26,7 @@ export const PODATKI: Benefit[] = [
   },
   {
     id: 'ulga-rehabilitacyjna', nazwa: 'Ulga rehabilitacyjna',
-    opis: 'Odliczenie od dochodu wydatków związanych z rehabilitacją i ułatwieniem wykonywania czynności życiowych osobom z niepełnosprawnością. Przysługuje osobom z orzeczeniem o niepełnosprawności (lekki, umiarkowany lub znaczny stopień) ORAZ osobom utrzymującym takie osoby (np. rodzic dziecka z orzeczeniem, jeśli dochód osoby niepełnosprawnej nie przekroczył 19 061,28 PLN rocznie). Wydatki limitowane: leki przepisane przez lekarza specjalistę, odliczasz nadwyżkę ponad 100 PLN miesięcznie (musisz udowodnić zakup fakturami). Wydatki nielimitowane (odliczasz pełną kwotę): adaptacja mieszkania, sprzęt rehabilitacyjny, przejazdy na zabiegi, turnusy rehabilitacyjne, opłacenie przewodnika (stopień znaczny lub niewidomi), utrzymanie psa asystującego (ryczałt 2820 PLN rocznie bez konieczności dokumentowania). Samochód: osoby z niepełnosprawnością ruchową lub ze znacznym stopniem mogą odliczyć do 2280 PLN rocznie za używanie samochodu na dojazdy na zabiegi. Wydatki muszą być udokumentowane, wyjątkiem jest pies asystujący i opłacenie przewodnika, gdzie wystarczy oświadczenie.',
+    opis: 'Odliczenie od dochodu wydatków związanych z rehabilitacją i ułatwieniem wykonywania czynności życiowych osobom z niepełnosprawnością. Przysługuje osobom z orzeczeniem o niepełnosprawności (lekki, umiarkowany lub znaczny stopień) ORAZ osobom utrzymującym takie osoby (np. rodzic dziecka z orzeczeniem, jeśli dochód osoby niepełnosprawnej nie przekroczył 22 546,92 PLN rocznie (2025)). Wydatki limitowane: leki przepisane przez lekarza specjalistę, odliczasz nadwyżkę ponad 100 PLN miesięcznie (musisz udowodnić zakup fakturami). Wydatki nielimitowane (odliczasz pełną kwotę): adaptacja mieszkania, sprzęt rehabilitacyjny, przejazdy na zabiegi, turnusy rehabilitacyjne, opłacenie przewodnika (stopień znaczny lub niewidomi), utrzymanie psa asystującego (ryczałt 2280 PLN rocznie bez konieczności dokumentowania). Samochód: osoby z niepełnosprawnością ruchową lub ze znacznym stopniem mogą odliczyć do 2280 PLN rocznie za używanie samochodu na dojazdy na zabiegi. Wydatki muszą być udokumentowane, wyjątkiem jest pies asystujący i opłacenie przewodnika, gdzie wystarczy oświadczenie.',
     kategoria: 'PODATKI',
     kwota: 'odliczenie rzeczywistych wydatków', czestotliwosc: 'rocznie',
     wymagania: { niepelnosprawnosc: ['lekki', 'umiarkowany', 'znaczny'] },
@@ -40,7 +40,7 @@ export const PODATKI: Benefit[] = [
         'Odlicz wydatki od dochodu',
       ],
       terminRealizacji: 'Zwrot przy rozliczeniu PIT',
-      pulapki: ['Leki: odliczasz nadwyżkę powyżej 100 PLN miesięcznie', 'Utrzymanie psa asystującego: ryczałt 2820 PLN bez dokumentowania'],
+      pulapki: ['Leki: odliczasz nadwyżkę powyżej 100 PLN miesięcznie', 'Utrzymanie psa asystującego: ryczałt 2280 PLN bez dokumentowania'],
       odwolanie: 'Korekta PIT',
     },
     zrodloUrl: 'https://www.podatki.gov.pl/ulgi-i-odliczenia/ulga-rehabilitacyjna-pit/',
