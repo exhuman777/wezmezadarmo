@@ -93,6 +93,13 @@ export default function PanelDotacjePage() {
       const data = await res.json();
       if (!res.ok) { setError(data.error || `Błąd ${res.status}`); setLoading(false); return; }
       setCeidg(data);
+      // Vercel Analytics
+      try {
+        const { track } = await import('@/lib/track');
+        const flags = inferFlagsFromPkd(data.pkd ?? []);
+        const matched = matchPrograms(flags, data.wojewodztwo ?? null);
+        track('nip_checked', { matched: matched.matched.length, pkd_count: (data.pkd ?? []).length });
+      } catch { /* ignore */ }
     } catch (e) { setError((e as Error).message); }
     setLoading(false);
   }

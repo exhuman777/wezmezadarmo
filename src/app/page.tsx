@@ -411,6 +411,11 @@ export default function Home() {
 
     setPhase('questions');
     window.scrollTo(0, 0);
+    // Vercel Analytics - quiz started
+    try {
+      const { track } = await import('@/lib/track');
+      track('quiz_started');
+    } catch { /* ignore */ }
   }
 
   function handleQuestionAnswer(value: string) {
@@ -496,6 +501,12 @@ export default function Home() {
       const pewne = matchedResults.filter((r) => r.status === 'PRZYSLUGUJE').length;
       const mozliwe = matchedResults.filter((r) => r.status === 'MOZLIWE').length;
       const total = matchedResults.length;
+
+      // Vercel Analytics event - quiz_completed (anonymous, bez PII)
+      try {
+        const { track } = await import('@/lib/track');
+        track('quiz_completed', { total, pewne, mozliwe, ai_verified: aiVerified });
+      } catch { /* ignore */ }
 
       let welcomeText: string;
       if (total > 0) {
