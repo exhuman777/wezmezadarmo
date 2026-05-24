@@ -77,21 +77,29 @@ export async function POST(request: NextRequest) {
       categories: emailPreferences?.categories ?? ['dofinansowania', 'zus', 'podatki', 'prawo'],
     });
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://wezmezadarmo.com';
+
   const { data: linkData } = await supabaseAdmin.auth.admin.generateLink({
     type: 'signup',
     email: email.trim().toLowerCase(),
     password: password as string,
     options: {
-      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://wezmezadarmo.com'}/agent/auth/callback`,
+      redirectTo: `${siteUrl}/agent/auth/callback`,
     },
   });
 
-  if (linkData?.properties?.action_link) {
+  // NIE uzywaj action_link (hash fragment) -- buduj URL z hashed_token dla verifyOtp
+  const hashedToken = linkData?.properties?.hashed_token;
+  const confirmUrl = hashedToken
+    ? `${siteUrl}/agent/auth/callback?token_hash=${hashedToken}&type=signup&next=/agent/panel`
+    : linkData?.properties?.action_link;
+
+  if (confirmUrl) {
     await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL ?? 'onboarding@resend.dev',
       to: email,
       subject: 'Potwierdź adres e-mail - wezmezadarmo',
-      html: `<p>Kliknij link poniżej aby potwierdzić adres e-mail i aktywować konto:</p><p><a href="${linkData.properties.action_link}">${linkData.properties.action_link}</a></p>`,
+      html: `<p>Kliknij link poniżej aby potwierdzić adres e-mail i aktywować konto:</p><p><a href="${confirmUrl}">${confirmUrl}</a></p>`,
     });
   }
 
