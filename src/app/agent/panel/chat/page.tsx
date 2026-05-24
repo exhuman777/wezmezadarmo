@@ -3,6 +3,7 @@
 import { Suspense, useRef, useEffect, useState, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useAgentMode } from '../AgentModeContext';
+import { ChatFallbackPrompt } from '@/components/ChatFallbackPrompt';
 import type { AgentMode } from '@/agents/types';
 
 interface Message {
@@ -374,6 +375,8 @@ function AgentChatInner() {
             </div>
           </div>
         ))}
+        {/* Live chat fallback -- pokazuje sie gdy AI 2x z rzedu nie wie */}
+        {!isStreaming && <ChatFallbackPrompt messages={messages} context="agent-panel-chat" />}
         <div ref={chatBottomRef} />
       </div>
 

@@ -1,11 +1,21 @@
 import type { MetadataRoute } from 'next';
+import { getAllBenefits } from '@/engine/benefits';
 
 const BASE = 'https://www.wezmezadarmo.com';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
+  // Deep links dla 118 swiadczen (per ID, indeksowane w Google jako rich snippets)
+  const benefitUrls: MetadataRoute.Sitemap = getAllBenefits().map(b => ({
+    url: `${BASE}/swiadczenia?id=${b.id}`,
+    lastModified: new Date(b.dataWeryfikacji),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }));
+
   return [
+    ...benefitUrls,
     // Core
     { url: BASE, lastModified: now, changeFrequency: 'weekly', priority: 1.0 },
     { url: `${BASE}/swiadczenia`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },

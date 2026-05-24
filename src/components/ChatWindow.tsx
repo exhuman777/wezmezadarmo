@@ -3,6 +3,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { MessageBubble } from './MessageBubble';
 import { StepByStepGuide } from './StepByStepGuide';
+import { ChatFallbackPrompt } from './ChatFallbackPrompt';
 import { MatchResult, BenefitCategory } from '@/engine/types';
 import { getAllBenefits } from '@/engine/benefits';
 
@@ -280,6 +281,8 @@ export function ChatWindow({
               isStreaming={isStreaming && i === messages.length - 1 && msg.role === 'assistant'}
             />
           ))}
+          {/* Live chat fallback -- pokazuje sie gdy AI 2x z rzedu nie wie */}
+          {!isStreaming && <ChatFallbackPrompt messages={messages} context="results-chat" />}
           <div ref={chatBottomRef} />
         </div>
 

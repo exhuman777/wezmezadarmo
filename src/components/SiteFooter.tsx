@@ -112,6 +112,19 @@ export function SiteFooter() {
           </FooterCol>
         </div>
 
+        {/* Newsletter signup -- nowy block, nie usuwa nic */}
+        <div className="divider" style={{ margin: '40px 0 24px' }} />
+        <div style={{
+          padding: '20px 24px',
+          background: 'rgba(34,160,107,0.04)',
+          border: '1px solid rgba(34,160,107,0.15)',
+          borderRadius: 12,
+          marginBottom: 24,
+          maxWidth: 480,
+        }}>
+          <NewsletterSignup />
+        </div>
+
         {/* Divider + bottom bar */}
         <div className="divider" style={{ margin: '40px 0 24px' }} />
         <div style={{
