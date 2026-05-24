@@ -356,7 +356,7 @@ function ViaPromoCard() {
       </p>
 
       <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
-        <a href="https://via.day" target="_blank" rel="noopener noreferrer" style={{
+        <a href="https://www.tryvia.eu/#" target="_blank" rel="noopener noreferrer" style={{
           display: 'inline-flex', alignItems: 'center', gap: 6,
           fontSize: 13, fontWeight: 600,
           padding: '8px 16px', borderRadius: 8,
@@ -366,7 +366,7 @@ function ViaPromoCard() {
         }}>
           Sprawdź VIA →
         </a>
-        <span style={{ fontSize: 11, color: '#7c3aed', fontFamily: 'var(--f-mono)' }}>via.day · poza wezmezadarmo</span>
+        <span style={{ fontSize: 11, color: '#7c3aed', fontFamily: 'var(--f-mono)' }}>tryvia.eu · poza wezmezadarmo</span>
       </div>
     </div>
   );
