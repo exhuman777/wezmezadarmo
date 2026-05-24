@@ -1,41 +1,9 @@
 /**
- * Z-15B -- Wniosek o zasilek opiekunczy (czlonek rodziny inny niz dziecko)
- * Coordinates derived from pdftotext -bbox on Z-15B.pdf (A4, 595.28 x 841.89 pt)
- *
- * Page 0 -- Twoje dane (wnioskodawca)
- *   PESEL label yMin=382.1    -> text y=460
- *   Imie label yMin=488.1     -> text y=354
- *   Nazwisko label yMin=514.9 -> text y=327
- *   Ulica label yMin=541.7    -> text y=300
- *   Numer domu label yMin=568.5 left col -> text y=273
- *   Numer lokalu right col x=334-387 -> x=397 y=273
- *   Kod pocztowy label yMin=595.3 left col -> text y=247
- *   Miejscowosc right col yMin=622.0 x=175-226 -> x=397 y=220
- *   Numer telefonu label yMin=684.6 -> text y=157
- *
- * Page 1 -- Dane platnika skladek
- *   NIP label yMin=117.0   -> text y=725
- *   REGON label yMin=142.8 -> text y=699
- *   Nazwa (platnika) label yMin=247.2 -> text y=595
- *   Rachunek bankowy heading yMin=267.9 -> account input y~561 (below heading)
- *
- * Page 1 -- Dane osoby chorej (podopieczny)
- *   "Dane osoby, nad ktora sprawujesz opieke" heading yMin=403.9
- *   PESEL osoby chorej yMin=428.5    -> text y=413
- *   Imie osoby chorej yMin=533.3     -> text y=309
- *   Nazwisko osoby chorej yMin=559.7 -> text y=282
- *   Stopien pokrewienstwa yMin=586.0 -> text y=256
- *
- * Page 1 -- Oswiadczenia
- *   Jest domownik row yMin=634.2
- *     TAK checkbox at x~294 (after label), NIE at x~322
- *   Pozostaje we wspolnym gosp. row yMin=712.6
- *     TAK/NIE checkboxes similarly
- *
- * Period/eZLA data goes at y~461 on page 1 (below "Okres" heading at y=329.8)
+ * Z-15B - Wniosek o zasilek opiekunczy (opieka nad dorosłym członkiem rodziny)
+ * AcroForm field-based filling via pdf-lib getForm().
  */
 
-import { loadZusPdf, stampPdf, type FieldStamp } from '../xfa-injector';
+import { loadZusPdf, fillFormByName, type FormFieldEntry } from '../xfa-injector';
 
 export interface Z15bWizardData {
   imie: string;
@@ -71,118 +39,62 @@ export interface Z15bWizardData {
   malzonekDniDorosli: string;
 }
 
-const U = (s: string) => (s || '').toUpperCase();
-const PH = 841.89;
-
-function y(bboxYMin: number, offset = 0): number {
-  return Math.round(PH - bboxYMin + offset);
+function splitName(full: string): { imie: string; nazwisko: string } {
+  const parts = (full || '').trim().split(/\s+/);
+  if (parts.length <= 1) return { imie: parts[0] || '', nazwisko: '' };
+  return { imie: parts.slice(0, -1).join(' '), nazwisko: parts[parts.length - 1] };
 }
-
-const RELACJA_LABEL: Record<string, string> = {
-  malzonek: 'MALZONEK',
-  rodzic: 'RODZIC',
-  tesciowie: 'TESCIOWIE',
-  rodzenstwo: 'RODZENSTWO',
-  dziecko: 'DZIECKO',
-  dziadek: 'DZIADKOWIE',
-  wnuk: 'WNUK/WNUCZKA',
-  inne: 'INNA OSOBA',
-};
 
 export async function buildZ15bPdf(data: Z15bWizardData): Promise<Buffer> {
   const pdfBytes = loadZusPdf('Z-15B.pdf');
 
-  const stamps: FieldStamp[] = [
-    // ---- Page 0 -- Twoje dane ----
-    // PESEL (label yMin=382.1)
-    { page: 0, x: 232, y: y(382.1, -2), text: data.pesel },
+  const entries: FormFieldEntry[] = [
+    // ---- Page 1 - Wnioskodawca ----
+    { fieldName: 'topmostSubform[0].Page1[0].PESEL[0]', value: data.pesel },
+    { fieldName: 'topmostSubform[0].Page1[0].Imię[0]', value: data.imie },
+    { fieldName: 'topmostSubform[0].Page1[0].Nazwisko[0]', value: data.nazwisko },
+    { fieldName: 'topmostSubform[0].Page1[0].Ulica[0]', value: data.ulica },
+    { fieldName: 'topmostSubform[0].Page1[0].Numerdomu[0]', value: data.nrDomu },
+    { fieldName: 'topmostSubform[0].Page1[0].Numerlokalu[0]', value: data.nrLokalu },
+    { fieldName: 'topmostSubform[0].Page1[0].Kodpocztowy[0]', value: data.kodPocztowy },
+    { fieldName: 'topmostSubform[0].Page1[0].Miejscowość[0]', value: data.miejscowosc },
+    { fieldName: 'topmostSubform[0].Page1[0].Numertelefonu[0]', value: data.telefon },
+    { fieldName: 'topmostSubform[0].Page1[0].Nazwapaństwa[0]', value: 'POLSKA' },
 
-    // Imie (label yMin=488.1)
-    { page: 0, x: 232, y: y(488.1, -2), text: U(data.imie) },
+    // ---- Page 2 - Osoba chora + Platnik ----
+    { fieldName: 'topmostSubform[0].Page2[0].PESEL[0]', value: data.peselChory },
+    { fieldName: 'topmostSubform[0].Page2[0].Imię[0]', value: data.imieChory },
+    { fieldName: 'topmostSubform[0].Page2[0].Nazwisko[0]', value: data.nazwiskoChory },
+    { fieldName: 'topmostSubform[0].Page2[0].Dataurodzenia[0]', value: data.dataUrodzChory },
+    { fieldName: 'topmostSubform[0].Page2[0].Stopieńpokrewieństwa[0]', value: data.relacjaDoMnie },
+    { fieldName: 'topmostSubform[0].Page2[0].Numerrachunku[0]', value: data.nrKonta },
+    { fieldName: 'topmostSubform[0].Page2[0].NIP[0]', value: data.nipPlatnika },
+    { fieldName: 'topmostSubform[0].Page2[0].REGON[0]', value: data.regonPlatnika },
+    { fieldName: 'topmostSubform[0].Page2[0].Nazwapłatnika[0]', value: data.nazwaPlatinika },
+    { fieldName: 'topmostSubform[0].Page2[0].Tekst1a[0]', value: [data.dataOd, data.dataDo].filter(Boolean).join(' - ') },
+    { fieldName: 'topmostSubform[0].Page2[0].Tekst1[0]', value: data.numerEzla },
 
-    // Nazwisko (label yMin=514.9)
-    { page: 0, x: 232, y: y(514.9, -2), text: U(data.nazwisko) },
+    // ---- Page 2 - Oswiadczenia ----
+    { fieldName: 'topmostSubform[0].Page2[0].Oświadczenie1TAK[0]', value: data.jestDomownik === 'tak' ? 'tak' : '', type: 'check' },
+    { fieldName: 'topmostSubform[0].Page2[0].Oświadczenie1NIE[0]', value: data.jestDomownik === 'nie' ? 'tak' : '', type: 'check' },
+    { fieldName: 'topmostSubform[0].Page2[0].Oświadczenie2TAK[0]', value: data.wspolneGospodarstwo === 'tak' ? 'tak' : '', type: 'check' },
+    { fieldName: 'topmostSubform[0].Page2[0].Oświadczenie2NIE[0]', value: data.wspolneGospodarstwo === 'nie' ? 'tak' : '', type: 'check' },
+    { fieldName: 'topmostSubform[0].Page2[0].Oświadczenie4TAK[0]', value: data.zmianaPlatnika === 'tak' ? 'tak' : '', type: 'check' },
+    { fieldName: 'topmostSubform[0].Page2[0].Oświadczenie4NIE[0]', value: data.zmianaPlatnika === 'nie' ? 'tak' : '', type: 'check' },
+    { fieldName: 'topmostSubform[0].Page2[0].Oświadczenie4NIEzmieniłem[0]', value: data.zmianaPlatnika === 'nie-zmienialem' ? 'tak' : '', type: 'check' },
 
-    // Ulica (label yMin=541.7)
-    { page: 0, x: 232, y: y(541.7, -2), text: U(data.ulica) },
-
-    // Numer domu (label yMin=568.5)
-    { page: 0, x: 232, y: y(568.5, -2), text: data.nrDomu },
-
-    // Numer lokalu (right col, label xMin=334)
-    { page: 0, x: 397, y: y(568.5, -2), text: data.nrLokalu },
-
-    // Kod pocztowy (label yMin=595.3)
-    { page: 0, x: 232, y: y(595.3, -2), text: data.kodPocztowy },
-
-    // Miejscowosc (right col, label yMin=622.0)
-    { page: 0, x: 397, y: y(622.0, -2), text: U(data.miejscowosc) },
-
-    // Numer telefonu (label yMin=684.6)
-    { page: 0, x: 232, y: y(684.6, -2), text: data.telefon },
-
-    // ---- Page 1 -- Dane platnika skladek ----
-    // NIP (label yMin=117.0)
-    { page: 1, x: 232, y: y(117.0, -2), text: data.nipPlatnika },
-
-    // REGON (label yMin=142.8)
-    { page: 1, x: 232, y: y(142.8, -2), text: data.regonPlatnika },
-
-    // Nazwa platnika (label yMin=247.2)
-    { page: 1, x: 232, y: y(247.2, -2), text: U(data.nazwaPlatinika) },
-
-    // Rachunek bankowy (heading yMin=267.9 -- input box below)
-    { page: 1, x: 42, y: y(282, 2), text: data.nrKonta },
-
-    // ---- Page 1 -- Okres opieki + eZLA ----
-    // "Okres, za ktory ubiegasz sie o zasilek opiekunczy" heading yMin=329.8
-    // "Podaj date lub daty (od-do)" instruction yMin=381.1
-    // eZLA instruction yMin=390.1
-    // Input row for period dates ~y=405
-    { page: 1, x: 42, y: y(405, 2), text: data.dataOd ? `od: ${data.dataOd}` : '' },
-    { page: 1, x: 230, y: y(405, 2), text: data.dataDo ? `do: ${data.dataDo}` : '' },
-
-    // eZLA numer input ~y=416 (below eZLA instruction line)
-    { page: 1, x: 42, y: y(416, 2), text: data.numerEzla },
-
-    // ---- Page 1 -- Dane osoby chorej ----
-    // "Dane osoby, nad ktora sprawujesz opieke" heading yMin=403.9
-    // PESEL osoby chorej (label yMin=428.5)
-    { page: 1, x: 232, y: y(428.5, -2), text: data.peselChory },
-
-    // Imie osoby chorej (label yMin=533.3)
-    { page: 1, x: 232, y: y(533.3, -2), text: U(data.imieChory) },
-
-    // Nazwisko osoby chorej (label yMin=559.7)
-    { page: 1, x: 232, y: y(559.7, -2), text: U(data.nazwiskoChory) },
-
-    // Stopien pokrewienstwa (label yMin=586.0)
-    {
-      page: 1,
-      x: 232,
-      y: y(586.0, -2),
-      text: RELACJA_LABEL[data.relacjaDoMnie] ?? U(data.relacjaDoMnie),
-    },
-
-    // ---- Page 1 -- Oswiadczenie 1: jest domownik ----
-    // "Jest domownik" label at yMin=634.2
-    // TAK checkbox is right of label -- estimated x=297, NIE x=325
-    ...(data.jestDomownik === 'tak'
-      ? [{ page: 1, x: 291, y: y(634.2, -1), text: 'X', size: 10 } as FieldStamp]
-      : [{ page: 1, x: 319, y: y(634.2, -1), text: 'X', size: 10 } as FieldStamp]),
-
-    // Jesli TAK -- podaj dni
-    ...(data.jestDomownik === 'tak' && data.domownikDni
-      ? [{ page: 1, x: 232, y: y(645.2, -2), text: data.domownikDni } as FieldStamp]
-      : []),
-
-    // ---- Page 1 -- Oswiadczenie 2: wspolne gospodarstwo ----
-    // "Pozostaje we wspolnym gospodarstwie" row yMin=712.6
-    // TAK/NIE checkboxes after the label (estimated x=303/331)
-    ...(data.wspolneGospodarstwo === 'tak'
-      ? [{ page: 1, x: 303, y: y(712.6, -1), text: 'X', size: 10 } as FieldStamp]
-      : [{ page: 1, x: 331, y: y(712.6, -1), text: 'X', size: 10 } as FieldStamp]),
+    // ---- Page 3 - Malzonek ----
+    { fieldName: 'topmostSubform[0].Page3[0].Niemammalzonka[0]', value: data.brakMalzonka ? 'tak' : '', type: 'check' },
+    { fieldName: 'topmostSubform[0].Page3[0].PESEL2[0]', value: data.peselMalzonka },
+    { fieldName: 'topmostSubform[0].Page3[0].Imię2[0]', value: splitName(data.imieNazwiskoMalzonka).imie },
+    { fieldName: 'topmostSubform[0].Page3[0].Nazwisko2[0]', value: splitName(data.imieNazwiskoMalzonka).nazwisko },
+    { fieldName: 'topmostSubform[0].Page3[0].Danemałżonka1TAK[0]', value: data.malzonekPracuje === 'tak' ? 'tak' : '', type: 'check' },
+    { fieldName: 'topmostSubform[0].Page3[0].Danemałżonka1NIE[0]', value: data.malzonekPracuje === 'nie' ? 'tak' : '', type: 'check' },
+    { fieldName: 'topmostSubform[0].Page3[0].Danemałżonka2TAK[0]', value: data.malzonekZasilek === 'tak' ? 'tak' : '', type: 'check' },
+    { fieldName: 'topmostSubform[0].Page3[0].Danemałżonka2NIE[0]', value: data.malzonekZasilek === 'nie' ? 'tak' : '', type: 'check' },
+    { fieldName: 'topmostSubform[0].Page3[0].Liczbadni3a[0]', value: data.domownikDni },
+    { fieldName: 'topmostSubform[0].Page3[0].Liczbadnimałżonka3a[0]', value: data.malzonekDniDorosli },
   ];
 
-  return stampPdf(pdfBytes, stamps);
+  return fillFormByName(pdfBytes, entries);
 }
