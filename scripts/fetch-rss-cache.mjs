@@ -74,7 +74,7 @@ const FEEDS = [
   { id: 'nbp',      name: 'NBP',          url: 'https://www.nbp.pl/home.aspx?f=/aktualnosci/aktualnosci.html', audiences: ['wszyscy', 'firmy'],         parser: 'html-nbp' },
   { id: 'sejm',     name: 'Sejm',         url: 'https://www.sejm.gov.pl/sejm10.nsf/rss.xsp',                   audiences: ['wszyscy', 'jdg', 'firmy'],  parser: 'rss' },
   { id: 'uokik',    name: 'UOKiK',        url: 'https://uokik.gov.pl/aktualnosci',                             audiences: ['wszyscy', 'firmy'],         parser: 'html-uokik' },
-  { id: 'fundusze', name: 'Fundusze EU',  url: 'https://www.funduszeeuropejskie.gov.pl/strony/aktualnosci/',   audiences: ['jdg', 'firmy'],             parser: 'html-fundusze' },
+  { id: 'fundusze', name: 'Fundusze EU',  url: 'https://funduszeeuropejskie.gov.pl/aktualnosci',               audiences: ['jdg', 'firmy'],             parser: 'html-fundusze' },
   { id: 'ezdrowie', name: 'e-Zdrowie',    url: 'https://ezdrowie.gov.pl/portal/home/aktualnosci?isExtend=true', audiences: ['wszyscy'],                  parser: 'html-ezdrowie' },
   { id: 'arimr',    name: 'ARiMR',        url: 'https://www.arimr.gov.pl/aktualnosci-i-komunikaty',            audiences: ['jdg', 'firmy'],             parser: 'html-arimr' },
 ];
@@ -274,13 +274,34 @@ function parseHtmlUokik(html) {
 
 function parseHtmlFundusze(html) {
   const items = [];
-  const linkRe = /href=["'](\/strony\/aktualnosci\/[^"']{5,200})["'][^>]*>([^<]{10,200})/gi;
+  const seen = new Set();
+
+  // Strategia 1: <a href="//funduszeeuropejskie.gov.pl/aktualnosci/{slug}" aria-label="Tytul">
+  const ariaRe = /<a[^>]+href=["']\/\/funduszeeuropejskie\.gov\.pl\/aktualnosci\/([a-z0-9-]{10,200})["'][^>]*aria-label=["']([^"']{10,300})["']/gi;
   let m;
-  while ((m = linkRe.exec(html)) !== null && items.length < MAX_ITEMS_PER_FEED) {
-    const link = 'https://www.funduszeeuropejskie.gov.pl' + m[1];
-    const title = stripHtml(m[2]).trim();
+  while ((m = ariaRe.exec(html)) !== null && items.length < MAX_ITEMS_PER_FEED) {
+    const slug = m[1];
+    const link = `https://funduszeeuropejskie.gov.pl/aktualnosci/${slug}`;
+    if (seen.has(link)) continue;
+    seen.add(link);
+    const title = stripHtml(m[2]).trim().replace(/&quot;/g, '"').replace(/&amp;/g, '&').replace(/&#039;/g, "'");
     if (title.length < 10) continue;
     items.push({ title, link, description: '', pubDate: null });
+  }
+
+  // Strategia 2 (fallback): wszystkie /aktualnosci/{slug} z tytulem z slug (Title Case)
+  if (items.length === 0) {
+    const linkRe = /href=["']\/\/funduszeeuropejskie\.gov\.pl\/aktualnosci\/([a-z0-9-]{10,200})["']/gi;
+    while ((m = linkRe.exec(html)) !== null && items.length < MAX_ITEMS_PER_FEED) {
+      const slug = m[1];
+      const link = `https://funduszeeuropejskie.gov.pl/aktualnosci/${slug}`;
+      if (seen.has(link)) continue;
+      seen.add(link);
+      const title = slug
+        .replace(/-/g, ' ')
+        .replace(/\b\w/g, c => c.toUpperCase());
+      items.push({ title, link, description: '', pubDate: null });
+    }
   }
   return items;
 }
@@ -539,11 +560,11 @@ function isArticleLink(link, feedId) {
       return lc.includes('sejm.gov.pl')
         && (lc.includes('news') || lc.includes('aktualnosci') || lc.includes('komunikat') || lc.includes('/sejm10.nsf/'));
     case 'fundusze':
-      // Wszystko na funduszeeuropejskie.gov.pl - artykuly maja dluga sciezke
-      return lc.includes('funduszeeuropejskie.gov.pl')
+      // Artykuly maja format /aktualnosci/{slug}, gdzie slug ma >= 10 znakow
+      return lc.includes('funduszeeuropejskie.gov.pl/aktualnosci/')
         && !lc.endsWith('/aktualnosci/')
-        && !lc.endsWith('funduszeeuropejskie.gov.pl/')
-        && link.length > 50;
+        && !lc.endsWith('/aktualnosci')
+        && link.length > 55;
     case 'arimr':
       // ARiMR - artykuly pod /web/arimr/{slug} (np. doplaty-2026, biuletyn-informacyjny-nr-X)
       if (lc.includes('arimr.gov.pl/web/arimr/')) {

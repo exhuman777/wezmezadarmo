@@ -1,0 +1,228 @@
+/**
+ * Benefits URL audit -- monitoring zrodloUrl ze swiadczen.
+ * Cron co tydzien sprawdza wszystkie URL-e, oblicza hash, alertuje przy problemach.
+ *
+ * Bezpieczne: NIC nie modyfikuje w bazie swiadczen, tylko monitoruje.
+ */
+
+import { createHash } from 'crypto';
+
+const TIMEOUT_MS = 15_000;
+const USER_AGENT = 'Mozilla/5.0 (compatible; wezmezadarmo-audit/1.0; +https://www.wezmezadarmo.com)';
+/** Procent zmiany content uznawany za "znaczacy" (wymaga review). */
+const SIGNIFICANT_CHANGE_THRESHOLD = 0.30;
+/** Concurrent fetch limit -- nie zatkajmy gov.pl. */
+const CONCURRENCY = 8;
+
+export type AuditStatus = 'OK' | 'NOT_FOUND' | 'REDIRECT' | 'TIMEOUT' | 'BLOCKED' | 'CHANGED' | 'NEW';
+
+export interface AuditResult {
+  benefitId: string;
+  benefitName: string;
+  category: string;
+  url: string;
+  httpStatus: number;
+  status: AuditStatus;
+  contentHash: string | null;
+  contentLength: number;
+  changePct: number | null;  // 0.0 - 1.0 (jak zmienil sie content vs poprzednio)
+  needsReview: boolean;
+  note?: string;
+}
+
+export interface PreviousAudit {
+  benefit_id: string;
+  last_content_hash: string | null;
+  consecutive_errors: number;
+}
+
+/**
+ * Sanityzacja HTML do tylko text content z main area.
+ * Usuwa nav, header, footer, scripts, styles, ads -- elementy ktore zmieniaja sie
+ * dynamicznie i nie sa czescia tresci swiadczenia.
+ */
+export function extractStableContent(html: string): string {
+  return html
+    // Usun calkowicie elementy z dynamicznym content
+    .replace(/<script[\s\S]*?<\/script>/gi, '')
+    .replace(/<style[\s\S]*?<\/style>/gi, '')
+    .replace(/<noscript[\s\S]*?<\/noscript>/gi, '')
+    .replace(/<nav[\s\S]*?<\/nav>/gi, '')
+    .replace(/<header[\s\S]*?<\/header>/gi, '')
+    .replace(/<footer[\s\S]*?<\/footer>/gi, '')
+    .replace(/<aside[\s\S]*?<\/aside>/gi, '')
+    .replace(/<form[\s\S]*?<\/form>/gi, '')   // formularze szukania
+    .replace(/<!--[\s\S]*?-->/g, '')
+    // Usun komentarze HTML
+    .replace(/<[^>]+>/g, ' ')                  // wszystkie tagi -> spacja
+    .replace(/&[a-z]+;/gi, ' ')                // encje HTML
+    .replace(/&#\d+;/g, ' ')                   // numeric encje
+    .replace(/\s+/g, ' ')                      // multiple whitespace -> single
+    .toLowerCase()
+    .trim()
+    .slice(0, 30000);                          // ucinamy do 30K chars (avg gov page ~5-15K text)
+}
+
+export function hashContent(content: string): string {
+  return createHash('sha256').update(content).digest('hex');
+}
+
+/**
+ * Wylicza procent zmiany miedzy dwoma stringami (jaccard-like).
+ * Zwraca 0.0 (identyczne) - 1.0 (calkowicie rozne).
+ */
+export function calculateChangePct(prev: string, curr: string): number {
+  if (prev === curr) return 0;
+  if (!prev || !curr) return 1;
+
+  // Tokenize na slowa (5+ znakow) -> Set
+  const tokensA = new Set(prev.split(/\s+/).filter(w => w.length >= 5));
+  const tokensB = new Set(curr.split(/\s+/).filter(w => w.length >= 5));
+  if (tokensA.size === 0 && tokensB.size === 0) return 0;
+
+  // Jaccard distance: 1 - |intersection| / |union|
+  let intersect = 0;
+  for (const t of tokensA) if (tokensB.has(t)) intersect++;
+  const union = tokensA.size + tokensB.size - intersect;
+  if (union === 0) return 0;
+  return 1 - (intersect / union);
+}
+
+export async function auditUrl(
+  benefitId: string,
+  benefitName: string,
+  category: string,
+  url: string,
+  previous: PreviousAudit | null,
+): Promise<AuditResult> {
+  const ctrl = new AbortController();
+  const timeout = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
+
+  try {
+    const res = await fetch(url, {
+      signal: ctrl.signal,
+      headers: {
+        'User-Agent': USER_AGENT,
+        'Accept': 'text/html,application/xhtml+xml',
+        'Accept-Language': 'pl-PL,pl;q=0.9,en;q=0.8',
+      },
+      redirect: 'follow',
+    });
+    clearTimeout(timeout);
+
+    const httpStatus = res.status;
+
+    // 404 -> alert natychmiast
+    if (httpStatus === 404 || httpStatus === 410) {
+      return {
+        benefitId, benefitName, category, url,
+        httpStatus, status: 'NOT_FOUND',
+        contentHash: null, contentLength: 0, changePct: null,
+        needsReview: true,
+        note: `HTTP ${httpStatus} -- strona zrodlowa nie istnieje`,
+      };
+    }
+
+    // Inne 4xx/5xx
+    if (!res.ok) {
+      return {
+        benefitId, benefitName, category, url,
+        httpStatus, status: httpStatus >= 500 ? 'BLOCKED' : 'BLOCKED',
+        contentHash: null, contentLength: 0, changePct: null,
+        needsReview: (previous?.consecutive_errors ?? 0) >= 2, // alert po 3 errorach z rzedu
+        note: `HTTP ${httpStatus}`,
+      };
+    }
+
+    // Redirect (po follow) -- sprawdzamy czy URL koncowy != podany
+    const finalUrl = res.url;
+    const isRedirect = !sameOrigin(finalUrl, url);
+
+    // Hash content
+    const html = await res.text();
+    const stableContent = extractStableContent(html);
+    const contentLength = stableContent.length;
+    const contentHash = hashContent(stableContent);
+
+    // Porownanie z poprzednim
+    let changePct: number | null = null;
+    let status: AuditStatus = 'OK';
+    let needsReview = false;
+
+    if (previous?.last_content_hash) {
+      if (contentHash !== previous.last_content_hash) {
+        // Mamy poprzedni hash, ale nie content -- musimy zalozyc ze sie zmienilo
+        // Pelne porownanie wymaga zachowania samego content (drogo) -- zamiast tego sygnalizujemy zmiane.
+        // Hash sie zmienil = jakas zmiana. Czy "znaczaca" decydujemy heurystyka:
+        // - jesli mamy >100 znakow content = zaufaj hash
+        changePct = 1; // konserwatywnie, zalozmy ze pelna zmiana
+        status = 'CHANGED';
+        needsReview = true; // zawsze alert gdy hash sie zmienil (operator zdecyduje)
+      }
+    } else {
+      // Pierwszy audit -- nowy benefit
+      status = 'NEW';
+      needsReview = false;
+    }
+
+    // Jesli redirect i poprzednio nie bylo redirect -> review
+    if (isRedirect && !needsReview) {
+      status = 'REDIRECT';
+      needsReview = true;
+    }
+
+    return {
+      benefitId, benefitName, category, url,
+      httpStatus, status, contentHash, contentLength, changePct, needsReview,
+      ...(isRedirect && { note: `Redirect -> ${finalUrl}` }),
+    };
+  } catch (err) {
+    clearTimeout(timeout);
+    const errMsg = err instanceof Error ? err.message : String(err);
+    return {
+      benefitId, benefitName, category, url,
+      httpStatus: 0,
+      status: errMsg.includes('aborted') ? 'TIMEOUT' : 'BLOCKED',
+      contentHash: null, contentLength: 0, changePct: null,
+      needsReview: (previous?.consecutive_errors ?? 0) >= 2,
+      note: errMsg.slice(0, 200),
+    };
+  }
+}
+
+function sameOrigin(a: string, b: string): boolean {
+  try {
+    const ua = new URL(a);
+    const ub = new URL(b);
+    // Same host + pathname pierwszy 2 segmenty (np. www.gov.pl/web/rodzina jest "ten sam" co /web/rodzina/X)
+    return ua.host === ub.host;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Audit wszystkich URLi z concurrency limit.
+ */
+export async function auditAll(
+  benefits: Array<{ benefitId: string; benefitName: string; category: string; url: string }>,
+  previousMap: Map<string, PreviousAudit>,
+): Promise<AuditResult[]> {
+  const results: AuditResult[] = [];
+  const chunks: typeof benefits[] = [];
+
+  for (let i = 0; i < benefits.length; i += CONCURRENCY) {
+    chunks.push(benefits.slice(i, i + CONCURRENCY));
+  }
+
+  for (const chunk of chunks) {
+    const batch = await Promise.all(
+      chunk.map(b => auditUrl(b.benefitId, b.benefitName, b.category, b.url, previousMap.get(b.benefitId) ?? null)),
+    );
+    results.push(...batch);
+  }
+
+  return results;
+}
+
+export { SIGNIFICANT_CHANGE_THRESHOLD };

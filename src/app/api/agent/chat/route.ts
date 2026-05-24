@@ -251,11 +251,12 @@ async function maybeFetchNfz(text: string, userProvince: string | null): Promise
     try {
       const { searchProviders } = await import('@/lib/sources/nfz');
       const providers = await searchProviders({ branch: province, limit: 10 });
-      if (providers.data && providers.data.length > 0) {
+      const entries = providers.data?.entries ?? [];
+      if (entries.length > 0) {
         const lines = [`NFZ - placowki${province ? ` w wybranym wojewodztwie` : ''}:`];
-        for (const p of providers.data.slice(0, 5)) {
+        for (const p of entries.slice(0, 5)) {
           const a = p.attributes;
-          lines.push(`  - ${a.name}, ${a.locality ?? ''}${a.phone ? `, tel. ${a.phone}` : ''}`);
+          lines.push(`  - ${a.name}, ${a.place ?? ''}${a.phone ? `, tel. ${a.phone}` : ''}`);
         }
         lines.push(`Wyszukiwarka: https://wezmezadarmo.com/nfz`);
         return lines.join('\n');
