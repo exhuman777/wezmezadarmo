@@ -1,4 +1,5 @@
 import type { DigestPayload } from '@/lib/digest';
+import { emailHash } from '@/lib/newsletter';
 
 export function buildDigestSubject(payload: DigestPayload): string {
   const count = payload.rssItems.length + payload.benefits.length;
@@ -85,6 +86,8 @@ export function buildDigestHtml(payload: DigestPayload): string {
             <a href="https://wezmezadarmo.com/agent/panel/powiadomienia" style="color: ${accentColor}; text-decoration: none;">Zarządzaj ustawieniami</a>
             &nbsp;&bull;&nbsp;
             <a href="https://wezmezadarmo.com/agent/panel" style="color: ${accentColor}; text-decoration: none;">Panel agenta</a>
+            &nbsp;&bull;&nbsp;
+            <a href="https://wezmezadarmo.com/api/newsletter/unsubscribe?email=${encodeURIComponent(payload.to)}&hash=${emailHash(payload.to)}" style="color: ${mutedColor}; text-decoration: underline;">Wypisz się</a>
           </div>
           <div style="font-size: 10px; color: ${mutedColor}; margin-top: 8px; line-height: 1.5;">
             Ten e-mail nie zawiera Twoich danych osobowych.

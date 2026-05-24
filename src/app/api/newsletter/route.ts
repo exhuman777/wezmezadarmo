@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { generateToken, sendConfirmEmail } from '@/lib/newsletter';
 
 interface NewsletterPayload {
   email: string;
@@ -24,7 +25,6 @@ function checkRate(ip: string): boolean {
 }
 
 function isValidEmail(email: string): boolean {
-  // Simple but solid email validation
   return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email) && email.length <= 254;
 }
 
@@ -45,7 +45,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Przekroczono dzienny limit zapisów' }, { status: 429 });
     }
 
-    // Zapis do Supabase (idempotent przez UNIQUE(email))
     const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
@@ -55,30 +54,55 @@ export async function POST(request: NextRequest) {
     }
 
     const supabase = createClient(url, key);
-    const { error } = await supabase
+
+    // Sprawdz czy email juz zapisany i potwierdzony
+    const { data: existing } = await supabase
+      .from('newsletter_subscribers')
+      .select('confirmed, unsubscribed_at, confirmation_token')
+      .eq('email', email)
+      .maybeSingle();
+
+    // Jesli juz potwierdzony i nie wypisany -- nic nie rob, ale udawaj sukces
+    if (existing?.confirmed && !existing.unsubscribed_at) {
+      return NextResponse.json({ ok: true, alreadySubscribed: true });
+    }
+
+    // Generuj nowy token i upsert
+    const token = generateToken();
+    const { error: upsertError } = await supabase
       .from('newsletter_subscribers')
       .upsert(
         {
           email,
           profile_type: profileType,
           confirmed: false,
-          unsubscribed_at: null,
+          confirmation_token: token,
+          confirmed_at: null,
+          unsubscribed_at: null, // re-subscribe gdyby byl unsubscribed
           ip,
         },
         { onConflict: 'email' },
       );
 
-    if (error) {
-      console.error('[newsletter] supabase error:', error);
-      // Jesli tabela nie istnieje, log + soft success (user zglosil zainteresowanie)
+    if (upsertError) {
+      console.error('[newsletter] supabase upsert error:', upsertError);
       return NextResponse.json(
-        { ok: true, note: 'Zapis przyjęty (queued)' },
-        { status: 200 },
+        { error: 'Nie udało się zapisać. Spróbuj później.' },
+        { status: 500 },
       );
     }
 
-    // TODO: Resend opcjonalnie wyslac email z potwierdzeniem (double opt-in)
-    // Dla MVP - prosty insert, potwierdzenie manualne lub w nastepnym cronie
+    // Wyslij email potwierdzajacy (Resend)
+    try {
+      await sendConfirmEmail(email, token, profileType);
+    } catch (emailErr) {
+      console.error('[newsletter] email send failed:', emailErr);
+      // Nie blokuj zapisu z powodu emaila -- mozna ponownie wyslac
+      return NextResponse.json({
+        ok: true,
+        warning: 'Zapisano, ale email potwierdzajacy nie poszedl. Skontaktuj sie z nami.',
+      });
+    }
 
     return NextResponse.json({ ok: true });
   } catch (err) {
