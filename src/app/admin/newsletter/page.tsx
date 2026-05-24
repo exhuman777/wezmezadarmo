@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
-import { redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 
 export const metadata: Metadata = {
   title: 'Admin: Newsletter | wezmezadarmo',
@@ -20,22 +20,30 @@ interface Subscriber {
 
 /**
  * Basic Auth check przez header (z .env ADMIN_PASSWORD).
- * Production: rozważ dodatkową warstwę przez middleware lub IP whitelist.
+ * BLOKADA SECURITY: gdy brak ADMIN_PASSWORD env, panel jest cakowicie wylaczony (404).
  */
-async function checkAuth(): Promise<boolean> {
+async function requireAuth(): Promise<void> {
   const password = process.env.ADMIN_PASSWORD;
-  if (!password) return false;
+  if (!password) {
+    // FAIL CLOSED -- gdy env nie ustawione, nie pokazujemy zadnych danych
+    notFound();
+  }
 
   const h = await headers();
   const auth = h.get('authorization');
-  if (!auth || !auth.startsWith('Basic ')) return false;
+  if (!auth || !auth.startsWith('Basic ')) {
+    // Brak/zly header -> 404 (nie ujawniamy ze taki endpoint istnieje)
+    notFound();
+  }
 
   try {
     const decoded = Buffer.from(auth.slice(6), 'base64').toString('utf-8');
     const [, pass] = decoded.split(':');
-    return pass === password;
+    if (pass !== password) {
+      notFound();
+    }
   } catch {
-    return false;
+    notFound();
   }
 }
 
@@ -65,12 +73,7 @@ async function fetchSubscribers(): Promise<{ all: Subscriber[]; stats: { total: 
 }
 
 export default async function NewsletterAdminPage() {
-  const ok = await checkAuth();
-  if (!ok) {
-    // 401 zwraca next/navigation nie obsluguje bezposrednio -- redirect na 404
-    redirect('/api/admin/auth-required');
-  }
-
+  await requireAuth();  // rzuca notFound() jak brak auth -- nic dalej nie renderuje
   const { all, stats } = await fetchSubscribers();
 
   return (
