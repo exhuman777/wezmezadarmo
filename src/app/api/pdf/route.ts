@@ -1,8 +1,7 @@
 /**
  * POST /api/pdf
- * Fills official ZUS PDF forms using coordinate-based text stamping via pdf-lib.
- * Loads the original ZUS PDF and draws user data text at exact field positions.
- * Works in any PDF viewer: Chrome, Preview, Firefox, Adobe Reader.
+ * Fills official ZUS PDF forms using AcroForm field filling (Z-15A/B, ZAS-53, PEL)
+ * or generates text-based PDFs (ERPO).
  */
 
 import { buildZas53Pdf, type Zas53WizardData } from '@/lib/forms/zas53-filler';
