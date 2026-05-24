@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback, useMemo } from 'react';
 import { PROVINCE_LABELS } from '@/lib/sources/nfz';
 import { BENEFIT_GROUPS, POPULAR_CITIES, PROVIDER_TYPES } from '@/lib/sources/nfz-presets';
+import { track } from '@/lib/analytics';
 
 type SearchMode = 'queues' | 'providers';
 type SortMode = 'fastest' | 'slowest' | 'name' | 'demand';
@@ -110,6 +111,7 @@ export default function NFZSearchClient() {
 
   const runQueueSearch = useCallback(async () => {
     if (!benefit) return;
+    track.nfzSearch('queues', benefit, province);
     setLoading(true);
     setError(null);
     setQueueResults(null);
@@ -141,6 +143,7 @@ export default function NFZSearchClient() {
       setError('Podaj nazwę lub województwo');
       return;
     }
+    track.nfzSearch('providers', providerName, providerProvince);
     setLoading(true);
     setError(null);
     setProviderResults(null);

@@ -6,6 +6,7 @@ import { IntakeForm } from '@/components/IntakeForm';
 import { ChatWindow, ChatMessage } from '@/components/ChatWindow';
 import { MatchResult, UserProfile } from '@/engine/types';
 import { CeidgBusinessData } from '@/lib/ceidg';
+import { track } from '@/lib/analytics';
 
 type Phase = 'landing' | 'questions' | 'loading' | 'chat';
 
@@ -377,6 +378,7 @@ export default function Home() {
   }, [phase]);
 
   async function handleIntakeSubmit(data: { wiek: number; plec: 'K' | 'M'; nip?: string }) {
+    track.formSubmitted(Boolean(data.nip));
     setProfile((prev) => ({ ...prev, wiek: data.wiek, plec: data.plec }));
 
     if (data.nip) {
@@ -387,6 +389,7 @@ export default function Home() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ nip: data.nip }),
         });
+        track.ceidgLookup(res.ok);
         if (res.ok) {
           // CEIDG response is enriched with Biała Lista VAT status server-side
           const ceidg: CeidgBusinessData & { vat?: { status: string | null; registeredAt: string | null; removedAt: string | null } | null } = await res.json();
@@ -400,6 +403,7 @@ export default function Home() {
           }));
         }
       } catch {
+        track.ceidgLookup(false);
         // CEIDG lookup failed, continue without business data
       }
       setIsLoading(false);

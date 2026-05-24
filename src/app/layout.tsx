@@ -5,6 +5,7 @@ import { GeistMono } from 'geist/font/mono';
 import { CookieConsent } from '@/components/CookieConsent';
 import { SiteNav } from '@/components/SiteNav';
 import { SiteFooter } from '@/components/SiteFooter';
+import { WebSiteJsonLd, OrganizationJsonLd } from '@/components/JsonLd';
 import './globals.css';
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-57R2TFXNH7';
@@ -53,6 +54,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         )}
       </head>
       <body>
+        <WebSiteJsonLd />
+        <OrganizationJsonLd />
         <SiteNav />
         {children}
         <SiteFooter />
