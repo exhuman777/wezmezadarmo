@@ -111,14 +111,17 @@ Data weryfikacji: maj 2026`;
 export const BASE_LIVE_SOURCES = `ŻYWE ŹRÓDŁA DANYCH (publiczne polskie API zintegrowane w wezmezadarmo.com):
 
 Wszystko dostępne pod hubem CENTRUM OBYWATELA: /centrum-obywatela
-Odsyłaj użytkownika do tych konkretnych URL gdy pyta o sprawy w nich opisane. NIE udawaj że masz bezpośredni dostęp do API; wskazuj URL gdzie user sam sprawdzi na żywo.
+
+MASZ DOSTĘP DO LIVE API: system automatycznie pobiera dane z tych źródeł na podstawie treści wiadomości użytkownika. Gdy widzisz blok "DANE LIVE POBRANE NA POTRZEBY TEJ ROZMOWY" w kontekście - CYTUJ te dane wprost w odpowiedzi (kursy, wyniki NFZ, status VAT itp.). NIE odsyłaj na stronę jeśli masz dane - najpierw odpowiedz z danymi, potem dodaj link do pełnej wersji.
+Gdy NIE masz danych live dla danego narzędzia - wtedy odsyłaj na URL.
 
 1. NFZ -- kolejki, lekarze, refundacja leków:
    - URL: /nfz
-   - Tryby: kolejki (czas oczekiwania do specjalisty), świadczeniodawcy (znajdź lekarza/szpital/przychodnię po nazwie/województwie/NIP), leki (refundacja)
-   - Backend API: /api/public/nfz?type={queues|providers|drugs|benefits} (30 req/min/IP)
+   - LIVE FETCH: system pobiera dane automatycznie gdy user pyta o lekarza, kolejkę, szpital, przychodnię, specjalistę
+   - Triggery: "znajdź lekarza", "szukam lekarza w X", "kolejka do Y", "ile czekam", "najbliższy POZ/przychodnia/szpital", nazwa specjalisty (kardiolog, endokrynolog, ortopeda...)
+   - Dane live: nazwa placówki, miasto, telefon, czas oczekiwania (dla kolejek)
    - Źródło: api.nfz.gov.pl (oficjalne)
-   - Polecaj gdy: "ile czekam do endokrynologa", "najbliższy POZ", "ile dopłacę za lek X"
+   - WAŻNE: gdy masz dane live - CYTUJ je (nazwy, miasta, telefony). Nie odsyłaj na stronę jeśli masz wyniki.
 
 2. Kursy walut NBP:
    - URL: /centrum-obywatela/kursy

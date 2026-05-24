@@ -205,11 +205,66 @@ async function maybeFetchWhitelist(text: string): Promise<string | null> {
   }
 }
 
-// Smart prefetch: NFZ live kolejki gdy user pyta o czas oczekiwania
+// Smart prefetch: NFZ -- kolejki + wyszukiwarka lekarzy/przychodni
 async function maybeFetchNfz(text: string, userProvince: string | null): Promise<string | null> {
   const lc = text.toLowerCase();
   const wantsQueues = /\b(kolejk|czekam|czeka|czeka[lć]|oczekiwan|terminu wizyt|kiedy.*wizyt|wolne terminy)/.test(lc);
-  if (!wantsQueues) return null;
+  const wantsProvider = /\b(lekarz|lekar[kz]|znale[zź][cć].*lekarz|szukam.*lekarz|szpital|przychodni|POZ|przychodn|poradni|najbli[zż]sz|gabinet|stomatolog|dentysta|fizjoterapeut)/.test(lc);
+  if (!wantsQueues && !wantsProvider) return null;
+
+  // Provider search mode: "znajdź lekarza w Lublinie"
+  if (wantsProvider && !wantsQueues) {
+    let province: string | undefined;
+    for (const [slug, label] of Object.entries(PROVINCE_LABELS)) {
+      if (lc.includes(label.toLowerCase()) || lc.includes(slug)) {
+        province = NFZ_PROVINCE_CODES[slug];
+        break;
+      }
+    }
+    if (!province && userProvince && NFZ_PROVINCE_CODES[userProvince]) {
+      province = NFZ_PROVINCE_CODES[userProvince];
+    }
+
+    // Detect specialty from message
+    let specialty: string | null = null;
+    for (const [keyword, benefit] of Object.entries(NFZ_SPECIALTY_MAP)) {
+      if (lc.includes(keyword)) { specialty = benefit; break; }
+    }
+
+    // If specialty found -> queue search is more useful
+    if (specialty) {
+      try {
+        const queues = await getQueues({ benefit: specialty, province, caseType: 1, limit: 5 });
+        if (queues.data && queues.data.length > 0) {
+          const lines = [`NFZ - placowki oferujace "${specialty}"${province ? ` (woj. ${Object.entries(NFZ_PROVINCE_CODES).find(([, c]) => c === province)?.[0]})` : ''}:`];
+          for (const q of queues.data.slice(0, 5)) {
+            const a = q.attributes;
+            lines.push(`  - ${a.provider}, ${a.locality}${a.phone ? `, tel. ${a.phone}` : ''}`);
+          }
+          lines.push(`Pelna lista + mapa: https://wezmezadarmo.com/nfz?benefit=${encodeURIComponent(specialty)}`);
+          return lines.join('\n');
+        }
+      } catch { /* fallback below */ }
+    }
+
+    // Generic provider search
+    try {
+      const { searchProviders } = await import('@/lib/sources/nfz');
+      const providers = await searchProviders({ branch: province, limit: 10 });
+      if (providers.data && providers.data.length > 0) {
+        const lines = [`NFZ - placowki${province ? ` w wybranym wojewodztwie` : ''}:`];
+        for (const p of providers.data.slice(0, 5)) {
+          const a = p.attributes;
+          lines.push(`  - ${a.name}, ${a.locality ?? ''}${a.phone ? `, tel. ${a.phone}` : ''}`);
+        }
+        lines.push(`Wyszukiwarka: https://wezmezadarmo.com/nfz`);
+        return lines.join('\n');
+      }
+    } catch { /* fallback */ }
+
+    const provSlug = province ? Object.entries(NFZ_PROVINCE_CODES).find(([, c]) => c === province)?.[0] : null;
+    return `Wyszukaj lekarza lub przychodnię NFZ na /nfz${provSlug ? ` (woj. ${provSlug})` : ''}. Filtruj po specjalizacji i województwie.`;
+  }
 
   let specialty: string | null = null;
   for (const [keyword, benefit] of Object.entries(NFZ_SPECIALTY_MAP)) {
