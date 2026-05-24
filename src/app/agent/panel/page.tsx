@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import OnboardingBanner from '@/components/OnboardingBanner';
+import { OnboardingWizard } from '@/components/OnboardingWizard';
 
 interface Profile {
   type: 'jdg' | 'private';
@@ -67,6 +68,7 @@ export default function AgentPanel() {
 
   return (
     <main style={{ maxWidth: 860, margin: '0 auto', padding: '48px 24px' }}>
+      {profile && <OnboardingWizard profileType={profile.type} isPanel={false} />}
       {profile && <OnboardingBanner profileType={profile.type} />}
       <div style={{ marginBottom: 32 }}>
         <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--color-text-3)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 8 }}>

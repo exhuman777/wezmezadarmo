@@ -444,6 +444,41 @@ export default function AgentSwiadczenia() {
     </div>
   );
 
+  // Empty state: profil pusty -> wezwanie do uzupelnienia (przed pokazaniem 3-col layout)
+  if (!loading && !error && results.length === 0) {
+    return (
+      <div style={{ maxWidth: 560, margin: '40px auto', padding: '32px 24px', textAlign: 'center' }}>
+        <div style={{
+          width: 64, height: 64, borderRadius: '50%',
+          background: 'linear-gradient(135deg, rgba(34,160,107,0.15) 0%, rgba(34,160,107,0.05) 100%)',
+          border: '2px solid rgba(34,160,107,0.25)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          margin: '0 auto 20px',
+          fontSize: 28, color: '#22A06B', fontWeight: 700, fontFamily: 'var(--font-mono)',
+        }}>?</div>
+        <h2 style={{ fontSize: 22, fontWeight: 700, color: 'var(--color-text-1)', marginBottom: 10 }}>
+          Najpierw uzupełnij profil
+        </h2>
+        <p style={{ fontSize: 14, color: 'var(--color-text-3)', lineHeight: 1.6, marginBottom: 24 }}>
+          Bez wieku, dochodu i sytuacji rodzinnej silnik nie ma jak dopasować świadczeń.
+          Wypełnienie zajmuje 2 minuty. Sprawdzimy 118 świadczeń (ZUS, NFZ, PFRON, KRUS, MOPS, ulgi PIT)
+          i pokażemy te które Ci się należą.
+        </p>
+        <a href="/panel/profil" style={{
+          display: 'inline-block', padding: '12px 28px', borderRadius: 12,
+          background: 'linear-gradient(135deg, #22A06B, #1d9060)',
+          color: '#fff', fontSize: 14, fontWeight: 600, textDecoration: 'none',
+          boxShadow: '0 4px 14px rgba(34,160,107,0.35)',
+        }}>
+          Wypełnij profil →
+        </a>
+        {error && (
+          <p style={{ marginTop: 16, fontSize: 12, color: '#dc5050' }}>{error}</p>
+        )}
+      </div>
+    );
+  }
+
   return (
     <div style={{ display: 'flex', height: '100%', overflow: 'hidden', position: 'relative' }}>
       <style>{`

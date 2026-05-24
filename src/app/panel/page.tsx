@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { createBrowserClient } from '@supabase/ssr';
+import WelcomeTour from '@/components/WelcomeTour';
 
 interface UserInfo {
   email: string;
@@ -16,6 +17,7 @@ const MODULES = [
     label: 'Świadczenia i ulgi',
     desc: 'Sprawdź na co się kwalifikujesz: zasiłki, ulgi podatkowe, darmowe badania',
     color: 'var(--green-800)',
+    tour: 'swiadczenia',
   },
   {
     href: '/panel/dotacje',
@@ -23,6 +25,7 @@ const MODULES = [
     label: 'Dotacje i dofinansowania',
     desc: 'Monitoring naborów, dopasowanie do profilu firmy, powiadomienia',
     color: 'var(--green-700)',
+    tour: 'dotacje',
   },
   {
     href: '/panel/chat',
@@ -30,6 +33,7 @@ const MODULES = [
     label: 'Czat z asystentem AI',
     desc: 'Zadaj pytanie o świadczenia, wnioski, terminy lub przepisy',
     color: 'var(--green-650)',
+    tour: 'chat',
   },
   {
     href: '/panel/aktualnosci',
@@ -37,6 +41,7 @@ const MODULES = [
     label: 'Aktualności',
     desc: 'Zmiany w prawie, nowe programy, ważne terminy z RSS',
     color: 'var(--green-600)',
+    tour: 'aktualnosci',
   },
   {
     href: '/panel/wnioski',
@@ -44,6 +49,7 @@ const MODULES = [
     label: 'Wnioski',
     desc: 'Wypełnianie formularzy ZUS z pomocą AI i eksport do PDF',
     color: 'var(--green-550)',
+    tour: undefined,
   },
   {
     href: '/panel/powiadomienia',
@@ -51,6 +57,7 @@ const MODULES = [
     label: 'Powiadomienia',
     desc: 'Ustawienia dziennego digestu e-mail i kategorii',
     color: 'var(--green-500)',
+    tour: undefined,
   },
 ];
 
@@ -97,10 +104,11 @@ export default function PanelDashboard() {
 
   return (
     <div style={{ maxWidth: 900, margin: '0 auto', padding: '48px 28px' }}>
+      <WelcomeTour />
 
       {/* Baner dla nowych użytkowników z pustym profilem */}
       {profileEmpty && (
-        <div style={{
+        <div data-tour="profile" style={{
           marginBottom: 28,
           padding: '20px 24px',
           background: 'linear-gradient(135deg, rgba(34,160,107,0.1) 0%, rgba(34,160,107,0.05) 100%)',
@@ -145,10 +153,11 @@ export default function PanelDashboard() {
         gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))',
         gap: 16,
       }}>
-        {MODULES.map(({ href, icon, label, desc, color }) => (
+        {MODULES.map(({ href, icon, label, desc, color, tour }) => (
           <Link
             key={href}
             href={href}
+            data-tour={tour}
             className="card card-hover"
             style={{
               display: 'block',

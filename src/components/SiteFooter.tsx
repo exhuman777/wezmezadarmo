@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { FooterContactForm } from './FooterContactForm';
+import { NewsletterSignup } from './NewsletterSignup';
 
 const PRODUKT = [
   { href: '/', label: 'Świadczenia dla osoby' },

@@ -318,23 +318,58 @@ function parseHtmlEzdrowie(html) {
 
 function parseHtmlArimr(html) {
   const items = [];
-  // Strategia 1: pelne URL
-  const linkRe = /href=["'](https?:\/\/www\.arimr\.gov\.pl\/aktualnosci[^"']{5,200})["'][^>]*>([^<]{15,200})/gi;
+  const seen = new Set();
+
+  // ARiMR struktura: artykuly pod /web/arimr/{slug-z-opisem-w-url}
+  // Plus stara struktura: /aktualnosci, /komunikaty
+  // Konwencja: slug zawiera tytul rozdzielony myslnikami
+
+  // Strategia 1: /web/arimr/{slug} z tytulem
+  const webRe = /href=["'](\/web\/arimr\/[a-z0-9-]{20,200})["'][^>]*>([^<]{15,250})/gi;
   let m;
-  while ((m = linkRe.exec(html)) !== null && items.length < MAX_ITEMS_PER_FEED) {
+  while ((m = webRe.exec(html)) !== null && items.length < MAX_ITEMS_PER_FEED) {
+    const link = 'https://www.arimr.gov.pl' + m[1];
+    if (seen.has(link)) continue;
     const title = stripHtml(m[2]).trim();
     if (title.length < 15) continue;
-    items.push({ title, link: m[1], description: '', pubDate: null });
+    // Skip strony statyczne
+    if (/centrala|kontakt|adres|departament|kierownictwo|dostepnosc|biuletyn|opis/i.test(m[1])) continue;
+    seen.add(link);
+    items.push({ title, link, description: '', pubDate: null });
   }
-  // Strategia 2: relatywne URL
-  if (items.length === 0) {
-    const relRe = /href=["'](\/aktualnosci[^"']{5,200})["'][^>]*>([^<]{15,200})/gi;
-    while ((m = relRe.exec(html)) !== null && items.length < MAX_ITEMS_PER_FEED) {
-      const title = stripHtml(m[2]).trim();
-      if (title.length < 15) continue;
-      items.push({ title, link: 'https://www.arimr.gov.pl' + m[1], description: '', pubDate: null });
+
+  // Strategia 2 fallback: gdy nie ma tytulu w anchor - generuj z URL slug
+  if (items.length < 5) {
+    const slugRe = /href=["'](\/web\/arimr\/[a-z0-9-]{30,200})["']/gi;
+    while ((m = slugRe.exec(html)) !== null && items.length < MAX_ITEMS_PER_FEED) {
+      const link = 'https://www.arimr.gov.pl' + m[1];
+      if (seen.has(link)) continue;
+      const slug = m[1].split('/').pop() ?? '';
+      if (/centrala|kontakt|adres|departament|kierownictwo|dostepnosc|biuletyn|opis|aktualnosci$/i.test(slug)) continue;
+      // Slug -> Title Case
+      const title = decodeURIComponent(slug)
+        .replace(/-/g, ' ')
+        .replace(/^\w/, c => c.toUpperCase())
+        .trim();
+      if (title.length < 20) continue;
+      seen.add(link);
+      items.push({ title, link, description: '', pubDate: null });
     }
   }
+
+  // Strategia 3: stara struktura /aktualnosci, /komunikaty
+  if (items.length === 0) {
+    const oldRe = /href=["']((?:https?:\/\/www\.arimr\.gov\.pl)?\/aktualnosci[^"']{5,200})["'][^>]*>([^<]{15,200})/gi;
+    while ((m = oldRe.exec(html)) !== null && items.length < MAX_ITEMS_PER_FEED) {
+      const title = stripHtml(m[2]).trim();
+      if (title.length < 15) continue;
+      const link = m[1].startsWith('http') ? m[1] : 'https://www.arimr.gov.pl' + m[1];
+      if (seen.has(link)) continue;
+      seen.add(link);
+      items.push({ title, link, description: '', pubDate: null });
+    }
+  }
+
   return items;
 }
 
@@ -510,8 +545,15 @@ function isArticleLink(link, feedId) {
         && !lc.endsWith('funduszeeuropejskie.gov.pl/')
         && link.length > 50;
     case 'arimr':
-      // ARiMR - wszystko na ich domenie, dluga sciezka
-      return lc.includes('arimr.gov.pl') && !lc.endsWith('arimr.gov.pl/') && link.length > 40;
+      // ARiMR - artykuly pod /web/arimr/{slug} (np. doplaty-2026, biuletyn-informacyjny-nr-X)
+      if (lc.includes('arimr.gov.pl/web/arimr/')) {
+        // Wykluczamy strony nawigacyjne / statyczne
+        if (lc.match(/\/(centrala|kontakt|adres|departament|kierownictwo|dostepnosc|biuletyn|opis|o-arimr)$/)) return false;
+        if (lc.match(/\/web\/arimr(-en)?$/)) return false; // root
+        if (lc.endsWith('/aktualnosci') || lc.endsWith('/aktualnosci10')) return false;
+        return link.length > 50; // realne artykuly maja dluga sciezke z opisem
+      }
+      return false;
     case 'ezdrowie':
       return lc.includes('ezdrowie.gov.pl/portal/') && !lc.endsWith('/aktualnosci');
     case 'uokik':
