@@ -247,24 +247,14 @@ async function maybeFetchNfz(text: string, userProvince: string | null): Promise
       } catch { /* fallback below */ }
     }
 
-    // Generic provider search
-    try {
-      const { searchProviders } = await import('@/lib/sources/nfz');
-      const providers = await searchProviders({ branch: province, limit: 10 });
-      const entries = providers.data?.entries ?? [];
-      if (entries.length > 0) {
-        const lines = [`NFZ - placowki${province ? ` w wybranym wojewodztwie` : ''}:`];
-        for (const p of entries.slice(0, 5)) {
-          const a = p.attributes;
-          lines.push(`  - ${a.name}, ${a.place ?? ''}${a.phone ? `, tel. ${a.phone}` : ''}`);
-        }
-        lines.push(`Wyszukiwarka: https://wezmezadarmo.com/nfz`);
-        return lines.join('\n');
-      }
-    } catch { /* fallback */ }
-
+    // Brak specialty -- nie zwracaj losowych podmiotow NFZ (apteki itp).
+    // Kieruj uzytkownika do wyszukiwarki gdzie sam wybierze specjalizacje.
     const provSlug = province ? Object.entries(NFZ_PROVINCE_CODES).find(([, c]) => c === province)?.[0] : null;
-    return `Wyszukaj lekarza lub przychodnię NFZ na /nfz${provSlug ? ` (woj. ${provSlug})` : ''}. Filtruj po specjalizacji i województwie.`;
+    const popularne = ['kardiolog', 'okulist', 'ortopeda', 'dermatolog', 'ginekolog', 'neurolog', 'psychiatra'];
+    return [
+      `Podaj specjalizacje (np. ${popularne.slice(0, 4).join(', ')}), wtedy znajde konkretne placowki NFZ${provSlug ? ` w woj. ${provSlug}` : ''}.`,
+      `Mozesz tez przeszukac samodzielnie: /nfz${provSlug ? `?woj=${provSlug}` : ''}`,
+    ].join('\n');
   }
 
   let specialty: string | null = null;

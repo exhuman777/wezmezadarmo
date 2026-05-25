@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { useAgentMode } from '../AgentModeContext';
 import { ChatFallbackPrompt } from '@/components/ChatFallbackPrompt';
 import ChatSidebar from '@/components/ChatSidebar';
+import { MessageContent } from '@/components/MessageContent';
 import type { AgentMode } from '@/agents/types';
 
 interface Message {
@@ -472,7 +473,7 @@ function AgentChatInner() {
               lineHeight: 1.6,
               whiteSpace: 'pre-wrap',
             }}>
-              {msg.content}
+              <MessageContent text={msg.content} />
               {isStreaming && i === messages.length - 1 && msg.role === 'assistant' && (
                 <span style={{
                   display: 'inline-block',
