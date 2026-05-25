@@ -6,11 +6,34 @@
  */
 
 import { createHash } from 'crypto';
+import { Agent } from 'undici';
 
 const TIMEOUT_MS = 15_000;
 // Browser-like UA wymagany -- BGK, czystepowietrze.gov.pl, gov.pl/ARiMR blokuja
 // custom "bot" UA (403, fetch failed). Identyfikator projektu w komentarzu zostawiony.
 const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
+
+// Pelne browser-like headers -- BGK WAF wymaga Sec-Fetch-*
+const BROWSER_HEADERS: Record<string, string> = {
+  'User-Agent': USER_AGENT,
+  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+  'Accept-Language': 'pl-PL,pl;q=0.9,en-US;q=0.8,en;q=0.7',
+  'Accept-Encoding': 'gzip, deflate, br',
+  'Sec-Fetch-Dest': 'document',
+  'Sec-Fetch-Mode': 'navigate',
+  'Sec-Fetch-Site': 'none',
+  'Sec-Fetch-User': '?1',
+  'Upgrade-Insecure-Requests': '1',
+};
+
+// Niektore *.gov.pl (np. czystepowietrze.gov.pl) wysylaja niekompletny TLS chain
+// (brak intermediate cert). Browsers maja intermediate w lokalnej bazie -> dziala.
+// Node 20 fetch tego nie ma -> "fetch failed" / UNABLE_TO_VERIFY_LEAF_SIGNATURE.
+// Bezpiecznie: tylko *.gov.pl, tylko GET, nie wysylamy credentials.
+const insecureGovAgent = new Agent({ connect: { rejectUnauthorized: false } });
+const isGovDomain = (url: string): boolean => {
+  try { return new URL(url).hostname.endsWith('.gov.pl'); } catch { return false; }
+};
 /** Procent zmiany content uznawany za "znaczacy" (wymaga review). */
 const SIGNIFICANT_CHANGE_THRESHOLD = 0.30;
 /** Concurrent fetch limit -- nie zatkajmy gov.pl. */
@@ -100,16 +123,30 @@ export async function auditUrl(
   const ctrl = new AbortController();
   const timeout = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
 
-  try {
-    const res = await fetch(url, {
+  // Helper: fetch z fallbackiem na relaxed TLS dla *.gov.pl (incomplete chain)
+  const doFetch = async (relaxTls: boolean) => {
+    const opts: RequestInit & { dispatcher?: Agent } = {
       signal: ctrl.signal,
-      headers: {
-        'User-Agent': USER_AGENT,
-        'Accept': 'text/html,application/xhtml+xml',
-        'Accept-Language': 'pl-PL,pl;q=0.9,en;q=0.8',
-      },
+      headers: BROWSER_HEADERS,
       redirect: 'follow',
-    });
+    };
+    if (relaxTls && isGovDomain(url)) opts.dispatcher = insecureGovAgent;
+    return fetch(url, opts as RequestInit);
+  };
+
+  try {
+    let res: Response;
+    try {
+      res = await doFetch(false);
+    } catch (firstErr) {
+      // Retry z relaxed TLS gdy *.gov.pl wysyla niekompletny chain
+      const msg = firstErr instanceof Error ? firstErr.message : '';
+      if (isGovDomain(url) && /fetch failed|certificate|self.?signed|chain/i.test(msg)) {
+        res = await doFetch(true);
+      } else {
+        throw firstErr;
+      }
+    }
     clearTimeout(timeout);
 
     const httpStatus = res.status;
