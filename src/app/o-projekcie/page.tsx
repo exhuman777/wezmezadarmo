@@ -400,7 +400,7 @@ export default function OProjekciePage() {
               <p style={{ fontSize: 14, color: 'var(--color-text-2)', lineHeight: 1.65, marginBottom: 16 }}>
                 Projekt stworzył <strong style={{ color: 'var(--color-text-1)' }}>Kamil Sobkowicz</strong>,
                 programista i przedsiębiorca z Polski. Kalkulator świadczeń i kreator wniosków
-                to projekt społeczny. Narzędzia dla firm rozwijane są przez zespół theVelopers.
+                to projekt społeczny. Narzędzia dla firm rozwijane są oddzielnie.
               </p>
               <div style={{
                 display: 'flex', alignItems: 'center', gap: 12,
