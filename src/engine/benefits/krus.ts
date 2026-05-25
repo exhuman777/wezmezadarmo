@@ -235,8 +235,8 @@ export const KRUS: Benefit[] = [
       ],
       odwolanie: 'Odwołanie do Sądu Rejonowego, Wydział Pracy i Ubezpieczeń Społecznych w ciągu 30 dni',
     },
-    zrodloUrl: 'https://www.krus.gov.pl/zadania-krus/swiadczenia/zasilek-opiekunczy/',
-    zrodloNazwa: 'KRUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
+    zrodloUrl: 'https://www.gov.pl/web/krus/zasilek-opiekunczy',
+    zrodloNazwa: 'KRUS', dataWeryfikacji: '2026-05-25', dataWaznosci: '2026-12-31',
   },
   {
     id: 'dodatek-pielegnacyjny-krus', nazwa: 'Dodatek pielęgnacyjny KRUS',

@@ -198,8 +198,8 @@ export const EKOLOGIA: Benefit[] = [
       ],
       odwolanie: 'Nie dotyczy (program zakończony)',
     },
-    zrodloUrl: 'https://czystepowietrze.gov.pl/inne-programy/stop-smog',
-    zrodloNazwa: 'NFOŚiGW, Program Stop Smog (zakończony)', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
+    zrodloUrl: 'https://www.gov.pl/web/klimat/stop-smog',
+    zrodloNazwa: 'Ministerstwo Klimatu, Program Stop Smog (zakończony)', dataWeryfikacji: '2026-05-25', dataWaznosci: '2026-12-31',
   },
   {
     id: 'dodatek-oslonowy', nazwa: 'Dodatek osłonowy',

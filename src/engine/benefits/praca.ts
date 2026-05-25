@@ -214,9 +214,9 @@ export const PRACA: Benefit[] = [
       ],
       odwolanie: 'Odwołanie do starosty w ciągu 14 dni od decyzji odmownej',
     },
-    zrodloUrl: 'https://psz.praca.gov.pl/-/35960-bon-szkoleniowy',
+    zrodloUrl: 'https://www.gov.pl/web/rodzina/bon-szkoleniowy',
     zrodloNazwa: 'Ministerstwo Rodziny, Pracy i Polityki Społecznej',
-    dataWeryfikacji: '2026-05-23',
+    dataWeryfikacji: '2026-05-25',
     dataWaznosci: '2026-12-31',
   },
 
@@ -655,9 +655,9 @@ export const PRACA: Benefit[] = [
       ],
       odwolanie: 'Odwołanie do starosty w ciągu 14 dni',
     },
-    zrodloUrl: 'https://psz.praca.gov.pl/dla-bezrobotnych-i-poszukujacych-pracy/podnoszenie-kwalifikacji/przygotowanie-zawodowe-doroslych',
+    zrodloUrl: 'https://www.gov.pl/web/rodzina/przygotowanie-zawodowe-doroslych',
     zrodloNazwa: 'Ministerstwo Rodziny, Pracy i Polityki Społecznej',
-    dataWeryfikacji: '2026-05-23',
+    dataWeryfikacji: '2026-05-25',
     dataWaznosci: '2026-12-31',
   },
 
