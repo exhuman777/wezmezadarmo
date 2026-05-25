@@ -1,36 +1,30 @@
 import type { UserProfile, MatchResult } from '@/engine/types';
 
-export type AgentMode = 'ogolny' | 'swiadczenie' | 'wniosek' | 'nabor' | 'faktura' | 'termin';
+export const AGENT_IDS = [
+  'konsjerz', 'swiadczenia', 'wnioski', 'nfz-zdrowie',
+  'finanse-jdg', 'dotacje', 'prawo-terminy', 'rolnik',
+] as const;
 
-export interface AgentKnowledge {
-  /** Unikalne ID agenta */
-  id: AgentMode;
+export type AgentId = typeof AGENT_IDS[number];
 
-  /** Nazwa wyświetlana */
-  name: string;
+// Backward compat alias - remove after full migration
+export type AgentMode = AgentId;
 
-  /** Krótki opis dla UI */
-  description: string;
+export type PrefetchSource = 'nfz' | 'gios' | 'nbp' | 'whitelist' | 'ceidg' | 'imgw' | 'eli' | 'bdl-gus' | 'benefits';
 
-  /** Persona i specjalizacja agenta -- główna część system prompt */
-  persona: string;
-
-  /** Wiedza domenowa -- fakty, regulacje, przepisy które agent zna */
-  domainKnowledge: string;
-
-  /** Reguły odpowiadania specyficzne dla tego agenta */
-  responseRules: string;
-
-  /** Czego agent NIE robi / nie wie */
-  boundaries: string;
-
-  /** Przykładowe interakcje (few-shot) dla jakości odpowiedzi */
-  examples: string;
-
-  /** Źródła wiedzy z których agent korzysta */
-  sources: string[];
+export interface AgentConfig {
+  id: AgentId;
+  label: string;
+  desc: string;
+  icon: string;
+  keywords: string[];
+  prefetch: PrefetchSource[];
+  agentPrompt: string;    // agent.md content
+  knowledge: string;      // knowledge.md content
+  sources: string;        // sources.md content
 }
 
+// Keep existing interfaces unchanged
 export interface RssContextItem {
   sourceId: string;
   source: string;
@@ -54,16 +48,8 @@ export interface AgentContext {
   profileType: 'jdg' | 'private' | null;
   matchedBenefits: MatchResult[] | null;
   userProfile: UserProfile | null;
-
-  /** Public chat: focus on a specific benefit with enriched knowledge */
   focusedBenefitId?: string | null;
-
-  /** Live RSS items from rss_cache (top 10-20 fresh, optionally filtered by user audience) */
   recentRssItems?: RssContextItem[] | null;
-
-  /** User's RSS subscription filters */
   rssSubscription?: RssSubscriptionContext | null;
-
-  /** Extra context appended to the prompt (company data, live intel, etc.) */
   extraContext?: string | null;
 }
