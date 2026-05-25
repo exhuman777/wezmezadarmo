@@ -507,6 +507,40 @@ section.short { padding: 48px 0; }
   margin-top: 4px;
 }
 
+/* Dark mode nav overrides */
+html.dark .topnav {
+  background: rgba(3, 21, 13, .90);
+}
+html.dark .logo { color: var(--ink-900); }
+html.dark .logo .dim { color: var(--ink-500); }
+html.dark .navlink { color: var(--ink-700); }
+html.dark .navlink:hover {
+  background: rgba(255,255,255,.05);
+  color: var(--ink-900);
+}
+html.dark .navlink.active {
+  background: rgba(34,160,107,.18);
+  color: var(--green-500);
+}
+html.dark .mobile-menu-btn { color: var(--ink-700); }
+html.dark .mobile-menu-btn:hover { background: rgba(255,255,255,.06); }
+html.dark .mobile-nav-dropdown { background: var(--surface); }
+html.dark .mobile-navlink { color: var(--ink-700); }
+html.dark .mobile-navlink:hover { background: rgba(255,255,255,.05); }
+html.dark .mobile-navlink.active {
+  background: rgba(34,160,107,.18);
+  color: var(--green-500);
+}
+html.dark .btn-ghost {
+  background: rgba(255,255,255,.06);
+  border-color: rgba(255,255,255,.12);
+  color: var(--ink-900);
+}
+html.dark .btn-ghost:hover {
+  background: rgba(255,255,255,.10);
+  border-color: rgba(255,255,255,.22);
+}
+
 
 /* =======================================================
    Buttons
