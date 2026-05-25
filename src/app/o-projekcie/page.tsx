@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'O projekcie | wezmezadarmo',
-  description: 'Dowiedz się po co powstał wezmezadarmo, komu służy, jak działa i kto za nim stoi.',
+  description: 'Dowiedz sie po co powstal wezmezadarmo, komu sluzy, jak dziala i kto za nim stoi.',
 };
 
 const MODULES = [
@@ -32,20 +32,20 @@ const MODULES = [
     desc: 'Agregator RSS z ZUS, GUS, NBP, NFZ, UOKiK, Sejmu i innych instytucji. Plus widget jakości powietrza GIOŚ i kursów walut NBP na żywo. Odświeżany co 30 minut.',
   },
   {
-    href: '/nfz',
-    label: 'Wyszukiwarka NFZ',
-    badge: 'Bezpłatny',
-    badgeTone: 'green',
-    icon: 'N',
-    desc: 'Sprawdź czas oczekiwania do specjalisty NFZ, znajdź świadczeniodawcę po nazwie i województwie, sprawdź refundację leków. Dane na żywo z api.nfz.gov.pl.',
-  },
-  {
     href: '/centrum-obywatela',
     label: 'Centrum obywatela',
     badge: 'Bezpłatny',
     badgeTone: 'green',
     icon: 'C',
     desc: 'Hub 11 publicznych narzędzi: NFZ (kolejki, lekarze), NBP (kursy walut), GIOŚ (powietrze), Biała Lista VAT, IMGW/RCB (ostrzeżenia), ELI/Sejm (zmiany w prawie), BDL GUS (dane gminy), ARiMR (mapy działek), PKP (tabela ulg). Wszystko z oficjalnych polskich API, bez logowania.',
+  },
+  {
+    href: '/statystyki',
+    label: 'Polska w liczbach',
+    badge: 'Bezpłatny',
+    badgeTone: 'green',
+    icon: 'ST',
+    desc: 'Dashboard danych publicznych z GUS, NBP, NFZ. Wskaźniki SDG live, ceny mieszkań, status integracji API państwowych. Dane aktualizowane na bieżąco.',
   },
   {
     href: '/agent',
@@ -94,7 +94,7 @@ const AUDIENCE = [
 
 const TECH = [
   { name: 'Next.js 16', note: 'App Router, TypeScript' },
-  { name: 'Google Gemini', note: 'via OpenRouter — asystent czatowy' },
+  { name: 'Google Gemini', note: 'via OpenRouter, asystent czatowy' },
   { name: 'Silnik dopasowań', note: 'autorski algorytm TypeScript' },
   { name: 'Supabase', note: 'baza danych, serwery w UE' },
   { name: 'Vercel', note: 'hosting serverless, edge deployment' },
@@ -124,6 +124,18 @@ const SECURITY = [
   },
 ];
 
+function SectionLabel({ eyebrow, title, count }: { eyebrow: string; title: string; count?: string }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 16 }}>
+      <div style={{ paddingLeft: 14, borderLeft: '3px solid var(--color-green)' }}>
+        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--color-green)', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: 3 }}>{eyebrow}</div>
+        <h2 style={{ fontSize: 'clamp(20px, 2.5vw, 28px)', fontWeight: 700, letterSpacing: '-0.025em', color: 'var(--color-text-1)', margin: 0 }}>{title}</h2>
+      </div>
+      {count && <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--color-text-2)', paddingBottom: 2 }}>{count}</span>}
+    </div>
+  );
+}
+
 export default function OProjekciePage() {
   return (
     <main style={{ minHeight: '100vh' }}>
@@ -135,9 +147,11 @@ export default function OProjekciePage() {
         background: `radial-gradient(700px 400px at 70% 20%, rgba(34,160,107,.22), transparent 60%), var(--green-950)`,
         borderRadius: '0 0 24px 24px',
       }}>
+        <div style={{ position: 'absolute', right: -60, top: -60, width: 300, height: 300, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.06)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', right: 80, top: 40, width: 140, height: 140, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.04)', pointerEvents: 'none' }} />
         <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 60, background: 'linear-gradient(to bottom, transparent 0%, #f0f6f1 100%)', pointerEvents: 'none' }} />
         <div className="wrap" style={{ position: 'relative' }}>
-          <div className="mono" style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(142,234,173,0.7)', marginBottom: 14 }}>
+          <div className="mono" style={{ fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(142,234,173,0.7)', marginBottom: 14 }}>
             O PROJEKCIE
           </div>
           <h1 style={{ maxWidth: 640, color: '#fff', marginBottom: 14 }}>
@@ -154,21 +168,23 @@ export default function OProjekciePage() {
       <section style={{ paddingBottom: 0 }}>
         <div className="wrap">
           <div style={{
-            display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)',
-            background: 'var(--color-surface)',
-            border: '1px solid var(--color-border)',
-            borderRadius: 16, overflow: 'hidden',
-            boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
+            display: 'flex', gap: 12, flexWrap: 'wrap',
             marginTop: 28,
           }}>
             {[
-              { num: '118', label: 'świadczeń w bazie' },
-              { num: '15', label: 'kategorii' },
-              { num: '2 min', label: 'średni czas analizy' },
-            ].map((s, i) => (
-              <div key={i} style={{ padding: '20px 24px', borderRight: i < 2 ? '1px solid var(--color-border)' : undefined }}>
-                <div className="mono" style={{ fontSize: 'clamp(22px, 3vw, 34px)', fontWeight: 500, color: 'var(--color-green)', lineHeight: 1, marginBottom: 4 }}>{s.num}</div>
-                <div style={{ fontSize: 13, color: 'var(--color-text-3)' }}>{s.label}</div>
+              { num: '118', label: 'świadczeń w bazie', green: true },
+              { num: '15', label: 'kategorii', green: false },
+              { num: '7', label: 'modułów', green: false },
+              { num: '2 min', label: 'średni czas analizy', green: false },
+            ].map((s) => (
+              <div key={s.label} style={{
+                background: s.green ? 'rgba(34,160,107,0.08)' : 'var(--color-surface)',
+                border: `1px solid ${s.green ? 'rgba(34,160,107,0.22)' : 'var(--color-border)'}`,
+                borderRadius: 12, padding: '14px 20px', minWidth: 110,
+                boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
+              }}>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(20px, 3vw, 30px)', fontWeight: 600, color: s.green ? '#22a06b' : 'var(--color-green)', lineHeight: 1, marginBottom: 4, letterSpacing: '-0.02em' }}>{s.num}</div>
+                <div style={{ fontSize: 12, color: 'var(--color-text-2)' }}>{s.label}</div>
               </div>
             ))}
           </div>
@@ -176,18 +192,15 @@ export default function OProjekciePage() {
       </section>
 
       {/* Po co to powstało */}
-      <section style={{ paddingTop: 'clamp(36px, 5vw, 56px)', paddingBottom: 0 }}>
+      <section style={{ paddingTop: 'clamp(32px, 4vw, 48px)', paddingBottom: 0 }}>
         <div className="wrap">
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
-            <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--color-green)', flexShrink: 0 }} />
-            <span className="mono" style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-text-3)', fontWeight: 600 }}>Geneza</span>
-          </div>
-          <h2 style={{ fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: 700, letterSpacing: '-0.025em', marginBottom: 20, color: 'var(--color-text-1)' }}>Po co to powstało</h2>
+          <SectionLabel eyebrow="Geneza" title="Po co to powstało" />
           <div style={{
             background: 'var(--color-surface)',
             border: '1px solid var(--color-border)',
-            borderRadius: 16,
-            padding: '24px 28px',
+            borderLeft: '3px solid var(--color-green)',
+            borderRadius: '0 14px 14px 0',
+            padding: '22px 26px',
             boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
             display: 'flex', flexDirection: 'column', gap: 14,
             fontSize: 15, lineHeight: 1.7, color: 'var(--color-text-2)',
@@ -213,48 +226,42 @@ export default function OProjekciePage() {
       </section>
 
       {/* Co zawiera */}
-      <section style={{ paddingTop: 'clamp(36px, 5vw, 56px)', paddingBottom: 0 }}>
+      <section style={{ paddingTop: 'clamp(32px, 4vw, 48px)', paddingBottom: 0 }}>
         <div className="wrap">
-          <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 16 }}>
-            <div>
-              <span className="mono" style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-text-3)', fontWeight: 600 }}>Moduły</span>
-              <h2 style={{ fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: 700, letterSpacing: '-0.025em', marginTop: 6, marginBottom: 0, color: 'var(--color-text-1)' }}>Co zawiera serwis</h2>
-            </div>
-            <span className="mono" style={{ fontSize: 11, color: 'var(--color-text-3)' }}>5 narzędzi</span>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <SectionLabel eyebrow="Moduły" title="Co zawiera serwis" count={`${MODULES.length} narzędzi`} />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             {MODULES.map((mod) => (
               <Link key={mod.href} href={mod.href} style={{ textDecoration: 'none', color: 'inherit' }}>
                 <div style={{
                   background: 'var(--color-surface)',
                   border: '1px solid var(--color-border)',
-                  borderRadius: 16,
-                  padding: '18px 22px',
-                  display: 'flex', alignItems: 'flex-start', gap: 16,
+                  borderLeft: `3px solid ${mod.badgeTone === 'green' ? 'var(--color-green)' : 'var(--color-border)'}`,
+                  borderRadius: '0 14px 14px 0',
+                  padding: '16px 20px',
+                  display: 'flex', alignItems: 'flex-start', gap: 14,
                   boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
-                  transition: 'box-shadow 200ms, border-color 200ms',
                   cursor: 'pointer',
                 }}>
                   <span style={{
-                    width: 40, height: 40, borderRadius: '50%',
+                    width: 38, height: 38, borderRadius: 10,
                     background: 'var(--green-950)', color: '#fff',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontFamily: 'var(--font-mono)', fontSize: 12, fontWeight: 600, flexShrink: 0,
+                    fontFamily: 'var(--font-mono)', fontSize: 11, fontWeight: 600, flexShrink: 0,
                   }}>{mod.icon}</span>
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', marginBottom: 6 }}>
-                      <span style={{ fontSize: 15, fontWeight: 600, letterSpacing: '-0.015em', color: 'var(--color-text-1)' }}>{mod.label}</span>
-                      <span className="mono" style={{
-                        fontSize: 10, padding: '2px 8px', borderRadius: 999,
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', marginBottom: 5 }}>
+                      <span style={{ fontSize: 14, fontWeight: 600, letterSpacing: '-0.015em', color: 'var(--color-text-1)' }}>{mod.label}</span>
+                      <span style={{
+                        fontFamily: 'var(--font-mono)', fontSize: 9, padding: '2px 8px', borderRadius: 999,
                         border: `1px solid ${mod.badgeTone === 'green' ? 'var(--color-green-border)' : 'var(--color-border)'}`,
                         background: mod.badgeTone === 'green' ? 'var(--color-green-bg)' : 'var(--color-surface-2)',
-                        color: mod.badgeTone === 'green' ? 'var(--color-green)' : 'var(--color-text-3)',
-                        letterSpacing: '0.04em',
+                        color: mod.badgeTone === 'green' ? 'var(--color-green)' : 'var(--color-text-2)',
+                        letterSpacing: '0.05em', textTransform: 'uppercase',
                       }}>{mod.badge}</span>
                     </div>
-                    <p style={{ fontSize: 13, color: 'var(--color-text-3)', lineHeight: 1.6, margin: 0 }}>{mod.desc}</p>
+                    <p style={{ fontSize: 12, color: 'var(--color-text-2)', lineHeight: 1.6, margin: 0 }}>{mod.desc}</p>
                   </div>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--color-text-3)', flexShrink: 0, marginTop: 2 }}><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--color-text-2)', flexShrink: 0, marginTop: 2 }}><path d="M5 12h14M13 6l6 6-6 6"/></svg>
                 </div>
               </Link>
             ))}
@@ -263,29 +270,21 @@ export default function OProjekciePage() {
       </section>
 
       {/* Komu służy */}
-      <section style={{ paddingTop: 'clamp(36px, 5vw, 56px)', paddingBottom: 0 }}>
+      <section style={{ paddingTop: 'clamp(32px, 4vw, 48px)', paddingBottom: 0 }}>
         <div className="wrap">
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
-            <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#c44', flexShrink: 0 }} />
-            <span className="mono" style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-text-3)', fontWeight: 600 }}>Odbiorcy</span>
-          </div>
-          <h2 style={{ fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: 700, letterSpacing: '-0.025em', marginBottom: 16, color: 'var(--color-text-1)' }}>Komu może służyć</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))', gap: 10 }}>
+          <SectionLabel eyebrow="Odbiorcy" title="Komu może służyć" />
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(250px, 100%), 1fr))', gap: 8 }}>
             {AUDIENCE.map((a) => (
               <div key={a.group} style={{
                 background: 'var(--color-surface)',
                 border: '1px solid var(--color-border)',
-                borderRadius: 14,
-                padding: '16px 18px',
+                borderTop: '3px solid var(--color-green)',
+                borderRadius: '0 0 12px 12px',
+                padding: '14px 16px',
                 boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
               }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-                  <span style={{ color: 'var(--color-green)', flexShrink: 0 }}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12l5 5L20 7"/></svg>
-                  </span>
-                  <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--color-text-1)', letterSpacing: '-0.01em' }}>{a.group}</span>
-                </div>
-                <p style={{ fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.6, margin: 0 }}>{a.examples}</p>
+                <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 6, letterSpacing: '-0.01em' }}>{a.group}</div>
+                <p style={{ fontSize: 11, color: 'var(--color-text-2)', lineHeight: 1.55, margin: 0 }}>{a.examples}</p>
               </div>
             ))}
           </div>
@@ -293,14 +292,10 @@ export default function OProjekciePage() {
       </section>
 
       {/* Bezpieczeństwo */}
-      <section style={{ paddingTop: 'clamp(36px, 5vw, 56px)', paddingBottom: 0 }}>
+      <section style={{ paddingTop: 'clamp(32px, 4vw, 48px)', paddingBottom: 0 }}>
         <div className="wrap">
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
-            <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--color-green)', flexShrink: 0 }} />
-            <span className="mono" style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-text-3)', fontWeight: 600 }}>Prywatność</span>
-          </div>
-          <h2 style={{ fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: 700, letterSpacing: '-0.025em', marginBottom: 16, color: 'var(--color-text-1)' }}>Bezpieczeństwo danych</h2>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <SectionLabel eyebrow="Prywatność" title="Bezpieczeństwo danych" />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             {SECURITY.map((sec) => (
               <div key={sec.module} style={{
                 background: 'var(--color-surface)',
@@ -309,8 +304,8 @@ export default function OProjekciePage() {
                 overflow: 'hidden',
                 boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
               }}>
-                <div style={{ padding: '12px 18px', borderBottom: '1px solid var(--color-border)', background: 'var(--color-surface-2)' }}>
-                  <span className="mono" style={{ fontSize: 12, color: 'var(--color-text-2)', fontWeight: 500 }}>{sec.module}</span>
+                <div style={{ padding: '10px 18px', borderBottom: '1px solid var(--color-border)', background: 'var(--color-surface-2)' }}>
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--color-text-2)', fontWeight: 500 }}>{sec.module}</span>
                 </div>
                 <div style={{ padding: '14px 18px', display: 'flex', flexDirection: 'column', gap: 10 }}>
                   {sec.items.map((item) => (
@@ -325,7 +320,7 @@ export default function OProjekciePage() {
                       }}>{item.ok ? '✓' : '!'}</span>
                       <div>
                         <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-text-1)' }}>{item.label}</span>
-                        <span style={{ fontSize: 13, color: 'var(--color-text-3)' }}> — {item.note}</span>
+                        <span style={{ fontSize: 13, color: 'var(--color-text-2)' }}>, {item.note}</span>
                       </div>
                     </div>
                   ))}
@@ -333,7 +328,7 @@ export default function OProjekciePage() {
               </div>
             ))}
           </div>
-          <p style={{ fontSize: 12, color: 'var(--color-text-3)', marginTop: 12, lineHeight: 1.6 }}>
+          <p style={{ fontSize: 12, color: 'var(--color-text-2)', marginTop: 12, lineHeight: 1.6 }}>
             Całe połączenie jest szyfrowane (HTTPS).{' '}
             <Link href="/polityka-prywatnosci" style={{ color: 'var(--color-accent)', textDecoration: 'underline' }}>Polityka prywatności</Link>.
           </p>
@@ -341,24 +336,21 @@ export default function OProjekciePage() {
       </section>
 
       {/* Technologia */}
-      <section style={{ paddingTop: 'clamp(36px, 5vw, 56px)', paddingBottom: 0 }}>
+      <section style={{ paddingTop: 'clamp(32px, 4vw, 48px)', paddingBottom: 0 }}>
         <div className="wrap">
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
-            <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--color-text-3)', flexShrink: 0 }} />
-            <span className="mono" style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-text-3)', fontWeight: 600 }}>Stack</span>
-          </div>
-          <h2 style={{ fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: 700, letterSpacing: '-0.025em', marginBottom: 16, color: 'var(--color-text-1)' }}>Technologia</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(220px, 100%), 1fr))', gap: 10 }}>
+          <SectionLabel eyebrow="Stack" title="Technologia" />
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(200px, 100%), 1fr))', gap: 8 }}>
             {TECH.map((t) => (
               <div key={t.name} style={{
                 background: 'var(--color-surface)',
                 border: '1px solid var(--color-border)',
-                borderRadius: 14,
-                padding: '16px 18px',
+                borderTop: '2px solid var(--color-green)',
+                borderRadius: '0 0 12px 12px',
+                padding: '14px 16px',
                 boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
               }}>
-                <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 4, letterSpacing: '-0.01em' }}>{t.name}</div>
-                <div style={{ fontSize: 12, color: 'var(--color-text-3)' }}>{t.note}</div>
+                <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 3, letterSpacing: '-0.01em' }}>{t.name}</div>
+                <div style={{ fontSize: 11, color: 'var(--color-text-2)' }}>{t.note}</div>
               </div>
             ))}
           </div>
@@ -366,56 +358,45 @@ export default function OProjekciePage() {
       </section>
 
       {/* Źródła */}
-      <section style={{ paddingTop: 'clamp(36px, 5vw, 56px)', paddingBottom: 0 }}>
+      <section style={{ paddingTop: 'clamp(32px, 4vw, 48px)', paddingBottom: 0 }}>
         <div className="wrap">
-          <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 16 }}>
-            <div>
-              <span className="mono" style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-text-3)', fontWeight: 600 }}>Dane</span>
-              <h2 style={{ fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: 700, letterSpacing: '-0.025em', marginTop: 6, marginBottom: 0, color: 'var(--color-text-1)' }}>Źródła danych</h2>
-            </div>
-            <span className="mono" style={{ fontSize: 11, color: 'var(--color-text-3)' }}>14 instytucji</span>
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))', gap: 10 }}>
-            {SOURCES.map((src) => (
+          <SectionLabel eyebrow="Dane" title="Źródła danych" count="14 instytucji" />
+          <div style={{ border: '1px solid var(--color-border)', borderRadius: 14, overflow: 'hidden' }}>
+            {SOURCES.map((src, i) => (
               <div key={src.id} style={{
-                background: 'var(--color-surface)',
-                border: '1px solid var(--color-border)',
-                borderRadius: 14,
-                padding: '14px 18px',
-                display: 'flex', gap: 12, alignItems: 'flex-start',
-                boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
+                padding: '11px 18px',
+                display: 'grid', gridTemplateColumns: '160px 1fr', gap: 16, alignItems: 'center',
+                borderBottom: i < SOURCES.length - 1 ? '1px solid var(--color-border)' : 'none',
+                background: i % 2 === 0 ? 'var(--color-surface)' : 'var(--color-bg-0)',
               }}>
-                <span style={{ color: 'var(--color-green)', flexShrink: 0, marginTop: 2 }}>
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                </span>
-                <div>
-                  <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 3, fontFamily: 'var(--font-mono)' }}>{src.name}</div>
-                  <div style={{ fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.5 }}>{src.desc}</div>
-                </div>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, fontWeight: 600, color: 'var(--color-green)' }}>{src.name}</div>
+                <div style={{ fontSize: 12, color: 'var(--color-text-2)', lineHeight: 1.5 }}>{src.desc}</div>
               </div>
             ))}
           </div>
-          <p style={{ fontSize: 12, color: 'var(--color-text-3)', marginTop: 12 }}>
+          <p style={{ fontSize: 12, color: 'var(--color-text-2)', marginTop: 10 }}>
             Dane są weryfikowane ręcznie. Jeśli zauważysz nieaktualną informację, zgłoś przez LinkedIn.
           </p>
         </div>
       </section>
 
       {/* Autor + kontakt */}
-      <section style={{ paddingTop: 'clamp(36px, 5vw, 56px)', paddingBottom: 'clamp(48px, 6vw, 80px)' }}>
+      <section style={{ paddingTop: 'clamp(32px, 4vw, 48px)', paddingBottom: 'clamp(48px, 6vw, 80px)' }}>
         <div className="wrap">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'clamp(16px, 3vw, 32px)', alignItems: 'start' }}>
+          <SectionLabel eyebrow="Ludzie" title="Autor i kontakt" />
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))', gap: 12, alignItems: 'start' }}>
 
             {/* Kto za tym stoi */}
             <div style={{
               background: 'var(--color-surface)',
               border: '1px solid var(--color-border)',
-              borderRadius: 16,
-              padding: '24px',
+              borderTop: '3px solid var(--color-green)',
+              borderRadius: '0 0 16px 16px',
+              padding: '22px',
               boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
             }}>
-              <span className="mono" style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-text-3)', fontWeight: 600 }}>Autor</span>
-              <h3 style={{ fontSize: 18, fontWeight: 700, letterSpacing: '-0.02em', marginTop: 10, marginBottom: 12, color: 'var(--color-text-1)' }}>Kto za tym stoi</h3>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--color-green)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 8 }}>Autor</div>
+              <h3 style={{ fontSize: 17, fontWeight: 700, letterSpacing: '-0.02em', marginTop: 0, marginBottom: 12, color: 'var(--color-text-1)' }}>Kto za tym stoi</h3>
               <p style={{ fontSize: 14, color: 'var(--color-text-2)', lineHeight: 1.65, marginBottom: 16 }}>
                 Projekt stworzył <strong style={{ color: 'var(--color-text-1)' }}>Kamil Sobkowicz</strong>,
                 programista i przedsiębiorca z Polski. Kalkulator świadczeń i kreator wniosków
@@ -423,21 +404,21 @@ export default function OProjekciePage() {
               </p>
               <div style={{
                 display: 'flex', alignItems: 'center', gap: 12,
-                padding: '14px 16px',
+                padding: '12px 14px',
                 background: 'var(--color-surface-2)',
                 border: '1px solid var(--color-border)',
-                borderRadius: 12,
+                borderRadius: 10,
               }}>
                 <div style={{
-                  width: 40, height: 40, borderRadius: '50%', flexShrink: 0,
+                  width: 38, height: 38, borderRadius: '50%', flexShrink: 0,
                   background: 'linear-gradient(135deg, var(--color-green), var(--green-600))',
                   color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: 14, fontWeight: 700,
+                  fontSize: 13, fontWeight: 700, fontFamily: 'var(--font-mono)',
                 }}>KS</div>
                 <div>
-                  <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--color-text-1)' }}>Kamil Sobkowicz</div>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-text-1)' }}>Kamil Sobkowicz</div>
                   <a href="https://www.linkedin.com/in/kamil-sobkowicz/" target="_blank" rel="noopener noreferrer"
-                    style={{ fontSize: 12, color: 'var(--color-accent)', textDecoration: 'none' }}>
+                    style={{ fontSize: 11, color: 'var(--color-accent)', textDecoration: 'none', fontFamily: 'var(--font-mono)' }}>
                     linkedin.com/in/kamil-sobkowicz →
                   </a>
                 </div>
@@ -448,12 +429,13 @@ export default function OProjekciePage() {
             <div style={{
               background: 'var(--color-surface)',
               border: '1px solid var(--color-border)',
-              borderRadius: 16,
-              padding: '24px',
+              borderTop: '3px solid var(--color-border)',
+              borderRadius: '0 0 16px 16px',
+              padding: '22px',
               boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
             }}>
-              <span className="mono" style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-text-3)', fontWeight: 600 }}>Kontakt</span>
-              <h3 style={{ fontSize: 18, fontWeight: 700, letterSpacing: '-0.02em', marginTop: 10, marginBottom: 12, color: 'var(--color-text-1)' }}>Zgłoszenia i błędy</h3>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--color-text-2)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 8 }}>Kontakt</div>
+              <h3 style={{ fontSize: 17, fontWeight: 700, letterSpacing: '-0.02em', marginTop: 0, marginBottom: 12, color: 'var(--color-text-1)' }}>Zgłoszenia i błędy</h3>
               <p style={{ fontSize: 14, color: 'var(--color-text-2)', lineHeight: 1.65, marginBottom: 20 }}>
                 Znalazłeś błąd w danych? Brakuje jakiegoś świadczenia? Masz pomysł na ulepszenie?
                 Każde zgłoszenie jest czytane i brane pod uwagę.
@@ -462,21 +444,21 @@ export default function OProjekciePage() {
                 <a href="https://www.linkedin.com/in/kamil-sobkowicz/" target="_blank" rel="noopener noreferrer"
                   style={{
                     display: 'inline-flex', alignItems: 'center', gap: 8,
-                    padding: '11px 18px', borderRadius: 12,
+                    padding: '10px 16px', borderRadius: 10,
                     background: 'var(--color-text-1)', color: 'var(--color-bg-0)',
-                    fontSize: 14, fontWeight: 500, textDecoration: 'none',
+                    fontSize: 13, fontWeight: 500, textDecoration: 'none',
                     letterSpacing: '-0.01em',
                   }}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                   Napisz na LinkedIn
                 </a>
                 <Link href="/dla-firm" style={{
                   display: 'inline-flex', alignItems: 'center', gap: 8,
-                  padding: '11px 18px', borderRadius: 12,
+                  padding: '10px 16px', borderRadius: 10,
                   border: '1px solid var(--color-border)',
                   background: 'var(--color-surface-2)',
                   color: 'var(--color-text-1)',
-                  fontSize: 14, textDecoration: 'none',
+                  fontSize: 13, textDecoration: 'none',
                   letterSpacing: '-0.01em',
                 }}>
                   Formularz kontaktowy →
