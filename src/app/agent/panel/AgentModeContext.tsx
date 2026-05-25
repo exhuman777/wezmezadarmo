@@ -1,15 +1,15 @@
 'use client';
 
 import { createContext, useContext, useState } from 'react';
-import type { AgentMode } from '@/agents/types';
+import type { AgentId } from '@/agents/types';
 
 interface AgentModeContextValue {
-  mode: AgentMode;
-  setMode: (mode: AgentMode) => void;
+  mode: AgentId;
+  setMode: (mode: AgentId) => void;
 }
 
 const AgentModeContext = createContext<AgentModeContextValue>({
-  mode: 'ogolny',
+  mode: 'konsjerz',
   setMode: () => {},
 });
 
@@ -18,7 +18,7 @@ export function useAgentMode() {
 }
 
 export function AgentModeProvider({ children }: { children: React.ReactNode }) {
-  const [mode, setMode] = useState<AgentMode>('ogolny');
+  const [mode, setMode] = useState<AgentId>('konsjerz');
 
   return (
     <AgentModeContext value={{ mode, setMode }}>
