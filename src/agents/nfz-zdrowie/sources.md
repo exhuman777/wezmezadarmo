@@ -1,0 +1,5 @@
+- nfz.gov.pl
+- api.nfz.gov.pl
+- zip.nfz.gov.pl
+- api.gios.gov.pl
+- gios.gov.pl
