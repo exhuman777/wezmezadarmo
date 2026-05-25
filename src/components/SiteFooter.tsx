@@ -13,6 +13,9 @@ const WIEDZA = [
   { href: '/swiadczenia', label: 'Baza 118 świadczeń' },
   { href: '/nfz', label: 'Wyszukiwarka NFZ' },
   { href: '/aktualnosci', label: 'Aktualności' },
+  { href: '/statystyki', label: 'Polska w liczbach' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/press', label: 'Press kit' },
   { href: '/o-projekcie', label: 'O projekcie' },
   { href: '/polityka-prywatnosci', label: 'Bezpieczeństwo' },
 ];

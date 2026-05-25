@@ -47,6 +47,7 @@ const isKnownWafBlocked = (url: string): boolean => {
   try { return WAF_BLOCKED_HOSTS.has(new URL(url).hostname); } catch { return false; }
 };
 
+
 /** Procent zmiany content uznawany za "znaczacy" (wymaga review). */
 const SIGNIFICANT_CHANGE_THRESHOLD = 0.30;
 /** Concurrent fetch limit -- nie zatkajmy gov.pl. */

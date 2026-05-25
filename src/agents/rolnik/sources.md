@@ -1,0 +1,7 @@
+- arimr.gov.pl
+- krus.gov.pl
+- geoportal.arimr.gov.pl
+- imgw.pl
+- rcb.gov.pl
+- bdl.stat.gov.pl
+- gus.gov.pl

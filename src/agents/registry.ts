@@ -1,119 +1,95 @@
-/**
- * AGENT REGISTRY -- centralne miejsce ladowania i skladania agentow.
- *
- * Jak dodac nowego agenta:
- * 1. Stworz plik src/agents/knowledge/{id}.ts (eksportuj default AgentKnowledge)
- * 2. Dodaj import i wpis w AGENTS ponizej
- * 3. Dodaj id do AgentMode w types.ts i AgentPanelSidebar.tsx
- *
- * Jak zaktualizowac wiedze agenta:
- * - Edytuj odpowiedni plik w src/agents/knowledge/
- * - Zmien domainKnowledge, examples, boundaries
- * - Nie trzeba zmieniac kodu -- wystarczy zmienic tekst
- */
-
-import type { AgentKnowledge, AgentMode, AgentContext } from './types';
+import fs from 'fs';
+import path from 'path';
+import type { AgentId, AgentConfig, AgentContext, PrefetchSource } from './types';
+import { AGENT_IDS } from './types';
 import type { UserProfile, MatchResult } from '@/engine/types';
-import { buildBasePrompt } from './base-prompt';
 import { BENEFIT_KNOWLEDGE } from '@/ai/benefitKnowledge';
 
-// --- Agent knowledge imports ---
-import ogolny from './knowledge/ogolny';
-import swiadczenie from './knowledge/swiadczenie';
-import wniosek from './knowledge/wniosek';
-import nabor from './knowledge/nabor';
-import faktura from './knowledge/faktura';
-import termin from './knowledge/termin';
+const agentsDir = path.join(process.cwd(), 'src', 'agents');
 
-/** Rejestr wszystkich agentow */
-const AGENTS: Record<AgentMode, AgentKnowledge> = {
-  ogolny,
-  swiadczenie,
-  wniosek,
-  nabor,
-  faktura,
-  termin,
-};
-
-/** Pobierz definicje agenta */
-export function getAgent(mode: AgentMode): AgentKnowledge {
-  return AGENTS[mode] ?? AGENTS.ogolny;
+function readMd(filePath: string): string {
+  try {
+    return fs.readFileSync(path.join(agentsDir, filePath), 'utf-8');
+  } catch {
+    return '';
+  }
 }
 
-/** Pobierz liste agentow (do UI) */
-export function getAgentList(): Pick<AgentKnowledge, 'id' | 'name' | 'description'>[] {
-  return Object.values(AGENTS).map(({ id, name, description }) => ({ id, name, description }));
+function readJson<T>(filePath: string, fallback: T): T {
+  try {
+    return JSON.parse(fs.readFileSync(path.join(agentsDir, filePath), 'utf-8')) as T;
+  } catch {
+    return fallback;
+  }
 }
 
-/**
- * Zbuduj pelny system prompt dla agenta.
- *
- * Struktura:
- * 1. BASE: identyfikacja + anty-halucynacje + formatowanie + ton + dane
- * 2. PERSONA: specjalizacja i styl agenta
- * 3. DOMAIN: wiedza domenowa agenta
- * 4. RULES: reguly odpowiedzi agenta
- * 5. BOUNDARIES: czego agent nie robi
- * 6. EXAMPLES: przykladowe interakcje (few-shot)
- * 7. CONTEXT: profil uzytkownika + dopasowane swiadczenia (runtime)
- */
+const configCache = new Map<AgentId, AgentConfig>();
+
+export function getAgentConfig(agentId: AgentId): AgentConfig {
+  if (configCache.has(agentId)) return configCache.get(agentId)!;
+
+  const config: AgentConfig = {
+    id: agentId,
+    label: agentId,
+    desc: '',
+    icon: agentId[0].toUpperCase(),
+    keywords: readJson<string[]>(`${agentId}/keywords.json`, []),
+    prefetch: readJson<PrefetchSource[]>(`${agentId}/prefetch.json`, []),
+    agentPrompt: readMd(`${agentId}/agent.md`),
+    knowledge: readMd(`${agentId}/knowledge.md`),
+    sources: readMd(`${agentId}/sources.md`),
+  };
+
+  configCache.set(agentId, config);
+  return config;
+}
+
+// Base prompt parts (cached)
+let _baseIdentity: string | null = null;
+let _baseFormatting: string | null = null;
+let _baseLiveSources: string | null = null;
+
+function getBaseIdentity(): string {
+  if (!_baseIdentity) _baseIdentity = readMd('_base/identity.md');
+  return _baseIdentity;
+}
+function getBaseFormatting(): string {
+  if (!_baseFormatting) _baseFormatting = readMd('_base/formatting.md');
+  return _baseFormatting;
+}
+function getBaseLiveSources(): string {
+  if (!_baseLiveSources) _baseLiveSources = readMd('_base/live-sources.md');
+  return _baseLiveSources;
+}
+
 export function buildAgentSystemPrompt(
-  mode: AgentMode,
+  agentId: AgentId,
   context: AgentContext,
 ): string {
-  const agent = getAgent(mode);
+  const config = getAgentConfig(agentId);
   const parts: string[] = [];
 
-  // 1. Base prompt (wspolny dla wszystkich)
-  parts.push(buildBasePrompt());
+  parts.push(getBaseIdentity());
+  parts.push(getBaseFormatting());
+  parts.push(`=== TWOJA SPECJALIZACJA ===\n${config.agentPrompt}`);
+  parts.push(`=== TWOJA WIEDZA DOMENOWA ===\n${config.knowledge}`);
+  parts.push(getBaseLiveSources());
 
-  // 2. Persona agenta
-  parts.push(`=== TWOJA SPECJALIZACJA ===\n${agent.persona}`);
-
-  // 3. Wiedza domenowa (primary + supplementary z innych agentow)
-  parts.push(`=== TWOJA WIEDZA DOMENOWA ===\n${agent.domainKnowledge}`);
-
-  if (mode === 'ogolny') {
-    const supplementary = ['swiadczenie', 'wniosek', 'nabor'] as const;
-    for (const extra of supplementary) {
-      const a = AGENTS[extra];
-      if (a) parts.push(`=== WIEDZA DODATKOWA: ${a.name.toUpperCase()} ===\n${a.domainKnowledge}`);
-    }
-  }
-
-  // 4. Reguly odpowiedzi
-  parts.push(`=== REGULY ODPOWIEDZI ===\n${agent.responseRules}`);
-
-  // 5. Granice
-  parts.push(`=== CZEGO NIE ROBISZ ===\n${agent.boundaries}`);
-
-  // 6. Przyklady (few-shot learning)
-  parts.push(`=== PRZYKLADY ROZMOW ===\n${agent.examples}`);
-
-  // 7. Kontekst runtime (profil uzytkownika)
   const contextBlock = buildRuntimeContext(context);
   if (contextBlock) {
     parts.push(`=== KONTEKST UZYTKOWNIKA ===\n${contextBlock}`);
   }
 
-  return parts.join('\n\n');
+  return parts.filter(Boolean).join('\n\n');
 }
 
-/**
- * Lzejszy prompt do czatu o formularzach (model lite).
- * Uzywa agenta wniosek ale z wiedza specyficzna dla danego formularza.
- */
 export function buildFormChatPrompt(formKnowledge: string): string {
-  const agent = getAgent('wniosek');
-  const parts: string[] = [];
-
-  parts.push(buildBasePrompt());
-  parts.push(`=== TWOJA SPECJALIZACJA ===\n${agent.persona}`);
-  parts.push(`=== KONTEKST FORMULARZA ===\n${formKnowledge}`);
-  parts.push(`=== REGULY ODPOWIEDZI ===\n${agent.responseRules}\n\nDODATKOWO: Odpowiadaj krotko i konkretnie. Maksymalnie 3-4 zdania na odpowiedz. Jesli pytanie jest proste, jedno zdanie wystarczy.`);
-  parts.push(`=== CZEGO NIE ROBISZ ===\n${agent.boundaries}`);
-
-  return parts.join('\n\n');
+  const config = getAgentConfig('wnioski');
+  return [
+    getBaseIdentity(),
+    `=== TWOJA SPECJALIZACJA ===\n${config.agentPrompt}`,
+    `=== KONTEKST FORMULARZA ===\n${formKnowledge}`,
+  ].filter(Boolean).join('\n\n');
 }
 
 
@@ -394,3 +370,4 @@ export function profileToUserProfile(profile: Record<string, unknown>): UserProf
     bezrobotnyZarejestrowany: (profile.bezrobotny_zarejestrowany as boolean) ?? false,
   };
 }
+

@@ -87,7 +87,7 @@ export async function POST(request: NextRequest) {
       focusedBenefitId: focusedBenefitId ?? null,
     };
 
-    const systemMessage = buildAgentSystemPrompt('swiadczenie', agentContext);
+    const systemMessage = buildAgentSystemPrompt('swiadczenia', agentContext);
 
     const allMessages = [
       { role: 'system' as const, content: systemMessage },

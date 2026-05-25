@@ -1,0 +1,9 @@
+- podatki.gov.pl
+- biznes.gov.pl
+- ksef.podatki.gov.pl
+- zus.pl
+- gov.pl/web/finanse
+- e-zus.pl
+- api.nbp.pl
+- wl-api.mf.gov.pl
+- dane.biznes.gov.pl

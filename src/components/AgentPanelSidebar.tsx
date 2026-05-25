@@ -2,24 +2,26 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import type { AgentMode } from '@/agents/types';
+import type { AgentId } from '@/agents/types';
 
-export type { AgentMode };
+export type { AgentId };
 
 interface AgentType {
-  id: AgentMode;
+  id: AgentId;
   label: string;
   desc: string;
   icon: string;
 }
 
 const AGENT_TYPES: AgentType[] = [
-  { id: 'ogolny', label: 'Asystent', desc: 'Pytania ogólne', icon: 'M' },
-  { id: 'swiadczenie', label: 'Świadczenie', desc: 'Sprawdź uprawnienia', icon: 'S' },
-  { id: 'wniosek', label: 'Wniosek', desc: 'Pomoc z formularzami', icon: 'W' },
-  { id: 'nabor', label: 'Nabór', desc: 'Dofinansowania', icon: 'N' },
-  { id: 'faktura', label: 'Faktura', desc: 'KSeF i rozliczenia', icon: 'F' },
-  { id: 'termin', label: 'Termin', desc: 'Terminy urzędowe', icon: 'T' },
+  { id: 'konsjerz', label: 'Konsjerż', desc: 'Pytania ogólne', icon: 'K' },
+  { id: 'swiadczenia', label: 'Świadczenia', desc: '118 świadczeń i ulg', icon: 'S' },
+  { id: 'wnioski', label: 'Wnioski', desc: '8 formularzy ZUS', icon: 'W' },
+  { id: 'nfz-zdrowie', label: 'NFZ / Zdrowie', desc: 'Lekarze, kolejki, smog', icon: 'N' },
+  { id: 'finanse-jdg', label: 'Finanse', desc: 'NBP, VAT, KSeF, podatki', icon: 'F' },
+  { id: 'dotacje', label: 'Dotacje', desc: 'Granty, PARP, PFRON', icon: 'D' },
+  { id: 'prawo-terminy', label: 'Prawo', desc: 'Zmiany, terminy', icon: 'P' },
+  { id: 'rolnik', label: 'Rolnik', desc: 'KRUS, ARiMR, pogoda', icon: 'R' },
 ];
 
 const NAV_ITEMS = [
@@ -32,8 +34,8 @@ const NAV_ITEMS = [
 ];
 
 interface Props {
-  activeMode: AgentMode;
-  onModeChange: (mode: AgentMode) => void;
+  activeMode: AgentId;
+  onModeChange: (mode: AgentId) => void;
   collapsed?: boolean;
 }
 
@@ -57,10 +59,14 @@ export function AgentPanelSidebar({ activeMode, onModeChange, collapsed }: Props
           <div style={{
             fontFamily: 'var(--font-mono)', fontSize: 10,
             color: 'var(--color-text-3)', letterSpacing: '0.08em',
-            textTransform: 'uppercase', marginBottom: 10, padding: '0 6px',
+            textTransform: 'uppercase', marginBottom: 6, padding: '0 6px',
           }}>
             Tryb agenta
-
+          </div>
+        )}
+        {!collapsed && (
+          <div style={{ fontSize: 10, color: 'var(--color-text-3)', padding: '0 6px', marginBottom: 8 }}>
+            Auto-routing (kliknij aby wymusić agenta)
           </div>
         )}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>

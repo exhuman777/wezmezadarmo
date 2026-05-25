@@ -5,7 +5,8 @@ import { useSearchParams } from 'next/navigation';
 import { useAgentMode } from '../AgentModeContext';
 import { ChatFallbackPrompt } from '@/components/ChatFallbackPrompt';
 import ChatSidebar from '@/components/ChatSidebar';
-import type { AgentMode } from '@/agents/types';
+import { MessageContent } from '@/components/MessageContent';
+import type { AgentId } from '@/agents/types';
 
 interface Message {
   id: string;
@@ -13,42 +14,46 @@ interface Message {
   content: string;
 }
 
-const MODE_LABELS: Record<AgentMode, string> = {
-  ogolny: 'Asystent ogólny',
-  swiadczenie: 'Świadczenia i ulgi',
-  wniosek: 'Wnioski i formularze',
-  nabor: 'Dofinansowania i nabory',
-  faktura: 'Faktury i rozliczenia',
-  termin: 'Terminy urzędowe',
+const MODE_LABELS: Record<AgentId, string> = {
+  konsjerz: 'Konsjerż - pytania ogólne',
+  swiadczenia: 'Świadczenia i ulgi',
+  wnioski: 'Wnioski i formularze',
+  'nfz-zdrowie': 'NFZ i zdrowie',
+  'finanse-jdg': 'Finanse i JDG',
+  dotacje: 'Dotacje i granty',
+  'prawo-terminy': 'Prawo i terminy',
+  rolnik: 'Rolnik',
 };
 
-const MODE_HINTS: Record<AgentMode, string[]> = {
-  ogolny: [
-    'Jakie mam świadczenia?',
-    'Jak złożyć wniosek o 800+?',
-    'Czy przysługuje mi zasiłek?',
-  ],
-  swiadczenie: [
+const DEFAULT_HINTS: string[] = [
+  'Jakie mam świadczenia?',
+  'Jak złożyć wniosek o 800+?',
+  'Czy przysługuje mi zasiłek?',
+];
+
+const MODE_HINTS: Partial<Record<AgentId, string[]>> = {
+  konsjerz: DEFAULT_HINTS,
+  swiadczenia: [
     'Co mi przysługuje z mojego profilu?',
     'Ile wynosi zasiłek opiekuńczy?',
     'Czy kwalifikuję się do Dobry Start?',
   ],
-  wniosek: [
+  wnioski: [
     'Pomóż mi wypełnić Z-15a',
     'Jakie dokumenty potrzebuję do ZAS-53?',
     'Gdzie złożyć wniosek o emeryturę?',
   ],
-  nabor: [
+  dotacje: [
     'Jakie są aktualne nabory?',
     'Dofinansowanie dla JDG na szkolenia',
     'Granty EU dla mikrofirm',
   ],
-  faktura: [
+  'finanse-jdg': [
     'Od kiedy obowiązkowy KSeF?',
     'Jak wystawić fakturę zagraniczną?',
     'Termin rozliczenia VAT',
   ],
-  termin: [
+  'prawo-terminy': [
     'Kiedy termin PIT roczny?',
     'Do kiedy ZUS miesięcznie?',
     'Terminy składania wniosków PFRON',
@@ -72,6 +77,7 @@ function AgentChatInner() {
   const [conversationId, setConversationId] = useState<string | null>(null);
   const [refreshKey, setRefreshKey] = useState(0);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [activeAgent, setActiveAgent] = useState<string>('konsjerz');
   const chatBottomRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -206,7 +212,7 @@ function AgentChatInner() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           messages: newMessages.map(m => ({ role: m.role, content: m.content })),
-          mode,
+          mode: mode === 'konsjerz' ? 'auto' : mode,
         }),
         signal: ctrl.signal,
       });
@@ -221,6 +227,9 @@ function AgentChatInner() {
         setIsStreaming(false);
         return;
       }
+
+      const agentHeader = res.headers.get('X-Agent-Id');
+      if (agentHeader) setActiveAgent(agentHeader);
 
       const reader = res.body?.getReader();
       const decoder = new TextDecoder();
@@ -314,7 +323,7 @@ function AgentChatInner() {
     sendMessage(hint);
   }
 
-  const hints = MODE_HINTS[mode] ?? MODE_HINTS.ogolny;
+  const hints = MODE_HINTS[mode] ?? DEFAULT_HINTS;
 
   return (
     <div style={{ display: 'flex', height: '100%', overflow: 'hidden' }}>
@@ -456,10 +465,10 @@ function AgentChatInner() {
             {msg.role === 'assistant' && (
               <div style={{
                 fontFamily: 'var(--font-mono)', fontSize: 10,
-                color: 'var(--color-green)', marginBottom: 4,
-                letterSpacing: '0.06em', textTransform: 'uppercase',
+                color: 'var(--color-text-3)', letterSpacing: '0.08em',
+                textTransform: 'uppercase', marginBottom: 4,
               }}>
-                {MODE_LABELS[mode]}
+                {activeAgent.replace('-', ' / ')}
               </div>
             )}
             <div style={{
@@ -472,7 +481,7 @@ function AgentChatInner() {
               lineHeight: 1.6,
               whiteSpace: 'pre-wrap',
             }}>
-              {msg.content}
+              <MessageContent text={msg.content} />
               {isStreaming && i === messages.length - 1 && msg.role === 'assistant' && (
                 <span style={{
                   display: 'inline-block',
