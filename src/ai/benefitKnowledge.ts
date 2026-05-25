@@ -1083,7 +1083,7 @@ Czestotliwosc: dorosli -- nowe zlecenie co 2 lata (przy pogorszeniu wzroku mozna
 
 Badanie okulistyczne NFZ: bezplatne (jako swiadczenie gwarantowane przy skierowaniu od lekarza POZ lub bez skierowania przy jednym bezplatnym badaniu rocznie u okulisty).
 `,
-    zrodlo: 'https://www.nfz.gov.pl/dla-pacjenta/wyroby-medyczne/ -- pobrano 2026-05-13',
+    zrodlo: 'https://www.nfz.gov.pl/dla-pacjenta/ubezpieczenia-w-nfz/zaopatrzenie-w-wyroby-medyczne/ -- pobrano 2026-05-25',
   },
 
   'karta-ekuz': {

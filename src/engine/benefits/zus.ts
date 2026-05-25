@@ -289,7 +289,7 @@ export const ZUS: Benefit[] = [
       ],
       odwolanie: 'Odwołanie do Sądu Pracy w ciągu 30 dni od decyzji ZUS',
     },
-    zrodloUrl: 'https://www.zus.pl/swiadczenia/emerytury/emerytury-pomostowe',
+    zrodloUrl: 'https://www.zus.pl/swiadczenia/emerytury/emerytura-dla-osob-urodzonych-po-31-grudnia-1948/emerytury-wczesniejsze/emerytura-pomostowa',
     zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
@@ -383,7 +383,7 @@ export const ZUS: Benefit[] = [
       ],
       odwolanie: 'Wniosek o ponowne rozpatrzenie sprawy do Prezesa ZUS, potem skarga do WSA',
     },
-    zrodloUrl: 'https://www.zus.pl/swiadczenia/rodzicielskie-swiadczenie-uzupelniajace',
+    zrodloUrl: 'https://www.zus.pl/-/rodzicielskie-swiadczenie-uzupelniajace-mama-4-',
     zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
@@ -416,7 +416,7 @@ export const ZUS: Benefit[] = [
       ],
       odwolanie: 'Odwołanie do Sądu Pracy w ciągu 30 dni od decyzji (jeśli ZUS odmówi)',
     },
-    zrodloUrl: 'https://www.zus.pl/swiadczenia/emerytury/dodatkowe-roczne-swiadczenie-pieniezne',
+    zrodloUrl: 'https://www.zus.pl/-/trzynasta-emerytura-czyli-dodatkowe-roczne-swiadczenie-pieniez-1',
     zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
@@ -452,7 +452,7 @@ export const ZUS: Benefit[] = [
       ],
       odwolanie: 'Odwołanie do Sądu Pracy w ciągu 30 dni od decyzji (jeśli ZUS odmówi)',
     },
-    zrodloUrl: 'https://www.zus.pl/swiadczenia/emerytury/kolejne-dodatkowe-roczne-swiadczenie-pieniezne',
+    zrodloUrl: 'https://www.zus.pl/-/czternasta-emerytura-bez-wniosku-1',
     zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {

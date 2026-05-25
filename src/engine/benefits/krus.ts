@@ -235,7 +235,7 @@ export const KRUS: Benefit[] = [
       ],
       odwolanie: 'Odwołanie do Sądu Rejonowego, Wydział Pracy i Ubezpieczeń Społecznych w ciągu 30 dni',
     },
-    zrodloUrl: 'https://www.krus.gov.pl/swiadczenia/zasilek-opiekunczy/',
+    zrodloUrl: 'https://www.krus.gov.pl/zadania-krus/swiadczenia/zasilek-opiekunczy/',
     zrodloNazwa: 'KRUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
@@ -352,7 +352,7 @@ export const KRUS: Benefit[] = [
       ],
       odwolanie: 'Odwołanie do Dyrektora Oddziału Regionalnego ARiMR, następnie do sądu administracyjnego',
     },
-    zrodloUrl: 'https://www.arimr.gov.pl/dla-beneficjenta/wszystkie-dzialania-i-poddzialania/premia-dla-mlodego-rolnika.html',
+    zrodloUrl: 'https://www.gov.pl/web/arimr',
     zrodloNazwa: 'ARiMR', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-07-31',
   },
   {
@@ -391,7 +391,7 @@ export const KRUS: Benefit[] = [
       ],
       odwolanie: 'Odwołanie do Dyrektora Oddziału Regionalnego ARiMR, następnie do sądu administracyjnego',
     },
-    zrodloUrl: 'https://www.arimr.gov.pl/dla-beneficjenta/platnosci-bezposrednie.html',
+    zrodloUrl: 'https://www.gov.pl/web/arimr',
     zrodloNazwa: 'ARiMR', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-06-01',
   },
   {

@@ -54,7 +54,7 @@ export const BIZNES: Benefit[] = [
       pulapki: ['Trwa 24 PEŁNE miesiące, potem przechodzisz na pełny ZUS lub Mały ZUS Plus', 'Można użyć od razu (bez Ulgi na Start), ale tracisz 6 miesięcy darmowych'],
       odwolanie: 'Odwołanie do Sądu Pracy',
     },
-    zrodloUrl: 'https://www.biznes.gov.pl/pl/portal/00126',
+    zrodloUrl: 'https://www.biznes.gov.pl/pl/portal/00286',
     zrodloNazwa: 'biznes.gov.pl', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {

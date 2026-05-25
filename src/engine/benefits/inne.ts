@@ -36,7 +36,7 @@ export const INNE: Benefit[] = [
       ],
       odwolanie: 'Reklamacja do oddziału NFZ',
     },
-    zrodloUrl: 'https://www.nfz.gov.pl/dla-pacjenta/wyroby-medyczne/',
+    zrodloUrl: 'https://www.nfz.gov.pl/dla-pacjenta/ubezpieczenia-w-nfz/zaopatrzenie-w-wyroby-medyczne/',
     zrodloNazwa: 'NFZ', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
