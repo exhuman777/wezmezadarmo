@@ -14,6 +14,7 @@ const NAV_ITEMS = [
   { href: '/dla-firm', label: 'Dla firm', prefixes: ['/dla-firm', '/dotacje', '/automatyzacje'] },
   { href: '/wnioski', label: 'Wnioski', prefixes: ['/wnioski'] },
   { href: '/agent', label: 'Asystent AI', prefixes: ['/agent'] },
+  { href: '/statystyki', label: 'Statystyki', prefixes: ['/statystyki'] },
   { href: '/o-projekcie', label: 'O projekcie', prefixes: ['/o-projekcie'] },
 ];
 

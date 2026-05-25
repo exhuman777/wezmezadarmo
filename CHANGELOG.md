@@ -1,6 +1,43 @@
 # Changelog
 
-## 2026-05-25
+## 2026-05-25 (część 2 -- popołudniowa)
+
+### Dashboard `/statystyki` + 35 nowych programów B2B + chat UX
+
+**Nowa strona `/statystyki` -- Polska w liczbach**
+- LIVE: 4 wskaźniki SDG ONZ z publicznego API GUS (sdg.gov.pl, bez rejestracji)
+- Featured: Cena 1m² powierzchni użytkowej 1999-2026, źródło GUS BDL public PDF
+- LineChart SVG (responsywny, tooltips, accessible)
+- Status integracji 8 API państwowych: GUS SDG/NBP/NFZ/CEIDG (LIVE), BDL/REGON/TERYT/STRATEG (pending)
+- `docs/API_REQUEST_TEMPLATES/gus-bdl-regon.md`: 6 gotowych szablonów wnioskowania o klucz API
+
+**programs-b2b.ts: 23 → 57 programów** (3 parallel research agents, cross-checked z gov.pl/parp/bgk/nfosigw)
+- KPO/FENG/FEnIKS/FERS (12): Sciezka SMART B+R+wdrozenie, STEP Cleantech/Biotech, kredyty BGK cyfryzacja+ekologia, Akademia HR/Menadzera, NaszEauto N2/N3
+- NCBR/BGK/ARP/PSI/PARP (13): Sciezka SMART duze/konsorcja, AGROSTRATEG, Kredyt Technologiczny, Gwarancja Biznesmax Plus, Polityka Nowej Szansy, Polska Strefa Inwestycji, STEP, Wzornictwo i Automatyzacja Polska Wschodnia
+- Regionalne (10): dolnoslaskie, wielkopolskie, warminsko-mazurskie, lubelskie, kujawsko-pomorskie, zachodniopomorskie, opolskie, podkarpackie, lubuskie, swietokrzyskie
+
+**Cross-reference (multi-agent system zna nowe dane):**
+- `src/agents/dotacje/knowledge.md` -- explicit pointer do `src/data/programs-b2b.ts: 57 programów`
+- `src/app/api/agent/chat/route.ts` -- matching engine używa PROGRAMS dla profili JDG/firmy, blok "DOPASOWANE PROGRAMY B2B" w kontekście rozmowy
+
+**Chat UX (przed multi-agent refactor, zachowane):**
+- `src/components/MessageContent.tsx` -- markdown parser dla wewnętrznych ścieżek (`/nfz`, `/swiadczenia`, `/dotacje`, `/centrum-obywatela`, etc.) + `https://` na klikalne linki (dotted underline, color inherit). Używane w `/agent/panel/chat/page.tsx`
+- NFZ smart prefetch: bez specjalizacji nie zwraca losowych podmiotów (apteki/pielęgniarki). Helpful prompt: "Podaj specjalizację (np. kardiolog, ortopeda)" + link do `/nfz`
+
+**Audyt URL + treści (commit `a3d73b5`, `15dc702`):**
+- 16 broken zrodloUrl naprawione (podatki.gov.pl /ulgi-i-odliczenia/-pit, gov.pl/web/finanse, gov.pl/web/rodzina)
+- 7 alertów z post-audit: 3x false positive (browser UA), 4x dodatkowe 404 naprawione
+- Audyt zawartości 104/118 świadczeń: 15 błędów merytorycznych poprawionych (samotny rodzic 56→112k, dodatek pielęgnacyjny 348,22→366,68 po waloryzacji marzec 2026, mieszkanie-na-start ZANIECHANY, dodatek energetyczny ZAWIESZONY do 2027, fundusz kompensacyjny 100k→230821, turnusy rehab. 1449→2207, szczepienia HPV 9-14 lat dziewczęta+chłopcy, prostata PSA w Moje Zdrowie, 800-plus usunięty SUSPECT fragment o eZUS+Straż Graniczna)
+
+**Nawigacja:**
+- `SiteNav` (top): dodano "Statystyki"
+- `SiteFooter`: dodano "Polska w liczbach", "Blog", "Press kit"
+- `sitemap.ts`: dodano `/statystyki` (priority 0.8, weekly)
+- `AGENTS.md`: zaktualizowana mapa projektu o nowe strony
+
+---
+
+## 2026-05-25 (część 1 -- przedpołudniowa)
 
 ### Multi-agent system -- 8 wyspecjalizowanych agentów z auto-routingiem
 
