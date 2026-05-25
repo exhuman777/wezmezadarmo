@@ -66,9 +66,9 @@ export const PODATKI: Benefit[] = [
   },
   {
     id: 'ulga-ikze', nazwa: 'Ulga na IKZE',
-    opis: 'Odliczenie od dochodu wpłat na Indywidualne Konto Zabezpieczenia Emerytalnego (IKZE). Limit wpłat w 2026 roku to 9 388,80 PLN (dla osób na umowie o pracę/zleceniu) lub 14 083,20 PLN (dla prowadzących działalność gospodarczą). IKZE można założyć w banku, domu maklerskim, TFI lub towarzystwie ubezpieczeniowym. Odliczenie od dochodu, realna oszczędność to 12-32% wpłaconej kwoty w zależności od progu podatkowego. Przy wypłacie po ukończeniu 65 lat i wpłacaniu przez min. 5 lat, pobierany jest zryczałtowany podatek 10% od całej kwoty. Wcześniejsza wypłata (przed 65 r.ż.) oznacza doliczenie wypłaconej kwoty do dochodu i opodatkowanie według skali, tracisz całą korzyść podatkową. IKZE to nie to samo co IKE. IKE nie daje odliczenia rocznego, ale za to wypłata jest całkowicie wolna od podatku. Można mieć oba jednocześnie. Nie można przenosić środków między IKE a IKZE. Limit zmienia się co roku (jest powiązany z przeciętnym wynagrodzeniem), więc trzeba sprawdzać aktualny.',
+    opis: 'Odliczenie od dochodu wpłat na Indywidualne Konto Zabezpieczenia Emerytalnego (IKZE). Limit wpłat w 2026 roku to 11 304,00 PLN (dla osób na umowie o pracę/zleceniu) lub 16 956,00 PLN (dla prowadzących działalność gospodarczą). IKZE można założyć w banku, domu maklerskim, TFI lub towarzystwie ubezpieczeniowym. Odliczenie od dochodu, realna oszczędność to 12-32% wpłaconej kwoty w zależności od progu podatkowego. Przy wypłacie po ukończeniu 65 lat i wpłacaniu przez min. 5 lat, pobierany jest zryczałtowany podatek 10% od całej kwoty. Wcześniejsza wypłata (przed 65 r.ż.) oznacza doliczenie wypłaconej kwoty do dochodu i opodatkowanie według skali, tracisz całą korzyść podatkową. IKZE to nie to samo co IKE. IKE nie daje odliczenia rocznego, ale za to wypłata jest całkowicie wolna od podatku. Można mieć oba jednocześnie. Nie można przenosić środków między IKE a IKZE. Limit zmienia się co roku (jest powiązany z przeciętnym wynagrodzeniem), więc trzeba sprawdzać aktualny.',
     kategoria: 'PODATKI',
-    kwota: 'do 9 388,80 PLN odliczenia rocznie (2026)', kwotaMax: 9388, czestotliwosc: 'rocznie',
+    kwota: 'do 11 304,00 PLN odliczenia rocznie (2026)', kwotaMax: 11304, czestotliwosc: 'rocznie',
     wymagania: {},
     wykluczenia: [],
     wniosek: {

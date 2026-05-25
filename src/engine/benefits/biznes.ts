@@ -59,7 +59,7 @@ export const BIZNES: Benefit[] = [
   },
   {
     id: 'maly-zus-plus', nazwa: 'Mały ZUS Plus',
-    opis: 'Mały ZUS Plus umożliwia opłacanie składek społecznych proporcjonalnie do przychodu z poprzedniego roku. Skierowany do przedsiębiorców z przychodem rocznym do 120 000 PLN. Można z niego korzystać maksymalnie 36 miesięcy w ciągu 60 miesięcy kalendarzowych, po czym trzeba przejść na pełny ZUS na co najmniej 24 miesiące. Zgłoszenie do 31 stycznia danego roku. Spóźnienie oznacza czekanie do następnego roku. Nowi uprawnieni mogą zgłosić się w ciągu 7 dni od spełnienia warunków. Wykluczone osoby: świadczące usługi na rzecz byłego pracodawcy, rozliczające się kartą podatkową ze zwolnieniem z VAT. Częsty błąd: przekroczenie limitu 120 000 PLN przychodu rocznego, wtedy tracisz prawo do Małego ZUS Plus. Praktyczna rada: po wyczerpaniu 36 miesięcy Małego ZUS Plus musisz płacić pełny ZUS przez 24 miesiące, dopiero potem możesz wrócić do Małego ZUS Plus.',
+    opis: 'Mały ZUS Plus umożliwia opłacanie składek społecznych proporcjonalnie do przychodu z poprzedniego roku. Skierowany do przedsiębiorców z przychodem rocznym do 120 000 PLN. Można z niego korzystać maksymalnie 36 miesięcy w ciągu 60 miesięcy kalendarzowych, po czym trzeba przejść na pełny ZUS na co najmniej 24 miesiące (dokładnie 24, nie 36 jak interpretował ZUS przed 2026). Zgłoszenie do 31 stycznia danego roku. Spóźnienie oznacza czekanie do następnego roku. Nowi uprawnieni mogą zgłosić się w ciągu 7 dni od spełnienia warunków. Wykluczone osoby: świadczące usługi na rzecz byłego pracodawcy, rozliczające się kartą podatkową ze zwolnieniem z VAT. Ważne: ustawa deregulacyjna z 2025 (weszła w życie 1.01.2026) dała "czystą kartę" - wszyscy przedsiębiorcy startują z nowym, pełnym limitem 36 miesięcy od 2026, niezależnie od historii wcześniejszego korzystania. Częsty błąd: przekroczenie limitu 120 000 PLN przychodu rocznego, wtedy tracisz prawo do Małego ZUS Plus. Praktyczna rada: po wyczerpaniu 36 miesięcy musisz płacić pełny ZUS przez dokładnie 24 miesiące, potem możesz wrócić.',
     kategoria: 'BIZNES',
     kwota: 'składki proporcjonalne do przychodu', czestotliwosc: 'miesięcznie (36 miesięcy w ciągu 60)',
     wymagania: { prowadzDzialalnosc: true },
@@ -78,7 +78,7 @@ export const BIZNES: Benefit[] = [
         'Składki oblicza się od podstawy proporcjonalnej do przychodu',
       ],
       terminRealizacji: 'Od miesiąca zgłoszenia',
-      pulapki: ['Można korzystać max 36 miesięcy w ciągu 60, potem 24 miesiące pełnego ZUS', 'Termin zgłoszenia: do 31 stycznia, jeśli spóźnisz, musisz czekać rok'],
+      pulapki: ['Można korzystać max 36 miesięcy w ciągu 60, potem dokładnie 24 miesiące pełnego ZUS', 'Od 2026 "czysta karta": nowy limit 36 miesięcy dla wszystkich niezależnie od historii', 'Termin zgłoszenia: do 31 stycznia, jeśli spóźnisz, musisz czekać rok'],
       odwolanie: 'Odwołanie do Sądu Pracy',
     },
     zrodloUrl: 'https://www.gov.pl/web/rozwoj-technologia/maly-zus-plus',

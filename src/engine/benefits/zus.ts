@@ -383,8 +383,8 @@ export const ZUS: Benefit[] = [
       ],
       odwolanie: 'Wniosek o ponowne rozpatrzenie sprawy do Prezesa ZUS, potem skarga do WSA',
     },
-    zrodloUrl: 'https://www.zus.pl/-/rodzicielskie-swiadczenie-uzupelniajace-mama-4-',
-    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
+    zrodloUrl: 'https://www.gov.pl/web/rodzina/mama-4-plus-rodzicielskie-swiadczenie-uzupelniajace',
+    zrodloNazwa: 'gov.pl', dataWeryfikacji: '2026-05-25', dataWaznosci: '2026-12-31',
   },
   {
     id: '13-emerytura', nazwa: '13. emerytura (trzynastka)',
