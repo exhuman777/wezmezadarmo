@@ -130,7 +130,7 @@ export async function POST(request: NextRequest) {
   extraParts.push(COMPANY_RULES);
 
   // Use nabor agent with company extraContext
-  const systemPrompt = buildAgentSystemPrompt('nabor', {
+  const systemPrompt = buildAgentSystemPrompt('dotacje', {
     profile: null,
     profileType: 'jdg',
     matchedBenefits: null,

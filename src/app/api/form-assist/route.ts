@@ -7,7 +7,7 @@
 
 import { NextRequest } from 'next/server';
 import { chatCompletion } from '@/ai/openrouter';
-import { getAgent } from '@/agents/registry';
+import { getAgentConfig } from '@/agents/registry';
 import { CORS_HEADERS, optionsResponse } from '@/lib/apiAuth';
 
 export async function OPTIONS() {
@@ -92,9 +92,9 @@ All factual content was provided and verified by the applicant. The final text w
 Write this as a clear, honest 2-3 sentence disclosure. Do not be defensive about AI use -- NLnet explicitly asks for this information.`,
 };
 
-/** Wniosek agent persona for ZUS justification generation */
-const wniosekAgent = getAgent('wniosek');
-const ZUS_SYSTEM_PROMPT = `${wniosekAgent.persona}\n\nZadanie: generuj krotkie oswiadczenia do formularzy ZUS. Pisz zwiezle, formalnie, po polsku. Uzywaj tylko informacji podanych przez uzytkownika, nie wymyslaj szczegolow.`;
+/** Wnioski agent persona for ZUS justification generation */
+const wniosekAgent = getAgentConfig('wnioski');
+const ZUS_SYSTEM_PROMPT = `${wniosekAgent.agentPrompt}\n\nZadanie: generuj krotkie oswiadczenia do formularzy ZUS. Pisz zwiezle, formalnie, po polsku. Uzywaj tylko informacji podanych przez uzytkownika, nie wymyslaj szczegolow.`;
 
 export async function POST(request: NextRequest) {
   if (!process.env.OPENROUTER_API_KEY) {
