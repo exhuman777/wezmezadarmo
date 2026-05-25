@@ -68,6 +68,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Agent
     { url: `${BASE}/agent`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
 
+    // Statystyki -- dashboard GUS/NBP/NFZ
+    { url: `${BASE}/statystyki`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
+
     // Legal
     { url: `${BASE}/regulamin`, lastModified: now, changeFrequency: 'yearly', priority: 0.4 },
     { url: `${BASE}/polityka-prywatnosci`, lastModified: now, changeFrequency: 'yearly', priority: 0.4 },

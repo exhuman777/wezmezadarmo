@@ -2,7 +2,7 @@
 
 **Live:** https://www.wezmezadarmo.com
 
-Poland has 117+ government benefits, subsidies, and social programs. Most citizens never claim what they are entitled to -- because the information is scattered across dozens of portals, written in bureaucratic language, and requires navigating complex eligibility rules.
+Poland has 118+ government benefits, subsidies, and social programs. Most citizens never claim what they are entitled to -- because the information is scattered across dozens of portals, written in bureaucratic language, and requires navigating complex eligibility rules.
 
 WezmeZadarmo ("I'll take it for free") solves this. Answer 10 anonymous questions. Get a personalised list of benefits you qualify for, with step-by-step application instructions and links to official sources. Ask the AI assistant follow-up questions.
 
@@ -61,11 +61,12 @@ Open http://localhost:3000
 
 Public pages:
 - `/` -- benefits calculator (anonymous, 10-question form)
-- `/swiadczenia` -- browse all 117+ benefits with embedded AI chat
+- `/swiadczenia` -- browse all 118+ benefits with embedded AI chat
 - `/wnioski` -- AI-assisted ZUS form wizard with PDF export
 - `/aktualnosci` -- RSS news monitoring (public preview + B2B panel for firms)
+- `/statystyki` -- GUS/SDG statistics dashboard (live indicators + charts)
 - `/automatyzacje` -- AI automations for SMBs (KSeF, foreign invoices, custom workflows)
-- `/dotacje` -- B2B SaaS landing for grant monitoring
+- `/dotacje` -- B2B SaaS landing for grant monitoring (57 programs database)
 - `/dla-firm` -- B2B landing for firms and sole proprietors
 - `/agent` -- AI agent landing for individuals
 - `/o-projekcie`, `/polityka-prywatnosci`, `/regulamin` -- info pages
@@ -73,10 +74,16 @@ Public pages:
 Agent panel (`/panel/*`):
 - `/panel` -- dashboard with module cards + empty-profile onboarding banner
 - `/panel/swiadczenia` -- master-detail view of matched benefits with embedded AI chat
-- `/panel/chat` -- standalone AI assistant
+- `/panel/chat` -- AI assistant with 8 specialized agents + auto-routing
 - `/panel/aktualnosci` -- personalized RSS feed
 - `/panel/profil` -- step-by-step profile wizard
 - `/panel/powiadomienia` -- daily email digest settings
+
+AI agent system (`src/agents/`):
+- 8 specialized agents: konsjerz, swiadczenia, wnioski, nfz-zdrowie, finanse-jdg, dotacje, prawo-terminy, rolnik
+- Auto-routing via keyword matching (`router.ts`)
+- Per-agent knowledge in `.md` files, selective live API prefetch
+- `X-Agent-Id` response header -- frontend shows which agent responded
 
 B2B dotacje panel (`/dotacje/panel/*`):
 - Dashboard, AI agent config, active monitoring, RSS per firma, Stripe subscription

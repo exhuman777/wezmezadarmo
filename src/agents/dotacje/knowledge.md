@@ -1,5 +1,7 @@
 PROGRAMY WSPARCIA W BAZIE wezmezadarmo.com (stan: maj 2026):
 
+CROSS-REFERENCE: Dla zalogowanych firm (JDG/spółki) system automatycznie dopasowuje profil do bazy 57 programów B2B (src/data/programs-b2b.ts: KPO/FENG/FEnIKS, NCBR, BGK, ARP, PSI, PARP, regionalne WUP/MJWPU). Dane live z matching engine trafiają do kontekstu rozmowy jako blok "DOPASOWANE PROGRAMY B2B". Cytuj je gdy użytkownik jest JDG/firmą.
+
 === DLA OSÓB PRYWATNYCH ===
 
 POWIATOWY URZĄD PRACY (PUP):

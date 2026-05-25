@@ -1,5 +1,75 @@
 # Changelog
 
+## 2026-05-25
+
+### Multi-agent system -- 8 wyspecjalizowanych agentów z auto-routingiem
+
+Przebudowa AI chatu z 6 trybów (mode-based) na 8 agentów z automatycznym routingiem po keywordach i selektywnymi prefetcherami. Architektura: każdy agent = folder z `.md` plikami (persona, wiedza, keywords, prefetch, źródła).
+
+**8 agentów:**
+- `konsjerz` -- fallback, zna wszystkich 7 agentów, kieruje do specjalistów
+- `swiadczenia` -- 118 świadczeń, matching, kwoty, warunki kwalifikacji
+- `wnioski` -- 8 formularzy ZUS krok po kroku, PDF, procedury
+- `nfz-zdrowie` -- kolejki, lekarze, refundacja leków, jakość powietrza (NFZ + GIOŚ prefetch)
+- `finanse-jdg` -- kursy walut, biała lista VAT, CEIDG, KSeF, podatki, ulgi ZUS (NBP + whitelist + CEIDG prefetch)
+- `dotacje` -- PUP, PFRON, PARP, NCBiR, BGK, KFS, granty, 57 programów B2B
+- `prawo-terminy` -- ELI/Sejm, zmiany w przepisach, kalendarz terminów (ELI prefetch)
+- `rolnik` -- KRUS, ARiMR, dopłaty, pogoda, dane gminy (IMGW + BDL GUS prefetch)
+
+**Architektura plików:**
+```
+src/agents/
+  _base/identity.md, formatting.md, live-sources.md
+  {agentId}/agent.md, knowledge.md, keywords.json, prefetch.json, sources.md
+  router.ts           -- routeToAgent(message, profileType): AgentId
+  registry.ts         -- czyta .md, buildAgentSystemPrompt()
+  types.ts            -- AgentId union type, AgentConfig, PrefetchSource
+```
+
+**Kluczowe zmiany:**
+- `router.ts`: keyword matching z wagami (długie słowa = 2 pkt, krótkie = 1 pkt), fallback JDG -> finanse-jdg
+- `registry.ts`: przebudowany -- czyta .md przez fs, caching, nie importuje .ts
+- `chat/route.ts`: auto-routing gdy `mode=auto`, selektywny prefetch (tylko API potrzebne dla danego agenta), nagłówek `X-Agent-Id` w odpowiedzi
+- UI: 8 agentów w sidebarze, chip "Odpowiada: X" nad wiadomością AI, tryb auto-routing jako domyślny
+
+**Usunięte pliki:**
+- `src/agents/knowledge/ogolny.ts`, `swiadczenie.ts`, `wniosek.ts`, `nabor.ts`, `faktura.ts`, `termin.ts`
+- `src/agents/base-prompt.ts`
+
+### +35 programów B2B -- baza 57 dofinansowań dla firm
+
+Rozszerzenie `src/data/programs-b2b.ts` z 23 do 57 programów (cross-checked vs gov.pl/parp/bgk/nfosigw, lastVerified 2026-05-25):
+- KPO/FENG/FEnIKS (12): kredyty BGK cyfryzacja+ekologia, Ścieżka SMART B+R+wdrożenie, STEP Cleantech/Biotech, FERS Akademia HR
+- NCBR/BGK/ARP/PSI (13): AGROSTRATEG, Kredyt Technologiczny, Gwarancja Biznesmax Plus, Polityka Nowej Szansy, PSI
+- Regionalne (10 nowych województw): dolnośląskie, wielkopolskie, warmia-mazury, lubelskie, kujawsko-pomorskie, zachodniopomorskie, opolskie, podkarpackie, lubuskie, świętokrzyskie
+
+Cross-reference: dotacje agent (`src/agents/dotacje/knowledge.md`) zna te programy przez blok "DOPASOWANE PROGRAMY B2B" w kontekście runtime.
+
+### /statystyki -- dashboard GUS/SDG (skeleton)
+
+Nowa strona publiczna `/statystyki`:
+- LIVE: 4 wskaźniki SDG z publicznego API (sdg.gov.pl) bez rejestracji
+- Featured: Cena 1m2 powierzchni użytkowej 1999-2026 (z public GUS PDF)
+- Komponent `LineChart` SVG (responsive, dostępne tooltips)
+- Status integracji 8 API państwowych (live/pending/planowane)
+- `docs/API_REQUEST_TEMPLATES/gus-bdl-regon.md`: szablony wniosków o klucz do GUS BDL, REGON, TERYT, STRATEG, NFZ rozszerzony
+
+### Klikalne linki w chacie + lepsza obsługa NFZ
+
+- Nowy komponent `src/components/MessageContent.tsx`: parsuje `/nfz`, `/swiadczenia`, `/dotacje`, `/centrum-obywatela` itp. + `https://` na klikalne linki
+- NFZ chat: gdy user pyta o "lekarza" bez specjalizacji, nie zwraca losowych podmiotów (aptek, pielęgniarek) -- prosi o specjalizację + link `/nfz`
+
+### Audyt URL 25.05 -- 7 fixów (3 false positives + 4 prawdziwe 404)
+
+- `lib/benefits-audit.ts`: zmiana USER_AGENT na Chrome 120 (Mac) -- BGK/czystepowietrze.gov.pl blokowały custom UA "wezmezadarmo-audit"
+- URL fixes w `src/engine/benefits/`:
+  - `praca.ts`: bon szkoleniowy + przygotowanie zawodowe dorosłych -> gov.pl/web/rodzina/*
+  - `krus.ts`: zasiłek opiekuńczy KRUS -> gov.pl/web/krus/zasilek-opiekunczy
+  - `ekologia.ts`: Stop Smog -> gov.pl/web/klimat/stop-smog + zrodloNazwa: NFOSiGW -> Ministerstwo Klimatu
+- Admin UI (`app/admin/benefits-audit/page.tsx`): HTTP column "-" gdy status=0, czytelniejszy label błędów
+
+---
+
 ## 2026-05-23
 
 ### Panel świadczenia -- master-detail + embedded AI

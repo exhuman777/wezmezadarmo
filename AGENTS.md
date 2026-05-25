@@ -41,11 +41,12 @@ Po każdym zadaniu, przed zgłoszeniem gotowości:
 # Mapa projektu (aktualizuj przy każdej zmianie)
 
 Strony publiczne:
-- `/` -- kalkulator świadczeń dla obywateli (117+ świadczeń ZUS, NFZ, PFRON itd.)
+- `/` -- kalkulator świadczeń dla obywateli (118+ świadczeń ZUS, NFZ, PFRON itd.)
 - `/wnioski/` -- AI-asystowane wypełnianie wniosków ZUS z eksportem PDF
 - `/aktualnosci/` -- monitoring RSS (publiczny podgląd + B2B panel dla firm)
+- `/statystyki/` -- dashboard GUS/SDG: wskaźniki live, wykresy, status API państwowych
 - `/automatyzacje/` -- AI automatyzacje dla firm: KSeF, faktury zagraniczne, custom workflows
-- `/dotacje/` -- B2B SaaS: monitoring dofinansowań, AI agent dopasowujący do profilu firmy
+- `/dotacje/` -- B2B SaaS: monitoring dofinansowań, baza 57 programów, AI agent dopasowujący do profilu firmy
 - `/dla-firm/` -- landing dla firm i JDG
 - `/o-projekcie/`, `/polityka-prywatnosci/`, `/regulamin/` -- strony informacyjne
 - `/agent/` -- Agent AI dla JDG i osób prywatnych (świadczenia, RSS, dzienny e-mail digest)
@@ -64,8 +65,17 @@ Panel osobisty (/agent/panel/):
 - `/agent/panel/powiadomienia/` -- ustawienia digestu e-mail
 - `/agent/panel/profil/` -- edycja profilu użytkownika
 
+System agentów AI (src/agents/):
+- 8 agentów: konsjerz, swiadczenia, wnioski, nfz-zdrowie, finanse-jdg, dotacje, prawo-terminy, rolnik
+- Każdy agent: `agent.md` (persona), `knowledge.md` (wiedza), `keywords.json` (router), `prefetch.json` (API live), `sources.md`
+- `router.ts` -- routeToAgent(message, profileType): keyword matching z wagami
+- `registry.ts` -- czyta .md, buildAgentSystemPrompt(), caching
+- Selektywny prefetch: tylko API zdefiniowane w prefetch.json aktywnego agenta
+- Cross-reference: dotacje agent + src/data/programs-b2b.ts (57 programów B2B)
+
 API:
 - `/api/chat/` -- czat AI dla obywateli (rate limit: 3/dzień)
+- `/api/agent/chat/` -- streaming chat z auto-routingiem (8 agentów), nagłówek X-Agent-Id
 - `/api/form-assist/` -- AI wypełnianie pól wniosku
 - `/api/pdf/` -- generowanie PDF z danymi
 - `/api/aktualnosci/` -- RSS feeds per firma
