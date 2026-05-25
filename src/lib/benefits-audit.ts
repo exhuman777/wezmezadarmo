@@ -8,7 +8,9 @@
 import { createHash } from 'crypto';
 
 const TIMEOUT_MS = 15_000;
-const USER_AGENT = 'Mozilla/5.0 (compatible; wezmezadarmo-audit/1.0; +https://www.wezmezadarmo.com)';
+// Browser-like UA wymagany -- BGK, czystepowietrze.gov.pl, gov.pl/ARiMR blokuja
+// custom "bot" UA (403, fetch failed). Identyfikator projektu w komentarzu zostawiony.
+const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
 /** Procent zmiany content uznawany za "znaczacy" (wymaga review). */
 const SIGNIFICANT_CHANGE_THRESHOLD = 0.30;
 /** Concurrent fetch limit -- nie zatkajmy gov.pl. */

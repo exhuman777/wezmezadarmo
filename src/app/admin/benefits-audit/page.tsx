@@ -163,12 +163,12 @@ export default async function BenefitsAuditPage() {
                       fontSize: 11, fontWeight: 600,
                     }}>{tone.label}</span>
                     {r.consecutive_errors > 0 && (
-                      <span style={{ fontSize: 10, color: '#c0392b', marginLeft: 6 }}>
-                        ×{r.consecutive_errors}
+                      <span style={{ fontSize: 10, color: '#c0392b', marginLeft: 6 }} title={`${r.consecutive_errors} bledow z rzedu`}>
+                        {r.consecutive_errors} blad{r.consecutive_errors > 1 ? 'y' : ''}
                       </span>
                     )}
                   </Td>
-                  <Td><code style={{ fontSize: 11 }}>{r.last_status ?? '-'}</code></Td>
+                  <Td><code style={{ fontSize: 11 }}>{!r.last_status ? '-' : r.last_status}</code></Td>
                   <Td>
                     <a href={r.url} target="_blank" rel="noopener noreferrer" style={{
                       fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--color-accent)',
