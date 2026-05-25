@@ -34,6 +34,19 @@ const insecureGovAgent = new Agent({ connect: { rejectUnauthorized: false } });
 const isGovDomain = (url: string): boolean => {
   try { return new URL(url).hostname.endsWith('.gov.pl'); } catch { return false; }
 };
+
+// Hosty z WAF-em blokujacym Vercel IP ranges (BGK, sprawdzone: curl/browser z
+// normalnego IP -> 200, Vercel -> 403). Strony OK, my nie mozemy ich audytowac.
+// Dla nich BLOCKED nie alertuje (status WAF_PROTECTED, info-only).
+// TODO: sprawdzac manualnie raz na miesiac.
+const WAF_BLOCKED_HOSTS = new Set<string>([
+  'www.bgk.pl',
+  'bgk.pl',
+]);
+const isKnownWafBlocked = (url: string): boolean => {
+  try { return WAF_BLOCKED_HOSTS.has(new URL(url).hostname); } catch { return false; }
+};
+
 /** Procent zmiany content uznawany za "znaczacy" (wymaga review). */
 const SIGNIFICANT_CHANGE_THRESHOLD = 0.30;
 /** Concurrent fetch limit -- nie zatkajmy gov.pl. */
@@ -164,9 +177,20 @@ export async function auditUrl(
 
     // Inne 4xx/5xx
     if (!res.ok) {
+      // Known WAF (BGK) blokuje Vercel IPs -- strona OK, nie alertuj
+      if (isKnownWafBlocked(url)) {
+        return {
+          benefitId, benefitName, category, url,
+          httpStatus, status: 'OK',
+          contentHash: previous?.last_content_hash ?? null,
+          contentLength: 0, changePct: null,
+          needsReview: false,
+          note: `WAF blokuje audyt (HTTP ${httpStatus}) -- strona OK, sprawdz manualnie`,
+        };
+      }
       return {
         benefitId, benefitName, category, url,
-        httpStatus, status: httpStatus >= 500 ? 'BLOCKED' : 'BLOCKED',
+        httpStatus, status: 'BLOCKED',
         contentHash: null, contentLength: 0, changePct: null,
         needsReview: (previous?.consecutive_errors ?? 0) >= 2, // alert po 3 errorach z rzedu
         note: `HTTP ${httpStatus}`,
@@ -218,6 +242,17 @@ export async function auditUrl(
   } catch (err) {
     clearTimeout(timeout);
     const errMsg = err instanceof Error ? err.message : String(err);
+    // Known WAF blokuje nawet TCP -- nie alertuj
+    if (isKnownWafBlocked(url)) {
+      return {
+        benefitId, benefitName, category, url,
+        httpStatus: 0, status: 'OK',
+        contentHash: previous?.last_content_hash ?? null,
+        contentLength: 0, changePct: null,
+        needsReview: false,
+        note: `WAF blokuje audyt -- strona OK, sprawdz manualnie`,
+      };
+    }
     return {
       benefitId, benefitName, category, url,
       httpStatus: 0,
