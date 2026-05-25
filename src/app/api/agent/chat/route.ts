@@ -18,9 +18,12 @@ import { createSupabaseServer } from '@/lib/dotacje/supabase';
 import { chatStream } from '@/ai/openrouter';
 import { matchBenefits } from '@/engine/matcher';
 import { CORS_HEADERS } from '@/lib/apiAuth';
-import type { AgentMode } from '@/agents/types';
+import type { AgentId } from '@/agents/types';
+import { AGENT_IDS } from '@/agents/types';
+import type { PrefetchSource } from '@/agents/types';
 import type { RssContextItem, RssSubscriptionContext } from '@/agents/types';
-import { buildAgentSystemPrompt, profileToUserProfile } from '@/agents/registry';
+import { buildAgentSystemPrompt, profileToUserProfile, getAgentConfig } from '@/agents/registry';
+import { routeToAgent } from '@/agents/router';
 import { getQueues, NFZ_PROVINCE_CODES, PROVINCE_LABELS } from '@/lib/sources/nfz';
 import { PROGRAMS, type EligibilityFlag } from '@/data/programs-b2b';
 import { getPkdName, dominantSection } from '@/data/pkd-codes';
@@ -69,10 +72,6 @@ const NFZ_SPECIALTY_MAP: Record<string, string> = {
   psychiatr: 'PORADNIA ZDROWIA PSYCHICZNEGO',
   rehabilitac: 'PORADNIA REHABILITACYJNA',
 };
-
-const VALID_MODES: Set<string> = new Set<string>([
-  'ogolny', 'swiadczenie', 'wniosek', 'nabor', 'faktura', 'termin',
-]);
 
 interface AgentChatBody {
   messages: { role: 'user' | 'assistant'; content: string }[];
@@ -592,15 +591,13 @@ export async function POST(request: NextRequest) {
     });
   }
 
-  const { messages, mode: rawMode = 'ogolny' } = body;
+  const { messages, mode: rawMode = 'auto' } = body;
   if (!messages || !Array.isArray(messages) || messages.length === 0) {
     return new Response(JSON.stringify({ error: 'Brak wiadomosci.' }), {
       status: 400,
       headers: { 'Content-Type': 'application/json', ...CORS_HEADERS },
     });
   }
-
-  const mode: AgentMode = VALID_MODES.has(rawMode) ? (rawMode as AgentMode) : 'ogolny';
 
   // Load profile for context
   const { data: profile } = await supabase
@@ -620,6 +617,14 @@ export async function POST(request: NextRequest) {
   // Last user message for smart prefetch
   const lastUserMsg = [...messages].reverse().find(m => m.role === 'user')?.content ?? '';
 
+  // Route to agent
+  let agentId: AgentId;
+  if (rawMode === 'auto' || !AGENT_IDS.includes(rawMode as AgentId)) {
+    agentId = routeToAgent(lastUserMsg, profileType ?? undefined);
+  } else {
+    agentId = rawMode as AgentId;
+  }
+
   // Parallel fetch all live context
   const userProfile = profile ? profileToUserProfile(profile as Record<string, unknown>) : null;
   const userProvince = (profile?.wojewodztwo as string | null) ?? (profile?.company_voivodeship as string | null) ?? null;
@@ -627,10 +632,33 @@ export async function POST(request: NextRequest) {
   const isJdg = profileType === 'jdg';
   const profilePkd = (profile?.pkd_codes as string[] | null) ?? null;
 
-  const [recentRssItems, rssSubscription, livePrefetch] = await Promise.all([
+  const agentConfig = getAgentConfig(agentId);
+  const prefetchSources = new Set(agentConfig.prefetch);
+
+  const PREFETCH_MAP: Record<PrefetchSource, () => Promise<string | null>> = {
+    nfz: () => maybeFetchNfz(lastUserMsg, userProvince),
+    gios: () => maybeFetchGios(lastUserMsg, userProvince),
+    nbp: () => maybeFetchNbp(lastUserMsg),
+    whitelist: () => maybeFetchWhitelist(lastUserMsg),
+    ceidg: () => maybeFetchCeidg(lastUserMsg, profileNip, isJdg),
+    imgw: () => maybeFetchImgw(lastUserMsg),
+    eli: () => maybeFetchEli(lastUserMsg),
+    'bdl-gus': () => maybeFetchBdlGus(lastUserMsg, userProvince),
+    benefits: () => Promise.resolve(null),
+  };
+
+  const prefetchPromises = [...prefetchSources]
+    .filter(s => s !== 'benefits')
+    .map(s => PREFETCH_MAP[s]());
+  const prefetchResults = await Promise.all(prefetchPromises);
+  const livePrefetch = prefetchResults.filter((p): p is string => p !== null);
+  const liveContext = livePrefetch.length > 0
+    ? `DANE LIVE POBRANE NA POTRZEBY TEJ ROZMOWY:\n\n${livePrefetch.join('\n\n')}`
+    : null;
+
+  const [recentRssItems, rssSubscription] = await Promise.all([
     fetchRecentRss(audienceHint),
     fetchUserSubscription(session.user.id),
-    buildLivePrefetch(lastUserMsg, { userProvince, isJdg, profileNip }),
   ]);
 
   // Dotacje B2B - gdy user ma NIP w profilu (niezaleznie czy JDG czy prywatny z firma)
@@ -639,17 +667,17 @@ export async function POST(request: NextRequest) {
     : null;
 
   // Polacz live prefetch + dotacje w jeden extraContext
-  const combinedExtra = [livePrefetch, dotacjeContext].filter(Boolean).join('\n\n');
+  const combinedExtra = [liveContext, dotacjeContext].filter(Boolean).join('\n\n');
 
   let matchedBenefits = null;
-  if (userProfile && (mode === 'swiadczenie' || mode === 'ogolny')) {
+  if (userProfile && (prefetchSources.has('benefits') || agentId === 'konsjerz' || agentId === 'swiadczenia')) {
     const results = matchBenefits(userProfile);
     matchedBenefits = results.filter(
       r => r.status === 'PRZYSLUGUJE' || r.status === 'MOZLIWE'
     );
   }
 
-  const systemMessage = buildAgentSystemPrompt(mode, {
+  const systemMessage = buildAgentSystemPrompt(agentId, {
     profile: profile as Record<string, unknown> | null,
     profileType,
     matchedBenefits,
@@ -688,6 +716,7 @@ export async function POST(request: NextRequest) {
         'Content-Type': 'text/event-stream',
         'Cache-Control': 'no-cache',
         Connection: 'keep-alive',
+        'X-Agent-Id': agentId,
         ...CORS_HEADERS,
       },
     });
