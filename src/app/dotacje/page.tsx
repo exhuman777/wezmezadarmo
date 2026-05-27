@@ -49,7 +49,7 @@ const STEPS = [
   {
     num: '01',
     title: 'Podaj NIP',
-    desc: 'Agent pobiera dane firmy z CEIDG: nazwa, adres, PKD, forma prawna. Nie wpisujesz ręcznie.',
+    desc: 'Agent pobiera dane z CEIDG i Białej Listy VAT: nazwa, PKD, województwo, status VAT. Nie wpisujesz ręcznie.',
     icon: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z',
   },
   {
@@ -61,7 +61,7 @@ const STEPS = [
   {
     num: '03',
     title: 'Rozmawiaj z agentem',
-    desc: 'Pytaj o konkretne programy, kwoty, procedury, wymagania. Agent zna Twoją firmę i odpowiada w kontekście.',
+    desc: 'Agent pokazuje co pasuje do Twojego profilu i wyjaśnia dlaczego inne programy nie spełniają kryteriów. Pyta o kwoty, terminy, procedury.',
     icon: 'M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z',
   },
   {
@@ -142,7 +142,7 @@ export default function DotacjePage() {
             marginTop: 32,
           }}>
             {[
-              { num: '20+', label: 'programów w bazie' },
+              { num: '57+', label: 'programów w bazie' },
               { num: '16', label: 'województw' },
               { num: 'co tydz.', label: 'aktualizacje naborów' },
             ].map((stat, i) => (

@@ -215,9 +215,9 @@ export default function RejestracjaPage() {
       }
       setCompany(prev => ({
         ...prev,
-        name: data.name ?? prev.name,
-        voivodeship: data.voivodeship ?? prev.voivodeship,
-        pkdCodes: data.pkdCodes ?? prev.pkdCodes,
+        name: data.nazwa ?? prev.name,
+        voivodeship: data.wojewodztwo ?? prev.voivodeship,
+        pkdCodes: data.pkd ?? prev.pkdCodes,
       }));
     } catch {
       setNipError('Błąd połączenia z CEIDG');
