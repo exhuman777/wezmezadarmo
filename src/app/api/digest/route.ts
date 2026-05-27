@@ -94,10 +94,24 @@ export async function POST(request: NextRequest) {
           allRecentItems = [...allRecentItems, ...filterRecentItems(customResult.items)];
         }
 
+        // Collect previously sent benefit IDs and RSS links for deduplication
+        const { data: logRows } = await supabaseAdmin
+          .from('digest_log')
+          .select('sent_benefit_ids, sent_rss_links')
+          .eq('user_id', pref.user_id)
+          .eq('skipped', false);
+
+        const sentBenefitIds = new Set<string>(
+          (logRows ?? []).flatMap(r => (r.sent_benefit_ids as string[] | null) ?? [])
+        );
+        const sentRssLinks = new Set<string>(
+          (logRows ?? []).flatMap(r => (r.sent_rss_links as string[] | null) ?? [])
+        );
+
         const userCategories: string[] = (pref.categories as string[]) ?? [];
         // Build sourceId -> tags lookup from FEEDS registry
         const feedTagsMap = new Map<string, string[]>(FEEDS.map(f => [f.id, f.tags]));
-        const filteredItems = userCategories.length > 0
+        const categoryFiltered = userCategories.length > 0
           ? allRecentItems.filter(item => {
               const feedTags = feedTagsMap.get(item.sourceId) ?? [];
               return userCategories.some(cat =>
@@ -105,6 +119,9 @@ export async function POST(request: NextRequest) {
               );
             })
           : allRecentItems;
+
+        // Exclude RSS items already sent to this user
+        const filteredItems = categoryFiltered.filter(item => !sentRssLinks.has(item.link));
 
         let payload;
 
@@ -135,8 +152,10 @@ export async function POST(request: NextRequest) {
             rolnik: (profile.rolnik as boolean | null) ?? false,
             bezrobotnyZarejestrowany: (profile.bezrobotny_zarejestrowany as boolean | null) ?? false,
           };
-          const benefitResults = matchBenefits(userProfile);
-          payload = buildPrivateDigestPayload(email, filteredItems, benefitResults);
+          // Exclude benefits already sent to this user
+          const allBenefits = matchBenefits(userProfile);
+          const newBenefits = allBenefits.filter(r => !sentBenefitIds.has(r.benefit.id));
+          payload = buildPrivateDigestPayload(email, filteredItems, newBenefits);
         }
 
         if (!payload.hasContent) {
@@ -145,6 +164,8 @@ export async function POST(request: NextRequest) {
             skipped: true,
             skip_reason: 'no_new_content',
             items_count: 0,
+            sent_benefit_ids: [],
+            sent_rss_links: [],
           });
           results.skipped++;
           return;
@@ -176,6 +197,8 @@ export async function POST(request: NextRequest) {
             subject,
             items_count: payload.rssItems.length + payload.benefits.length,
             skipped: false,
+            sent_benefit_ids: payload.benefits.map(r => r.benefit.id),
+            sent_rss_links: payload.rssItems.map(i => i.link),
           }),
         ]);
 
