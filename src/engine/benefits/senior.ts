@@ -184,8 +184,8 @@ export const SENIOR: Benefit[] = [
       ],
       odwolanie: 'Odwołanie do Samorządowego Kolegium Odwoławczego w ciągu 14 dni',
     },
-    zrodloUrl: 'https://www.gov.pl/web/rodzina/swiadczenie-pielegnacyjne',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
+    zrodloUrl: 'https://www.gov.pl/web/rodzina/swiadczenie-wspierajace-i-swiadczenie-pielegnacyjne---informacje',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-25', dataWaznosci: '2026-12-31',
   },
   {
     id: 'dzienny-dom-pomocy', nazwa: 'Dzienny Dom Pomocy / Senior+',
@@ -256,8 +256,8 @@ export const SENIOR: Benefit[] = [
       ],
       odwolanie: 'Reklamacja do oddziału NFZ lub Rzecznika Praw Pacjenta',
     },
-    zrodloUrl: 'https://www.gov.pl/web/zdrowie/leki-dla-seniora-65-',
-    zrodloNazwa: 'Ministerstwo Zdrowia', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
+    zrodloUrl: 'https://www.gov.pl/web/zdrowie/',
+    zrodloNazwa: 'Ministerstwo Zdrowia', dataWeryfikacji: '2026-05-27', dataWaznosci: '2026-12-31',
   },
   {
     id: 'bon-senioralny', nazwa: 'Bon senioralny (domowe usługi opiekuńcze)',
