@@ -890,8 +890,8 @@ export default function Home() {
               </div>
 
               {/* RIGHT -- form card */}
-              <div className="rise" style={{ animationDelay: '300ms', position: 'relative' }}>
-                <div style={{
+              <div className="rise hero-form-col" style={{ animationDelay: '300ms', position: 'relative' }}>
+                <div className="hero-form-card" style={{
                   background: 'var(--color-surface)',
                   border: '1px solid var(--color-border)',
                   borderRadius: 'var(--radius-xl)',

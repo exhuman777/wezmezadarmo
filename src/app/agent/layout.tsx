@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { MobileAgentWarning } from '@/components/MobileAgentWarning';
 
 export const metadata: Metadata = {
   title: 'Twój agent AI -- świadczenia i aktualności | wezmezadarmo',
@@ -8,6 +9,7 @@ export const metadata: Metadata = {
 export default function AgentLayout({ children }: { children: React.ReactNode }) {
   return (
     <div style={{ minHeight: '100vh', background: 'var(--color-bg-0)', color: 'var(--color-text-1)' }}>
+      <MobileAgentWarning />
       {children}
     </div>
   );

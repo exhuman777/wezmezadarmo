@@ -979,6 +979,8 @@ html.dark .btn-ghost:hover {
   .btn { padding: 12px 18px; font-size: 15px; }
   .btn-lg { padding: 14px 22px; font-size: 16px; }
   .card { padding: 20px; }
+  /* Mniejszy padding karty formularza na telefonie */
+  .hero-form-card { padding: 20px !important; }
 }
 
 /* Steps grid (3-column "jak to dziala") collapse on mobile */
@@ -986,6 +988,8 @@ html.dark .btn-ghost:hover {
   .steps-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
   .steps-grid > div { border-right: none !important; border-bottom: 1px solid var(--line); padding-bottom: 24px !important; padding-left: 0 !important; padding-right: 0 !important; }
   .steps-grid > div:last-child { border-bottom: none; }
+  /* Formularz: form card first, stats second on mobile */
+  .hero-form-col { order: -1; }
 }
 
 .aktualnosci-cta-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(34,160,107,0.4) !important; }

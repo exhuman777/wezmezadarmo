@@ -139,7 +139,7 @@ export default function CentrumObywatelaPage() {
       </p>
 
       <div style={{
-        display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 10,
+        display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(130px, 100%), 1fr))', gap: 10,
         marginBottom: 32,
       }}>
         {STATS.map(s => (
