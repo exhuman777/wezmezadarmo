@@ -82,13 +82,119 @@ UWAGA: wypełnia PRACODAWCA, nie pracownik
 Kiedy: gdy zasiłek wypłaca ZUS (firma < 20 ubezpieczonych)
 Zawiera: dane pracodawcy + wynagrodzenie z 12 miesięcy
 
+=== ZUS Z-12 (Zasiłek pogrzebowy) ===
+Cel: wypłata 7 000 PLN po śmierci ubezpieczonego lub jego rodziny
+Kto: osoba która pokryła koszty pogrzebu (rodzina, pracodawca, gmina)
+TERMIN: 12 MIESIĘCY od daty śmierci (po terminie bezpowrotnie przepada!)
+Kwota: 7 000 PLN (od 1.01.2026, podwyżka z 4 000 PLN)
+Kluczowe pola:
+- Dane wnioskodawcy + stopień pokrewieństwa ze zmarłym
+- Dane zmarłego (PESEL, data śmierci)
+- Dane ubezpieczenia ZUS zmarłego lub numer renty/emerytury
+- Numer konta bankowego
+- Sumaryczna kwota poniesionych kosztów (musi być <= 7 000 PLN lub więcej -- ZUS wypłaci max 7 000)
+Dokumenty:
+- Akt zgonu
+- Rachunki/faktury za koszty pogrzebu
+- Akt urodzenia/małżeństwa (dowód pokrewieństwa)
+- Zaświadczenie o ubezpieczeniu ZUS lub decyzja o rencie/emeryturze
+Częste błędy:
+- Przekroczenie 12-miesięcznego terminu
+- Brak rachunków za pogrzeb (ZUS może zażądać oryginalnych faktur)
+- Kilka osób składa wniosek -- ZUS wypłaci tylko jednej (tej co złożyła pierwsza)
+PDF: TAK
+
+=== ZUS SR-5Z (Świadczenie pielęgnacyjne) ===
+Cel: 3 386 PLN/mies. dla opiekuna dziecka z niepełnosprawnością
+Kto: rodzic, opiekun faktyczny, rodzina zastępcza
+WAŻNE: od 2024 opiekun MOŻE pracować (nowe zasady)! Stare zasady (rezygnacja z pracy) też mogą obowiązywać jeśli pobierasz świadczenie od przed 2024
+Gdzie: urząd gminy (wydział świadczeń) lub MOPS/GOPS
+Kluczowe pola:
+- Dane wnioskodawcy + dane dziecka z niepełnosprawnością
+- Orzeczenie o niepełnosprawności (tryb zwykły lub znaczny) -- wystawione PRZED 18 r.ż. dziecka
+- Oświadczenie o dochodach (bez kryterium, ale wymagane)
+- Informacja o sprawowanej opiece (ile godzin dziennie)
+Dokumenty:
+- Orzeczenie o niepełnosprawności dziecka (oryginał + kopia)
+- Akt urodzenia dziecka
+- Dowód osobisty wnioskodawcy
+- Zaświadczenie ze szkoły/przedszkola (jeśli dziecko chodzi)
+Pułapki:
+- Orzeczenie musi być wydane przed 18 r.ż. dziecka -- po 18 urodzinach dziecka świadczenie wygasa
+- Na starych zasadach: 1 dziecko, opiekun NIE może pracować. Na nowych: wiele dzieci, może pracować
+- Decyzja o wyborze zasad jest jednorazowa i trudno odwracalna
+PDF: TAK (w przygotowaniu)
+
+=== MOPS SR-7 (Kosiniakowe / Świadczenie rodzicielskie) ===
+Cel: 1 000 PLN/mies. przez 52 tygodnie dla rodziców bez zasiłku macierzyńskiego
+Kto: bezrobotni, studenci, zleceniobiorcy bez chorobowego, rolnicy
+TERMIN: wniosek w ciągu 3 MIESIĘCY od porodu -- inaczej bez wyrównania!
+Gdzie: urząd gminy lub MOPS/GOPS
+Dokumenty:
+- Akt urodzenia dziecka
+- Dowód osobisty
+- Oświadczenie o nieupobraniu zasiłku macierzyńskiego
+- Numer konta bankowego
+Pułapki:
+- Wyklucza się z zasiłkiem macierzyńskim (ZUS)
+- Nie przysługuje jeśli pobrałeś zasiłek dla bezrobotnych za ten sam okres
+PDF: TAK (formularz gminy, różni się między gminami)
+
+=== PUP -- Jednorazowe środki na podjęcie JDG ===
+Cel: bezzwrotna dotacja do ok. 36 000-40 000 PLN na założenie firmy
+Kto: zarejestrowany bezrobotny w PUP (min. 1 dzień rejestracji)
+Gdzie: PUP właściwy dla miejsca zamieszkania
+KROK PO KROKU:
+  1. Zarejestruj się jako bezrobotny w PUP (praca.gov.pl lub osobiście)
+  2. Zapytaj doradcę o "jednorazowe środki na podjęcie działalności" -- nie każdy PUP ogłasza to samo
+  3. Pobierz wniosek ze strony PUP lub odbierz osobiście
+  4. Wypełnij: dane osobowe, opis planowanej działalności, PKD, kosztorys wydatków (co kupisz za dotację), prognoza przychodów/kosztów na 12 mies.
+  5. Złóż wniosek w PUP (termin ogłaszany przez PUP)
+  6. Komisja rozpatruje w ciągu 30 dni
+  7. Podpisanie umowy z PUP
+  8. WTEDY zakładasz firmę w CEIDG (NIE przed podpisaniem umowy!)
+  9. Wydajesz środki zgodnie z kosztorysem w ciągu 2 miesięcy
+  10. Rozliczenie: faktury/rachunki do PUP
+Pułapki:
+- Nie możesz prowadzić firmy przez 12 miesięcy po przyznaniu (inaczej zwrot + odsetki)
+- Kosztorys musi być szczegółowy -- komputer, oprogramowanie, narzędzia, wyposażenie
+- Nie możesz wydać na wynagrodzenia dla siebie, czynsz lokalu mieszkalnego, zakup samochodu osobowego
+
+=== PUP -- Bon szkoleniowy ===
+Cel: sfinansowanie szkolenia (do 100% kosztu, max ok. 17 000 PLN)
+Kto: bezrobotni do 30 lat zarejestrowani w PUP
+KROK PO KROKU:
+  1. Zarejestruj się w PUP
+  2. Wskaż szkolenie które chcesz odbyć (i instytucję szkoleniową)
+  3. Złóż wniosek o bon szkoleniowy (formularz w PUP)
+  4. Doradca potwierdza zasadność szkolenia dla Twoich celów zawodowych
+  5. PUP wystawia bon
+  6. Realizujesz szkolenie w instytucji szkoleniowej
+  7. Instytucja wystawia fakturę do PUP
+
+=== Czyste Powietrze -- wniosek ===
+Cel: dofinansowanie wymiany kopciucha i termomodernizacji
+Gdzie złożyć: wfosigw.gov.pl (właściwy dla województwa) lub GMINNY PUNKT KONSULTACYJNY (bezpłatna pomoc przy wypełnianiu)
+KROK PO KROKU:
+  1. Sprawdź czy kwalifikujesz się (dochód, posiadanie domu jednorodzinnego min. 1 rok)
+  2. Zrób audyt energetyczny lub wstępną ocenę potrzeb (bonus 1 200 PLN za audyt od 2026)
+  3. Wypełnij wniosek online na portalu GWD (gwd.nfosigw.gov.pl)
+  4. Dołącz: dokument własności domu, zaświadczenia o dochodach, kosztorys inwestycji
+  5. Złóż elektronicznie (profil zaufany)
+  6. Czekaj na decyzję (ok. 30-60 dni)
+  7. DOPIERO PO DECYZJI zaczynaj inwestycję (lub zachowaj faktury od daty złożenia wniosku)
+  8. Po zakończeniu: rozliczenie z fakturami
+Pułapki:
+- NIE zaczynaj przed złożeniem wniosku (wydatki przed datą wniosku NIE są refundowane, z wyjątkami)
+- Dom musi być min. 1 rok w posiadaniu (zmiana 2026)
+- Poziomy dofinansowania: podstawowy / podwyższony / najwyższy -- sprawdź który Ci przysługuje
+
 === Inne formularze (planowane lub w przygotowaniu) ===
-- PFRON Aktywny Samorząd Moduł I (A-D) i Moduł II -- SOD PFRON
+- PFRON Aktywny Samorząd Moduł I (A-D) i Moduł II -- SOD PFRON (sod.pfron.org.pl)
 - PFRON Aktywny Samorząd Moduł III (NOWY 2026!) -- dostępność mieszkań
-- MOPS: becikowe, zasiłek rodzinny, dodatek mieszkaniowy, stypendium szkolne
-- PUP: jednorazowe środki na JDG, bon szkoleniowy, bon zasiedleniowy, staż
+- MOPS: zasiłek rodzinny (SR-1), stypendium szkolne
 - ZUS RWS: wakacje składkowe (wniosek w miesiącu PRZED wybranym miesiącem)
-- Czyste Powietrze: wniosek przez wfosigw.gov.pl
+- ZUS ERSO: renta socjalna (wniosek przez PUE ZUS)
 
 OGÓLNE ZASADY WYPEŁNIANIA FORMULARZY:
 - WIELKIMI LITERAMI (większość formularzy ZUS)

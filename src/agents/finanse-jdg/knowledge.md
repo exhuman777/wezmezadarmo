@@ -1,5 +1,60 @@
 WIEDZA O FAKTURACH I PODATKACH (stan: maj 2026):
 
+=== JAK ZAŁOŻYĆ JDG -- KROK PO KROKU ===
+
+CEIDG-1 (rejestracja działalności):
+  1. Wejdź na biznes.gov.pl/ceidg
+  2. Zaloguj się profilem zaufanym (login.gov.pl), e-Dowodem lub podpisem kwalifikowanym
+  3. Wypełnij CEIDG-1:
+     - Dane osobowe (PESEL, imię, nazwisko, adres)
+     - Nazwa firmy (może być samo imię i nazwisko lub "Jan Kowalski Usługi IT")
+     - Adres prowadzenia działalności (może być adres zamieszkania)
+     - Data rozpoczęcia (może być dzień dzisiejszy lub przyszła)
+     - KOD PKD: główny (10 znaków, np. 62.01.Z -- tworzenie oprogramowania) i dodatkowe
+     - Forma opodatkowania: skala 12/32%, liniowy 19%, ryczałt -- wybierz mądrze!
+     - ZUS: czy chcesz ulgi (na start, preferencyjny) -- zaznacz od razu
+  4. Wyślij elektronicznie -- rejestracja natychmiastowa (1 formularz = wpis do CEIDG + NIP + REGON + ZUS)
+  5. Po kilku godzinach: firma widoczna w CEIDG (ceidg.gov.pl)
+
+  PUŁAPKI:
+  - PKD wybierz szeroko -- za wąski PKD = problemy z fakturowaniem innych usług
+  - Forma opodatkowania: ryczałt jest korzystny dla usług IT (12%), ale bez odliczenia kosztów
+  - Datę można wpisać z wyprzedzeniem (np. "za tydzień") jeśli potrzebujesz czasu na przygotowanie
+
+REJESTRACJA W ZUS (automatyczna lub ręczna):
+  Ulga na start (6 mies. bez składek społecznych):
+  - CEIDG-1 automatycznie zgłasza do ZUS ale BEZ ulgi na start
+  - Złóż ZUS ZUA lub ZUS ZZA w ciągu 7 dni od startu działalności, zaznaczając kod tytułu 05 40 (ulga na start)
+  - Przez PUE ZUS lub papierowo w oddziale ZUS
+  Preferencyjny ZUS (po 6 mies. ulgi na start, przez 24 mies.):
+  - Po zakończeniu ulgi złóż nowy ZUS ZUA z kodem 05 70
+  Pełny ZUS (po 30 mies.):
+  - ZUS ZUA z kodem 05 10
+
+REJESTRACJA VAT:
+  - Obligatoryjnie: gdy obrót przekroczy 240 000 PLN/rok
+  - Dobrowolnie: od pierwszego dnia (korzystne przy sprzedaży do firm)
+  1. Złóż VAT-R do urzędu skarbowego właściwego dla siedziby firmy
+  2. Online przez e-Urząd Skarbowy (e-urzadskarbowy.gov.pl)
+  3. Rejestracja w ciągu 1 dnia roboczego
+  4. Pierwsza deklaracja JPK_V7M za miesiąc rejestracji
+
+WYBÓR FORMY OPODATKOWANIA -- porównanie:
+  Skala (12%/32%):
+  + Kwota wolna 30 000 PLN, ulgi (prorodzinna, termomodernizacyjna, itp.), wspólne rozliczenie z małżonkiem
+  - Progresywna (32% powyżej 120 000 PLN dochodu)
+  Najlepsza dla: niskich dochodów, rodzin z dziećmi, osób z dużymi kosztami
+  
+  Liniowy (19%):
+  + Stała stawka, brak progresu
+  - Brak kwoty wolnej, brak ulg prorodzinnych, brak wspólnego rozliczenia
+  Najlepsza dla: dochody > ok. 150 000 PLN/rok
+  
+  Ryczałt (od 2-17% przychodu):
+  + Niskie stawki dla usług IT (12%), niska biurokracja, brak kosztów
+  - Brak odliczenia kosztów -- zły gdy masz duże koszty zakupu sprzętu itp.
+  Stawki: 2% (handel), 3% (gastronomia), 5,5% (produkcja, budowlanka), 8,5% (usługi medyczne, IT do 100k), 12% (IT/software > 100k, zarządzanie), 15% (wolne zawody), 17% (niektóre usługi)
+
 === KSeF (Krajowy System e-Faktur) -- OBOWIĄZKOWY ===
 
 HARMONOGRAM WDROŻENIA (etapami):

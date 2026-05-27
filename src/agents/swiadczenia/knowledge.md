@@ -4,7 +4,6 @@ KLUCZOWE ŚWIADCZENIA I ICH WARUNKI (stan: maj 2026):
 
 800+ (Świadczenie wychowawcze): 800 PLN/mies. na KAŻDE dziecko do 18 lat.
 - Bez kryterium dochodowego
-- Wniosek przez EMPATIA, ZUS PUE, bank (IKO, Moje ING, iPKO, itp.)
 - Nowy okres rozliczeniowy: 1 czerwca 2026 - 31 maja 2027
 - Złóż wniosek od 1 LUTEGO 2026 aby mieć ciągłość wypłat od czerwca
 - Do 30 KWIETNIA: gwarancja ciągłości (bez przerwy w wypłatach)
@@ -12,18 +11,63 @@ KLUCZOWE ŚWIADCZENIA I ICH WARUNKI (stan: maj 2026):
 - Po 30 czerwca: wypłata dopiero od miesiąca złożenia, BEZ wyrównania
 - Koordynacja: jeśli drugi rodzic mieszka w UE/EOG -- gmina sprawdza koordynację świadczeń
 
+KROK PO KROKU -- jak złożyć wniosek 800+:
+  Opcja 1 (NAJSZYBSZA) -- bankowość mobilna:
+  1. Otwórz aplikację banku (IKO PKO, Moje ING, Santander mobile, BNP, Millennium itp.)
+  2. Znajdź sekcję "Wnioski" lub "Świadczenia" -> 800+
+  3. Dane pobierane automatycznie z konta -- tylko weryfikujesz
+  4. Podaj PESEL dziecka
+  5. Złóż wniosek -- potwierdzenie SMS/push
+  Opcja 2 -- ZUS PUE (pue.zus.pl):
+  1. Zaloguj się profilem zaufanym, e-Dowodem lub bankowością
+  2. Usługi -> Złóż dokument -> SW-1 (świadczenie wychowawcze)
+  3. Wypełnij: dane dziecka, dane wnioskodawcy, numer konta
+  4. Wyślij elektronicznie
+  Opcja 3 -- EMPATIA (empatia.mpips.gov.pl):
+  1. Zaloguj się profilem zaufanym
+  2. Świadczenie wychowawcze -> Złóż wniosek
+  3. Wypełnij formularz SW-1
+  DOKUMENTY: PESEL dziecka, numer konta, dowód osobisty (tylko do weryfikacji tożsamości)
+  PUŁAPKA: przy nowym dziecku złóż wniosek w CIĄGU 3 MIESIĘCY od urodzenia -- inaczej bez wyrównania!
+
 Becikowe: 1000 PLN jednorazowo.
 - PRÓG dochodowy: 1922 PLN netto na osobę w rodzinie
-- Warunek: opieka medyczna od 10. tygodnia ciąży (zaświadczenie lekarskie)
+- Warunek: opieka medyczna od 10. tygodnia ciąży (zaświadczenie lekarskie lub od położnej)
 - TERMIN ZAWITY: 12 miesięcy od urodzenia dziecka (po terminie przepada bezpowrotnie!)
 - Nie przysługuje jeśli dziecko oddane do pieczy zastępczej
-- Gdzie: MOPS/GOPS lub gmina
+- Gdzie: MOPS/GOPS lub gmina lub EMPATIA online
+
+KROK PO KROKU -- jak złożyć wniosek na becikowe:
+  1. Zbierz dokumenty:
+     - Zaświadczenie lekarskie lub od położnej (opieka od 10. tyg. ciąży) -- BEZ TEGO WNIOSEK ODRZUCONY
+     - Akt urodzenia dziecka (odpis)
+     - Dowód osobisty
+     - Zaświadczenia o dochodach z 3 miesięcy (pracodawca, ZUS, US) -- dla wszystkich w rodzinie
+     - Numer konta bankowego
+  2. Wypełnij wniosek SR-1 w MOPS/GOPS lub online przez EMPATIA
+  3. Złóż osobiście lub wyślij przez EMPATIA (empatia.mpips.gov.pl)
+  4. Decyzja w ciągu 30 dni
+  UWAGA: dochód liczy się z roku poprzedzającego okres zasiłkowy, ale uwzględnia zmiany (utrata/uzyskanie pracy)
+  PUŁAPKA: nie czekaj -- 12 miesięcy od urodzenia mija szybko!
 
 Kosiniakowe (świadczenie rodzicielskie): 1000 PLN/mies.
 - Czas trwania: 52 tygodnie (1 dziecko), 65 tyg. (2), 67 tyg. (3), 69 tyg. (4), 71 tyg. (5+)
 - Dla osób BEZ prawa do zasiłku macierzyńskiego (bezrobotne, studentki, zleceniobiorczynie bez chorobowego, rolniczki)
 - TERMIN ZAWITY: 3 miesiące od urodzenia -- po terminie bez wyrównania za okres przed złożeniem!
 - Nie łączy się z zasiłkiem macierzyńskim -- WYKLUCZA SIĘ wzajemnie
+- Bez kryterium dochodowego
+
+KROK PO KROKU -- jak złożyć wniosek na kosiniakowe:
+  1. Dokumenty:
+     - Akt urodzenia dziecka
+     - Dowód osobisty
+     - Oświadczenie o nieuzyskiwaniu zasiłku macierzyńskiego
+     - Numer konta bankowego
+  2. Formularz SR-7 -- dostępny w MOPS/GOPS lub gminie
+  3. Złóż w MOPS/GOPS lub gminie, lub przez EMPATIA online
+  4. KRYTYCZNY TERMIN: złóż do 3 MIESIĘCY od porodu -- inaczej wypłata tylko od miesiąca złożenia
+  5. Decyzja w 30 dni
+  UWAGA: jeśli jesteś na urlopie wychowawczym i masz prawo do zasiłku macierzyńskiego -- NIE przysługuje kosiniakowe!
 
 Ulga prorodzinna (PIT):
 - 1. dziecko: 1 112,04 PLN/rok (PRÓG: dochód łącznie małżonków do 112 000 PLN; osoby samotnej do 56 000 PLN)
@@ -55,11 +99,41 @@ Zasiłek chorobowy: 80% wynagrodzenia (100% w ciąży, wypadek przy pracy, dawst
 - Okres wyczekiwania: 30 dni (umowa o pracę), 90 dni (dobrowolne -- zlecenie, JDG)
 - TERMIN: ZAS-53 w ciągu 6 MIESIĘCY od 1. dnia zwolnienia (termin zawity!)
 
+KROK PO KROKU -- zasiłek chorobowy:
+  Pracownik (umowa o pracę):
+  1. Lekarz wystawia e-ZLA (elektroniczne zwolnienie) -- trafia automatycznie do ZUS i pracodawcy
+  2. Poinformuj pracodawcę o absencji (telefon/email)
+  3. Nic więcej nie musisz robić -- pracodawca (> 20 ubezpieczonych) wypłaca z własnych środków i rozlicza z ZUS
+  4. Jeśli firma < 20 ubezpieczonych: ZUS wypłaca bezpośrednio, pracodawca wysyła Z-3 do ZUS
+  JDG / zleceniobiorca z dobrowolnym ubezpieczeniem:
+  1. Lekarz wystawia e-ZLA
+  2. Złóż formularz ZAS-53 w ZUS (online przez PUE ZUS lub papierowo)
+  3. ZUS wypłaca na konto bankowe
+  UWAGA JDG: składka na dobrowolne chorobowe = 2,45% podstawy. Bez tej składki -- brak prawa do zasiłku!
+  Świadczenie rehabilitacyjne (po wyczerpaniu 182 dni):
+  1. Złóż wniosek ZNp-7 do ZUS max 6 tygodni przed końcem zasiłku
+  2. Lekarz orzecznik ZUS wydaje orzeczenie
+  3. Przyznane na 3-12 miesięcy (75% podstawy, w ciąży 100%)
+
 Zasiłek macierzyński: 81,5% lub 100% podstawy (zależy od momentu zgłoszenia).
 - 20 tygodni macierzyński + 32 tygodnie rodzicielski (1 dziecko)
 - KRYTYCZNY: złóż wniosek o 100% w ciągu 21 DNI od porodu (inaczej: 100% za macierzyński + 60% za rodzicielski)
 - Opcja: 81,5% przez cały okres (macierzyński + rodzicielski łącznie)
 - Dla ojców: urlop ojcowski 2 tygodnie (do 12 mies. życia dziecka)
+
+KROK PO KROKU -- zasiłek macierzyński:
+  Opcja A -- 100% przez cały urlop (NAJLEPSZA):
+  1. W ciągu 21 DNI od porodu złóż u pracodawcy wniosek o urlop macierzyński I rodzicielski łącznie
+  2. Pracodawca składa ZUS-DR do ZUS
+  3. Zasiłek: 100% przez 52 tygodnie (20 tyg. mac. + 32 tyg. rod.)
+  Opcja B -- 81,5% elastycznie:
+  1. Weź 20 tygodni urlopu macierzyńskiego (zasiłek 100% automatycznie)
+  2. Potem złóż wniosek o urlop rodzicielski (zasiłek 81,5% ale możesz go podzielić z ojcem)
+  Ojciec -- urlop ojcowski:
+  1. Złóż wniosek do pracodawcy min. 7 dni przed planowanym urlopem
+  2. Max 2 tygodnie (14 dni), do ukończenia 12 miesięcy przez dziecko
+  3. Zasiłek: 100% podstawy wymiaru
+  PUŁAPKA: 21-dniowy termin na wybór opcji 100% jest ZAWITY -- po terminie zawsze opcja B (niższa kwota!)
 
 Zasiłek opiekuńczy Z-15A: 80% za opiekę nad chorym dzieckiem do 14 lat.
 - LIMIT: 60 dni/rok (WSPÓLNY dla obojga rodziców -- nie 60+60!)
@@ -82,9 +156,23 @@ Mama 4+ / Tata 4+ (ERSU): 1 978,49 PLN brutto/mies. (najniższa emerytura po wal
 - Nie wymaga minimalnego stażu składkowego
 
 Zasiłek pogrzebowy: 7 000 PLN (PODWYŻKA od 1 stycznia 2026, wcześniej 4 000 PLN!).
-- Termin: 12 MIESIĘCY od daty śmierci
+- Termin: 12 MIESIĘCY od daty śmierci (termin zawity!)
 - Formularz Z-12
 - Przysługuje też osobom niespokrewnionym które pokryły koszty pogrzebu
+- Dotyczy: śmierci ubezpieczonego, emeryta/rencisty lub ich członka rodziny
+
+KROK PO KROKU -- zasiłek pogrzebowy:
+  1. Zbierz dokumenty:
+     - Akt zgonu (odpis z USC)
+     - Rachunki/faktury za koszty pogrzebu (dom pogrzebowy, nagrobek, odzież)
+     - Dowód osobisty wnioskodawcy
+     - Dokumenty potwierdzające pokrewieństwo (akt urodzenia, akt małżeństwa)
+     - Dokumenty ubezpieczenia ZUS zmarłego (zaświadczenie z pracy lub decyzja ZUS)
+  2. Wypełnij formularz Z-12
+  3. Złóż w ZUS: osobiście, pocztą lub przez PUE ZUS
+  4. ZUS wypłaca w ciągu 30 dni na konto
+  WAŻNE: jeśli koszty pogrzebu pokryła gmina lub pracodawca -- zasiłek przysługuje tej instytucji, nie rodzinie
+  JEŚLI NIE BYŁO UBEZPIECZENIA ZUS: sprawdź KRUS (rolnicy), MOPS (zasiłek celowy na pogrzeb dla niezabezpieczonych)
 
 Emerytura pomostowa:
 - Dla osób urodzonych po 1948, praca w szczególnych warunkach min. 15 lat
@@ -111,6 +199,23 @@ Zasiłek dla bezrobotnych (po waloryzacji 1.06.2026):
 - Warunki: rejestracja w PUP + min. 365 dni pracy (ze składką) w ostatnich 18 mies.
 - Czas: 6 mies. (bezrobocie powiatu < 150% krajowego) lub 12 mies. (powyżej 150%, wiek 50+, samotny rodzic)
 - 80% stawki jeśli staż < 5 lat, 120% jeśli staż > 20 lat
+
+KROK PO KROKU -- zasiłek dla bezrobotnych:
+  1. W ciągu 7 dni od utraty pracy zarejestruj się w PUP (Powiatowy Urząd Pracy):
+     - Online: praca.gov.pl -> Rejestracja jako bezrobotny (PRZ-1)
+     - Osobiście: PUP właściwy dla miejsca zamieszkania (NIE zameldowania!)
+  2. Dokumenty do rejestracji:
+     - Dowód osobisty
+     - Świadectwa pracy (wszystkie)
+     - Zaświadczenie o wynagrodzeniu za 12 mies. (formularz RPL od pracodawcy)
+     - Dyplomy/świadectwa (wykształcenie)
+     - Orzeczenie o niepełnosprawności (jeśli dotyczy)
+  3. Ustal z doradcą PUP status: bezrobotny z prawem do zasiłku / bez prawa
+  4. Decyzja w ciągu 14 dni od rejestracji
+  5. Zgłaszaj się w wyznaczonych terminach (co 30 dni) -- niestawiennictwo = utrata statusu!
+  PUŁAPKA: rejestracja w 8. dniu lub później (nie 7.) = brak zasiłku za pierwsze dni
+  PUŁAPKA: zwolnienie za porozumieniem stron lub z własnej winy = 90-dniowa karencja na zasiłek
+  PUŁAPKA: praca za granicą w UE/EOG może być zaliczona do stażu -- zaświadczenie z zagranicznego urzędu pracy
 
 Staż z PUP: wynagrodzenie stażowe równe 120% zasiłku dla bezrobotnych + składki ZUS opłacane przez PUP.
 - Max 6 miesięcy (12 dla osób do 30 lat)
