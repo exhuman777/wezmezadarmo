@@ -195,8 +195,6 @@ async function sendAlertEmail(alerts: AuditResult[], stats: Record<string, numbe
           </p>
           <p style="margin:0;">
             <a href="https://www.wezmezadarmo.com/admin/benefits-audit" style="color:#0d2b1c;font-weight:500;">Otworz panel admin</a>
-            &middot;
-            <a href="https://www.wezmezadarmo.com/api/cron/benefits-audit?secret=${process.env.CRON_SECRET ?? ''}" style="color:#6b7a72;">Uruchom audyt teraz</a>
           </p>
         </td></tr>
       </table>

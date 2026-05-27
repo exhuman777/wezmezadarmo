@@ -32,8 +32,8 @@ function checkAdminAuth(request: NextRequest): boolean {
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // /admin/* -- Basic Auth gate (przed Supabase auth check)
-  if (pathname.startsWith('/admin')) {
+  // /admin/* i /api/admin/* -- Basic Auth gate (przed Supabase auth check)
+  if (pathname.startsWith('/admin') || pathname.startsWith('/api/admin')) {
     if (!checkAdminAuth(request)) {
       return basicAuthChallenge();
     }
@@ -80,5 +80,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/panel/:path*', '/dotacje/panel/:path*', '/agent/panel/:path*', '/admin/:path*'],
+  matcher: ['/panel/:path*', '/dotacje/panel/:path*', '/agent/panel/:path*', '/admin/:path*', '/api/admin/:path*'],
 };

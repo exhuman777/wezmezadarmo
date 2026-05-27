@@ -36,8 +36,7 @@ export function checkApiKey(request: NextRequest): boolean {
   // Requesty z tej samej domeny lub localhost -- zawsze dozwolone
   const origin = request.headers.get('origin');
   const referer = request.headers.get('referer');
-  if (!origin) return true; // server-to-server bez origin -- dozwolone
-  if (INTERNAL_ORIGINS.some(o => origin === o)) return true;
+  if (origin && INTERNAL_ORIGINS.some(o => origin === o)) return true;
   if (referer && INTERNAL_ORIGINS.some(o => referer.startsWith(o))) return true;
 
   // Request zewnętrzny -- wymagany klucz
