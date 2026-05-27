@@ -96,7 +96,7 @@ export async function POST(request: NextRequest) {
 
   if (confirmUrl) {
     await resend.emails.send({
-      from: process.env.RESEND_FROM_EMAIL ?? 'onboarding@resend.dev',
+      from: process.env.RESEND_FROM_EMAIL ?? 'WezmeZaDarmo <hello@wezmezadarmo.com>',
       to: email,
       subject: 'Potwierdź adres e-mail - wezmezadarmo',
       html: `<p>Kliknij link poniżej aby potwierdzić adres e-mail i aktywować konto:</p><p><a href="${confirmUrl}">${confirmUrl}</a></p>`,
