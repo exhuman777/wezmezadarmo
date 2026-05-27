@@ -1,5 +1,46 @@
 # Changelog
 
+## 2026-05-27
+
+### Digest deduplication + security + agent knowledge + landing redesign
+
+**Digest deduplication (`src/app/api/digest/route.ts`, `supabase/migrations/20260527_digest_dedup.sql`)**
+- `digest_log` now stores `sent_benefit_ids[]` and `sent_rss_links[]` per send
+- Before each digest run: query all prior logs for that user, filter out already-sent items
+- Benefits already sent are not repeated until the user's profile changes and new benefits match
+- RSS links are never resent regardless of publication date
+- Digest is skipped (not sent) if zero new content -- `skip_reason: 'no_new_content'`
+
+**Security fixes (`src/lib/apiAuth.ts`, `src/middleware.ts`, `src/app/api/cron/benefits-audit/route.ts`)**
+- Removed `if (!origin) return true` bypass in API auth -- programmatic clients must now provide a valid API key
+- Added `/api/admin/:path*` to middleware Basic Auth matcher (was unprotected)
+- Removed `CRON_SECRET` from email HTML link (was embedded as a URL query parameter)
+
+**Email delivery fix (`src/app/api/auth/signup/route.ts`, `src/app/api/agent/auth/signup/route.ts`)**
+- Fixed `from` fallback from `onboarding@resend.dev` (Resend sandbox, only delivers to account owner) to `hello@wezmezadarmo.com` (verified domain)
+
+**AI agent knowledge expansion (`src/agents/*/knowledge.md`)**
+- `swiadczenia`: added MIESZKANIE section (dodatek mieszkaniowy, czynsz, media) + step-by-step for 800+, becikowe, kosiniakowe, zasiłek chorobowy/macierzyński/pogrzebowy/dla bezrobotnych
+- `wnioski`: added Z-12 (pogrzebowy), SR-5Z (świadczenie pielęgnacyjne), SR-7 (kosiniakowe), PUP dotacja na JDG, bon szkoleniowy, Czyste Powietrze procedures
+- `nfz-zdrowie`: added POZ selection, specialist referral, rehabilitation (NFZ + PFRON), hearing aid reimbursement, SOR vs NiŚOZ guidance
+- `finanse-jdg`: added CEIDG-1 registration step-by-step, ZUS path selection, VAT registration, tax form comparison
+- `rolnik`: added KRUS registration, ARiMR dopłaty (eWniosekPlus, May 15 deadline), Mlody Rolnik procedure, KRUS accident and sick leave claims
+
+**Landing page (`src/app/page.tsx`)**
+- Replaced RSS aggregator box with Centrum Obywatela preview: grid of all 11 tools with colored icons, names, and live-data badges
+- CTA links to `/centrum-obywatela` instead of directly to `/aktualnosci`
+
+**Project map (`AGENTS.md`)**
+- Corrected panel structure: `/panel/` is main user panel; `/agent/panel/` marked as legacy
+- Fixed B2B dotacje panel description (no "monitoring" feature -- it is a grants database)
+
+**Open source hygiene**
+- Created `.env.example` with all 20 environment variables documented
+- Created `CONTRIBUTING.md` with benefit contribution rules, local setup, PR checklist
+- Added `"license": "AGPL-3.0-only"` to `package.json`
+
+---
+
 ## 2026-05-25 (część 2 -- popołudniowa)
 
 ### Dashboard `/statystyki` + 35 nowych programów B2B + chat UX
