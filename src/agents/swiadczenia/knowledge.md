@@ -183,6 +183,77 @@ Bon ciepłowniczy: jednorazowo do 1 200 PLN (podwyższony: do 1 600 PLN).
 - Dla osób ogrzewających gazem, elektrycznością, olejem -- NIE dla węgla
 - Próg dochodowy: 2 100 PLN/os. (jednoosobowe) lub 1 500 PLN/os. (wieloosobowe)
 
+=== MIESZKANIE I LOKAL ===
+
+Dodatek mieszkaniowy (2026):
+- Comiesięczna dopłata do czynszu i opłat za mieszkanie, przyznawana na 6 MIESIĘCY.
+- Dla kogo: wszyscy o niskich dochodach niezależnie od formy własności (najemcy, właściciele, spółdzielcy, lokatorzy TBS).
+- KRYTERIUM DOCHODOWE: dochód na osobę za ostatnie 3 miesiące nie może przekraczać:
+  - 40% przeciętnego miesięcznego wynagrodzenia w gospodarce: ok. 3 225 PLN/os. (gosp. jednoosobowe)
+  - 30% przeciętnego wynagrodzenia: ok. 2 419 PLN/os. (gosp. wieloosobowe)
+  - Przeciętne wynagrodzenie Q4 2025 (GUS): ok. 8 063 PLN brutto
+- NORMATYWY POWIERZCHNI (przekroczenie = brak dodatku, chyba że maks. +30% lub +50%):
+  - 1 osoba: 35 m² (max z tolerancją: 45,5 m² lub 52,5 m²)
+  - 2 osoby: 40 m² (max: 52 m² lub 60 m²)
+  - 3 osoby: 45 m² (max: 58,5 m² lub 67,5 m²)
+  - 4 osoby: 55 m² (max: 71,5 m² lub 82,5 m²)
+  - 5 osób: 65 m² (max: 84,5 m² lub 97,5 m²)
+  - 6 osób: 70 m² (max: 91 m² lub 105 m²)
+  - Każda kolejna osoba +5 m²
+  - UWAGA: przekroczenie o 50% dopuszczalne jeśli pokój z kuchnią > 60% powierzchni mieszkania
+
+- KWOTA DODATKU: różnica między wydatkami na mieszkanie a 15% dochodu (gosp. 1-4 os.) lub 12% (gosp. 5+ os.) lub 10% (gosp. z emerytem/rencistą/niepełnosprawnym). Kwota zależy od gminy i realnych opłat -- od kilkudziesięciu do kilkuset PLN/mies.
+
+- JAK ZŁOŻYĆ WNIOSEK -- KROK PO KROKU:
+  1. Pobierz formularz wniosku DM-1 (dostępny w urzędzie gminy, MOPS, lub stronie urzędu)
+  2. Wypełnij deklarację o dochodach za ostatnie 3 miesiące (wszystkie osoby w gospodarstwie)
+  3. Poproś zarządcę budynku (wspólnota, spółdzielnia, właściciel) o POTWIERDZENIE WYSOKOŚCI CZYNSZU na odwrocie wniosku -- bez tego gmina nie rozpatrzy wniosku
+  4. Przygotuj dokumenty: dowód osobisty, dokument potwierdzający tytuł prawny do lokalu (umowa najmu, akt własności, przydział spółdzielczy), zaświadczenia o dochodach (zaświadczenie z pracy, decyzja ZUS, PIT)
+  5. Złóż komplet w urzędzie gminy lub MOPS -- osobiście lub przez pełnomocnika
+  6. Decyzja w ciągu 30 dni
+  7. Wypłata: gmina przekazuje kwotę ZARZĄDCY budynku, nie na konto wnioskodawcy!
+
+- WAŻNE PUŁAPKI:
+  - Dodatek przyznawany na 6 MIESIĘCY -- trzeba ZŁOŻYĆ NOWY WNIOSEK po upływie okresu!
+  - Jeśli dochód wzrośnie o 25% od daty złożenia wniosku -- obowiązek zgłoszenia w gminie
+  - Wypłata trafia do zarządcy, nie bezpośrednio do lokatora
+  - Tytuł prawny do lokalu obowiązkowy (umowa najmu, akt własności itd.)
+  - Przy dochodzie zerowym: gmina może odmówić jeśli "sposób życia wskazuje na wyższe dochody"
+
+- ODWOŁANIE: do Samorządowego Kolegium Odwoławczego (SKO) w ciągu 14 dni od decyzji.
+- GDZIE ZŁOŻYĆ: urząd gminy (wydział świadczeń lub lokalowy) lub MOPS/GOPS.
+- PODSTAWA PRAWNA: ustawa z dnia 21 czerwca 2001 r. o dodatkach mieszkaniowych (Dz.U. 2001 nr 71 poz. 734 z zm.)
+
+---
+
+Dodatek energetyczny -- ZAWIESZONY do 31.12.2027:
+- Tradycyjny dodatek energetyczny (15-44 PLN/mies.) jest ZAWIESZONY.
+- Wymaga najpierw posiadania dodatku mieszkaniowego.
+- Wnioski NIE są przyjmowane do końca 2027. Nie składaj wniosku teraz.
+
+---
+
+Fundusz Wsparcia Kredytobiorców (FWK):
+- Dla osób mających problem ze spłatą kredytu hipotecznego.
+- Pożyczka zwrotna do 2 000 PLN/mies. przez max 36 miesięcy.
+- Warunki: utrata pracy lub rata > 50% dochodu netto.
+- Wniosek w banku kredytodawcy.
+- UWAGA: to pożyczka (zwrotna), nie bezzwrotna pomoc.
+
+---
+
+Pierwsze Klucze (program rządowy, aktywny 2026):
+- Dopłaty do zakupu pierwszego mieszkania z rynku wtórnego.
+- Zastąpił zaniechany kredyt #naStart.
+- Szczegóły: gov.pl/web/rozwoj-technologia.
+
+---
+
+Społeczne Agencje Najmu (SAN):
+- Gmina wynajmuje mieszkania od właścicieli i podnajmuje po niższych cenach.
+- Dla osób bez zdolności kredytowej i bez prawa do mieszkania komunalnego.
+- Złóż wniosek w urzędzie gminy (wydział mieszkalnictwa).
+
 === BIZNES (JDG) ===
 
 Ulga na start: brak składek ZUS społecznych przez 6 miesięcy.
