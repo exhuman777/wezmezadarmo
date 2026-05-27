@@ -51,19 +51,29 @@ Strony publiczne:
 - `/o-projekcie/`, `/polityka-prywatnosci/`, `/regulamin/` -- strony informacyjne
 - `/agent/` -- Agent AI dla JDG i osób prywatnych (świadczenia, RSS, dzienny e-mail digest)
 
-Panel firmowy (/dotacje/panel/):
-- `/dotacje/panel/` -- dashboard
-- `/dotacje/panel/agent/` -- konfiguracja AI agenta
-- `/dotacje/panel/monitoring/` -- aktywne dofinansowania
-- `/dotacje/panel/aktualnosci/` -- monitoring RSS per firma + powiadomienia
+Panel główny (/panel/) -- dla zalogowanych obywateli:
+- `/panel/` -- dashboard (Świadczenia, Dotacje, Czat AI, Aktualności, Wnioski, Powiadomienia)
+- `/panel/swiadczenia/` -- dopasowane świadczenia i ulgi
+- `/panel/dotacje/` -- karta dotacje (link do systemu /dotacje/)
+- `/panel/chat/` -- czat z asystentem AI
+- `/panel/aktualnosci/` -- RSS aktualności i zmiany w prawie
+- `/panel/wnioski/` -- lista wniosków ZUS
+- `/panel/powiadomienia/` -- ustawienia digestu e-mail
+- `/panel/profil/` -- edycja profilu użytkownika
+
+Panel firmowy (/dotacje/panel/) -- B2B, osobna rejestracja:
+- `/dotacje/panel/` -- dashboard B2B
+- `/dotacje/panel/agent/` -- konfiguracja AI agenta dotacji
+- `/dotacje/panel/monitoring/` -- baza programów dofinansowań
+- `/dotacje/panel/aktualnosci/` -- RSS per firma
 - `/dotacje/panel/subskrypcja/` -- zarządzanie subskrypcją
 
-Panel osobisty (/agent/panel/):
-- `/agent/panel/` -- dashboard agenta
-- `/agent/panel/swiadczenia/` -- dopasowane świadczenia i ulgi
-- `/agent/panel/aktualnosci/` -- RSS aktualności i zmiany w prawie
-- `/agent/panel/powiadomienia/` -- ustawienia digestu e-mail
-- `/agent/panel/profil/` -- edycja profilu użytkownika
+Panel agenta (/agent/panel/) -- alternatywny/legacy, bez wnioski/dotacje:
+- `/agent/panel/` -- dashboard
+- `/agent/panel/swiadczenia/` -- świadczenia
+- `/agent/panel/aktualnosci/` -- aktualności RSS
+- `/agent/panel/powiadomienia/` -- digest e-mail
+- `/agent/panel/profil/` -- profil
 
 System agentów AI (src/agents/):
 - 8 agentów: konsjerz, swiadczenia, wnioski, nfz-zdrowie, finanse-jdg, dotacje, prawo-terminy, rolnik
