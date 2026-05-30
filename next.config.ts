@@ -19,6 +19,9 @@ const nextConfig: NextConfig = {
       { source: '/agent/panel', destination: '/panel', permanent: true },
       { source: '/agent/panel/:path*', destination: '/panel/:path*', permanent: true },
       { source: '/dotacje/panel', destination: '/panel', permanent: true },
+      // Usunięta płatna subskrypcja -> kieruj na panel (serwis jest bezpłatny)
+      { source: '/dotacje/panel/subskrypcja', destination: '/panel', permanent: true },
+      { source: '/panel/subskrypcja', destination: '/panel', permanent: true },
       { source: '/dotacje/panel/:path*', destination: '/panel/:path*', permanent: true },
     ];
   },
