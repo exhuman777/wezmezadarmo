@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'O projekcie | wezmezadarmo',
-  description: 'Dowiedz sie po co powstal wezmezadarmo, komu sluzy, jak dziala i kto za nim stoi.',
+  description: 'Dowiedz się po co powstał wezmezadarmo, komu służy, jak działa i kto za nim stoi.',
 };
 
 const MODULES = [
@@ -53,7 +53,7 @@ const MODULES = [
     badge: 'Wymaga konta',
     free: false,
     icon: 'AI',
-    desc: 'Osobisty agent AI dla JDG i osób prywatnych. Dopasowuje świadczenia do profilu, monitoruje zmiany w przepisach i wysyła dzienny e-mail digest.',
+    desc: 'Osobisty agent AI dla JDG i osób prywatnych. Dopasowuje świadczenia do profilu, monitoruje zmiany w przepisach i wysyła dzienny e-mail digest. Zawsze wiesz, że to AI, a odpowiedzi pochodzą ze zweryfikowanej bazy ze źródłami.',
   },
   {
     href: '/dotacje',
@@ -61,7 +61,7 @@ const MODULES = [
     badge: 'Bezpłatne',
     free: true,
     icon: 'F',
-    desc: 'Bezpłatny monitoring dofinansowań dla firm i JDG (KFS, PUP, PFRON, KPO). Strona informacyjna o automatyzacjach AI dostępnych dla europejskich firm.',
+    desc: 'Bezpłatny monitoring dofinansowań dla firm i JDG (KFS, PUP, PFRON, KPO). Bez opłat i bez logowania.',
   },
 ];
 
@@ -105,21 +105,23 @@ const SECURITY = [
   {
     module: 'Kalkulator świadczeń (/)',
     items: [
-      { ok: true, label: 'PESEL dekodowany lokalnie', note: 'wiek i płeć odczytywane w przeglądarce, numer nie trafia na serwer' },
-      { ok: true, label: 'Brak bazy danych', note: 'kalkulator nie zapisuje danych osobowych ani historii' },
-      { ok: true, label: 'NIP jednorazowo', note: 'tylko do sprawdzenia statusu firmy w CEIDG, nie przechowywany' },
+      { ok: true, label: 'Bez PESEL', note: 'do dopasowania wystarczy krótki zestaw pytań (wiek, płeć, sytuacja); numer PESEL nie jest potrzebny ani zbierany' },
+      { ok: true, label: 'Brak bazy danych', note: 'kalkulator działa bezstanowo, nie zapisuje danych osobowych ani historii' },
+      { ok: true, label: 'NIP opcjonalnie', note: 'tylko do sprawdzenia statusu firmy w CEIDG, nie jest przechowywany' },
     ],
   },
   {
     module: 'Kreator wniosków ZUS (/wnioski)',
     items: [
-      { ok: false, label: 'PESEL trafia na serwer', note: 'do wygenerowania PDF. Przetwarzany jednorazowo w pamięci, nie zapisywany' },
+      { ok: true, label: 'PESEL tylko do wniosku', note: 'przechowywany bezpiecznie na serwerach UE (Supabase), użyty wyłącznie do wypełnienia wniosku, nigdy nie sprzedawany ani używany do marketingu czy treningu AI' },
     ],
   },
   {
-    module: 'Asystent AI (/agent/panel)',
+    module: 'Asystent AI (/agent)',
     items: [
-      { ok: false, label: 'Wymaga rejestracji', note: 'dane profilu (wiek, dochód, zatrudnienie) przechowywane w Supabase (serwery w UE). PESEL nie jest zbierany' },
+      { ok: true, label: 'Zawsze wiesz, że to AI', note: 'jasno oznaczamy, że rozmawiasz z asystentem AI, nie z człowiekiem' },
+      { ok: true, label: 'Bez zmyślania', note: 'asystent odpowiada wyłącznie ze zweryfikowanej bazy, cytuje źródła, nie zmyśla kwot, dat ani formularzy; gdy nie wie, odsyła do urzędu' },
+      { ok: true, label: 'Profil w UE', note: 'po rejestracji dane profilu przechowywane w Supabase (serwery w UE); PESEL nie jest zbierany' },
     ],
   },
 ];
@@ -170,8 +172,8 @@ export default function OProjekciePage() {
                 wezmezadarmo.com
               </h1>
               <p style={{ maxWidth: 520, fontSize: 'clamp(14px, 1.6vw, 16px)', color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, marginBottom: 28 }}>
-                Bezpłatne narzędzie do sprawdzania świadczeń, wniosków ZUS i aktualności rządowych.
-                Projekt prywatny, nie rządowy.
+                Bezpłatne, otwarte narzędzie do sprawdzania świadczeń, wniosków ZUS i aktualności rządowych.
+                Projekt społeczny, prywatny, nie rządowy.
               </p>
               <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
                 <Link href="/" className="btn btn-green">
@@ -294,9 +296,10 @@ export default function OProjekciePage() {
                   Bez rejestracji, bez opłat, bez zbędnych kroków.
                 </p>
                 <p style={{ margin: 0 }}>
-                  Z czasem serwis rozrósł się o narzędzia dla firm i JDG: kreator wniosków ZUS,
-                  asystenta AI i automatyzacje procesów firmowych.
-                  Kalkulator świadczeń i wnioski pozostają darmowe.
+                  Z czasem serwis rozrósł się o kreator wniosków ZUS, asystenta AI
+                  i monitoring aktualności z urzędów. Wszystko jest darmowe i otwarte:
+                  to dobro wspólne dla obywateli, rodzin, seniorów, osób z niepełnosprawnością,
+                  rolników i naukowców, a nie biznes.
                 </p>
               </div>
             </div>
@@ -493,6 +496,40 @@ export default function OProjekciePage() {
               </div>
             ))}
           </div>
+
+          <div style={{
+            marginTop: 14,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
+            flexWrap: 'wrap',
+            padding: '14px 18px',
+            background: 'var(--color-surface)',
+            border: '1px solid var(--color-border)',
+            borderRadius: 12,
+            boxShadow: 'var(--shadow-1)',
+          }}>
+            <span style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: 9,
+              padding: '3px 9px',
+              borderRadius: 999,
+              border: '1px solid var(--color-green-border)',
+              background: 'var(--color-green-bg)',
+              color: 'var(--color-green)',
+              letterSpacing: '0.06em',
+              textTransform: 'uppercase',
+              whiteSpace: 'nowrap',
+            }}>Otwarty kod</span>
+            <span style={{ fontSize: 13, color: 'var(--color-text-2)', lineHeight: 1.6, flex: 1, minWidth: 200 }}>
+              Kod źródłowy na licencji AGPL-3.0, baza świadczeń jako otwarte dane (CC-BY-4.0).
+              Każdy kraj lub organizacja może go użyć i uruchomić u siebie.
+            </span>
+            <a href="https://github.com/exhuman777/wezmezadarmo" target="_blank" rel="noopener noreferrer"
+              style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--color-accent)', textDecoration: 'none', whiteSpace: 'nowrap' }}>
+              github.com/exhuman777/wezmezadarmo →
+            </a>
+          </div>
         </div>
       </section>
 
@@ -558,8 +595,9 @@ export default function OProjekciePage() {
               <h3 style={{ fontSize: 18, fontWeight: 700, letterSpacing: '-0.02em', marginTop: 0, marginBottom: 14, color: '#fff' }}>Kto za tym stoi</h3>
               <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.55)', lineHeight: 1.65, marginBottom: 20 }}>
                 Projekt stworzył <strong style={{ color: '#fff' }}>Kamil Sobkowicz</strong>,
-                programista i przedsiębiorca z Polski. Kalkulator świadczeń i kreator wniosków
-                to projekt społeczny. Narzędzia dla firm rozwijane są oddzielnie.
+                programista z Polski, samodzielnie i pro bono. wezmezadarmo to projekt
+                społeczny i dobro wspólne: cały serwis jest darmowy i otwarty (kod na licencji
+                AGPL-3.0), nie jest komercyjny.
               </p>
               <div style={{
                 display: 'flex',
