@@ -1023,11 +1023,11 @@ export default function Home() {
               </div>
             </div>
 
-            {/* ---- Narzedzia dla firm i JDG ---- */}
+            {/* ---- Wnioski ZUS ---- */}
             <div className="rise" style={{ marginTop: 80, animationDelay: '460ms' }}>
               <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 20 }}>
-                <span className="label-eyebrow">Narzędzia dla firm i JDG</span>
-                <span className="label-eyebrow" style={{ color: 'var(--color-muted-2)' }}>3 moduły</span>
+                <span className="label-eyebrow">Wnioski ZUS</span>
+                <span className="label-eyebrow" style={{ color: 'var(--color-muted-2)' }}>Bezpłatne</span>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))', gap: 12 }}>
 
@@ -1060,74 +1060,6 @@ export default function Home() {
                         border: '1px solid var(--color-border)',
                         borderRadius: 999, color: 'var(--color-text-3)',
                       }}>{sym}</span>
-                    ))}
-                  </div>
-                </a>
-
-                {/* Card: Automatyzacje */}
-                <a href="/automatyzacje" className="hover-lift" style={{
-                  background: 'var(--color-surface)',
-                  border: '1px solid var(--color-border)',
-                  borderRadius: 16,
-                  padding: '24px',
-                  display: 'flex', flexDirection: 'column', gap: 14,
-                  textDecoration: 'none', color: 'inherit',
-                }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-                    <span style={{ width: 40, height: 40, borderRadius: '50%', background: 'var(--green-950)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-mono)', fontSize: 15, fontWeight: 600, flexShrink: 0 }}>A</span>
-                    <div>
-                      <div style={{ fontSize: 16, fontWeight: 600, letterSpacing: '-0.015em', color: 'var(--color-text-1)' }}>
-                        Faktury zagraniczne z maila do arkusza
-                      </div>
-                      <div style={{ fontSize: 12, color: 'var(--color-text-3)', marginTop: 2 }}>Automatyzacje AI</div>
-                    </div>
-                  </div>
-                  <p style={{ fontSize: 13, color: 'var(--color-text-3)', lineHeight: 1.55, flex: 1, margin: 0 }}>
-                    Polskie faktury trafiają do KSeF automatycznie. Ale faktury z USA i spoza UE
-                    (np. Stripe, OpenAI, Notion) przychodzą mailem i łatwo je przegapić.
-                    System czyta skrzynkę, wyciąga kwoty i wpisuje je do arkusza.
-                  </p>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 'auto' }}>
-                    {['Faktury spoza UE', 'KSeF nie obejmuje', 'do arkusza'].map(tag => (
-                      <span key={tag} className="mono" style={{
-                        fontSize: 10, padding: '3px 8px',
-                        border: '1px solid var(--color-border)',
-                        borderRadius: 999, color: 'var(--color-text-3)',
-                      }}>{tag}</span>
-                    ))}
-                  </div>
-                </a>
-
-                {/* Card: Dotacje AI */}
-                <a href="/dotacje" className="hover-lift" style={{
-                  background: 'var(--color-surface)',
-                  border: '1px solid var(--color-border)',
-                  borderRadius: 16,
-                  padding: '24px',
-                  display: 'flex', flexDirection: 'column', gap: 14,
-                  textDecoration: 'none', color: 'inherit',
-                }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-                    <span style={{ width: 40, height: 40, borderRadius: '50%', background: 'var(--green-950)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-mono)', fontSize: 15, fontWeight: 600, flexShrink: 0 }}>D</span>
-                    <div>
-                      <div style={{ fontSize: 16, fontWeight: 600, letterSpacing: '-0.015em', color: 'var(--color-text-1)' }}>
-                        Monitoring dotacji dla Twojej firmy
-                      </div>
-                      <div style={{ fontSize: 12, color: 'var(--color-text-3)', marginTop: 2 }}>Agent AI dotacje</div>
-                    </div>
-                  </div>
-                  <p style={{ fontSize: 13, color: 'var(--color-text-3)', lineHeight: 1.55, flex: 1, margin: 0 }}>
-                    Podajesz NIP i branżę. Agent sprawdza otwarte nabory z KFS, PUP, PFRON, KPO
-                    i programów samorządowych. Gdy pojawi się nabór pasujący do Twojego profilu,
-                    dostajesz maila z linkiem i terminem.
-                  </p>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 'auto' }}>
-                    {['KFS', 'PFRON', 'KPO', 'PARP', '16 województw'].map(tag => (
-                      <span key={tag} className="mono" style={{
-                        fontSize: 10, padding: '3px 8px',
-                        border: '1px solid var(--color-border)',
-                        borderRadius: 999, color: 'var(--color-text-3)',
-                      }}>{tag}</span>
                     ))}
                   </div>
                 </a>

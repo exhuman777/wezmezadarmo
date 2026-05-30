@@ -4,9 +4,7 @@ import { NewsletterSignup } from './NewsletterSignup';
 
 const PRODUKT = [
   { href: '/', label: 'Świadczenia dla osoby' },
-  { href: '/dla-firm', label: 'Agenci AI dla firm' },
   { href: '/wnioski', label: 'Wnioski' },
-  { href: '/dotacje', label: 'AI dla Twojej firmy' },
 ];
 
 const WIEDZA = [
