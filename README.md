@@ -2,7 +2,7 @@
 
 ![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-blue.svg)
 ![Status: Live](https://img.shields.io/badge/status-live-brightgreen.svg)
-![Privacy: stateless, no tracking](https://img.shields.io/badge/privacy-stateless%2C%20no%20tracking-success.svg)
+![Privacy: stateless, privacy-first](https://img.shields.io/badge/privacy-stateless%2C%20privacy--first-success.svg)
 
 **Live:** https://www.wezmezadarmo.com
 
@@ -10,7 +10,7 @@ Poland has 118+ government benefits, subsidies, and social programs. Most citize
 
 WezmeZadarmo ("I'll take it for free") solves this. Answer a short set of anonymous questions. Get a personalised list of benefits you qualify for, with step-by-step application instructions and links to official sources. Ask the AI assistant follow-up questions.
 
-**No account. No tracking. No personal data stored. Everything stateless.**
+**The calculator needs no account and stores nothing.** Optional features (AI assistant, form-filling, newsletter) are opt-in.
 
 **Free public good.** WezmeZadarmo is free and open source for citizens across Poland
 and, through the planned open engine, the EU. A personal AI assistant for the citizen of
@@ -24,7 +24,7 @@ actually use the digital state. This is civic infrastructure, not a business.
 - Matches your demographic profile against a hand-verified database of 118 Polish government benefits
 - Covers: ZUS (social insurance), NFZ (healthcare), PFRON (disability), KRUS (farmers), MOPS (social welfare), local government programs
 - AI assistant (Google Gemini via OpenRouter) answers follow-up questions with citation-enforced answers
-- Personal agent panel (`/panel`): saved profile, matched benefits with embedded AI chat, RSS news monitoring, daily email digest
+- Personal agent panel (`/panel`): saved profile, matched benefits with embedded AI chat, RSS news monitoring, opt-in email newsletter
 - Free dotacje panel (`/dotacje/panel`): company-specific grant monitoring, AI matching, RSS feeds per firm (free, no payments, fair-use limits)
 - ZUS forms wizard (`/wnioski`): AI-assisted form filling with PDF export
 - Automations info page (`/automatyzacje`): informational overview of AI automations available to European firms (co-promotion of independent EU partners; nothing is sold here)
@@ -115,7 +115,7 @@ Agent panel (`/panel/*`):
 - `/panel/chat` - AI assistant with 8 specialized agents + auto-routing
 - `/panel/aktualnosci` - personalized RSS feed
 - `/panel/profil` - step-by-step profile wizard
-- `/panel/powiadomienia` - daily email digest settings
+- `/panel/powiadomienia` - email newsletter settings
 
 AI agent system (`src/agents/`):
 - 8 specialized agents: konsjerz, swiadczenia, wnioski, nfz-zdrowie, finanse-jdg, dotacje, prawo-terminy, rolnik

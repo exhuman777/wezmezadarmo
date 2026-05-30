@@ -1124,7 +1124,7 @@ export default function Home() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                   {[
                     'ETF-y na Bitcoin, złoto, S&P 500 lub inne aktywa',
-                    'XTB: bez prowizji od polskich i zagranicznych ETF-ów',
+                    'Limit 100 000 PLN rocznie, odnawialny co roku',
                     'Zyski całkowicie zwolnione z podatku',
                   ].map((item, i) => (
                     <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'center', fontSize: 14, color: 'var(--color-text-2)' }}>
