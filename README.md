@@ -27,7 +27,7 @@ actually use the digital state. This is civic infrastructure, not a business.
 - Personal agent panel (`/panel`): saved profile, matched benefits with embedded AI chat, RSS news monitoring, opt-in email newsletter
 - Free dotacje panel (`/dotacje/panel`): company-specific grant monitoring, AI matching, RSS feeds per firm (free, no payments, fair-use limits)
 - ZUS forms wizard (`/wnioski`): AI-assisted form filling with PDF export
-- Automations info page (`/automatyzacje`): informational overview of AI automations available to European firms (co-promotion of independent EU partners; nothing is sold here)
+- Automations info page (`/automatyzacje`): educational and informational only. It illustrates that the EU is already digitised and that this digital infrastructure can be put to further use with AI and code over structured, human-verified data. Nothing is sold here.
 - B2B API for companies integrating benefit eligibility into HR portals, fintech apps, NGO case management
 
 ## Privacy by design
@@ -103,7 +103,7 @@ Public pages:
 - `/wnioski` - AI-assisted ZUS form wizard with PDF export
 - `/aktualnosci` - RSS news monitoring (public preview + B2B panel for firms)
 - `/statystyki` - GUS/SDG statistics dashboard (live indicators + charts)
-- `/automatyzacje` - AI automations for SMBs (KSeF, foreign invoices, custom workflows)
+- `/automatyzacje` - educational/informational page only: how AI plus code over structured, human-verified data can further use an already-digitised EU (nothing is sold)
 - `/dotacje` - free grant-monitoring landing (57 programs database)
 - `/dla-firm` - B2B landing for firms and sole proprietors
 - `/agent` - AI agent landing for individuals
@@ -132,7 +132,7 @@ API:
 - `/api/aktualnosci` - merged RSS (live + Supabase cache)
 - `/api/dotacje/*` - company endpoints (auth, company, monitoring, cron)
 - `/api/ceidg` - Polish business registry integration
-- `/api/digest` - Vercel Cron endpoint for daily emails
+- `/api/digest` - Vercel Cron endpoint for the opt-in email newsletter
 - `/api/contact` - contact form
 
 ## RSS monitoring architecture

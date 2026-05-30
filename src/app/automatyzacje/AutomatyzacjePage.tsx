@@ -73,11 +73,11 @@ export default function AutomatyzacjePage() {
               <span className="label-eyebrow" style={{ display: 'block', marginBottom: 12 }}>Jak to się ma do wezmezadarmo.com</span>
               <p style={{ fontSize: 15, color: 'var(--color-text-2)', lineHeight: 1.7, margin: 0 }}>
                 wezmezadarmo.com jest projektem prowadzonym pro bono dla obywateli, rodzin, osób
-                wykluczonych cyfrowo i naukowców - i pozostaje bezpłatny. Tę stronę traktujemy
-                informacyjnie: pokazujemy, że automatyzacje AI dla firm są dziś możliwe i dostępne
-                dla europejskich przedsiębiorców. Konkretne wdrożenia realizują niezależni
-                europejscy partnerzy; prezentujemy je w ramach co-promocji i wspierania europejskich
-                przedsiębiorców oraz europejskich projektów.
+                wykluczonych cyfrowo i naukowców - i pozostaje bezpłatny. Ta strona ma charakter
+                wyłącznie edukacyjny i informacyjny. Pokazuje prostą rzecz: Europa jest już mocno
+                scyfryzowana, a z tej cyfryzacji można dalej korzystać z pomocą AI i kodu działającego
+                na uporządkowanych, zweryfikowanych przez człowieka danych. Niczego tu nie sprzedajemy,
+                a ewentualne wdrożenia realizują niezależni europejscy partnerzy.
               </p>
             </div>
           </div>
