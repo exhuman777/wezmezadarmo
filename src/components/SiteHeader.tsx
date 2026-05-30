@@ -38,7 +38,6 @@ export function SiteHeader() {
         </a>
         <nav style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
           {[
-            { href: '/automatyzacje', label: 'Automatyzacje' },
             { href: '/dotacje', label: 'Dotacje' },
             { href: '/aktualnosci', label: 'Aktualności' },
             { href: '/wnioski', label: 'Wnioski' },

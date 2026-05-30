@@ -41,3 +41,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .superpowers/
+
+# private research / separate projects (keep out of public repo)
+polska_polsia/
+
+# grant submission scaffolding (contains personal contact details)
+grant-nlnet/

@@ -9,18 +9,6 @@ export const metadata: Metadata = {
   title: 'Panel | Dotacje dla firm | wezmezadarmo',
 };
 
-const STATUS_LABEL: Record<string, string> = {
-  trial: 'Okres próbny',
-  active: 'Aktywna',
-  inactive: 'Nieaktywna',
-};
-
-const STATUS_COLOR: Record<string, string> = {
-  trial: 'var(--color-green)',
-  active: 'var(--green-400)',
-  inactive: 'var(--color-text-3)',
-};
-
 export default async function PanelPage() {
   const supabase = await createSupabaseServer();
 
@@ -31,12 +19,6 @@ export default async function PanelPage() {
   if (!session) {
     redirect('/dotacje/logowanie');
   }
-
-  const { data: user } = await supabase
-    .from('users')
-    .select('*')
-    .eq('id', session.user.id)
-    .single();
 
   const { data: profile } = await supabase
     .from('company_profiles')
@@ -54,14 +36,6 @@ export default async function PanelPage() {
       ).length
     : 0;
 
-  const trialEnds = user?.trial_ends_at
-    ? new Date(user.trial_ends_at).toLocaleDateString('pl-PL', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      })
-    : null;
-
   const quickActions = [
     {
       href: '/dotacje/panel/agent',
@@ -74,12 +48,6 @@ export default async function PanelPage() {
       label: 'Monitoring',
       desc: 'Zarządzaj kategoriami powiadomień',
       icon: '[]',
-    },
-    {
-      href: '/dotacje/panel/subskrypcja',
-      label: 'Subskrypcja',
-      desc: user?.subscription_status === 'active' ? 'Zarządzaj subskrypcją' : 'Aktywuj pełen dostęp',
-      icon: '$',
     },
     {
       href: '/dotacje/panel/aktualnosci',
@@ -148,34 +116,21 @@ export default async function PanelPage() {
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '6px' }}>
-          {user?.subscription_status && (
-            <span
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '11px',
-                fontWeight: 600,
-                color: STATUS_COLOR[user.subscription_status] ?? 'var(--color-text-3)',
-                border: `1px solid ${STATUS_COLOR[user.subscription_status] ?? 'var(--color-border)'}`,
-                borderRadius: '3px',
-                padding: '3px 8px',
-                letterSpacing: '0.04em',
-                textTransform: 'uppercase',
-              }}
-            >
-              {STATUS_LABEL[user.subscription_status] ?? user.subscription_status}
-            </span>
-          )}
-          {user?.subscription_status === 'trial' && trialEnds && (
-            <p
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '11px',
-                color: 'var(--color-text-3)',
-              }}
-            >
-              Próba do: {trialEnds}
-            </p>
-          )}
+          <span
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '11px',
+              fontWeight: 600,
+              color: 'var(--color-green)',
+              border: '1px solid var(--color-green)',
+              borderRadius: '3px',
+              padding: '3px 8px',
+              letterSpacing: '0.04em',
+              textTransform: 'uppercase',
+            }}
+          >
+            Dostęp bezpłatny
+          </span>
         </div>
       </div>
 

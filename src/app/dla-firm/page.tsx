@@ -534,9 +534,9 @@ export default function DlaFirmPage() {
               {
                 num: '01',
                 title: 'Automatyzacje',
-                desc: 'Gotowe systemy wdrażane w dni: faktury, KSeF, ZUS, OCR, windykacja i inne. Bez miesięcznych subskrypcji.',
+                desc: 'Automatyzacje dla firm są dziś możliwe i dostępne: faktury, KSeF, ZUS, OCR, windykacja i inne.',
                 anchor: '#automatyzacje',
-                label: 'Zobacz systemy',
+                label: 'Zobacz przykłady',
               },
               {
                 num: '02',
@@ -592,10 +592,10 @@ export default function DlaFirmPage() {
       <section id="automatyzacje" style={{ maxWidth: 860, margin: '0 auto', padding: 'clamp(48px, 6vw, 72px) 20px' }}>
         <Eyebrow>Automatyzacje</Eyebrow>
         <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(22px, 4vw, 32px)', fontWeight: 600, color: 'var(--color-text-1)', margin: '0 0 8px' }}>
-          Gotowe systemy dla firm
+          Automatyzacje dla firm
         </h2>
         <p style={{ fontSize: 15, lineHeight: 1.65, color: 'var(--color-text-2)', margin: '0 0 32px', maxWidth: 540 }}>
-          Każda automatyzacja to działający system wdrażany w ciągu kilku dni. Bez miesięcznych subskrypcji za narzędzia, których nie używasz.
+          Poniższe automatyzacje są dziś możliwe i dostępne dla europejskich firm. wezmezadarmo.com prezentuje je informacyjnie; wdrożenia realizują niezależni europejscy partnerzy w ramach co-promocji.
         </p>
         <div style={{
           display: 'grid',
@@ -733,7 +733,7 @@ export default function DlaFirmPage() {
             Porozmawiajmy o współpracy
           </h2>
           <p style={{ fontSize: 15, lineHeight: 1.65, color: 'var(--color-text-2)', margin: '0 0 28px' }}>
-            Warunki współpracy ustalane indywidualnie. Dla NGO możliwy bezpłatny dostęp.
+            Wszystkie funkcje wezmezadarmo.com są bezpłatne. Napisz, jeśli chcesz porozmawiać o współpracy, integracji API świadczeń lub co-promocji europejskich projektów.
           </p>
 
           <div style={{

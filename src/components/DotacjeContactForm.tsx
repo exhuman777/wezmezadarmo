@@ -129,7 +129,7 @@ export function DotacjeContactForm() {
         >
           {status === 'sending' ? 'Wysyłanie...' : 'Wyślij zapytanie'}
         </button>
-        <span style={{ fontSize: 12, color: 'var(--color-text-3)' }}>Cena do ustalenia po poznaniu potrzeb</span>
+        <span style={{ fontSize: 12, color: 'var(--color-text-3)' }}>Bezpłatnie - odpowiemy po poznaniu potrzeb</span>
       </div>
     </form>
   );

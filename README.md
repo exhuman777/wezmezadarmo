@@ -1,5 +1,9 @@
 # WezmeZadarmo -- Open Benefits Eligibility Engine for Polish Citizens
 
+![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-blue.svg)
+![Status: Live](https://img.shields.io/badge/status-live-brightgreen.svg)
+![Privacy: stateless, no tracking](https://img.shields.io/badge/privacy-stateless%2C%20no%20tracking-success.svg)
+
 **Live:** https://www.wezmezadarmo.com
 
 Poland has 118+ government benefits, subsidies, and social programs. Most citizens never claim what they are entitled to -- because the information is scattered across dozens of portals, written in bureaucratic language, and requires navigating complex eligibility rules.
@@ -7,6 +11,11 @@ Poland has 118+ government benefits, subsidies, and social programs. Most citize
 WezmeZadarmo ("I'll take it for free") solves this. Answer 10 anonymous questions. Get a personalised list of benefits you qualify for, with step-by-step application instructions and links to official sources. Ask the AI assistant follow-up questions.
 
 **No account. No tracking. No personal data stored. Everything stateless.**
+
+**Free public good.** The citizen-facing service is free to use. Remaining
+paid/commercial features are being retired so the whole tool stays free for citizens
+across Poland and, through the planned open engine, the EU. This is civic infrastructure,
+not a business.
 
 ---
 
@@ -16,9 +25,9 @@ WezmeZadarmo ("I'll take it for free") solves this. Answer 10 anonymous question
 - Covers: ZUS (social insurance), NFZ (healthcare), PFRON (disability), KRUS (farmers), MOPS (social welfare), local government programs
 - AI assistant (Google Gemini via OpenRouter) answers follow-up questions with citation-enforced answers
 - Personal agent panel (`/panel`): saved profile, matched benefits with embedded AI chat, RSS news monitoring, daily email digest
-- B2B dotacje panel (`/dotacje/panel`): company-specific grant monitoring, AI matching, RSS feeds per firm, Stripe subscription
+- Free dotacje panel (`/dotacje/panel`): company-specific grant monitoring, AI matching, RSS feeds per firm (free, no payments, fair-use limits)
 - ZUS forms wizard (`/wnioski`): AI-assisted form filling with PDF export
-- Automations marketplace (`/automatyzacje`): KSeF, foreign invoices, custom workflows for SMBs
+- Automations info page (`/automatyzacje`): informational overview of AI automations available to European firms (co-promotion of independent EU partners; nothing is sold here)
 - B2B API for companies integrating benefit eligibility into HR portals, fintech apps, NGO case management
 
 ## Privacy by design
@@ -35,16 +44,37 @@ WezmeZadarmo ("I'll take it for free") solves this. Answer 10 anonymous question
 - **AI:** Google Gemini 2.0 Flash via OpenRouter (chat), Gemini 2.0 Flash Lite (verification)
 - **Eligibility engine:** deterministic rule-based matcher in TypeScript
 - **Benefits database:** hand-verified YAML/TypeScript, sourced from gov.pl, zus.pl, nfz.gov.pl, pfron.org.pl, krus.gov.pl, praca.gov.pl
-- **Auth + DB:** Supabase (SSR, agent profiles, RSS cache, B2B subscriptions)
+- **Auth + DB:** Supabase (SSR, agent profiles, RSS cache, company accounts)
 - **RSS monitoring:** GitHub Actions cron (2x/dzień) for IP-blocked sources (NBP, Sejm, UOKiK, Fundusze EU, e-Zdrowie, ARiMR), Cloudflare Worker proxy for real-time
-- **Payments:** Stripe (B2B dotacje panel)
 - **Deployment:** Vercel (serverless, edge) + GitHub Actions cron + Cloudflare Worker
+
+Everything is free to use (fair-use limits only). There are no payments and no Stripe; payment code has been disabled.
+
+## Roadmap (NLnet NGI Zero Commons Fund)
+
+WezmeZadarmo is being generalised from a Polish app into reusable, privacy-first
+commons infrastructure any EU country or NGO can fork:
+
+1. **Benefits-as-code schema** -- an open, machine-readable standard for eligibility
+   rules, amounts, sources and documents (see [docs/benefits-schema.md](docs/benefits-schema.md)).
+2. **Open dataset** -- the verified Polish benefits republished as open data.
+3. **Engine as a library** -- the deterministic matcher extracted into a standalone,
+   tested open-source package, independent of the web app.
+4. **Privacy-preserving evaluation** -- stateless / local-first (client-side) matching
+   so citizen data never leaves the device, with a published security review.
+5. **i18n + replicability** -- internationalisation, a second-jurisdiction template,
+   and fork-and-deploy docs for EU NGOs.
+6. **Accessibility (WCAG 2.2 AA) + governance** -- inclusive design and a contributor
+   workflow for keeping benefits data verified and current.
+
+Comparable to OpenFisca / Rules-as-Code, but citizen-facing, privacy-first, and built
+on a live verified dataset.
 
 ## License
 
 AGPL-3.0. See [LICENSE](LICENSE) for details including attribution requirements.
 
-The benefits database (`src/engine/benefits/`) is covered by AGPL-3.0 for open-source use. Commercial use of the database outside this software requires a separate license.
+The benefits dataset (`src/engine/benefits/`) is released as open data under [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/): free to reuse, including commercially, with attribution. The schema and dataset are intended as reusable commons (see the NLnet NGI Zero roadmap above).
 
 ## Running locally
 
@@ -66,7 +96,7 @@ Public pages:
 - `/aktualnosci` -- RSS news monitoring (public preview + B2B panel for firms)
 - `/statystyki` -- GUS/SDG statistics dashboard (live indicators + charts)
 - `/automatyzacje` -- AI automations for SMBs (KSeF, foreign invoices, custom workflows)
-- `/dotacje` -- B2B SaaS landing for grant monitoring (57 programs database)
+- `/dotacje` -- free grant-monitoring landing (57 programs database)
 - `/dla-firm` -- B2B landing for firms and sole proprietors
 - `/agent` -- AI agent landing for individuals
 - `/o-projekcie`, `/polityka-prywatnosci`, `/regulamin` -- info pages
@@ -86,13 +116,13 @@ AI agent system (`src/agents/`):
 - `X-Agent-Id` response header -- frontend shows which agent responded
 
 B2B dotacje panel (`/dotacje/panel/*`):
-- Dashboard, AI agent config, active monitoring, RSS per firma, Stripe subscription
+- Dashboard, AI agent config, active monitoring, RSS per firma (free, no payments)
 
 API:
 - `/api/chat` -- public AI chat (rate limit 3/day)
 - `/api/agent/*` -- authenticated agent endpoints (chat, profile, verify)
 - `/api/aktualnosci` -- merged RSS (live + Supabase cache)
-- `/api/dotacje/*` -- B2B endpoints (auth, company, monitoring, Stripe, cron)
+- `/api/dotacje/*` -- company endpoints (auth, company, monitoring, cron; payment routes disabled)
 - `/api/ceidg` -- Polish business registry integration
 - `/api/digest` -- Vercel Cron endpoint for daily emails
 - `/api/contact` -- contact form

@@ -24,10 +24,10 @@ ADDITIONAL TERMS (per Section 7 of AGPL-3.0):
    must include a visible attribution: "Powered by WezmeZadarmo
    (wezmezadarmo.com)" with a link to https://www.wezmezadarmo.com
 
-2. The benefits database (src/engine/benefits/) is a separate copyrighted
-   work. It is included under AGPL-3.0 for open-source purposes, but
-   commercial use of the database alone (outside the software) requires
-   a separate license. Contact: sobkowicz.kamil@gmail.com
+2. The benefits dataset (src/engine/benefits/) is additionally released as
+   open data under the Creative Commons Attribution 4.0 International license
+   (CC-BY-4.0). You may use, share and adapt it, including for commercial
+   purposes, provided you give attribution to WezmeZadarmo (wezmezadarmo.com).
 
 3. The name "WezmeZadarmo" and domain "wezmezadarmo.com" are trademarks
    of Kamil Sobkowicz. Forks must use a different name and domain.

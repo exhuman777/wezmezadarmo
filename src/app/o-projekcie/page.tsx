@@ -58,10 +58,10 @@ const MODULES = [
   {
     href: '/dotacje',
     label: 'AI dla Twojej firmy',
-    badge: 'Wycena indywidualna',
-    free: false,
+    badge: 'Bezpłatne',
+    free: true,
     icon: 'F',
-    desc: 'Automatyzacje procesów firmowych i monitoring dofinansowań dla firm z wielu branż: IT, content creatorzy, przemysł medyczny i inne.',
+    desc: 'Bezpłatny monitoring dofinansowań dla firm i JDG (KFS, PUP, PFRON, KPO). Strona informacyjna o automatyzacjach AI dostępnych dla europejskich firm.',
   },
 ];
 

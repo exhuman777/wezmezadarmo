@@ -106,14 +106,14 @@ export default function DotacjePage() {
             Powiadamia gdy otworzy się nabór pasujący do profilu Twojej firmy.
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
-            <a href="#kontakt" style={{
+            <a href="/dotacje/rejestracja" style={{
               display: 'inline-flex', alignItems: 'center', gap: 8,
               padding: '12px 24px', borderRadius: 10,
               background: 'var(--green-500)', color: '#fff',
               fontSize: 15, fontWeight: 500, textDecoration: 'none',
               transition: 'opacity 200ms',
             }}>
-              Zapytaj o wdrożenie
+              Korzystaj za darmo
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </a>
             <a href="#jak-dziala" style={{
@@ -340,17 +340,17 @@ export default function DotacjePage() {
               <div>
                 <span className="mono" style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-green)', fontWeight: 600 }}>Kontakt</span>
                 <h2 style={{ fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: 700, letterSpacing: '-0.025em', marginTop: 12, marginBottom: 16, color: 'var(--color-text-1)' }}>
-                  Chcesz taki system?
+                  Chcesz korzystać?
                 </h2>
                 <p style={{ fontSize: 15, color: 'var(--color-text-2)', lineHeight: 1.65, marginBottom: 28 }}>
-                  Cena do ustalenia po poznaniu konkretnych potrzeb.
-                  Napisz nam o swojej firmie i branży, odezwiemy się z propozycją.
+                  Korzystanie jest bezpłatne, z limitami uczciwego użycia.
+                  Napisz nam o swojej firmie i branży, pomożemy dobrać monitoring.
                 </p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                   {[
-                    'Bezpłatna konsultacja wstępna',
-                    'Wdrożenie dostosowane do branży',
-                    'Monitoring bez limitów zapytań',
+                    'Bezpłatny dostęp dla firm i JDG',
+                    'Monitoring dopasowany do branży',
+                    'Limity uczciwego użycia, bez opłat',
                     'Żaden dokument bez Twojej akceptacji',
                   ].map((item) => (
                     <div key={item} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 14, color: 'var(--color-text-2)' }}>

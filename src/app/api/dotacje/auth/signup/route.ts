@@ -77,8 +77,7 @@ export async function POST(request: NextRequest) {
     password,
     email_confirm: true,
     user_metadata: {
-      // Faza beta: wszyscy uzytownicy maja pelny dostep
-      // TODO: zmienic na 'trial' po wdrozeniu Stripe
+      // Serwis jest bezplatny (pro bono) - kazdy uzytkownik ma pelny, darmowy dostep.
       subscription_status: 'active',
     },
   });
@@ -105,8 +104,7 @@ export async function POST(request: NextRequest) {
     .insert({
       id: userId,
       email: email.trim().toLowerCase(),
-      // Faza beta: pelny dostep bez Stripe
-      // TODO: zmienic na 'trial' po wdrozeniu platnosci
+      // Serwis bezplatny (pro bono) - pelny, darmowy dostep dla kazdego konta.
       subscription_status: 'active',
       trial_ends_at: trialEndsAt,
     });

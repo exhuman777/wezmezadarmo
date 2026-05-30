@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Regulamin | dotacje | wezmezadarmo',
-  description: 'Regulamin usługi dotacje.wezmezadarmo.com -- warunki korzystania, subskrypcja, prawa użytkownika.',
+  description: 'Regulamin usługi dotacje.wezmezadarmo.com - warunki korzystania, bezpłatny dostęp, prawa użytkownika.',
 };
 
 const SECTION_STYLE = { marginBottom: '40px' } as const;
@@ -135,8 +135,7 @@ export default function RegulaminsPage() {
           <Li><strong>Usługodawca</strong>: wezmezadarmo.com, operator serwisu dotacje.wezmezadarmo.com.</Li>
           <Li><strong>Użytkownik</strong>: osoba fizyczna lub prawna, która zarejestrowała konto w serwisie.</Li>
           <Li><strong>Agent AI</strong>: system sztucznej inteligencji oparty na dużym modelu językowym (LLM), dostępny w panelu użytkownika.</Li>
-          <Li><strong>Subskrypcja</strong>: odpłatna usługa dostępu do panelu, agenta AI i powiadomień, w cenie 25 PLN brutto miesięcznie.</Li>
-          <Li><strong>Okres próbny</strong>: 7 bezpłatnych dni od rejestracji konta.</Li>
+          <Li><strong>Dostęp</strong>: bezpłatny dostęp do panelu, agenta AI i powiadomień, z limitami uczciwego użycia. Serwis jest prowadzony pro bono.</Li>
         </ul>
       </section>
 
@@ -171,34 +170,25 @@ export default function RegulaminsPage() {
 
       {/* §4 */}
       <section style={SECTION_STYLE}>
-        <h2 style={H2_STYLE}>§4 Subskrypcja i płatności</h2>
+        <h2 style={H2_STYLE}>§4 Bezpłatny dostęp</h2>
         <ul style={UL_STYLE}>
-          <Li>Okres próbny trwa 7 dni od daty rejestracji. Karta płatnicza jest wymagana do aktywacji, ale nie jest obciążana w tym okresie.</Li>
-          <Li>Po zakończeniu okresu próbnego naliczana jest opłata 25 PLN brutto / miesiąc.</Li>
-          <Li>Płatności obsługuje Stripe Inc. Dane karty nie są przechowywane przez Usługodawcę.</Li>
-          <Li>Subskrypcja odnawia się automatycznie co miesiąc, do momentu anulowania.</Li>
-          <Li>Anulowania można dokonać w dowolnym momencie przez panel Stripe (zakładka Subskrypcja). Dostęp trwa do końca opłaconego okresu rozliczeniowego.</Li>
-          <Li>Usługodawca zastrzega prawo zmiany ceny z 30-dniowym wyprzedzeniem drogą e-mailową.</Li>
+          <Li>Korzystanie z usługi jest bezpłatne. Serwis nie pobiera opłat, nie wymaga karty płatniczej i nie obsługuje płatności automatycznych ani subskrypcji.</Li>
+          <Li>Dostęp objęty jest limitami uczciwego użycia, które służą wyłącznie utrzymaniu stabilności i porządku platformy.</Li>
+          <Li>Usługa jest prowadzona pro bono. Usługodawca może zmienić zakres bezpłatnych funkcji lub limity, informując o istotnych zmianach drogą e-mailową.</Li>
         </ul>
       </section>
 
       {/* §5 */}
       <section style={SECTION_STYLE}>
-        <h2 style={H2_STYLE}>§5 Odstąpienie od umowy</h2>
+        <h2 style={H2_STYLE}>§5 Rezygnacja z konta</h2>
         <p style={P_STYLE}>
-          Użytkownik będący konsumentem ma prawo odstąpić od umowy o świadczenie usług
-          drogą elektroniczną w ciągu 14 dni od zawarcia umowy, bez podania przyczyny,
-          zgodnie z art. 27 ustawy z dnia 30 maja 2014 r. o prawach konsumenta.
+          Użytkownik może w dowolnym momencie zrezygnować z korzystania z usługi i usunąć
+          konto, bez podania przyczyny i bez żadnych kosztów. Ponieważ usługa jest bezpłatna,
+          nie powstają żadne zobowiązania finansowe ani rozliczenia.
         </p>
         <p style={P_STYLE}>
-          Prawo do odstąpienia nie przysługuje, jeśli Użytkownik wyraził zgodę na
-          rozpoczęcie świadczenia usługi przed upływem terminu i jest świadomy utraty
-          prawa do odstąpienia (art. 38 pkt 13 ustawy). Zaznaczając zgodę podczas
-          rejestracji, Użytkownik potwierdza taką zgodę.
-        </p>
-        <p style={P_STYLE}>
-          Odstąpienie prosimy zgłaszać przez formularz kontaktowy lub e-mailem.
-          Zwrot płatności nastąpi w ciągu 14 dni od otrzymania oświadczenia.
+          Żądanie usunięcia konta prosimy zgłaszać przez formularz kontaktowy lub e-mailem.
+          Dane są usuwane w ciągu 30 dni od zgłoszenia.
         </p>
       </section>
 
@@ -207,7 +197,7 @@ export default function RegulaminsPage() {
         <h2 style={H2_STYLE}>§6 Ochrona danych osobowych</h2>
         <p style={P_STYLE}>
           Administratorem danych osobowych jest Usługodawca. Dane przetwarzane są
-          w celu świadczenia usługi, obsługi subskrypcji i wysyłania powiadomień.
+          w celu świadczenia usługi i wysyłania powiadomień.
           Szczegóły: Polityka przejrzystości AI i Polityka prywatności dostępna
           na stronie serwisu.
         </p>
@@ -223,7 +213,7 @@ export default function RegulaminsPage() {
         <h2 style={H2_STYLE}>§7 Odpowiedzialność</h2>
         <ul style={UL_STYLE}>
           <Li>Usługodawca dokłada starań, by informacje w bazie były aktualne, jednak nie ponosi odpowiedzialności za decyzje podjęte na podstawie odpowiedzi agenta AI.</Li>
-          <Li>Usługodawca nie odpowiada za przerwy w dostępie do usługi spowodowane awariami infrastruktury zewnętrznej (Supabase, Stripe, OpenAI/OpenRouter).</Li>
+          <Li>Usługodawca nie odpowiada za przerwy w dostępie do usługi spowodowane awariami infrastruktury zewnętrznej (Supabase, OpenAI/OpenRouter).</Li>
           <Li>Łączna odpowiedzialność Usługodawcy wobec Użytkownika nie przekroczy kwoty opłat uiszczonych przez Użytkownika w ciągu 3 miesięcy poprzedzających zdarzenie szkodzące.</Li>
         </ul>
       </section>

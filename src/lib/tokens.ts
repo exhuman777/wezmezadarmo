@@ -43,9 +43,11 @@ export const TOKEN_COSTS: Record<Exclude<TokenActionType, 'purchase' | 'manual_c
   api_chat:            1,
 };
 
+// Wewnętrzny miesięczny limit uczciwego użycia per konto. Serwis jest bezpłatny -
+// limity służą wyłącznie utrzymaniu porządku i stabilności platformy, nigdy nie są rozliczane.
 export const TOKEN_PACKAGES = {
-  personal: { tokens: 100,  pricePLN: 25,  label: 'Pakiet Osobisty' },
-  business: { tokens: 1000, pricePLN: 199, label: 'Pakiet Firmowy' },
+  personal: { tokens: 100,  label: 'Limit miesięczny - konto osobiste' },
+  business: { tokens: 1000, label: 'Limit miesięczny - konto firmowe' },
 } as const;
 
 export type TokenPackage = keyof typeof TOKEN_PACKAGES;

@@ -45,8 +45,8 @@ export default function PolitykaPage() {
               <li><strong className="text-text-1">Centrum Obywatela</strong> (/centrum-obywatela): hub 11 publicznych polskich API (NFZ, NBP, GIOŚ, Biała Lista VAT, IMGW/RCB, ELI/Sejm, BDL GUS, ARiMR, PKP, CEIDG). Operator nie przekazuje do tych API żadnych danych osobowych Użytkownika.</li>
               <li><strong className="text-text-1">Aktualności rządowe</strong> (/aktualnosci): agregator RSS z 8 instytucji + widgety publiczne (kursy NBP, jakość powietrza GIOŚ). Bez konta.</li>
               <li><strong className="text-text-1">Panel agenta AI</strong> (/agent/panel): bezpłatny, wymaga rejestracji. Profil demograficzny i preferencje e-mail w bazie Supabase (serwery UE).</li>
-              <li><strong className="text-text-1">Panel monitoringu dotacji</strong> (/dotacje/panel): B2B, wymaga rejestracji i umowy. Dane firmowe w Supabase (UE). Bez płatności automatycznych.</li>
-              <li><strong className="text-text-1">Automatyzacje dla firm</strong> (/dla-firm, /automatyzacje): wycena indywidualna po kontakcie. Operator nie pobiera danych firmowych przed zawarciem umowy.</li>
+              <li><strong className="text-text-1">Panel monitoringu dotacji</strong> (/dotacje/panel): bezpłatny, wymaga rejestracji. Dane firmowe w Supabase (UE). Bez opłat.</li>
+              <li><strong className="text-text-1">Automatyzacje dla firm</strong> (/dla-firm, /automatyzacje): strona informacyjna o automatyzacjach dostępnych dla europejskich firm. Wdrożenia realizują niezależni europejscy partnerzy (co-promocja); Operator nie pobiera danych firmowych.</li>
             </ul>
             <P>2.1. Serwis stosuje zasadę minimalizacji danych (art. 5 ust. 1 lit. c RODO). Kalkulator świadczeń nie zbiera numeru PESEL ani danych kontaktowych. PESEL może być podany jedynie w kreatorze wniosków - wyłącznie do wygenerowania PDF, bez zapisu.</P>
           </Section>
@@ -80,7 +80,7 @@ export default function PolitykaPage() {
                 <Tr><Td>Historia dopasowań, eksporty</Td><Td>Archiwum monitoringu</Td><Td>Art. 6 ust. 1 lit. b RODO</Td><Td>Do usunięcia konta</Td></Tr>
               </tbody>
             </TableWrapper>
-            <P className="text-[13px] text-text-3 italic">Uwaga: aktualnie Serwis NIE obsługuje płatności automatycznych. Udostępnienie usługi B2B następuje po kontakcie z Operatorem i zawarciu indywidualnej umowy; rozliczenie odbywa się na podstawie faktury wystawianej przez Operatora. Nie wykorzystujemy procesora płatności typu Stripe.</P>
+            <P className="text-[13px] text-text-3 italic">Uwaga: Serwis jest bezpłatny i nie obsługuje żadnych płatności. Nie wykorzystujemy procesora płatności typu Stripe.</P>
 
             <P>3.3. <strong className="text-text-1">Panel agenta (/agent/panel):</strong></P>
             <TableWrapper>
@@ -150,7 +150,7 @@ export default function PolitykaPage() {
                 <Tr><Td>Cloudflare, Inc. (USA)</Td><Td>Worker proxy RSS (opcjonalny)</Td><Td>Brak PII Użytkowników (tylko pośrednictwo)</Td><Td>Infrastruktura SaaS</Td></Tr>
               </tbody>
             </TableWrapper>
-            <P className="text-[13px] text-text-3 italic">Operator NIE wykorzystuje procesora płatności (Stripe nie jest używany). Usługi B2B rozliczane są przez wystawienie faktury po kontakcie.</P>
+            <P className="text-[13px] text-text-3 italic">Operator NIE wykorzystuje procesora płatności (Stripe nie jest używany). Wszystkie funkcje serwisu są bezpłatne.</P>
 
             <P>5.2. Administrator nie sprzedaje danych Użytkowników. Dane nie są przekazywane brokerom danych, sieciom reklamowym ani społecznościowym.</P>
 

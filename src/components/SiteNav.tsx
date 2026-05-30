@@ -11,7 +11,7 @@ const NAV_ITEMS = [
   { href: '/', label: 'Start', exact: true },
   { href: '/swiadczenia', label: 'Świadczenia', prefixes: ['/swiadczenia'] },
   { href: '/centrum-obywatela', label: 'Centrum Obywatela', prefixes: ['/centrum-obywatela', '/nfz'] },
-  { href: '/dla-firm', label: 'Dla firm', prefixes: ['/dla-firm', '/dotacje', '/automatyzacje'] },
+  { href: '/dla-firm', label: 'Dla firm', prefixes: ['/dla-firm', '/dotacje'] },
   { href: '/wnioski', label: 'Wnioski', prefixes: ['/wnioski'] },
   { href: '/agent', label: 'Asystent AI', prefixes: ['/agent'] },
   { href: '/statystyki', label: 'Statystyki', prefixes: ['/statystyki'] },

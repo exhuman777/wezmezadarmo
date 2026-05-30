@@ -38,7 +38,7 @@ export default function RegulaminPage() {
               <p>Kontakt: formularz na stronie <Link href="/o-projekcie" className="text-accent hover:underline">/o-projekcie</Link> lub <ContactEmail />.</p>
             </div>
             <P>1.3. Serwis jest narzędziem informacyjnym pomagającym zidentyfikować świadczenia rządowe, ulgi i programy wsparcia. Serwis nie jest organem administracji publicznej, nie przyznaje świadczeń i nie gwarantuje ich uzyskania.</P>
-            <P>1.4. Kalkulator świadczeń i kreator wniosków są bezpłatne i nie wymagają konta. Niektóre narzędzia (panel agenta /agent/panel, panel monitoringu dotacji /dotacje/panel) wymagają rejestracji. Usługi B2B (automatyzacje, monitoring dofinansowań dla firm) są dostępne na podstawie indywidualnej umowy zawartej po kontakcie z Operatorem; aktualnie Serwis nie obsługuje płatności automatycznych - fakturę wystawia Operator po uzgodnieniu warunków.</P>
+            <P>1.4. Wszystkie funkcje Serwisu są bezpłatne. Kalkulator świadczeń i kreator wniosków nie wymagają konta. Niektóre narzędzia (panel agenta /agent/panel, panel monitoringu dotacji /dotacje/panel) wymagają rejestracji, ale pozostają bezpłatne, z limitami uczciwego użycia. Serwis nie obsługuje żadnych płatności ani subskrypcji. Strony o automatyzacjach dla firm (/dla-firm, /automatyzacje) mają charakter informacyjny; ewentualne wdrożenia realizują niezależni europejscy partnerzy w ramach co-promocji, poza Serwisem.</P>
           </Section>
 
           <Section n="2" title="Definicje">
@@ -68,9 +68,9 @@ export default function RegulaminPage() {
           </Section>
 
           <Section n="3b" title="Automatyzacje dla firm i JDG (/dla-firm, /automatyzacje)">
-            <P>3b.1. Serwis prezentuje katalog automatyzacji procesów firmowych, m.in.: Faktury z zagranicy, KSeF automatyczny, Raport ZUS miesięczny, Onboarding pracownika, Rozliczenie delegacji, Windykacja należności, Terminarz compliance, OCR paragonów, Alerty wygaśnięcia umów.</P>
-            <P>3b.2. Każda automatyzacja jest wdrażana na podstawie indywidualnej umowy zawieranej po kontakcie z Operatorem. Warunki cenowe ustalane są indywidualnie; Operator wystawia fakturę po uzgodnieniu zakresu prac. Serwis NIE obsługuje automatycznych płatności kartą ani subskrypcji.</P>
-            <P>3b.3. Operator nie pobiera danych firmowych Użytkownika przed zawarciem umowy - kontakt odbywa się przez formularz w stopce lub <ContactEmail />.</P>
+            <P>3b.1. Serwis prezentuje informacyjnie katalog automatyzacji procesów firmowych dostępnych dla europejskich firm, m.in.: Faktury z zagranicy, KSeF automatyczny, Raport ZUS miesięczny, Onboarding pracownika, Rozliczenie delegacji, Windykacja należności, Terminarz compliance, OCR paragonów, Alerty wygaśnięcia umów.</P>
+            <P>3b.2. Strony te mają charakter wyłącznie informacyjny. Serwis nie sprzedaje tych usług, nie pobiera za nie opłat i nie obsługuje płatności. Ewentualne wdrożenia realizują niezależni europejscy partnerzy, poza Serwisem, w ramach co-promocji i wspierania europejskich przedsiębiorców oraz projektów.</P>
+            <P>3b.3. Operator nie pobiera danych firmowych Użytkownika - kontakt odbywa się przez formularz w stopce lub <ContactEmail />.</P>
             <P>3b.4. Karta &quot;Monitoring dotacji&quot; (/dla-firm) prezentuje partnerski serwis VIA (tryvia.eu), prowadzony przez podmiot trzeci. Operator nie świadczy tej usługi bezpośrednio i nie ponosi odpowiedzialności za działanie serwisu partnerskiego.</P>
           </Section>
 
@@ -110,8 +110,8 @@ export default function RegulaminPage() {
           </Section>
 
           <Section n="3g" title="Panel monitoringu dotacji B2B (/dotacje/panel)">
-            <P>3g.1. Usługa B2B dla firm: monitoring otwartych naborów dofinansowań pasujących do profilu firmy (NIP, PKD, województwo, wielkość). Wymaga rejestracji konta i zawarcia indywidualnej umowy z Operatorem.</P>
-            <P>3g.2. Aktualnie Serwis NIE obsługuje płatności automatycznych ani subskrypcji. Udostępnienie usługi B2B następuje po kontakcie z Operatorem; Operator wystawia fakturę zgodnie z uzgodnionymi warunkami.</P>
+            <P>3g.1. Bezpłatna usługa dla firm: monitoring otwartych naborów dofinansowań pasujących do profilu firmy (NIP, PKD, województwo, wielkość). Wymaga rejestracji konta.</P>
+            <P>3g.2. Usługa jest bezpłatna, z limitami uczciwego użycia. Serwis NIE obsługuje płatności ani subskrypcji.</P>
             <P>3g.3. Dane firmy przechowywane są w bazie Supabase (serwery w UE). Konto może być usunięte przez kontakt z Operatorem.</P>
           </Section>
 
@@ -154,8 +154,8 @@ export default function RegulaminPage() {
           </Section>
 
           <Section n="8" title="Prawo odstąpienia od umowy">
-            <P>8.1. Usługi bezpłatne (kalkulator, kreator wniosków, aktualności, wyszukiwarka NFZ, Centrum Obywatela, panel agenta): zgodnie z art. 38 pkt 1 ustawy o prawach konsumenta, prawo odstąpienia od umowy zawartej na odległość nie przysługuje w odniesieniu do umów, za które konsument nie jest zobowiązany do zapłaty.</P>
-            <P>8.2. Usługi płatne (automatyzacje, monitoring dotacji B2B): świadczone na podstawie indywidualnej umowy zawieranej po kontakcie z Operatorem. Warunki odstąpienia określane są w treści umowy zgodnie z przepisami ustawy o prawach konsumenta. Operator obecnie nie pobiera płatności automatycznych - rozliczenie następuje na podstawie faktury wystawianej po uzgodnieniu zakresu prac.</P>
+            <P>8.1. Wszystkie usługi Serwisu są bezpłatne (kalkulator, kreator wniosków, aktualności, wyszukiwarka NFZ, Centrum Obywatela, panel agenta, panel monitoringu dotacji): zgodnie z art. 38 pkt 1 ustawy o prawach konsumenta, prawo odstąpienia od umowy zawartej na odległość nie przysługuje w odniesieniu do umów, za które konsument nie jest zobowiązany do zapłaty.</P>
+            <P>8.2. Serwis nie pobiera żadnych opłat i nie obsługuje płatności. Strony o automatyzacjach dla firm mają charakter informacyjny; ewentualne wdrożenia realizują niezależni europejscy partnerzy poza Serwisem, na własnych warunkach.</P>
           </Section>
 
           <Section n="9" title="Zakaz dostarczania treści bezprawnych i niedozwolone użycie automatyczne">

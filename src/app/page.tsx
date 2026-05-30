@@ -1088,7 +1088,7 @@ export default function Home() {
                     System czyta skrzynkę, wyciąga kwoty i wpisuje je do arkusza.
                   </p>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 'auto' }}>
-                    {['Faktury spoza UE', 'KSeF nie obejmuje', '399 PLN'].map(tag => (
+                    {['Faktury spoza UE', 'KSeF nie obejmuje', 'do arkusza'].map(tag => (
                       <span key={tag} className="mono" style={{
                         fontSize: 10, padding: '3px 8px',
                         border: '1px solid var(--color-border)',
