@@ -2,44 +2,6 @@
 
 import { useState } from 'react';
 
-/* ── VIA logo SVG (oficjalne logo V/A) ── */
-function VIALogo({ size = 52 }: { size?: number }) {
-  const w = size;
-  const h = Math.round(size * 0.55);
-  return (
-    <svg width={w} height={h} viewBox="0 0 200 110" fill="#1a1525" xmlns="http://www.w3.org/2000/svg">
-      {/* V (lewa litera, trojkat z notch'em u gory) */}
-      <path d="M 0 0 L 26 0 L 40 26 L 54 0 L 80 0 L 40 110 Z"/>
-      {/* slash (parallelogram) */}
-      <path d="M 108 0 L 100 0 L 87 110 L 95 110 Z"/>
-      {/* A (prawa litera, trojkat z notch'em u dolu) */}
-      <path d="M 120 110 L 146 110 L 160 84 L 174 110 L 200 110 L 160 0 Z"/>
-    </svg>
-  );
-}
-
-/* ── VIA dotacje mini-grid ── */
-const SPRAWDZONE_IDX = new Set([5, 20, 33, 41]);
-const DOPASOWANE_IDX  = new Set([2, 8, 13, 17, 24, 28, 35, 38, 43, 46, 50, 53]);
-
-function VIAGrid() {
-  const COLS = 9, ROWS = 6;
-  return (
-    <div style={{ display: 'grid', gridTemplateColumns: `repeat(${COLS}, 1fr)`, gap: 4, marginBottom: 18 }}>
-      {Array.from({ length: COLS * ROWS }).map((_, i) => (
-        <div key={i} style={{
-          aspectRatio: '1',
-          borderRadius: 3,
-          background: SPRAWDZONE_IDX.has(i) ? '#5248cc'
-            : DOPASOWANE_IDX.has(i) ? '#d87c68'
-            : '#cac5dc',
-          transition: 'opacity 200ms',
-        }} />
-      ))}
-    </div>
-  );
-}
-
 /* ── Terminal code window ── */
 function TerminalWindow() {
   const C = {
@@ -179,155 +141,50 @@ function onTiltLeave(e: React.MouseEvent<HTMLDivElement>) {
   e.currentTarget.style.transition = 'transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease';
 }
 
-const AUTOMATYZACJE = [
+/* ── Kto korzysta z API: firmy, instytucje i organizacje wspierające ludzi ── */
+const ODBIORCY = [
   {
-    ikona: 'F',
-    nazwa: 'Faktury z zagranicy',
-    opis: 'Automatyczna ekstrakcja danych z faktur mailowych z UE i spoza UE (Stripe, AWS, OpenAI). Kategoryzacja, wpis do ewidencji, alerty o nowych dokumentach.',
-    tagi: ['JDG', 'import', 'księgowość'],
+    ikona: 'N', tytul: 'NGO i OPS',
+    opis: 'Jedno zapytanie do API zamiast ręcznego przeszukiwania kilkudziesięciu rządowych stron. Doradca dostaje gotową listę świadczeń z instrukcją złożenia wniosku dla konkretnej osoby.',
   },
   {
-    ikona: 'K',
-    nazwa: 'KSeF automatyczny',
-    opis: 'Automatyczne przesyłanie faktur sprzedażowych do Krajowego Systemu e-Faktur. Bez ręcznego logowania, bez przepisywania danych.',
-    tagi: ['KSeF', 'faktury', 'compliance'],
+    ikona: 'S', tytul: 'Pracownicy socjalni i doradcy obywatelscy',
+    opis: 'Podczas rozmowy z podopiecznym system od razu pokazuje, co danej osobie przysługuje. Mniej biurokracji, więcej realnej pomocy, zero przechowywania danych klienta.',
   },
   {
-    ikona: 'Z',
-    nazwa: 'Raport ZUS miesięczny',
-    opis: 'Generowanie miesięcznego raportu składek i zobowiązań ZUS dla pracowników. Gotowy arkusz do przekazania księgowej.',
-    tagi: ['ZUS', 'kadry', 'raporty'],
+    ikona: 'D', tytul: 'Organizacje osób z niepełnosprawnością',
+    opis: 'Świadczenie wspierające, dofinansowania PFRON, ulgi i turnusy rehabilitacyjne w jednym miejscu. API pomaga dotrzeć z informacją do osób, które najczęściej zostają z niczym.',
   },
   {
-    ikona: 'O',
-    nazwa: 'Onboarding pracownika',
-    opis: 'Automatyczne sprawdzanie świadczeń przysługujących nowemu pracownikowi. HR dostaje gotową listę zamiast odsyłać na rządowe strony.',
-    tagi: ['HR', 'onboarding', 'świadczenia'],
+    ikona: 'E', tytul: 'Organizacje senioralne i opiekunowie',
+    opis: 'Trzynastka, czternastka, dodatek osłonowy, refundacja leków, opieka 75+. Wsparcie dla seniorów i osób, które na co dzień się nimi opiekują, bez konieczności znajomości przepisów.',
   },
   {
-    ikona: 'R',
-    nazwa: 'Rozliczenie delegacji',
-    opis: 'Ekstrakcja danych z paragonów i faktur delegacyjnych. OCR, kategoryzacja, wpis do arkusza kosztów.',
-    tagi: ['delegacje', 'koszty', 'OCR'],
+    ikona: 'M', tytul: 'Wsparcie migrantów i osób wykluczonych cyfrowo',
+    opis: 'Dla ludzi, którzy nie poruszają się swobodnie po polskich portalach urzędowych. Prosty interfejs i jasna lista uprawnień zmniejszają barierę językową i cyfrową.',
   },
   {
-    ikona: 'W',
-    nazwa: 'Windykacja należności',
-    opis: 'Monitoring przeterminowanych faktur i automatyczne przypomnienia: po 7 dniach mail, po 14 dniach gotowy dokument wezwania do zapłaty. Wezwanie wymagane prawnie przed windykacją sądową.',
-    tagi: ['faktury', 'windykacja', 'cash flow'],
+    ikona: 'B', tytul: 'Biblioteki i punkty pomocy cyfrowej',
+    opis: 'Punkty wsparcia obywatela mogą bezpłatnie sprawdzić uprawnienia osoby, której pomagają. Inkluzja cyfrowa zamiast odsyłania na dziesiątki różnych stron.',
   },
   {
-    ikona: 'T',
-    nazwa: 'Terminarz compliance',
-    opis: 'Automatyczne przypomnienia o polskich terminach firmowych: DRA ZUS (25. każdego miesiąca), JPK-VAT, zaliczki PIT, raporty GUS. Kary za spóźnienie zaczynają się od 500 PLN.',
-    tagi: ['ZUS', 'VAT', 'terminy'],
+    ikona: 'R', tytul: 'Uczelnie i badacze',
+    opis: 'Otwarte dane (CC-BY-4.0) i otwarty silnik (AGPL-3.0) do badań nad nieskorzystaniem ze świadczeń (benefit take-up) oraz nad dostępnością wsparcia w różnych grupach.',
   },
   {
-    ikona: 'P',
-    nazwa: 'Paragony i koszty OCR',
-    opis: 'Zdjęcie paragonu z telefonu trafia do skrzynki lub folderu. System odczytuje kwotę, datę i sprzedawcę, wpisuje do arkusza kosztów. Bez ręcznego przepisywania.',
-    tagi: ['OCR', 'koszty', 'JDG'],
-  },
-  {
-    ikona: 'U',
-    nazwa: 'Alerty wygaśnięcia umów',
-    opis: 'Skanujesz bazę umów, kontraktów i subskrypcji SaaS. System czyta daty i wysyła alerty 60, 30 i 7 dni przed wygaśnięciem. Koniec z nieświadomym auto-odnawianiem na starych warunkach.',
-    tagi: ['umowy', 'SaaS', 'koszty'],
+    ikona: 'H', tytul: 'HR, kadry i fintech',
+    opis: 'Przy onboardingu lub wniosku kredytowym aplikacja w tle sprawdza, jakie regularne świadczenia przysługują osobie. Pracownik lub klient nie zostaje sam z biurokracją.',
   },
 ];
 
-function VIADotacjeCard() {
-  return (
-    <div style={{ marginTop: 16 }}>
-      <div style={{
-        borderRadius: 20,
-        padding: '32px 36px 28px',
-        background: 'linear-gradient(145deg, rgba(235,230,250,0.85) 0%, rgba(220,212,245,0.85) 45%, rgba(205,196,238,0.85) 100%)',
-        backdropFilter: 'blur(2px)',
-        border: '1px solid rgba(82,72,204,0.1)',
-        position: 'relative', overflow: 'hidden',
-      }}>
-        <div style={{
-          position: 'absolute', inset: 0,
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E")`,
-          backgroundSize: '180px',
-          pointerEvents: 'none',
-          opacity: 0.6,
-        }} />
-
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px 48px', position: 'relative', alignItems: 'start' }}>
-          <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.08em', color: '#5248cc', opacity: 0.7 }}>
-                04 · MONITORING DOTACJI · PL
-              </span>
-            </div>
-            <VIAGrid />
-            <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap', marginBottom: 0 }}>
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontFamily: 'var(--font-mono)', fontSize: 11, color: '#5248cc' }}>
-                <span style={{ width: 10, height: 10, borderRadius: 2, background: '#5248cc', flexShrink: 0 }} />
-                SPRAWDZONE · 4
-              </span>
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontFamily: 'var(--font-mono)', fontSize: 11, color: '#d87c68' }}>
-                <span style={{ width: 10, height: 10, borderRadius: 2, background: '#d87c68', flexShrink: 0 }} />
-                DOPASOWANE · 12
-              </span>
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: '#8c86a4' }}>
-                KWALIFIKUJĄCE · 70
-              </span>
-            </div>
-          </div>
-
-          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: 260 }}>
-            <div style={{ marginBottom: 24 }}>
-              <VIALogo size={48} />
-            </div>
-            <div style={{ flex: 1 }}>
-              <h3 style={{
-                fontSize: 'clamp(22px, 3vw, 30px)',
-                fontWeight: 700, lineHeight: 1.2,
-                letterSpacing: '-0.025em',
-                color: '#1a1525', margin: '0 0 14px',
-              }}>
-                Dofinansowania dla Twojej firmy, o których nie wiedziałeś.
-              </h3>
-              <p style={{ fontSize: 15, lineHeight: 1.65, color: '#3d3557', margin: '0 0 20px', maxWidth: 420 }}>
-                Agenci AI pracują za Ciebie <strong>24h na dobę</strong>, monitorując internet
-                w poszukiwaniu dotacji i dofinansowań dopasowanych do profilu Twojej firmy.
-                Gdy pojawi się coś dla Ciebie, dostajesz alert.
-              </p>
-            </div>
-            <div>
-              <div style={{ height: 1, background: 'rgba(82,72,204,0.2)', marginBottom: 14 }} />
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: '#c0392b', fontWeight: 500 }}>
-                  × nie widziałeś ich wszystkich
-                </span>
-                <a
-                  href="https://www.tryvia.eu/#"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-via"
-                  style={{
-                    display: 'inline-flex', alignItems: 'center', gap: 8,
-                    background: '#5248cc', color: '#fff',
-                    fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500,
-                    padding: '10px 20px', borderRadius: 10,
-                    letterSpacing: '0.01em', textDecoration: 'none',
-                    position: 'relative', overflow: 'hidden',
-                  }}
-                >
-                  Sprawdź VIA
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+const FEATURES = [
+  '118 świadczeń w 15 kategoriach, ręcznie zweryfikowanych',
+  'Odpowiedź <200ms, aktualizowana baza',
+  'Brak przechowywania danych (prywatność i RODO wbudowane)',
+  'Otwarte: kod AGPL-3.0, dane CC-BY-4.0 - wolno reużywać',
+  'Bezpłatne; klucz API także dla NGO i instytucji publicznych',
+  'Dokumentacja dla AI: wezmezadarmo.com/llm.md',
+];
 
 export default function DlaFirmPage() {
   const [form, setForm] = useState({ imie: '', firma: '', email: '', wiadomosc: '' });
@@ -366,10 +223,6 @@ export default function DlaFirmPage() {
           0%   { transform: translateX(-120%) skewX(-12deg); }
           100% { transform: translateX(220%)  skewX(-12deg); }
         }
-        @keyframes shimmerVia {
-          0%   { transform: translateX(-120%) skewX(-12deg); }
-          100% { transform: translateX(220%)  skewX(-12deg); }
-        }
         .btn-primary {
           position: relative; overflow: hidden;
           background: linear-gradient(135deg, #25b278 0%, #22A06B 50%, #1b8a5b 100%);
@@ -392,56 +245,6 @@ export default function DlaFirmPage() {
         .btn-primary:active {
           transform: translateY(0) scale(0.97);
           box-shadow: 0 2px 8px rgba(34,160,107,0.3);
-        }
-
-        .btn-hero-primary {
-          position: relative; overflow: hidden;
-          background: linear-gradient(135deg, #25b278 0%, #22A06B 50%, #1b8a5b 100%);
-          box-shadow: 0 4px 16px rgba(34,160,107,0.4), 0 1px 4px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.12);
-          transition: transform 0.18s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.18s ease;
-        }
-        .btn-hero-primary::before {
-          content: '';
-          position: absolute; top: 0; left: 0;
-          width: 55%; height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
-          transform: translateX(-120%) skewX(-12deg);
-        }
-        .btn-hero-primary:hover::before { animation: shimmer 0.55s ease-out; }
-        .btn-hero-primary:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 10px 28px rgba(34,160,107,0.5), 0 2px 8px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.15);
-        }
-        .btn-hero-primary:active { transform: translateY(0) scale(0.97); }
-
-        .btn-hero-secondary {
-          position: relative; overflow: hidden;
-          transition: transform 0.18s cubic-bezier(0.34,1.56,0.64,1), background 0.18s, border-color 0.18s;
-        }
-        .btn-hero-secondary:hover {
-          transform: translateY(-2px);
-          background: rgba(255,255,255,0.1) !important;
-          border-color: rgba(255,255,255,0.45) !important;
-        }
-        .btn-hero-secondary:active { transform: translateY(0) scale(0.97); }
-
-        .btn-via {
-          position: relative; overflow: hidden;
-          background: linear-gradient(135deg, #6055d8 0%, #5248cc 50%, #4840b8 100%) !important;
-          box-shadow: 0 3px 12px rgba(82,72,204,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
-          transition: transform 0.18s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.18s ease !important;
-        }
-        .btn-via::before {
-          content: '';
-          position: absolute; top: 0; left: 0;
-          width: 55%; height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.16), transparent);
-          transform: translateX(-120%) skewX(-12deg);
-        }
-        .btn-via:hover::before { animation: shimmerVia 0.55s ease-out; }
-        .btn-via:hover {
-          transform: translateY(-2px) !important;
-          box-shadow: 0 8px 22px rgba(82,72,204,0.5), inset 0 1px 0 rgba(255,255,255,0.15) !important;
         }
 
         .auto-card {
@@ -517,124 +320,36 @@ export default function DlaFirmPage() {
         <div style={{ maxWidth: 860, margin: '0 auto', padding: 'clamp(48px, 6vw, 80px) 20px clamp(48px, 6vw, 72px)', position: 'relative' }}>
 
           <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'rgba(142,234,173,0.5)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 20 }}>
-            dla firm i JDG
+            Otwarte API · dla firm, NGO i instytucji
           </div>
 
-          <h1 style={{ fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 700, lineHeight: 1.1, letterSpacing: '-0.03em', color: '#fff', margin: '0 0 16px', maxWidth: 640 }}>
-            Trzy narzędzia,<br />
-            <span style={{ color: '#8EEAAD' }}>które oszczędzają czas.</span>
+          <h1 style={{ fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 700, lineHeight: 1.1, letterSpacing: '-0.03em', color: '#fff', margin: '0 0 16px', maxWidth: 680 }}>
+            Jedno API do świadczeń,<br />
+            <span style={{ color: '#8EEAAD' }}>które należą się ludziom.</span>
           </h1>
-          <p style={{ fontSize: 16, lineHeight: 1.6, color: 'rgba(255,255,255,0.6)', margin: '0 0 48px', maxWidth: 480 }}>
-            Automatyzacje procesów, gotowe API z bazą świadczeń i monitoring dofinansowań dopasowanych do Twojej firmy.
+          <p style={{ fontSize: 16, lineHeight: 1.6, color: 'rgba(255,255,255,0.62)', margin: '0 0 40px', maxWidth: 560 }}>
+            Otwarta, bezpłatna baza 118 zweryfikowanych świadczeń jako REST API. Dla firm,
+            organizacji pozarządowych, instytucji i każdego, kto pomaga ludziom znaleźć
+            wsparcie, które im przysługuje. Prywatność wbudowana: nie przechowujemy danych.
           </p>
 
-          {/* 3 offering cards */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(240px, 100%), 1fr))', gap: 12, marginBottom: 40 }}>
-            {[
-              {
-                num: '01',
-                title: 'Automatyzacje',
-                desc: 'Automatyzacje dla firm są dziś możliwe i dostępne: faktury, KSeF, ZUS, OCR, windykacja i inne.',
-                anchor: '#automatyzacje',
-                label: 'Zobacz przykłady',
-              },
-              {
-                num: '02',
-                title: 'API świadczeń',
-                desc: '118 świadczeń, ulg i dotacji jako REST API. Ręcznie weryfikowana baza, aktualizowana na bieżąco.',
-                anchor: '#api',
-                label: 'Dokumentacja API',
-              },
-              {
-                num: '03',
-                title: 'Monitoring dotacji',
-                desc: 'AI agent szuka otwartych naborów pasujących do profilu Twojej firmy i wysyła alert. Powered by VIA.',
-                anchor: 'https://www.tryvia.eu/#',
-                label: 'tryvia.eu',
-                external: true,
-              },
-            ].map((item) => (
-              <div key={item.num} style={{
-                background: 'rgba(255,255,255,0.05)',
-                border: '1px solid rgba(255,255,255,0.1)',
-                borderRadius: 14,
-                padding: '20px 22px',
-                display: 'flex', flexDirection: 'column', gap: 10,
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'rgba(142,234,173,0.5)', letterSpacing: '0.08em' }}>{item.num}</span>
-                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 600, color: '#fff' }}>{item.title}</span>
-                </div>
-                <p style={{ fontSize: 13, lineHeight: 1.55, color: 'rgba(255,255,255,0.55)', margin: 0, flex: 1 }}>
-                  {item.desc}
-                </p>
-                <a
-                  href={item.anchor}
-                  {...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                  style={{
-                    fontFamily: 'var(--font-mono)', fontSize: 11,
-                    color: '#8EEAAD', textDecoration: 'none',
-                    display: 'inline-flex', alignItems: 'center', gap: 5,
-                    letterSpacing: '0.04em',
-                  }}
-                >
-                  {item.label}
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                </a>
-              </div>
-            ))}
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+            <a href="#api" className="btn-primary" style={{
+              display: 'inline-block', fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 500,
+              color: '#fff', padding: '12px 22px', borderRadius: 10,
+            }}>
+              Zobacz API
+            </a>
+            <a href="#kontakt" style={{
+              display: 'inline-block', fontFamily: 'var(--font-mono)', fontSize: 13,
+              color: 'rgba(255,255,255,0.85)', padding: '12px 22px', borderRadius: 10,
+              border: '1px solid rgba(255,255,255,0.25)', textDecoration: 'none',
+            }}>
+              Napisz po klucz API
+            </a>
           </div>
 
         </div>
-      </section>
-
-      {/* ── AUTOMATYZACJE ── */}
-      <section id="automatyzacje" style={{ maxWidth: 860, margin: '0 auto', padding: 'clamp(48px, 6vw, 72px) 20px' }}>
-        <Eyebrow>Automatyzacje</Eyebrow>
-        <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(22px, 4vw, 32px)', fontWeight: 600, color: 'var(--color-text-1)', margin: '0 0 8px' }}>
-          Automatyzacje dla firm
-        </h2>
-        <p style={{ fontSize: 15, lineHeight: 1.65, color: 'var(--color-text-2)', margin: '0 0 32px', maxWidth: 540 }}>
-          Poniższe automatyzacje są dziś możliwe i dostępne dla europejskich firm. wezmezadarmo.com prezentuje je informacyjnie; wdrożenia realizują niezależni europejscy partnerzy w ramach co-promocji.
-        </p>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(min(340px, 100%), 1fr))',
-          gap: 16,
-        }}>
-          {AUTOMATYZACJE.map(a => (
-            <div
-              key={a.nazwa}
-              className="auto-card"
-              onMouseEnter={onTiltEnter}
-              onMouseMove={onTiltMove}
-              onMouseLeave={onTiltLeave}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
-                <span className="card-icon">{a.ikona}</span>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 14, fontWeight: 600, color: 'var(--color-text-1)' }}>
-                  {a.nazwa}
-                </span>
-              </div>
-              <p style={{ fontSize: 14, lineHeight: 1.6, color: 'var(--color-text-2)', margin: '0 0 14px' }}>
-                {a.opis}
-              </p>
-              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                {a.tagi.map(t => (
-                  <span key={t} style={{
-                    fontFamily: 'var(--font-mono)', fontSize: 10,
-                    padding: '3px 9px', borderRadius: 999,
-                    background: 'rgba(34,160,107,0.07)',
-                    border: '1px solid rgba(34,160,107,0.15)',
-                    color: 'var(--color-text-3)',
-                  }}>{t}</span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <VIADotacjeCard />
       </section>
 
       {/* ── API ── */}
@@ -648,19 +363,16 @@ export default function DlaFirmPage() {
           <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(22px, 4vw, 32px)', fontWeight: 600, color: 'var(--color-text-1)', margin: '0 0 8px' }}>
             API bazy świadczeń
           </h2>
-          <p style={{ fontSize: 15, lineHeight: 1.65, color: 'var(--color-text-2)', margin: '0 0 28px', maxWidth: 540 }}>
-            118 zweryfikowanych świadczeń socjalnych, ulg i dotacji. Jeden endpoint REST, odpowiedź w &lt;200ms, aktualizowana baza.
+          <p style={{ fontSize: 15, lineHeight: 1.65, color: 'var(--color-text-2)', margin: '0 0 28px', maxWidth: 560 }}>
+            118 zweryfikowanych świadczeń socjalnych, ulg i dotacji. Jeden endpoint REST,
+            odpowiedź w &lt;200ms, aktualizowana baza. Otwarte oprogramowanie i otwarte dane,
+            bezpłatne także dla organizacji pozarządowych i instytucji publicznych.
           </p>
 
           <TerminalWindow />
 
           <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 28px', display: 'flex', flexDirection: 'column', gap: 8 }}>
-            {[
-              '118 świadczeń w 15 kategoriach',
-              'Odpowiedź <200ms',
-              'Brak przechowywania danych (RODO)',
-              'Dokumentacja dla AI: wezmezadarmo.com/llm.md',
-            ].map(item => (
+            {FEATURES.map(item => (
               <li key={item} className="feature-item">
                 <span className="feature-icon">+</span>
                 {item}
@@ -681,28 +393,20 @@ export default function DlaFirmPage() {
       {/* ── DLA KOGO ── */}
       <section style={{ maxWidth: 860, margin: '0 auto', padding: 'clamp(48px, 6vw, 72px) 20px' }}>
         <Eyebrow>Dla kogo</Eyebrow>
-        <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(22px, 4vw, 32px)', fontWeight: 600, color: 'var(--color-text-1)', margin: '0 0 28px' }}>
-          Kto korzysta z naszego API
+        <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(22px, 4vw, 32px)', fontWeight: 600, color: 'var(--color-text-1)', margin: '0 0 8px' }}>
+          Kto korzysta z API
         </h2>
+        <p style={{ fontSize: 15, lineHeight: 1.65, color: 'var(--color-text-2)', margin: '0 0 28px', maxWidth: 560 }}>
+          Przede wszystkim ci, którzy pomagają ludziom: organizacje pozarządowe, pracownicy
+          socjalni, instytucje i punkty wsparcia. API ma zmniejszać wykluczenie - cyfrowe,
+          informacyjne i społeczne.
+        </p>
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(min(240px, 100%), 1fr))',
           gap: 16,
         }}>
-          {[
-            {
-              ikona: 'H', tytul: 'HR / Kadry',
-              opis: 'Przy onboardingu system sprawdza, jakie świadczenia przysługują pracownikowi. HR dostaje gotową listę zamiast odsyłać na rządowe strony.',
-            },
-            {
-              ikona: 'F', tytul: 'Fintech / Bankowość',
-              opis: 'Klient składa wniosek kredytowy, a aplikacja w tle sprawdza na jakie regularne świadczenia się kwalifikuje. Realny dochód do scoringu.',
-            },
-            {
-              ikona: 'N', tytul: 'NGO / OPS',
-              opis: 'Jedno zapytanie do API zamiast ręcznego sprawdzania kilkudziesięciu stron. Gotowa lista świadczeń z instrukcją złożenia wniosku.',
-            },
-          ].map(k => (
+          {ODBIORCY.map(k => (
             <div
               key={k.tytul}
               className="auto-card"
@@ -733,7 +437,9 @@ export default function DlaFirmPage() {
             Porozmawiajmy o współpracy
           </h2>
           <p style={{ fontSize: 15, lineHeight: 1.65, color: 'var(--color-text-2)', margin: '0 0 28px' }}>
-            Wszystkie funkcje wezmezadarmo.com są bezpłatne. Napisz, jeśli chcesz porozmawiać o współpracy, integracji API świadczeń lub co-promocji europejskich projektów.
+            Wszystkie funkcje wezmezadarmo.com są bezpłatne. Napisz, jeśli chcesz klucz do API,
+            zintegrować bazę świadczeń albo wspólnie wspierać dostęp obywateli do należnego im wsparcia.
+            Organizacje pozarządowe i instytucje publiczne mile widziane.
           </p>
 
           <div style={{
@@ -756,8 +462,8 @@ export default function DlaFirmPage() {
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                 {([
                   { key: 'imie', label: 'Imię i nazwisko', placeholder: 'Jan Kowalski', type: 'text', autocomplete: 'name', required: true },
-                  { key: 'firma', label: 'Nazwa firmy (opcjonalnie)', placeholder: 'Kowalski Sp. z o.o.', type: 'text', autocomplete: 'organization', required: false },
-                  { key: 'email', label: 'Adres e-mail', placeholder: 'jan@kowalski.pl', type: 'email', autocomplete: 'email', required: true },
+                  { key: 'firma', label: 'Organizacja lub firma (opcjonalnie)', placeholder: 'Fundacja / firma', type: 'text', autocomplete: 'organization', required: false },
+                  { key: 'email', label: 'Adres e-mail', placeholder: 'jan@przyklad.pl', type: 'email', autocomplete: 'email', required: true },
                 ] as const).map(f => (
                   <div key={f.key}>
                     <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: 'var(--color-text-2)', marginBottom: 8 }}>{f.label}</label>
@@ -787,7 +493,7 @@ export default function DlaFirmPage() {
                   <textarea
                     required
                     rows={4}
-                    placeholder="Np. chcemy zintegrować API świadczeń z naszym systemem HR..."
+                    placeholder="Np. jesteśmy fundacją i chcemy sprawdzać uprawnienia podopiecznych przez API..."
                     value={form.wiadomosc}
                     onChange={e => setForm(prev => ({ ...prev, wiadomosc: e.target.value }))}
                     style={{

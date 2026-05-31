@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Automatyzacje i API dla firm | wezmezadarmo.com',
+  title: 'Otwarte API bazy świadczeń dla firm, NGO i instytucji | wezmezadarmo',
   description:
-    'Gotowe automatyzacje procesów firmowych plus baza 118 polskich świadczeń socjalnych jako REST API. KSeF, faktury, raporty ZUS, monitoring dotacji.',
+    'Bezpłatne, otwarte REST API z bazą 118 zweryfikowanych polskich świadczeń socjalnych, ulg i dotacji. Dla firm, organizacji pozarządowych, pracowników socjalnych i instytucji wspierających obywateli. Prywatność wbudowana, bez przechowywania danych.',
 };
 
 export default function DlaFirmLayout({ children }: { children: React.ReactNode }) {
