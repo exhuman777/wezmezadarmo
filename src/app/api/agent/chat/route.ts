@@ -25,6 +25,7 @@ import type { RssContextItem, RssSubscriptionContext } from '@/agents/types';
 import { buildAgentSystemPrompt, profileToUserProfile, getAgentConfig } from '@/agents/registry';
 import { routeToAgent } from '@/agents/router';
 import { getQueues, NFZ_PROVINCE_CODES, PROVINCE_LABELS } from '@/lib/sources/nfz';
+import { getAirIndex } from '@/lib/sources/gios';
 import { PROGRAMS, type EligibilityFlag } from '@/data/programs-b2b';
 import { getPkdName, dominantSection } from '@/data/pkd-codes';
 
@@ -322,26 +323,16 @@ async function maybeFetchGios(text: string, userProvince: string | null): Promis
   }
 
   try {
-    const res = await fetch(`https://api.gios.gov.pl/pjp-api/v1/rest/aqindex/getIndex/${info.stationId}`, {
-      headers: { Accept: 'application/json' },
-      next: { revalidate: 1800 },
-    });
-    if (!res.ok) {
+    // Reuze sprawdzonego parsera GIOS v1 (ld+json, defensywne klucze) z lib/sources/gios
+    const aqi = await getAirIndex(info.stationId);
+    if (!aqi.overall && !aqi.pm10 && !aqi.pm25 && !aqi.no2) {
       return `Aby sprawdzic jakosc powietrza w ${info.city} otworz /centrum-obywatela/powietrze.`;
     }
-    const data = await res.json() as Record<string, unknown>;
-    const aqi = data.AqIndex as Record<string, unknown> | undefined;
-    if (!aqi) return null;
-
-    const overall = aqi['Nazwa kategorii indeksu'] as string | null;
-    const pm10 = aqi['Nazwa kategorii indeksu dla wskażnika PM10'] as string | null;
-    const pm25 = aqi['Nazwa kategorii indeksu dla wskażnika PM2.5'] as string | null;
-    const calcDate = aqi['Data wykonania obliczeń indeksu'] as string | null;
-
-    const lines = [`GIOS - jakosc powietrza w ${info.city} (pomiar: ${calcDate ?? 'live'}):`];
-    if (overall) lines.push(`  Indeks ogolny: ${overall}`);
-    if (pm10) lines.push(`  PM10: ${pm10}`);
-    if (pm25) lines.push(`  PM2.5: ${pm25}`);
+    const lines = [`GIOS - jakosc powietrza w ${info.city} (pomiar: ${aqi.sourceDate ?? aqi.calcDate ?? 'live'}):`];
+    if (aqi.overall) lines.push(`  Indeks ogolny: ${aqi.overall}`);
+    if (aqi.pm10) lines.push(`  PM10: ${aqi.pm10}`);
+    if (aqi.pm25) lines.push(`  PM2.5: ${aqi.pm25}`);
+    if (aqi.no2) lines.push(`  NO2: ${aqi.no2}`);
     lines.push(`  Wiecej miast: https://wezmezadarmo.com/centrum-obywatela/powietrze`);
     return lines.join('\n');
   } catch {
