@@ -45,6 +45,7 @@ Strony publiczne:
 - `/wnioski/` -- AI-asystowane wypełnianie wniosków ZUS z eksportem PDF
 - `/aktualnosci/` -- monitoring RSS (publiczny podgląd + B2B panel dla firm)
 - `/statystyki/` -- dashboard GUS/SDG: wskaźniki live, wykresy, status API państwowych
+- `/centrum-obywatela/polska-cyfrowa/` -- dowody cyfryzacji PL: newsy ElevenLabs + NFZ/e-zdrowie, kafelki, 3 wykresy (dostępność mieszkań, realne ceny m2, wzrost e-usług), lista darmowych API. Dane curated+cytowane w src/data/polska-cyfrowa.ts
 - `/automatyzacje/` -- AI automatyzacje dla firm: KSeF, faktury zagraniczne, custom workflows
 - `/dotacje/` -- B2B SaaS: monitoring dofinansowań, baza 57 programów, AI agent dopasowujący do profilu firmy
 - `/dla-firm/` -- landing dla firm i JDG

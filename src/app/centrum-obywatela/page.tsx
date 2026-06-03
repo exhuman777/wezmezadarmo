@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Centrum Obywatela - darmowe narzędzia urzędowe | wezmezadarmo',
-  description: '11 narzędzi z oficjalnych polskich API: NFZ, NBP, GIOŚ, Biała Lista VAT, IMGW/RCB, ELI/Sejm, BDL GUS, ARiMR, PKP. Bez logowania.',
+  description: '12 narzędzi z oficjalnych polskich API: NFZ, NBP, GIOŚ, Biała Lista VAT, IMGW/RCB, ELI/Sejm, BDL GUS, ARiMR, PKP. Bez logowania.',
 };
 
 interface Tool {
@@ -39,6 +39,8 @@ const TOOLS: Tool[] = [
     audiences: ['firma', 'wszyscy'] },
   { href: '/swiadczenia', icon: 'S', label: 'Świadczenia i ulgi', desc: '133 świadczeń ZUS, NFZ, PFRON, KRUS, MOPS - przeszukiwalna baza', badge: 'baza wiedzy', color: '#22A06B',
     audiences: ['rolnik', 'senior', 'rodzina', 'student', 'wszyscy'] },
+  { href: '/centrum-obywatela/polska-cyfrowa', icon: 'C', label: 'Polska cyfrowa', desc: 'e-zdrowie, ElevenLabs, wykresy: dostępność mieszkań i wzrost e-usług', badge: 'dane + wykresy', color: '#157a4f',
+    audiences: ['senior', 'firma', 'student', 'wszyscy'] },
 ];
 
 interface Audience {
@@ -102,7 +104,7 @@ const AUDIENCES: Audience[] = [
 ];
 
 const STATS = [
-  { num: '11', label: 'darmowych narzędzi' },
+  { num: '12', label: 'darmowych narzędzi' },
   { num: '9', label: 'oficjalnych API rządowych' },
   { num: '8', label: 'źródeł danych live w czacie AI' },
   { num: '0 PLN', label: 'koszt, bez rejestracji' },
@@ -131,7 +133,7 @@ export default function CentrumObywatelaPage() {
       </div>
 
       <h1 style={{ fontSize: 'clamp(26px, 3.8vw, 38px)', fontWeight: 700, marginBottom: 14, color: 'var(--ink-900)', lineHeight: 1.15, letterSpacing: '-0.02em' }}>
-        11 darmowych narzędzi urzędowych w jednym miejscu
+        12 darmowych narzędzi urzędowych w jednym miejscu
       </h1>
       <p style={{ fontSize: 16, color: 'var(--ink-500)', marginBottom: 28, lineHeight: 1.55, maxWidth: 780 }}>
         Pogrupowane po grupach docelowych - wejdź w sekcję dla siebie i sprawdź czego potrzebujesz.

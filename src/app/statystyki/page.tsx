@@ -34,6 +34,13 @@ const STATUS_API: Array<{ name: string; url: string; status: 'live' | 'pending' 
   { name: 'CEIDG', url: 'https://datastore.ceidg.gov.pl/', status: 'live', opis: 'JDG, wyszukiwanie po NIP' },
   { name: 'TERYT', url: 'https://api.stat.gov.pl/Home/TerytApi', status: 'pending', opis: 'WYMAGANE: rejestracja klucza API' },
   { name: 'STRATEG', url: 'https://strateg.stat.gov.pl/api', status: 'pending', opis: 'Wskaźniki strategii rozwoju Polski (planowane integracja)' },
+  { name: 'dane.gov.pl', url: 'https://api.dane.gov.pl/doc', status: 'live', opis: 'Centralny katalog otwartych danych - tysiące zbiorów, bez rejestracji' },
+  { name: 'KRS Open API', url: 'https://prs.ms.gov.pl/krs/openApi', status: 'live', opis: 'Krajowy Rejestr Sądowy - spółki, fundacje (JSON), bez klucza' },
+  { name: 'NFZ - Terminy leczenia', url: 'https://api.nfz.gov.pl/app-itl-api/', status: 'live', opis: 'Pierwszy wolny termin wizyty i kolejki, bez rejestracji' },
+  { name: 'GUGiK ULDK', url: 'https://www.geoportal.gov.pl/', status: 'live', opis: 'Lokalizacja działek ewidencyjnych po ID/adresie, bez klucza' },
+  { name: 'Sejm API (głosowania)', url: 'https://api.sejm.gov.pl/sejm.html', status: 'live', opis: 'Posłowie, głosowania, interpelacje, bez rejestracji' },
+  { name: 'Eurostat', url: 'https://ec.europa.eu/eurostat/web/main/data/web-services', status: 'live', opis: 'Statystyki UE - porównanie Polski z innymi krajami, bez klucza' },
+  { name: 'GDOŚ Geoserwis', url: 'https://geoserwis.gdos.gov.pl/mapy/', status: 'live', opis: 'Obszary chronione Natura 2000, parki, rezerwaty (WMS/WFS)' },
 ];
 
 const liveCount = STATUS_API.filter(a => a.status === 'live').length;
