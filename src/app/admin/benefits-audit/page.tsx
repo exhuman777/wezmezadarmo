@@ -91,7 +91,7 @@ export default async function BenefitsAuditPage() {
           Audyt zrodel swiadczen
         </h1>
         <p style={{ fontSize: 14, color: 'var(--color-text-2)', margin: 0 }}>
-          Cotygodniowy automatyczny audit 118 zrodloUrl. Cron: poniedzialek 4:00 UTC. Alerty na <code>sobkowicz.kamil@gmail.com</code>.
+          Cotygodniowy automatyczny audit 133 zrodloUrl. Cron: poniedzialek 4:00 UTC. Alerty na <code>sobkowicz.kamil@gmail.com</code>.
         </p>
       </div>
 

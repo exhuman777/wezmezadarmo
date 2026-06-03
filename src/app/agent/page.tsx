@@ -7,7 +7,7 @@ import { createBrowserClient } from '@supabase/ssr';
 
 const CECHY = [
   { label: 'Chat AI ze świadomością profilu', desc: 'Zadajesz pytanie o świadczenie, ZUS, podatki lub formularz. Agent zna Twój profil (wiek, dochód, dzieci, JDG/prywatny, województwo) i odpowiada konkretnie pod Twoją sytuację.', icon: 'C' },
-  { label: '118 świadczeń dopasowanych', desc: 'Po wypełnieniu profilu silnik przelicza 118 świadczeń (ZUS, NFZ, PFRON, KRUS, MOPS, ulgi PIT) i pokazuje pewne (PRZYSŁUGUJE) + możliwe (MOŻLIWE) z linkami do źródeł.', icon: 'S' },
+  { label: '133 świadczeń dopasowanych', desc: 'Po wypełnieniu profilu silnik przelicza 133 świadczeń (ZUS, NFZ, PFRON, KRUS, MOPS, ulgi PIT) i pokazuje pewne (PRZYSŁUGUJE) + możliwe (MOŻLIWE) z linkami do źródeł.', icon: 'S' },
   { label: 'Live API rządowych w czacie', desc: 'Pytasz o kurs euro → agent fetchuje NBP. Pytasz o kolejkę do kardiologa → fetchuje NFZ. Podajesz NIP → sprawdza Białą Listę VAT. Pytasz o smog → GIOŚ. Wszystko w jednej rozmowie.', icon: 'L' },
   { label: 'Aktualności RSS w prompcie', desc: 'Agent ma dostęp do 8 polskich instytucji (ZUS, GUS, NBP, UOKiK, Fundusze EU, e-Zdrowie, Sejm, ARiMR) z cache 2x/dzień. Cytuje konkretne newsy z linkiem do źródła.', icon: 'R' },
   { label: 'Wnioski ZUS krok po kroku', desc: '7 formularzy z asystentem AI (Z-15a, Z-15b, Z-3, PEL, ZAS-53, ERPO, ERSU). Wypełnianie pól, podpowiedzi, eksport do PDF gotowy do wysyłki.', icon: 'W' },
@@ -183,7 +183,7 @@ function AgentContent() {
             <span style={{ color: '#8EEAAD' }}>Pilnuje spraw, gdy Ty żyjesz.</span>
           </h1>
           <p style={{ fontSize: 'clamp(15px, 2.5vw, 18px)', lineHeight: 1.6, color: 'rgba(255,255,255,0.7)', margin: '0 0 28px', maxWidth: 560 }}>
-            Dla JDG i osób prywatnych. Agent zna 118 świadczeń, śledzi 8 instytucji rządowych,
+            Dla JDG i osób prywatnych. Agent zna 133 świadczeń, śledzi 8 instytucji rządowych,
             ma dostęp do live API (NBP, NFZ, GIOŚ, Biała Lista VAT, CEIDG) i wysyła Ci spersonalizowane alerty na e-mail.
           </p>
           <div className="cta-row" style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
@@ -401,7 +401,7 @@ function AgentContent() {
           fontSize: 12, color: 'rgba(255,255,255,0.3)', lineHeight: 1.6, maxWidth: 640,
           fontFamily: 'var(--font-mono)',
         }}>
-          Agent AI ma charakter wyłącznie informacyjny. Cytuje z bazy 118 świadczeń (weryfikowana 2026-05-23) i live API rządowych.
+          Agent AI ma charakter wyłącznie informacyjny. Cytuje z bazy 133 świadczeń (weryfikowana 2026-06-03) i live API rządowych.
           Nie składa wniosków bez Twojej akceptacji. Żaden dokument nie idzie do urzędu bez Twojej wiedzy i zgody.
           Powered by OpenRouter (Google Gemini 2.0 Flash) - dane zapytania nie są używane do treningu modeli.
         </p>

@@ -32,7 +32,7 @@ export default function BlogIndex() {
       </h1>
       <p style={{ fontSize: 15, color: 'var(--ink-500)', marginBottom: 36, lineHeight: 1.6 }}>
         Co Ci się należy, jak złożyć wniosek, ile to warte. Bez urzędniczego żargonu.
-        Aktualizowane na bieżąco z bazy 118 świadczeń.
+        Aktualizowane na bieżąco z bazy 133 świadczeń.
       </p>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>

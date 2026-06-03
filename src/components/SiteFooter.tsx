@@ -8,7 +8,7 @@ const PRODUKT = [
 ];
 
 const WIEDZA = [
-  { href: '/swiadczenia', label: 'Baza 118 świadczeń' },
+  { href: '/swiadczenia', label: 'Baza 133 świadczeń' },
   { href: '/nfz', label: 'Wyszukiwarka NFZ' },
   { href: '/aktualnosci', label: 'Aktualności' },
   { href: '/statystyki', label: 'Polska w liczbach' },

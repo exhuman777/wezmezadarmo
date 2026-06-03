@@ -29,9 +29,9 @@ export const POSTS: BlogPost[] = [
     tags: ['świadczenia', 'ulgi-podatkowe', 'NFZ', 'ZUS', 'poradnik'],
     content: `## Dlaczego Polacy tracą tysiące złotych rocznie
 
-Według naszej analizy 118 świadczeń rządowych dostępnych w 2026 roku, przeciętna rodzina nie korzysta z 4-7 świadczeń, do których ma prawo. To strata 2 400 - 5 000 PLN rocznie na samych ulgach i dofinansowaniach.
+Według naszej analizy 133 świadczeń rządowych dostępnych w 2026 roku, przeciętna rodzina nie korzysta z 4-7 świadczeń, do których ma prawo. To strata 2 400 - 5 000 PLN rocznie na samych ulgach i dofinansowaniach.
 
-Powód jest prosty: świadczenia są rozproszone między 8 instytucji (ZUS, NFZ, PFRON, MOPS, US, KRUS, ARiMR, samorządy), wymagają znajomości terminów składania wniosków i nie są nigdzie zebrane w jednym miejscu. Aż do teraz - wezmezadarmo.com agreguje wszystkie 118 i pokazuje co konkretnie Tobie się należy.
+Powód jest prosty: świadczenia są rozproszone między 8 instytucji (ZUS, NFZ, PFRON, MOPS, US, KRUS, ARiMR, samorządy), wymagają znajomości terminów składania wniosków i nie są nigdzie zebrane w jednym miejscu. Aż do teraz - wezmezadarmo.com agreguje wszystkie 133 i pokazuje co konkretnie Tobie się należy.
 
 Poniżej 10 najczęściej pomijanych świadczeń w 2026 roku.
 
@@ -156,11 +156,11 @@ Dlaczego pomijane: ludzie myślą że to "dla biedaków", a faktycznie poziom po
 
 ## Jak sprawdzić co Ci się należy w 2 minuty
 
-Zamiast czytać 118 opisów świadczeń i sprawdzać kryteria, wystarczy wypełnić nasz formularz (10 pytań, anonimowo):
+Zamiast czytać 133 opisów świadczeń i sprawdzać kryteria, wystarczy wypełnić nasz formularz (10 pytań, anonimowo):
 
 [Sprawdź teraz na stronie głównej →](/)
 
-System przelicza Twoje dane (wiek, dochód, dzieci, zatrudnienie, województwo) z bazą 118 świadczeń i pokazuje co PEWNIE Ci przysługuje + co MOŻLIWE (warto sprawdzić).
+System przelicza Twoje dane (wiek, dochód, dzieci, zatrudnienie, województwo) z bazą 133 świadczeń i pokazuje co PEWNIE Ci przysługuje + co MOŻLIWE (warto sprawdzić).
 
 Bez logowania, bez PESEL, dane przetwarzane w pamięci serwera i kasowane po analizie. Możesz też założyć konto żeby Asystent AI śledził dla Ciebie zmiany w przepisach i wysyłał alert e-mail przy nowych świadczeniach.
 

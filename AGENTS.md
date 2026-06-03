@@ -41,7 +41,7 @@ Po każdym zadaniu, przed zgłoszeniem gotowości:
 # Mapa projektu (aktualizuj przy każdej zmianie)
 
 Strony publiczne:
-- `/` -- kalkulator świadczeń dla obywateli (118+ świadczeń ZUS, NFZ, PFRON itd.)
+- `/` -- kalkulator świadczeń dla obywateli (133+ świadczeń ZUS, NFZ, PFRON itd.)
 - `/wnioski/` -- AI-asystowane wypełnianie wniosków ZUS z eksportem PDF
 - `/aktualnosci/` -- monitoring RSS (publiczny podgląd + B2B panel dla firm)
 - `/statystyki/` -- dashboard GUS/SDG: wskaźniki live, wykresy, status API państwowych

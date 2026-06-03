@@ -55,7 +55,7 @@ export default function WelcomeTour() {
             element: '[data-tour="swiadczenia"]',
             popover: {
               title: 'Zobacz dopasowane świadczenia',
-              description: 'Po wypełnieniu profilu silnik przeliczy 118 świadczeń (ZUS, NFZ, PFRON, KRUS, MOPS) i pokaże co Ci pewnie przysługuje (PRZYSŁUGUJE) oraz co możliwe (MOŻLIWE).',
+              description: 'Po wypełnieniu profilu silnik przeliczy 133 świadczeń (ZUS, NFZ, PFRON, KRUS, MOPS) i pokaże co Ci pewnie przysługuje (PRZYSŁUGUJE) oraz co możliwe (MOŻLIWE).',
               side: 'bottom',
               align: 'start',
             },

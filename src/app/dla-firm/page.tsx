@@ -178,7 +178,7 @@ const ODBIORCY = [
 ];
 
 const FEATURES = [
-  '118 świadczeń w 15 kategoriach, ręcznie zweryfikowanych',
+  '133 świadczeń w 15 kategoriach, ręcznie zweryfikowanych',
   'Odpowiedź <200ms, aktualizowana baza',
   'Brak przechowywania danych (prywatność i RODO wbudowane)',
   'Otwarte: kod AGPL-3.0, dane CC-BY-4.0 - wolno reużywać',
@@ -328,7 +328,7 @@ export default function DlaFirmPage() {
             <span style={{ color: '#8EEAAD' }}>które należą się ludziom.</span>
           </h1>
           <p style={{ fontSize: 16, lineHeight: 1.6, color: 'rgba(255,255,255,0.62)', margin: '0 0 40px', maxWidth: 560 }}>
-            Otwarta, bezpłatna baza 118 zweryfikowanych świadczeń jako REST API. Dla firm,
+            Otwarta, bezpłatna baza 133 zweryfikowanych świadczeń jako REST API. Dla firm,
             organizacji pozarządowych, instytucji i każdego, kto pomaga ludziom znaleźć
             wsparcie, które im przysługuje. Prywatność wbudowana: nie przechowujemy danych.
           </p>
@@ -364,7 +364,7 @@ export default function DlaFirmPage() {
             API bazy świadczeń
           </h2>
           <p style={{ fontSize: 15, lineHeight: 1.65, color: 'var(--color-text-2)', margin: '0 0 28px', maxWidth: 560 }}>
-            118 zweryfikowanych świadczeń socjalnych, ulg i dotacji. Jeden endpoint REST,
+            133 zweryfikowanych świadczeń socjalnych, ulg i dotacji. Jeden endpoint REST,
             odpowiedź w &lt;200ms, aktualizowana baza. Otwarte oprogramowanie i otwarte dane,
             bezpłatne także dla organizacji pozarządowych i instytucji publicznych.
           </p>

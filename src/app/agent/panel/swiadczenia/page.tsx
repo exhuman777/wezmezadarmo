@@ -461,7 +461,7 @@ export default function AgentSwiadczenia() {
         </h2>
         <p style={{ fontSize: 14, color: 'var(--color-text-3)', lineHeight: 1.6, marginBottom: 24 }}>
           Bez wieku, dochodu i sytuacji rodzinnej silnik nie ma jak dopasować świadczeń.
-          Wypełnienie zajmuje 2 minuty. Sprawdzimy 118 świadczeń (ZUS, NFZ, PFRON, KRUS, MOPS, ulgi PIT)
+          Wypełnienie zajmuje 2 minuty. Sprawdzimy 133 świadczeń (ZUS, NFZ, PFRON, KRUS, MOPS, ulgi PIT)
           i pokażemy te które Ci się należą.
         </p>
         <a href="/panel/profil" style={{

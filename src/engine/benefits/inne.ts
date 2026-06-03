@@ -158,4 +158,42 @@ export const INNE: Benefit[] = [
     zrodloUrl: 'https://www.gov.pl/web/sport/bonturystyczny',
     zrodloNazwa: 'Ministerstwo Sportu', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
+  {
+    id: 'refundacja-wyrobow-medycznych', nazwa: 'Refundacja wyrobów medycznych z NFZ',
+    opis: 'NFZ refunduje szeroką grupę wyrobów medycznych wydawanych na zlecenie, czyli sprzętu i materiałów wspomagających leczenie, pielęgnację i samodzielność. To znacznie szersza kategoria niż refundacja okularów. Obejmuje m.in.: pieluchomajtki i inne wyroby chłonne (przy nietrzymaniu moczu, limit miesięczny na sztuki z dopłatą do limitu cenowego), aparaty słuchowe (dorośli do określonego limitu raz na 5 lat, dzieci częściej i z wyższym limitem oraz wkładki uszne), wózki inwalidcze (ręczne, specjalne, elektryczne dla osób spełniających kryteria), protezy kończyn i protezy piersi, ortezy i gorsety, obuwie ortopedyczne, sprzęt stomijny (worki i akcesoria), cewniki i sprzęt do cewnikowania, glukometry i materiały dla diabetyków, laski, kule, balkoniki i inny sprzęt pomocniczy. Zasada: lekarz (lub uprawniona pielęgniarka/fizjoterapeuta) wystawia elektroniczne zlecenie na zaopatrzenie w wyroby medyczne, które system NFZ potwierdza automatycznie. Z tym zleceniem udajesz się do sklepu medycznego lub apteki realizującej umowę z NFZ. NFZ pokrywa do ustalonego limitu cenowego, różnicę powyżej limitu (oraz ewentualny udział własny, np. 10% przy niektórych wyrobach) dopłaca pacjent. Osoby ze znacznym stopniem niepełnosprawności, inwalidzi wojenni, kombatanci i dzieci mają korzystniejsze zasady (często bez limitu ilościowego lub z wyższymi limitami).',
+    kategoria: 'ZDROWIE',
+    kwota: 'refundacja do limitu cenowego per wyrób (np. aparat słuchowy, wózek, pieluchomajtki, proteza)',
+    kwotaMin: 0, kwotaMax: 0,
+    czestotliwosc: 'okresowo (zależnie od wyrobu, np. aparat słuchowy raz na 5 lat)',
+    wymagania: {},
+    wykluczenia: [
+      { opis: 'Brak zlecenia na zaopatrzenie w wyroby medyczne wystawionego przez uprawnioną osobę', sprawdz: 'zlecenie_wyrob_medyczny' },
+    ],
+    wniosek: {
+      kanal: ['NFZ'],
+      formularz: 'Zlecenie na zaopatrzenie w wyroby medyczne (e-zlecenie)',
+      dokumenty: [
+        'Zlecenie na zaopatrzenie w wyroby medyczne (wystawia lekarz lub uprawniona pielęgniarka/fizjoterapeuta)',
+        'Dowód osobisty',
+        'Dokument potwierdzający uprawnienia dodatkowe (orzeczenie o znacznym stopniu, legitymacja inwalidy wojennego), jeśli dotyczy',
+      ],
+      kroki: [
+        'Zgłoś się do lekarza prowadzącego lub specjalisty o wystawienie zlecenia na konkretny wyrób',
+        'Lekarz wystawia e-zlecenie, system NFZ potwierdza je automatycznie',
+        'Z numerem zlecenia idź do sklepu medycznego lub apteki realizującej umowę z NFZ',
+        'Odbierz wyrób, NFZ pokrywa do limitu, ewentualną nadwyżkę dopłacasz sam',
+        'Przy wyrobach cyklicznych (np. pieluchomajtki, sprzęt stomijny) zlecenie może obejmować dłuższy okres',
+      ],
+      terminRealizacji: 'Zlecenie od ręki, realizacja w sklepie medycznym natychmiast',
+      pulapki: [
+        'NFZ pokrywa tylko do limitu cenowego, droższy model wymaga dopłaty',
+        'Limity ilościowe i czasowe różnią się per wyrób (aparat słuchowy raz na 5 lat, pieluchomajtki miesięcznie)',
+        'Osoby ze znacznym stopniem niepełnosprawności i dzieci mają korzystniejsze limity',
+        'Wybieraj sklep medyczny z umową z NFZ, inaczej zapłacisz pełną cenę',
+      ],
+      odwolanie: 'Reklamacja do oddziału NFZ lub Rzecznika Praw Pacjenta',
+    },
+    zrodloUrl: 'https://www.nfz.gov.pl/dla-pacjenta/ubezpieczenia-w-nfz/zaopatrzenie-w-wyroby-medyczne/',
+    zrodloNazwa: 'NFZ', dataWeryfikacji: '2026-06-03', dataWaznosci: '2026-12-31',
+  },
 ];

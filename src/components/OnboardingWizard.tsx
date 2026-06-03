@@ -27,7 +27,7 @@ const STEPS_PRIVATE: Step[] = [
   {
     num: '02',
     title: 'Świadczenia dopasowane do Ciebie',
-    body: 'Na podstawie Twojego profilu (wiek, dochód, sytuacja) AI dopasowuje świadczenia z bazy 118 programów. Przy każdym - kwota, kroki wnioskowania, źródło prawne.',
+    body: 'Na podstawie Twojego profilu (wiek, dochód, sytuacja) AI dopasowuje świadczenia z bazy 133 programów. Przy każdym - kwota, kroki wnioskowania, źródło prawne.',
     cta: { label: 'Zobacz świadczenia', href: '/panel/swiadczenia' },
   },
   {

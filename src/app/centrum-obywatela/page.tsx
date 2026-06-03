@@ -37,7 +37,7 @@ const TOOLS: Tool[] = [
     audiences: ['senior', 'student', 'rodzina'] },
   { href: '/aktualnosci', icon: 'R', label: 'Aktualności RSS', desc: 'Agregator z 8 instytucji państwowych, odświeżany 2x/dzień', badge: '2x/dzień', color: '#003874',
     audiences: ['firma', 'wszyscy'] },
-  { href: '/swiadczenia', icon: 'S', label: 'Świadczenia i ulgi', desc: '118 świadczeń ZUS, NFZ, PFRON, KRUS, MOPS - przeszukiwalna baza', badge: 'baza wiedzy', color: '#22A06B',
+  { href: '/swiadczenia', icon: 'S', label: 'Świadczenia i ulgi', desc: '133 świadczeń ZUS, NFZ, PFRON, KRUS, MOPS - przeszukiwalna baza', badge: 'baza wiedzy', color: '#22A06B',
     audiences: ['rolnik', 'senior', 'rodzina', 'student', 'wszyscy'] },
 ];
 
@@ -95,7 +95,7 @@ const AUDIENCES: Audience[] = [
     slug: 'wszyscy',
     label: 'Wszyscy obywatele',
     marker: '06',
-    desc: 'Baza 118 świadczeń, codzienne aktualności rządowe, kursy walut, jakość powietrza, tracker zmian w prawie - narzędzia dla każdego, niezależnie od sytuacji.',
+    desc: 'Baza 133 świadczeń, codzienne aktualności rządowe, kursy walut, jakość powietrza, tracker zmian w prawie - narzędzia dla każdego, niezależnie od sytuacji.',
     benefit: 'Najczęściej używane narzędzia w jednym miejscu.',
     accent: '#22A06B',
   },

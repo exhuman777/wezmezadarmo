@@ -8,7 +8,7 @@ const ALERT_EMAIL = 'sobkowicz.kamil@gmail.com';
 const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'WezmeZaDarmo <hello@wezmezadarmo.com>';
 
 /**
- * Cron endpoint -- audit wszystkich 118 zrodloUrl ze swiadczen.
+ * Cron endpoint -- audit wszystkich 133 zrodloUrl ze swiadczen.
  * Vercel Cron schedule: poniedzialek 6:00 UTC (8:00 PL).
  *
  * Zabezpieczenia:

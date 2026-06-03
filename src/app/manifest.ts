@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'wezmezadarmo - Sprawdź co Ci się należy',
     short_name: 'wezmezadarmo',
-    description: 'Bezpłatne narzędzie do sprawdzania świadczeń, ulg i dotacji rządowych. 118 świadczeń w 15 kategoriach.',
+    description: 'Bezpłatne narzędzie do sprawdzania świadczeń, ulg i dotacji rządowych. 133 świadczeń w 15 kategoriach.',
     start_url: '/',
     display: 'standalone',
     background_color: '#f0f6f1',

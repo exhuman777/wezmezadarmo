@@ -135,4 +135,42 @@ export const NIEPELNOSPRAWNOSC: Benefit[] = [
     zrodloUrl: 'https://www.pfron.org.pl/',
     zrodloNazwa: 'PFRON', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
+  {
+    id: 'asystent-osobisty', nazwa: 'Asystent osobisty osoby z niepełnosprawnością (AOON)',
+    opis: 'Asystent osobisty osoby z niepełnosprawnością (AOON) to bezpłatna usługa, w ramach której wykwalifikowany asystent pomaga osobie z niepełnosprawnością w codziennym funkcjonowaniu i aktywnym uczestnictwie w życiu społecznym. Program finansowany jest z Funduszu Solidarnościowego i realizowany przez gminy oraz powiaty (budżet edycji 2026 to ok. 1,1 mld PLN). Usługa nie polega na wypłacie pieniędzy, ale na zapewnieniu konkretnej pomocy: wyjście z domu, dojazd na rehabilitację, do lekarza, urzędu, pracy lub na zajęcia, pomoc w zakupach, w załatwianiu spraw urzędowych, w czynnościach dnia codziennego i w nawiązywaniu kontaktów społecznych. Kto się kwalifikuje: dzieci do 16 roku życia z orzeczeniem o niepełnosprawności (ze wskazaniami konieczności stałej opieki) oraz osoby pełnoletnie z orzeczeniem o znacznym lub umiarkowanym stopniu niepełnosprawności (lub orzeczeniem równoważnym). Brak kryterium dochodowego. Liczba godzin wsparcia zależy od stopnia niepełnosprawności i potrzeb (zwykle do kilkuset godzin rocznie). Uczestnik może sam wskazać osobę, która ma być jego asystentem (poza najbliższą rodziną). Wniosek (Karta zgłoszenia) składa się w ośrodku pomocy społecznej (OPS/MOPS) lub w urzędzie gminy/powiatu, który przystąpił do programu w danym roku. Uwaga: nie każda gmina co roku realizuje program, a nabory są ograniczone czasowo i pulą miejsc.',
+    kategoria: 'NIEPELNOSPRAWNOSC',
+    kwota: 'usługa bezpłatna (do kilkuset godzin wsparcia rocznie)',
+    kwotaMin: 0, kwotaMax: 0,
+    czestotliwosc: 'rocznie (edycja programu)',
+    wymagania: { niepelnosprawnosc: ['umiarkowany', 'znaczny'] },
+    wykluczenia: [
+      { opis: 'Gmina/powiat nie przystąpił w danym roku do programu AOON lub wyczerpał pulę miejsc', sprawdz: 'gmina_realizuje_aoon' },
+    ],
+    wniosek: {
+      kanal: ['MOPS', 'URZAD_GMINY'], formularz: 'Karta zgłoszenia do programu AOON',
+      dokumenty: [
+        'Karta zgłoszenia do programu',
+        'Orzeczenie o niepełnosprawności (znaczny/umiarkowany stopień lub orzeczenie dla dziecka do 16 lat)',
+        'Ewentualne wskazanie osoby asystenta (poza najbliższą rodziną)',
+        'Klauzula informacyjna RODO',
+      ],
+      kroki: [
+        'Sprawdź w swoim OPS/MOPS lub urzędzie gminy, czy program AOON jest realizowany w tym roku',
+        'Pobierz i wypełnij Kartę zgłoszenia do programu',
+        'Dołącz orzeczenie o niepełnosprawności',
+        'Możesz wskazać konkretną osobę na asystenta (nie może to być najbliższy członek rodziny)',
+        'Po zakwalifikowaniu ustalany jest zakres i liczba godzin wsparcia',
+      ],
+      terminRealizacji: 'Zależnie od naboru w gminie (zwykle nabór na początku roku)',
+      pulapki: [
+        'To usługa, nie wypłata pieniędzy, asystent realnie pomaga w codziennych czynnościach',
+        'Nie każda gmina realizuje program co roku, sprawdź lokalnie',
+        'Asystentem nie może być najbliższy członek rodziny uczestnika',
+        'Można łączyć z opieką wytchnieniową, ale nie w tych samych godzinach',
+      ],
+      odwolanie: 'Brak trybu odwoławczego, usługa zależna od puli miejsc, można zgłosić się w kolejnej edycji',
+    },
+    zrodloUrl: 'https://www.gov.pl/web/rodzina/asystent-osobisty-osoby-z-niepelnosprawnoscia',
+    zrodloNazwa: 'Ministerstwo Rodziny, Pracy i Polityki Społecznej', dataWeryfikacji: '2026-06-03', dataWaznosci: '2026-12-31',
+  },
 ];

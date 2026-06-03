@@ -23,7 +23,7 @@ export default function NotFound() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 12, marginBottom: 32 }}>
           {[
             { href: '/', label: 'Kalkulator świadczeń', desc: 'Sprawdź co Ci się należy' },
-            { href: '/swiadczenia', label: 'Baza 118 świadczeń', desc: 'Przeglądaj wszystkie' },
+            { href: '/swiadczenia', label: 'Baza 133 świadczeń', desc: 'Przeglądaj wszystkie' },
             { href: '/nfz', label: 'Wyszukiwarka NFZ', desc: 'Kolejki, lekarze' },
             { href: '/centrum-obywatela', label: 'Centrum Obywatela', desc: '11 publicznych narzędzi' },
             { href: '/wnioski', label: 'Kreator wniosków ZUS', desc: 'Z-15a, ERPO, ZAS-53...' },

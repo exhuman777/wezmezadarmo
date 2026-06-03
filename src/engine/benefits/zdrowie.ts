@@ -34,7 +34,7 @@ export const ZDROWIE: Benefit[] = [
     id: 'mammografia', nazwa: 'Mammografia profilaktyczna',
     opis: 'Mammografia profilaktyczna to bezpłatne badanie rentgenowskie piersi finansowane przez NFZ w ramach Programu Profilaktyki Raka Piersi. Skierowane jest do kobiet w wieku 45-74 lat. Badanie polega na wykonaniu zdjęcia RTG obu piersi (po dwa zdjęcia każdej piersi) i trwa około 15 minut. Można z niego skorzystać co 2 lata. Nie wymaga skierowania od lekarza, wystarczy zadzwonić do placówki realizującej program i umówić termin. Listę placówek można znaleźć na nfz.gov.pl/dla-pacjenta/programy-profilaktyczne lub zadzwonić na infolinię NFZ: 800 190 590. Wynik przychodzi pocztą lub jest do odbioru w placówce w ciągu 2-3 tygodni. Częsty błąd: kobiety leczone z powodu raka piersi nie kwalifikują się do programu profilaktycznego, one mają badania w ramach leczenia onkologicznego. Kolejne nieporozumienie: wykonanie mammografii prywatnie nie resetuje 2-letniego interwału w programie NFZ. Kobiety z grupy podwyższonego ryzyka (mutacja BRCA1/BRCA2, rak piersi w rodzinie) powinny skonsultować się z lekarzem w sprawie częstszych badań poza programem. Mammografia mobilna (mammobus) jest równoważna z badaniem stacjonarnym.',
     kategoria: 'ZDROWIE',
-    kwota: 'bezpłatne badanie', czestotliwosc: 'co 2 lata',
+    kwota: 'bezpłatne badanie', kwotaMin: 0, kwotaMax: 0, czestotliwosc: 'co 2 lata',
     wymagania: { wiekMin: 45, wiekMax: 74, plec: 'K' },
     wykluczenia: [{ opis: 'Kobiety leczone z powodu raka piersi', sprawdz: 'leczenie_rak_piersi' }],
     wniosek: {
@@ -57,7 +57,7 @@ export const ZDROWIE: Benefit[] = [
     id: 'cytologia', nazwa: 'Cytologia profilaktyczna',
     opis: 'Cytologia profilaktyczna to bezpłatne badanie przesiewowe w kierunku raka szyjki macicy, finansowane przez NFZ w ramach Programu Profilaktyki Raka Szyjki Macicy. Skierowane jest do kobiet w wieku 25-64 lat. Badanie polega na pobraniu przez ginekologa wymazu z szyjki macicy i kanału szyjki. Trwa kilka minut i jest bezbolesne (może być lekko nieprzyjemne). Można z niego skorzystać co 3 lata. Nie wymaga skierowania, wystarczy umówić się bezpośrednio w gabinecie ginekologicznym realizującym program. Ważne: nawet jeśli kobieta wykonała cytologię prywatnie, nadal może skorzystać z bezpłatnego programu NFZ (liczy się data ostatniej cytologii w ramach programu, nie prywatnej). Wynik jest dostępny w ciągu 2-4 tygodni. Jeśli wynik jest nieprawidłowy, pacjentka jest kierowana na dalszą diagnostykę: kolposkopię. Częste nieporozumienie: cytologia nie wykrywa HPV. To osobne badanie. Kobiety po histerektomii całkowitej (usunięciu macicy z szyjką) nie potrzebują cytologii, chyba że operacja była z powodu stanu przedrakowego. Przed badaniem nie należy stosować globulek dopochwowych ani współżyć przez 24-48 godzin.',
     kategoria: 'ZDROWIE',
-    kwota: 'bezpłatne badanie', czestotliwosc: 'co 3 lata',
+    kwota: 'bezpłatne badanie', kwotaMin: 0, kwotaMax: 0, czestotliwosc: 'co 3 lata',
     wymagania: { wiekMin: 25, wiekMax: 64, plec: 'K' },
     wykluczenia: [],
     wniosek: {
@@ -80,7 +80,7 @@ export const ZDROWIE: Benefit[] = [
     id: 'kolonoskopia', nazwa: 'Kolonoskopia profilaktyczna',
     opis: 'Kolonoskopia profilaktyczna to bezpłatne badanie wziernikowe jelita grubego finansowane przez NFZ w ramach Programu Badań Przesiewowych Raka Jelita Grubego. Skierowane jest do osób w wieku 50-65 lat (obie płcie). Wyjątek: osoby w wieku 40-49 lat z wywiadem rodzinnym: jeśli krewny pierwszego stopnia (rodzic, rodzeństwo, dziecko) chorował na raka jelita grubego, kwalifikują się do programu 10 lat wcześniej. Badanie polega na wprowadzeniu giętkiego endoskopu przez odbytnicę i oglądaniu wnętrza jelita grubego. Trwa 20-40 minut. Podczas badania lekarz może usunąć polipy (zmniejsza to ryzyko raka nawet o 80%). Badanie wykonuje się co 10 lat, chyba że lekarz zaleci częstsze kontrole po usunięciu polipów. Nie wymaga skierowania. Wymaga przygotowania: 3 dni przed badaniem dieta lekkostrawna (bez błonnika, owoców, warzyw), dzień przed badaniem przyjęcie środka przeczyszczającego (np. Fortrans). Konieczne są wcześniejsze badania krwi (morfologia, koagulologia). Czas oczekiwania na termin to zazwyczaj 1-3 miesiące. Badanie można wykonać w znieczuleniu (sedacji), warto o to zapytać przy rejestracji. Po badaniu w sedacji nie wolno prowadzić samochodu przez 24 godziny.',
     kategoria: 'ZDROWIE',
-    kwota: 'bezpłatne badanie', czestotliwosc: 'co 10 lat',
+    kwota: 'bezpłatne badanie', kwotaMin: 0, kwotaMax: 0, czestotliwosc: 'co 10 lat',
     wymagania: { wiekMin: 50, wiekMax: 65 },
     wykluczenia: [],
     wniosek: {
@@ -106,7 +106,7 @@ export const ZDROWIE: Benefit[] = [
     id: 'prostata', nazwa: 'Badania prostaty (PSA) w ramach Moje Zdrowie',
     opis: 'Badanie PSA (antygen swoisty dla prostaty) to bezpłatne badanie krwi finansowane przez NFZ, służące do wczesnego wykrywania raka prostaty. NIE jest osobnym programem - od 1 października 2024 PSA jest częścią Programu Moje Zdrowie dla mężczyzn 50+ (badanie co 3 lata). Mężczyźni z wywiadem rodzinnym (rak prostaty u ojca lub brata) powinni rozważyć badania od 45. roku życia (poza programem - na skierowanie). Badanie polega na pobraniu próbki krwi z żyły i oznaczeniu poziomu PSA. Nie wymaga specjalnego przygotowania, ale przez 48 godzin przed badaniem nie należy jeździć na rowerze, odbywać stosunków seksualnych ani poddawać się badaniu per rectum (mogą fałszywie podwyższyć wynik). Do badania w ramach Moje Zdrowie wystarczy zgłoszenie do POZ. Wynik 3-7 dni. Podwyższony PSA (powyżej 4 ng/ml) nie oznacza automatycznie raka, może wskazywać na łagodny przerost prostaty lub zapalenie. Częste nieporozumienie: badanie PSA nie jest tym samym co badanie per rectum.',
     kategoria: 'ZDROWIE',
-    kwota: 'bezpłatne badanie w ramach Moje Zdrowie', czestotliwosc: 'co 3 lata',
+    kwota: 'bezpłatne badanie w ramach Moje Zdrowie', kwotaMin: 0, kwotaMax: 0, czestotliwosc: 'co 3 lata',
     wymagania: { wiekMin: 50, plec: 'M' },
     wykluczenia: [],
     wniosek: {
@@ -151,7 +151,7 @@ export const ZDROWIE: Benefit[] = [
     id: 'profilaktyka-krazenia', nazwa: 'Profilaktyka chorób układu krążenia',
     opis: 'Program Profilaktyki Chorób Układu Krążenia (CHUK) to bezpłatne badanie przesiewowe finansowane przez NFZ, skierowane do osób w wieku 35-65 lat obu płci. Celem jest wczesne wykrycie czynników ryzyka chorób sercowo-naczyniowych (zawał, udar). W ramach programu wykonuje się: pomiar ciśnienia tętniczego, pomiar masy ciała i wzrostu (BMI), oznaczenie cholesterolu całkowitego i glukozy we krwi na czczo, a lekarz ocenia ryzyko sercowo-naczyniowe za pomocą skali SCORE. Badanie dostępne jest co 5 lat. Wykonuje się je w gabinecie lekarza POZ, wystarczy zapytać o program CHUK przy rejestracji. Wykluczone są osoby już leczone z powodu chorób układu krążenia (nadciśnienie, choroba wieńcowa, po zawale lub udarze), one mają badania w ramach leczenia. Częste nieporozumienie: program CHUK to nie to samo co Program Moje Zdrowie. To dwa osobne programy i można skorzystać z obu. Wyniki są zazwyczaj dostępne na miejscu (ciśnienie, BMI) lub w ciągu tygodnia (wyniki laboratoryjne). Na podstawie wyniku SCORE lekarz może zalecić zmianę stylu życia, dietę lub skierować do kardiologa.',
     kategoria: 'ZDROWIE',
-    kwota: 'bezpłatne badanie', czestotliwosc: 'co 5 lat',
+    kwota: 'bezpłatne badanie', kwotaMin: 0, kwotaMax: 0, czestotliwosc: 'co 5 lat',
     wymagania: { wiekMin: 35, wiekMax: 65 },
     wykluczenia: [{ opis: 'Osoby leczone z powodu chorób układu krążenia', sprawdz: 'leczenie_krazenie' }],
     wniosek: {

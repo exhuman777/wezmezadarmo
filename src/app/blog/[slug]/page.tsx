@@ -173,7 +173,7 @@ export default async function BlogPost({ params }: Props) {
           Sprawdź teraz
         </div>
         <h3 style={{ fontSize: 18, fontWeight: 600, marginBottom: 8, color: 'var(--ink-900)' }}>
-          Co Tobie się należy z 118 świadczeń?
+          Co Tobie się należy z 133 świadczeń?
         </h3>
         <p style={{ fontSize: 13, color: 'var(--ink-600)', marginBottom: 16, lineHeight: 1.5 }}>
           10 pytań, 2 minuty, bez logowania, bez PESEL.

@@ -7,7 +7,7 @@ const BASE = 'https://www.wezmezadarmo.com';
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
-  // Deep links dla 118 swiadczen (per ID, indeksowane w Google jako rich snippets)
+  // Deep links dla 133 swiadczen (per ID, indeksowane w Google jako rich snippets)
   const benefitUrls: MetadataRoute.Sitemap = getAllBenefits().map(b => ({
     url: `${BASE}/swiadczenia?id=${b.id}`,
     lastModified: new Date(b.dataWeryfikacji),

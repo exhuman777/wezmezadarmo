@@ -13,7 +13,7 @@ const MODULES = [
     badge: 'Bezpłatny',
     free: true,
     icon: 'S',
-    desc: 'Wypełniasz formularz (wiek, płeć, 11 pytań) i dostajesz spersonalizowaną listę 118 świadczeń z ZUS, NFZ, PFRON, KRUS, MOPS. Żadnych danych osobowych na serwerze.',
+    desc: 'Wypełniasz formularz (wiek, płeć, 11 pytań) i dostajesz spersonalizowaną listę 133 świadczeń z ZUS, NFZ, PFRON, KRUS, MOPS. Żadnych danych osobowych na serwerze.',
   },
   {
     href: '/wnioski',
@@ -98,7 +98,7 @@ const TECH = [
   { name: 'Silnik dopasowań', note: 'autorski algorytm TypeScript' },
   { name: 'Supabase', note: 'baza danych, serwery w UE' },
   { name: 'Vercel', note: 'hosting serverless, edge deployment' },
-  { name: 'Baza 118 świadczeń', note: 'ręcznie zweryfikowana, każda z datą i źródłem' },
+  { name: 'Baza 133 świadczeń', note: 'ręcznie zweryfikowana, każda z datą i źródłem' },
 ];
 
 const SECURITY = [
@@ -127,7 +127,7 @@ const SECURITY = [
 ];
 
 const STATS = [
-  { n: '118', label: 'świadczeń w bazie' },
+  { n: '133', label: 'świadczeń w bazie' },
   { n: '15', label: 'kategorii' },
   { n: '14', label: 'źródeł danych' },
   { n: '2 min', label: 'czas analizy' },
@@ -265,7 +265,7 @@ export default function OProjekciePage() {
                 color: 'var(--color-green)',
                 letterSpacing: '0.04em',
               }}>
-                118 świadczeń z 15 kategorii
+                133 świadczeń z 15 kategorii
               </div>
             </div>
 
@@ -291,7 +291,7 @@ export default function OProjekciePage() {
                 </p>
                 <p style={{ margin: 0 }}>
                   wezmezadarmo powstało, żeby zebrać w jednym miejscu{' '}
-                  <strong style={{ color: 'var(--color-text-1)' }}>118 świadczeń z 15 kategorii</strong>{' '}
+                  <strong style={{ color: 'var(--color-text-1)' }}>133 świadczeń z 15 kategorii</strong>{' '}
                   i dać każdemu możliwość sprawdzenia w 2 minuty, na co się kwalifikuje.
                   Bez rejestracji, bez opłat, bez zbędnych kroków.
                 </p>
@@ -680,7 +680,7 @@ export default function OProjekciePage() {
             Sprawdź co Ci przysługuje za darmo
           </h2>
           <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: 15, marginBottom: 28, maxWidth: 420, marginLeft: 'auto', marginRight: 'auto', lineHeight: 1.65 }}>
-            2 minuty, bez rejestracji. 118 świadczeń z ZUS, NFZ, PFRON i innych instytucji.
+            2 minuty, bez rejestracji. 133 świadczeń z ZUS, NFZ, PFRON i innych instytucji.
           </p>
           <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link href="/" className="btn btn-green btn-lg">

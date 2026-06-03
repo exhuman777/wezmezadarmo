@@ -627,7 +627,7 @@ export default function SwiadczeniaPage() {
         {/* Footer */}
         <div className="mt-8 pt-4 border-t border-border text-center space-y-2">
           <div className="text-[12px] sm:text-[13px] text-text-3">
-            Baza: {allBenefits.length} świadczeń | Ostatnia aktualizacja: maj 2026
+            Baza: {allBenefits.length} świadczeń | Ostatnia aktualizacja: czerwiec 2026
           </div>
           <div className="text-[11px] sm:text-[12px] text-text-3">
             Informacje orientacyjne. Zawsze weryfikuj na stronach źródłowych.

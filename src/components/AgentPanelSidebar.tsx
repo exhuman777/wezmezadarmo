@@ -15,7 +15,7 @@ interface AgentType {
 
 const AGENT_TYPES: AgentType[] = [
   { id: 'konsjerz', label: 'Konsjerż', desc: 'Pytania ogólne', icon: 'K' },
-  { id: 'swiadczenia', label: 'Świadczenia', desc: '118 świadczeń i ulg', icon: 'S' },
+  { id: 'swiadczenia', label: 'Świadczenia', desc: '133 świadczeń i ulg', icon: 'S' },
   { id: 'wnioski', label: 'Wnioski', desc: '8 formularzy ZUS', icon: 'W' },
   { id: 'nfz-zdrowie', label: 'NFZ / Zdrowie', desc: 'Lekarze, kolejki, smog', icon: 'N' },
   { id: 'finanse-jdg', label: 'Finanse', desc: 'NBP, VAT, KSeF, podatki', icon: 'F' },

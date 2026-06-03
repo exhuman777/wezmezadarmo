@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 };
 
 const FACTS = [
-  { n: '118', label: 'zweryfikowanych świadczeń w bazie' },
+  { n: '133', label: 'zweryfikowanych świadczeń w bazie' },
   { n: '23', label: 'programy dotacyjne B2B' },
   { n: '11', label: 'darmowych narzędzi Centrum Obywatela' },
   { n: '8', label: 'instytucji rządowych w agregatorze RSS' },
@@ -22,11 +22,11 @@ const FACTS = [
   { n: '0 PLN', label: 'koszt dla użytkownika końcowego' },
 ];
 
-const SHORT_DESC = `wezmezadarmo.com to bezpłatne narzędzie pomagające polskim obywatelom i firmom odkryć świadczenia rządowe, ulgi podatkowe i programy wsparcia, na które się kwalifikują. Agregator 118 świadczeń (ZUS, NFZ, PFRON, KRUS, MOPS, ulgi PIT), 23 programów dotacyjnych B2B (KFS, PARP, NCBR, KPO, ARiMR) i 11 darmowych narzędzi (NFZ kolejki, kursy NBP, jakość powietrza GIOŚ, Biała Lista VAT, sprawdzenie NIP).`;
+const SHORT_DESC = `wezmezadarmo.com to bezpłatne narzędzie pomagające polskim obywatelom i firmom odkryć świadczenia rządowe, ulgi podatkowe i programy wsparcia, na które się kwalifikują. Agregator 133 świadczeń (ZUS, NFZ, PFRON, KRUS, MOPS, ulgi PIT), 23 programów dotacyjnych B2B (KFS, PARP, NCBR, KPO, ARiMR) i 11 darmowych narzędzi (NFZ kolejki, kursy NBP, jakość powietrza GIOŚ, Biała Lista VAT, sprawdzenie NIP).`;
 
 const LONG_DESC = `Polacy tracą średnio 2 400-5 000 PLN rocznie nie korzystając ze świadczeń, do których mają prawo. Powód: rozproszenie informacji między 8 instytucji rządowych i brak narzędzia agregującego wszystko w jednym miejscu.
 
-wezmezadarmo.com rozwiązuje ten problem. W 10 anonimowych pytaniach (bez logowania, bez PESEL) silnik dopasowania przelicza 118 świadczeń i pokazuje co PEWNIE Ci przysługuje + co MOŻLIWE. Dla firm i JDG: matching 23 programów dotacyjnych na podstawie PKD i województwa pobranego z CEIDG.
+wezmezadarmo.com rozwiązuje ten problem. W 10 anonimowych pytaniach (bez logowania, bez PESEL) silnik dopasowania przelicza 133 świadczeń i pokazuje co PEWNIE Ci przysługuje + co MOŻLIWE. Dla firm i JDG: matching 23 programów dotacyjnych na podstawie PKD i województwa pobranego z CEIDG.
 
 Asystent AI (Google Gemini 2.0 Flash) ma dostęp do całej bazy + 8 publicznych API rządowych (NBP, NFZ, GIOŚ, Biała Lista VAT, CEIDG, IMGW, ELI/Sejm, BDL GUS) i odpowiada na pytania użytkownika z konkretnym kontekstem jego profilu.
 

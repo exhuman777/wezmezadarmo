@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'wezmezadarmo - Sprawdź co Ci się należy',
-    description: '118 świadczeń, 23 dotacje, 11 narzędzi rządowych. Bezpłatnie.',
+    description: '133 świadczeń, 23 dotacje, 11 narzędzi rządowych. Bezpłatnie.',
   },
   robots: { index: true, follow: true },
 };
