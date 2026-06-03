@@ -18,11 +18,11 @@ function getClient(): OpenAI {
 
 export const MODELS = {
   // Main chat + dotacje B2B + NLnet grant writing -- needs coherent multi-step reasoning
-  conversation: 'google/gemini-2.0-flash-001',
+  conversation: 'google/gemini-2.5-flash',
   // Simple 1-4 sentence tasks: ZUS form Q&A, ZUS justification generation
-  lite: 'google/gemini-2.0-flash-lite-001',
+  lite: 'google/gemini-2.5-flash-lite',
   // Structured JSON verification pass -- deterministic output required
-  verifier: 'google/gemini-2.0-flash-lite-001',
+  verifier: 'google/gemini-2.5-flash-lite',
 } as const;
 
 export async function chatCompletion(
