@@ -40,6 +40,11 @@ export interface BenefitRequirements {
   rolnik?: boolean;
   bezrobotnyZarejestrowany?: boolean;
   statusWdowiec?: boolean;
+  // Uprawnienie zależy od decyzji/statusu nadawanego przez uprawniony organ
+  // (np. status kombatanta lub działacza opozycji), którego nie da się ustalić
+  // z profilu. Gdy true, matcher nie oznacza świadczenia jako PRZYSLUGUJE,
+  // tylko MOZLIWE - nawet jeśli wszystkie kryteria z profilu są spełnione.
+  wymagaWeryfikacjiStatusu?: boolean;
 }
 
 export interface Exclusion {

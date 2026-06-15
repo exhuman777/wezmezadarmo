@@ -123,6 +123,14 @@ export function matchBenefits(profile: UserProfile): MatchResult[] {
       status = 'NIE_PRZYSLUGUJE';
     }
 
+    // Świadczenia zależne od statusu nadawanego przez uprawniony organ
+    // (kombatant, działacz opozycji) nie mogą być potwierdzone z samego profilu,
+    // więc nigdy nie oznaczamy ich jako PRZYSLUGUJE - co najwyżej MOZLIWE.
+    if (req.wymagaWeryfikacjiStatusu && status === 'PRZYSLUGUJE') {
+      status = 'MOZLIWE';
+      warnings.push('Wymaga potwierdzenia statusu decyzją uprawnionego organu');
+    }
+
     for (const wyk of benefit.wykluczenia) {
       warnings.push(`Sprawdz wykluczenie: ${wyk.opis}`);
     }

@@ -33,6 +33,21 @@ describe('edge cases from spec', () => {
     expect(becikowe!.status).toBe('PRZYSLUGUJE');
   });
 
+  it('świadczenie dla działaczy opozycji -- ukryte dla osoby poniżej 55 lat', () => {
+    const mlody = { ...base, wiek: 23 };
+    const results = matchBenefits(mlody);
+    const opozycja = results.find(r => r.benefit.id === 'swiadczenie-dzialacze-opozycji');
+    expect(opozycja).toBeUndefined();
+  });
+
+  it('świadczenie dla działaczy opozycji -- dla seniora MOZLIWE, nie PRZYSLUGUJE (status wymaga weryfikacji)', () => {
+    const senior = { ...base, wiek: 70 };
+    const results = matchBenefits(senior);
+    const opozycja = results.find(r => r.benefit.id === 'swiadczenie-dzialacze-opozycji');
+    expect(opozycja).toBeDefined();
+    expect(opozycja!.status).toBe('MOZLIWE');
+  });
+
   it('edge 5: ulga termomodernizacyjna -- only for dom_jednorodzinny', () => {
     const flat = { ...base, wlasnosc: 'mieszkanie' };
     const results = matchBenefits(flat);
@@ -40,8 +55,8 @@ describe('edge cases from spec', () => {
     expect(termo).toBeUndefined();
   });
 
-  it('edge 5: ulga termomodernizacyjna -- matches for dom_jednorodzinny', () => {
-    const house = { ...base, wlasnosc: 'dom_jednorodzinny' };
+  it('edge 5: ulga termomodernizacyjna -- matches for dom', () => {
+    const house = { ...base, wlasnosc: 'dom' };
     const results = matchBenefits(house);
     const termo = results.find(r => r.benefit.id === 'ulga-termomodernizacyjna');
     expect(termo).toBeDefined();

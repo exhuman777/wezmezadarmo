@@ -172,7 +172,7 @@ export async function auditUrl(
         httpStatus, status: 'NOT_FOUND',
         contentHash: null, contentLength: 0, changePct: null,
         needsReview: true,
-        note: `HTTP ${httpStatus} -- strona zrodlowa nie istnieje`,
+        note: `Strona źródłowa nie istnieje`,
       };
     }
 
@@ -186,15 +186,15 @@ export async function auditUrl(
           contentHash: previous?.last_content_hash ?? null,
           contentLength: 0, changePct: null,
           needsReview: false,
-          note: `WAF blokuje audyt (HTTP ${httpStatus}) -- strona OK, sprawdz manualnie`,
+          note: `Źródło dostępne, audyt zablokowany przez zabezpieczenia serwera - sprawdź ręcznie`,
         };
       }
       return {
         benefitId, benefitName, category, url,
         httpStatus, status: 'BLOCKED',
         contentHash: null, contentLength: 0, changePct: null,
-        needsReview: (previous?.consecutive_errors ?? 0) >= 2, // alert po 3 errorach z rzedu
-        note: `HTTP ${httpStatus}`,
+        needsReview: (previous?.consecutive_errors ?? 0) >= 2, // alert po 3 błędach z rzędu
+        note: `Źródło chwilowo niedostępne`,
       };
     }
 
@@ -238,7 +238,7 @@ export async function auditUrl(
     return {
       benefitId, benefitName, category, url,
       httpStatus, status, contentHash, contentLength, changePct, needsReview,
-      ...(isRedirect && { note: `Redirect -> ${finalUrl}` }),
+      ...(isRedirect && { note: `Nowy adres źródła: ${finalUrl}` }),
     };
   } catch (err) {
     clearTimeout(timeout);
@@ -251,16 +251,17 @@ export async function auditUrl(
         contentHash: previous?.last_content_hash ?? null,
         contentLength: 0, changePct: null,
         needsReview: false,
-        note: `WAF blokuje audyt -- strona OK, sprawdz manualnie`,
+        note: `Źródło dostępne, audyt zablokowany - sprawdź ręcznie`,
       };
     }
+    const isTimeout = errMsg.includes('aborted');
     return {
       benefitId, benefitName, category, url,
       httpStatus: 0,
-      status: errMsg.includes('aborted') ? 'TIMEOUT' : 'BLOCKED',
+      status: isTimeout ? 'TIMEOUT' : 'BLOCKED',
       contentHash: null, contentLength: 0, changePct: null,
       needsReview: (previous?.consecutive_errors ?? 0) >= 2,
-      note: errMsg.slice(0, 200),
+      note: isTimeout ? 'Brak odpowiedzi w wyznaczonym czasie' : 'Nie udało się pobrać źródła',
     };
   }
 }

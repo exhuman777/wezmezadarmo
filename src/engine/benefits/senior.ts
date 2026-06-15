@@ -306,7 +306,7 @@ export const SENIOR: Benefit[] = [
     kwota: 'dodatek kombatancki 366,68 PLN + kompensacyjny 55,00 PLN + ryczałt energetyczny 336,16 PLN miesięcznie (od marca 2026)',
     kwotaMin: 758, kwotaMax: 758,
     czestotliwosc: 'miesięcznie',
-    wymagania: {},
+    wymagania: { wiekMin: 55, wymagaWeryfikacjiStatusu: true },
     wykluczenia: [
       { opis: 'Brak statusu kombatanta lub osoby represjonowanej (decyzja Szefa Urzędu do Spraw Kombatantów)', sprawdz: 'status_kombatanta' },
     ],
@@ -343,7 +343,7 @@ export const SENIOR: Benefit[] = [
     kwota: '1978,49 PLN brutto miesięcznie (od marca 2026, bez kryterium dochodowego)',
     kwotaMin: 1978, kwotaMax: 1978,
     czestotliwosc: 'miesięcznie',
-    wymagania: {},
+    wymagania: { wiekMin: 55, wymagaWeryfikacjiStatusu: true },
     wykluczenia: [
       { opis: 'Brak potwierdzonego statusu działacza opozycji antykomunistycznej lub osoby represjonowanej z powodów politycznych', sprawdz: 'status_dzialacza_opozycji' },
     ],

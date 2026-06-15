@@ -224,8 +224,8 @@ describe('E2E: real user profiles', () => {
     });
   });
 
-  describe('homeowner with detached house (dom_jednorodzinny)', () => {
-    const profile = makeProfile({ wlasnosc: 'dom_jednorodzinny' });
+  describe('homeowner with detached house (dom)', () => {
+    const profile = makeProfile({ wlasnosc: 'dom' });
     const results = matchBenefits(profile);
 
     it('matches ulga termomodernizacyjna', () => {

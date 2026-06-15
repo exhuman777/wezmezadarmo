@@ -6,7 +6,7 @@ export const PODATKI: Benefit[] = [
     opis: 'Odliczenie od dochodu wydatków na termomodernizację budynku jednorodzinnego, do 53 000 PLN na podatnika (nie na budynek). Obejmuje: ocieplenie ścian, wymianę okien i drzwi, montaż pompy ciepła, paneli fotowoltaicznych, kolektorów słonecznych, wymianę pieca, instalację rekuperacji. TYLKO domy jednorodzinne. Mieszkania w bloku nie kwalifikują się, nawet jeśli masz udział w częściach wspólnych. Limit 53 000 PLN dotyczy podatnika, więc małżonkowie mogą odliczyć łącznie 106 000 PLN. Inwestycja musi być zakończona w ciągu 3 lat od końca roku, w którym poniesiono pierwszy wydatek. Jeśli nie zdążysz, musisz doliczyć odliczone kwoty z powrotem do dochodu. Faktury muszą być wystawione na właściciela budynku. Odliczenie od dochodu, nie od podatku, realna oszczędność to 12-32% wydanej kwoty w zależności od progu podatkowego. Można łączyć z dotacją Czyste Powietrze, ale nie wolno odliczyć tej samej kwoty dwa razy, odliczasz tylko część nieobjętą dotacją.',
     kategoria: 'PODATKI',
     kwota: 'do 53 000 PLN odliczenia', kwotaMax: 53000, czestotliwosc: 'jednorazowo (rozłożenie na 6 lat)',
-    wymagania: { wlasnosc: ['dom_jednorodzinny'] },
+    wymagania: { wlasnosc: ['dom'] },
     wykluczenia: [{ opis: 'Dotyczy TYLKO domów jednorodzinnych, mieszkania w bloku NIE kwalifikują się', sprawdz: 'dom_jednorodzinny' }],
     wniosek: {
       kanal: ['URZAD_SKARBOWY'], formularz: 'PIT/O',
@@ -184,7 +184,7 @@ export const PODATKI: Benefit[] = [
       ],
       odwolanie: 'Korekta zeznania PIT',
     },
-    zrodloUrl: 'https://www.podatki.gov.pl/ulgi-i-odliczenia/ulga-dla-rodzin-4-pit/',
+    zrodloUrl: 'https://www.podatki.gov.pl/ulgi-i-odliczenia/ulga-dla-rodzin-4plus-pit/',
     zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-06-03', dataWaznosci: '2026-12-31',
   },
   {

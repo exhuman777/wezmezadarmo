@@ -161,40 +161,40 @@ async function sendAlertEmail(alerts: AuditResult[], stats: Record<string, numbe
       <table cellpadding="0" cellspacing="0" border="0" width="640" style="background:#ffffff;border-radius:14px;border:1px solid #dbe2dc;">
         <tr><td style="padding:28px 32px 8px;">
           <div style="display:inline-block;padding:4px 10px;background:rgba(255,176,32,0.12);color:#a05a1a;border-radius:6px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;">
-            Audyt zrodel
+            Audyt źródeł
           </div>
           <h1 style="font-size:22px;font-weight:700;margin:14px 0 6px;letter-spacing:-0.01em;">
-            ${alerts.length} ${alerts.length === 1 ? 'swiadczenie wymaga' : 'swiadczen wymaga'} sprawdzenia
+            ${alerts.length} ${alerts.length === 1 ? 'świadczenie wymaga' : 'świadczeń wymaga'} sprawdzenia
           </h1>
-          <p style="font-size:13px;color:#6b7a72;margin:0;">${date} -- automatyczny audyt zrodloUrl</p>
+          <p style="font-size:13px;color:#6b7a72;margin:0;">${date} - automatyczny audyt źródeł</p>
         </td></tr>
 
         <tr><td style="padding:8px 32px;">
           <div style="background:#f5f5f0;border:1px solid #dbe2dc;border-radius:8px;padding:14px 16px;display:flex;flex-wrap:wrap;gap:16px;font-size:12px;">
             <span>Sprawdzono: <strong>${stats.total}</strong></span>
-            <span style="color:#22A06B;">OK: <strong>${stats.ok}</strong></span>
-            ${stats.notFound > 0 ? `<span style="color:#c0392b;">404: <strong>${stats.notFound}</strong></span>` : ''}
-            ${stats.changed > 0 ? `<span style="color:#a05a1a;">Zmiana: <strong>${stats.changed}</strong></span>` : ''}
-            ${stats.redirects > 0 ? `<span style="color:#a05a1a;">Redirect: <strong>${stats.redirects}</strong></span>` : ''}
-            ${stats.timeouts > 0 ? `<span style="color:#6b7a72;">Timeout: <strong>${stats.timeouts}</strong></span>` : ''}
-            ${stats.blocked > 0 ? `<span style="color:#6b7a72;">Blocked: <strong>${stats.blocked}</strong></span>` : ''}
+            <span style="color:#22A06B;">Poprawne: <strong>${stats.ok}</strong></span>
+            ${stats.notFound > 0 ? `<span style="color:#c0392b;">Niedostępne: <strong>${stats.notFound}</strong></span>` : ''}
+            ${stats.changed > 0 ? `<span style="color:#a05a1a;">Zmiana treści: <strong>${stats.changed}</strong></span>` : ''}
+            ${stats.redirects > 0 ? `<span style="color:#a05a1a;">Przekierowania: <strong>${stats.redirects}</strong></span>` : ''}
+            ${stats.timeouts > 0 ? `<span style="color:#6b7a72;">Brak odpowiedzi: <strong>${stats.timeouts}</strong></span>` : ''}
+            ${stats.blocked > 0 ? `<span style="color:#6b7a72;">Blokady: <strong>${stats.blocked}</strong></span>` : ''}
           </div>
         </td></tr>
 
         <tr><td style="padding:8px 32px 24px;">
-          ${section('🔴 404 -- strona nie istnieje', '#c0392b', alertsByStatus.NOT_FOUND)}
-          ${section('🟠 Redirect -- URL sie zmienil', '#a05a1a', alertsByStatus.REDIRECT)}
-          ${section('🟡 Zmiana tresci', '#a05a1a', alertsByStatus.CHANGED)}
-          ${section('⚪ Timeout (>3 razy)', '#6b7a72', alertsByStatus.TIMEOUT)}
-          ${section('⚪ Blokada (>3 razy)', '#6b7a72', alertsByStatus.BLOCKED)}
+          ${section('Źródło nie istnieje', '#c0392b', alertsByStatus.NOT_FOUND)}
+          ${section('Zmiana adresu URL', '#a05a1a', alertsByStatus.REDIRECT)}
+          ${section('Zmiana treści', '#a05a1a', alertsByStatus.CHANGED)}
+          ${section('Brak odpowiedzi (powtarza się)', '#6b7a72', alertsByStatus.TIMEOUT)}
+          ${section('Blokada dostępu (powtarza się)', '#6b7a72', alertsByStatus.BLOCKED)}
         </td></tr>
 
         <tr><td style="padding:16px 32px 24px;border-top:1px solid #dbe2dc;font-size:12px;color:#6b7a72;line-height:1.6;">
           <p style="margin:0 0 6px;">
-            Audyt wykonany automatycznie. Sprawdzono ${stats.total} URLi w ${(stats.durationMs / 1000).toFixed(1)}s.
+            Audyt wykonany automatycznie. Sprawdzono ${stats.total} źródeł w ${(stats.durationMs / 1000).toFixed(1)}s.
           </p>
           <p style="margin:0;">
-            <a href="https://www.wezmezadarmo.com/admin/benefits-audit" style="color:#0d2b1c;font-weight:500;">Otworz panel admin</a>
+            <a href="https://www.wezmezadarmo.com/admin/benefits-audit" style="color:#0d2b1c;font-weight:500;">Otwórz panel admin</a>
           </p>
         </td></tr>
       </table>
@@ -206,7 +206,7 @@ async function sendAlertEmail(alerts: AuditResult[], stats: Record<string, numbe
   await resend.emails.send({
     from: FROM_EMAIL,
     to: ALERT_EMAIL,
-    subject: `[audyt] ${alerts.length} swiadczen wymaga sprawdzenia (${date})`,
+    subject: `[audyt] ${alerts.length} świadczeń wymaga sprawdzenia (${date})`,
     html,
   });
 }
