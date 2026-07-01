@@ -30,7 +30,7 @@ Otwórz w Chrome KAŻDY z poniższych linków, po kolei. Dla każdego sprawdź:
 **Wpisz wynik (✅ albo ❌) na kartce / w notatniku:**
 
 ```
-URL #1: https://www.gov.pl/web/rodzina/swiadczenie-pielegnacyjne
+URL #1: https://www.gov.pl/web/rodzina/swiadczenie-pielegnacyjne nie ma takiej storny przekierowuje na https://www.gov.pl/
 URL #2: https://www.gov.pl/web/rodzina/dzienny-dom-pomocy
 URL #3: https://www.gov.pl/web/zdrowie/leki-dla-seniora-65-
 URL #4: https://www.gov.pl/web/rodzina/800plus
@@ -62,7 +62,7 @@ Szukaj **kwoty po waloryzacji 1.01.2026**. Powinno być coś jak:
 - `3 287 zł` (najbardziej prawdopodobne -- waloryzacja 3,4% z 3174 zł)
 - `3 386 zł` (jeśli waloryzacja była wyższa)
 
-**Zapisz dokładną kwotę: ........... zł**
+**Zapisz dokładną kwotę: 3386 zł**
 
 ### Teraz w VSCode:
 
