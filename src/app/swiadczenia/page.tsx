@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { getAllBenefits } from '@/engine/benefits';
+import { searchBenefits } from '@/engine/search';
 import { Benefit, BenefitCategory } from '@/engine/types';
 
 const CATEGORY_LABELS: Record<BenefitCategory, string> = {
@@ -270,15 +271,10 @@ export default function SwiadczeniaPage() {
     if (activeCategory !== 'ALL') {
       list = list.filter(b => b.kategoria === activeCategory);
     }
+    // Wyszukiwarka odporna na brak polskich znaków, przeszukuje opis i aliasy,
+    // sortuje wg trafności (patrz src/engine/search.ts).
     if (search.trim()) {
-      const q = search.toLowerCase().trim();
-      list = list.filter(b =>
-        b.nazwa.toLowerCase().includes(q) ||
-        b.kwota.toLowerCase().includes(q) ||
-        b.kategoria.toLowerCase().includes(q) ||
-        b.wniosek.kroki.some(k => k.toLowerCase().includes(q)) ||
-        b.wniosek.dokumenty.some(d => d.toLowerCase().includes(q))
-      );
+      list = searchBenefits(list, search);
     }
     return list;
   }, [allBenefits, activeCategory, search]);

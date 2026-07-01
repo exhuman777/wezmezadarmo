@@ -538,8 +538,8 @@ export const ZUS: Benefit[] = [
       ],
       odwolanie: 'Sprzeciw do Komisji Lekarskiej ZUS w ciągu 14 dni od orzeczenia, potem odwołanie do Sądu Pracy w ciągu 30 dni od decyzji',
     },
-    zrodloUrl: 'https://www.zus.pl/swiadczenia/renty/renta-z-tytulu-niezdolnosci-do-pracy',
-    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-06-03', dataWaznosci: '2026-12-31',
+    zrodloUrl: 'https://www.zus.pl/swiadczenia/renty/renty-z-tytulu-niezdolnosci-do-pracy',
+    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-06-29', dataWaznosci: '2026-12-31',
   },
   {
     id: 'swiadczenie-uzupelniajace-500', nazwa: 'Świadczenie uzupełniające 500+ dla niesamodzielnych',
@@ -581,8 +581,8 @@ export const ZUS: Benefit[] = [
       ],
       odwolanie: 'Sprzeciw do Komisji Lekarskiej ZUS w ciągu 14 dni od orzeczenia, potem odwołanie do Sądu Pracy',
     },
-    zrodloUrl: 'https://www.zus.pl/swiadczenia/swiadczenie-uzupelniajace-dla-osob-niezdolnych-do-samodzielnej-egzystencji',
-    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-06-03', dataWaznosci: '2026-12-31',
+    zrodloUrl: 'https://www.zus.pl/ustalanie-uprawnien-do-swiadczen/swiadczenie-dla-osob-niezdolnych-do-samodzielnej-egzystencji',
+    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-06-29', dataWaznosci: '2026-12-31',
   },
   {
     id: 'swiadczenie-honorowe-100', nazwa: 'Świadczenie honorowe dla stulatków (100+)',
@@ -616,8 +616,8 @@ export const ZUS: Benefit[] = [
       ],
       odwolanie: 'Odwołanie do Sądu Pracy w ciągu 30 dni od decyzji ZUS',
     },
-    zrodloUrl: 'https://www.zus.pl/swiadczenia/swiadczenie-honorowe-dla-osob-ktore-ukonczyly-100-lat',
-    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-06-03', dataWaznosci: '2026-12-31',
+    zrodloUrl: 'https://www.zus.pl/ustalanie-uprawnien-do-swiadczen/wiadczenie-honorowe-dla-osob-ktore-skonczyly-100-lat',
+    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-06-29', dataWaznosci: '2026-12-31',
   },
   {
     id: 'nauczycielskie-swiadczenie-kompensacyjne', nazwa: 'Nauczycielskie świadczenie kompensacyjne',
@@ -660,8 +660,8 @@ export const ZUS: Benefit[] = [
       ],
       odwolanie: 'Odwołanie do Sądu Pracy w ciągu 30 dni od decyzji ZUS',
     },
-    zrodloUrl: 'https://www.zus.pl/swiadczenia/emerytury/nauczycielskie-swiadczenie-kompensacyjne',
-    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-06-03', dataWaznosci: '2026-12-31',
+    zrodloUrl: 'https://www.zus.pl/swiadczenia/emerytury/emerytura-dla-osob-urodzonych-po-31-grudnia-1948/emerytury-wczesniejsze/nauczycielskie-swiadczenia-kompensacyjne',
+    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-06-29', dataWaznosci: '2026-12-31',
   },
   {
     id: 'dodatek-sieroty-zupelnej', nazwa: 'Dodatek dla sieroty zupełnej',
@@ -742,7 +742,7 @@ export const ZUS: Benefit[] = [
       ],
       odwolanie: 'Sprzeciw do Komisji Lekarskiej ZUS w ciągu 14 dni od orzeczenia, potem odwołanie do Sądu Pracy',
     },
-    zrodloUrl: 'https://www.zus.pl/swiadczenia/renty/renta-szkoleniowa',
-    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-06-03', dataWaznosci: '2026-12-31',
+    zrodloUrl: 'https://www.zus.pl/renta-szkoleniowa',
+    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-06-29', dataWaznosci: '2026-12-31',
   },
 ];

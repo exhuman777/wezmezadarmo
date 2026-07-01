@@ -99,7 +99,7 @@ const ZUS_SYSTEM_PROMPT = `${wniosekAgent.agentPrompt}\n\nZadanie: generuj krotk
 export async function POST(request: NextRequest) {
   if (!process.env.OPENROUTER_API_KEY) {
     return new Response(JSON.stringify({ error: 'Brak klucza API' }), {
-      status: 500,
+      status: 503,
       headers: { 'Content-Type': 'application/json', ...CORS_HEADERS },
     });
   }

@@ -21,6 +21,33 @@ export async function POST(request: NextRequest) {
   if (!checkApiKey(request)) return unauthorizedResponse();
 
   try {
+    // Najpierw walidacja wejscia (zanim zuzyjemy limit i sprawdzimy klucz AI) --
+    // bledne zapytanie nie powinno marnowac dziennego limitu uzytkownika ani
+    // konczyc sie kodem 500. Bledny JSON / brak wiadomosci -> 400.
+    let body: {
+      messages?: { role: 'user' | 'assistant'; content: string }[];
+      profile?: UserProfile | null;
+      verifiedResults?: MatchResult[] | null;
+      focusedBenefitId?: string | null;
+    };
+    try {
+      body = await request.json();
+    } catch {
+      return new Response(JSON.stringify({ error: 'Nieprawidlowy format zapytania (oczekiwano JSON)' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json', ...CORS_HEADERS },
+      });
+    }
+
+    const { messages, profile, verifiedResults, focusedBenefitId } = body;
+
+    if (!messages || !Array.isArray(messages) || messages.length === 0) {
+      return new Response(JSON.stringify({ error: 'Brak wiadomosci' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json', ...CORS_HEADERS },
+      });
+    }
+
     // Klienci B2B z kluczem API -- bez limitu zapytan
     const apiKeysEnv = process.env.B2B_API_KEYS;
     const providedKey = request.headers.get('x-api-key') || request.headers.get('authorization')?.replace('Bearer ', '');
@@ -54,26 +81,7 @@ export async function POST(request: NextRequest) {
 
     if (!process.env.OPENROUTER_API_KEY || process.env.OPENROUTER_API_KEY === 'your-key-here') {
       return new Response(JSON.stringify({ error: 'Brak klucza API OpenRouter' }), {
-        status: 500,
-        headers: { 'Content-Type': 'application/json', ...CORS_HEADERS },
-      });
-    }
-
-    const {
-      messages,
-      profile,
-      verifiedResults,
-      focusedBenefitId,
-    } = await request.json() as {
-      messages: { role: 'user' | 'assistant'; content: string }[];
-      profile: UserProfile | null;
-      verifiedResults: MatchResult[] | null;
-      focusedBenefitId?: string | null;
-    };
-
-    if (!messages || !Array.isArray(messages)) {
-      return new Response(JSON.stringify({ error: 'Brak wiadomosci' }), {
-        status: 400,
+        status: 503,
         headers: { 'Content-Type': 'application/json', ...CORS_HEADERS },
       });
     }
@@ -82,8 +90,8 @@ export async function POST(request: NextRequest) {
     const agentContext: AgentContext = {
       profile: null,
       profileType: 'private',
-      matchedBenefits: verifiedResults,
-      userProfile: profile,
+      matchedBenefits: verifiedResults ?? null,
+      userProfile: profile ?? null,
       focusedBenefitId: focusedBenefitId ?? null,
     };
 

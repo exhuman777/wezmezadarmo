@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import type { AgentId } from './types';
 import { AGENT_IDS } from './types';
+import { normalizePolish } from '../engine/search';
 
 const keywordsCache = new Map<AgentId, string[]>();
 
@@ -20,7 +21,9 @@ function loadKeywords(agentId: AgentId): string[] {
 }
 
 export function routeToAgent(message: string, profileType?: 'jdg' | 'private' | null): AgentId {
-  const lc = message.toLowerCase();
+  // Normalizacja bez polskich znaków - użytkownik pisze "ciaza", "swiadczenie"
+  // i nadal trafia na słowa kluczowe "ciąża", "świadczenie".
+  const lc = normalizePolish(message);
   const scores = new Map<AgentId, number>();
 
   for (const agentId of AGENT_IDS) {
@@ -28,7 +31,7 @@ export function routeToAgent(message: string, profileType?: 'jdg' | 'private' | 
     const keywords = loadKeywords(agentId);
     let score = 0;
     for (const kw of keywords) {
-      if (lc.includes(kw.toLowerCase())) {
+      if (lc.includes(normalizePolish(kw))) {
         score += kw.length >= 5 ? 2 : 1;
       }
     }

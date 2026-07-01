@@ -184,8 +184,8 @@ export const PODATKI: Benefit[] = [
       ],
       odwolanie: 'Korekta zeznania PIT',
     },
-    zrodloUrl: 'https://www.podatki.gov.pl/ulgi-i-odliczenia/ulga-dla-rodzin-4-pit/',
-    zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-06-03', dataWaznosci: '2026-12-31',
+    zrodloUrl: 'https://www.podatki.gov.pl/ulgi-i-odliczenia/ulga-dla-rodzin-4plus-pit',
+    zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-06-29', dataWaznosci: '2026-12-31',
   },
   {
     id: 'ulga-na-powrot', nazwa: 'Ulga na powrót (PIT-0 dla wracających do Polski)',
