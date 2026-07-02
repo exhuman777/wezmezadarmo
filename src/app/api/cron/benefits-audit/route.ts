@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
   // Pobierz poprzednie audyty
   const { data: prevAudits } = await supabase
     .from('benefits_url_audit')
-    .select('benefit_id, last_content_hash, consecutive_errors');
+    .select('benefit_id, last_content_hash, last_content_length, consecutive_errors');
 
   const previousMap = new Map<string, PreviousAudit>(
     (prevAudits ?? []).map(a => [a.benefit_id, a as PreviousAudit]),

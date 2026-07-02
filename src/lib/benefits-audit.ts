@@ -72,7 +72,27 @@ export interface AuditResult {
 export interface PreviousAudit {
   benefit_id: string;
   last_content_hash: string | null;
+  last_content_length?: number | null;
   consecutive_errors: number;
+}
+
+/**
+ * "Miekki" 404 -- serwer zwraca 200, ale przekierowuje na strone glowna
+ * (np. www.gov.pl/web/rodzina/nieistniejaca -> www.gov.pl/). Standardowy audyt
+ * tego nie wykrywa, bo host sie zgadza. Heurystyka: prosilismy o glebszy adres,
+ * a wyladowalismy na korzeniu domeny -> tresc znikneła.
+ */
+export function isSoftNotFound(finalUrl: string, requestedUrl: string): boolean {
+  try {
+    const f = new URL(finalUrl);
+    const r = new URL(requestedUrl);
+    if (f.host !== r.host) return false; // cross-domain -> obsluzone jako REDIRECT
+    const reqDepth = r.pathname.split('/').filter(Boolean).length;
+    const finDepth = f.pathname.split('/').filter(Boolean).length;
+    return reqDepth >= 1 && finDepth === 0;
+  } catch {
+    return false;
+  }
 }
 
 /**
@@ -202,6 +222,17 @@ export async function auditUrl(
     const finalUrl = res.url;
     const isRedirect = !sameOrigin(finalUrl, url);
 
+    // Miekki 404: 200, ale przekierowanie na strone glowna -> tresc zrodla znikneła
+    if (isSoftNotFound(finalUrl, url)) {
+      return {
+        benefitId, benefitName, category, url,
+        httpStatus, status: 'NOT_FOUND',
+        contentHash: null, contentLength: 0, changePct: null,
+        needsReview: true,
+        note: `Miekki 404 -- przekierowanie na strone glowna (${finalUrl})`,
+      };
+    }
+
     // Hash content
     const html = await res.text();
     const stableContent = extractStableContent(html);
@@ -212,16 +243,21 @@ export async function auditUrl(
     let changePct: number | null = null;
     let status: AuditStatus = 'OK';
     let needsReview = false;
+    let note: string | undefined;
 
     if (previous?.last_content_hash) {
       if (contentHash !== previous.last_content_hash) {
-        // Mamy poprzedni hash, ale nie content -- musimy zalozyc ze sie zmienilo
-        // Pelne porownanie wymaga zachowania samego content (drogo) -- zamiast tego sygnalizujemy zmiane.
-        // Hash sie zmienil = jakas zmiana. Czy "znaczaca" decydujemy heurystyka:
-        // - jesli mamy >100 znakow content = zaufaj hash
-        changePct = 1; // konserwatywnie, zalozmy ze pelna zmiana
+        // Hash sie zmienil. Strony gov.pl przebudowuja layout/menu bardzo czesto,
+        // wiec sam zmieniony hash to zwykle SZUM, nie zmiana tresci swiadczenia.
+        // Nie alarmujemy przy kazdej zmianie -- tylko gdy tresc mocno sie skurczyla
+        // (strona wyprana z tresci / stub), co jest realnym sygnalem problemu.
+        // Zmiane i tak zapisujemy do bazy (widoczna w panelu admin), ale bez maila.
         status = 'CHANGED';
-        needsReview = true; // zawsze alert gdy hash sie zmienil (operator zdecyduje)
+        const prevLen = previous.last_content_length ?? 0;
+        changePct = prevLen > 0 ? Math.min(1, Math.abs(prevLen - contentLength) / prevLen) : null;
+        const shrunk = prevLen > 800 && contentLength < prevLen * 0.5;
+        needsReview = shrunk;
+        if (shrunk) note = `Tresc skurczyla sie z ${prevLen} do ${contentLength} znakow -- sprawdz`;
       }
     } else {
       // Pierwszy audit -- nowy benefit
@@ -235,10 +271,12 @@ export async function auditUrl(
       needsReview = true;
     }
 
+    if (isRedirect) note = `Redirect -> ${finalUrl}`;
+
     return {
       benefitId, benefitName, category, url,
       httpStatus, status, contentHash, contentLength, changePct, needsReview,
-      ...(isRedirect && { note: `Redirect -> ${finalUrl}` }),
+      ...(note && { note }),
     };
   } catch (err) {
     clearTimeout(timeout);

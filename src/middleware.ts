@@ -40,43 +40,60 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next({ request });
   }
 
-  // Standardowy Supabase auth dla /panel, /dotacje/panel, /agent/panel
+  // Standardowy Supabase auth dla /panel, /dotacje/panel, /agent/panel.
+  // Gdy brakuje konfiguracji Supabase (zle wdrozenie), NIE wywalamy 500 --
+  // pokazujemy zrozumiala strone bledu z wyjasnieniem, co sie dzieje.
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    const errorUrl = request.nextUrl.clone();
+    errorUrl.pathname = '/blad-konfiguracji';
+    errorUrl.search = '';
+    return NextResponse.rewrite(errorUrl);
+  }
+
   let response = NextResponse.next({
     request,
   });
 
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll();
-        },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) =>
-            request.cookies.set(name, value),
-          );
-          response = NextResponse.next({ request });
-          cookiesToSet.forEach(({ name, value, options }) =>
-            response.cookies.set(name, value, options),
-          );
+  try {
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+      {
+        cookies: {
+          getAll() {
+            return request.cookies.getAll();
+          },
+          setAll(cookiesToSet) {
+            cookiesToSet.forEach(({ name, value }) =>
+              request.cookies.set(name, value),
+            );
+            response = NextResponse.next({ request });
+            cookiesToSet.forEach(({ name, value, options }) =>
+              response.cookies.set(name, value, options),
+            );
+          },
         },
       },
-    },
-  );
+    );
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
 
-  if (!session) {
-    const loginUrl = request.nextUrl.clone();
-    loginUrl.pathname = '/logowanie';
-    return NextResponse.redirect(loginUrl);
+    if (!session) {
+      const loginUrl = request.nextUrl.clone();
+      loginUrl.pathname = '/logowanie';
+      return NextResponse.redirect(loginUrl);
+    }
+
+    return response;
+  } catch {
+    // Nieoczekiwany blad warstwy auth -> strona bledu zamiast 500.
+    const errorUrl = request.nextUrl.clone();
+    errorUrl.pathname = '/blad-konfiguracji';
+    errorUrl.search = '';
+    return NextResponse.rewrite(errorUrl);
   }
-
-  return response;
 }
 
 export const config = {
