@@ -20,6 +20,52 @@ export interface BlogPost {
 
 export const POSTS: BlogPost[] = [
   {
+    slug: 'co-nowego-lipiec-2026-wyszukiwarka-audyt',
+    title: 'Wyszukiwarka, która rozumie "kuroniówkę" i automatyczny audyt 133 źródeł: co nowego w serwisie',
+    description: 'Nowa wyszukiwarka świadczeń działa bez polskich znaków i zna potoczne nazwy. Do tego automatyczny audyt 133 oficjalnych źródeł i szczelniejszy limit czatu AI.',
+    date: '2026-07-05',
+    author: 'Zespół wezmezadarmo',
+    readingMinutes: 4,
+    tags: ['aktualizacja', 'wyszukiwarka', 'świadczenia', 'za-kulisami'],
+    content: `## Po co ten wpis
+
+wezmezadarmo.com to projekt pro bono: baza 133 świadczeń, kalkulator dopasowania i asystent AI. Utrzymujemy go ze środków własnych i chcemy, żeby było widać, co się w nim dzieje. Poniżej zmiany z przełomu czerwca i lipca 2026.
+
+## Wyszukiwarka, która mówi po ludzku
+
+Największa zmiana dla Was. Dotychczasowa wyszukiwarka na stronie świadczeń wymagała wpisania dokładnej nazwy, z polskimi znakami. Teraz:
+
+ • Piszesz bez ogonków i działa: "swiadczenie pielegnacyjne" znajdzie "Świadczenie pielęgnacyjne".
+ • Zna potoczne nazwy: "kuroniówka" pokaże zasiłek dla bezrobotnych, "trzynastka" trzynastą emeryturę, "wyprawka" program Dobry Start, "800 plus" świadczenie wychowawcze.
+ • Radzi sobie z odmianą: "leki seniorzy" trafi na bezpłatne leki dla osób 65+.
+ • Przeszukuje też opisy, wymagane dokumenty i kroki wniosku, nie tylko nazwy. Wyniki układa według trafności.
+
+Ta sama poprawka objęła czat: asystent AI lepiej rozpoznaje temat pytania niezależnie od tego, czy piszesz z polskimi znakami, czy bez.
+
+## Automatyczny audyt 133 oficjalnych źródeł
+
+Każde świadczenie w bazie linkuje do oficjalnego źródła: ZUS, gov.pl, NFZ, KRUS, PFRON. Problem w tym, że urzędy regularnie przebudowują swoje strony i linki umierają po cichu.
+
+Dlatego co tydzień automat sprawdza wszystkie 133 adresy. Wykrywa:
+
+ • zwykłe błędy 404, czyli strona przestała istnieć,
+ • "miękkie 404", czyli podstępniejszy przypadek: urząd przekierowuje stary adres na stronę główną i niby wszystko działa, ale treści już nie ma,
+ • strony, z których treść zniknęła, mimo że adres wciąż odpowiada.
+
+W czerwcowym audycie wyłapaliśmy i naprawiliśmy sześć martwych linków, głównie po dużej przebudowie serwisu ZUS. Przy okazji zweryfikowaliśmy kwoty kilkunastu najbardziej zmiennych świadczeń po marcowej waloryzacji: wszystkie w bazie są aktualne, w tym zasiłek pogrzebowy 7000 zł od stycznia 2026 i najniższa emerytura 1978,49 zł od marca 2026.
+
+## Drobniejsze, ale ważne
+
+ • Limit czatu AI (3 pytania dziennie) jest teraz szczelny niezależnie od tego, jak serwis skaluje się w tle. Dbamy o prywatność: nie przechowujemy adresów IP, tylko ich nieodwracalne skróty.
+ • Błędne zapytania do czatu nie zjadają już dziennego limitu.
+ • Gdy logowanie ma awarię, zobaczysz zrozumiałą stronę z wyjaśnieniem zamiast technicznego błędu.
+ • Strona główna ładuje się szybciej dzięki zoptymalizowanym zdjęciom, a nawigacja między podstronami nie przeładowuje całej strony.
+
+## Co dalej
+
+Pracujemy nad rozszerzeniem bazy świadczeń i lepszym dopasowaniem do profilu rodziny. Jeśli znajdziesz błąd albo nieaktualną kwotę, napisz: hello@wezmezadarmo.com. Każde zgłoszenie sprawdzamy ręcznie u źródła.`,
+  },
+  {
     slug: '10-swiadczen-o-ktorych-nie-wiesz',
     title: '10 świadczeń o których nie wiesz, że Ci się należą w 2026',
     description: 'Polacy tracą ~3000 PLN rocznie nie korzystając ze świadczeń. Sprawdź 10 najczęściej pomijanych: bon ciepłowniczy, ulga IKZE, refundacja okularów NFZ, dodatek mieszkaniowy i inne.',

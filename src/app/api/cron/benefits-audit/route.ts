@@ -89,6 +89,14 @@ export async function GET(request: NextRequest) {
     console.error('[benefits-audit] upsert error:', upsertError);
   }
 
+  // Przy okazji cotygodniowego crona: sprzatnij stare wpisy rate limitu czatu
+  // (tabela chat_rate_limits, wpisy starsze niz 48h). Fire-and-forget.
+  const { error: cleanupError } = await supabase.rpc('cleanup_chat_rate_limits');
+  if (cleanupError) {
+    // Brak migracji 20260705_chat_rate_limits = brak funkcji; nie blokuj audytu
+    console.error('[benefits-audit] rate limit cleanup skipped:', cleanupError.message);
+  }
+
   // Wybierz alerty (needs_review = true)
   const alerts = results.filter(r => r.needsReview);
 
