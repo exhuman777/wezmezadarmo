@@ -9,7 +9,7 @@ import { NextRequest } from 'next/server';
 import { chatStream } from '@/ai/openrouter';
 import { buildFormChatPrompt } from '@/agents/registry';
 import { CORS_HEADERS, optionsResponse } from '@/lib/apiAuth';
-import { checkRateLimit } from '@/lib/rateLimit';
+import { checkRateLimitDurable } from '@/lib/rateLimit';
 
 export async function OPTIONS() {
   return optionsResponse();
@@ -88,7 +88,7 @@ interface ChatMessage {
 export async function POST(request: NextRequest) {
   if (!process.env.OPENROUTER_API_KEY) {
     return new Response(JSON.stringify({ error: 'Brak klucza API' }), {
-      status: 500,
+      status: 503,
       headers: { 'Content-Type': 'application/json', ...CORS_HEADERS },
     });
   }
@@ -96,7 +96,7 @@ export async function POST(request: NextRequest) {
   // Rate limiting -- shared IP pool
   const forwarded = request.headers.get('x-forwarded-for');
   const ip = forwarded?.split(',')[0]?.trim() ?? request.headers.get('x-real-ip') ?? 'unknown';
-  const { allowed } = checkRateLimit(ip);
+  const { allowed } = await checkRateLimitDurable(ip);
   if (!allowed) {
     return new Response(
       JSON.stringify({

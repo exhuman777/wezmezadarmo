@@ -10,7 +10,7 @@ import { chatStream } from '@/ai/openrouter';
 import { buildAgentSystemPrompt } from '@/agents/registry';
 import type { AgentContext } from '@/agents/types';
 import { UserProfile, MatchResult } from '@/engine/types';
-import { checkRateLimit } from '@/lib/rateLimit';
+import { checkRateLimitDurable } from '@/lib/rateLimit';
 import { checkApiKey, unauthorizedResponse, optionsResponse, CORS_HEADERS } from '@/lib/apiAuth';
 
 export async function OPTIONS() {
@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
     if (!isBizClient) {
       const forwarded = request.headers.get('x-forwarded-for');
       const ip = forwarded?.split(',')[0]?.trim() ?? request.headers.get('x-real-ip') ?? 'unknown';
-      const { allowed, remaining: rem } = checkRateLimit(ip);
+      const { allowed, remaining: rem } = await checkRateLimitDurable(ip);
       remaining = rem;
 
       if (!allowed) {
