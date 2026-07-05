@@ -138,7 +138,7 @@ export function PeselInfoModal({ isOpen, onClose }: PeselInfoModalProps) {
               Jak to zrobić?
             </p>
             <p className="mt-1">
-              Otwórz aplikację mObywatel na swoim telefonie, przejdź do sekcji "Zastrzeż PESEL" i aktywuj zastrzeżenie jednym kliknięciem. Możesz je cofnąć w dowolnym momencie, gdy potrzebujesz użyć PESEL-u do oficjalnych celów.
+              Otwórz aplikację mObywatel na swoim telefonie, przejdź do sekcji &quot;Zastrzeż PESEL&quot; i aktywuj zastrzeżenie jednym kliknięciem. Możesz je cofnąć w dowolnym momencie, gdy potrzebujesz użyć PESEL-u do oficjalnych celów.
             </p>
             <p className="mt-2 text-[12px] sm:text-[13px] text-text-3">
               Zastrzeżenie jest bezpłatne i natychmiastowe. Więcej informacji: mobywatel.gov.pl

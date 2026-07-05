@@ -114,7 +114,7 @@ export async function POST(request: NextRequest) {
     });
   }
 
-  const { formType, fieldKey, profile } = body;
+  const { formType, fieldKey } = body;
 
   const ft = formType as string;
   if (ft !== 'nlnet' && ft !== 'zus-z15a-justification' && ft !== 'zus-z15b-justification') {

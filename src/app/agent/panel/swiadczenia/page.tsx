@@ -256,14 +256,17 @@ export default function AgentSwiadczenia() {
     chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
   }, [chatMsgs]);
 
+  const selectedId = selected?.full.id;
+  const selectedNazwa = selected?.full.nazwa;
+  const selectedKwota = selected?.full.kwota;
   useEffect(() => {
-    if (!selected) return;
+    if (!selectedId) return;
     setChatMsgs([{
       id: 'ctx',
       role: 'assistant',
-      content: `Wybrałeś: ${selected.full.nazwa} (${selected.full.kwota}). Zadaj pytanie lub kliknij podpowiedź.`,
+      content: `Wybrałeś: ${selectedNazwa} (${selectedKwota}). Zadaj pytanie lub kliknij podpowiedź.`,
     }]);
-  }, [selected?.full.id]);
+  }, [selectedId, selectedNazwa, selectedKwota]);
 
   const sendChat = useCallback(async (text: string) => {
     if (!text.trim() || chatStreaming) return;
@@ -353,7 +356,7 @@ export default function AgentSwiadczenia() {
       for (const b of getAllBenefits()) fullMap.set(b.id, b);
       return matches
         .filter(r => r.status === 'PRZYSLUGUJE' || r.status === 'MOZLIWE')
-        .sort((a, b) => (a.status === 'PRZYSLUGUJE' ? -1 : 1))
+        .sort((a) => (a.status === 'PRZYSLUGUJE' ? -1 : 1))
         .map(r => ({ match: r, full: fullMap.get(r.benefit.id) ?? r.benefit as unknown as Benefit }));
     }
 

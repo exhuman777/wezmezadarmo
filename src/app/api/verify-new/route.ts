@@ -12,7 +12,6 @@ const KNOWN_SOURCES = [
 
 export async function GET() {
   const existingIds = BENEFITS.map(b => b.id);
-  const existingNames = BENEFITS.map(b => b.nazwa.toLowerCase());
   const categoryCounts = new Map<string, number>();
 
   for (const b of BENEFITS) {

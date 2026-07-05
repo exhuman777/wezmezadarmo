@@ -43,7 +43,7 @@ export default function PowietrzePage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  async function useGeo() {
+  async function checkGeo() {
     setError(null); setLoading(true); setAqi(null);
     if (!navigator.geolocation) { setError('Brak wsparcia geolokalizacji'); setLoading(false); return; }
     navigator.geolocation.getCurrentPosition(async pos => {
@@ -56,7 +56,7 @@ export default function PowietrzePage() {
     }, err => { setError(`Geolokalizacja: ${err.message}`); setLoading(false); });
   }
 
-  async function useCity(lat: number, lon: number) {
+  async function checkCity(lat: number, lon: number) {
     setError(null); setLoading(true); setAqi(null);
     try {
       const res = await fetch(`/api/public/gios?lat=${lat}&lon=${lon}`);
@@ -84,14 +84,14 @@ export default function PowietrzePage() {
       </p>
 
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 20 }}>
-        <button onClick={useGeo} disabled={loading} className="btn btn-primary btn-sm">
+        <button onClick={checkGeo} disabled={loading} className="btn btn-primary btn-sm">
           {loading ? 'Sprawdzam...' : 'Użyj mojej lokalizacji'}
         </button>
-        <button onClick={() => useCity(52.2297, 21.0122)} disabled={loading} style={btnStyle}>Warszawa</button>
-        <button onClick={() => useCity(50.0647, 19.9450)} disabled={loading} style={btnStyle}>Kraków</button>
-        <button onClick={() => useCity(50.2649, 19.0238)} disabled={loading} style={btnStyle}>Katowice</button>
-        <button onClick={() => useCity(51.7592, 19.4560)} disabled={loading} style={btnStyle}>Łódź</button>
-        <button onClick={() => useCity(54.3520, 18.6466)} disabled={loading} style={btnStyle}>Gdańsk</button>
+        <button onClick={() => checkCity(52.2297, 21.0122)} disabled={loading} style={btnStyle}>Warszawa</button>
+        <button onClick={() => checkCity(50.0647, 19.9450)} disabled={loading} style={btnStyle}>Kraków</button>
+        <button onClick={() => checkCity(50.2649, 19.0238)} disabled={loading} style={btnStyle}>Katowice</button>
+        <button onClick={() => checkCity(51.7592, 19.4560)} disabled={loading} style={btnStyle}>Łódź</button>
+        <button onClick={() => checkCity(54.3520, 18.6466)} disabled={loading} style={btnStyle}>Gdańsk</button>
       </div>
 
       {error && <p style={{ color: '#dc5050', marginBottom: 16 }}>{error}</p>}

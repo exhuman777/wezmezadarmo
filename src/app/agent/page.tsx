@@ -72,7 +72,6 @@ function AgentContent() {
   const secondaryHref = loggedIn ? '/panel/chat' : '/agent/logowanie';
   const primaryLabel = loggedIn ? 'Przejdź do panelu' : 'Zacznij za darmo';
   const secondaryLabel = loggedIn ? 'Otwórz Czat AI' : 'Mam już konto';
-  const queryHref = loggedIn ? '/panel/chat' : '/agent/logowanie';
 
   return (
     <main style={{ background: '#0a1f14', minHeight: '100vh' }}>

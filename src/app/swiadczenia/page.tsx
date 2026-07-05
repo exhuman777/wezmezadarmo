@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import Link from 'next/link';
 import { getAllBenefits } from '@/engine/benefits';
 import { searchBenefits } from '@/engine/search';
 import { Benefit, BenefitCategory } from '@/engine/types';
@@ -505,7 +506,7 @@ export default function SwiadczeniaPage() {
         </div>
 
         {/* Sprawdź swoje CTA */}
-        <a
+        <Link
           href="/"
           className="btn-nav-shimmer"
           style={{
@@ -527,7 +528,7 @@ export default function SwiadczeniaPage() {
           }} />
           Sprawdź swoje świadczenia
           <span style={{ fontSize: 13, opacity: 0.7 }}>→</span>
-        </a>
+        </Link>
 
         {/* Category pills */}
         <div className="flex flex-wrap gap-1.5 mb-6">
@@ -629,7 +630,7 @@ export default function SwiadczeniaPage() {
             Informacje orientacyjne. Zawsze weryfikuj na stronach źródłowych.
           </div>
           <div className="text-[12px] sm:text-[13px]">
-            <a href="/" className="text-accent hover:underline">Strona główna</a>
+            <Link href="/" className="text-accent hover:underline">Strona główna</Link>
             <span className="mx-1.5 text-text-3">|</span>
             <a href="/regulamin" className="text-accent hover:underline">Regulamin</a>
             <span className="mx-1.5 text-text-3">|</span>

@@ -159,7 +159,7 @@ export async function POST(request: NextRequest) {
               controller.enqueue(encoder.encode('data: [DONE]\n\n'));
             }
           }
-        } catch (err) {
+        } catch {
           controller.enqueue(
             encoder.encode(`data: ${JSON.stringify({ error: 'Blad strumieniowania odpowiedzi.' })}\n\n`),
           );

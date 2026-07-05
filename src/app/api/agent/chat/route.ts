@@ -418,12 +418,6 @@ async function maybeFetchCeidg(text: string, profileNip: string | null, isJdg: b
   }
 }
 
-interface PrefetchOpts {
-  userProvince: string | null;
-  isJdg: boolean;
-  profileNip: string | null;
-}
-
 // Smart prefetch: IMGW/RCB ostrzezenia gdy user pyta o pogode/burze/alerty
 async function maybeFetchImgw(text: string): Promise<string | null> {
   const lc = text.toLowerCase();
@@ -533,23 +527,6 @@ async function maybeFetchBdlGus(text: string, userProvince: string | null): Prom
   } catch {
     return null;
   }
-}
-
-// Glowna funkcja prefetch - rownoleglie wszystkie 8 zrodel live
-async function buildLivePrefetch(lastUserMsg: string, opts: PrefetchOpts): Promise<string | null> {
-  const [nbp, whitelist, nfz, gios, ceidg, imgw, eli, bdl] = await Promise.all([
-    maybeFetchNbp(lastUserMsg),
-    maybeFetchWhitelist(lastUserMsg),
-    maybeFetchNfz(lastUserMsg, opts.userProvince),
-    maybeFetchGios(lastUserMsg, opts.userProvince),
-    maybeFetchCeidg(lastUserMsg, opts.profileNip, opts.isJdg),
-    maybeFetchImgw(lastUserMsg),
-    maybeFetchEli(lastUserMsg),
-    maybeFetchBdlGus(lastUserMsg, opts.userProvince),
-  ]);
-  const parts = [nbp, whitelist, nfz, gios, ceidg, imgw, eli, bdl].filter((p): p is string => p !== null);
-  if (parts.length === 0) return null;
-  return `DANE LIVE POBRANE NA POTRZEBY TEJ ROZMOWY:\n\n${parts.join('\n\n')}`;
 }
 
 // ----- Main handler -----

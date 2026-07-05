@@ -241,7 +241,7 @@ export default function OProjekciePage() {
                 fontFamily: 'var(--font-serif)',
                 marginBottom: -16,
                 marginLeft: -4,
-              }}>"</div>
+              }}>{'"'}</div>
               <p style={{
                 fontSize: 'clamp(17px, 2vw, 22px)',
                 fontWeight: 600,

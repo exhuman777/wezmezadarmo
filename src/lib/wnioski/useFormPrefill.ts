@@ -50,7 +50,7 @@ export function useFormPrefill<T extends object>(
 
     const run = async () => {
       let fromLocal: Partial<T> = {};
-      let fromProfile: Partial<T> = {};
+      const fromProfile: Partial<T> = {};
       let hasLocal = false;
       let hasProfile = false;
       let loggedIn = false;

@@ -648,20 +648,6 @@ function EmptyState({ mode }: { mode: SearchMode }) {
   );
 }
 
-function Pill({ label, value, tone = 'default' }: { label: string; value: string; tone?: 'default' | 'green' }) {
-  return (
-    <span style={{
-      padding: '6px 12px', borderRadius: 999,
-      background: tone === 'green' ? '#d4ecc8' : '#f0f0ec',
-      color: tone === 'green' ? '#1e4d1c' : 'var(--color-text-1)',
-      border: '1px solid ' + (tone === 'green' ? '#7cba6c' : 'var(--color-border)'),
-      fontSize: 13, fontWeight: 500,
-    }}>
-      <span style={{ opacity: 0.75 }}>{label}:</span> <strong>{value}</strong>
-    </span>
-  );
-}
-
 // ============================================================
 // STYLES -- accessibility-first (WCAG AA): wieksze czcionki, mocniejsze kontrasty
 // ============================================================

@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { IntakeForm } from '@/components/IntakeForm';
 import { ChatWindow, ChatMessage } from '@/components/ChatWindow';
 import { MatchResult, UserProfile } from '@/engine/types';
@@ -9,14 +10,6 @@ import { CeidgBusinessData } from '@/lib/ceidg';
 import { track } from '@/lib/analytics';
 
 type Phase = 'landing' | 'questions' | 'loading' | 'chat';
-
-const LOADING_MESSAGES = [
-  'Szukamy pieniędzy dla Twojej rodziny...',
-  'Sprawdzamy 133 świadczeń w 15 kategoriach...',
-  'Szukam dla Ciebie funduszy...',
-  'Analizujemy Twój profil...',
-  'Twoje darmowe pieniądze od Państwa w zasięgu ręki...',
-];
 
 const CATEGORIES = [
   { id: 'praca', label: 'Praca', count: 15 },
@@ -266,12 +259,6 @@ const IconArrowLeft = () => (
     <path d="M19 12H5M11 6l-6 6 6 6"/>
   </svg>
 );
-const IconChat = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-  </svg>
-);
-
 const SESSION_KEY = 'wzd_session_v1';
 const SESSION_TTL = 7 * 24 * 60 * 60 * 1000;
 
@@ -286,7 +273,6 @@ export default function Home() {
   const [results, setResults] = useState<MatchResult[]>([]);
   const [isStreaming, setIsStreaming] = useState(false);
   const [guideBenefitId, setGuideBenefitId] = useState<string | null>(null);
-  const [loadingMsgIndex, setLoadingMsgIndex] = useState(0);
 
   // Loading progress for ring animation
   const [loadingProgress, setLoadingProgress] = useState(0);
@@ -340,15 +326,6 @@ export default function Home() {
     setProfile({});
     setPhase('landing');
   }
-
-  useEffect(() => {
-    if (phase !== 'loading') return;
-    setLoadingMsgIndex(0);
-    const interval = setInterval(() => {
-      setLoadingMsgIndex((prev) => (prev + 1) % LOADING_MESSAGES.length);
-    }, 2500);
-    return () => clearInterval(interval);
-  }, [phase]);
 
   // Animated progress for loading ring (throttled to integer pct changes to avoid 60fps re-renders)
   useEffect(() => {
@@ -949,10 +926,12 @@ export default function Home() {
                 alignItems: 'flex-end',
               }}>
                 <div style={{ position: 'relative', height: 220, borderRadius: 14, overflow: 'hidden', flexShrink: 0 }}>
-                  <img
+                  <Image
                     src="/foto-rodzina.png"
                     alt="Seniorka z pomocą bliskich sprawdza przysługujące świadczenia"
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.92) saturate(0.9)' }}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    style={{ objectFit: 'cover', filter: 'brightness(0.92) saturate(0.9)' }}
                   />
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,18,10,0.75) 0%, transparent 50%)' }} />
                   <div style={{ position: 'absolute', bottom: 14, left: 14, right: 14 }}>
@@ -961,10 +940,12 @@ export default function Home() {
                   </div>
                 </div>
                 <div style={{ position: 'relative', height: 260, borderRadius: 14, overflow: 'hidden', flexShrink: 0 }}>
-                  <img
+                  <Image
                     src="/foto-biuro.jpg"
                     alt="Zespół w pracy sprawdza dostępne świadczenia i ulgi"
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.9) saturate(0.9)' }}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 40vw"
+                    style={{ objectFit: 'cover', filter: 'brightness(0.9) saturate(0.9)' }}
                   />
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,18,10,0.75) 0%, transparent 55%)' }} />
                   <div style={{ position: 'absolute', bottom: 14, left: 14, right: 14 }}>
@@ -973,10 +954,12 @@ export default function Home() {
                   </div>
                 </div>
                 <div style={{ position: 'relative', height: 220, borderRadius: 14, overflow: 'hidden', flexShrink: 0 }}>
-                  <img
+                  <Image
                     src="/foto-nowy.png"
                     alt="Mężczyzna sprawdza przysługujące mu świadczenia"
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.9) saturate(0.9)' }}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    style={{ objectFit: 'cover', filter: 'brightness(0.9) saturate(0.9)' }}
                   />
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,18,10,0.75) 0%, transparent 55%)' }} />
                   <div style={{ position: 'absolute', bottom: 14, left: 14, right: 14 }}>

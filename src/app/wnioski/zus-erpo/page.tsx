@@ -301,7 +301,7 @@ function StepWnioskodawca({ data, update, onNext }: { data: ErpoData; update: (k
   );
 }
 
-function StepEmerytura({ data, update, wiekEmerytalny, minStaz, onBack, onNext }: {
+function StepEmerytura({ data, update, minStaz, onBack, onNext }: {
   data: ErpoData; update: (k: keyof ErpoData, v: string) => void;
   wiekEmerytalny: number; minStaz: number;
   onBack: () => void; onNext: () => void;
@@ -504,7 +504,7 @@ function StepPodgląd({ data, onBack, onDone, onDownloadPdf, downloadingPdf, onC
       }}>
         <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 12, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Jak złożyć wniosek ERPO</p>
         <ol style={{ paddingLeft: 20, margin: 0, display: 'flex', flexDirection: 'column', gap: 8, lineHeight: 1.65 }}>
-          <li><strong style={{ color: 'var(--color-text-1)' }}>Online (najszybciej):</strong> Zaloguj się do <a href="https://www.zus.pl/pue" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)' }}>PUE ZUS</a> profilem zaufanym. Wniosek ERPO dostępny w sekcji "Emerytury i renty"</li>
+          <li><strong style={{ color: 'var(--color-text-1)' }}>Online (najszybciej):</strong> Zaloguj się do <a href="https://www.zus.pl/pue" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)' }}>PUE ZUS</a> profilem zaufanym. Wniosek ERPO dostępny w sekcji &quot;Emerytury i renty&quot;</li>
           <li><strong style={{ color: 'var(--color-text-1)' }}>Osobiście:</strong> W kazdym oddziale ZUS. Możesz umowic wizyte online lub przyjsc bez kolejki w wyznaczonych godzinach.</li>
           <li><strong style={{ color: 'var(--color-text-1)' }}>Pocztą:</strong> Na adres oddziału ZUS właściwego dla miejsca zamieszkania. Zachowaj potwierdzenie nadania.</li>
           <li>ZUS wyda decyzje w ciagu 30 dni od złożenia kompletnego wniosku.</li>

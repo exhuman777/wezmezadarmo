@@ -21,7 +21,7 @@ export function SiteHeader() {
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         height: 64,
       }}>
-        <a href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
+        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
           <span className="red-dot" />
           <span style={{
             fontWeight: 600,
@@ -35,7 +35,7 @@ export function SiteHeader() {
             wezmezadarmo
             <span className="mono" style={{ color: 'var(--color-text-3)', fontWeight: 400, fontSize: 12 }}>.com</span>
           </span>
-        </a>
+        </Link>
         <nav style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
           {[
             { href: '/dotacje', label: 'Dotacje' },

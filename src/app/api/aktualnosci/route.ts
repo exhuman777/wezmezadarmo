@@ -1,6 +1,6 @@
 import { createSupabaseServer } from '@/lib/dotacje/supabase';
 import { createClient } from '@supabase/supabase-js';
-import { fetchAllFeeds, fetchFeeds, FEEDS, type FeedMeta, type FeedItem } from '@/app/aktualnosci/rss';
+import { fetchFeeds, FEEDS, type FeedMeta, type FeedItem } from '@/app/aktualnosci/rss';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';

@@ -56,7 +56,7 @@ export default function AgentPage() {
           return next;
         });
       }
-    } catch (err) {
+    } catch {
       setMessages((prev) => {
         const next = [...prev];
         next[next.length - 1] = {

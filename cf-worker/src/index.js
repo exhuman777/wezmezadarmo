@@ -119,7 +119,7 @@ function buildRss(channelTitle, channelLink, items) {
 // Worker
 // ---------------------------------------------------------------------------
 
-export default {
+const worker = {
   async fetch(request, env) {
     // Auth
     if (env.RSS_SECRET) {
@@ -208,3 +208,5 @@ export default {
     }
   },
 };
+
+export default worker;

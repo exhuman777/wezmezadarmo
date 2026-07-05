@@ -929,7 +929,6 @@ async function logAlertResult(sub, itemsCount, status, errorMessage = null) {
 // Filtruje nowe items per subskrypcja - bez duplikatow vs last_sent_item_ids
 function filterItemsForSubscription(allItems, sub) {
   const sentIds = new Set(sub.last_sent_item_ids || []);
-  const lastSentAt = sub.last_sent_at ? new Date(sub.last_sent_at).getTime() : 0;
 
   return allItems.filter(item => {
     // Skip jesli juz wyslane

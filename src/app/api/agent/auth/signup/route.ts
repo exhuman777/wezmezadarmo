@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
   const userId = authData.user.id;
 
   const profileRow = buildProfileInsert(userId, profile);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   const { error: profileError } = await supabaseAdmin
     .from('agent_user_profiles')
     .insert(profileRow as never);

@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import type { AgentId, AgentConfig, AgentContext, PrefetchSource } from './types';
-import { AGENT_IDS } from './types';
 import type { UserProfile, MatchResult } from '@/engine/types';
 import { BENEFIT_KNOWLEDGE } from '@/ai/benefitKnowledge';
 

@@ -162,7 +162,7 @@ export default async function AktualnosciPage() {
             Treści pobierane bezpośrednio z kanałów RSS instytucji publicznych. Strona odświeżana automatycznie co 30 minut.
           </p>
           <div style={{ fontSize: 12 }}>
-            <a href="/" style={{ color: 'var(--color-accent)', textDecoration: 'none' }}>Strona główna</a>
+            <Link href="/" style={{ color: 'var(--color-accent)', textDecoration: 'none' }}>Strona główna</Link>
             <span style={{ margin: '0 8px', color: 'var(--color-text-3)' }}>|</span>
             <a href="/swiadczenia" style={{ color: 'var(--color-accent)', textDecoration: 'none' }}>Baza świadczeń</a>
             <span style={{ margin: '0 8px', color: 'var(--color-text-3)' }}>|</span>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 export function MobileAgentWarning() {
   const [show, setShow] = useState(false);
@@ -47,9 +48,9 @@ export function MobileAgentWarning() {
       }}>
         Ta usługa działa tylko na komputerze z uwagi na złożoność interfejsu. Na telefonie
         skorzystaj z{' '}
-        <a href="/" style={{ color: 'var(--color-warn, #B8741A)', textDecoration: 'underline' }}>
+        <Link href="/" style={{ color: 'var(--color-warn, #B8741A)', textDecoration: 'underline' }}>
           kalkulatora świadczeń
-        </a>{' '}
+        </Link>{' '}
         lub{' '}
         <a href="/swiadczenia" style={{ color: 'var(--color-warn, #B8741A)', textDecoration: 'underline' }}>
           bazy świadczeń
