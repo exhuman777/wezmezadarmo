@@ -1,64 +1,122 @@
-# ZRÓB TO TERAZ -- jedna instrukcja, krok po kroku
+# ZRÓB TO TERAZ - produkcja state-of-the-art, krok po kroku
 
-> **Stan: 5 lipca 2026.** Poprzedni audyt URL z tego pliku jest ZAKOŃCZONY
-> (zrobiony automatycznie: 6 martwych linków naprawionych, kwoty zweryfikowane,
-> wdrożone na produkcję). Poniżej TYLKO to, co zostało do zrobienia ręcznie.
-> Łączny czas: ~10 minut.
-
----
-
-## 🔴 KROK 1 -- migracja rate limitu w Supabase (5 min, JEDYNY WYMAGANY)
-
-Bez tego limit czatu AI (3 pytania/dzień) działa po staremu, per instancja
-serwera, czyli jest dziurawy. Kod na produkcji już czeka na tabelę.
-
-**Opcja A (szybsza, przez Claude):**
-1. W Claude Code wpisz `/mcp` i wybierz **claude.ai Supabase** -> autoryzuj w przeglądarce
-2. Napisz mi: "zrób migrację" -- wykonam ją i zweryfikuję sam
-
-**Opcja B (ręczna):**
-1. Otwórz https://supabase.com/dashboard -> projekt wezmezadarmo -> **SQL Editor**
-2. Otwórz w VSCode plik `supabase/migrations/20260705_chat_rate_limits.sql` (Cmd+P, wpisz "chat_rate")
-3. Skopiuj CAŁĄ zawartość, wklej do SQL Editora, kliknij **Run**
-4. Weryfikacja -- wklej i uruchom:
-   ```sql
-   select * from chat_rate_limits;
-   ```
-   Pusta tabela (0 rows, bez błędu) = sukces.
+> **Stan: 6 lipca 2026.** Cały kod jest już na produkcji (main + Vercel auto-deploy).
+> Poniżej wszystko, co musisz zrobić RĘCZNIE, żeby serwis działał w pełni
+> produkcyjnie. Kolejność = priorytet. Całość ~25 minut.
 
 ---
 
-## 🟡 KROK 2 -- test na produkcji (3 min, warto)
+## KROK 1 - Dwie migracje bazy (Supabase) [WYMAGANE, 6 min]
 
-1. Otwórz https://www.wezmezadarmo.com/swiadczenia i wpisz w wyszukiwarkę:
-   - `kuroniowka` -> ma pokazać zasiłek dla bezrobotnych
-   - `trzynastka` -> 13. emerytura
-   - `leki seniorzy` -> bezpłatne leki 65+
-2. Otwórz czat i zadaj 3 pytania. Czwarte ma pokazać komunikat o limicie.
-   Po KROKU 1 limit działa też w oknie incognito (wcześniej nie działał).
+**Po co:** kod na produkcji już używa tabeli/kolumny, których jeszcze nie ma w bazie.
+Bez tego: limit czatu działa na słabszym fallbacku, a panel audytu nie pokaże diagnozy.
 
----
+**Gdzie:** https://supabase.com/dashboard -> projekt wezmezadarmo -> SQL Editor -> New query.
 
-## 🟢 KROK 3 -- opcjonalne (kiedy będzie chwila)
+1. Otwórz plik `supabase/migrations/20260705_chat_rate_limits.sql`, wklej całość, **Run**.
+   - Sprawdź: `select * from chat_rate_limits;` -> pusta tabela, bez błędu = OK.
+2. Otwórz plik `supabase/migrations/20260706_audit_note_column.sql`, wklej całość, **Run**.
+   - Sprawdź: `select last_note from benefits_url_audit limit 1;` -> działa (może być null) = OK.
 
-- **Node 20.19+**: maszyna ma 20.16, przez co vitest jest przypięty do v3.
-  Po aktualizacji Node można wrócić do vitest 4. Nie blokuje niczego.
-- **Post na blogu**: nowy wpis "co nowego" jest już na /blog po deployu.
-  Przeczytaj i zdecyduj, czy udostępnić w social mediach (draft posta
-  do LinkedIn dostał się w odpowiedzi Claude z 5.07).
+> Szybciej: w Claude wpisz `/mcp` -> zaloguj "claude.ai Supabase" -> napisz "zrób obie migracje",
+> wtedy zrobię je i zweryfikuję sam.
 
 ---
 
-## Co zostało zrobione automatycznie (nie ruszaj, działa)
+## KROK 2 - Zmienne środowiskowe w Vercel [WYMAGANE, 8 min]
 
-- Audyt 133 zrodloUrl: 6 martwych linków ZUS/podatki.gov.pl naprawionych
-- Kwoty 12 najbardziej zmiennych świadczeń zweryfikowane (marzec 2026 OK)
-- Wyszukiwarka: diakrytyki, aliasy potoczne, ranking (9 testów)
-- Router czatu AI: dopasowanie bez polskich znaków
-- API czatu: walidacja przed limitem (400/503 zamiast 500)
-- Audyt cron: wykrywa miękkie 404, nie spamuje mailami o zmianach layoutu
-- Middleware: strona /blad-konfiguracji zamiast błędu 500
-- Lint: 60 -> 16 problemów, martwy kod usunięty, next/image na homepage
-- Testy: 141 -> 165, wszystkie zielone; tsc czysty; build 112 stron
+**Gdzie:** Vercel -> projekt wezmezadarmo -> Settings -> Environment Variables -> Production.
+**Po co:** brak którejś = konkretna funkcja pada (opisane niżej). Sprawdź, że każda istnieje.
 
-Jeśli się zgubisz -- napisz mi gdzie utknąłeś, naprawię.
+KRYTYCZNE (bez nich serwis nie działa):
+- `NEXT_PUBLIC_SUPABASE_URL` + `NEXT_PUBLIC_SUPABASE_ANON_KEY` - logowanie, panel, czat.
+  Brak = /panel pokazuje stronę /blad-konfiguracji.
+- `SUPABASE_SERVICE_ROLE_KEY` - audyt, trwały rate limit, digest, panel admin.
+- `OPENROUTER_API_KEY` - czat AI. Brak = czat zwraca 503.
+
+CRON I ADMIN:
+- `CRON_SECRET` - autoryzacja crona audytu (Vercel wysyła go automatycznie) + przycisk
+  "Uruchom audyt teraz" w panelu admina.
+- `ADMIN_PASSWORD` - login do /admin/benefits-audit (Basic Auth).
+
+E-MAIL (audyt, digest, newsletter, kontakt):
+- `RESEND_API_KEY`, `RESEND_FROM_EMAIL` (np. `WezmeZaDarmo <hello@wezmezadarmo.com>`),
+  `NEWSLETTER_SECRET`.
+
+ADRES SERWISU (poprawne linki w mailach/OG):
+- `NEXT_PUBLIC_SITE_URL` i/lub `NEXT_PUBLIC_URL` = `https://www.wezmezadarmo.com`.
+
+OPCJONALNE (feature-flagi - tylko jeśli używasz):
+- `B2B_API_KEYS` - klucze klientów B2B (czat bez limitu).
+- `CEIDG_API_TOKEN` - podgląd firm z CEIDG.
+- `RSS_PROXY_URL` + `RSS_PROXY_SECRET` - proxy do pobierania RSS.
+- `NEXT_PUBLIC_GA_ID` - Google Analytics.
+- `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `STRIPE_PRICE_ID_PERSONAL`,
+  `STRIPE_PRICE_ID_BUSINESS` - płatności B2B w /dotacje (jeśli sprzedajesz subskrypcje).
+
+Po dodaniu brakujących -> **Redeploy** (Deployments -> ostatni -> Redeploy).
+
+---
+
+## KROK 3 - Weryfikacja deployu [3 min]
+
+- Vercel -> Deployments: ostatni commit `f98d1f6` (lub nowszy) ma status **Ready** (zielony).
+  Jeśli **Error** -> otwórz, skopiuj log builda, wklej mi.
+
+---
+
+## KROK 4 - Smoke-testy na żywo [5 min]
+
+Nowa zakładka biznesowa:
+- https://www.wezmezadarmo.com/za-darmo-dla-biznesu -> widać DogInvoice i DogAnswer
+  z logotypami i podglądami, działa przycisk "Napisz: admin@dogtronic.io".
+
+Wyszukiwarka świadczeń:
+- /swiadczenia -> wpisz `kuroniowka`, `trzynastka`, `leki seniorzy` -> trafia.
+
+Naprawione źródła (audyt 20 linków):
+- /swiadczenia -> rozwiń np. "Dodatek mieszkaniowy", "Kosiniakowe", "Opieka wytchnieniowa"
+  -> kliknij link źródła -> otwiera właściwą stronę (nie stronę główną gov.pl).
+
+Logowanie i konto z Asystenta AI:
+- /agent -> "Mam już konto" (albo "Zaloguj się i zapytaj AI") -> ląduje na /logowanie
+  (bez podwójnego przekierowania).
+- Zaloguj się -> /panel -> lewy sidebar: **Profil** (edycja danych) i **Wyloguj**
+  (ma faktycznie wylogować i wrócić do /logowanie). Zadaj 4 pytania w czacie ->
+  4. pokazuje limit (po KROKU 1 działa też w incognito).
+
+Panel audytu (po zalogowaniu Basic Auth):
+- https://www.wezmezadarmo.com/admin/benefits-audit -> sekcja "Wymaga uwagi" z linkami
+  "Znajdź aktualne źródło". Kliknij "Uruchom audyt teraz" -> po chwili lista OK, bez
+  20 błędów (te już naprawione).
+
+---
+
+## KROK 5 - Higiena produkcyjna [gdy będzie czas]
+
+- **Custom SMTP w Supabase Auth**: domyślny mailer Supabase ma limit ~3-4 maile/h i
+  słabą dostarczalność. Do produkcji podłącz Resend jako SMTP w Supabase ->
+  Authentication -> SMTP Settings. Inaczej maile potwierdzające rejestrację mogą nie
+  dochodzić przy większym ruchu.
+- **Supabase Auth URLs**: Authentication -> URL Configuration -> Site URL =
+  `https://www.wezmezadarmo.com`, Redirect URLs zawierają
+  `https://www.wezmezadarmo.com/**` (żeby linki z maili nie wygasały/nie 404-owały).
+- **Node 20.19+** na maszynie deweloperskiej -> można wrócić do vitest 4 (teraz przypięty
+  do v3, bo rolldown wymaga 20.19). Nie blokuje produkcji.
+- **Monitoring**: włącz Vercel Analytics + Log Drains (albo Sentry) na błędy 500 API.
+
+---
+
+## Co zostało zrobione automatycznie w tej serii (nie ruszaj)
+
+- Audyt: naprawione 6 (czerwiec) + 20 (lipiec) martwych URL po przebudowie gov.pl.
+  Audyt sam wykrywa miękkie 404, zapisuje diagnozę, w mailu i panelu daje link do
+  wyszukania zamiennika (samonaprawialność).
+- Wyszukiwarka świadczeń: diakrytyki, aliasy potoczne, ranking.
+- Trwały rate limit czatu (Supabase, hash IP), walidacja API (400/503 zamiast 500).
+- Nowa zakładka /za-darmo-dla-biznesu (DogInvoice, DogAnswer) + nav + sitemap.
+- Przepływ logowania z /agent: linki wprost do /logowanie i /rejestracja (bez skoku 308);
+  wylogowanie i profil w /panel zweryfikowane e2e.
+- Lint 60 -> 16, martwy kod usunięty, next/image na homepage, testy 165 zielone.
+
+Jeśli się zgubisz - napisz gdzie utknąłeś, dokończę.
