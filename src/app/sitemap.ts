@@ -60,6 +60,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // B2B
     { url: `${BASE}/dla-firm`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE}/za-darmo-dla-biznesu`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE}/automatyzacje`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE}/dotacje`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
     { url: `${BASE}/dotacje/regulamin`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
