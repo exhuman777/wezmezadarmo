@@ -67,9 +67,11 @@ function AgentContent() {
     return () => subscription.unsubscribe();
   }, []);
 
-  // Auth-aware: zalogowany -> /panel, niezalogowany -> /agent/rejestracja
-  const primaryHref = loggedIn ? '/panel' : '/agent/rejestracja';
-  const secondaryHref = loggedIn ? '/panel/chat' : '/agent/logowanie';
+  // Auth-aware: zalogowany -> /panel, niezalogowany -> /rejestracja.
+  // Linkujemy wprost do glownych stron auth (/rejestracja, /logowanie), a nie do
+  // starych /agent/* ktore i tak robia trwaly redirect - oszczedzamy skok 308.
+  const primaryHref = loggedIn ? '/panel' : '/rejestracja';
+  const secondaryHref = loggedIn ? '/panel/chat' : '/logowanie';
   const primaryLabel = loggedIn ? 'Przejdź do panelu' : 'Zacznij za darmo';
   const secondaryLabel = loggedIn ? 'Otwórz Czat AI' : 'Mam już konto';
 
@@ -244,7 +246,7 @@ function AgentContent() {
                 </p>
                 <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', alignItems: 'center' }}>
                   <Link
-                    href={loggedIn ? `/panel/chat?q=${encodeURIComponent(q!)}` : `/agent/logowanie?next=${encodeURIComponent('/panel/chat?q=' + q)}`}
+                    href={loggedIn ? `/panel/chat?q=${encodeURIComponent(q!)}` : `/logowanie?next=${encodeURIComponent('/panel/chat?q=' + q)}`}
                     className="btn-agent-primary"
                     style={{ fontSize: 15, fontWeight: 600, color: '#fff', padding: '12px 24px', borderRadius: 12, display: 'inline-block' }}
                   >
@@ -261,7 +263,7 @@ function AgentContent() {
                       </Link>
                       <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)' }}>
                         lub{' '}
-                        <Link href="/agent/rejestracja" style={{ color: '#8EEAAD', textDecoration: 'underline', textUnderlineOffset: 3 }}>
+                        <Link href="/rejestracja" style={{ color: '#8EEAAD', textDecoration: 'underline', textUnderlineOffset: 3 }}>
                           załóż konto
                         </Link>
                       </span>
