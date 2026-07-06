@@ -220,8 +220,8 @@ export const SENIOR: Benefit[] = [
       ],
       odwolanie: 'Odwołanie do Samorządowego Kolegium Odwoławczego w ciągu 14 dni od decyzji',
     },
-    zrodloUrl: 'https://www.gov.pl/web/rodzina/program-senior',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
+    zrodloUrl: 'https://www.gov.pl/web/rodzina/program-wieloletni-senior-na-lata-2021-2025',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-07-06', dataWaznosci: '2026-12-31',
   },
   {
     id: 'leki-senior-65plus', nazwa: 'Bezpłatne leki dla seniorów 65+',
@@ -333,8 +333,8 @@ export const SENIOR: Benefit[] = [
       ],
       odwolanie: 'Odwołanie od decyzji UdSKiOR do sądu administracyjnego, od decyzji ZUS do Sądu Pracy',
     },
-    zrodloUrl: 'https://www.gov.pl/web/kombatanci',
-    zrodloNazwa: 'Urząd do Spraw Kombatantów i Osób Represjonowanych', dataWeryfikacji: '2026-06-03', dataWaznosci: '2026-12-31',
+    zrodloUrl: 'https://www.gov.pl/web/krus/dodatek-kombatancki',
+    zrodloNazwa: 'KRUS / Urząd do Spraw Kombatantów i Osób Represjonowanych', dataWeryfikacji: '2026-07-06', dataWaznosci: '2026-12-31',
   },
   {
     id: 'swiadczenie-dzialacze-opozycji', nazwa: 'Świadczenie dla działaczy opozycji antykomunistycznej',
@@ -370,7 +370,7 @@ export const SENIOR: Benefit[] = [
       ],
       odwolanie: 'Odwołanie od decyzji Szefa UdSKiOR do Wojewódzkiego Sądu Administracyjnego',
     },
-    zrodloUrl: 'https://www.gov.pl/web/kombatanci/dzialacze-opozycji-antykomunistycznej',
-    zrodloNazwa: 'Urząd do Spraw Kombatantów i Osób Represjonowanych', dataWeryfikacji: '2026-06-03', dataWaznosci: '2026-12-31',
+    zrodloUrl: 'https://www.kombatanci.gov.pl/index.php/pl/uprawnienia/sprawy-zdrowotne-i-socjalne/dzialacze-opozycji-i-osoby-represjonowane/319-swiadczenie-pieniezne-dla-dzialaczy-opozycji-antykomunistycznej-osob-represjonowanych-z-powodow-politycznych',
+    zrodloNazwa: 'Urząd do Spraw Kombatantów i Osób Represjonowanych', dataWeryfikacji: '2026-07-06', dataWaznosci: '2026-12-31',
   },
 ];

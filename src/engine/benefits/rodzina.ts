@@ -91,8 +91,8 @@ export const RODZINA: Benefit[] = [
       ],
       odwolanie: 'Odwołanie do SKO w ciągu 14 dni',
     },
-    zrodloUrl: 'https://www.gov.pl/web/rodzina/swiadczenie-rodzicielskie',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
+    zrodloUrl: 'https://www.gov.pl/web/gov/uzyskaj-swiadczenie-rodzicielskie',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-07-06', dataWaznosci: '2026-12-31',
   },
   {
     id: 'ulga-prorodzinna', nazwa: 'Ulga prorodzinna (na dzieci)',
@@ -375,8 +375,8 @@ export const RODZINA: Benefit[] = [
       ],
       odwolanie: 'Odwołanie do Samorządowego Kolegium Odwoławczego w ciągu 14 dni od decyzji',
     },
-    zrodloUrl: 'https://www.gov.pl/web/rodzina/zasilek-rodzinny-i-dodatki',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-06-03', dataWaznosci: '2026-10-31',
+    zrodloUrl: 'https://www.gov.pl/web/gov/uzyskaj-zasilek-rodzinny-wraz-z-dodatkami',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-07-06', dataWaznosci: '2026-10-31',
   },
   {
     id: 'za-zyciem', nazwa: 'Jednorazowe świadczenie "Za życiem" (4000 PLN)',
@@ -416,7 +416,7 @@ export const RODZINA: Benefit[] = [
       ],
       odwolanie: 'Odwołanie do Samorządowego Kolegium Odwoławczego w ciągu 14 dni od decyzji',
     },
-    zrodloUrl: 'https://www.gov.pl/web/rodzina/jednorazowe-swiadczenie-za-zyciem',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-06-03', dataWaznosci: '2026-12-31',
+    zrodloUrl: 'https://www.gov.pl/web/gov/uzyskaj-jednorazowe-swiadczenie-w-wysokosci-4000-zl',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-07-06', dataWaznosci: '2026-12-31',
   },
 ];

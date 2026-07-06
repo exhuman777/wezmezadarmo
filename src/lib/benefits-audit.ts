@@ -96,6 +96,16 @@ export function isSoftNotFound(finalUrl: string, requestedUrl: string): boolean 
 }
 
 /**
+ * Link do wyszukania aktualnego, dzialajacego zrodla dla danego swiadczenia.
+ * Uzywane w mailu alertowym i panelu admina -- gdy URL padnie, jednym klikiem
+ * trafiasz na liste kandydatow zamiast recznie zgadywac nowy adres.
+ */
+export function suggestedSearchUrl(benefitName: string): string {
+  const q = `${benefitName} oficjalna strona gov.pl`;
+  return `https://www.google.com/search?q=${encodeURIComponent(q)}`;
+}
+
+/**
  * Sanityzacja HTML do tylko text content z main area.
  * Usuwa nav, header, footer, scripts, styles, ads -- elementy ktore zmieniaja sie
  * dynamicznie i nie sa czescia tresci swiadczenia.

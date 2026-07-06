@@ -198,8 +198,8 @@ export const EKOLOGIA: Benefit[] = [
       ],
       odwolanie: 'Nie dotyczy (program zakończony)',
     },
-    zrodloUrl: 'https://www.gov.pl/web/klimat/stop-smog',
-    zrodloNazwa: 'Ministerstwo Klimatu, Program Stop Smog (zakończony)', dataWeryfikacji: '2026-05-25', dataWaznosci: '2026-12-31',
+    zrodloUrl: 'https://www.gov.pl/web/klimat/stop-smog-20--nowe-lepsze-zasady-od-31-marca',
+    zrodloNazwa: 'Ministerstwo Klimatu i Środowiska, Program Stop Smog', dataWeryfikacji: '2026-07-06', dataWaznosci: '2026-12-31',
   },
   {
     id: 'dodatek-oslonowy', nazwa: 'Dodatek osłonowy',

@@ -349,8 +349,8 @@ export const POMOC_SPOLECZNA: Benefit[] = [
       ],
       odwolanie: 'Odwołanie do Samorządowego Kolegium Odwoławczego w ciągu 14 dni',
     },
-    zrodloUrl: 'https://www.gov.pl/web/rodzina/opieka-wytchnieniowa',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
+    zrodloUrl: 'https://niepelnosprawni.gov.pl/program-fs/nabor-wnioskow-w-ramach-resortowego-programu-ministra-rodziny-pracy-i-polityki-spolecznej-opieka-wytchnieniowa-dla-jednostek-samorzadu-terytorialnego-edycja-2026/',
+    zrodloNazwa: 'Biuro Pełnomocnika Rządu ds. Osób Niepełnosprawnych', dataWeryfikacji: '2026-07-06', dataWaznosci: '2026-12-31',
   },
   {
     id: 'nieodplatna-pomoc-prawna', nazwa: 'Nieodpłatna pomoc prawna (bezpłatny prawnik)',

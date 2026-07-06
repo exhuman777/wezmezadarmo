@@ -3,9 +3,10 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
+import { suggestedSearchUrl } from '@/lib/benefits-audit';
 
 export const metadata: Metadata = {
-  title: 'Admin: Audyt zrodel swiadczen | wezmezadarmo',
+  title: 'Admin: Audyt źródeł świadczeń | wezmezadarmo',
   robots: { index: false, follow: false },
 };
 
@@ -16,6 +17,7 @@ interface AuditRow {
   url: string;
   last_status: number | null;
   last_status_text: string | null;
+  last_note: string | null;
   last_checked_at: string | null;
   last_changed_at: string | null;
   last_change_pct: number | null;
@@ -38,10 +40,17 @@ async function requireAuth(): Promise<void> {
   }
 }
 
-async function fetchAudit(): Promise<{ rows: AuditRow[]; stats: Record<string, number> }> {
+interface AuditData {
+  configured: boolean;
+  rows: AuditRow[];
+  stats: Record<string, number>;
+  lastRun: string | null;
+}
+
+async function fetchAudit(): Promise<AuditData> {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) return { rows: [], stats: {} };
+  if (!url || !key) return { configured: false, rows: [], stats: {}, lastRun: null };
 
   const supabase = createClient(url, key);
   const { data } = await supabase
@@ -61,10 +70,13 @@ async function fetchAudit(): Promise<{ rows: AuditRow[]; stats: Record<string, n
     redirect: rows.filter(r => r.last_status_text === 'REDIRECT').length,
     timeout: rows.filter(r => r.last_status_text === 'TIMEOUT').length,
     blocked: rows.filter(r => r.last_status_text === 'BLOCKED').length,
-    never: 0, // wypelnimy ponizej
   };
+  const lastRun = rows.reduce<string | null>((max, r) => {
+    if (!r.last_checked_at) return max;
+    return !max || r.last_checked_at > max ? r.last_checked_at : max;
+  }, null);
 
-  return { rows, stats };
+  return { configured: true, rows, stats, lastRun };
 }
 
 const STATUS_TONES: Record<string, { bg: string; fg: string; label: string }> = {
@@ -79,34 +91,43 @@ const STATUS_TONES: Record<string, { bg: string; fg: string; label: string }> = 
 
 export default async function BenefitsAuditPage() {
   await requireAuth();
-  const { rows, stats } = await fetchAudit();
+  const { configured, rows, stats, lastRun } = await fetchAudit();
+  const problems = rows.filter(r => r.needs_review);
 
   return (
     <main style={{ maxWidth: 1240, margin: '0 auto', padding: '48px 24px' }}>
-      <div style={{ marginBottom: 32 }}>
+      <div style={{ marginBottom: 28 }}>
         <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--color-text-3)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 8 }}>
           Admin
         </div>
         <h1 style={{ fontSize: 28, fontWeight: 700, color: 'var(--color-text-1)', margin: '0 0 8px' }}>
-          Audyt zrodel swiadczen
+          Audyt źródeł świadczeń
         </h1>
-        <p style={{ fontSize: 14, color: 'var(--color-text-2)', margin: 0 }}>
-          Cotygodniowy automatyczny audit 133 zrodloUrl. Cron: poniedzialek 4:00 UTC. Alerty na <code>sobkowicz.kamil@gmail.com</code>.
+        <p style={{ fontSize: 14, color: 'var(--color-text-2)', margin: 0, lineHeight: 1.6 }}>
+          Cotygodniowy automatyczny audyt 133 adresów źródłowych. Wykrywa błędy 404,
+          miękkie 404 (przekierowanie na stronę główną) oraz zniknięcie treści.
+          Cron: poniedziałek 6:00 UTC. Ostatni audyt: <strong>{formatDate(lastRun)}</strong>.
         </p>
       </div>
+
+      {!configured && (
+        <div style={{ padding: 20, background: '#fce4e6', border: '1px solid #f4b8bd', borderRadius: 12, marginBottom: 24, color: '#8b1f24', fontSize: 14 }}>
+          Brak konfiguracji Supabase (NEXT_PUBLIC_SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY).
+          Dane audytu niedostępne.
+        </div>
+      )}
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 12, marginBottom: 24 }}>
         <Stat label="Razem" value={String(stats.total ?? 0)} />
         <Stat label="OK" value={String(stats.ok ?? 0)} color="#22A06B" />
-        <Stat label="Wymaga sprawdzenia" value={String(stats.needsReview ?? 0)} color="#c0392b" />
-        <Stat label="404" value={String(stats.notFound ?? 0)} color="#c0392b" />
-        <Stat label="Zmiana tresci" value={String(stats.changed ?? 0)} color="#a05a1a" />
+        <Stat label="Wymaga uwagi" value={String(stats.needsReview ?? 0)} color="#c0392b" />
+        <Stat label="404 / martwe" value={String(stats.notFound ?? 0)} color="#c0392b" />
+        <Stat label="Zmiana treści" value={String(stats.changed ?? 0)} color="#a05a1a" />
         <Stat label="Redirect" value={String(stats.redirect ?? 0)} color="#a05a1a" />
-        <Stat label="Timeout" value={String(stats.timeout ?? 0)} color="#6b7a72" />
-        <Stat label="Blocked" value={String(stats.blocked ?? 0)} color="#6b7a72" />
+        <Stat label="Timeout / Blocked" value={String((stats.timeout ?? 0) + (stats.blocked ?? 0))} color="#6b7a72" />
       </div>
 
-      <div style={{ marginBottom: 20, display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+      <div style={{ marginBottom: 28, display: 'flex', gap: 12, flexWrap: 'wrap' }}>
         <Link href={`/api/cron/benefits-audit?secret=${process.env.CRON_SECRET ?? ''}`} style={{
           padding: '10px 18px', background: 'var(--color-text-1)', color: 'var(--color-bg-0)',
           borderRadius: 8, fontSize: 13, fontWeight: 500, textDecoration: 'none',
@@ -121,6 +142,60 @@ export default async function BenefitsAuditPage() {
         </Link>
       </div>
 
+      {/* SEKCJA: wymaga uwagi -- konkretne akcje do wykonania */}
+      {problems.length > 0 && (
+        <section style={{ marginBottom: 32 }}>
+          <h2 style={{ fontSize: 16, fontWeight: 700, color: 'var(--color-text-1)', margin: '0 0 4px' }}>
+            Wymaga uwagi ({problems.length})
+          </h2>
+          <p style={{ fontSize: 13, color: 'var(--color-text-3)', margin: '0 0 16px' }}>
+            Dla każdego: sprawdź obecny link, kliknij „Znajdź aktualne źródło”, podmień adres w <code style={{ fontSize: 12 }}>src/engine/benefits/</code>.
+          </p>
+          <div style={{ display: 'grid', gap: 12 }}>
+            {problems.map(r => {
+              const tone = STATUS_TONES[r.last_status_text ?? 'OK'] ?? STATUS_TONES.OK;
+              return (
+                <div key={r.benefit_id} style={{
+                  padding: '16px 18px', background: 'var(--color-surface)',
+                  border: '1px solid var(--color-border)', borderLeft: `3px solid ${tone.fg}`, borderRadius: 10,
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', marginBottom: 8 }}>
+                    <span style={{ padding: '3px 10px', borderRadius: 999, background: tone.bg, color: tone.fg, fontSize: 11, fontWeight: 600 }}>{tone.label}</span>
+                    <span style={{ fontSize: 15, fontWeight: 600, color: 'var(--color-text-1)' }}>{r.benefit_name}</span>
+                    <code style={{ fontSize: 11, color: 'var(--color-text-3)' }}>{r.category}</code>
+                    {r.consecutive_errors > 1 && (
+                      <span style={{ fontSize: 11, color: '#c0392b' }}>psuje się od {r.consecutive_errors} audytów</span>
+                    )}
+                  </div>
+                  {r.last_note && (
+                    <div style={{ fontSize: 12, color: 'var(--color-text-2)', marginBottom: 8 }}>{r.last_note}</div>
+                  )}
+                  <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', alignItems: 'center' }}>
+                    <a href={r.url} target="_blank" rel="noopener noreferrer" style={{
+                      fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--color-text-3)', textDecoration: 'none',
+                      maxWidth: 520, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+                    }}>{r.url}</a>
+                    <a href={suggestedSearchUrl(r.benefit_name)} target="_blank" rel="noopener noreferrer" style={{
+                      fontSize: 12, fontWeight: 600, color: '#22A06B', textDecoration: 'none', whiteSpace: 'nowrap',
+                    }}>Znajdź aktualne źródło →</a>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      {problems.length === 0 && configured && rows.length > 0 && (
+        <div style={{ padding: 16, background: '#d4ecc8', border: '1px solid #b6dba6', borderRadius: 10, marginBottom: 28, color: '#1e4d1c', fontSize: 14, fontWeight: 500 }}>
+          Wszystkie 133 źródła sprawne. Nic nie wymaga uwagi.
+        </div>
+      )}
+
+      {/* Pełna tabela referencyjna */}
+      <h2 style={{ fontSize: 16, fontWeight: 700, color: 'var(--color-text-1)', margin: '0 0 12px' }}>
+        Wszystkie źródła
+      </h2>
       <div style={{ overflowX: 'auto', background: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 12 }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
           <thead>
@@ -128,18 +203,17 @@ export default async function BenefitsAuditPage() {
               <Th>Świadczenie</Th>
               <Th>Kategoria</Th>
               <Th>Status</Th>
-              <Th>HTTP</Th>
+              <Th>Diagnoza</Th>
               <Th>URL</Th>
               <Th>Sprawdzony</Th>
-              <Th>Zmiana</Th>
             </tr>
           </thead>
           <tbody>
             {rows.length === 0 && (
               <tr>
-                <Td colSpan={7}>
+                <Td colSpan={6}>
                   <div style={{ padding: 32, textAlign: 'center', color: 'var(--color-text-3)' }}>
-                    Brak danych audytu. Uruchom &quot;Audyt teraz&quot; lub poczekaj na cron (poniedzialek 4:00 UTC).
+                    Brak danych audytu. Uruchom „Audyt teraz” lub poczekaj na cron (poniedziałek 6:00 UTC).
                   </div>
                 </Td>
               </tr>
@@ -157,29 +231,18 @@ export default async function BenefitsAuditPage() {
                   </Td>
                   <Td><code style={{ fontSize: 11, color: 'var(--color-text-3)' }}>{r.category}</code></Td>
                   <Td>
-                    <span style={{
-                      padding: '4px 10px', borderRadius: 999,
-                      background: tone.bg, color: tone.fg,
-                      fontSize: 11, fontWeight: 600,
-                    }}>{tone.label}</span>
-                    {r.consecutive_errors > 0 && (
-                      <span style={{ fontSize: 10, color: '#c0392b', marginLeft: 6 }} title={`${r.consecutive_errors} bledow z rzedu`}>
-                        {r.consecutive_errors} blad{r.consecutive_errors > 1 ? 'y' : ''}
-                      </span>
-                    )}
+                    <span style={{ padding: '4px 10px', borderRadius: 999, background: tone.bg, color: tone.fg, fontSize: 11, fontWeight: 600 }}>{tone.label}</span>
                   </Td>
-                  <Td><code style={{ fontSize: 11 }}>{!r.last_status ? '-' : r.last_status}</code></Td>
+                  <Td>
+                    <span style={{ fontSize: 11, color: 'var(--color-text-3)' }}>{r.last_note ?? (r.last_status ? `HTTP ${r.last_status}` : '-')}</span>
+                  </Td>
                   <Td>
                     <a href={r.url} target="_blank" rel="noopener noreferrer" style={{
-                      fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--color-accent)',
-                      textDecoration: 'none',
-                      display: 'inline-block', maxWidth: 360,
-                      overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
-                      verticalAlign: 'bottom',
+                      fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--color-accent)', textDecoration: 'none',
+                      display: 'inline-block', maxWidth: 320, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', verticalAlign: 'bottom',
                     }}>{r.url}</a>
                   </Td>
                   <Td>{formatDate(r.last_checked_at)}</Td>
-                  <Td>{r.last_changed_at ? formatDate(r.last_changed_at) : '-'}</Td>
                 </tr>
               );
             })}

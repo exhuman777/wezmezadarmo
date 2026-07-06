@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { getAllBenefits } from '@/engine/benefits';
-import { auditAll, type PreviousAudit, type AuditResult } from '@/lib/benefits-audit';
+import { auditAll, suggestedSearchUrl, type PreviousAudit, type AuditResult } from '@/lib/benefits-audit';
 import { getResend } from '@/lib/newsletter';
 
 const ALERT_EMAIL = 'sobkowicz.kamil@gmail.com';
@@ -60,7 +60,10 @@ export async function GET(request: NextRequest) {
   // Upsert do bazy
   const rows = results.map(r => {
     const prev = previousMap.get(r.benefitId);
-    const isError = r.httpStatus === 0 || r.httpStatus >= 400;
+    // Miekki 404 zwraca HTTP 200 (finalna strona glowna dziala), ale to blad
+    // zrodla -- liczymy go jako blad, tak samo jak twardy 404/5xx/timeout.
+    const isError = r.httpStatus === 0 || r.httpStatus >= 400
+      || r.status === 'NOT_FOUND' || r.status === 'TIMEOUT' || r.status === 'BLOCKED';
     const consecutiveErrors = isError ? (prev?.consecutive_errors ?? 0) + 1 : 0;
     const contentChanged = prev?.last_content_hash && r.contentHash && r.contentHash !== prev.last_content_hash;
 
@@ -71,6 +74,7 @@ export async function GET(request: NextRequest) {
       url: r.url,
       last_status: r.httpStatus,
       last_status_text: r.status,
+      last_note: r.note ?? null,
       last_content_hash: r.contentHash ?? prev?.last_content_hash ?? null,
       last_content_length: r.contentLength,
       last_checked_at: new Date().toISOString(),
@@ -152,10 +156,11 @@ async function sendAlertEmail(alerts: AuditResult[], stats: Record<string, numbe
     return `
       <h3 style="font-size:14px;color:${color};margin:20px 0 8px;">${title} (${items.length})</h3>
       <ul style="margin:0;padding-left:20px;font-size:13px;color:#2f3d36;line-height:1.7;">
-        ${items.map(a => `<li>
+        ${items.map(a => `<li style="margin-bottom:10px;">
           <strong>${escapeHtml(a.benefitName)}</strong> [${escapeHtml(a.category)}]<br>
           <a href="${escapeHtml(a.url)}" style="color:#0d2b1c;font-size:11px;font-family:monospace;">${escapeHtml(a.url)}</a>
           ${a.note ? `<br><span style="font-size:11px;color:#6b7a72;">${escapeHtml(a.note)}</span>` : ''}
+          ${(a.status === 'NOT_FOUND' || a.status === 'REDIRECT') ? `<br><a href="${escapeHtml(suggestedSearchUrl(a.benefitName))}" style="font-size:11px;color:#22A06B;font-weight:600;">Znajdz aktualne zrodlo &rarr;</a>` : ''}
         </li>`).join('')}
       </ul>
     `;

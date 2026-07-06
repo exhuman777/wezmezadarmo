@@ -235,8 +235,8 @@ export const KRUS: Benefit[] = [
       ],
       odwolanie: 'Odwołanie do Sądu Rejonowego, Wydział Pracy i Ubezpieczeń Społecznych w ciągu 30 dni',
     },
-    zrodloUrl: 'https://www.gov.pl/web/krus/zasilek-opiekunczy',
-    zrodloNazwa: 'KRUS', dataWeryfikacji: '2026-05-25', dataWaznosci: '2026-12-31',
+    zrodloUrl: 'https://www.gov.pl/web/krus/zasilki-z-tytulu-urodzenia-i-opieki-nad-dzieckiem',
+    zrodloNazwa: 'KRUS', dataWeryfikacji: '2026-07-06', dataWaznosci: '2026-12-31',
   },
   {
     id: 'dodatek-pielegnacyjny-krus', nazwa: 'Dodatek pielęgnacyjny KRUS',
@@ -307,8 +307,8 @@ export const KRUS: Benefit[] = [
       ],
       odwolanie: 'Odwołanie do Samorządowego Kolegium Odwoławczego w ciągu 14 dni od decyzji',
     },
-    zrodloUrl: 'https://www.gov.pl/web/rolnictwo/zwrot-podatku-akcyzowego-zawartego-w-cenie-oleju-napedowego-wykorzystywanego-do-produkcji-rolnej',
-    zrodloNazwa: 'Ministerstwo Rolnictwa', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
+    zrodloUrl: 'https://www.gov.pl/web/rolnictwo/zwrot-podatku-akcyzowego',
+    zrodloNazwa: 'Ministerstwo Rolnictwa', dataWeryfikacji: '2026-07-06', dataWaznosci: '2026-12-31',
   },
   {
     id: 'premia-dla-mlodego-rolnika', nazwa: 'Premia dla młodego rolnika (ARiMR)',

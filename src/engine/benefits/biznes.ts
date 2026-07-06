@@ -130,8 +130,8 @@ export const BIZNES: Benefit[] = [
       pulapki: ['Nie odliczysz kosztów uzyskania przychodu, płacisz od przychodu, nie od dochodu', 'Stawka zależy od rodzaju działalności (PKD)'],
       odwolanie: 'Zmiana formy opodatkowania do 20 lutego następnego roku',
     },
-    zrodloUrl: 'https://www.gov.pl/web/finanse/ryczalt-od-przychodow-ewidencjonowanych',
-    zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
+    zrodloUrl: 'https://www.podatki.gov.pl/podatki-firmowe/pit/informacje-podstawowe/co-jest-opodatkowane/opodatkowanie-ryczaltem-od-przychodow-ewidencjonowanych',
+    zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-07-06', dataWaznosci: '2026-12-31',
   },
   {
     id: 'ulga-robotyzacja', nazwa: 'Ulga na robotyzację',

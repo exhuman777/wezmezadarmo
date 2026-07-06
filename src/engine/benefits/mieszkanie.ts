@@ -21,8 +21,8 @@ export const MIESZKANIE: Benefit[] = [
       pulapki: ['Dochód na osobę: max 40% (1-osob.) lub 30% (wieloosob.) przeciętnego wynagrodzenia', 'Przysługuje na 6 miesięcy, potem trzeba złożyć ponownie'],
       odwolanie: 'Odwołanie do SKO w ciągu 14 dni',
     },
-    zrodloUrl: 'https://www.gov.pl/web/rodzina/dodatek-mieszkaniowy',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
+    zrodloUrl: 'https://www.gov.pl/web/gov/uzyskaj-dodatek-mieszkaniowy',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-07-06', dataWaznosci: '2026-12-31',
   },
   {
     id: 'mieszkanie-na-start', nazwa: 'Mieszkanie na Start (kredyt #naStart) - ZANIECHANY',
@@ -63,8 +63,8 @@ export const MIESZKANIE: Benefit[] = [
       pulapki: ['Wymaga NAJPIERW uzyskania dodatku mieszkaniowego', 'Kwota jest niska ale łączy się z innymi świadczeniami'],
       odwolanie: 'Odwołanie do SKO',
     },
-    zrodloUrl: 'https://www.gov.pl/web/energia/dodatek-energetyczny',
-    zrodloNazwa: 'Ministerstwo Energii', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
+    zrodloUrl: 'https://samorzad.gov.pl/web/mops-zgierz/dodatek-energetyczny',
+    zrodloNazwa: 'Samorząd / OPS (dodatek administrowany lokalnie)', dataWeryfikacji: '2026-07-06', dataWaznosci: '2026-12-31',
   },
   {
     id: 'fundusz-wsparcia-kredytobiorcow', nazwa: 'Fundusz Wsparcia Kredytobiorców (FWK)',

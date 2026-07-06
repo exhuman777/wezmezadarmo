@@ -170,7 +170,7 @@ export const NIEPELNOSPRAWNOSC: Benefit[] = [
       ],
       odwolanie: 'Brak trybu odwoławczego, usługa zależna od puli miejsc, można zgłosić się w kolejnej edycji',
     },
-    zrodloUrl: 'https://www.gov.pl/web/rodzina/asystent-osobisty-osoby-z-niepelnosprawnoscia',
-    zrodloNazwa: 'Ministerstwo Rodziny, Pracy i Polityki Społecznej', dataWeryfikacji: '2026-06-03', dataWaznosci: '2026-12-31',
+    zrodloUrl: 'https://niepelnosprawni.gov.pl/program-fs/nabor-wnioskow-w-ramach-resortowego-programu-ministra-rodziny-pracy-i-polityki-spolecznej-asystent-osobisty-osoby-z-niepelnosprawnoscia-dla-jednostek-samorzadu-terytorialnego/',
+    zrodloNazwa: 'Biuro Pełnomocnika Rządu ds. Osób Niepełnosprawnych', dataWeryfikacji: '2026-07-06', dataWaznosci: '2026-12-31',
   },
 ];

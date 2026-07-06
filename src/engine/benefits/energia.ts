@@ -27,8 +27,8 @@ export const ENERGIA: Benefit[] = [
       ],
       odwolanie: 'Nie dotyczy (program zakończony)',
     },
-    zrodloUrl: 'https://www.gov.pl/web/klimat/bon-energetyczny',
-    zrodloNazwa: 'Ministerstwo Klimatu (program zakończony)', dataWeryfikacji: '2026-05-23', dataWaznosci: '2024-12-31',
+    zrodloUrl: 'https://www.gov.pl/web/gov/zloz-wniosek-o-wyplate-bonu-energetycznego',
+    zrodloNazwa: 'Ministerstwo Klimatu (program zakończony)', dataWeryfikacji: '2026-07-06', dataWaznosci: '2024-12-31',
   },
   {
     id: 'bon-cieplowniczy', nazwa: 'Bon ciepłowniczy',

@@ -97,8 +97,8 @@ export const PODATKI: Benefit[] = [
       pulapki: ['Oboje musicie mieć wspólność majątkową', 'Nie działa jeśli ktoś rozlicza się ryczałtem'],
       odwolanie: 'Korekta PIT',
     },
-    zrodloUrl: 'https://www.podatki.gov.pl/pit/',
-    zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
+    zrodloUrl: 'https://www.podatki.gov.pl/poradniki-i-informatory/wspolne-rozliczenie-malzonkow',
+    zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-07-06', dataWaznosci: '2026-12-31',
   },
   {
     id: 'ulga-dla-mlodych', nazwa: 'Ulga dla młodych (PIT-0)',
@@ -155,8 +155,8 @@ export const PODATKI: Benefit[] = [
       pulapki: ['Wymaga prowadzenia szczegółowej ewidencji, bez niej US może zakwestionować', 'Dotyczy patentów, praw autorskich do programów komputerowych, wzorów użytkowych'],
       odwolanie: 'Odwołanie od decyzji US',
     },
-    zrodloUrl: 'https://www.gov.pl/web/finanse/ulga-ip-box',
-    zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
+    zrodloUrl: 'https://www.podatki.gov.pl/poradniki-i-informatory/ip-box-rozliczenie-dochodow-z-kwalifikowanych-praw-wlasnosci-intelektualnej-pit',
+    zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-07-06', dataWaznosci: '2026-12-31',
   },
   {
     id: 'ulga-rodziny-4-plus', nazwa: 'Ulga dla rodzin 4+ (PIT-0 dla rodzin wielodzietnych)',
