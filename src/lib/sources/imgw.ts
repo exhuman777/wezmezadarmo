@@ -1,10 +1,16 @@
 /**
- * IMGW / RCB (Rządowe Centrum Bezpieczeństwa) - oficjalne ostrzeżenia meteo i kryzysowe.
- * Źródło: rcb.gov.pl/feed (RSS 2.0, XML).
+ * IMGW - oficjalne ostrzeżenia meteorologiczne i hydrologiczne.
+ * Źródło: danepubliczne.imgw.pl (oficjalne API IMGW-PIB).
  * Use case: alerty pogodowe dla rolników KRUS, alergików, prac polowych.
+ *
+ * Uwaga historyczna: wcześniej korzystaliśmy z rcb.gov.pl/feed (RSS), ale RCB
+ * wycofało ten kanał (adres przestał odpowiadać). API IMGW jest stabilne i
+ * autorytatywne. Gdy brak aktywnych ostrzeżeń, IMGW zwraca obiekt zamiast tablicy
+ * -- traktujemy to jako "brak ostrzeżeń" (pusta lista), nie jako błąd.
  */
 
-const RCB_FEED = 'https://rcb.gov.pl/feed/';
+const IMGW_METEO = 'https://danepubliczne.imgw.pl/api/data/warningsmeteo';
+const IMGW_HYDRO = 'https://danepubliczne.imgw.pl/api/data/warningshydro';
 
 export interface RcbWarning {
   title: string;
@@ -40,12 +46,61 @@ function stripCdata(s: string): string {
   return s.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1');
 }
 
+interface ImgwWarning {
+  zdarzenie?: string;
+  nazwa_zdarzenia?: string;
+  'stopień'?: string;
+  stopien?: string;
+  opublikowano?: string;
+  data_od?: string;
+  przebieg?: string;
+  tresc?: string;
+  komentarz?: string;
+  numer?: string;
+}
+
+function mapImgwWarning(w: ImgwWarning): RcbWarning {
+  const zdarzenie = w.zdarzenie ?? w.nazwa_zdarzenia ?? 'Ostrzeżenie';
+  const stopien = w['stopień'] ?? w.stopien;
+  const hasDegree = !!stopien && stopien !== '-1' && stopien !== '0';
+  const desc = (w.przebieg ?? w.tresc ?? w.komentarz ?? '').trim();
+  return {
+    title: hasDegree ? `${zdarzenie} (stopień ${stopien})` : zdarzenie,
+    link: 'https://danepubliczne.imgw.pl/',
+    pubDate: w.opublikowano ?? w.data_od ?? null,
+    description: desc.length > 400 ? `${desc.slice(0, 400)}...` : desc,
+  };
+}
+
+async function fetchImgwWarnings(url: string): Promise<RcbWarning[]> {
+  try {
+    const res = await fetch(url, {
+      headers: { Accept: 'application/json' },
+      next: { revalidate: 900 },
+    });
+    if (!res.ok) return []; // 404 = brak aktywnych ostrzeżeń
+    const data: unknown = await res.json();
+    if (!Array.isArray(data)) return []; // {status:false} = brak ostrzeżeń
+    return (data as ImgwWarning[]).map(mapImgwWarning);
+  } catch {
+    return [];
+  }
+}
+
 export async function fetchWarnings(): Promise<RcbWarning[]> {
-  const res = await fetch(RCB_FEED, {
-    headers: { Accept: 'application/rss+xml,text/xml,*/*', 'User-Agent': 'wezmezadarmo/1.0' },
-    next: { revalidate: 900 },
-  });
-  if (!res.ok) throw new Error(`RCB feed error: ${res.status}`);
-  const xml = await res.text();
-  return parseRcbRss(xml);
+  const [meteo, hydro] = await Promise.all([
+    fetchImgwWarnings(IMGW_METEO),
+    fetchImgwWarnings(IMGW_HYDRO),
+  ]);
+  // IMGW potrafi zwrócić dziesiątki niemal identycznych ostrzeżeń (np. susza dla
+  // wielu zlewni). Meteo pokazujemy zawsze, hydro deduplikujemy po tytule i tniemy,
+  // żeby lista była czytelna dla zwykłego użytkownika.
+  const seen = new Set<string>();
+  const dedupedHydro: RcbWarning[] = [];
+  for (const w of hydro) {
+    if (seen.has(w.title)) continue;
+    seen.add(w.title);
+    dedupedHydro.push(w);
+  }
+  return [...meteo, ...dedupedHydro].slice(0, 20);
 }
