@@ -208,6 +208,14 @@ html.dark {
 html, body { margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 
+/* Spójny, płynny hover dla kart i przycisków (używane m.in. w Za darmo dla biznesu). */
+.hover-lift { transition: transform .18s ease, box-shadow .18s ease, background .18s ease; }
+.hover-lift:hover { transform: translateY(-2px); }
+@media (prefers-reduced-motion: reduce) {
+  .hover-lift { transition: none; }
+  .hover-lift:hover { transform: none; }
+}
+
 body {
   font-family: var(--f-sans);
   background:

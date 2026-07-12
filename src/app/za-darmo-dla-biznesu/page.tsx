@@ -106,7 +106,7 @@ function UseCases({ items, dark }: { items: UseCase[]; dark?: boolean }) {
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))', gap: 12 }}>
       {items.map(u => (
-        <div key={u.who} style={{
+        <div key={u.who} className="hover-lift" style={{
           padding: '16px 18px', borderRadius: 12,
           background: dark ? 'rgba(255,255,255,0.05)' : 'var(--color-bg-0)',
           border: `1px solid ${dark ? 'rgba(255,255,255,0.1)' : 'var(--color-border)'}`,
@@ -198,7 +198,7 @@ export default function ZaDarmoDlaBiznesuPage() {
           <PricingRow tiers={DOGINVOICE.pricing} />
 
           <div style={{ marginTop: 22 }}>
-            <a href={DOGINVOICE.href} target="_blank" rel="noopener noreferrer" style={{ padding: '11px 22px', background: 'var(--color-text-1)', color: 'var(--color-bg-0)', borderRadius: 9, fontSize: 14, fontWeight: 600, textDecoration: 'none', display: 'inline-block' }}>
+            <a href={DOGINVOICE.href} target="_blank" rel="noopener noreferrer" className="hover-lift" style={{ padding: '11px 22px', background: 'var(--color-text-1)', color: 'var(--color-bg-0)', borderRadius: 9, fontSize: 14, fontWeight: 600, textDecoration: 'none', display: 'inline-block' }}>
               Zobacz DogInvoice →
             </a>
           </div>
@@ -241,7 +241,7 @@ export default function ZaDarmoDlaBiznesuPage() {
           <PricingRow tiers={DOGANSWER.pricing} dark />
 
           <div style={{ marginTop: 22, display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'center' }}>
-            <a href={DOGANSWER.href} target="_blank" rel="noopener noreferrer" style={{ padding: '11px 22px', background: '#8EEAAD', color: '#07160f', borderRadius: 9, fontSize: 14, fontWeight: 700, textDecoration: 'none', display: 'inline-block' }}>
+            <a href={DOGANSWER.href} target="_blank" rel="noopener noreferrer" className="hover-lift" style={{ padding: '11px 22px', background: '#8EEAAD', color: '#07160f', borderRadius: 9, fontSize: 14, fontWeight: 700, textDecoration: 'none', display: 'inline-block' }}>
               Zobacz DogAnswer →
             </a>
             <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.6)' }}>
@@ -263,7 +263,7 @@ export default function ZaDarmoDlaBiznesuPage() {
           go zautomatyzować.
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
-          <a href={`mailto:${CONTACT_EMAIL}?subject=Rozwiązanie%20dedykowane%20dla%20biznesu`} style={{ padding: '12px 24px', background: BRAND_GREEN, color: '#fff', borderRadius: 9, fontSize: 14.5, fontWeight: 600, textDecoration: 'none' }}>
+          <a href={`mailto:${CONTACT_EMAIL}?subject=Rozwiązanie%20dedykowane%20dla%20biznesu`} className="hover-lift" style={{ padding: '12px 24px', background: BRAND_GREEN, color: '#fff', borderRadius: 9, fontSize: 14.5, fontWeight: 600, textDecoration: 'none' }}>
             Napisz: {CONTACT_EMAIL}
           </a>
           <a href="https://dogtronic.io/kontakt/" target="_blank" rel="noopener noreferrer" style={{ padding: '12px 24px', background: 'transparent', color: 'var(--color-text-1)', border: '1px solid var(--color-border)', borderRadius: 9, fontSize: 14.5, fontWeight: 600, textDecoration: 'none' }}>
