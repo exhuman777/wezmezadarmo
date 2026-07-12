@@ -9,6 +9,10 @@ export const metadata: Metadata = {
 
 const CONTACT_EMAIL = 'kamil.sobkowicz@dogtronic.io';
 
+// Spójny zielony akcent całej zakładki (nazwy produktów, tagline'y, wyróżnienia).
+const BRAND_GREEN = '#22A06B';
+const BRAND_GREEN_ON_DARK = '#8EEAAD';
+
 interface UseCase { who: string; story: string }
 interface Tier { name: string; price: string; detail: string; highlight?: boolean }
 
@@ -87,7 +91,7 @@ function FeatureGrid({ items, dark }: { items: [string, string][]; dark?: boolea
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))', gap: 14, marginTop: 8 }}>
       {items.map(([t, d]) => (
         <div key={t} style={{ display: 'flex', gap: 11 }}>
-          <span style={{ color: dark ? '#8EEAAD' : 'var(--color-accent)', fontWeight: 800, flexShrink: 0, lineHeight: 1.5 }}>+</span>
+          <span style={{ color: dark ? BRAND_GREEN_ON_DARK : BRAND_GREEN, fontWeight: 800, flexShrink: 0, lineHeight: 1.5 }}>+</span>
           <div>
             <div style={{ fontSize: 14.5, fontWeight: 600, color: dark ? '#fff' : 'var(--color-text-1)', marginBottom: 2 }}>{t}</div>
             <div style={{ fontSize: 13, lineHeight: 1.55, color: dark ? 'rgba(255,255,255,0.7)' : 'var(--color-text-2)' }}>{d}</div>
@@ -107,7 +111,7 @@ function UseCases({ items, dark }: { items: UseCase[]; dark?: boolean }) {
           background: dark ? 'rgba(255,255,255,0.05)' : 'var(--color-bg-0)',
           border: `1px solid ${dark ? 'rgba(255,255,255,0.1)' : 'var(--color-border)'}`,
         }}>
-          <div style={{ fontSize: 13, fontWeight: 700, color: dark ? '#8EEAAD' : 'var(--color-accent)', marginBottom: 8 }}>{u.who}</div>
+          <div style={{ fontSize: 13, fontWeight: 700, color: dark ? BRAND_GREEN_ON_DARK : BRAND_GREEN, marginBottom: 8 }}>{u.who}</div>
           <p style={{ fontSize: 13.5, lineHeight: 1.6, color: dark ? 'rgba(255,255,255,0.78)' : 'var(--color-text-2)', margin: 0 }}>{u.story}</p>
         </div>
       ))}
@@ -122,7 +126,7 @@ function PricingRow({ tiers, dark }: { tiers: Tier[]; dark?: boolean }) {
         <div key={t.name} style={{
           padding: '14px 16px', borderRadius: 12,
           background: t.highlight ? (dark ? 'rgba(142,234,173,0.12)' : 'var(--color-surface-2)') : (dark ? 'rgba(255,255,255,0.04)' : 'var(--color-bg-0)'),
-          border: `1px solid ${t.highlight ? (dark ? '#8EEAAD' : 'var(--color-accent)') : (dark ? 'rgba(255,255,255,0.1)' : 'var(--color-border)')}`,
+          border: `1px solid ${t.highlight ? (dark ? BRAND_GREEN_ON_DARK : BRAND_GREEN) : (dark ? 'rgba(255,255,255,0.1)' : 'var(--color-border)')}`,
         }}>
           <div style={{ fontSize: 12, fontWeight: 600, color: dark ? 'rgba(255,255,255,0.6)' : 'var(--color-text-3)' }}>{t.name}</div>
           <div style={{ fontSize: 18, fontWeight: 800, color: dark ? '#fff' : 'var(--color-text-1)', margin: '3px 0 4px' }}>{t.price}</div>
@@ -158,10 +162,10 @@ export default function ZaDarmoDlaBiznesuPage() {
       <article style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 18, overflow: 'hidden', marginBottom: 32 }}>
         <div style={{ padding: 'clamp(22px, 3vw, 36px)' }}>
           <SectionTag>Faktury i KSeF</SectionTag>
-          <div style={{ fontSize: 30, fontWeight: 800, letterSpacing: '-0.02em', color: 'var(--color-text-1)', marginBottom: 6 }}>
-            <span style={{ color: 'var(--color-accent)' }}>Dog</span>Invoice
+          <div style={{ fontSize: 30, fontWeight: 800, letterSpacing: '-0.02em', color: BRAND_GREEN, marginBottom: 6 }}>
+            DogInvoice
           </div>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 14, fontWeight: 600, color: 'var(--color-accent)', marginBottom: 14 }}>{DOGINVOICE.tagline}</div>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 14, fontWeight: 600, color: BRAND_GREEN, marginBottom: 14 }}>{DOGINVOICE.tagline}</div>
           <p style={{ fontSize: 15.5, lineHeight: 1.65, color: 'var(--color-text-2)', margin: 0, maxWidth: 780 }}>{DOGINVOICE.lead}</p>
         </div>
 
@@ -205,8 +209,10 @@ export default function ZaDarmoDlaBiznesuPage() {
       <article style={{ background: '#07160f', borderRadius: 18, overflow: 'hidden', marginBottom: 32 }}>
         <div style={{ padding: 'clamp(22px, 3vw, 36px)' }}>
           <SectionTag dark>Telefon</SectionTag>
-          <Image src="/partnerzy/doganswer-logo-white.svg" alt="DogAnswer" width={190} height={40} unoptimized style={{ height: 34, width: 'auto', marginBottom: 12 }} />
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 14, fontWeight: 600, color: '#8EEAAD', marginBottom: 14 }}>{DOGANSWER.tagline}</div>
+          <div style={{ fontSize: 30, fontWeight: 800, letterSpacing: '-0.02em', color: BRAND_GREEN_ON_DARK, marginBottom: 6 }}>
+            DogAnswer
+          </div>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 14, fontWeight: 600, color: BRAND_GREEN_ON_DARK, marginBottom: 14 }}>{DOGANSWER.tagline}</div>
           <p style={{ fontSize: 15.5, lineHeight: 1.65, color: 'rgba(255,255,255,0.82)', margin: 0, maxWidth: 780 }}>{DOGANSWER.lead}</p>
         </div>
 
@@ -257,7 +263,7 @@ export default function ZaDarmoDlaBiznesuPage() {
           go zautomatyzować.
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
-          <a href={`mailto:${CONTACT_EMAIL}?subject=Rozwiązanie%20dedykowane%20dla%20biznesu`} style={{ padding: '12px 24px', background: 'var(--color-accent)', color: '#fff', borderRadius: 9, fontSize: 14.5, fontWeight: 600, textDecoration: 'none' }}>
+          <a href={`mailto:${CONTACT_EMAIL}?subject=Rozwiązanie%20dedykowane%20dla%20biznesu`} style={{ padding: '12px 24px', background: BRAND_GREEN, color: '#fff', borderRadius: 9, fontSize: 14.5, fontWeight: 600, textDecoration: 'none' }}>
             Napisz: {CONTACT_EMAIL}
           </a>
           <a href="https://dogtronic.io/kontakt/" target="_blank" rel="noopener noreferrer" style={{ padding: '12px 24px', background: 'transparent', color: 'var(--color-text-1)', border: '1px solid var(--color-border)', borderRadius: 9, fontSize: 14.5, fontWeight: 600, textDecoration: 'none' }}>
