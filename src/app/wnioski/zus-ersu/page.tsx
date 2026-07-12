@@ -233,7 +233,7 @@ function StepDzieci({ data, update, onBack, onNext }: {
         padding: '16px 20px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)',
         borderRadius: 10, fontSize: 13, color: 'var(--color-text-2)', marginBottom: 28, lineHeight: 1.6,
       }}>
-        <p>Świadczenie przysługuje gdy {gender ? 'urodziłaś' : 'urodził'} i {gender ? 'wychowała' : 'wychował'} {gender ? 'Pani' : 'Pan'} co najmniej <strong>4 dzieci</strong> i nie {gender ? 'nabyłaś' : 'nabył'} prawa do emerytury lub masz emeryturę poniżej minimum (1901 zł od marca 2024).</p>
+        <p>Świadczenie przysługuje gdy {gender ? 'urodziłaś' : 'urodził'} i {gender ? 'wychowała' : 'wychował'} {gender ? 'Pani' : 'Pan'} co najmniej <strong>4 dzieci</strong> i nie {gender ? 'nabyłaś' : 'nabył'} prawa do emerytury lub masz emeryturę poniżej minimum (1978,49 zł od marca 2026).</p>
       </div>
       <Field label={`Ile dzieci ${gender ? 'Pani urodziła' : 'Pan urodził'}`}>
         <input className={IC} style={inputStyle} type="number" min="0" value={data.liczbaUrodzonych}
