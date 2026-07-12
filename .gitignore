@@ -47,3 +47,9 @@ polska_polsia/
 
 # grant submission scaffolding (contains personal contact details)
 grant-nlnet/
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
