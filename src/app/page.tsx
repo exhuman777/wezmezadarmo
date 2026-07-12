@@ -801,7 +801,7 @@ export default function Home() {
                     marginTop: 14, fontSize: 12, color: 'var(--color-text-3)',
                     fontFamily: 'var(--font-mono)', letterSpacing: '0.02em',
                   }}>
-                    Aktualizacja bazy: 03.06.2026 · 133 świadczeń · 23 programy dotacyjne · 11 narzędzi Centrum Obywatela
+                    Aktualizacja bazy: lipiec 2026 · 133 świadczeń · 23 programy dotacyjne · 11 narzędzi Centrum Obywatela
                   </div>
                 </div>
 
@@ -1189,6 +1189,53 @@ export default function Home() {
                   </div>
                 </div>
 
+              </div>
+            </div>
+
+            {/* ---- Dlaczego warto założyć konto ---- */}
+            <div className="rise" style={{ marginTop: 80, animationDelay: '560ms' }}>
+              <div style={{
+                background: 'linear-gradient(135deg, #0a1f14 0%, #0d2b1c 100%)',
+                borderRadius: 'var(--radius-xl)',
+                padding: 'clamp(28px, 4vw, 44px)',
+                boxShadow: 'var(--shadow-2)',
+                overflow: 'hidden',
+                position: 'relative',
+              }}>
+                <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#8EEAAD', marginBottom: 12 }}>
+                  Darmowe konto
+                </div>
+                <h3 style={{ fontSize: 'clamp(22px, 3.2vw, 30px)', fontWeight: 700, letterSpacing: '-0.02em', color: '#fff', margin: '0 0 12px', maxWidth: 640 }}>
+                  Załóż konto, a nowe pieniądze znajdą Cię same
+                </h3>
+                <p style={{ fontSize: 15.5, lineHeight: 1.65, color: 'rgba(255,255,255,0.8)', margin: '0 0 26px', maxWidth: 660 }}>
+                  Świadczenia, ulgi i nabory zmieniają się w czasie. Gdy masz konto, pilnujemy tego za Ciebie:
+                  kiedy pojawi się nowe świadczenie, do którego się kwalifikujesz, otwarty nabór albo ważna zmiana
+                  w prawie, dostajesz krótką wiadomość. Najwyżej 1 e-mail dziennie, zwykle rzadziej, i tylko wtedy,
+                  gdy naprawdę jest coś dla Ciebie. Bez spamu, bez karty, w każdej chwili możesz wyłączyć.
+                </p>
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(220px, 100%), 1fr))', gap: 14, marginBottom: 28 }}>
+                  {[
+                    ['Nowe pieniądze dla Ciebie', 'Sprawdzamy 133 świadczenia pod Twój profil i dajemy znać, gdy pojawi się coś nowego, co Ci przysługuje.'],
+                    ['Zmiany w prawie', 'Śledzimy 8 instytucji państwowych i Sejm. Ważna zmiana przepisów? Dowiesz się od nas.'],
+                    ['Wszystko w jednym miejscu', 'Zapisane świadczenia, wnioski ZUS i czat AI, który zna Twoją sytuację.'],
+                  ].map(([t, d]) => (
+                    <div key={t} style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 12, padding: '16px 18px' }}>
+                      <div style={{ fontSize: 14, fontWeight: 600, color: '#8EEAAD', marginBottom: 6 }}>{t}</div>
+                      <div style={{ fontSize: 13, lineHeight: 1.55, color: 'rgba(255,255,255,0.72)' }}>{d}</div>
+                    </div>
+                  ))}
+                </div>
+
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'center' }}>
+                  <a href="/rejestracja" style={{ padding: '12px 26px', background: '#8EEAAD', color: '#07160f', borderRadius: 10, fontSize: 15, fontWeight: 700, textDecoration: 'none' }}>
+                    Załóż darmowe konto
+                  </a>
+                  <a href="/logowanie" style={{ padding: '12px 26px', background: 'transparent', color: '#fff', border: '1px solid rgba(255,255,255,0.25)', borderRadius: 10, fontSize: 15, fontWeight: 500, textDecoration: 'none' }}>
+                    Mam już konto
+                  </a>
+                </div>
               </div>
             </div>
 

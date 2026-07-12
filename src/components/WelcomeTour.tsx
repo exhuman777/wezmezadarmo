@@ -82,7 +82,7 @@ export default function WelcomeTour() {
             element: '[data-tour="aktualnosci"]',
             popover: {
               title: 'Aktualności RSS + powiadomienia',
-              description: 'Śledź zmiany z 8 instytucji rządowych. Ustaw subskrypcję email aby dostawać dziennie tylko to co Cię interesuje (max 2x/dzień, bez spamu).',
+              description: 'Śledź zmiany z 8 instytucji rządowych. Ustaw subskrypcję e-mail, aby dostawać tylko to, co Cię interesuje (najwyżej 1 e-mail dziennie i tylko gdy pojawi się coś nowego, bez spamu).',
               side: 'bottom',
               align: 'start',
             },

@@ -11,7 +11,7 @@ const CECHY = [
   { label: 'Aktualne dane z instytucji', desc: 'Pytasz o kurs euro, a asystent sprawdza go w NBP. Pytasz o kolejkę do kardiologa - sprawdza w NFZ. Podajesz NIP - sprawdza firmę na Białej Liście VAT. Pytasz o smog - podaje pomiar z GIOŚ. Wszystko w jednej rozmowie.', icon: 'L' },
   { label: 'Świeże aktualności urzędowe', desc: 'Asystent śledzi 8 polskich instytucji (ZUS, GUS, NBP, UOKiK, Fundusze UE, e-Zdrowie, Sejm, ARiMR), odświeżane dwa razy dziennie. Cytuje konkretne wiadomości z linkiem do źródła.', icon: 'R' },
   { label: 'Wnioski ZUS krok po kroku', desc: '7 formularzy z pomocą asystenta (Z-15a, Z-15b, Z-3, PEL, ZAS-53, ERPO, ERSU). Podpowiada co wpisać w pola i przygotowuje gotowy do wysyłki PDF.', icon: 'W' },
-  { label: 'Alerty na e-mail', desc: 'Wybierasz źródła (ZUS, Sejm, UOKiK...) i tematy (świadczenia, podatki, dotacje), a asystent wysyła e-mail najwyżej dwa razy dziennie z nowymi pasującymi wiadomościami. Bez powtórek.', icon: 'E' },
+  { label: 'Alerty na e-mail', desc: 'Wybierasz źródła (ZUS, Sejm, UOKiK...) i tematy (świadczenia, podatki, dotacje), a asystent wysyła najwyżej 1 e-mail dziennie i tylko wtedy, gdy pojawi się coś nowego dla Ciebie. Zwykle rzadziej. Bez powtórek, bez spamu.', icon: 'E' },
   { label: 'Centrum Obywatela', desc: '11 darmowych narzędzi urzędowych w jednym miejscu: NFZ, NBP, GIOŚ, Biała Lista VAT, IMGW, akty prawne z Sejmu, dane GUS, mapy działek ARiMR, ulgi PKP.', icon: 'O' },
   { label: 'Bez zmyślania', desc: 'Asystent nigdy nie wymyśla kwot, dat ani formularzy. Podaje dokładnie to, co ma w bazie. Jeśli czegoś nie wie, mówi to wprost i odsyła do właściwego urzędu.', icon: 'X' },
 ];

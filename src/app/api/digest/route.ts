@@ -49,9 +49,22 @@ export async function POST(request: NextRequest) {
 
   const results = { sent: 0, skipped: 0, errors: 0 };
 
+  // Twarda gwarancja: najwyżej 1 e-mail na dobę na użytkownika. Nawet gdyby cron
+  // odpalił się kilka razy w ciągu dnia, nie zaspamujemy nikogo.
+  const MIN_GAP_MS = 20 * 60 * 60 * 1000; // 20h
+  const now = Date.now();
+
   await Promise.allSettled(
     prefRows.map(async pref => {
       try {
+        const lastSent = pref.last_digest_sent_at
+          ? new Date(pref.last_digest_sent_at as string).getTime()
+          : 0;
+        if (lastSent && now - lastSent < MIN_GAP_MS) {
+          results.skipped++;
+          return;
+        }
+
         const [userRes, profileRes] = await Promise.all([
           supabaseAdmin.auth.admin.getUserById(pref.user_id as string),
           supabaseAdmin

@@ -32,8 +32,8 @@ const STEPS_PRIVATE: Step[] = [
   },
   {
     num: '03',
-    title: 'Dzienny digest e-mail',
-    body: 'Włącz powiadomienia by codziennie rano dostawać krótki raport: nowe świadczenia, zmiany w prawie, otwarte nabory. Wszystko dopasowane do profilu.',
+    title: 'Powiadomienia e-mail',
+    body: 'Włącz powiadomienia, a damy znać, gdy pojawi się coś nowego dla Ciebie: nowe świadczenie, zmiana w prawie, otwarty nabór. Najwyżej 1 e-mail dziennie, zwykle rzadziej. Wszystko dopasowane do profilu.',
     cta: { label: 'Skonfiguruj powiadomienia', href: '/panel/powiadomienia' },
   },
   {
@@ -59,7 +59,7 @@ const STEPS_JDG: Step[] = [
   {
     num: '03',
     title: 'Aktualności + zmiany w prawie',
-    body: 'RSS z 8 instytucji + ELI/Sejm (zmiany w przepisach). Wszystko filtrowane pod profil JDG. Włącz digest e-mail by dostawać raport codziennie.',
+    body: 'RSS z 8 instytucji + ELI/Sejm (zmiany w przepisach). Wszystko filtrowane pod profil JDG. Włącz powiadomienia e-mail, a poinformujemy Cię o nowościach - najwyżej 1 e-mail dziennie, tylko gdy coś się pojawi.',
     cta: { label: 'Aktualności', href: '/panel/aktualnosci' },
   },
   {
