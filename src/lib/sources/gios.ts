@@ -131,17 +131,27 @@ export async function getAirIndex(stationId: number): Promise<GiosAqi> {
 }
 
 export async function findNearestStation(lat: number, lon: number): Promise<{ station: GiosStation; distanceKm: number } | null> {
+  return (await findNearestStations(lat, lon, 1))[0] ?? null;
+}
+
+/**
+ * Zwraca N najblizszych stacji posortowanych rosnaco wg odleglosci.
+ * Potrzebne, bo najblizsza stacja czasem nie ma policzonego indeksu jakosci
+ * powietrza (zwraca puste dane) -- wtedy bierzemy kolejna, ktora ma pomiar.
+ */
+export async function findNearestStations(lat: number, lon: number, count: number): Promise<{ station: GiosStation; distanceKm: number }[]> {
   const stations = await getAllStations();
-  if (!stations.length) return null;
-  let best: { station: GiosStation; distanceKm: number } | null = null;
-  for (const s of stations) {
-    if (!Number.isFinite(s.lat) || !Number.isFinite(s.lon)) continue;
-    const d = haversineKm(lat, lon, s.lat, s.lon);
-    if (!best || d < best.distanceKm) {
-      best = { station: s, distanceKm: d };
-    }
-  }
-  return best;
+  if (!stations.length) return [];
+  return stations
+    .filter(s => Number.isFinite(s.lat) && Number.isFinite(s.lon))
+    .map(s => ({ station: s, distanceKm: haversineKm(lat, lon, s.lat, s.lon) }))
+    .sort((a, b) => a.distanceKm - b.distanceKm)
+    .slice(0, Math.max(1, count));
+}
+
+/** Czy odczyt GIOS zawiera jakiekolwiek realne dane (indeks lub wskaznik). */
+export function aqiHasData(aqi: GiosAqi): boolean {
+  return !!(aqi.overall || aqi.pm10 || aqi.pm25 || aqi.no2 || aqi.so2 || aqi.o3);
 }
 
 function haversineKm(lat1: number, lon1: number, lat2: number, lon2: number): number {

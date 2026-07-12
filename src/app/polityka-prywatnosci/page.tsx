@@ -211,7 +211,7 @@ export default function PolitykaPage() {
               <li>Szyfrowanie HTTPS/TLS dla całego ruchu;</li>
               <li>Kalkulator świadczeń nie zbiera numeru PESEL. W kreatorze wniosków (/wnioski) PESEL przetwarzany jest jednorazowo w pamięci serwera bez zapisu;</li>
               <li>Tokeny do publicznych API (CEIDG) przechowywane wyłącznie po stronie serwera (zmienne środowiskowe Vercel), nigdy nie trafiają do przeglądarki;</li>
-              <li>Rate limiting per adres IP na wszystkich endpointach publicznych (ochrona przed nadużyciami);</li>
+              <li>Ograniczenie liczby zapytań z jednego adresu IP dla wszystkich publicznych usług (ochrona przed nadużyciami);</li>
               <li>Cache odpowiedzi z publicznych API (CEIDG, Biała Lista, NFZ, GIOŚ, NBP) - minimalizacja obciążenia źródeł i ekspozycji danych;</li>
               <li>Google Consent Mode v2 (Analytics wyłączony domyślnie);</li>
               <li>Hasła kont przechowywane w formie zaszyfrowanej przez Supabase Auth (bcrypt);</li>
