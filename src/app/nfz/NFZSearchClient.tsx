@@ -277,9 +277,9 @@ export default function NFZSearchClient() {
                     onClick={() => { setBenefit(p); setShowSuggestions(false); }}
                     style={{
                       padding: '8px 14px', borderRadius: 8,
-                      background: benefit === p ? '#fce4e6' : '#fff',
-                      color: benefit === p ? '#8b1f24' : 'var(--color-text-1)',
-                      border: '1.5px solid ' + (benefit === p ? '#b3262e' : 'var(--color-border)'),
+                      background: benefit === p ? 'var(--color-accent-soft)' : '#fff',
+                      color: benefit === p ? 'var(--color-green)' : 'var(--color-text-1)',
+                      border: '1.5px solid ' + (benefit === p ? 'var(--color-accent)' : 'var(--color-border)'),
                       fontSize: 13, fontWeight: 500, cursor: 'pointer',
                       transition: 'all 0.15s',
                     }}
