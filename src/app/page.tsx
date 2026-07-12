@@ -6,28 +6,27 @@ import Image from 'next/image';
 import { IntakeForm } from '@/components/IntakeForm';
 import { ChatWindow, ChatMessage } from '@/components/ChatWindow';
 import { MatchResult, UserProfile } from '@/engine/types';
+import { getAllBenefits } from '@/engine/benefits';
 import { CeidgBusinessData } from '@/lib/ceidg';
 import { track } from '@/lib/analytics';
 
 type Phase = 'landing' | 'questions' | 'loading' | 'chat';
 
-const CATEGORIES = [
-  { id: 'praca', label: 'Praca', count: 15 },
-  { id: 'krus', label: 'KRUS', count: 11 },
-  { id: 'zus', label: 'ZUS', count: 11 },
-  { id: 'rodzina', label: 'Rodzina', count: 10 },
-  { id: 'zdrowie', label: 'Zdrowie', count: 10 },
-  { id: 'pomoc', label: 'Pomoc społeczna', count: 10 },
-  { id: 'senior', label: 'Seniorzy', count: 8 },
-  { id: 'podatki', label: 'Ulgi podatkowe', count: 8 },
-  { id: 'edukacja', label: 'Edukacja', count: 7 },
-  { id: 'biznes', label: 'Przedsiębiorcy', count: 6 },
-  { id: 'ekologia', label: 'Ekologia', count: 6 },
-  { id: 'niepelnosprawnosc', label: 'Niepełnosprawność', count: 5 },
-  { id: 'mieszkanie', label: 'Mieszkanie', count: 4 },
-  { id: 'inne', label: 'Inne', count: 4 },
-  { id: 'energia', label: 'Energia', count: 2 },
-];
+const CATEGORY_LABELS: Record<string, string> = {
+  PRACA: 'Praca', ZUS: 'ZUS', ZDROWIE: 'Zdrowie', RODZINA: 'Rodzina',
+  SENIOR: 'Seniorzy', PODATKI: 'Ulgi podatkowe', POMOC_SPOLECZNA: 'Pomoc społeczna',
+  EDUKACJA: 'Edukacja', BIZNES: 'Przedsiębiorcy', EKOLOGIA: 'Ekologia',
+  NIEPELNOSPRAWNOSC: 'Niepełnosprawność', MIESZKANIE: 'Mieszkanie', ENERGIA: 'Energia',
+};
+
+// Liczone na żywo z bazy świadczeń, żeby nigdy nie rozjechały się z danymi.
+const CATEGORIES = (() => {
+  const counts = new Map<string, number>();
+  for (const b of getAllBenefits()) counts.set(b.kategoria, (counts.get(b.kategoria) ?? 0) + 1);
+  return Array.from(counts.entries())
+    .map(([id, count]) => ({ id: id.toLowerCase(), label: CATEGORY_LABELS[id] ?? id, count }))
+    .sort((a, b) => b.count - a.count);
+})();
 
 const EXAMPLE_BENEFITS = [
   { nazwa: 'Świadczenie 800+', kwota: '800 PLN/mies.', opis: 'Na każde dziecko do 18 roku życia, bez progu dochodowego' },
@@ -1487,7 +1486,7 @@ export default function Home() {
   if (phase === 'loading') {
     const counted = Math.round(loadingProgress * 133);
     const pct = Math.round(loadingProgress * 100);
-    const segments = 13;
+    const segments = CATEGORIES.length;
     const ringR = 130;
     const cx = 160, cy = 160;
     const innerR = 100;
