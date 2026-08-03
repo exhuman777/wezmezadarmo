@@ -70,10 +70,10 @@ export function confirmEmailHtml(token: string, profileType: 'private' | 'jdg'):
         </td></tr>
         <tr><td style="padding:16px 36px 28px;border-top:1px solid #dbe2dc;">
           <p style="font-size:12px;line-height:1.5;color:#97a39b;margin:0 0 6px;">
-            Jeśli to nie Ty się zapisałeś, zignoruj tę wiadomość. Nic się nie stanie -- konto bez potwierdzenia jest usuwane w ciągu 7 dni.
+            Jeśli to nie Ty się zapisałeś, zignoruj tę wiadomość. Nic się nie stanie - konto bez potwierdzenia jest usuwane w ciągu 7 dni.
           </p>
           <p style="font-size:12px;line-height:1.5;color:#97a39b;margin:0;">
-            wezmezadarmo.com -- Mooning Charts Research Kamil Sobkowicz (NIP 7133061369)
+            wezmezadarmo.com - Mooning Charts Research Kamil Sobkowicz (NIP 7133061369)
           </p>
         </td></tr>
       </table>

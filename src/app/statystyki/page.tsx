@@ -3,8 +3,8 @@ import { getSdgIndicator, FEATURED_INDICATORS } from '@/lib/sources/sdg-gus';
 import { LineChart } from './LineChart';
 
 export const metadata: Metadata = {
-  title: 'Polska w liczbach -- statystyki GUS, NBP, NFZ | wezmezadarmo',
-  description: 'Dashboard danych publicznych: ceny mieszkan, inflacja, emisja CO2, edukacja, zdrowie. Zrodla GUS, NBP, ZUS, NFZ -- aktualizowane na biezaco.',
+  title: 'Polska w liczbach - statystyki GUS, NBP, NFZ | wezmezadarmo',
+  description: 'Dashboard danych publicznych: ceny mieszkań, inflacja, emisja CO2, edukacja, zdrowie. Źródła GUS, NBP, ZUS, NFZ - aktualizowane na bieżąco.',
 };
 
 const CENA_M2: Array<{ rok: number; q1: number | null; q2: number | null; q3: number | null; q4: number | null }> = [

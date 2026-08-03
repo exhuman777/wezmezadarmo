@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { MobileAgentWarning } from '@/components/MobileAgentWarning';
 
 export const metadata: Metadata = {
-  title: 'Twój agent AI -- świadczenia i aktualności | wezmezadarmo',
+  title: 'Twój agent AI - świadczenia i aktualności | wezmezadarmo',
   description: 'Agent AI pilnuje co Ci przysługuje i informuje o zmianach w prawie. Dla JDG i osób prywatnych. Dzienny raport na e-mail.',
 };
 

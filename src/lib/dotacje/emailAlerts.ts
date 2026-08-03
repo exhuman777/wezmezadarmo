@@ -1,6 +1,6 @@
 import { Resend } from 'resend';
 
-interface AlertEmailData {
+export interface AlertEmailData {
   to: string;
   programName: string;
   institution: string;
@@ -19,7 +19,7 @@ function getResendClient(): Resend {
   return new Resend(apiKey);
 }
 
-function buildAlertHtml(data: AlertEmailData): string {
+export function buildAlertHtml(data: AlertEmailData): string {
   const closeDateLine = data.closeDate
     ? `<tr><td style="padding:6px 0;color:#888;font-size:14px;">Termin składania wniosków:</td><td style="padding:6px 0;font-size:14px;color:#c4a882;">${data.closeDate}</td></tr>`
     : '';
@@ -38,7 +38,7 @@ function buildAlertHtml(data: AlertEmailData): string {
         <table width="600" cellpadding="0" cellspacing="0" style="background:#111009;border:1px solid #2a2218;border-radius:4px;max-width:600px;width:100%;">
           <tr>
             <td style="padding:24px 32px;border-bottom:1px solid #2a2218;">
-              <p style="margin:0;font-size:11px;color:#888;text-transform:uppercase;letter-spacing:2px;">wezmezadarmo.com -- alert dotacyjny</p>
+              <p style="margin:0;font-size:11px;color:#888;text-transform:uppercase;letter-spacing:2px;">wezmezadarmo.com - alert dotacyjny</p>
               <h1 style="margin:12px 0 0;font-size:20px;color:#e6993a;line-height:1.3;">Nowy nabór: ${data.programName}</h1>
             </td>
           </tr>
@@ -62,7 +62,7 @@ function buildAlertHtml(data: AlertEmailData): string {
 
               <div style="margin:24px 0;padding:16px;background:#1a1510;border-left:3px solid #e6993a;border-radius:2px;">
                 <p style="margin:0;font-size:13px;color:#888;">
-                  Spełniasz wstępne kryteria formalne tego programu. Nie gwarantujemy przyznania dofinansowania -- decyzja należy do instytucji prowadzącej nabór.
+                  Spełniasz wstępne kryteria formalne tego programu. Nie gwarantujemy przyznania dofinansowania - decyzja należy do instytucji prowadzącej nabór.
                 </p>
               </div>
 
@@ -102,7 +102,7 @@ function buildAlertHtml(data: AlertEmailData): string {
 </html>`;
 }
 
-function buildWelcomeHtml(companyName: string, panelUrl: string): string {
+export function buildWelcomeHtml(companyName: string, panelUrl: string): string {
   return `<!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -185,7 +185,7 @@ export async function sendWelcomeEmail(to: string, companyName: string): Promise
   const { error } = await resend.emails.send({
     from: 'wezmezadarmo.com <hello@wezmezadarmo.com>',
     to,
-    subject: 'Konto aktywne -- wezmezadarmo.com/dotacje',
+    subject: 'Konto aktywne - wezmezadarmo.com/dotacje',
     html: buildWelcomeHtml(companyName, panelUrl),
   });
 

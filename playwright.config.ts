@@ -17,6 +17,12 @@ export default defineConfig({
   use: {
     baseURL: `http://localhost:${PORT}`,
     trace: 'retain-on-failure',
+    // Opcjonalne nadpisanie ścieżki do Chromium (np. gdy środowisko ma już
+    // zainstalowaną przeglądarkę i nie chcemy pobierać kolejnej wersji).
+    // Ustaw PLAYWRIGHT_CHROMIUM_EXECUTABLE, aby wskazać binarkę chrome.
+    ...(process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE
+      ? { launchOptions: { executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE } }
+      : {}),
   },
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
