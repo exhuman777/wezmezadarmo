@@ -202,7 +202,7 @@ export async function auditUrl(
         httpStatus, status: 'NOT_FOUND',
         contentHash: null, contentLength: 0, changePct: null,
         needsReview: true,
-        note: `HTTP ${httpStatus} -- strona zrodlowa nie istnieje`,
+        note: `HTTP ${httpStatus} - strona źródłowa nie istnieje`,
       };
     }
 
@@ -216,7 +216,7 @@ export async function auditUrl(
           contentHash: previous?.last_content_hash ?? null,
           contentLength: 0, changePct: null,
           needsReview: false,
-          note: `WAF blokuje audyt (HTTP ${httpStatus}) -- strona OK, sprawdz manualnie`,
+          note: `WAF blokuje audyt (HTTP ${httpStatus}) - strona OK, sprawdź manualnie`,
         };
       }
       return {
@@ -239,7 +239,7 @@ export async function auditUrl(
         httpStatus, status: 'NOT_FOUND',
         contentHash: null, contentLength: 0, changePct: null,
         needsReview: true,
-        note: `Miekki 404 -- przekierowanie na strone glowna (${finalUrl})`,
+        note: `Miękki 404 - przekierowanie na stronę główną (${finalUrl})`,
       };
     }
 
@@ -267,7 +267,7 @@ export async function auditUrl(
         changePct = prevLen > 0 ? Math.min(1, Math.abs(prevLen - contentLength) / prevLen) : null;
         const shrunk = prevLen > 800 && contentLength < prevLen * 0.5;
         needsReview = shrunk;
-        if (shrunk) note = `Tresc skurczyla sie z ${prevLen} do ${contentLength} znakow -- sprawdz`;
+        if (shrunk) note = `Treść skurczyła się z ${prevLen} do ${contentLength} znaków - sprawdź`;
       }
     } else {
       // Pierwszy audit -- nowy benefit
@@ -299,7 +299,7 @@ export async function auditUrl(
         contentHash: previous?.last_content_hash ?? null,
         contentLength: 0, changePct: null,
         needsReview: false,
-        note: `WAF blokuje audyt -- strona OK, sprawdz manualnie`,
+        note: `WAF blokuje audyt - strona OK, sprawdź manualnie`,
       };
     }
     return {
