@@ -18,6 +18,7 @@ export default function AgentPowiadomienia() {
   const [enabled, setEnabled] = useState(false);
   const [categories, setCategories] = useState<string[]>([]);
   const [lastSent, setLastSent] = useState<string | null>(null);
+  const [consentAt, setConsentAt] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -31,6 +32,7 @@ export default function AgentPowiadomienia() {
       setEnabled(prefs.digest_enabled ?? false);
       setCategories(prefs.categories ?? []);
       setLastSent(prefs.last_digest_sent_at);
+      setConsentAt(prefs.digest_consent_at ?? null);
       setLoading(false);
     });
   }, [router]);
@@ -54,6 +56,8 @@ export default function AgentPowiadomienia() {
     });
     setSaving(false);
     setSaved(true);
+    // Odzwierciedl stan zgody lokalnie: włączenie = zgoda teraz, wyłączenie = brak.
+    setConsentAt(enabled ? new Date().toISOString() : null);
     setTimeout(() => setSaved(false), 2000);
   }
 
@@ -68,10 +72,26 @@ export default function AgentPowiadomienia() {
       {lastSent && <p style={{ fontSize: 12, color: 'var(--color-text-3)', marginBottom: 20 }}>Ostatni digest: {new Date(lastSent).toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' })}</p>}
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-        <label style={{ display: 'flex', gap: 12, alignItems: 'center', cursor: 'pointer', fontSize: 14, color: 'var(--color-text-1)' }}>
-          <input type="checkbox" checked={enabled} onChange={e => setEnabled(e.target.checked)} />
-          Włącz dzienny raport na e-mail (wysyłany o 8:00)
-        </label>
+        <div style={{
+          background: 'var(--color-bg-2)', border: '1px solid var(--color-border)',
+          borderRadius: 'var(--radius-sm)', padding: '14px 16px',
+        }}>
+          <label style={{ display: 'flex', gap: 12, alignItems: 'flex-start', cursor: 'pointer', fontSize: 14, color: 'var(--color-text-1)' }}>
+            <input type="checkbox" checked={enabled} onChange={e => setEnabled(e.target.checked)} style={{ marginTop: 3 }} />
+            <span>
+              Chcę otrzymywać dzienny raport na e-mail (wysyłany o 8:00) i wyrażam zgodę na przetwarzanie mojego adresu e-mail w tym celu.
+            </span>
+          </label>
+          <p style={{ fontSize: 12, color: 'var(--color-text-3)', margin: '10px 0 0', lineHeight: 1.6 }}>
+            Domyślnie nie wysyłamy żadnych maili. Raport ruszy dopiero po zaznaczeniu zgody i zapisaniu. Zgodę możesz cofnąć w każdej chwili - tutaj lub linkiem &quot;Wypisz się&quot; w stopce maila.{' '}
+            <Link href="/polityka-prywatnosci" style={{ color: 'var(--color-green)' }}>Polityka prywatności</Link>.
+          </p>
+          {enabled && consentAt && (
+            <p style={{ fontSize: 12, color: 'var(--color-text-3)', margin: '8px 0 0' }}>
+              Zgoda zapisana: {new Date(consentAt).toLocaleString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
+            </p>
+          )}
+        </div>
 
         {enabled && (
           <div>

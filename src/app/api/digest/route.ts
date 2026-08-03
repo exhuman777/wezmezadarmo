@@ -30,10 +30,14 @@ export async function POST(request: NextRequest) {
   const supabaseAdmin = getAdminClient();
   const resend = new Resend(process.env.RESEND_API_KEY);
 
+  // Wysyłamy WYŁĄCZNIE do użytkowników, którzy włączyli digest ORAZ mają
+  // zapisaną wyraźną zgodę (digest_consent_at). Podwójna bramka opt-in gwarantuje,
+  // że nikt nie dostanie maila bez świadomej zgody (RODO).
   const { data: prefRows, error: prefError } = await supabaseAdmin
     .from('email_preferences')
     .select('user_id, categories, last_digest_sent_at')
-    .eq('digest_enabled', true);
+    .eq('digest_enabled', true)
+    .not('digest_consent_at', 'is', null);
 
   if (prefError || !prefRows) {
     console.error('[digest/cron] błąd pobierania preferencji:', prefError);

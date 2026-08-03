@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
     email?: unknown;
     password?: unknown;
     profile?: Record<string, unknown>;
-    emailPreferences?: { digest_enabled?: boolean; categories?: string[] };
+    emailPreferences?: { categories?: string[] };
   };
 
   try {
@@ -69,11 +69,14 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Błąd zapisu profilu.' }, { status: 500 });
   }
 
+  // Opt-in only: NIGDY nie włączamy digestu przy rejestracji. Użytkownik musi
+  // sam, świadomie wyrazić zgodę w Panelu > Ustawienia (zapisujemy tam ślad
+  // zgody). Zapisujemy jedynie preferowane kategorie na przyszłość.
   await supabaseAdmin
     .from('email_preferences')
     .insert({
       user_id: userId,
-      digest_enabled: emailPreferences?.digest_enabled ?? true,
+      digest_enabled: false,
       categories: emailPreferences?.categories ?? ['dofinansowania', 'zus', 'podatki', 'prawo'],
     });
 
