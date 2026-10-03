@@ -64,3 +64,25 @@ Wejdz, sprawdz co nalezy sie Tobie albo Twojej firmie: wezmezadarmo.com
 A jesli znasz kogos komu to pomoze - podeslij dalej.
 
 #swiadczenia #Polska #AI #KSeF #finanseosobiste #pomoc #startup
+
+---
+
+## Draft LinkedIn (06.08.2026) - zakładka "Za darmo dla biznesu" (DogInvoice + DogAnswer)
+
+wezmezadarmo.com cały czas rośnie. Zaczynałem od prostej misji: pokazać Polakom świadczenia, o których nie wiedzą. Dziś serwis ma 133 świadczenia, kalkulator dopasowania, kreator wniosków ZUS z AI i asystenta, który sprawdza dane na żywo z instytucji.
+
+Ale firmy też zostawiają pieniądze i czas na stole. Dlatego dodałem nową zakładkę: "Za darmo dla biznesu".
+
+Znajdziecie tam dwa narzędzia polskiego zespołu Dogtronic z Lublina. Oba mają darmowy plan, więc sprawdzicie je bez ryzyka.
+
+DogInvoice - faktury i KSeF na autopilocie
+Wrzucasz fakturę jak chcesz: zdjęcie z telefonu, PDF z maila, plik z KSeF. AI w kilka sekund odczytuje numer, kwotę, kontrahenta i VAT, rozpoznaje koszt czy przychód i odkłada dokument do archiwum w Google Drive. E-faktury z KSeF pobiera samo i zamienia nieczytelny XML na zwykły PDF, bez logowania do rządowego portalu. Co poniedziałek dostajesz listę faktur po terminie, a wszystkich dostawców opłacasz jednym plikiem przelewów wgranym do banku. Przy obowiązkowym KSeF to nie gadżet, to ratunek.
+
+DogAnswer - asystent AI, który odbiera za Ciebie telefon
+Mechanik pod maską, lekarz przy pacjencie, hydraulik na awarii - każde nieodebrane połączenie to stracony klient. DogAnswer odbiera 24/7, także w nocy i w święta. Rozmawia naturalnym głosem, zbiera informacje i od razu wysyła podsumowanie z numerem i transkrypcją na SMS, WhatsApp lub e-mail. Klient dzwoni po niemiecku? Poprowadzi rozmowę i przetłumaczy ją w podsumowaniu. Konfiguracja to kilka minut: przekierowujesz numer i gotowe. Chcesz usłyszeć jak brzmi? Zadzwoń na demo: +48 732 126 419.
+
+Całość jak zawsze: wezmezadarmo.com/za-darmo-dla-biznesu
+
+Znasz przedsiębiorcę, któremu przepadają telefony albo tonie w fakturach? Podeślij mu ten post.
+
+#KSeF #AI #biznes #Polska #automatyzacja #JDG #MSP
