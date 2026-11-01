@@ -1081,3 +1081,19 @@ html.dark .btn-ghost { background: transparent; border-color: var(--tusz); color
   background: var(--surface); border: 2px solid var(--tusz); border-radius: 0;
 }
 .pytaj input:focus-visible { outline: 2px solid var(--rdza); outline-offset: 2px; }
+
+/* Stopka: jedna wąska kolumna jak strona główna */
+.stopka { background: var(--kafel); border-top: 1px solid var(--linia); }
+.stopka-in { max-width: 680px; margin: 0 auto; padding: 40px 16px 32px; }
+.stopka-marka { font-family: var(--f-mono); font-weight: 700; font-size: 16px; color: var(--tusz); }
+.stopka-opis { margin: 10px 0 0; font-size: 15px; line-height: 1.6; color: var(--szary); }
+.stopka-linki { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 24px 0 0; padding: 20px 0 0; border-top: 1px solid var(--linia); }
+.stopka-linki a { font-size: 14px; line-height: 2; color: var(--tusz); text-decoration: underline; text-decoration-color: var(--linia); text-underline-offset: 3px; }
+.stopka-linki a:hover { text-decoration-color: var(--tusz); }
+.stopka-sekcja { margin: 20px 0 0; border-top: 1px solid var(--linia); padding-top: 16px; }
+.stopka-sekcja summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; font-family: var(--f-mono); font-size: 15px; font-weight: 700; color: var(--tusz); list-style: none; }
+.stopka-sekcja summary::-webkit-details-marker { display: none; }
+.stopka-sekcja summary::after { content: '+'; margin-left: auto; font-size: 20px; }
+.stopka-sekcja[open] summary::after { content: '-'; }
+.stopka-sekcja-in { padding: 8px 0 4px; }
+.stopka-dol { margin: 24px 0 0; padding-top: 16px; border-top: 1px solid var(--linia); font-size: 13px; color: var(--szary); }
