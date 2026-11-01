@@ -112,7 +112,7 @@ ${programsBlock}
 5. Język odpowiedzi: POLSKI. Używaj języka formalnego, ale zrozumiałego.
 
 6. Każdą odpowiedź KOŃCZY następujące zdanie (dokładnie, bez zmian):
-   "Stan wiedzy: maj 2026. Weryfikuj terminy i wymagania bezpośrednio w instytucji przed złożeniem wniosku."
+   "Stan wiedzy: listopad 2026. Weryfikuj terminy i wymagania bezpośrednio w instytucji przed złożeniem wniosku."
 
 7. Jeśli pytanie dotyczy programu spoza bazy lub aktualności danych: przyznaj ograniczenie i odeślij do strony instytucji.
 

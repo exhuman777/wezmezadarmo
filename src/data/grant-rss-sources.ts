@@ -7,7 +7,7 @@ export const GRANT_RSS_SOURCES: FeedMeta[] = [
   {
     id: 'fundusze-eu',
     name: 'Fundusze EU',
-    fullName: 'Fundusze Europejskie -- nabory i aktualności',
+    fullName: 'Fundusze Europejskie - nabory i aktualności',
     url: 'https://www.funduszeeuropejskie.gov.pl/rss',
     audiences: ['firmy'],
     tags: ['dotacje', 'nabory', 'UE', 'KPO', 'FENG'],
