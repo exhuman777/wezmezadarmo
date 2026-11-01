@@ -2,7 +2,7 @@ import { ImageResponse } from 'next/og';
 
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
-export const alt = 'wezmezadarmo, Sprawdz co Ci sie nalezy';
+export const alt = 'wezmezadarmo, sprawdź, co Ci się należy';
 
 export default function OGImage() {
   return new ImageResponse(
