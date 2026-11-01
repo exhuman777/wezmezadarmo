@@ -3,7 +3,7 @@ import { Benefit } from '../types';
 export const RODZINA: Benefit[] = [
   {
     id: '800-plus', nazwa: 'Świadczenie wychowawcze 800+',
-    opis: 'Świadczenie 800 PLN miesięcznie na każde dziecko do ukończenia 18 roku życia, niezależnie od dochodu rodziny. Przysługuje obywatelom polskim oraz cudzoziemcom legalnie przebywającym w Polsce. Wniosek składa się wyłącznie elektronicznie: przez PUE ZUS, bankowość elektroniczną lub portal Empatia. Wypłata co miesiąc na wskazane konto. Aktualny okres świadczeniowy 1.06.2025-31.05.2026; nowy okres 1.06.2026-31.05.2027, wnioski od 1 lutego 2026. Złożenie do 30 kwietnia 2026 zapewnia ciągłość wypłat. Po tej dacie wypłata dopiero od miesiąca złożenia wniosku, bez wyrównania wstecz. WAŻNE dla cudzoziemców spoza UE/EFTA: od 1.06.2026 zaostrzone wymogi aktywności zawodowej (sprawdź szczegóły na ZUS). Świadczenie nie jest wliczane do dochodu przy ustalaniu prawa do innych świadczeń. Nie podlega opodatkowaniu PIT. W przypadku opieki naprzemiennej kwota dzielona po równo (400 PLN na każdego rodzica). Jeśli przerwa w wypłacie - złóż wyjaśnienie przez PUE ZUS, czekaj na ponowną weryfikację.',
+    opis: 'Świadczenie 800 PLN miesięcznie na każde dziecko do ukończenia 18 roku życia, niezależnie od dochodu rodziny. Przysługuje obywatelom polskim oraz cudzoziemcom legalnie przebywającym w Polsce. Wniosek składa się wyłącznie elektronicznie: przez PUE ZUS, bankowość elektroniczną lub portal Empatia. Wypłata co miesiąc na wskazane konto. Aktualny okres świadczeniowy 1.06.2026-31.05.2027. Wnioski na kolejny okres (1.06.2027-31.05.2028) od 1 lutego 2027; złożenie do 30 kwietnia 2027 zapewnia ciągłość wypłat. Po tej dacie wypłata dopiero od miesiąca złożenia wniosku, bez wyrównania wstecz. WAŻNE dla cudzoziemców spoza UE/EFTA: od 1.06.2026 zaostrzone wymogi aktywności zawodowej (sprawdź szczegóły na ZUS). Świadczenie nie jest wliczane do dochodu przy ustalaniu prawa do innych świadczeń. Nie podlega opodatkowaniu PIT. W przypadku opieki naprzemiennej kwota dzielona po równo (400 PLN na każdego rodzica). Jeśli przerwa w wypłacie - złóż wyjaśnienie przez PUE ZUS, czekaj na ponowną weryfikację.',
     kategoria: 'RODZINA',
     kwota: '800 PLN miesięcznie na dziecko', kwotaMin: 800, kwotaMax: 800,
     czestotliwosc: 'miesięcznie',
@@ -27,8 +27,8 @@ export const RODZINA: Benefit[] = [
       ],
       odwolanie: 'Odwołanie do Prezesa ZUS w ciągu 14 dni od decyzji',
     },
-    zrodloUrl: 'https://www.gov.pl/web/rodzina/',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-27', dataWaznosci: '2026-12-31',
+    zrodloUrl: 'https://www.gov.pl/web/rodzina/swiadczenie-wychowawcze',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-11-01', dataWaznosci: '2027-05-31',
   },
   {
     id: 'becikowe', nazwa: 'Becikowe (jednorazowa zapomoga)',
@@ -340,7 +340,7 @@ export const RODZINA: Benefit[] = [
   },
   {
     id: 'zasilek-rodzinny', nazwa: 'Zasiłek rodzinny z dodatkami',
-    opis: 'Zasiłek rodzinny to świadczenie dla rodzin o niższych dochodach (inaczej niż 800+, które jest bez progu). Kryterium dochodowe: 674 PLN netto na osobę w rodzinie, lub 764 PLN, jeśli w rodzinie jest dziecko z orzeczeniem o niepełnosprawności. Obowiązuje zasada "złotówka za złotówkę": przekroczenie progu nie odbiera świadczenia całkowicie, kwota jest pomniejszana o nadwyżkę. Sam zasiłek zależy od wieku dziecka: 95 PLN miesięcznie na dziecko do 5 lat, 124 PLN na dziecko 5-18 lat, 135 PLN na dziecko 18-24 lata (jeśli się uczy). Prawdziwa wartość tkwi w dodatkach do zasiłku, które przysługują tylko osobom mającym prawo do zasiłku rodzinnego: dodatek z tytułu urodzenia dziecka (1000 PLN jednorazowo), z tytułu opieki nad dzieckiem w okresie urlopu wychowawczego (400 PLN miesięcznie), z tytułu samotnego wychowywania dziecka (193 PLN na dziecko, max 386 PLN), z tytułu wychowywania dziecka w rodzinie wielodzietnej (95 PLN na trzecie i każde kolejne dziecko), z tytułu kształcenia i rehabilitacji dziecka niepełnosprawnego (90 PLN do 5 lat, 110 PLN powyżej), z tytułu rozpoczęcia roku szkolnego (100 PLN raz w roku), z tytułu nauki dziecka poza miejscem zamieszkania (69 PLN na pokrycie dojazdu lub 113 PLN na zamieszkanie poza domem). Wniosek SR-1 składa się w gminie lub MOPS. Okres zasiłkowy trwa od 1 listopada do 31 października, wnioski od 1 lipca (elektronicznie) lub 1 sierpnia (papierowo).',
+    opis: 'Zasiłek rodzinny to świadczenie dla rodzin o niższych dochodach (inaczej niż 800+, które jest bez progu). Kryterium dochodowe: 674 PLN netto na osobę w rodzinie, lub 764 PLN, jeśli w rodzinie jest dziecko z orzeczeniem o niepełnosprawności. Obowiązuje zasada "złotówka za złotówkę": przekroczenie progu nie odbiera świadczenia całkowicie, kwota jest pomniejszana o nadwyżkę. Sam zasiłek zależy od wieku dziecka: 95 PLN miesięcznie na dziecko do 5 lat, 124 PLN na dziecko 5-18 lat, 135 PLN na dziecko 18-24 lata (jeśli się uczy). Prawdziwa wartość tkwi w dodatkach do zasiłku, które przysługują tylko osobom mającym prawo do zasiłku rodzinnego: dodatek z tytułu urodzenia dziecka (1000 PLN jednorazowo), z tytułu opieki nad dzieckiem w okresie urlopu wychowawczego (400 PLN miesięcznie), z tytułu samotnego wychowywania dziecka (193 PLN na dziecko, max 386 PLN), z tytułu wychowywania dziecka w rodzinie wielodzietnej (95 PLN na trzecie i każde kolejne dziecko), z tytułu kształcenia i rehabilitacji dziecka niepełnosprawnego (90 PLN do 5 lat, 110 PLN powyżej), z tytułu rozpoczęcia roku szkolnego (100 PLN raz w roku), z tytułu nauki dziecka poza miejscem zamieszkania (69 PLN na pokrycie dojazdu lub 113 PLN na zamieszkanie poza domem). Wniosek SR-1 składa się w gminie lub MOPS. Okres zasiłkowy trwa od 1 listopada do 31 października; obecny okres 1.11.2026-31.10.2027, progi i kwoty bez zmian od 1.11.2026. Wnioski od 1 lipca (elektronicznie) lub 1 sierpnia (papierowo).',
     kategoria: 'RODZINA',
     kwota: '95-135 PLN miesięcznie na dziecko + dodatki (100-1000 PLN)',
     kwotaMin: 95, kwotaMax: 1000,
@@ -376,7 +376,7 @@ export const RODZINA: Benefit[] = [
       odwolanie: 'Odwołanie do Samorządowego Kolegium Odwoławczego w ciągu 14 dni od decyzji',
     },
     zrodloUrl: 'https://www.gov.pl/web/gov/uzyskaj-zasilek-rodzinny-wraz-z-dodatkami',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-07-06', dataWaznosci: '2026-10-31',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-11-01', dataWaznosci: '2027-10-31',
   },
   {
     id: 'za-zyciem', nazwa: 'Jednorazowe świadczenie "Za życiem" (4000 PLN)',
