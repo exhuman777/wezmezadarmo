@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
+import { canonical } from '@/lib/seo';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
+  alternates: canonical('/za-darmo-dla-biznesu'),
   title: 'Za darmo dla biznesu - narzędzia dla polskich firm | wezmezadarmo',
   description: 'Sprawdzone narzędzia dla polskich firm: DogInvoice (automatyzacja faktur i KSeF z AI) oraz DogAnswer (asystent AI odbierający telefony 24/7). Przykłady użycia w biznesie. Rozwiązania dedykowane - zapraszamy do kontaktu.',
   robots: { index: true, follow: true },

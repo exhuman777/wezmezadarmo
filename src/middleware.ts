@@ -13,6 +13,14 @@ function basicAuthChallenge(): NextResponse {
   });
 }
 
+/** Porównanie w stałym czasie (działa w Edge i Node, bez modułu crypto). */
+function safeEqual(a: string, b: string): boolean {
+  if (a.length !== b.length) return false;
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return diff === 0;
+}
+
 function checkAdminAuth(request: NextRequest): boolean {
   const password = process.env.ADMIN_PASSWORD;
   if (!password) return false; // brak env -> blokujemy
@@ -22,8 +30,8 @@ function checkAdminAuth(request: NextRequest): boolean {
 
   try {
     const decoded = Buffer.from(auth.slice(6), 'base64').toString('utf-8');
-    const [, pass] = decoded.split(':');
-    return pass === password;
+    const pass = decoded.slice(decoded.indexOf(':') + 1);
+    return safeEqual(pass ?? '', password);
   } catch {
     return false;
   }
@@ -32,8 +40,8 @@ function checkAdminAuth(request: NextRequest): boolean {
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // /admin/* i /api/admin/* -- Basic Auth gate (przed Supabase auth check)
-  if (pathname.startsWith('/admin') || pathname.startsWith('/api/admin')) {
+  // /admin/*, /api/admin/* i endpoint diagnostyczny -- Basic Auth gate (przed Supabase auth check)
+  if (pathname.startsWith('/admin') || pathname.startsWith('/api/admin') || pathname === '/api/aktualnosci/debug') {
     if (!checkAdminAuth(request)) {
       return basicAuthChallenge();
     }
@@ -97,5 +105,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/panel/:path*', '/dotacje/panel/:path*', '/agent/panel/:path*', '/admin/:path*', '/api/admin/:path*'],
+  matcher: ['/panel/:path*', '/dotacje/panel/:path*', '/agent/panel/:path*', '/admin/:path*', '/api/admin/:path*', '/api/aktualnosci/debug'],
 };

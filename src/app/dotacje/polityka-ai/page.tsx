@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
+import { canonical } from '@/lib/seo';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
+  alternates: canonical('/dotacje/polityka-ai'),
   title: 'Polityka przejrzystości AI | dotacje | wezmezadarmo',
   description: 'Informacja o charakterze systemu AI zgodnie z art. 52 Rozporządzenia UE o AI (AI Act). Zakres wiedzy agenta, ograniczenia i prawa użytkownika.',
 };

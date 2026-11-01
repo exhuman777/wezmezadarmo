@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { OG_IMAGES } from '@/lib/seo';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
@@ -6,6 +7,7 @@ export const metadata: Metadata = {
   description: 'Materiały prasowe dla dziennikarzy, blogerów i influencerów. Logo, screenshoty, statystyki, kontakt.',
   alternates: { canonical: 'https://www.wezmezadarmo.com/press' },
   openGraph: {
+    images: OG_IMAGES,
     title: 'Press kit - wezmezadarmo',
     description: 'Materiały prasowe, statystyki, kontakt dla mediów.',
     url: 'https://www.wezmezadarmo.com/press',
