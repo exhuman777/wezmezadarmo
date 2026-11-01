@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { canonical } from '@/lib/seo';
 
 export const metadata: Metadata = {
+  alternates: canonical('/o-projekcie'),
   title: 'O projekcie | wezmezadarmo',
   description: 'Dowiedz się po co powstał wezmezadarmo, komu służy, jak działa i kto za nim stoi.',
 };
@@ -141,8 +143,6 @@ export default function OProjekciePage() {
       <section style={{
         padding: 'clamp(56px, 7vw, 96px) 0 0',
         background: `
-          radial-gradient(900px 600px at 75% 25%, rgba(34,160,107,.28), transparent 60%),
-          radial-gradient(500px 400px at 10% 75%, rgba(78,196,138,.15), transparent 55%),
           var(--green-950)
         `,
         position: 'relative',
@@ -151,14 +151,14 @@ export default function OProjekciePage() {
         <div className="grain-bg" />
         <div style={{ position: 'absolute', right: -100, top: -100, width: 500, height: 500, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.05)', pointerEvents: 'none' }} />
         <div style={{ position: 'absolute', right: 60, top: 40, width: 220, height: 220, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.04)', pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', left: '55%', top: '30%', width: 1, height: '60%', background: 'linear-gradient(to bottom, transparent, rgba(255,255,255,0.07), transparent)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', left: '55%', top: '30%', width: 1, height: '60%', background: 'transparent', pointerEvents: 'none' }} />
 
         <div className="wrap" style={{ position: 'relative' }}>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 260px', gap: 'clamp(24px, 4vw, 64px)', alignItems: 'center' }}>
 
             {/* text */}
             <div className="rise" style={{ paddingBottom: 'clamp(40px, 5vw, 64px)' }}>
-              <div className="eyebrow green" style={{ marginBottom: 20, color: 'rgba(142,234,173,0.75)' }}>
+              <div className="eyebrow green" style={{ marginBottom: 20, color: 'rgba(169,212,189,0.75)' }}>
                 O projekcie
               </div>
               <h1 style={{
@@ -190,9 +190,8 @@ export default function OProjekciePage() {
               <div style={{
                 background: 'rgba(255,255,255,0.04)',
                 border: '1px solid rgba(255,255,255,0.1)',
-                borderRadius: 20,
+                borderRadius: 2,
                 padding: '24px 28px',
-                backdropFilter: 'blur(16px)',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 0,
@@ -220,7 +219,7 @@ export default function OProjekciePage() {
         </div>
 
         {/* bottom fade to light */}
-        <div style={{ height: 48, background: 'linear-gradient(to bottom, transparent, var(--color-bg-0))', pointerEvents: 'none' }} />
+        <div style={{ height: 48, background: 'transparent', pointerEvents: 'none' }} />
       </section>
 
       {/* ────────────────────── GENEZA ──────────────────────── */}
@@ -259,7 +258,7 @@ export default function OProjekciePage() {
                 padding: '8px 14px',
                 background: 'var(--color-green-bg)',
                 border: '1px solid var(--color-green-border)',
-                borderRadius: 999,
+                borderRadius: 2,
                 fontFamily: 'var(--font-mono)',
                 fontSize: 11,
                 color: 'var(--color-green)',
@@ -274,7 +273,7 @@ export default function OProjekciePage() {
               <div style={{
                 background: 'var(--color-surface)',
                 border: '1px solid var(--color-border)',
-                borderRadius: 16,
+                borderRadius: 2,
                 padding: 'clamp(20px, 3vw, 32px)',
                 boxShadow: 'var(--shadow-1)',
                 display: 'flex',
@@ -312,7 +311,7 @@ export default function OProjekciePage() {
       <section style={{ padding: 'clamp(40px, 5vw, 64px) 0', background: 'var(--color-bg-0)' }}>
         <div className="wrap">
           <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 24, flexWrap: 'wrap', gap: 8 }}>
-            <div style={{ paddingLeft: 14, borderLeft: '3px solid var(--green-500)' }}>
+            <div style={{ paddingLeft: 14, borderTop: '3px solid var(--green-500)' }}>
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--color-green)', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: 4 }}>Moduły</div>
               <h2 style={{ fontSize: 'clamp(20px, 2.5vw, 28px)', fontWeight: 700, letterSpacing: '-0.025em', color: 'var(--color-text-1)', margin: 0 }}>Co zawiera serwis</h2>
             </div>
@@ -326,7 +325,7 @@ export default function OProjekciePage() {
                   background: 'var(--color-surface)',
                   border: '1px solid var(--color-border)',
                   borderTop: `3px solid ${mod.free ? 'var(--green-500)' : 'var(--color-border)'}`,
-                  borderRadius: '0 0 14px 14px',
+                  borderRadius: 0,
                   padding: '18px 20px',
                   display: 'flex',
                   alignItems: 'flex-start',
@@ -338,11 +337,11 @@ export default function OProjekciePage() {
                   <span style={{
                     width: 40,
                     height: 40,
-                    borderRadius: 10,
+                    borderRadius: 2,
                     background: mod.free
-                      ? 'linear-gradient(135deg, var(--green-850), var(--green-700))'
-                      : 'linear-gradient(135deg, var(--ink-800), var(--ink-700))',
-                    color: mod.free ? 'rgba(240,250,243,0.9)' : 'rgba(240,246,241,0.6)',
+                      ? 'var(--green-850)'
+                      : 'var(--ink-800)',
+                    color: mod.free ? 'rgba(240,250,243,0.9)' : 'rgba(246,240,228,0.6)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -359,7 +358,7 @@ export default function OProjekciePage() {
                         fontFamily: 'var(--font-mono)',
                         fontSize: 9,
                         padding: '2px 8px',
-                        borderRadius: 999,
+                        borderRadius: 2,
                         border: `1px solid ${mod.free ? 'var(--color-green-border)' : 'var(--color-border)'}`,
                         background: mod.free ? 'var(--color-green-bg)' : 'var(--color-surface-2)',
                         color: mod.free ? 'var(--color-green)' : 'var(--color-text-2)',
@@ -382,7 +381,7 @@ export default function OProjekciePage() {
       <section style={{ padding: 'clamp(40px, 5vw, 64px) 0', background: 'var(--green-50)' }}>
         <div className="wrap">
           <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 24, flexWrap: 'wrap', gap: 8 }}>
-            <div style={{ paddingLeft: 14, borderLeft: '3px solid var(--green-500)' }}>
+            <div style={{ paddingLeft: 14, borderTop: '3px solid var(--green-500)' }}>
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--color-green)', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: 4 }}>Odbiorcy</div>
               <h2 style={{ fontSize: 'clamp(20px, 2.5vw, 28px)', fontWeight: 700, letterSpacing: '-0.025em', color: 'var(--color-text-1)', margin: 0 }}>Komu może służyć</h2>
             </div>
@@ -392,7 +391,7 @@ export default function OProjekciePage() {
               <div key={a.group} className="hover-lift" style={{
                 background: 'var(--color-surface)',
                 border: '1px solid var(--color-border)',
-                borderRadius: 12,
+                borderRadius: 2,
                 padding: '16px 18px',
                 boxShadow: 'var(--shadow-1)',
                 position: 'relative',
@@ -420,7 +419,7 @@ export default function OProjekciePage() {
       {/* ─────────────────── BEZPIECZEŃSTWO ─────────────────── */}
       <section style={{ padding: 'clamp(40px, 5vw, 64px) 0', background: 'var(--color-bg-0)' }}>
         <div className="wrap">
-          <div style={{ paddingLeft: 14, borderLeft: '3px solid var(--green-500)', marginBottom: 24 }}>
+          <div style={{ paddingLeft: 14, borderTop: '3px solid var(--green-500)', marginBottom: 24 }}>
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--color-green)', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: 4 }}>Prywatność</div>
             <h2 style={{ fontSize: 'clamp(20px, 2.5vw, 28px)', fontWeight: 700, letterSpacing: '-0.025em', color: 'var(--color-text-1)', margin: 0 }}>Bezpieczeństwo danych</h2>
           </div>
@@ -429,7 +428,7 @@ export default function OProjekciePage() {
               <div key={sec.module} style={{
                 background: 'var(--color-surface)',
                 border: '1px solid var(--color-border)',
-                borderRadius: 14,
+                borderRadius: 2,
                 overflow: 'hidden',
                 boxShadow: 'var(--shadow-1)',
               }}>
@@ -475,7 +474,7 @@ export default function OProjekciePage() {
       {/* ─────────────────────── STACK ──────────────────────── */}
       <section style={{ padding: 'clamp(40px, 5vw, 64px) 0', background: 'var(--green-50)' }}>
         <div className="wrap">
-          <div style={{ paddingLeft: 14, borderLeft: '3px solid var(--green-500)', marginBottom: 24 }}>
+          <div style={{ paddingLeft: 14, borderTop: '3px solid var(--green-500)', marginBottom: 24 }}>
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--color-green)', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: 4 }}>Stack</div>
             <h2 style={{ fontSize: 'clamp(20px, 2.5vw, 28px)', fontWeight: 700, letterSpacing: '-0.025em', color: 'var(--color-text-1)', margin: 0 }}>Technologia</h2>
           </div>
@@ -484,7 +483,7 @@ export default function OProjekciePage() {
               <div key={t.name} style={{
                 background: 'var(--color-surface)',
                 border: '1px solid var(--color-border)',
-                borderRadius: 10,
+                borderRadius: 2,
                 padding: '10px 16px',
                 boxShadow: 'var(--shadow-1)',
                 display: 'flex',
@@ -506,14 +505,14 @@ export default function OProjekciePage() {
             padding: '14px 18px',
             background: 'var(--color-surface)',
             border: '1px solid var(--color-border)',
-            borderRadius: 12,
+            borderRadius: 2,
             boxShadow: 'var(--shadow-1)',
           }}>
             <span style={{
               fontFamily: 'var(--font-mono)',
               fontSize: 9,
               padding: '3px 9px',
-              borderRadius: 999,
+              borderRadius: 2,
               border: '1px solid var(--color-green-border)',
               background: 'var(--color-green-bg)',
               color: 'var(--color-green)',
@@ -537,7 +536,7 @@ export default function OProjekciePage() {
       <section style={{ padding: 'clamp(40px, 5vw, 64px) 0', background: 'var(--color-bg-0)' }}>
         <div className="wrap">
           <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 24, flexWrap: 'wrap', gap: 8 }}>
-            <div style={{ paddingLeft: 14, borderLeft: '3px solid var(--green-500)' }}>
+            <div style={{ paddingLeft: 14, borderTop: '3px solid var(--green-500)' }}>
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--color-green)', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: 4 }}>Dane</div>
               <h2 style={{ fontSize: 'clamp(20px, 2.5vw, 28px)', fontWeight: 700, letterSpacing: '-0.025em', color: 'var(--color-text-1)', margin: 0 }}>Źródła danych</h2>
             </div>
@@ -546,7 +545,7 @@ export default function OProjekciePage() {
           <div style={{
             background: 'var(--color-surface)',
             border: '1px solid var(--color-border)',
-            borderRadius: 14,
+            borderRadius: 2,
             overflow: 'hidden',
             boxShadow: 'var(--shadow-1)',
           }}>
@@ -573,7 +572,7 @@ export default function OProjekciePage() {
       {/* ─────────────── AUTOR + KONTAKT ─────────────────────── */}
       <section style={{ padding: 'clamp(40px, 5vw, 64px) 0', background: 'var(--green-50)' }}>
         <div className="wrap">
-          <div style={{ paddingLeft: 14, borderLeft: '3px solid var(--green-500)', marginBottom: 24 }}>
+          <div style={{ paddingLeft: 14, borderTop: '3px solid var(--green-500)', marginBottom: 24 }}>
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--color-green)', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: 4 }}>Ludzie</div>
             <h2 style={{ fontSize: 'clamp(20px, 2.5vw, 28px)', fontWeight: 700, letterSpacing: '-0.025em', color: 'var(--color-text-1)', margin: 0 }}>Autor i kontakt</h2>
           </div>
@@ -583,7 +582,7 @@ export default function OProjekciePage() {
             <div style={{
               background: 'var(--green-950)',
               border: '1px solid rgba(255,255,255,0.07)',
-              borderRadius: 16,
+              borderRadius: 2,
               padding: 'clamp(20px, 3vw, 28px)',
               boxShadow: 'var(--shadow-3)',
               position: 'relative',
@@ -591,7 +590,7 @@ export default function OProjekciePage() {
             }}>
               <div className="grain-bg" style={{ opacity: 0.018 }} />
               <div style={{ position: 'absolute', right: -40, top: -40, width: 200, height: 200, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.04)', pointerEvents: 'none' }} />
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'rgba(142,234,173,0.6)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 10 }}>Autor</div>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'rgba(169,212,189,0.6)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 10 }}>Autor</div>
               <h3 style={{ fontSize: 18, fontWeight: 700, letterSpacing: '-0.02em', marginTop: 0, marginBottom: 14, color: '#fff' }}>Kto za tym stoi</h3>
               <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.55)', lineHeight: 1.65, marginBottom: 20 }}>
                 Projekt stworzył <strong style={{ color: '#fff' }}>Kamil Sobkowicz</strong>,
@@ -606,14 +605,14 @@ export default function OProjekciePage() {
                 padding: '12px 14px',
                 background: 'rgba(255,255,255,0.06)',
                 border: '1px solid rgba(255,255,255,0.1)',
-                borderRadius: 10,
+                borderRadius: 2,
               }}>
                 <div style={{
                   width: 38,
                   height: 38,
                   borderRadius: '50%',
                   flexShrink: 0,
-                  background: 'linear-gradient(135deg, var(--green-600), var(--green-400))',
+                  background: 'var(--green-600)',
                   color: 'var(--green-950)',
                   display: 'flex',
                   alignItems: 'center',
@@ -625,7 +624,7 @@ export default function OProjekciePage() {
                 <div>
                   <div style={{ fontSize: 13, fontWeight: 600, color: '#fff' }}>Kamil Sobkowicz</div>
                   <a href="https://www.linkedin.com/in/kamil-sobkowicz/" target="_blank" rel="noopener noreferrer"
-                    style={{ fontSize: 11, color: 'rgba(142,234,173,0.7)', textDecoration: 'none', fontFamily: 'var(--font-mono)' }}>
+                    style={{ fontSize: 11, color: 'rgba(169,212,189,0.7)', textDecoration: 'none', fontFamily: 'var(--font-mono)' }}>
                     linkedin.com/in/kamil-sobkowicz →
                   </a>
                 </div>
@@ -636,7 +635,7 @@ export default function OProjekciePage() {
             <div style={{
               background: 'var(--color-surface)',
               border: '1px solid var(--color-border)',
-              borderRadius: 16,
+              borderRadius: 2,
               padding: 'clamp(20px, 3vw, 28px)',
               boxShadow: 'var(--shadow-1)',
             }}>
@@ -649,11 +648,11 @@ export default function OProjekciePage() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                 <a href="https://www.linkedin.com/in/kamil-sobkowicz/" target="_blank" rel="noopener noreferrer"
                   className="btn btn-primary"
-                  style={{ justifyContent: 'center', borderRadius: 10, fontSize: 13 }}>
+                  style={{ justifyContent: 'center', borderRadius: 2, fontSize: 13 }}>
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                   Napisz na LinkedIn
                 </a>
-                <Link href="/dla-firm" className="btn btn-outline" style={{ justifyContent: 'center', borderRadius: 10, fontSize: 13 }}>
+                <Link href="/dla-firm" className="btn btn-outline" style={{ justifyContent: 'center', borderRadius: 2, fontSize: 13 }}>
                   Formularz kontaktowy →
                 </Link>
               </div>
@@ -667,7 +666,6 @@ export default function OProjekciePage() {
       <section style={{
         padding: 'clamp(48px, 6vw, 80px) 0',
         background: `
-          radial-gradient(800px 500px at 60% 50%, rgba(34,160,107,.22), transparent 65%),
           var(--green-950)
         `,
         position: 'relative',
@@ -675,7 +673,7 @@ export default function OProjekciePage() {
       }}>
         <div className="grain-bg" />
         <div className="wrap" style={{ position: 'relative', textAlign: 'center' }}>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(142,234,173,0.6)', marginBottom: 14 }}>Zacznij teraz</div>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(169,212,189,0.6)', marginBottom: 14 }}>Zacznij teraz</div>
           <h2 style={{ color: '#fff', fontSize: 'clamp(24px, 3.5vw, 40px)', marginBottom: 14, maxWidth: 560, marginLeft: 'auto', marginRight: 'auto' }}>
             Sprawdź co Ci przysługuje za darmo
           </h2>

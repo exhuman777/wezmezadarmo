@@ -92,8 +92,8 @@ export function ChatFallbackPrompt({ messages, threshold = 2, context = 'chat' }
       padding: '14px 18px',
       background: 'rgba(255, 176, 32, 0.08)',
       border: '1px solid rgba(255, 176, 32, 0.35)',
-      borderLeft: '3px solid #FFB020',
-      borderRadius: 10,
+      borderTop: '3px solid #FFB020',
+      borderRadius: 2,
       display: 'flex',
       alignItems: 'flex-start',
       gap: 14,
@@ -125,7 +125,7 @@ export function ChatFallbackPrompt({ messages, threshold = 2, context = 'chat' }
             padding: '8px 14px',
             background: 'var(--color-text-1)',
             color: 'var(--color-bg-0)',
-            border: 'none', borderRadius: 8,
+            border: 'none', borderRadius: 2,
             fontSize: 12, fontWeight: 500,
             textDecoration: 'none',
           }}
@@ -139,7 +139,7 @@ export function ChatFallbackPrompt({ messages, threshold = 2, context = 'chat' }
             background: 'transparent',
             color: 'var(--color-text-3)',
             border: '1px solid var(--color-border)',
-            borderRadius: 8,
+            borderRadius: 2,
             fontSize: 12, fontWeight: 500,
             cursor: 'pointer',
           }}

@@ -277,16 +277,14 @@ Czyste Powietrze: dofinansowanie wymiany źródła ciepła i termomodernizacji.
 - NOWY 2026: bon na audyt energetyczny 1 200 PLN
 - Nabór: CIĄGŁY (bez terminów)
 
-Mój Prąd (edycja przejściowa 2024-2026):
-- Fotowoltaika: do 7 000 PLN
-- Magazyn energii: do 16 000 PLN
-- Pompa ciepła / kolektory: do 5 000 PLN
-- Max łącznie: 28 000 PLN
-- Warunek: net-billing, prosument
+Mój Prąd: program zakończony (edycja 6.0 zamknięta we wrześniu 2025, brak edycji 7.0 na 11.2026). Nie obiecuj dotacji z Mój Prąd.
 
-Bon ciepłowniczy: jednorazowo do 1 200 PLN (podwyższony: do 1 600 PLN).
-- Dla osób ogrzewających gazem, elektrycznością, olejem -- NIE dla węgla
-- Próg dochodowy: 2 100 PLN/os. (jednoosobowe) lub 1 500 PLN/os. (wieloosobowe)
+Bon ciepłowniczy (stan 11.2026): 1000, 2000 albo 3500 PLN na gospodarstwo, zależnie od ceny ciepła (170-200, 200-230, powyżej 230 PLN/GJ netto).
+- Tylko dla odbiorców ciepła systemowego (sieć ciepłownicza), nie dla gazu, prądu, oleju ani węgla
+- Nabór za 2026 r. trwał od 1 lipca do 31 sierpnia 2026 i jest zakończony
+- Źródło: https://www.gov.pl/web/energia/informacje-o-bonie-cieplowniczym
+
+Bon senioralny (od 7.08.2026, Dz.U. 2026 poz. 986): usługi opiekuńcze w domu dla osób 65+, wartość do 2150 PLN/mies., średni dochód do 3410 PLN/mies., nie gotówka. Gminy wdrażają etapami od września 2026, pytaj w MOPS/GOPS.
 
 === MIESZKANIE I LOKAL ===
 
@@ -379,7 +377,7 @@ Wakacje składkowe: 1 miesiąc/rok bez składek społecznych ZUS.
 - Oszczędność: ok. 1 927 PLN (pełny ZUS) lub ok. 456 PLN (preferencyjny)
 - Zdrowotna NIE jest zwolniona
 - Wniosek RWS: w miesiącu POPRZEDZAJĄCYM wybrany miesiąc
-- Warunki: mikroprzedsiębiorca, CEIDG, max 9 ubezpieczonych, przychód do 2 mln EUR
+- Warunki: mikroprzedsiębiorca, CEIDG, max 10 ubezpieczonych (wliczając siebie), przychód do 2 mln EUR
 
 Pełny ZUS 2026 (JDG):
 - Społeczne + FP: 1 926,76 PLN/mies.

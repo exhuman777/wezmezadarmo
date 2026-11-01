@@ -156,7 +156,7 @@ Wakacje składkowe:
 - 1 miesiąc/rok bez składek społecznych (oszczędność ~1 927 PLN)
 - Zdrowotna NIE jest zwolniona
 - Wniosek RWS: w miesiącu POPRZEDZAJĄCYM wybrany miesiąc
-- Warunki: mikroprzedsiębiorca, CEIDG, max 9 ubezpieczonych, przychód do 2 mln EUR
+- Warunki: mikroprzedsiębiorca, CEIDG, max 10 ubezpieczonych (wliczając siebie), przychód do 2 mln EUR
 
 === NOWE LIMITY AMORTYZACJI SAMOCHODÓW (od 1.01.2026) ===
 

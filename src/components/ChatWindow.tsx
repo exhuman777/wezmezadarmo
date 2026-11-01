@@ -177,7 +177,7 @@ export function ChatWindow({
       return `<div class="benefit"><h2>${b.nazwa}</h2><span class="${sc}">${st}</span> <span class="kwota">${b.kwota}</span><h3>Dokumenty</h3><ul>${b.wniosek.dokumenty.map(d => `<li>${d}</li>`).join('')}</ul><h3>Kroki</h3><ol>${b.wniosek.kroki.map(k => `<li>${k}</li>`).join('')}</ol>${b.wniosek.pulapki.length > 0 ? `<h3>Uwagi</h3><ul>${b.wniosek.pulapki.map(p => `<li>${p}</li>`).join('')}</ul>` : ''}<div class="source">Źródło: <a href="${b.zrodloUrl}">${b.zrodloNazwa}</a></div></div>`;
     }).join('');
 
-    const html = `<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><title>Moje świadczenia</title><style>body{font-family:system-ui,sans-serif;max-width:820px;margin:0 auto;padding:20px 32px;color:#111;font-size:14px}h1{font-size:22px;margin-bottom:4px}.meta{font-size:12px;color:#666;margin-bottom:24px}.benefit{margin-bottom:32px;page-break-inside:avoid;border-top:1px solid #e0e0e0;padding-top:20px}h2{font-size:17px;margin:0 0 8px}h3{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#555;margin:12px 0 6px}ul,ol{margin:0;padding-left:20px;line-height:1.6}.status-pewne{display:inline-block;font-size:11px;font-weight:600;color:#2d6b2a;background:#e0f0db;padding:2px 10px;border-radius:99px}.status-mozliwe{display:inline-block;font-size:11px;font-weight:600;color:#a05a1a;background:#fdebd0;padding:2px 10px;border-radius:99px}.kwota{font-size:14px;font-weight:500;margin-left:8px}.source{font-size:11px;color:#999;margin-top:10px}.source a{color:#999}@media print{body{padding:0}}</style></head><body><h1>Moje świadczenia i ulgi</h1><div class="meta">wezmezadarmo.com | ${new Date().toLocaleDateString('pl-PL')} | ${results.length} świadczeń<br>Informacja orientacyjna, nie decyzja urzędowa.</div>${benefitsHtml}</body></html>`;
+    const html = `<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"><title>Moje świadczenia</title><style>body{font-family:system-ui,sans-serif;max-width:820px;margin:0 auto;padding:20px 32px;color:#111;font-size:14px}h1{font-size:22px;margin-bottom:4px}.meta{font-size:12px;color:#666;margin-bottom:24px}.benefit{margin-bottom:32px;page-break-inside:avoid;border-top:1px solid #e0e0e0;padding-top:20px}h2{font-size:17px;margin:0 0 8px}h3{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#555;margin:12px 0 6px}ul,ol{margin:0;padding-left:20px;line-height:1.6}.status-pewne{display:inline-block;font-size:11px;font-weight:600;color:#2d6b2a;background:#e3ecdc;padding:2px 10px;border-radius: 2px}.status-mozliwe{display:inline-block;font-size:11px;font-weight:600;color:#a05a1a;background:#fdebd0;padding:2px 10px;border-radius: 2px}.kwota{font-size:14px;font-weight:500;margin-left:8px}.source{font-size:11px;color:#999;margin-top:10px}.source a{color:#999}@media print{body{padding:0}}</style></head><body><h1>Moje świadczenia i ulgi</h1><div class="meta">wezmezadarmo.com | ${new Date().toLocaleDateString('pl-PL')} | ${results.length} świadczeń<br>Informacja orientacyjna, nie decyzja urzędowa.</div>${benefitsHtml}</body></html>`;
 
     const w = window.open('', '_blank');
     if (w) { w.document.write(html); w.document.close(); w.focus(); setTimeout(() => w.print(), 400); }
@@ -234,7 +234,7 @@ export function ChatWindow({
           display: 'flex', alignItems: 'center', gap: 8,
           flexShrink: 0,
         }}>
-          <span style={{ width: 8, height: 8, borderRadius: 999, background: 'var(--color-green)', flexShrink: 0 }} />
+          <span style={{ width: 8, height: 8, borderRadius: 2, background: 'var(--color-green)', flexShrink: 0 }} />
           <span className="mono" style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.06em', color: 'var(--color-text-1)', flex: 1 }}>
             ASYSTENT AI
           </span>
@@ -255,7 +255,7 @@ export function ChatWindow({
             padding: '6px 10px',
             background: 'var(--color-accent-soft)',
             border: '1px solid var(--color-accent)',
-            borderRadius: 8,
+            borderRadius: 2,
             fontSize: 11, color: 'var(--color-accent)',
             fontFamily: 'var(--font-mono)',
             display: 'flex', alignItems: 'center', gap: 6,
@@ -297,7 +297,7 @@ export function ChatWindow({
                 padding: '6px 12px', fontSize: 12,
                 background: 'var(--color-surface-2)',
                 border: '1px solid var(--color-border)',
-                borderRadius: 999, cursor: 'pointer',
+                borderRadius: 2, cursor: 'pointer',
                 color: 'var(--color-text-2)',
                 transition: 'all 200ms',
               }}
@@ -324,7 +324,7 @@ export function ChatWindow({
             rows={1}
             style={{
               flex: 1, height: 44, minHeight: 44, maxHeight: 120,
-              padding: '11px 14px', borderRadius: 12,
+              padding: '11px 14px', borderRadius: 2,
               background: 'var(--color-bg-0)',
               border: '1px solid var(--color-border)',
               color: 'var(--color-text-1)',
@@ -341,7 +341,7 @@ export function ChatWindow({
             className="btn btn-primary"
             style={{
               height: 44, padding: '0 16px',
-              borderRadius: 12,
+              borderRadius: 2,
               opacity: (isStreaming || !input.trim()) ? 0.3 : 1,
               cursor: (isStreaming || !input.trim()) ? 'not-allowed' : 'pointer',
               flexShrink: 0, fontSize: 13,
@@ -395,7 +395,7 @@ export function ChatWindow({
                 border: `1px solid ${filter === f.id ? 'var(--color-text-1)' : 'var(--color-border)'}`,
                 padding: '6px 14px',
                 fontSize: 11, fontWeight: 500,
-                borderRadius: 999,
+                borderRadius: 2,
                 cursor: 'pointer',
                 transition: 'all 200ms',
                 letterSpacing: '0.04em',
@@ -409,7 +409,7 @@ export function ChatWindow({
               {!isMobile && !chatOpen && (
                 <button onClick={() => setChatOpen(true)} style={{
                   background: 'var(--color-accent)', border: 'none',
-                  borderRadius: 8, padding: '6px 14px', fontSize: 12,
+                  borderRadius: 2, padding: '6px 14px', fontSize: 12,
                   color: '#fff', cursor: 'pointer', fontWeight: 500,
                   display: 'flex', alignItems: 'center', gap: 6,
                   transition: 'opacity 200ms',
@@ -424,7 +424,7 @@ export function ChatWindow({
               {isMobile && (
                 <button onClick={() => setMobileView('chat')} style={{
                   background: 'var(--color-accent)', border: 'none',
-                  borderRadius: 8, padding: '6px 14px', fontSize: 12,
+                  borderRadius: 2, padding: '6px 14px', fontSize: 12,
                   color: '#fff', cursor: 'pointer', fontWeight: 500,
                   display: 'flex', alignItems: 'center', gap: 6,
                 }}>
@@ -434,7 +434,7 @@ export function ChatWindow({
               )}
               <button onClick={downloadMd} title="Pobierz .md" className="mono" style={{
                 background: 'transparent', border: '1px solid var(--color-border)',
-                borderRadius: 8, padding: '6px 10px', fontSize: 11,
+                borderRadius: 2, padding: '6px 10px', fontSize: 11,
                 color: 'var(--color-text-3)', cursor: 'pointer', letterSpacing: '0.04em',
                 transition: 'all 200ms',
               }}
@@ -443,7 +443,7 @@ export function ChatWindow({
               >.MD</button>
               <button onClick={printResults} title="Drukuj / PDF" className="mono" style={{
                 background: 'transparent', border: '1px solid var(--color-border)',
-                borderRadius: 8, padding: '6px 10px', fontSize: 11,
+                borderRadius: 2, padding: '6px 10px', fontSize: 11,
                 color: 'var(--color-text-3)', cursor: 'pointer', letterSpacing: '0.04em',
                 transition: 'all 200ms',
               }}
@@ -453,7 +453,7 @@ export function ChatWindow({
               {onClearHistory && (
                 <button onClick={onClearHistory} title="Zacznij od nowa" style={{
                   background: 'transparent', border: '1px solid var(--color-border)',
-                  borderRadius: 8, padding: '6px 10px', fontSize: 12,
+                  borderRadius: 2, padding: '6px 10px', fontSize: 12,
                   color: 'var(--color-text-3)', cursor: 'pointer',
                   display: 'flex', alignItems: 'center', gap: 5,
                   transition: 'all 200ms',
@@ -502,7 +502,7 @@ export function ChatWindow({
                     <span className="mono" style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--color-text-3)' }}>
                       {CATEGORY_LABELS[cat] ?? cat}
                     </span>
-                    <span className="mono" style={{ fontSize: 11, color: 'var(--color-text-3)', background: 'var(--color-border)', borderRadius: 999, padding: '1px 8px', fontWeight: 500 }}>
+                    <span className="mono" style={{ fontSize: 11, color: 'var(--color-text-3)', background: 'var(--color-border)', borderRadius: 2, padding: '1px 8px', fontWeight: 500 }}>
                       {items.length}
                     </span>
                   </div>
@@ -530,7 +530,7 @@ export function ChatWindow({
                           <div style={{ fontSize: 12, color: 'var(--color-text-3)' }}>{r.benefit.kwota}</div>
                         </div>
                         <span style={{
-                          width: 8, height: 8, borderRadius: 999, flexShrink: 0, marginLeft: 10,
+                          width: 8, height: 8, borderRadius: 2, flexShrink: 0, marginLeft: 10,
                           background: r.status === 'PRZYSLUGUJE' ? 'var(--color-green)' : '#d44',
                         }} />
                       </button>
@@ -562,14 +562,14 @@ export function ChatWindow({
                   {/* Tags row */}
                   <div style={{ display: 'flex', gap: 8, marginBottom: 16, flexWrap: 'wrap' }}>
                     <span className="mono" style={{
-                      fontSize: 11, padding: '4px 10px', borderRadius: 999,
+                      fontSize: 11, padding: '4px 10px', borderRadius: 2,
                       background: 'var(--color-surface-2)', border: '1px solid var(--color-border)',
                       color: 'var(--color-text-3)', letterSpacing: '0.04em',
                     }}>
                       {CATEGORY_LABELS[selectedBenefit.kategoria] ?? selectedBenefit.kategoria}
                     </span>
                     <span className="mono" style={{
-                      fontSize: 11, padding: '4px 10px', borderRadius: 999,
+                      fontSize: 11, padding: '4px 10px', borderRadius: 2,
                       background: selectedResult.status === 'PRZYSLUGUJE' ? 'var(--color-green-bg)' : 'var(--color-accent-soft)',
                       color: selectedResult.status === 'PRZYSLUGUJE' ? 'var(--color-green)' : 'var(--color-accent)',
                       fontWeight: 500, letterSpacing: '0.04em',
@@ -613,7 +613,7 @@ export function ChatWindow({
                       height: 44, padding: '0 18px', fontSize: 14,
                       background: 'transparent',
                       border: '1px solid var(--color-border)',
-                      borderRadius: 10, cursor: 'pointer',
+                      borderRadius: 2, cursor: 'pointer',
                       color: 'var(--color-text-2)',
                       fontFamily: 'var(--font-sans)',
                       display: 'flex', alignItems: 'center', gap: 8,
@@ -657,7 +657,7 @@ export function ChatWindow({
                     <DetailBlock title="Gdzie złożyć">
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                         {selectedBenefit.wniosek.kanal.map(k => (
-                          <span key={k} className="mono" style={{ fontSize: 11, padding: '5px 10px', borderRadius: 999, background: 'var(--color-surface)', border: '1px solid var(--color-border)', letterSpacing: '0.04em' }}>
+                          <span key={k} className="mono" style={{ fontSize: 11, padding: '5px 10px', borderRadius: 2, background: 'var(--color-surface)', border: '1px solid var(--color-border)', letterSpacing: '0.04em' }}>
                             {k.replace(/_/g, ' ')}
                           </span>
                         ))}

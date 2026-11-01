@@ -1,11 +1,14 @@
 import type { Metadata } from 'next';
+import { canonical, OG_IMAGES } from '@/lib/seo';
 import AutomatyzacjePage from './AutomatyzacjePage';
 
 export const metadata: Metadata = {
+  alternates: canonical('/automatyzacje'),
   title: 'Automatyzacje AI dla europejskich firm | wezmezadarmo',
   description:
     'Informacyjnie: jakie automatyzacje AI są dziś możliwe i dostępne dla europejskich firm i JDG. wezmezadarmo.com to projekt pro bono dla obywateli; rozwiązania dla firm realizują niezależni europejscy partnerzy w ramach co-promocji.',
   openGraph: {
+    images: OG_IMAGES,
     title: 'Automatyzacje AI dla europejskich firm: co jest dziś możliwe',
     description:
       'Faktury spoza UE, oferty, raporty, maile, terminy. Takie automatyzacje są możliwe i dostępne dla europejskich firm. Strona informacyjna, w ramach co-promocji europejskich projektów.',

@@ -139,9 +139,7 @@ export default function ZusZas53Page() {
       {/* Header */}
       <header style={{
         position: 'sticky', top: 0, zIndex: 50,
-        background: 'rgba(236,242,236,0.85)',
-        backdropFilter: 'saturate(140%) blur(14px)',
-        WebkitBackdropFilter: 'saturate(140%) blur(14px)',
+        background: 'rgba(246,240,228,0.85)',
         borderBottom: '1px solid var(--color-border)',
       }}>
         <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
@@ -170,7 +168,7 @@ export default function ZusZas53Page() {
       <div style={{ maxWidth: 600, margin: '0 auto', padding: '48px 24px 80px' }}>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-          <span className="mono" style={{ fontSize: 11, color: 'var(--color-accent)', background: 'var(--color-accent-soft)', padding: '3px 8px', borderRadius: 6, fontWeight: 500 }}>ZAS-53</span>
+          <span className="mono" style={{ fontSize: 11, color: 'var(--color-accent)', background: 'var(--color-accent-soft)', padding: '3px 8px', borderRadius: 2, fontWeight: 500 }}>ZAS-53</span>
           <span style={{ fontSize: 12, color: 'var(--color-text-3)' }}>Zakład Ubezpieczeń Społecznych</span>
         </div>
         <h1 className="display" style={{ fontSize: 'clamp(26px, 4vw, 38px)', marginBottom: 8 }}>Zasiłek chorobowy</h1>
@@ -179,7 +177,7 @@ export default function ZusZas53Page() {
         <div style={{
           marginBottom: 32, padding: '20px 24px',
           background: 'var(--color-bg-1)', border: '1px solid var(--color-border)',
-          borderRadius: 12, fontSize: 13, color: 'var(--color-text-2)', lineHeight: 1.7,
+          borderRadius: 2, fontSize: 13, color: 'var(--color-text-2)', lineHeight: 1.7,
           boxShadow: 'var(--shadow-1)',
         }}>
           <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 6, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Dla kogo jest ZAS-53</p>
@@ -312,7 +310,7 @@ function StepZasiłek({ data, update, onBack, onNext }: { data: Zas53Data; updat
                 padding: '12px 14px',
                 background: data.okresUbezpieczenia === opt.v ? 'color-mix(in srgb, var(--color-accent) 8%, var(--color-bg-1))' : 'var(--color-bg-1)',
                 border: `1px solid ${data.okresUbezpieczenia === opt.v ? 'var(--color-accent)' : 'var(--color-border)'}`,
-                borderRadius: 8, cursor: 'pointer',
+                borderRadius: 2, cursor: 'pointer',
               }}>
                 <input type="radio" name="okres" value={opt.v} checked={data.okresUbezpieczenia === opt.v} onChange={() => update('okresUbezpieczenia', opt.v)} style={{ accentColor: 'var(--color-accent)' }} />
                 <span style={{ fontSize: 13, color: 'var(--color-text-2)' }}>{opt.label}</span>
@@ -339,7 +337,7 @@ function StepZasiłek({ data, update, onBack, onNext }: { data: Zas53Data; updat
                 padding: '12px 14px',
                 background: data.rodzajNiezdolnośći === k ? 'color-mix(in srgb, var(--color-accent) 8%, var(--color-bg-1))' : 'var(--color-bg-1)',
                 border: `1px solid ${data.rodzajNiezdolnośći === k ? 'var(--color-accent)' : 'var(--color-border)'}`,
-                borderRadius: 8, cursor: 'pointer',
+                borderRadius: 2, cursor: 'pointer',
               }}>
                 <input type="radio" name="rodzaj" value={k} checked={data.rodzajNiezdolnośći === k} onChange={() => update('rodzajNiezdolnośći', k)} style={{ accentColor: 'var(--color-accent)' }} />
                 <span style={{ fontSize: 13, color: 'var(--color-text-2)' }}>{v}</span>
@@ -349,14 +347,14 @@ function StepZasiłek({ data, update, onBack, onNext }: { data: Zas53Data; updat
         </div>
 
         {(data.rodzajNiezdolnośći === 'choroba-zawodowa' || data.rodzajNiezdolnośći === 'wypadek-przy-pracy') && (
-          <div style={{ padding: '12px 16px', background: 'color-mix(in srgb, var(--color-accent) 6%, var(--color-bg-1))', border: '1px solid var(--color-amber-border)', borderRadius: 8, fontSize: 12, color: 'var(--color-text-2)', lineHeight: 1.6 }}>
+          <div style={{ padding: '12px 16px', background: 'color-mix(in srgb, var(--color-accent) 6%, var(--color-bg-1))', border: '1px solid var(--color-amber-border)', borderRadius: 2, fontSize: 12, color: 'var(--color-text-2)', lineHeight: 1.6 }}>
             {data.rodzajNiezdolnośći === 'choroba-zawodowa'
               ? 'Dołącz do wniosku: decyzje o stwierdzeniu choroby zawodowej i zaświadczenie lekarskie, ze niezdolność jest spowodowana ta choroba.'
               : 'Wyplata zasiłku z tytułu wypadku nastapi po uznaniu zdarzenia za wypadek przy pracy. Dołącz protokol powypadkowy lub karte wypadku.'}
           </div>
         )}
 
-        <div style={{ padding: '12px 16px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 8, fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.6 }}>
+        <div style={{ padding: '12px 16px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 2, fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.6 }}>
           <p style={{ fontWeight: 600, color: 'var(--color-text-2)', marginBottom: 4 }}>Wysokość zasiłku</p>
           <p>80% podstawy wymiaru. 100% gdy: niezdolność w ciazy, wypadek przy pracy lub w drodze, choroba zawodowa, dawstwo komorek i tkanek. Maksymalny okres: 182 dni (270 dni dla gruzlicy lub w ciazy).</p>
         </div>
@@ -376,7 +374,7 @@ function StepPodgląd({ data, onBack, onDone, onDownloadPdf, downloadingPdf, onC
       <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 24, letterSpacing: '-0.01em' }}>Podgląd wniosku ZAS-53</h2>
       <div className="mono" style={{
         background: 'var(--color-bg-1)', border: '1px solid var(--color-border)',
-        borderRadius: 10, padding: '20px 24px',
+        borderRadius: 2, padding: '20px 24px',
         fontSize: 12, color: 'var(--color-text-2)',
         lineHeight: 1.8, whiteSpace: 'pre-wrap',
         boxShadow: 'var(--shadow-1)',
@@ -386,15 +384,15 @@ function StepPodgląd({ data, onBack, onDone, onDownloadPdf, downloadingPdf, onC
       </div>
       <div style={{ marginTop: 16, display: 'flex', gap: 10, flexWrap: 'wrap' }}>
         <button onClick={onDownloadPdf} disabled={downloadingPdf} className="btn btn-primary"
-          style={{ borderRadius: 8, fontSize: 13, opacity: downloadingPdf ? 0.6 : 1, cursor: downloadingPdf ? 'wait' : 'pointer' }}>
+          style={{ borderRadius: 2, fontSize: 13, opacity: downloadingPdf ? 0.6 : 1, cursor: downloadingPdf ? 'wait' : 'pointer' }}>
           {downloadingPdf ? 'Generuje PDF...' : 'Pobierz PDF'}
         </button>
-        <button onClick={onCopy} className="btn btn-outline" style={{ borderRadius: 8, fontSize: 13 }}>
+        <button onClick={onCopy} className="btn btn-outline" style={{ borderRadius: 2, fontSize: 13 }}>
           {copied ? 'Skopiowano!' : 'Kopiuj do schowka'}
         </button>
       </div>
 
-      <div style={{ marginTop: 24, padding: '20px 24px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 10, fontSize: 13, color: 'var(--color-text-2)', boxShadow: 'var(--shadow-1)' }}>
+      <div style={{ marginTop: 24, padding: '20px 24px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 2, fontSize: 13, color: 'var(--color-text-2)', boxShadow: 'var(--shadow-1)' }}>
         <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 12, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Jak złożyć ZAS-53</p>
         <ol style={{ paddingLeft: 20, margin: 0, display: 'flex', flexDirection: 'column', gap: 8, lineHeight: 1.65 }}>
           <li><strong style={{ color: 'var(--color-text-1)' }}>Online (najszybciej):</strong> Zaloguj się do <a href="https://www.zus.pl/ezus/logowanie?jezyk=pl" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)' }}>portalu eZUS</a> profilem zaufanym</li>
@@ -422,18 +420,18 @@ function StepDone({ onDownloadPdf, downloadingPdf, onCopy, copied, onRestart }: 
       </p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 32 }}>
         <button onClick={onDownloadPdf} disabled={downloadingPdf} className="btn btn-primary"
-          style={{ width: '100%', height: 50, borderRadius: 10, fontSize: 14, opacity: downloadingPdf ? 0.6 : 1, cursor: downloadingPdf ? 'wait' : 'pointer' }}>
+          style={{ width: '100%', height: 50, borderRadius: 2, fontSize: 14, opacity: downloadingPdf ? 0.6 : 1, cursor: downloadingPdf ? 'wait' : 'pointer' }}>
           {downloadingPdf ? 'Generuje PDF...' : 'Pobierz ZAS-53 (PDF)'}
         </button>
-        <button onClick={onCopy} className="btn btn-outline" style={{ width: '100%', height: 44, borderRadius: 10, fontSize: 13 }}>
+        <button onClick={onCopy} className="btn btn-outline" style={{ width: '100%', height: 44, borderRadius: 2, fontSize: 13 }}>
           {copied ? 'Skopiowano!' : 'Kopiuj dane do schowka'}
         </button>
         <a href="https://www.zus.pl/ezus/logowanie?jezyk=pl" target="_blank" rel="noopener noreferrer" className="btn"
-          style={{ width: '100%', height: 44, borderRadius: 10, fontSize: 13, color: 'var(--color-accent)', border: '1px solid var(--color-accent)', justifyContent: 'center' }}>
+          style={{ width: '100%', height: 44, borderRadius: 2, fontSize: 13, color: 'var(--color-accent)', border: '1px solid var(--color-accent)', justifyContent: 'center' }}>
           Złóż przez portal eZUS
         </a>
         <a href="https://www.zus.pl/wzory-formularzy" target="_blank" rel="noopener noreferrer" className="btn"
-          style={{ width: '100%', height: 40, borderRadius: 10, fontSize: 12, color: 'var(--color-text-2)', border: '1px solid var(--color-border)', justifyContent: 'center' }}>
+          style={{ width: '100%', height: 40, borderRadius: 2, fontSize: 12, color: 'var(--color-text-2)', border: '1px solid var(--color-border)', justifyContent: 'center' }}>
           Oryginalny formularz ZAS-53 na zus.pl
         </a>
       </div>
@@ -517,10 +515,10 @@ function NavButtons({ onBack, onNext, nextLabel = 'Dalej', nextDisabled = false 
 }) {
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 40, paddingTop: 24, borderTop: '1px solid var(--color-border)' }}>
-      {onBack ? <button onClick={onBack} className="btn btn-ghost" style={{ borderRadius: 8, fontSize: 13 }}>Wstecz</button> : <div />}
+      {onBack ? <button onClick={onBack} className="btn btn-ghost" style={{ borderRadius: 2, fontSize: 13 }}>Wstecz</button> : <div />}
       {onNext && (
         <button onClick={onNext} disabled={nextDisabled} className="btn btn-primary"
-          style={{ borderRadius: 999, fontSize: 13, opacity: nextDisabled ? 0.4 : 1, cursor: nextDisabled ? 'not-allowed' : 'pointer' }}>
+          style={{ borderRadius: 2, fontSize: 13, opacity: nextDisabled ? 0.4 : 1, cursor: nextDisabled ? 'not-allowed' : 'pointer' }}>
           {nextLabel}
         </button>
       )}

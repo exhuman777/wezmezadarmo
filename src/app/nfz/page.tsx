@@ -1,10 +1,13 @@
 import type { Metadata } from 'next';
+import { canonical, OG_IMAGES } from '@/lib/seo';
 import NFZSearchClient from './NFZSearchClient';
 
 export const metadata: Metadata = {
+  alternates: canonical('/nfz'),
   title: 'Wyszukiwarka NFZ - kolejki i świadczeniodawcy | wezmezadarmo',
   description: 'Sprawdź czas oczekiwania do specjalisty NFZ, znajdź szpital lub przychodnię z kontraktem NFZ. Dane na żywo z api.nfz.gov.pl.',
   openGraph: {
+    images: OG_IMAGES,
     title: 'Wyszukiwarka NFZ - kolejki i świadczeniodawcy',
     description: 'Sprawdź czasy oczekiwania, znajdź lekarza/szpital. Dane z oficjalnego API NFZ.',
     locale: 'pl_PL',

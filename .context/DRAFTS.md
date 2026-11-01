@@ -86,3 +86,24 @@ Całość jak zawsze: wezmezadarmo.com/za-darmo-dla-biznesu
 Znasz przedsiębiorcę, któremu przepadają telefony albo tonie w fakturach? Podeślij mu ten post.
 
 #KSeF #AI #biznes #Polska #automatyzacja #JDG #MSP
+
+---
+
+## Draft LinkedIn (01.11.2026) - odświeżenie na listopad 2026 (do wklejenia po wdrożeniu)
+
+Odświeżyłem wezmezadarmo.com. Strona zaczyna się teraz od gry.
+
+Masz 75 sekund, żeby dopasować 12 świadczeń do właściwych osób, np. seniora albo rodziny. Kto zagra, ten od razu wie, czego szukać dla siebie. Pod grą jest kalkulator, który robi to samo na serio.
+
+Co sprawdziłem i poprawiłem na stan z listopada 2026:
+
+- Bon senioralny przysługuje od 65 lat, nie od 75. Wiele osób dalej o tym nie wie.
+- 800+ i zasiłek rodzinny mają nowe okresy, więc pokazuję aktualne terminy wniosków.
+- Wakacje składkowe: limit to 10 ubezpieczonych razem z przedsiębiorcą.
+- Dotacje dla firm: 59 programów, każdy ze statusem na dziś. Ścieżka SMART (B+R dla MŚP) ma otwarty nabór do 29.12.2026, pula 500 mln zł.
+
+Strona jest też prostsza i bezpieczniejsza. Jedna kolumna, krótkie informacje, bez ozdobników.
+
+Nadal za darmo. Sprawdź, co Ci się należy: wezmezadarmo.com
+
+Jeśli znasz kogoś, kto mógł coś przegapić, podeślij mu link.

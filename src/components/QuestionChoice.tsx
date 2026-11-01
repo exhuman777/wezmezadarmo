@@ -32,7 +32,7 @@ export function QuestionChoice({ question, options, onSelect, disabled }: Questi
             className="hover-lift"
             style={{
               padding: '10px 16px',
-              borderRadius: 14,
+              borderRadius: 2,
               border: '1px solid var(--color-border)',
               background: 'var(--color-surface)',
               color: 'var(--color-text-1)',

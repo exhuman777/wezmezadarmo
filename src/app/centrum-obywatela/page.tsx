@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
+import { canonical } from '@/lib/seo';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
+  alternates: canonical('/centrum-obywatela'),
   title: 'Centrum Obywatela - darmowe narzędzia urzędowe | wezmezadarmo',
   description: '12 narzędzi z oficjalnych polskich API: NFZ, NBP, GIOŚ, Biała Lista VAT, IMGW/RCB, ELI/Sejm, BDL GUS, ARiMR, PKP. Bez logowania.',
 };
@@ -37,7 +39,7 @@ const TOOLS: Tool[] = [
     audiences: ['senior', 'student', 'rodzina'] },
   { href: '/aktualnosci', icon: 'R', label: 'Aktualności RSS', desc: 'Agregator z 8 instytucji państwowych, odświeżany 2x/dzień', badge: '2x/dzień', color: '#003874',
     audiences: ['firma', 'wszyscy'] },
-  { href: '/swiadczenia', icon: 'S', label: 'Świadczenia i ulgi', desc: '133 świadczeń ZUS, NFZ, PFRON, KRUS, MOPS - przeszukiwalna baza', badge: 'baza wiedzy', color: '#22A06B',
+  { href: '/swiadczenia', icon: 'S', label: 'Świadczenia i ulgi', desc: '133 świadczeń ZUS, NFZ, PFRON, KRUS, MOPS - przeszukiwalna baza', badge: 'baza wiedzy', color: '#2b7353',
     audiences: ['rolnik', 'senior', 'rodzina', 'student', 'wszyscy'] },
   { href: '/centrum-obywatela/polska-cyfrowa', icon: 'C', label: 'Polska cyfrowa', desc: 'e-zdrowie, ElevenLabs, wykresy: dostępność mieszkań i wzrost e-usług', badge: 'dane + wykresy', color: '#157a4f',
     audiences: ['senior', 'firma', 'student', 'wszyscy'] },
@@ -99,7 +101,7 @@ const AUDIENCES: Audience[] = [
     marker: '06',
     desc: 'Baza 133 świadczeń, codzienne aktualności rządowe, kursy walut, jakość powietrza, tracker zmian w prawie - narzędzia dla każdego, niezależnie od sytuacji.',
     benefit: 'Najczęściej używane narzędzia w jednym miejscu.',
-    accent: '#22A06B',
+    accent: '#2b7353',
   },
 ];
 
@@ -126,7 +128,7 @@ export default function CentrumObywatelaPage() {
   return (
     <main style={{ maxWidth: 1120, margin: '0 auto', padding: '32px 24px 60px' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
-        <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#22A06B', boxShadow: '0 0 7px rgba(34,160,107,0.55)' }} />
+        <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#2b7353', boxShadow: 'none' }} />
         <span style={{ fontFamily: 'var(--f-mono)', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink-500)' }}>
           Centrum Obywatela
         </span>
@@ -149,13 +151,13 @@ export default function CentrumObywatelaPage() {
             padding: '14px 16px',
             background: 'var(--white)',
             border: '1px solid var(--line)',
-            borderRadius: 12,
+            borderRadius: 2,
             position: 'relative',
             overflow: 'hidden',
           }}>
             <span style={{
               position: 'absolute', top: 0, left: 0, bottom: 0, width: 3,
-              background: 'linear-gradient(180deg, #22A06B, transparent)',
+              background: 'transparent',
             }} />
             <div style={{ fontSize: 22, fontWeight: 700, color: 'var(--ink-900)', letterSpacing: '-0.02em', fontFamily: 'var(--f-mono)', lineHeight: 1.1 }}>
               {s.num}
@@ -176,7 +178,7 @@ export default function CentrumObywatelaPage() {
               padding: '20px 22px',
               background: 'var(--white)',
               border: '1px solid var(--line)',
-              borderRadius: 16,
+              borderRadius: 2,
               position: 'relative',
               overflow: 'hidden',
             }}>
@@ -194,7 +196,7 @@ export default function CentrumObywatelaPage() {
                     <span style={{
                       fontFamily: 'var(--f-mono)', fontSize: 11, fontWeight: 600,
                       color: aud.accent, letterSpacing: '0.08em',
-                      padding: '3px 8px', borderRadius: 6,
+                      padding: '3px 8px', borderRadius: 2,
                       background: `${aud.accent}15`,
                       border: `1px solid ${aud.accent}30`,
                     }}>
@@ -206,7 +208,7 @@ export default function CentrumObywatelaPage() {
                     <span style={{
                       fontSize: 10, fontFamily: 'var(--f-mono)', color: 'var(--ink-500)',
                       letterSpacing: '0.06em', textTransform: 'uppercase',
-                      padding: '2px 7px', borderRadius: 999,
+                      padding: '2px 7px', borderRadius: 2,
                       background: 'var(--ink-100, #f0f0f0)',
                       border: '1px solid var(--line)',
                     }}>
@@ -222,7 +224,7 @@ export default function CentrumObywatelaPage() {
                   padding: '8px 12px',
                   background: `${aud.accent}08`,
                   border: `1px dashed ${aud.accent}40`,
-                  borderRadius: 8,
+                  borderRadius: 2,
                   fontSize: 11.5, color: 'var(--ink-600)', fontStyle: 'italic',
                   maxWidth: 260,
                 }}>
@@ -240,20 +242,20 @@ export default function CentrumObywatelaPage() {
                     style={{
                       display: 'block', textDecoration: 'none',
                       padding: 14,
-                      background: 'var(--green-25, #fafaf7)',
+                      background: 'var(--green-25, #fbf7ef)',
                       border: '1px solid var(--line)',
-                      borderRadius: 10,
+                      borderRadius: 2,
                       position: 'relative', overflow: 'hidden',
                       transition: 'transform 180ms, border-color 180ms',
                     }}>
                     <span style={{
                       position: 'absolute', top: 0, left: 0, right: 0, height: 2,
-                      background: `linear-gradient(90deg, transparent, ${t.color}, transparent)`,
+                      background: `transparent`,
                       opacity: 0.6,
                     }} />
                     <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6 }}>
                       <span style={{
-                        width: 32, height: 32, borderRadius: 7,
+                        width: 32, height: 32, borderRadius: 2,
                         background: t.color, color: '#fff',
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
                         fontFamily: 'var(--f-mono)', fontSize: 13, fontWeight: 700, flexShrink: 0,
@@ -289,7 +291,7 @@ export default function CentrumObywatelaPage() {
           padding: '18px 22px',
           background: 'var(--green-50)',
           border: '1px solid var(--green-200)',
-          borderRadius: 14,
+          borderRadius: 2,
         }}>
           <div style={{ fontSize: 13, color: 'var(--green-900)', lineHeight: 1.55, marginBottom: 14 }}>
             <strong>9 oficjalnych API rządowych</strong> - dane pobierane na żądanie, nigdzie nie przechowywane.
@@ -305,7 +307,7 @@ export default function CentrumObywatelaPage() {
                 padding: '8px 12px',
                 background: 'var(--white)',
                 border: '1px solid var(--green-200)',
-                borderRadius: 8,
+                borderRadius: 2,
                 display: 'flex', flexDirection: 'column', gap: 2,
               }}>
                 <code style={{

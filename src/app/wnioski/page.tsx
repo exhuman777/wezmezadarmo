@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { canonical } from '@/lib/seo';
 
 export const metadata: Metadata = {
+  alternates: canonical('/wnioski'),
   title: 'Pomoc w wypełnieniu wniosku z AI | wezmezadarmo',
   description: 'Wypełniaj wnioski ZUS, granty i dofinansowania krok po kroku z pomocą AI. Twoje dane zapisywane lokalnie w przeglądarce, prefill z profilu dla zalogowanych.',
 };
@@ -143,334 +145,82 @@ const STEPS = [
 ];
 
 export default function WnioskiPage() {
-  const totalForms = CATEGORIES.reduce((s, c) => s + c.forms.length, 0);
-
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--color-bg-0)' }}>
+    <main className="prosta">
 
-      <section style={{ position: 'relative', paddingTop: 48, paddingBottom: 48, overflow: 'hidden' }}>
-        <div className="grain-bg" />
-        <div className="container" style={{ position: 'relative' }}>
-
-          <div className="rise" style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 32 }}>
-            <span className="label-eyebrow">Narzędzie obywatelskie</span>
-            <span style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
-            <span className="label-eyebrow" style={{ color: 'var(--color-muted-2)' }}>Beta: bezpłatne</span>
-          </div>
-
-          <div style={{ maxWidth: 760 }}>
-            <h1 className="display rise" style={{ fontSize: 'clamp(40px, 6vw, 80px)', marginBottom: 24, animationDelay: '60ms' }}>
-              Wypełnij wniosek<br />
-              <span style={{ color: 'var(--color-accent)' }}>z pomocą AI</span>
-            </h1>
-            <p className="rise" style={{
-              fontSize: 18, lineHeight: 1.6,
-              color: 'var(--color-text-2)',
-              marginBottom: 20,
-              maxWidth: 620,
-              animationDelay: '120ms',
-            }}>
-              Zalogowanym auto-wypełniamy formularz z profilu (PESEL, imię, adres, konto).
-              AI tłumaczy każde pole i generuje sugestie treści.
-              Pobierasz gotowy PDF do podpisania i złożenia.
-            </p>
-
-            <div className="rise grid-stats" style={{
-              display: 'grid', gridTemplateColumns: 'repeat(3, auto)',
-              gap: 0, marginTop: 28, marginBottom: 0,
-              borderTop: '1px solid var(--color-border)',
-              borderBottom: '1px solid var(--color-border)',
-              padding: '20px 0',
-              animationDelay: '180ms',
-              width: 'fit-content',
-              minWidth: 0,
-            }}>
-              {[
-                { n: totalForms, label: 'gotowych formularzy' },
-                { n: 2, label: 'minuty na wypełnienie (z profilu)' },
-                { n: 0, label: 'PLN, bez rejestracji' },
-              ].map((s, i) => (
-                <div key={i} style={{ paddingLeft: i ? 'clamp(12px, 2vw, 36px)' : 0, paddingRight: 'clamp(12px, 2vw, 36px)', borderLeft: i ? '1px solid var(--color-border)' : 'none' }}>
-                  <div className="mono" style={{ fontSize: 10, color: 'var(--color-text-3)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 6 }}>
-                    {String(i + 1).padStart(2, '0')}
-                  </div>
-                  <div style={{ fontSize: 48, fontWeight: 400, letterSpacing: '-0.04em', lineHeight: 1, color: 'var(--color-text-1)', fontVariantNumeric: 'tabular-nums' }}>
-                    {s.n}
-                  </div>
-                  <div style={{ fontSize: 12, color: 'var(--color-text-3)', marginTop: 6 }}>{s.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-        </div>
+      <section className="prosta-blok" style={{ padding: 0 }}>
+        <p className="mono mala" style={{ margin: '0 0 8px' }}>Narzędzie obywatelskie, bezpłatne</p>
+        <h1>Wypełnij wniosek z pomocą AI</h1>
+        <p className="pod">AI tłumaczy każde pole i podpowiada treść. Pobierasz gotowy PDF do podpisania i złożenia.</p>
+        <p className="mala" style={{ marginTop: 12 }}>
+          Dane zostają w Twojej przeglądarce. Serwis nie składa wniosków za Ciebie.
+        </p>
       </section>
 
-      <div className="container" style={{ paddingBottom: 8 }}>
-        <div style={{
-          display: 'flex', alignItems: 'flex-start', gap: 12,
-          padding: '14px 18px',
-          background: 'var(--color-accent-soft)',
-          border: '1px solid var(--color-amber-border)',
-          borderRadius: 10,
-          fontSize: 13,
-          color: 'var(--color-text-2)',
-          lineHeight: 1.6,
-        }}>
-          <span style={{ color: 'var(--color-accent)', fontSize: 16, lineHeight: 1, flexShrink: 0, marginTop: 1 }}>i</span>
-          <span>
-            <strong>Beta - bezpłatne.</strong> Twoje dane zostają w Twojej przeglądarce (localStorage) plus opcjonalnie w Twoim profilu na koncie.
-            PDF generowany jednorazowo, niezachowywany na serwerze. Serwis nie składa wniosków za Ciebie - generuje gotowy dokument, który Ty podpisujesz i składasz.
-          </span>
-        </div>
-      </div>
+      {CATEGORIES.map((cat) => (
+        <section key={cat.id} className="prosta-blok" style={{ padding: '32px 0 0' }}>
+          <h2>{cat.label}</h2>
+          <ul style={{ margin: '12px 0 0', padding: 0, listStyle: 'none' }}>
+            {cat.forms.map((form) => (
+              <FormCard key={form.slug} form={form} />
+            ))}
+          </ul>
+        </section>
+      ))}
 
-      <main className="container" style={{ paddingTop: 48, paddingBottom: 80 }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 36 }}>
-          {CATEGORIES.map((cat) => (
-            <section key={cat.id}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 14 }}>
-                <span className="mono" style={{ fontSize: 11, color: 'var(--color-text-3)', letterSpacing: '0.1em' }}>
-                  {cat.icon}
-                </span>
-                <h2 className="label-eyebrow" style={{ color: 'var(--color-text-2)', letterSpacing: '0.06em' }}>
-                  {cat.label}
-                </h2>
-                <span style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
-                <span style={{ fontSize: 12, color: 'var(--color-text-3)' }}>
-                  {cat.forms.length} {cat.forms.length === 1 ? 'formularz' : cat.forms.length < 5 ? 'formularze' : 'formularzy'}
-                </span>
-              </div>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                {cat.forms.map((form) => (
-                  <FormCard key={form.slug} form={form} />
-                ))}
-              </div>
-            </section>
+      <section className="prosta-blok" style={{ padding: '32px 0 0' }}>
+        <h2>Jak to działa</h2>
+        <ol style={{ margin: '12px 0 0', padding: 0, listStyle: 'none' }}>
+          {STEPS.map((s) => (
+            <li key={s.n} style={{ padding: '12px 0', borderTop: '1px solid var(--linia)' }}>
+              <span className="mono" style={{ color: 'var(--rdza)', fontWeight: 700, marginRight: 10 }}>{s.n}</span>
+              {s.text}
+            </li>
           ))}
-        </div>
+        </ol>
+      </section>
 
-        {/* Roadmap section */}
-        <div style={{
-          marginTop: 56,
-          padding: '24px 26px',
-          background: 'var(--color-bg-1)',
-          border: '1px dashed var(--color-border)',
-          borderRadius: 14,
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 14 }}>
-            <span className="mono" style={{ fontSize: 11, color: 'var(--color-text-3)', letterSpacing: '0.1em' }}>
-              ROADMAP
-            </span>
-            <h2 className="label-eyebrow" style={{ color: 'var(--color-text-2)', letterSpacing: '0.06em' }}>
-              Następne formularze ({ROADMAP.length})
-            </h2>
-            <span style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
-          </div>
-          <p style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 16, lineHeight: 1.6 }}>
-            Te formularze są na liście do dodania. Kolejność ustalamy na podstawie zapotrzebowania -
-            zgłoś którego potrzebujesz najpilniej.
-          </p>
-          <div style={{
-            display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 8,
-          }}>
-            {ROADMAP.map((r, i) => (
-              <div key={i} style={{
-                padding: '10px 12px',
-                background: 'var(--color-bg-0)',
-                border: '1px solid var(--color-border)',
-                borderRadius: 8,
-                display: 'flex', flexDirection: 'column', gap: 4,
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
-                  <span className="mono" style={{
-                    fontSize: 9, color: 'var(--color-text-3)', letterSpacing: '0.06em',
-                    textTransform: 'uppercase',
-                    padding: '2px 6px', borderRadius: 4,
-                    background: 'var(--color-bg-1)',
-                    border: '1px solid var(--color-border)',
-                  }}>
-                    {r.category}
-                  </span>
-                  {r.symbol && (
-                    <span className="mono" style={{
-                      fontSize: 10, color: 'var(--color-accent)',
-                      background: 'var(--color-accent-soft)',
-                      padding: '2px 6px', borderRadius: 4,
-                    }}>
-                      {r.symbol}
-                    </span>
-                  )}
-                </div>
-                <div style={{ fontSize: 12, color: 'var(--color-text-2)', lineHeight: 1.4 }}>
-                  {r.name}
-                </div>
-                <div className="mono" style={{ fontSize: 11, color: 'var(--color-text-3)' }}>
-                  {r.amount}
-                </div>
-              </div>
-            ))}
-          </div>
-          <div style={{
-            marginTop: 18, padding: '12px 16px',
-            background: 'var(--color-accent-soft)',
-            border: '1px solid var(--color-amber-border)',
-            borderRadius: 10,
-            fontSize: 13, color: 'var(--color-text-2)',
-          }}>
-            <strong>Potrzebujesz któregoś?</strong>{' '}
-            <a href="/dla-firm#kontakt" style={{ color: 'var(--color-accent)' }}>
-              Napisz przez kontakt
-            </a>
-            {' '}- dodamy do priorytetów. Każde zgłoszenie liczy się jak głos.
-          </div>
-        </div>
+      <section className="prosta-blok" style={{ padding: '32px 0 0' }}>
+        <h2>Następne formularze</h2>
+        <p className="pod">Kolejność ustalamy według potrzeb. <a href="/dla-firm#kontakt" style={{ textDecoration: 'underline' }}>Napisz, którego potrzebujesz</a>.</p>
+        <ul style={{ margin: '12px 0 0', padding: 0, listStyle: 'none' }}>
+          {ROADMAP.map((r, i) => (
+            <li key={i} style={{ padding: '10px 0', borderTop: '1px solid var(--linia)', display: 'flex', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
+              <span><span className="mono mala" style={{ marginRight: 8 }}>{r.category}{r.symbol ? ` ${r.symbol}` : ''}</span>{r.name}</span>
+              <span className="mono" style={{ color: 'var(--szary)', fontSize: 14 }}>{r.amount}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
 
-        <div style={{
-          marginTop: 48,
-          paddingTop: 32,
-          borderTop: '1px solid var(--color-border)',
-        }}>
-          <div style={{ marginBottom: 40 }}>
-            <span className="label-eyebrow">Jak to działa</span>
-          </div>
-          <div className="grid-4" style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(220px, 100%), 1fr))',
-            gap: 'clamp(12px, 2vw, 24px)',
-          }}>
-            {STEPS.map((s) => (
-              <div key={s.n} style={{
-                padding: '24px 20px',
-                background: 'var(--color-bg-1)',
-                border: '1px solid var(--color-border)',
-                borderRadius: 12,
-                boxShadow: 'var(--shadow-card)',
-              }}>
-                <div className="mono" style={{ fontSize: 11, color: 'var(--color-text-3)', letterSpacing: '0.1em', marginBottom: 16 }}>
-                  {s.n}
-                </div>
-                <p style={{ fontSize: 14, color: 'var(--color-text-2)', lineHeight: 1.65 }}>
-                  {s.text}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
+      <section className="prosta-blok" style={{ padding: '32px 0 0' }}>
+        <h2>Prywatność</h2>
+        <p className="pod">PESEL, imię i adres zapisujemy w Twojej przeglądarce, a dla zalogowanych opcjonalnie w profilu. Do serwera trafiają tylko na chwilę, żeby wypełnić PDF.</p>
+      </section>
 
-        <div style={{
-          marginTop: 24,
-          padding: '18px 22px',
-          background: 'var(--color-bg-1)',
-          border: '1px solid var(--color-border)',
-          borderRadius: 12,
-          boxShadow: 'var(--shadow-1)',
-        }}>
-          <p style={{ fontSize: 12, color: 'var(--color-text-3)', marginBottom: 4, fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase' }}>
-            Prywatność
-          </p>
-          <p style={{ fontSize: 14, color: 'var(--color-text-2)', lineHeight: 1.7 }}>
-            Twoje dane osobowe (PESEL, imię, adres) są zapisywane w localStorage Twojej przeglądarki.
-            Dla zalogowanych - opcjonalnie w profilu (szyfrowane na poziomie bazy Supabase, dostępne tylko dla Ciebie).
-            Podczas generowania PDF dane trafiają tylko jednorazowo do serwera, do wypełnienia dokumentu.
-            Nie są przekazywane stronom trzecim, nie służą marketingowi.
-          </p>
-        </div>
-
-      </main>
-
-    </div>
+    </main>
   );
 }
 
 function FormCard({ form }: { form: Form }) {
-  const cardStyle: React.CSSProperties = {
-    display: 'flex',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-    gap: 20,
-    padding: '16px 20px',
-    borderRadius: 12,
-    border: '1px solid var(--color-accent)',
-    background: 'var(--color-bg-1)',
-    boxShadow: 'var(--shadow-card)',
-    transition: 'transform 320ms cubic-bezier(.2,.7,.1,1), box-shadow 320ms cubic-bezier(.2,.7,.1,1)',
-  };
-
   return (
-    <div style={cardStyle} className="hover-lift">
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 8, marginBottom: 6 }}>
-          {form.symbol && (
-            <span className="mono" style={{
-              fontSize: 11, color: 'var(--color-accent)',
-              background: 'var(--color-accent-soft)',
-              padding: '3px 8px', borderRadius: 6,
-              fontWeight: 500,
-            }}>
-              {form.symbol}
-            </span>
-          )}
-          <h3 style={{
-            fontSize: 15, fontWeight: 500,
-            color: 'var(--color-text-1)',
-            letterSpacing: '-0.01em',
-            lineHeight: 1.3,
-          }}>
-            {form.name}
-          </h3>
-        </div>
-
-        <p style={{ fontSize: 12, color: 'var(--color-text-3)', marginBottom: 8 }}>
-          {form.institution}
+    <li style={{ padding: '16px 0', borderTop: '1px solid var(--linia)' }}>
+      <h3 style={{ fontSize: 18, margin: '0 0 4px' }}>
+        {form.symbol && <span style={{ color: 'var(--rdza)', marginRight: 8 }}>{form.symbol}</span>}
+        {form.name}
+      </h3>
+      <p className="mala" style={{ margin: '0 0 6px' }}>{form.institution} · <span className="mono">{form.amount}</span></p>
+      <p style={{ margin: 0 }}>{form.description}</p>
+      {form.deadline && (
+        <p style={{ margin: '6px 0 0', fontSize: 15, fontWeight: form.deadlineUrgent ? 700 : 400, color: form.deadlineUrgent ? 'var(--red-600)' : 'var(--szary)' }}>
+          Termin: {form.deadline}{form.deadlineUrgent ? ' (pilne)' : ''}
         </p>
-
-        <p style={{ fontSize: 13, color: 'var(--color-text-2)', lineHeight: 1.65 }}>
-          {form.description}
-        </p>
-
-        {form.deadline && (
-          <p style={{ marginTop: 10, fontSize: 12, display: 'flex', alignItems: 'center', gap: 6 }}>
-            <span style={{ color: 'var(--color-text-3)' }}>Termin:</span>
-            <span style={{
-              color: form.deadlineUrgent ? 'var(--color-warn)' : 'var(--color-text-2)',
-              fontWeight: form.deadlineUrgent ? 600 : 400,
-            }}>
-              {form.deadline}
-            </span>
-            {form.deadlineUrgent && (
-              <span style={{
-                fontSize: 10, fontWeight: 600, color: 'var(--color-warn)',
-                background: 'var(--color-amber-bg)',
-                padding: '2px 7px', borderRadius: 4,
-                letterSpacing: '0.04em', textTransform: 'uppercase',
-              }}>
-                Pilne
-              </span>
-            )}
-          </p>
-        )}
-      </div>
-
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 12, flexShrink: 0 }}>
-        <span className="mono" style={{
-          fontSize: 13, fontWeight: 600,
-          color: 'var(--color-accent)',
-          whiteSpace: 'nowrap',
-          letterSpacing: '-0.01em',
-        }}>
-          {form.amount}
-        </span>
-
-        <Link
-          href={`/wnioski/${form.slug}`}
-          className="btn btn-primary"
-          style={{ height: 38, padding: '0 16px', borderRadius: 999, fontSize: 13 }}
-        >
+      )}
+      <div className="przyciski" style={{ marginTop: 12 }}>
+        <Link href={`/wnioski/${form.slug}`} className="btn btn-primary" style={{ flex: '0 0 auto' }}>
           Wypełnij z AI
         </Link>
       </div>
-    </div>
+    </li>
   );
 }

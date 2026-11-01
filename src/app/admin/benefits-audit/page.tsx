@@ -80,13 +80,13 @@ async function fetchAudit(): Promise<AuditData> {
 }
 
 const STATUS_TONES: Record<string, { bg: string; fg: string; label: string }> = {
-  OK: { bg: '#d4ecc8', fg: '#1e4d1c', label: 'OK' },
+  OK: { bg: '#e3ecdc', fg: '#27503c', label: 'OK' },
   NEW: { bg: '#e0e7ff', fg: '#1e3a8a', label: 'Nowy' },
   CHANGED: { bg: '#fff4e0', fg: '#a05a1a', label: 'Zmiana' },
   REDIRECT: { bg: '#fff4e0', fg: '#a05a1a', label: 'Redirect' },
   NOT_FOUND: { bg: '#fce4e6', fg: '#8b1f24', label: '404' },
-  TIMEOUT: { bg: '#f0f0ec', fg: '#6b7a72', label: 'Timeout' },
-  BLOCKED: { bg: '#f0f0ec', fg: '#6b7a72', label: 'Blocked' },
+  TIMEOUT: { bg: '#efe4cf', fg: '#6f655b', label: 'Timeout' },
+  BLOCKED: { bg: '#efe4cf', fg: '#6f655b', label: 'Blocked' },
 };
 
 export default async function BenefitsAuditPage() {
@@ -111,7 +111,7 @@ export default async function BenefitsAuditPage() {
       </div>
 
       {!configured && (
-        <div style={{ padding: 20, background: '#fce4e6', border: '1px solid #f4b8bd', borderRadius: 12, marginBottom: 24, color: '#8b1f24', fontSize: 14 }}>
+        <div style={{ padding: 20, background: '#fce4e6', border: '1px solid #f4b8bd', borderRadius: 2, marginBottom: 24, color: '#8b1f24', fontSize: 14 }}>
           Brak konfiguracji Supabase (NEXT_PUBLIC_SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY).
           Dane audytu niedostępne.
         </div>
@@ -119,24 +119,24 @@ export default async function BenefitsAuditPage() {
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 12, marginBottom: 24 }}>
         <Stat label="Razem" value={String(stats.total ?? 0)} />
-        <Stat label="OK" value={String(stats.ok ?? 0)} color="#22A06B" />
-        <Stat label="Wymaga uwagi" value={String(stats.needsReview ?? 0)} color="#c0392b" />
-        <Stat label="404 / martwe" value={String(stats.notFound ?? 0)} color="#c0392b" />
+        <Stat label="OK" value={String(stats.ok ?? 0)} color="#2b7353" />
+        <Stat label="Wymaga uwagi" value={String(stats.needsReview ?? 0)} color="#b23d30" />
+        <Stat label="404 / martwe" value={String(stats.notFound ?? 0)} color="#b23d30" />
         <Stat label="Zmiana treści" value={String(stats.changed ?? 0)} color="#a05a1a" />
         <Stat label="Redirect" value={String(stats.redirect ?? 0)} color="#a05a1a" />
-        <Stat label="Timeout / Blocked" value={String((stats.timeout ?? 0) + (stats.blocked ?? 0))} color="#6b7a72" />
+        <Stat label="Timeout / Blocked" value={String((stats.timeout ?? 0) + (stats.blocked ?? 0))} color="#6f655b" />
       </div>
 
       <div style={{ marginBottom: 28, display: 'flex', gap: 12, flexWrap: 'wrap' }}>
         <Link href={`/api/cron/benefits-audit?secret=${process.env.CRON_SECRET ?? ''}`} style={{
           padding: '10px 18px', background: 'var(--color-text-1)', color: 'var(--color-bg-0)',
-          borderRadius: 8, fontSize: 13, fontWeight: 500, textDecoration: 'none',
+          borderRadius: 2, fontSize: 13, fontWeight: 500, textDecoration: 'none',
         }}>
           Uruchom audyt teraz
         </Link>
         <Link href="/admin/newsletter" style={{
           padding: '10px 18px', background: 'transparent', color: 'var(--color-text-1)',
-          border: '1px solid var(--color-border)', borderRadius: 8, fontSize: 13, fontWeight: 500, textDecoration: 'none',
+          border: '1px solid var(--color-border)', borderRadius: 2, fontSize: 13, fontWeight: 500, textDecoration: 'none',
         }}>
           Newsletter admin →
         </Link>
@@ -157,14 +157,14 @@ export default async function BenefitsAuditPage() {
               return (
                 <div key={r.benefit_id} style={{
                   padding: '16px 18px', background: 'var(--color-surface)',
-                  border: '1px solid var(--color-border)', borderLeft: `3px solid ${tone.fg}`, borderRadius: 10,
+                  border: '1px solid var(--color-border)', borderLeft: `3px solid ${tone.fg}`, borderRadius: 2,
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', marginBottom: 8 }}>
-                    <span style={{ padding: '3px 10px', borderRadius: 999, background: tone.bg, color: tone.fg, fontSize: 11, fontWeight: 600 }}>{tone.label}</span>
+                    <span style={{ padding: '3px 10px', borderRadius: 2, background: tone.bg, color: tone.fg, fontSize: 11, fontWeight: 600 }}>{tone.label}</span>
                     <span style={{ fontSize: 15, fontWeight: 600, color: 'var(--color-text-1)' }}>{r.benefit_name}</span>
                     <code style={{ fontSize: 11, color: 'var(--color-text-3)' }}>{r.category}</code>
                     {r.consecutive_errors > 1 && (
-                      <span style={{ fontSize: 11, color: '#c0392b' }}>psuje się od {r.consecutive_errors} audytów</span>
+                      <span style={{ fontSize: 11, color: '#b23d30' }}>psuje się od {r.consecutive_errors} audytów</span>
                     )}
                   </div>
                   {r.last_note && (
@@ -176,7 +176,7 @@ export default async function BenefitsAuditPage() {
                       maxWidth: 520, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
                     }}>{r.url}</a>
                     <a href={suggestedSearchUrl(r.benefit_name)} target="_blank" rel="noopener noreferrer" style={{
-                      fontSize: 12, fontWeight: 600, color: '#22A06B', textDecoration: 'none', whiteSpace: 'nowrap',
+                      fontSize: 12, fontWeight: 600, color: '#2b7353', textDecoration: 'none', whiteSpace: 'nowrap',
                     }}>Znajdź aktualne źródło →</a>
                   </div>
                 </div>
@@ -187,7 +187,7 @@ export default async function BenefitsAuditPage() {
       )}
 
       {problems.length === 0 && configured && rows.length > 0 && (
-        <div style={{ padding: 16, background: '#d4ecc8', border: '1px solid #b6dba6', borderRadius: 10, marginBottom: 28, color: '#1e4d1c', fontSize: 14, fontWeight: 500 }}>
+        <div style={{ padding: 16, background: '#e3ecdc', border: '1px solid #b6dba6', borderRadius: 2, marginBottom: 28, color: '#27503c', fontSize: 14, fontWeight: 500 }}>
           Wszystkie 133 źródła sprawne. Nic nie wymaga uwagi.
         </div>
       )}
@@ -196,7 +196,7 @@ export default async function BenefitsAuditPage() {
       <h2 style={{ fontSize: 16, fontWeight: 700, color: 'var(--color-text-1)', margin: '0 0 12px' }}>
         Wszystkie źródła
       </h2>
-      <div style={{ overflowX: 'auto', background: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 12 }}>
+      <div style={{ overflowX: 'auto', background: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 2 }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
           <thead>
             <tr style={{ background: 'var(--color-bg-2)' }}>
@@ -231,7 +231,7 @@ export default async function BenefitsAuditPage() {
                   </Td>
                   <Td><code style={{ fontSize: 11, color: 'var(--color-text-3)' }}>{r.category}</code></Td>
                   <Td>
-                    <span style={{ padding: '4px 10px', borderRadius: 999, background: tone.bg, color: tone.fg, fontSize: 11, fontWeight: 600 }}>{tone.label}</span>
+                    <span style={{ padding: '4px 10px', borderRadius: 2, background: tone.bg, color: tone.fg, fontSize: 11, fontWeight: 600 }}>{tone.label}</span>
                   </Td>
                   <Td>
                     <span style={{ fontSize: 11, color: 'var(--color-text-3)' }}>{r.last_note ?? (r.last_status ? `HTTP ${r.last_status}` : '-')}</span>
@@ -255,7 +255,7 @@ export default async function BenefitsAuditPage() {
 
 function Stat({ label, value, color }: { label: string; value: string; color?: string }) {
   return (
-    <div style={{ padding: 14, background: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 10 }}>
+    <div style={{ padding: 14, background: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 2 }}>
       <div style={{ fontSize: 11, color: 'var(--color-text-3)', fontWeight: 600, marginBottom: 4, letterSpacing: '-0.005em' }}>{label}</div>
       <div style={{ fontSize: 22, fontWeight: 700, color: color ?? 'var(--color-text-1)' }}>{value}</div>
     </div>

@@ -114,24 +114,23 @@ export function OnboardingWizard({ profileType, isPanel = false }: Props) {
     <div style={{
       position: 'fixed', inset: 0, zIndex: 100,
       background: 'rgba(8, 17, 13, 0.65)',
-      backdropFilter: 'blur(4px)',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       padding: 20, animation: 'fadeIn 0.2s ease',
     }}>
       <div style={{
         maxWidth: 540, width: '100%',
         background: 'var(--color-surface, #fff)',
-        borderRadius: 16,
-        boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
+        borderRadius: 2,
+        boxShadow: 'none',
         overflow: 'hidden',
         animation: 'slideUp 0.3s ease',
       }}>
         {/* Progress bar */}
-        <div style={{ height: 4, background: 'var(--color-bg-2, #f0f0ec)' }}>
+        <div style={{ height: 4, background: 'var(--color-bg-2, #efe4cf)' }}>
           <div style={{
             height: '100%',
             width: `${((stepIdx + 1) / steps.length) * 100}%`,
-            background: 'var(--color-accent, #22A06B)',
+            background: 'var(--color-accent, #2b7353)',
             transition: 'width 0.3s ease',
           }} />
         </div>
@@ -188,10 +187,10 @@ export function OnboardingWizard({ profileType, isPanel = false }: Props) {
               style={{
                 display: 'inline-block',
                 padding: '10px 18px',
-                background: 'var(--color-bg-2, #f0f0ec)',
+                background: 'var(--color-bg-2, #efe4cf)',
                 color: 'var(--color-text-1)',
                 border: '1px solid var(--color-border)',
-                borderRadius: 8,
+                borderRadius: 2,
                 fontSize: 13, fontWeight: 500,
                 textDecoration: 'none',
                 marginBottom: 24,
@@ -224,7 +223,7 @@ export function OnboardingWizard({ profileType, isPanel = false }: Props) {
               {steps.map((_, i) => (
                 <span key={i} style={{
                   width: 6, height: 6, borderRadius: '50%',
-                  background: i === stepIdx ? 'var(--color-accent, #22A06B)' : 'var(--color-border)',
+                  background: i === stepIdx ? 'var(--color-accent, #2b7353)' : 'var(--color-border)',
                   transition: 'background 0.2s',
                 }} />
               ))}
@@ -234,9 +233,9 @@ export function OnboardingWizard({ profileType, isPanel = false }: Props) {
               onClick={next}
               style={{
                 padding: '10px 20px',
-                background: 'var(--color-accent, #22A06B)',
+                background: 'var(--color-accent, #2b7353)',
                 color: '#fff',
-                border: 'none', borderRadius: 8,
+                border: 'none', borderRadius: 2,
                 fontSize: 14, fontWeight: 600,
                 cursor: 'pointer',
               }}

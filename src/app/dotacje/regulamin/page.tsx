@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
+import { canonical } from '@/lib/seo';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
+  alternates: canonical('/dotacje/regulamin'),
   title: 'Regulamin | dotacje | wezmezadarmo',
   description: 'Regulamin usługi dotacje.wezmezadarmo.com - warunki korzystania, bezpłatny dostęp, prawa użytkownika.',
 };

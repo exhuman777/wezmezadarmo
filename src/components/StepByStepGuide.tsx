@@ -55,7 +55,7 @@ export function StepByStepGuide({ benefit, onClose }: StepByStepGuideProps) {
             <span key={k} className="mono" style={{
               display: 'inline-flex', alignItems: 'center',
               fontSize: 11, fontWeight: 500, padding: '5px 10px',
-              borderRadius: 999,
+              borderRadius: 2,
               background: 'var(--color-accent-soft)',
               color: 'var(--color-accent)',
               letterSpacing: '0.04em',

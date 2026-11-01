@@ -56,7 +56,7 @@ function LogowanieForm() {
         Zaloguj się do panelu
       </h1>
       {linkError && (
-        <p style={{ fontSize: 13, color: '#e05c5c', marginBottom: 16, lineHeight: 1.5 }}>
+        <p style={{ fontSize: 13, color: '#c4483a', marginBottom: 16, lineHeight: 1.5 }}>
           Link wygasł lub jest nieprawidłowy. Skontaktuj się z nami lub zarejestruj się ponownie.
         </p>
       )}
@@ -71,7 +71,7 @@ function LogowanieForm() {
           <input type="password" value={password} onChange={e => setPassword(e.target.value)}
             required style={inputStyle} />
         </div>
-        {error && <p style={{ fontSize: 13, color: '#e05c5c', margin: 0 }}>{error}</p>}
+        {error && <p style={{ fontSize: 13, color: '#c4483a', margin: 0 }}>{error}</p>}
         <button type="submit" disabled={loading} style={{
           padding: '11px', background: loading ? 'var(--color-border)' : 'var(--color-green)',
           color: '#FFFFFF', border: 'none', borderRadius: 'var(--radius-sm)',

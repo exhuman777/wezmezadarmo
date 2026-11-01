@@ -10,10 +10,16 @@ import { buildZ15aPdf, type Z15aWizardData } from '@/lib/forms/z15a-filler';
 import { buildPelPdf, type PelWizardData } from '@/lib/forms/pel-filler';
 import { buildErpoPdf, type ErpoWizardData } from '@/lib/forms/erpo-filler';
 
+import type { NextRequest } from 'next/server';
+import { rateLimit } from '@/lib/sources/_helpers';
+
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
+  const limit = rateLimit('pdf', request, 30, 60 * 60_000); // 30 PDF / h / IP
+  if (!limit.ok) return limit.response;
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let body: { formType: string; data: any };
 

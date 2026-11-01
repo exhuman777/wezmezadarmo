@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { canonical } from '@/lib/seo';
 
 export const metadata: Metadata = {
+  alternates: canonical('/polityka-prywatnosci'),
   title: 'Polityka prywatności | wezmezadarmo.com',
   description: 'Polityka prywatności serwisu wezmezadarmo.com. Informacje o przetwarzaniu danych osobowych zgodnie z RODO i EU AI Act.',
 };

@@ -171,9 +171,7 @@ export default function ZusErpoPage() {
       {/* Header */}
       <header style={{
         position: 'sticky', top: 0, zIndex: 50,
-        background: 'rgba(236,242,236,0.85)',
-        backdropFilter: 'saturate(140%) blur(14px)',
-        WebkitBackdropFilter: 'saturate(140%) blur(14px)',
+        background: 'rgba(246,240,228,0.85)',
         borderBottom: '1px solid var(--color-border)',
       }}>
         <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
@@ -203,7 +201,7 @@ export default function ZusErpoPage() {
 
         {/* Title */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-          <span className="mono" style={{ fontSize: 11, color: 'var(--color-accent)', background: 'var(--color-accent-soft)', padding: '3px 8px', borderRadius: 6, fontWeight: 500 }}>ERPO</span>
+          <span className="mono" style={{ fontSize: 11, color: 'var(--color-accent)', background: 'var(--color-accent-soft)', padding: '3px 8px', borderRadius: 2, fontWeight: 500 }}>ERPO</span>
           <span style={{ fontSize: 12, color: 'var(--color-text-3)' }}>Zaklad Ubezpieczeń Spolecznych</span>
         </div>
         <h1 className="display" style={{ fontSize: 'clamp(26px, 4vw, 38px)', marginBottom: 8 }}>Wniosek o emeryturę</h1>
@@ -214,18 +212,18 @@ export default function ZusErpoPage() {
           marginBottom: 32, padding: '20px 24px',
           background: 'var(--color-bg-1)',
           border: '1px solid var(--color-border)',
-          borderRadius: 12, fontSize: 13,
+          borderRadius: 2, fontSize: 13,
           color: 'var(--color-text-2)', lineHeight: 1.7,
           boxShadow: 'var(--shadow-1)',
         }}>
           <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 6, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Wiek emerytalny</p>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 14 }}>
-            <div style={{ padding: '10px 14px', background: 'var(--color-bg-0)', border: '1px solid var(--color-border)', borderRadius: 8 }}>
+            <div style={{ padding: '10px 14px', background: 'var(--color-bg-0)', border: '1px solid var(--color-border)', borderRadius: 2 }}>
               <div style={{ fontSize: 11, color: 'var(--color-text-3)', marginBottom: 4 }}>Kobiety</div>
               <div style={{ fontSize: 22, fontWeight: 500, color: 'var(--color-accent)' }}>60 lat</div>
               <div style={{ fontSize: 11, color: 'var(--color-text-3)' }}>min. 20 lat stażu</div>
             </div>
-            <div style={{ padding: '10px 14px', background: 'var(--color-bg-0)', border: '1px solid var(--color-border)', borderRadius: 8 }}>
+            <div style={{ padding: '10px 14px', background: 'var(--color-bg-0)', border: '1px solid var(--color-border)', borderRadius: 2 }}>
               <div style={{ fontSize: 11, color: 'var(--color-text-3)', marginBottom: 4 }}>Mężczyźni</div>
               <div style={{ fontSize: 22, fontWeight: 500, color: 'var(--color-accent)' }}>65 lat</div>
               <div style={{ fontSize: 11, color: 'var(--color-text-3)' }}>min. 25 lat stażu</div>
@@ -342,7 +340,7 @@ function StepEmerytura({ data, update, minStaz, onBack, onNext }: {
             padding: '14px 18px',
             background: stazeOK ? 'color-mix(in srgb, var(--color-accent) 8%, var(--color-bg-1))' : 'rgba(200,50,50,0.08)',
             border: `1px solid ${stazeOK ? 'var(--color-accent)' : 'rgba(200,50,50,0.3)'}`,
-            borderRadius: 8, fontSize: 13,
+            borderRadius: 2, fontSize: 13,
             color: stazeOK ? 'var(--color-text-1)' : 'var(--color-text-2)',
           }}>
             {stazeOK
@@ -364,7 +362,7 @@ function StepEmerytura({ data, update, minStaz, onBack, onNext }: {
           </Field>
         )}
 
-        <div style={{ padding: '12px 16px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 8, fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.6 }}>
+        <div style={{ padding: '12px 16px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 2, fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.6 }}>
           <p style={{ fontWeight: 600, color: 'var(--color-text-2)', marginBottom: 4 }}>Ważne: historia zatrudnienia</p>
           <p>Wniosek ERPO wymaga podania pełnej historii zatrudnienia (pracodawcy, okresy, rodzaj ubezpieczenia). ZUS posiada dane z systemu od 1999 r. Dla wczesniejszych okresow potrzebne sa świadectwa pracy z archiwum. Ten kreator pomaga przygotowac dane. Pelna historia jest wymagana na formularzu oryginalnym.</p>
         </div>
@@ -408,7 +406,7 @@ function StepDokumenty({ data, onBack, onNext }: { data: ErpoData; onBack: () =>
           <DocSection title={`Dodatkowe -- ${data.rodzajEmerytury === 'pomostowa' ? 'emerytura pomostowa' : 'emerytura częściowa'}`} docs={DOCS_DODATKOWE} />
         )}
 
-        <div style={{ padding: '16px 20px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 10, fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.65 }}>
+        <div style={{ padding: '16px 20px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 2, fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.65 }}>
           <p style={{ fontWeight: 600, color: 'var(--color-text-2)', marginBottom: 8 }}>Archiwum dokumentow</p>
           <p style={{ marginBottom: 8 }}>Jeśli pracodawca nie istnieje lub dokumenty zaginęły:</p>
           <ul style={{ paddingLeft: 18, margin: 0, display: 'flex', flexDirection: 'column', gap: 4 }}>
@@ -436,7 +434,7 @@ function DocSection({ title, docs }: { title: string; docs: string[] }) {
             padding: '12px 14px',
             background: 'var(--color-bg-1)',
             border: '1px solid var(--color-border)',
-            borderRadius: 8,
+            borderRadius: 2,
           }}>
             <span style={{ color: 'var(--color-accent)', fontSize: 14, lineHeight: 1.4, flexShrink: 0 }}>--</span>
             <span style={{ fontSize: 13, color: 'var(--color-text-2)', lineHeight: 1.6 }}>{doc}</span>
@@ -456,7 +454,7 @@ function StepKonto({ data, update, onBack, onNext }: { data: ErpoData; update: (
         <Field label="Numer rachunku bankowego" hint="Format: PL00 0000 0000 0000 0000 0000 0000">
           <input className={IC} value={data.nrKonta} onChange={e => update('nrKonta', e.target.value)} placeholder="PL00 0000 0000 0000 0000 0000 0000" />
         </Field>
-        <div style={{ padding: '12px 16px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 8, fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.6 }}>
+        <div style={{ padding: '12px 16px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 2, fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.6 }}>
           Jeśli nie masz konta lub nie chcesz podawac, ZUS wypłaci emeryturę na poczcie. Podanie konta bankowego przyspiesza wypłatę i eliminuje ryzyko zaginiocia przekazu.
         </div>
       </div>
@@ -475,7 +473,7 @@ function StepPodgląd({ data, onBack, onDone, onDownloadPdf, downloadingPdf, onC
       <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 24, letterSpacing: '-0.01em' }}>Podgląd danych do wniosku ERPO</h2>
       <div className="mono" style={{
         background: 'var(--color-bg-1)', border: '1px solid var(--color-border)',
-        borderRadius: 10, padding: '20px 24px',
+        borderRadius: 2, padding: '20px 24px',
         fontSize: 12, color: 'var(--color-text-2)',
         lineHeight: 1.8, whiteSpace: 'pre-wrap',
         boxShadow: 'var(--shadow-1)',
@@ -487,11 +485,11 @@ function StepPodgląd({ data, onBack, onDone, onDownloadPdf, downloadingPdf, onC
           onClick={onDownloadPdf}
           disabled={downloadingPdf}
           className="btn btn-primary"
-          style={{ borderRadius: 8, fontSize: 13, opacity: downloadingPdf ? 0.6 : 1, cursor: downloadingPdf ? 'wait' : 'pointer' }}
+          style={{ borderRadius: 2, fontSize: 13, opacity: downloadingPdf ? 0.6 : 1, cursor: downloadingPdf ? 'wait' : 'pointer' }}
         >
           {downloadingPdf ? 'Generuje PDF...' : 'Pobierz PDF'}
         </button>
-        <button onClick={onCopy} className="btn btn-outline" style={{ borderRadius: 8, fontSize: 13 }}>
+        <button onClick={onCopy} className="btn btn-outline" style={{ borderRadius: 2, fontSize: 13 }}>
           {copied ? 'Skopiowano!' : 'Kopiuj do schowka'}
         </button>
       </div>
@@ -499,7 +497,7 @@ function StepPodgląd({ data, onBack, onDone, onDownloadPdf, downloadingPdf, onC
       <div style={{
         marginTop: 24, padding: '20px 24px',
         background: 'var(--color-bg-1)', border: '1px solid var(--color-border)',
-        borderRadius: 10, fontSize: 13, color: 'var(--color-text-2)',
+        borderRadius: 2, fontSize: 13, color: 'var(--color-text-2)',
         boxShadow: 'var(--shadow-1)',
       }}>
         <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 12, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Jak złożyć wniosek ERPO</p>
@@ -533,11 +531,11 @@ function StepDone({ onDownloadPdf, downloadingPdf, onCopy, copied, onRestart }: 
           onClick={onDownloadPdf}
           disabled={downloadingPdf}
           className="btn btn-primary"
-          style={{ width: '100%', height: 50, borderRadius: 10, fontSize: 14, opacity: downloadingPdf ? 0.6 : 1, cursor: downloadingPdf ? 'wait' : 'pointer' }}
+          style={{ width: '100%', height: 50, borderRadius: 2, fontSize: 14, opacity: downloadingPdf ? 0.6 : 1, cursor: downloadingPdf ? 'wait' : 'pointer' }}
         >
           {downloadingPdf ? 'Generuje PDF...' : 'Pobierz dane ERPO (PDF)'}
         </button>
-        <button onClick={onCopy} className="btn btn-outline" style={{ width: '100%', height: 44, borderRadius: 10, fontSize: 13 }}>
+        <button onClick={onCopy} className="btn btn-outline" style={{ width: '100%', height: 44, borderRadius: 2, fontSize: 13 }}>
           {copied ? 'Skopiowano!' : 'Kopiuj dane do schowka'}
         </button>
         <a
@@ -545,7 +543,7 @@ function StepDone({ onDownloadPdf, downloadingPdf, onCopy, copied, onRestart }: 
           target="_blank"
           rel="noopener noreferrer"
           className="btn"
-          style={{ width: '100%', height: 44, borderRadius: 10, fontSize: 13, color: 'var(--color-accent)', border: '1px solid var(--color-accent)', justifyContent: 'center' }}
+          style={{ width: '100%', height: 44, borderRadius: 2, fontSize: 13, color: 'var(--color-accent)', border: '1px solid var(--color-accent)', justifyContent: 'center' }}
         >
           Złóż wniosek przez PUE ZUS
         </a>
@@ -617,7 +615,7 @@ function NavButtons({ onBack, onNext, nextLabel = 'Dalej', nextDisabled = false 
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 40, paddingTop: 24, borderTop: '1px solid var(--color-border)' }}>
       {onBack ? (
-        <button onClick={onBack} className="btn btn-ghost" style={{ borderRadius: 8, fontSize: 13 }}>
+        <button onClick={onBack} className="btn btn-ghost" style={{ borderRadius: 2, fontSize: 13 }}>
           Wstecz
         </button>
       ) : <div />}
@@ -626,7 +624,7 @@ function NavButtons({ onBack, onNext, nextLabel = 'Dalej', nextDisabled = false 
           onClick={onNext}
           disabled={nextDisabled}
           className="btn btn-primary"
-          style={{ borderRadius: 999, fontSize: 13, opacity: nextDisabled ? 0.4 : 1, cursor: nextDisabled ? 'not-allowed' : 'pointer' }}
+          style={{ borderRadius: 2, fontSize: 13, opacity: nextDisabled ? 0.4 : 1, cursor: nextDisabled ? 'not-allowed' : 'pointer' }}
         >
           {nextLabel}
         </button>

@@ -116,9 +116,7 @@ export default function ZusPelPage() {
     <div style={{ minHeight: '100vh', background: 'var(--color-bg-0)' }}>
       <header style={{
         position: 'sticky', top: 0, zIndex: 50,
-        background: 'rgba(236,242,236,0.85)',
-        backdropFilter: 'saturate(140%) blur(14px)',
-        WebkitBackdropFilter: 'saturate(140%) blur(14px)',
+        background: 'rgba(246,240,228,0.85)',
         borderBottom: '1px solid var(--color-border)',
       }}>
         <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
@@ -146,13 +144,13 @@ export default function ZusPelPage() {
 
       <div style={{ maxWidth: 600, margin: '0 auto', padding: '48px 24px 80px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-          <span className="mono" style={{ fontSize: 11, color: 'var(--color-accent)', background: 'var(--color-accent-soft)', padding: '3px 8px', borderRadius: 6, fontWeight: 500 }}>PEL</span>
+          <span className="mono" style={{ fontSize: 11, color: 'var(--color-accent)', background: 'var(--color-accent-soft)', padding: '3px 8px', borderRadius: 2, fontWeight: 500 }}>PEL</span>
           <span style={{ fontSize: 12, color: 'var(--color-text-3)' }}>Zakład Ubezpieczeń Społecznych</span>
         </div>
         <h1 className="display" style={{ fontSize: 'clamp(26px, 4vw, 38px)', marginBottom: 8 }}>Pełnomocnictwo</h1>
         <p style={{ fontSize: 14, color: 'var(--color-text-3)', marginBottom: 32 }}>Upoważnij wybraną przez Ciebie osobę do załatwienia spraw w ZUS w Twoim imieniu</p>
 
-        <div style={{ marginBottom: 32, padding: '20px 24px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 12, fontSize: 13, color: 'var(--color-text-2)', lineHeight: 1.7, boxShadow: 'var(--shadow-1)' }}>
+        <div style={{ marginBottom: 32, padding: '20px 24px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 2, fontSize: 13, color: 'var(--color-text-2)', lineHeight: 1.7, boxShadow: 'var(--shadow-1)' }}>
           <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 6, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Kiedy potrzebne</p>
           <p style={{ marginBottom: 12 }}>Gdy chcesz upoważnić małżonka, dzieci, prawnika lub księgowego do: składania wniosków w ZUS w Twoim imieniu, odbierania korespondencji, korzystania z portalu eZUS.</p>
           <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 6, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Jak złożyć</p>
@@ -223,7 +221,7 @@ function StepMocodawca({ data, update, onNext }: { data: PelData; update: (k: ke
               padding: '12px 14px',
               background: data.ktoUdziela === opt.v ? 'color-mix(in srgb, var(--color-accent) 8%, var(--color-bg-1))' : 'var(--color-bg-1)',
               border: `1px solid ${data.ktoUdziela === opt.v ? 'var(--color-accent)' : 'var(--color-border)'}`,
-              borderRadius: 8, cursor: 'pointer',
+              borderRadius: 2, cursor: 'pointer',
             }}>
               <input type="radio" name="kto" value={opt.v} checked={data.ktoUdziela === opt.v} onChange={() => update('ktoUdziela', opt.v)} style={{ accentColor: 'var(--color-accent)' }} />
               <span style={{ fontSize: 13, color: 'var(--color-text-2)' }}>{opt.label}</span>
@@ -293,7 +291,7 @@ function StepZakres({ data, update, onBack, onNext }: { data: PelData; update: (
               padding: '12px 14px',
               background: data.zakres === opt.v ? 'color-mix(in srgb, var(--color-accent) 8%, var(--color-bg-1))' : 'var(--color-bg-1)',
               border: `1px solid ${data.zakres === opt.v ? 'var(--color-accent)' : 'var(--color-border)'}`,
-              borderRadius: 8, cursor: 'pointer',
+              borderRadius: 2, cursor: 'pointer',
             }}>
               <input type="radio" name="zakres" value={opt.v} checked={data.zakres === opt.v} onChange={() => update('zakres', opt.v)} style={{ accentColor: 'var(--color-accent)' }} />
               <span style={{ fontSize: 13, color: 'var(--color-text-2)' }}>{opt.label}</span>
@@ -320,7 +318,7 @@ function StepZakres({ data, update, onBack, onNext }: { data: PelData; update: (
                 padding: '12px 14px',
                 background: data[item.key as keyof PelData] ? 'color-mix(in srgb, var(--color-accent) 8%, var(--color-bg-1))' : 'var(--color-bg-1)',
                 border: `1px solid ${data[item.key as keyof PelData] ? 'var(--color-accent)' : 'var(--color-border)'}`,
-                borderRadius: 8, cursor: 'pointer',
+                borderRadius: 2, cursor: 'pointer',
               }}>
                 <input type="checkbox" checked={!!data[item.key as keyof PelData]} onChange={e => update(item.key as keyof PelData, e.target.checked)} style={{ accentColor: 'var(--color-accent)', width: 15, height: 15 }} />
                 <span style={{ fontSize: 13, color: 'var(--color-text-2)' }}>{item.label}</span>
@@ -338,7 +336,7 @@ function StepZakres({ data, update, onBack, onNext }: { data: PelData; update: (
           </Field>
         </div>
 
-        <div style={{ padding: '12px 16px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 8, fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.6 }}>
+        <div style={{ padding: '12px 16px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 2, fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.6 }}>
           Pełnomocnictwo wymaga wlasnoreczcznego podpisu mocodawcy. Musi być zlozone osobiście w ZUS lub przeslanego pocztą z podpisem. Mozna też udzielic pełnomocnictwa przez portal eZUS z profilem zaufanym.
         </div>
       </div>
@@ -356,19 +354,19 @@ function StepPodgląd({ data, onBack, onDone, onDownload, onCopy, copied }: {
       <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 24, letterSpacing: '-0.01em' }}>Podgląd pełnomocnictwa PEL</h2>
       <div className="mono" style={{
         background: 'var(--color-bg-1)', border: '1px solid var(--color-border)',
-        borderRadius: 10, padding: '20px 24px', fontSize: 12, color: 'var(--color-text-2)',
+        borderRadius: 2, padding: '20px 24px', fontSize: 12, color: 'var(--color-text-2)',
         lineHeight: 1.8, whiteSpace: 'pre-wrap', boxShadow: 'var(--shadow-1)',
         maxHeight: 400, overflowY: 'auto',
       }}>
         {buildOutput(data)}
       </div>
       <div style={{ marginTop: 16, display: 'flex', gap: 10 }}>
-        <button onClick={onDownload} className="btn btn-primary" style={{ borderRadius: 8, fontSize: 13 }}>Pobierz .txt</button>
-        <button onClick={onCopy} className="btn btn-outline" style={{ borderRadius: 8, fontSize: 13 }}>
+        <button onClick={onDownload} className="btn btn-primary" style={{ borderRadius: 2, fontSize: 13 }}>Pobierz .txt</button>
+        <button onClick={onCopy} className="btn btn-outline" style={{ borderRadius: 2, fontSize: 13 }}>
           {copied ? 'Skopiowano!' : 'Kopiuj do schowka'}
         </button>
       </div>
-      <div style={{ marginTop: 24, padding: '20px 24px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 10, fontSize: 13, color: 'var(--color-text-2)', boxShadow: 'var(--shadow-1)' }}>
+      <div style={{ marginTop: 24, padding: '20px 24px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 2, fontSize: 13, color: 'var(--color-text-2)', boxShadow: 'var(--shadow-1)' }}>
         <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 12, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Jak złożyć PEL</p>
         <ol style={{ paddingLeft: 20, margin: 0, display: 'flex', flexDirection: 'column', gap: 8, lineHeight: 1.65 }}>
           <li>Pobierz oryginalny formularz PEL: <a href="https://www.zus.pl/wzory-formularzy" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)' }}>zus.pl/wzory-formularzy</a></li>
@@ -391,16 +389,16 @@ function StepDone({ onDownload, onCopy, copied, onRestart }: { onDownload: () =>
         Przepisz dane do oryginalnego formularza PEL ze strony zus.pl i podpisz własnoręcznie. Złóż w ZUS osobiście lub pocztą.
       </p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 32 }}>
-        <button onClick={onDownload} className="btn btn-primary" style={{ width: '100%', height: 50, borderRadius: 10, fontSize: 14 }}>Pobierz dane PEL (.txt)</button>
-        <button onClick={onCopy} className="btn btn-outline" style={{ width: '100%', height: 44, borderRadius: 10, fontSize: 13 }}>
+        <button onClick={onDownload} className="btn btn-primary" style={{ width: '100%', height: 50, borderRadius: 2, fontSize: 14 }}>Pobierz dane PEL (.txt)</button>
+        <button onClick={onCopy} className="btn btn-outline" style={{ width: '100%', height: 44, borderRadius: 2, fontSize: 13 }}>
           {copied ? 'Skopiowano!' : 'Kopiuj do schowka'}
         </button>
         <a href="https://www.zus.pl/ezus/logowanie?jezyk=pl" target="_blank" rel="noopener noreferrer" className="btn"
-          style={{ width: '100%', height: 44, borderRadius: 10, fontSize: 13, color: 'var(--color-accent)', border: '1px solid var(--color-accent)', justifyContent: 'center' }}>
+          style={{ width: '100%', height: 44, borderRadius: 2, fontSize: 13, color: 'var(--color-accent)', border: '1px solid var(--color-accent)', justifyContent: 'center' }}>
           Udziel pełnomocnictwa przez eZUS
         </a>
         <a href="https://www.zus.pl/wzory-formularzy" target="_blank" rel="noopener noreferrer" className="btn"
-          style={{ width: '100%', height: 40, borderRadius: 10, fontSize: 12, color: 'var(--color-text-2)', border: '1px solid var(--color-border)', justifyContent: 'center' }}>
+          style={{ width: '100%', height: 40, borderRadius: 2, fontSize: 12, color: 'var(--color-text-2)', border: '1px solid var(--color-border)', justifyContent: 'center' }}>
           Oryginalny formularz PEL na zus.pl
         </a>
       </div>
@@ -489,10 +487,10 @@ function NavButtons({ onBack, onNext, nextLabel = 'Dalej', nextDisabled = false 
 }) {
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 40, paddingTop: 24, borderTop: '1px solid var(--color-border)' }}>
-      {onBack ? <button onClick={onBack} className="btn btn-ghost" style={{ borderRadius: 8, fontSize: 13 }}>Wstecz</button> : <div />}
+      {onBack ? <button onClick={onBack} className="btn btn-ghost" style={{ borderRadius: 2, fontSize: 13 }}>Wstecz</button> : <div />}
       {onNext && (
         <button onClick={onNext} disabled={nextDisabled} className="btn btn-primary"
-          style={{ borderRadius: 999, fontSize: 13, opacity: nextDisabled ? 0.4 : 1, cursor: nextDisabled ? 'not-allowed' : 'pointer' }}>
+          style={{ borderRadius: 2, fontSize: 13, opacity: nextDisabled ? 0.4 : 1, cursor: nextDisabled ? 'not-allowed' : 'pointer' }}>
           {nextLabel}
         </button>
       )}

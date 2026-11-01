@@ -22,8 +22,9 @@ function getAdminClient() {
 
 export async function POST(request: NextRequest) {
   const authHeader = request.headers.get('authorization');
-  const expected = `Bearer ${process.env.CRON_SECRET}`;
-  if (!authHeader || authHeader !== expected) {
+  const secret = process.env.CRON_SECRET;
+  // Fail closed: bez CRON_SECRET nie akceptujemy nagłówka "Bearer undefined".
+  if (!secret || !authHeader || authHeader !== `Bearer ${secret}`) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 

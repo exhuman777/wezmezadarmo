@@ -7,7 +7,7 @@ import {
   type NewsItem,
 } from '@/data/polska-cyfrowa';
 
-const GREEN = '#22A06B';
+const GREEN = '#2b7353';
 const AMBER = '#c4841a';
 const BLUE = '#003874';
 
@@ -57,7 +57,7 @@ export default function PolskaCyfrowaPage() {
 
       {/* HERO */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
-        <span style={{ width: 6, height: 6, borderRadius: '50%', background: GREEN, boxShadow: '0 0 7px rgba(34,160,107,0.55)' }} />
+        <span style={{ width: 6, height: 6, borderRadius: '50%', background: GREEN, boxShadow: 'none' }} />
         <span style={{ fontFamily: 'var(--f-mono)', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink-500)' }}>
           Centrum Obywatela · Polska cyfrowa
         </span>
@@ -78,8 +78,8 @@ export default function PolskaCyfrowaPage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(160px, 100%), 1fr))', gap: 12 }}>
           {STAT_TILES.map(t => (
             <a key={t.label} href={t.sourceUrl} target="_blank" rel="noopener noreferrer"
-              style={{ textDecoration: 'none', display: 'block', padding: '16px 18px', background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 12, position: 'relative', overflow: 'hidden' }}>
-              <span style={{ position: 'absolute', top: 0, left: 0, bottom: 0, width: 3, background: `linear-gradient(180deg, ${GREEN}, transparent)` }} />
+              style={{ textDecoration: 'none', display: 'block', padding: '16px 18px', background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 2, position: 'relative', overflow: 'hidden' }}>
+              <span style={{ position: 'absolute', top: 0, left: 0, bottom: 0, width: 3, background: `transparent` }} />
               <div style={{ fontSize: 26, fontWeight: 700, color: 'var(--ink-900)', letterSpacing: '-0.02em', fontFamily: 'var(--f-mono)', lineHeight: 1.1 }}>{t.value}</div>
               <div style={{ fontSize: 12, color: 'var(--ink-600)', marginTop: 6, lineHeight: 1.4 }}>{t.label}</div>
               <div style={{ fontSize: 10, fontFamily: 'var(--f-mono)', color: 'var(--ink-500)', marginTop: 8, letterSpacing: '0.04em' }}>{t.sourceName} · {t.year}</div>
@@ -139,7 +139,7 @@ export default function PolskaCyfrowaPage() {
       </ChartCard>
 
       {/* UCZCIWY KONTEKST: DESI */}
-      <section style={{ marginBottom: 36, padding: '16px 20px', background: 'var(--green-25, #fafaf7)', border: '1px dashed var(--line)', borderRadius: 12 }}>
+      <section style={{ marginBottom: 36, padding: '16px 20px', background: 'var(--green-25, #fbf7ef)', border: '1px dashed var(--line)', borderRadius: 2 }}>
         <div style={{ fontSize: 13, color: 'var(--ink-600)', lineHeight: 1.6 }}>
           <strong>Dla równowagi:</strong> w unijnym indeksie cyfryzacji DESI (ostatnia edycja 2022) Polska
           zajmowała 24. miejsce na 27 krajów - słabe strony to cyfrowe usługi dla firm i część usług
@@ -162,13 +162,13 @@ export default function PolskaCyfrowaPage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))', gap: 10 }}>
           {FREE_APIS.map(api => (
             <a key={api.name} href={api.url} target="_blank" rel="noopener noreferrer"
-              style={{ textDecoration: 'none', display: 'block', padding: 14, background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 10 }}>
+              style={{ textDecoration: 'none', display: 'block', padding: 14, background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 2 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
                 <code style={{ fontSize: 13, fontFamily: 'var(--f-mono)', fontWeight: 700, color: 'var(--ink-900)' }}>{api.name}</code>
-                <span style={{ marginLeft: 'auto', fontSize: 9, fontFamily: 'var(--f-mono)', padding: '2px 7px', borderRadius: 999, textTransform: 'uppercase', letterSpacing: '0.05em',
-                  background: api.key ? 'rgba(196,132,26,0.12)' : 'rgba(34,160,107,0.12)',
+                <span style={{ marginLeft: 'auto', fontSize: 9, fontFamily: 'var(--f-mono)', padding: '2px 7px', borderRadius: 2, textTransform: 'uppercase', letterSpacing: '0.05em',
+                  background: api.key ? 'rgba(196,132,26,0.12)' : 'rgba(47,125,90,0.12)',
                   color: api.key ? '#9a6512' : '#157a4f',
-                  border: `1px solid ${api.key ? 'rgba(196,132,26,0.3)' : 'rgba(34,160,107,0.3)'}` }}>
+                  border: `1px solid ${api.key ? 'rgba(196,132,26,0.3)' : 'rgba(47,125,90,0.3)'}` }}>
                   {api.key ? 'klucz API' : 'bez klucza'}
                 </span>
               </div>
@@ -203,8 +203,8 @@ function NewsGrid({ items, accent }: { items: NewsItem[]; accent: string }) {
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))', gap: 12 }}>
       {items.map(n => (
         <a key={n.title} href={n.sourceUrl} target="_blank" rel="noopener noreferrer"
-          style={{ textDecoration: 'none', display: 'block', padding: 16, background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 12, position: 'relative', overflow: 'hidden' }}>
-          <span style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, transparent, ${accent}, transparent)`, opacity: 0.6 }} />
+          style={{ textDecoration: 'none', display: 'block', padding: 16, background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 2, position: 'relative', overflow: 'hidden' }}>
+          <span style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: `transparent`, opacity: 0.6 }} />
           <div style={{ fontSize: 10, fontFamily: 'var(--f-mono)', color: accent, letterSpacing: '0.06em', marginBottom: 6 }}>{n.date}</div>
           <div style={{ fontSize: 14.5, fontWeight: 600, color: 'var(--ink-900)', lineHeight: 1.3, marginBottom: 8, letterSpacing: '-0.01em' }}>{n.title}</div>
           <p style={{ fontSize: 12.5, color: 'var(--ink-500)', lineHeight: 1.5, margin: 0, marginBottom: 10 }}>{n.summary}</p>
@@ -221,7 +221,7 @@ function ChartCard({ label, title, desc, sources, children }: {
   return (
     <section style={{ marginBottom: 28 }}>
       <SectionLabel text={label} />
-      <div style={{ border: '1px solid var(--line)', borderRadius: 14, overflow: 'hidden', background: 'var(--white)' }}>
+      <div style={{ border: '1px solid var(--line)', borderRadius: 2, overflow: 'hidden', background: 'var(--white)' }}>
         <div style={{ padding: '16px 22px 4px' }}>
           <h3 style={{ fontSize: 16, fontWeight: 600, color: 'var(--ink-900)', margin: 0, marginBottom: 8, letterSpacing: '-0.01em' }}>{title}</h3>
           <p style={{ fontSize: 13, color: 'var(--ink-500)', lineHeight: 1.55, margin: 0, marginBottom: 12 }}>{desc}</p>

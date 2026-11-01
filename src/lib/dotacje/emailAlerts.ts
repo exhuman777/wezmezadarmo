@@ -87,7 +87,7 @@ function buildAlertHtml(data: AlertEmailData): string {
           <tr>
             <td style="padding:16px 32px;border-top:1px solid #2a2218;">
               <p style="margin:0;font-size:11px;color:#555;line-height:1.6;">
-                Stan wiedzy: maj 2026. Weryfikuj terminy i wymagania bezpośrednio w instytucji przed złożeniem wniosku.
+                Stan wiedzy: listopad 2026. Weryfikuj terminy i wymagania bezpośrednio w instytucji przed złożeniem wniosku.
                 <br>
                 Nie chcesz otrzymywać powiadomień?
                 <a href="${data.panelUrl}/monitoring" style="color:#888;">Zarządzaj alertami</a>
@@ -147,7 +147,7 @@ function buildWelcomeHtml(companyName: string, panelUrl: string): string {
           <tr>
             <td style="padding:16px 32px;border-top:1px solid #2a2218;">
               <p style="margin:0;font-size:11px;color:#555;line-height:1.6;">
-                Stan wiedzy: maj 2026. Weryfikuj terminy i wymagania bezpośrednio w instytucji przed złożeniem wniosku.
+                Stan wiedzy: listopad 2026. Weryfikuj terminy i wymagania bezpośrednio w instytucji przed złożeniem wniosku.
                 <br>
                 Zarządzaj preferencjami alertów:
                 <a href="${panelUrl}/monitoring" style="color:#888;">ustawienia monitoringu</a>

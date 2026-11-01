@@ -115,9 +115,7 @@ export default function ZusZ3Page() {
       {/* Header */}
       <header style={{
         position: 'sticky', top: 0, zIndex: 50,
-        background: 'rgba(236,242,236,0.85)',
-        backdropFilter: 'saturate(140%) blur(14px)',
-        WebkitBackdropFilter: 'saturate(140%) blur(14px)',
+        background: 'rgba(246,240,228,0.85)',
         borderBottom: '1px solid var(--color-border)',
       }}>
         <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
@@ -147,7 +145,7 @@ export default function ZusZ3Page() {
 
         {/* Title */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-          <span className="mono" style={{ fontSize: 11, color: 'var(--color-accent)', background: 'var(--color-accent-soft)', padding: '3px 8px', borderRadius: 6, fontWeight: 500 }}>Z-3</span>
+          <span className="mono" style={{ fontSize: 11, color: 'var(--color-accent)', background: 'var(--color-accent-soft)', padding: '3px 8px', borderRadius: 2, fontWeight: 500 }}>Z-3</span>
           <span style={{ fontSize: 12, color: 'var(--color-text-3)' }}>Zaświadczenie płatnika składek</span>
         </div>
         <h1 className="display" style={{ fontSize: 'clamp(26px, 4vw, 38px)', marginBottom: 8 }}>Zaświadczenie Z-3</h1>
@@ -170,11 +168,11 @@ export default function ZusZ3Page() {
           <div>
             <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 24, letterSpacing: '-0.01em' }}>Co to jest Z-3?</h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <div style={{ padding: '20px 24px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 12, fontSize: 13, color: 'var(--color-text-2)', lineHeight: 1.7 }}>
+              <div style={{ padding: '20px 24px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 2, fontSize: 13, color: 'var(--color-text-2)', lineHeight: 1.7 }}>
                 <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 8, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Zaświadczenie płatnika składek (Z-3)</p>
                 <p>Formularz Z-3 wypełnia Twój pracodawca (płatnik składek) - nie Ty. Zawiera informacje potrzebne ZUS do obliczenia podstawy wymiaru zasiłku chorobowego lub macierzyńskiego: Twoje wynagrodzenie z ostatnich 12 miesięcy, przerwy w ubezpieczeniu i inne dane.</p>
               </div>
-              <div style={{ padding: '20px 24px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 12, fontSize: 13, color: 'var(--color-text-2)', lineHeight: 1.7 }}>
+              <div style={{ padding: '20px 24px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 2, fontSize: 13, color: 'var(--color-text-2)', lineHeight: 1.7 }}>
                 <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 8, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Kiedy jest potrzebny</p>
                 <p style={{ marginBottom: 10 }}>Z-3 jest potrzebny gdy ubiegasz się o zasiłek chorobowy lub inne świadczenia i:</p>
                 <ul style={{ paddingLeft: 20, margin: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -183,7 +181,7 @@ export default function ZusZ3Page() {
                   <li>ZUS poprosi pracodawcę o Z-3 podczas weryfikacji wniosku</li>
                 </ul>
               </div>
-              <div style={{ padding: '20px 24px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 12, fontSize: 13, color: 'var(--color-text-2)', lineHeight: 1.7 }}>
+              <div style={{ padding: '20px 24px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 2, fontSize: 13, color: 'var(--color-text-2)', lineHeight: 1.7 }}>
                 <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 8, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Co tu znajdziesz</p>
                 <ul style={{ paddingLeft: 20, margin: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
                   <li>Checklistę: co sprawdzić w dokumencie otrzymanym od pracodawcy</li>
@@ -241,7 +239,7 @@ export default function ZusZ3Page() {
                     padding: '14px 16px',
                     background: checked[item.id] ? 'color-mix(in srgb, var(--color-accent) 8%, var(--color-bg-1))' : 'var(--color-bg-1)',
                     border: `1px solid ${checked[item.id] ? 'var(--color-accent)' : 'var(--color-border)'}`,
-                    borderRadius: 8, cursor: 'pointer',
+                    borderRadius: 2, cursor: 'pointer',
                     transition: 'all 200ms',
                   }}
                 >
@@ -260,7 +258,7 @@ export default function ZusZ3Page() {
               padding: '14px 18px',
               background: allChecked ? 'color-mix(in srgb, var(--color-accent) 10%, var(--color-bg-1))' : 'var(--color-bg-1)',
               border: `1px solid ${allChecked ? 'var(--color-accent)' : 'var(--color-border)'}`,
-              borderRadius: 8, fontSize: 13,
+              borderRadius: 2, fontSize: 13,
               color: allChecked ? 'var(--color-text-1)' : 'var(--color-text-3)',
             }}>
               {checkedCount}/{CHECKLIST_ITEMS.length} punktów zaliczonych.
@@ -280,7 +278,7 @@ export default function ZusZ3Page() {
 
             <div className="mono" style={{
               background: 'var(--color-bg-1)', border: '1px solid var(--color-border)',
-              borderRadius: 10, padding: '20px 24px',
+              borderRadius: 2, padding: '20px 24px',
               fontSize: 12, color: 'var(--color-text-2)',
               lineHeight: 1.8, whiteSpace: 'pre-wrap',
               boxShadow: 'var(--shadow-1)',
@@ -289,10 +287,10 @@ export default function ZusZ3Page() {
             </div>
 
             <div style={{ marginTop: 16, display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-              <button onClick={downloadPismo} className="btn btn-primary" style={{ borderRadius: 8, fontSize: 13 }}>
+              <button onClick={downloadPismo} className="btn btn-primary" style={{ borderRadius: 2, fontSize: 13 }}>
                 Pobierz pismo (.txt)
               </button>
-              <button onClick={copyPismo} className="btn btn-outline" style={{ borderRadius: 8, fontSize: 13 }}>
+              <button onClick={copyPismo} className="btn btn-outline" style={{ borderRadius: 2, fontSize: 13 }}>
                 {copied ? 'Skopiowano!' : 'Kopiuj do schowka'}
               </button>
             </div>
@@ -300,7 +298,7 @@ export default function ZusZ3Page() {
             <div style={{
               marginTop: 24, padding: '20px 24px',
               background: 'var(--color-bg-1)', border: '1px solid var(--color-border)',
-              borderRadius: 10, fontSize: 13, color: 'var(--color-text-2)',
+              borderRadius: 2, fontSize: 13, color: 'var(--color-text-2)',
             }}>
               <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 12, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Jeśli pracodawca zwleka lub odmawia</p>
               <ol style={{ paddingLeft: 20, margin: 0, display: 'flex', flexDirection: 'column', gap: 8, lineHeight: 1.65 }}>
@@ -323,10 +321,10 @@ export default function ZusZ3Page() {
               Pismo do kadr możesz wysłać emailem lub odnieść osobiście. Jeśli już masz Z-3, użyj checklisty by je sprawdzić.
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 32 }}>
-              <button onClick={downloadPismo} className="btn btn-primary" style={{ width: '100%', height: 50, borderRadius: 10, fontSize: 14 }}>
+              <button onClick={downloadPismo} className="btn btn-primary" style={{ width: '100%', height: 50, borderRadius: 2, fontSize: 14 }}>
                 Pobierz pismo do kadr (.txt)
               </button>
-              <button onClick={copyPismo} className="btn btn-outline" style={{ width: '100%', height: 44, borderRadius: 10, fontSize: 13 }}>
+              <button onClick={copyPismo} className="btn btn-outline" style={{ width: '100%', height: 44, borderRadius: 2, fontSize: 13 }}>
                 {copied ? 'Skopiowano!' : 'Kopiuj do schowka'}
               </button>
               <a
@@ -334,7 +332,7 @@ export default function ZusZ3Page() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn"
-                style={{ width: '100%', height: 44, borderRadius: 10, fontSize: 13, color: 'var(--color-accent)', border: '1px solid var(--color-accent)', justifyContent: 'center' }}
+                style={{ width: '100%', height: 44, borderRadius: 2, fontSize: 13, color: 'var(--color-accent)', border: '1px solid var(--color-accent)', justifyContent: 'center' }}
               >
                 Formularz Z-3 na zus.pl (dla pracodawcy)
               </a>
@@ -399,7 +397,7 @@ function NavButtons({ onBack, onNext, nextLabel = 'Dalej', nextDisabled = false 
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 40, paddingTop: 24, borderTop: '1px solid var(--color-border)' }}>
       {onBack ? (
-        <button onClick={onBack} className="btn btn-ghost" style={{ borderRadius: 8, fontSize: 13 }}>
+        <button onClick={onBack} className="btn btn-ghost" style={{ borderRadius: 2, fontSize: 13 }}>
           Wstecz
         </button>
       ) : <div />}
@@ -408,7 +406,7 @@ function NavButtons({ onBack, onNext, nextLabel = 'Dalej', nextDisabled = false 
           onClick={onNext}
           disabled={nextDisabled}
           className="btn btn-primary"
-          style={{ borderRadius: 999, fontSize: 13, opacity: nextDisabled ? 0.4 : 1, cursor: nextDisabled ? 'not-allowed' : 'pointer' }}
+          style={{ borderRadius: 2, fontSize: 13, opacity: nextDisabled ? 0.4 : 1, cursor: nextDisabled ? 'not-allowed' : 'pointer' }}
         >
           {nextLabel}
         </button>

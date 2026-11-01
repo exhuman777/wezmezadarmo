@@ -14,7 +14,7 @@ interface Props {
 const baseStyle: React.CSSProperties = {
   padding: '12px 16px',
   fontSize: 13,
-  borderRadius: 8,
+  borderRadius: 2,
   marginBottom: 16,
   lineHeight: 1.45,
 };
@@ -32,11 +32,11 @@ export function PrefillBanner({ status, count, isLoggedIn, english = false }: Pr
       <div style={{
         ...baseStyle,
         color: 'var(--color-text-2)',
-        background: 'rgba(34,160,107,0.08)',
-        border: '1px solid rgba(34,160,107,0.3)',
+        background: 'rgba(47,125,90,0.08)',
+        border: '1px solid rgba(47,125,90,0.3)',
       }}>
         {english ? msg : msgPl}{' '}
-        <Link href="/agent/panel/profil" style={{ color: '#22A06B', textDecoration: 'underline' }}>
+        <Link href="/agent/panel/profil" style={{ color: '#2b7353', textDecoration: 'underline' }}>
           {english ? 'Manage data' : 'Zarządzaj danymi'}
         </Link>
       </div>
@@ -66,9 +66,9 @@ export function PrefillBanner({ status, count, isLoggedIn, english = false }: Pr
         border: '1px dashed var(--color-border)',
       }}>
         {english ? (
-          <><Link href="/logowanie" style={{ color: '#22A06B', textDecoration: 'underline' }}>Sign in</Link> to auto-fill the form from your profile.</>
+          <><Link href="/logowanie" style={{ color: '#2b7353', textDecoration: 'underline' }}>Sign in</Link> to auto-fill the form from your profile.</>
         ) : (
-          <><Link href="/logowanie" style={{ color: '#22A06B', textDecoration: 'underline' }}>Zaloguj się</Link> aby auto-wypełnić formularz z Twojego profilu.</>
+          <><Link href="/logowanie" style={{ color: '#2b7353', textDecoration: 'underline' }}>Zaloguj się</Link> aby auto-wypełnić formularz z Twojego profilu.</>
         )}
       </div>
     );

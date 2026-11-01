@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Należy Ci się</title>
+<meta name="description" content="Gra w pikselach dla wezmezadarmo.com: dopasuj świadczenie do osoby, której się należy.">
+<meta name="theme-color" content="#f0f6f1">
+<link rel="icon" href="https://www.wezmezadarmo.com/icon" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  /* kolory i kroje jak na wezmezadarmo.com (styl pixel, 11.2026) */
+  :root { --ink: #2b2420; --muted: #6f655b; --page: #f6f0e4; --green: #2f7d5a; --green-d: #27503c; --green-soft: #e3ecdc; --red: #b23d30; --line: #d9cbb2; }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; background: var(--page); color: var(--ink); }
+  body { font: 14px/1.45 Inter, ui-sans-serif, system-ui, sans-serif; overflow: hidden; }
+  .mono { font-family: "JetBrains Mono", ui-monospace, monospace; }
+  #stage { position: fixed; inset: 0; }
+  canvas { position: absolute; left: 50%; top: calc(50% + 70px); transform: translate(-50%, -50%); display: block; image-rendering: pixelated; touch-action: none; cursor: pointer; outline: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+  .hud { position: fixed; left: max(16px, env(safe-area-inset-left)); right: max(16px, env(safe-area-inset-right)); display: flex; justify-content: space-between; gap: 16px; pointer-events: none; }
+  #top { top: max(12px, env(safe-area-inset-top)); align-items: flex-start; }
+  #bottom { bottom: max(14px, env(safe-area-inset-bottom)); align-items: flex-end; }
+  .num { font: 700 22px/1.1 "JetBrains Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+  .lbl { color: var(--muted); font-size: 12px; }
+  #right { text-align: right; }
+  #miss.warn { color: var(--red); font-weight: 600; }
+  #hint { position: fixed; left: 50%; transform: translateX(-50%); top: max(62px, calc(env(safe-area-inset-top) + 54px)); width: min(440px, calc(100% - 32px)); text-align: center; pointer-events: none; z-index: 2; }
+  @media (max-width: 600px) { #hint { top: max(92px, calc(env(safe-area-inset-top) + 84px)); } }
+  #hint > b { display: block; font: 700 20px/1.15 "JetBrains Mono", ui-monospace, monospace; }
+  #card { margin: 8px auto 0; background: #fff; border: 1px solid var(--line); padding: 10px 14px 12px; text-align: left; }
+  #card[hidden] { visibility: hidden; display: block; }
+  #card small { display: block; font: 600 10px/1.3 "JetBrains Mono", ui-monospace, monospace; letter-spacing: 1.5px; text-transform: uppercase; color: var(--green-d); }
+  #card strong { display: block; font-size: 17px; font-weight: 600; margin: 2px 0 8px; }
+  #card .bar { height: 6px; background: var(--green-soft); }
+  #card .bar i { display: block; height: 100%; width: 100%; background: var(--green); }
+  #card .bar i.late { background: var(--red); }
+  #status { color: var(--muted); max-width: 70%; font-weight: 500; }
+  #status.good { color: var(--green-d); }
+  #status.bad { color: var(--red); }
+  #mute, #help { pointer-events: auto; white-space: nowrap; font: inherit; color: var(--muted); background: none; border: 0; padding: 10px; margin: -10px; cursor: pointer; }
+  #mute:hover, #help:hover { color: var(--ink); }
+  .buttons { display: flex; gap: 18px; pointer-events: auto; }
+  .panel { position: fixed; inset: 0; display: grid; place-items: center; padding: 16px; background: rgba(246, 240, 228, .9); z-index: 10; }
+  .panel[hidden] { display: none; }
+  .panel > div { width: min(420px, 100%); max-height: calc(100dvh - 32px); overflow: auto; background: #fbf7ef; border: 2px solid var(--ink); padding: 24px; }
+  .logo { display: inline-flex; align-items: center; gap: 8px; font: 700 15px/1.2 "JetBrains Mono", ui-monospace, monospace; color: var(--ink); text-decoration: none; }
+  .logo .dot { width: 12px; height: 12px; background: var(--green); }
+  .logo .dim { color: var(--muted); font-weight: 500; }
+  .panel h1 { font: 700 28px/1.1 "JetBrains Mono", ui-monospace, monospace; margin: 14px 0 8px; }
+  .panel h2 { font: 700 20px/1.15 "JetBrains Mono", ui-monospace, monospace; margin: 0 0 8px; }
+  .panel p { margin: 0 0 10px; }
+  .panel ol { margin: 0 0 12px; padding-left: 20px; }
+  .panel li { margin-bottom: 6px; }
+  .eyebrow { font: 600 11px/1.3 "JetBrains Mono", ui-monospace, monospace; letter-spacing: 1.5px; text-transform: uppercase; color: var(--green-d); }
+  .rules { background: var(--page); padding: 12px 14px; margin: 0 0 12px; }
+  .rules p { margin: 0 0 4px; }
+  .rules p:last-child { margin: 0; }
+  .btn { font: 700 15px/1 "JetBrains Mono", ui-monospace, monospace; background: #c4483a; color: #fff; border: 2px solid #c4483a; min-height: 48px; padding: 0 20px; cursor: pointer; display: inline-flex; align-items: center; text-decoration: none; border-radius: 0; }
+  .btn:hover, .btn:focus-visible { box-shadow: 4px 4px 0 var(--ink); transform: translate(-2px, -2px); outline: none; }
+  .btn.ghost { background: none; color: var(--ink); border: 2px solid var(--ink); }
+  .btn.ghost:hover, .btn.ghost:focus-visible { background: none; color: var(--ink); }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 14px; }
+  .big { font: 700 44px/1 "JetBrains Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+  .info { background: var(--green-soft); padding: 18px; margin-top: 16px; }
+  .info .num2 { font-family: "JetBrains Mono", ui-monospace, monospace; font-weight: 700; }
+  .small { color: var(--muted); font-size: 11px; margin-top: 16px; }
+  .small a { color: inherit; }
+</style>
+</head>
+<body>
+<div id="stage"><canvas id="c" tabindex="0" aria-label="Rynek miasteczka z czterema osobami: rodzic, student, senior i osoba prowadząca firmę. Przeciągnij kartę świadczenia z tablicy do osoby, której się należy, albo dotknij tej osoby."></canvas></div>
+<div class="hud" id="top">
+  <div><div class="num" id="score">0/12</div><div class="lbl">trafione świadczenia</div></div>
+  <div id="right"><div class="num" id="time">1:15</div><div class="lbl">do końca</div><div class="lbl" id="miss" style="margin-top:6px">przepadło 0/3</div></div>
+</div>
+<div id="hint" aria-live="polite">
+  <b id="hintBig">Komu się należy?</b>
+  <div id="card" hidden><small id="cardCat">karta z bazy wezmezadarmo</small><strong id="cardName">.</strong><div class="bar"><i id="cardBar"></i></div></div>
+</div>
+<div class="hud" id="bottom">
+  <div id="status" role="status"></div>
+  <div class="buttons"><button id="help" type="button">zasady</button><button id="mute" type="button" aria-pressed="false">dźwięk wł.</button></div>
+</div>
+
+<div class="panel" id="intro">
+  <div>
+    <a class="logo" href="/" target="_top"><span class="dot"></span><span>wezmezadarmo<span class="dim">.com</span></span></a>
+    <h1>Należy Ci się</h1>
+    <p>Na rynku miasteczka czekają cztery osoby: rodzic, student, senior i ktoś, kto prowadzi firmę. Na tablicy pojawiają się karty świadczeń i ulg z bazy wezmezadarmo.</p>
+    <ol>
+      <li>Przeczytaj kartę u góry ekranu.</li>
+      <li>Przeciągnij ją do osoby, której się należy, albo po prostu dotknij tej osoby.</li>
+    </ol>
+    <div class="rules">
+      <p><b>Wygrana:</b> 12 trafnie dopasowanych świadczeń w 75 sekund.</p>
+      <p><b>Przegrana:</b> 3 karty przepadną, bo nikt ich nie odebrał na czas, albo skończy się czas.</p>
+    </div>
+    <p style="color:var(--muted)">Pomyłka nie odbiera punktu: karta wraca na tablicę z podpowiedzią, ale ma mniej czasu. Klawiatura: 1 rodzic, 2 student, 3 senior, 4 firma.</p>
+    <div class="row"><button class="btn" id="play" type="button">Sprawdzam</button></div>
+  </div>
+</div>
+
+<div class="panel" id="end" hidden>
+  <div>
+    <a class="logo" href="/" target="_top"><span class="dot"></span><span>wezmezadarmo<span class="dim">.com</span></span></a>
+    <h1 id="endTitle">Wygrana!</h1>
+    <div class="big" id="endScore">0/12</div>
+    <p style="color:var(--muted)">trafnie dopasowane świadczenia</p>
+    <p id="endWhy" style="font-weight:600"></p>
+    <p id="endStats"></p>
+    <div class="info">
+      <h2>Sprawdź co Ci się należy.</h2>
+      <p>Wszystkie świadczenia, dotacje i ulgi, które Ci się należą, w jednym miejscu. Bez rejestracji, bez opłat, bez urzędów.</p>
+      <p><span class="num2">133</span> świadczeń, <span class="num2">23</span> dotacje, <span class="num2">11</span> narzędzi rządowych. Bezpłatnie.</p>
+      <p style="margin:0 0 10px">Szczegóły i warunki sprawdzisz na wezmezadarmo.com.</p>
+      <a class="btn" id="doKalkulatora" href="/#kalkulator" target="_top">Sprawdź za darmo</a>
+    </div>
+    <div class="row"><button class="btn ghost" id="again" type="button">Jeszcze raz</button></div>
+    <p class="small">Gra promocyjna projektu obywatelskiego wezmezadarmo.com. Nazwy świadczeń pochodzą z bazy wezmezadarmo. Grafika na silniku <a href="https://github.com/amirmushichge/pixel-plays" target="_blank" rel="noopener">Pixel Plays</a> (AmirMushich, licencja MIT).</p>
+  </div>
+</div>
+
+<script>window.PP_SCENE = { originY: 8, scale: 13, shadowX: 1.1, shadowY: -.3 };</script>
+<script src="engine.js"></script>
+<script src="font.js"></script>
+<script src="music.js"></script>
+<script>
+'use strict';
+/* ---------- świat ---------- */
+const FX = 8.5, FY = 8, SLAB = 1.4;
+const GOAL = 12, MISS_MAX = 3, GAME_LENGTH = 75, DROP_PX = 34, WRONG_COST = 2;
+const GREEN = [47, 125, 90], GREEN_D = [39, 80, 60], RED = [178, 61, 48], PAPER_C = [251, 247, 239], INKC = [43, 36, 32];
+const GRASS_C = [118, 176, 116], PATH = [216, 210, 190], SOIL = [140, 108, 80], GOLD = [222, 176, 60];
+const BOARD = { x: .3, y: .3 };
+// cztery osoby i ich kategorie z bazy wezmezadarmo (RODZINA, EDUKACJA, SENIOR, BIZNES)
+const PEOPLE = [
+  { key: 'RODZIC', name: 'rodzic', cat: 'Rodzina', x: -5.1, y: 1.6, fx: -3.4, fy: 2.3, yaw: -.6 },
+  { key: 'STUDENT', name: 'student', cat: 'Edukacja', x: 1.2, y: -5.4, fx: 1.9, fy: -3.5, yaw: -2.2 },
+  { key: 'SENIOR', name: 'senior', cat: 'Senior', x: 5.2, y: -.7, fx: 4.6, fy: .1, yaw: -1.57 },
+  { key: 'FIRMA', name: 'firma', cat: 'Biznes', x: -1.2, y: 5.2, fx: -.2, fy: 3.4, yaw: -2.6 },
+];
+// nazwy dosłownie z bazy świadczeń wezmezadarmo (src/engine/benefits)
+const CARDS = [
+  ['Świadczenie wychowawcze 800+', 0], ['Becikowe (jednorazowa zapomoga)', 0], ['Dobry Start (300+)', 0], ['Ulga prorodzinna (na dzieci)', 0], ['Aktywnie w żłobku (Aktywny Rodzic)', 0], ['Świadczenie rodzicielskie (kosiniakowe)', 0],
+  ['Stypendium socjalne', 1], ['Stypendium rektora', 1], ['Kredyt studencki', 1], ['Stypendium Ministra Nauki za znaczące osiągnięcia', 1],
+  ['Program Opieka 75+', 2], ['Ogólnopolska Karta Seniora', 2], ['Bezpłatne leki dla seniorów 65+', 2], ['Bon senioralny (domowe usługi opiekuńcze)', 2], ['Korpus Wsparcia Seniorów (Teleopieka)', 2],
+  ['Ulga na Start', 3], ['Preferencyjny ZUS (mały ZUS)', 3], ['Mały ZUS Plus', 3], ['Wakacje składkowe (1 miesiąc wolny od ZUS)', 3], ['Ryczałt od przychodów ewidencjonowanych', 3],
+];
+const LOOK = [
+  { shirt: [179, 38, 46], stripe: [160, 34, 42], legs: [50, 56, 76], hair: [110, 72, 46], skin: [228, 182, 148] },
+  { shirt: [60, 110, 180], stripe: [52, 96, 160], legs: [40, 44, 56], hair: [40, 30, 24], skin: [214, 164, 128] },
+  { shirt: [150, 120, 170], stripe: [150, 120, 170], legs: [70, 66, 80], hair: [214, 212, 208], skin: [226, 180, 150] },
+  { shirt: [34, 160, 107], stripe: [30, 140, 94], legs: [44, 44, 56], hair: [150, 100, 60], skin: [222, 172, 136] },
+];
+const CHILD = { shirt: [240, 190, 70], stripe: [240, 190, 70], legs: [60, 80, 120], hair: [110, 72, 46], skin: [228, 182, 148] };
+
+const G = {
+  phase: 'intro', t: 0, time: 0, score: 0, misses: 0, wrong: 0, card: null, deck: [], nextIn: 0, popups: [], flyers: [],
+  drag: null, cheer: [0, 0, 0, 0], shake: [0, 0, 0, 0], got: [0, 0, 0, 0], msgT: 0, win: false, why: '',
+};
+const nodes = {};
+for (const id of ['score', 'miss', 'time', 'hintBig', 'card', 'cardCat', 'cardName', 'cardBar', 'status', 'intro', 'end', 'endTitle', 'endScore', 'endWhy', 'endStats', 'play', 'again', 'help', 'mute']) nodes[id] = document.getElementById(id);
+
+/* ---------- scena ---------- */
+const onPath = (x, y) => {
+  if (Math.hypot(x - BOARD.x, (y - BOARD.y) * 1.05) < 2.3) return true;
+  for (const p of PEOPLE) {
+    const dx = p.x - BOARD.x, dy = p.y - BOARD.y, L = Math.hypot(dx, dy);
+    const t = ((x - BOARD.x) * dx + (y - BOARD.y) * dy) / (L * L);
+    if (t < 0 || t > .8) continue;
+    if (Math.hypot(x - (BOARD.x + dx * t), y - (BOARD.y + dy * t)) < .5) return true;
+  }
+  return false;
+};
+function groundColor(x, y, ix, iy) {
+  if (Math.abs(x) > FX || Math.abs(y) > FY) return 0;
+  if (onPath(x, y)) {
+    const ramp = rampOf(PATH), cx = Math.floor(x * 2), cy = Math.floor(y * 2 + (cx % 2) * .5);
+    const joint = (x * 2 - cx) < .09 || ((y * 2 + (cx % 2) * .5) - cy) < .09;
+    return ramp[joint ? 2 : clamp(Math.floor(3 + hash(cx, cy) * .9 + (bayerAt(ix, iy) - .5) * .4), 2, 4)];
+  }
+  const ramp = rampOf(GRASS_C), n = noise(x * .7, y * .7);
+  return ramp[clamp(Math.floor(2.4 + n * 1.3 + (hash(ix, iy) - .5) * .5 + (bayerAt(ix, iy) - .5) * .6), 1, 4)];
+}
+function slabPixel(x, y, z, a, base) {
+  const fade = (-z - (SLAB - .8)) / .8;
+  if (fade > 0 && hash(a * 23 | 0, z * 23 | 0) < fade) return;
+  plot(x, y, z, rampOf(z > -.25 ? GRASS_C : SOIL)[clamp(base + (hash(a * 9 | 0, z * 9 | 0) > .85 ? -1 : 0), 0, 4)]);
+}
+function roof(x0, y0, x1, y1, z0, h, c) {
+  const cx = (x0 + x1) / 2, hw = (x1 - x0) / 2 + .18, step = .04, ramp = rampOf(c);
+  for (let x = cx - hw; x <= cx + hw; x += step) for (let y = y0 - .18; y <= y1 + .18; y += step) {
+    const k = 1 - Math.abs(x - cx) / hw, z = z0 + h * k;
+    plot(x, y, z, ramp[clamp((x > cx ? 2 : 3) + (Math.floor(y * 4) % 2 ? 0 : 1) - (k < .05 ? 1 : 0), 0, 4)]);
+  }
+  const wall = rampOf([240, 234, 220]);
+  for (let x = x0; x <= x1; x += step) for (let z = z0; z <= z0 + h * (1 - Math.abs(x - cx) / ((x1 - x0) / 2)); z += step) plot(x, y1 + .001, z, wall[2]);
+}
+function windowsOn(face, a0, a1, z0, z1, n, rows, glass) {
+  const g = rampOf(glass), step = .04;
+  for (let r = 0; r < rows; r++) for (let k = 0; k < n; k++) {
+    const ca = a0 + (k + .5) * (a1 - a0) / n, cz = z0 + (r + .5) * (z1 - z0) / rows;
+    for (let a = ca - .2; a <= ca + .2; a += step) for (let z = cz - .18; z <= cz + .18; z += step) face(a, z, g[Math.abs(a - ca) < .03 ? 2 : 4]);
+  }
+}
+function shadowBox(x0, y0, x1, y1, h) {
+  for (let x = x0; x <= x1; x += .5) for (let y = y0; y <= y1; y += .6) for (let z = .4; z < h; z += .8) castShadow(x, y, z, .6);
+}
+function buildScene() {
+  const step = .045;
+  for (let x = -FX; x <= FX; x += step) for (let z = 0; z >= -SLAB; z -= step) slabPixel(x, FY, z, x, 2);
+  for (let y = -FY; y <= FY; y += step) for (let z = 0; z >= -SLAB; z -= step) slabPixel(FX, y, z, y, 1);
+  // dom rodzinny
+  const d = PEOPLE[0];
+  box(d.x - 1.2, d.y - 1.2, 0, d.x + 1.2, d.y + 1.2, 1.8, [240, 234, 220], 1);
+  roof(d.x - 1.2, d.y - 1.2, d.x + 1.2, d.y + 1.2, 1.8, 1.3, RED);
+  for (let a = d.x - .3; a <= d.x + .3; a += .04) for (let z = 0; z <= 1.1; z += .04) plot(a, d.y + 1.21, z, rampOf([120, 84, 60])[2]);
+  windowsOn((a, z, c) => plot(d.x + 1.21, a, z, c), d.y - .9, d.y + .9, .7, 1.6, 2, 1, [160, 196, 224]);
+  shadowBox(d.x - 1.2, d.y - 1.2, d.x + 1.2, d.y + 1.2, 2.6);
+  // akademik
+  const s = PEOPLE[1];
+  box(s.x - 1.3, s.y - 1.2, 0, s.x + 1.3, s.y + 1.2, 3.4, [196, 206, 222], 2);
+  box(s.x - 1.4, s.y - 1.3, 3.4, s.x + 1.4, s.y + 1.3, 3.55, [90, 110, 150], 3);
+  windowsOn((a, z, c) => plot(a, s.y + 1.21, z, c), s.x - 1.1, s.x + 1.1, .3, 3.2, 3, 3, [130, 170, 210]);
+  windowsOn((a, z, c) => plot(s.x + 1.31, a, z, c), s.y - 1, s.y + 1, .3, 3.2, 2, 3, [130, 170, 210]);
+  shadowBox(s.x - 1.3, s.y - 1.2, s.x + 1.3, s.y + 1.2, 3.4);
+  // ławka seniora pod drzewem
+  const e = PEOPLE[2];
+  box(e.x - .9, e.y - .25, .38, e.x + .9, e.y + .25, .48, [150, 104, 70], 5);
+  box(e.x - .9, e.y - .3, .48, e.x + .9, e.y - .2, .95, [150, 104, 70], 6);
+  for (const dx of [-.8, .8]) box(e.x + dx - .06, e.y - .2, 0, e.x + dx + .06, e.y + .2, .38, [80, 70, 64], 7);
+  castShadow(e.x, e.y, .4, 1);
+  growTree(e.x + 1.4, e.y - 2.2, .5, 170, 91);
+  // mała firma z zielonym daszkiem
+  const f = PEOPLE[3];
+  box(f.x - 1.3, f.y - 1.1, 0, f.x + 1.3, f.y + 1.1, 2, [236, 230, 216], 8);
+  box(f.x - 1.4, f.y - 1.2, 2, f.x + 1.4, f.y + 1.2, 2.15, [90, 84, 78], 9);
+  for (let a = f.x - 1.3; a <= f.x + 1.3; a += .04) for (let k = 0; k <= .5; k += .04) plot(a, f.y + 1.15 + k * .9, 1.75 - k * .6, rampOf(Math.floor((a - f.x + 2) * 2.5) % 2 ? GREEN : PAPER_C)[3]);
+  windowsOn((a, z, c) => plot(a, f.y + 1.11, z, c), f.x - 1.1, f.x + .2, .4, 1.4, 2, 1, [170, 206, 230]);
+  for (let a = f.x + .5; a <= f.x + 1; a += .04) for (let z = 0; z <= 1.2; z += .04) plot(a, f.y + 1.11, z, rampOf(GREEN_D)[2]);
+  shadowBox(f.x - 1.3, f.y - 1.1, f.x + 1.3, f.y + 1.1, 2.1);
+  // drzewa i zieleń
+  growTree(-6.8, -5.6, .5, 170, 7);
+  growTree(6.6, 5.8, .45, 150, 55);
+  growTree(-6.9, 6.2, .4, 130, 21);
+  // tablica z kartami na środku rynku
+  const b = BOARD;
+  for (const dx of [-.95, .95]) box(b.x + dx - .07, b.y - .07, 0, b.x + dx + .07, b.y + .07, 2.3, [110, 84, 60], 11);
+  box(b.x - 1.05, b.y - .06, 1.05, b.x + 1.05, b.y + .06, 2.2, [200, 170, 120], 12);
+  box(b.x - 1.15, b.y - .15, 2.2, b.x + 1.15, b.y + .15, 2.35, GREEN_D, 13);
+  for (let z = .4; z < 2.2; z += .5) castShadow(b.x, b.y, z, .7);
+}
+function bake() {
+  zb.fill(-1e9);
+  pix.fill(rgb(240, 246, 241));
+  for (let iy = 0; iy < H; iy++) for (let ix = 0; ix < W; ix++) {
+    const gp = unproject(ix + .5, iy + .5), c = groundColor(gp.x, gp.y, ix, iy), i = iy * W + ix;
+    if (!c) continue;
+    pix[i] = c; ground[i] = 1;
+    zb[i] = (gp.x + gp.y) / R2 * COS;
+  }
+  groundZ.set(zb);
+  buildScene();
+  bakeOcclusion();
+  staticShadow.set(shadowMask);
+  applyShadows(groundZ);
+  bakedPix.set(pix);
+  bakedZ.set(zb);
+}
+
+/* ---------- karty ---------- */
+const cardTime = () => lerp(8.5, 5.5, clamp(G.t / GAME_LENGTH, 0, 1));
+function shuffle(a) { for (let k = a.length - 1; k > 0; k--) { const j = Math.floor(Math.random() * (k + 1)); [a[k], a[j]] = [a[j], a[k]]; } return a; }
+function nextCard() {
+  if (!G.deck.length) G.deck = shuffle(CARDS.slice());
+  // nie dwa razy z rzędu ta sama osoba, jeśli się da
+  let k = G.deck.findIndex(c => !G.lastPerson || c[1] !== G.lastPerson.p);
+  if (k < 0) k = 0;
+  const [name, p] = G.deck.splice(k, 1)[0];
+  const life = cardTime();
+  G.card = { name, p, life, max: life };
+  G.lastPerson = { p };
+  nodes.cardName.textContent = name;
+  nodes.card.hidden = false;
+  sound('card');
+}
+function anchor(i) { const q = PEOPLE[i]; return project(q.fx, q.fy, 2.1); }
+function give(i) {
+  if (G.phase !== 'play' || !G.card) return;
+  const c = G.card, q = PEOPLE[i];
+  if (c.p === i) {
+    G.score++; G.got[i]++; G.cheer[i] = 1.4;
+    G.flyers.push({ to: i, t: 0 });
+    G.card = null; G.nextIn = .55; nodes.card.hidden = true;
+    nodes.score.textContent = `${G.score}/${GOAL}`;
+    pop('+1', anchor(i), true);
+    say(`Należy się: ${q.name}. ${c.name}`, 'good');
+    sound('ok');
+    if (G.score >= GOAL) endGame(true, '');
+  } else {
+    G.wrong++; G.shake[i] = .5;
+    c.life = Math.max(.8, c.life - WRONG_COST);
+    say(`To świadczenie z kategorii ${PEOPLE[c.p].cat}. ${q.key.charAt(0) + q.key.slice(1).toLowerCase()} czeka na inną kartę`, 'bad');
+    sound('no');
+  }
+}
+function pop(text, at, good) { G.popups.push({ text, sx: at.sx, sy: at.sy - 10, t: 0, good }); }
+function say(text, kind = '') { nodes.status.textContent = text; nodes.status.className = kind; G.msgT = 3; }
+
+/* ---------- gra ---------- */
+function reset() {
+  Object.assign(G, { phase: 'play', t: 0, score: 0, misses: 0, wrong: 0, card: null, deck: shuffle(CARDS.slice()), nextIn: .8, popups: [], flyers: [], drag: null, cheer: [0, 0, 0, 0], shake: [0, 0, 0, 0], got: [0, 0, 0, 0], msgT: 0, win: false, why: '', lastPerson: null });
+  nodes.score.textContent = `0/${GOAL}`;
+  nodes.miss.textContent = `przepadło 0/${MISS_MAX}`; nodes.miss.className = 'lbl';
+  nodes.card.hidden = true;
+  say('');
+}
+function endGame(win, why) {
+  if (G.phase !== 'play') return;
+  G.phase = 'over'; G.win = win; G.why = why; G.drag = null; G.card = null; nodes.card.hidden = true;
+  sound(win ? 'end' : 'soft');
+  setTimeout(showEnd, 1300);
+}
+function showEnd() {
+  nodes.endTitle.textContent = G.win ? 'Wygrana!' : 'Tym razem się nie udało';
+  nodes.endScore.textContent = `${G.score}/${GOAL}`;
+  nodes.endWhy.textContent = G.win ? 'Każda karta trafiła do osoby, której się należy.' : G.why;
+  nodes.endStats.textContent = `Trafnie: ${G.score} · pomyłki: ${G.wrong} · przepadło: ${G.misses}/${MISS_MAX}`;
+  nodes.end.hidden = false;
+  nodes.again.focus({ preventScroll: true });
+}
+function start() {
+  ensureAudio();
+  nodes.intro.hidden = true; nodes.end.hidden = true;
+  reset();
+  canvas.focus({ preventScroll: true });
+}
+nodes.play.addEventListener('click', start);
+nodes.again.addEventListener('click', start);
+nodes.help.addEventListener('click', () => { if (G.phase === 'play') return; nodes.end.hidden = true; nodes.intro.hidden = false; });
+
+function updateHud() {
+  const left = Math.max(0, Math.ceil(GAME_LENGTH - G.t));
+  nodes.time.textContent = `${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}`;
+  if (G.card) {
+    const k = clamp(G.card.life / G.card.max, 0, 1);
+    nodes.cardBar.style.width = (k * 100).toFixed(1) + '%';
+    nodes.cardBar.className = k < .3 ? 'late' : '';
+  }
+  if (G.phase !== 'play') return;
+  nodes.hintBig.textContent = G.drag && G.card ? 'Upuść kartę przy osobie' : 'Komu się należy?';
+}
+function update(dt) {
+  G.time += dt;
+  for (const q of G.popups) q.t += dt;
+  G.popups = G.popups.filter(q => q.t < 1);
+  for (const f of G.flyers) f.t += dt * 2.2;
+  G.flyers = G.flyers.filter(f => f.t < 1);
+  for (let i = 0; i < 4; i++) { G.cheer[i] = Math.max(0, G.cheer[i] - dt); G.shake[i] = Math.max(0, G.shake[i] - dt); }
+  if (G.msgT > 0 && (G.msgT -= dt) <= 0) say('');
+  if (G.phase === 'play') {
+    G.t += dt;
+    if (G.card) {
+      G.card.life -= dt;
+      if (G.card.life <= 0) {
+        const lost = G.card;
+        G.misses++; G.card = null; G.nextIn = .7; G.drag = null; nodes.card.hidden = true;
+        nodes.miss.textContent = `przepadło ${G.misses}/${MISS_MAX}`; nodes.miss.className = G.misses >= MISS_MAX - 1 ? 'lbl warn' : 'lbl';
+        say(`Karta przepadła. ${lost.name} należało się: ${PEOPLE[lost.p].name}`, 'bad');
+        sound('soft');
+        if (G.misses >= MISS_MAX) endGame(false, `${MISS_MAX} karty przepadły. Następnym razem podaj kartę od razu, pomyłka kosztuje tylko chwilę.`);
+      }
+    } else if ((G.nextIn -= dt) <= 0) nextCard();
+    if (G.t >= GAME_LENGTH && G.phase === 'play') endGame(G.score >= GOAL, `Czas minął przy ${G.score}/${GOAL}. Do wygranej zabrakło ${GOAL - G.score}.`);
+  }
+  updateHud();
+}
+
+/* ---------- rysowanie ---------- */
+function pose(i, base) {
+  const beat = Math.floor(G.time * 5) % 2;
+  if (G.cheer[i] > 0) return { ...base, armR: 2.7 + beat * .2, armL: 2.7 - beat * .2 };
+  if (G.shake[i] > 0) return { ...base, armR: 1.3, armL: 1.3, lean: (beat ? .08 : -.08) };
+  return base;
+}
+function coins(i) {
+  const q = PEOPLE[i], n = Math.min(6, G.got[i]);
+  for (let k = 0; k < n; k++) sphere(q.fx + .7, q.fy + .1, .1 + k * .12, .16, GOLD, 'gloss');
+}
+function cardSprite(cx, cy, scale) {
+  // karta: biała, zielony pasek u góry, kreski tekstu
+  const w = 9 * scale, h = 12 * scale, x0 = Math.round(cx - w / 2), y0 = Math.round(cy - h / 2);
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+    const ix = x0 + x, iy = y0 + y;
+    if (ix < 0 || iy < 0 || ix >= W || iy >= H) continue;
+    const edge = x === 0 || y === 0 || x === w - 1 || y === h - 1;
+    let c = edge ? INK : rgb(250, 252, 250);
+    if (!edge && y < 3 * scale) c = rgb(47, 125, 90);
+    else if (!edge && (y % (2 * scale) === 0) && x > scale && x < w - scale - (y % 4 ? 2 : 0)) c = rgb(160, 176, 168);
+    pix[iy * W + ix] = c;
+  }
+}
+function drawWorld() {
+  const d = PEOPLE[0];
+  figure(d.fx, d.fy, d.yaw, pose(0, { scale: .9, stance: .1 }), LOOK[0], dynamicAdd);
+  figure(d.fx - .8, d.fy + .6, d.yaw, pose(0, { scale: .58, stance: .08 }), CHILD, dynamicAdd);
+  figure(PEOPLE[1].fx, PEOPLE[1].fy, PEOPLE[1].yaw, pose(1, { scale: .9, stance: .12, armL: .5 }), LOOK[1], dynamicAdd);
+  const e = PEOPLE[2];
+  figure(e.fx, e.fy, e.yaw, pose(2, { scale: .85, stance: .08 }), LOOK[2], dynamicAdd);
+  const f = PEOPLE[3];
+  figure(f.fx, f.fy, f.yaw, pose(3, { scale: .9, stance: .1 }), LOOK[3], dynamicAdd);
+  for (let i = 0; i < 4; i++) coins(i);
+}
+function drawLabels() {
+  const hot = G.drag ? nearest(G.drag.x, G.drag.y) : -1;
+  PEOPLE.forEach((q, i) => {
+    const a = project(q.fx, q.fy, 2.75);
+    const color = i === hot ? rgb(13, 80, 54) : INK;
+    drawText(q.key, a.sx, a.sy - 6, color, { haloColor: i === hot ? rgb(180, 236, 200) : PAPER });
+    drawText(String(i + 1), a.sx, a.sy - 13, rgb(110, 128, 118), { halo: false });
+  });
+  const b = project(BOARD.x, BOARD.y, 2.8);
+  drawText('TABLICA', b.sx, b.sy - 4, INK);
+}
+function draw() {
+  pix.set(bakedPix);
+  zb.set(bakedZ);
+  pendingShadows.length = 0;
+  const windT = STILL ? 0 : Math.floor(G.time * WIND_FPS) / WIND_FPS;
+  drawWorld();
+  drawLeaves(windT);
+  flushShadows();
+  applyShadows(groundZ);
+  shadeEdges();
+  drawLabels();
+  // karta na tablicy (miga, gdy kończy się czas)
+  if (G.card && !G.drag) {
+    const b = project(BOARD.x, BOARD.y + .1, 1.65);
+    const late = G.card.life / G.card.max < .3 && Math.floor(G.time * 6) % 2;
+    if (!late) cardSprite(b.sx, b.sy, 1);
+  }
+  // odebrane karty lecą do osoby
+  for (const f of G.flyers) {
+    const a = project(BOARD.x, BOARD.y, 1.65), z = anchor(f.to), k = ease(f.t);
+    cardSprite(lerp(a.sx, z.sx, k), lerp(a.sy, z.sy, k) - Math.sin(Math.PI * k) * 18, 1);
+  }
+  for (const q of G.popups) drawText(q.text, q.sx, q.sy - q.t * 14, q.good ? rgb(13, 80, 54) : rgb(179, 38, 46), { scale: 2 });
+  if (G.drag && G.card) cardSprite(G.drag.x, G.drag.y - 8, 2);
+  ctx.putImageData(image, 0, 0);
+}
+
+/* ---------- sterowanie ---------- */
+function toCanvas(e) {
+  const r = canvas.getBoundingClientRect();
+  return { x: (e.clientX - r.left) * W / r.width, y: (e.clientY - r.top) * H / r.height };
+}
+function nearest(sx, sy) {
+  let best = -1, bd = DROP_PX;
+  PEOPLE.forEach((q, i) => {
+    const pts = [anchor(i), project(q.fx, q.fy, .8), project(q.x, q.y, 1.4)];
+    const dd = Math.min(...pts.map(p => Math.hypot(p.sx - sx, p.sy - sy)));
+    if (dd < bd) { bd = dd; best = i; }
+  });
+  return best;
+}
+canvas.addEventListener('pointerdown', e => {
+  ensureAudio();
+  canvas.focus({ preventScroll: true });
+  if (G.phase !== 'play') return;
+  const pt = toCanvas(e);
+  canvas.setPointerCapture(e.pointerId);
+  G.drag = { x: pt.x, y: pt.y, sx: pt.x, sy: pt.y, moved: false };
+});
+canvas.addEventListener('pointermove', e => {
+  if (!G.drag) return;
+  const pt = toCanvas(e);
+  G.drag.x = pt.x; G.drag.y = pt.y;
+  if (Math.hypot(pt.x - G.drag.sx, pt.y - G.drag.sy) > 4) G.drag.moved = true;
+});
+function release() {
+  const d = G.drag;
+  if (!d) return;
+  G.drag = null;
+  if (!G.card) return;
+  const i = nearest(d.x, d.y);
+  if (i >= 0) give(i);
+  else if (d.moved) say('Upuść kartę przy osobie: rodzic, student, senior albo firma');
+}
+canvas.addEventListener('pointerup', release);
+canvas.addEventListener('pointercancel', () => { G.drag = null; });
+addEventListener('keydown', e => {
+  if (G.phase !== 'play') { if (e.key === 'Enter' && !nodes.intro.hidden) start(); return; }
+  const k = ['1', '2', '3', '4'].indexOf(e.key);
+  if (k < 0 || e.repeat) return;
+  e.preventDefault();
+  give(k);
+});
+
+/* ---------- dźwięk (generowany) ---------- */
+let audio = null, muted = false, noiseBuf = null;
+function ensureAudio() {
+  if (audio) { if (audio.state === 'suspended') audio.resume(); return; }
+  const AC = window.AudioContext || window.webkitAudioContext;
+  if (!AC) return;
+  audio = new AC();
+  noiseBuf = audio.createBuffer(1, audio.sampleRate, audio.sampleRate);
+  const d = noiseBuf.getChannelData(0);
+  for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+}
+function tone(freq, vol, len, delay = 0, type = 'sine') {
+  const now = audio.currentTime + delay, o = audio.createOscillator(), g = audio.createGain();
+  o.type = type; o.frequency.value = freq;
+  g.gain.setValueAtTime(.0001, now); g.gain.exponentialRampToValueAtTime(vol, now + .02); g.gain.exponentialRampToValueAtTime(.0001, now + len);
+  o.connect(g).connect(audio.destination); o.start(now); o.stop(now + len + .05);
+}
+function hiss(freq, vol, len, type = 'bandpass') {
+  const now = audio.currentTime, s = audio.createBufferSource(), f = audio.createBiquadFilter(), g = audio.createGain();
+  s.buffer = noiseBuf; f.type = type; f.frequency.value = freq;
+  g.gain.setValueAtTime(vol, now); g.gain.exponentialRampToValueAtTime(.0005, now + len);
+  s.connect(f).connect(g).connect(audio.destination); s.start(now, Math.random() * .5, len + .02);
+}
+function sound(kind) {
+  if (!audio || muted) return;
+  if (kind === 'card') hiss(2600, .04, .1);
+  if (kind === 'ok') { tone(784, .06, .25); tone(1046, .06, .35, .08); tone(1318, .04, .4, .16); }
+  if (kind === 'no') tone(330, .05, .25, 0, 'triangle');
+  if (kind === 'soft') { tone(392, .04, .5); hiss(2400, .02, .8, 'highpass'); }
+  if (kind === 'end') [523, 659, 784, 1046].forEach((f, k) => tone(f, .05, .5, k * .12));
+}
+nodes.mute.addEventListener('click', () => {
+  muted = !muted;
+  nodes.mute.textContent = muted ? 'dźwięk wył.' : 'dźwięk wł.';
+  nodes.mute.setAttribute('aria-pressed', String(muted));
+});
+
+/* ---------- start ---------- */
+function fitView() {
+  const dpr = window.devicePixelRatio || 1, CROP = 24;
+  let s = Math.min(innerWidth / (W - CROP * 2), (innerHeight - 250) / H);
+  if (s >= 2) s = Math.floor(s * dpr) / dpr;
+  else if (dpr < 2) s = Math.max(1, Math.floor(s * 2) / 2);
+  canvas.style.width = W * s + 'px';
+  canvas.style.height = H * s + 'px';
+}
+addEventListener('resize', fitView);
+fitView();
+bake();
+updateHud();
+let last = performance.now();
+function frame(now) {
+  update(Math.min(.04, (now - last) / 1000));
+  last = now;
+  draw();
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+// W ramce na wezmezadarmo.com przycisk końcowy przewija stronę do kalkulatora zamiast ją przeładowywać.
+document.getElementById('doKalkulatora').addEventListener('click', e => {
+  try {
+    const cel = window.top !== window && window.top.document.getElementById('kalkulator');
+    if (cel) { e.preventDefault(); cel.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  } catch (_) { /* inna domena: zwykły link */ }
+});
+window.__gra = { G, PEOPLE, step(dt) { update(dt); draw(); }, start, give, anchor };
+</script>
+</body>
+</html>

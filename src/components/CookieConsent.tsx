@@ -58,7 +58,7 @@ export function CookieConsent() {
       zIndex: 9999,
       background: 'var(--color-surface)',
       borderTop: '1px solid var(--color-border)',
-      boxShadow: '0 -8px 32px rgba(0,0,0,0.12)',
+      boxShadow: 'none',
     }}>
       <div style={{
         maxWidth: 960,
@@ -85,7 +85,7 @@ export function CookieConsent() {
                 onClick={reject}
                 style={{
                   padding: '8px 18px', fontSize: 13, fontWeight: 500,
-                  borderRadius: 10, border: '1px solid var(--color-border)',
+                  borderRadius: 2, border: '1px solid var(--color-border)',
                   background: 'transparent', color: 'var(--color-text-2)', cursor: 'pointer',
                 }}
               >
@@ -95,7 +95,7 @@ export function CookieConsent() {
                 onClick={accept}
                 style={{
                   padding: '8px 18px', fontSize: 13, fontWeight: 500,
-                  borderRadius: 10, border: 'none',
+                  borderRadius: 2, border: 'none',
                   background: 'var(--color-text-1)', color: 'var(--color-bg-0)', cursor: 'pointer',
                 }}
               >
@@ -139,7 +139,7 @@ export function CookieConsent() {
                 onClick={reject}
                 style={{
                   padding: '8px 18px', fontSize: 13, fontWeight: 500,
-                  borderRadius: 10, border: '1px solid var(--color-border)',
+                  borderRadius: 2, border: '1px solid var(--color-border)',
                   background: 'transparent', color: 'var(--color-text-2)', cursor: 'pointer',
                 }}
               >
@@ -149,7 +149,7 @@ export function CookieConsent() {
                 onClick={accept}
                 style={{
                   padding: '8px 18px', fontSize: 13, fontWeight: 500,
-                  borderRadius: 10, border: 'none',
+                  borderRadius: 2, border: 'none',
                   background: 'var(--color-text-1)', color: 'var(--color-bg-0)', cursor: 'pointer',
                 }}
               >
@@ -167,7 +167,7 @@ function CookieRow({ title, desc, locked }: { title: string; desc: string; locke
   return (
     <div style={{
       display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 16,
-      padding: '10px 14px', borderRadius: 10,
+      padding: '10px 14px', borderRadius: 2,
       background: 'var(--color-surface-2)', border: '1px solid var(--color-border)',
     }}>
       <div>

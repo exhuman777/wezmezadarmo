@@ -14,12 +14,12 @@ export function PeselInfoModal({ isOpen, onClose }: PeselInfoModalProps) {
       onClick={onClose}
     >
       {/* Backdrop */}
-      <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)' }} />
+      <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.6)', }} />
 
       {/* Modal */}
       <div
         className="relative w-full sm:max-w-lg max-h-[85vh] overflow-y-auto bg-bg-1 border border-border sm:rounded-2xl rounded-t-2xl"
-        style={{ boxShadow: '0 -4px 40px rgba(0,0,0,0.2)', animation: 'sheetUp 0.3s ease' }}
+        style={{ boxShadow: 'none', animation: 'sheetUp 0.3s ease' }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -182,7 +182,7 @@ export function PeselInfoModal({ isOpen, onClose }: PeselInfoModalProps) {
             onClick={onClose}
             className="w-full py-3 rounded-xl font-semibold text-[15px] cursor-pointer transition-all active:scale-[0.98]"
             style={{
-              background: 'linear-gradient(135deg, var(--color-accent), var(--color-accent-2))',
+              background: 'var(--color-accent)',
               color: '#fff',
             }}
           >

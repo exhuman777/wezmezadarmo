@@ -8,6 +8,7 @@ import { CookieConsent } from '@/components/CookieConsent';
 import { SiteNav } from '@/components/SiteNav';
 import { SiteFooter } from '@/components/SiteFooter';
 import { WebSiteJsonLd, OrganizationJsonLd } from '@/components/JsonLd';
+import { SITE_URL } from '@/lib/seo';
 import './globals.css';
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-57R2TFXNH7';
@@ -15,13 +16,13 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-57R2TFXNH7';
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#f0f6f1',
+  themeColor: '#f6f0e4',
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_URL ?? 'https://wezmezadarmo.vercel.app'),
-  title: 'wezmezadarmo - Sprawdź co Ci się należy',
-  description: 'Odkryj świadczenia rządowe, na które się kwalifikujesz. Darmowe badania, zasiłki, ulgi podatkowe - wszystko w jednym miejscu.',
+  metadataBase: new URL(SITE_URL),
+  title: 'Jakie świadczenia mi się należą? Kalkulator świadczeń 2026 | wezmezadarmo',
+  description: 'Bezpłatny kalkulator świadczeń 2026: sprawdź w 2 minuty, jakie zasiłki, ulgi podatkowe, dopłaty i darmowe badania Ci się należą. Bez logowania, ze źródłami urzędowymi.',
   applicationName: 'wezmezadarmo',
   appleWebApp: {
     capable: true,
@@ -30,16 +31,17 @@ export const metadata: Metadata = {
   },
   formatDetection: { telephone: false },
   openGraph: {
-    title: 'wezmezadarmo - Sprawdź co Ci się należy',
-    description: 'Zasiłki, ulgi, dotacje, darmowe badania - sprawdź w 2 minuty co Ci się należy od państwa.',
+    title: 'Jakie świadczenia mi się należą? Kalkulator świadczeń 2026',
+    description: 'Zasiłki, ulgi, dotacje, darmowe badania. Sprawdź w 2 minuty, co Ci się należy od państwa.',
     siteName: 'wezmezadarmo',
     locale: 'pl_PL',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'wezmezadarmo - Sprawdź co Ci się należy',
-    description: '133 świadczeń, 23 dotacje, 11 narzędzi rządowych. Bezpłatnie.',
+    title: 'Jakie świadczenia mi się należą? Kalkulator świadczeń 2026',
+    description: 'Zasiłki, ulgi, dotacje, darmowe badania. Sprawdź w 2 minuty, co Ci się należy od państwa. Bezpłatnie.',
+    images: ['/opengraph-image'],
   },
   robots: { index: true, follow: true },
 };

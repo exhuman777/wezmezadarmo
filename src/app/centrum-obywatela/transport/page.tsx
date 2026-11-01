@@ -35,7 +35,7 @@ const td: React.CSSProperties = { padding: '10px 12px', verticalAlign: 'top' };
 export default function TransportPage() {
   return (
     <main style={{ maxWidth: 880, margin: '0 auto', padding: '32px 24px 60px' }}>
-      <Link href="/centrum-obywatela" style={{ fontSize: 13, color: '#22A06B', textDecoration: 'none', marginBottom: 18, display: 'inline-block' }}>
+      <Link href="/centrum-obywatela" style={{ fontSize: 13, color: '#2b7353', textDecoration: 'none', marginBottom: 18, display: 'inline-block' }}>
         ← Centrum Obywatela
       </Link>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
@@ -49,7 +49,7 @@ export default function TransportPage() {
         Pełna tabela ulg ustawowych obowiązujących we wszystkich przewoźnikach kolejowych w Polsce (Intercity, Polregio, Koleje Mazowieckie i in.).
       </p>
 
-      <div style={{ overflow: 'auto', marginBottom: 28, border: '1px solid var(--line)', borderRadius: 10, background: 'var(--white)' }}>
+      <div style={{ overflow: 'auto', marginBottom: 28, border: '1px solid var(--line)', borderRadius: 2, background: 'var(--white)' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
           <thead>
             <tr style={{ background: 'var(--green-50)' }}>
@@ -74,7 +74,7 @@ export default function TransportPage() {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 10 }}>
         {LINKI.map(l => (
           <a key={l.url} href={l.url} target="_blank" rel="noopener noreferrer"
-            style={{ display: 'block', padding: 14, background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 10, textDecoration: 'none', color: 'inherit' }}>
+            style={{ display: 'block', padding: 14, background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 2, textDecoration: 'none', color: 'inherit' }}>
             <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--ink-900)', marginBottom: 4 }}>{l.tytul}</div>
             <div style={{ fontSize: 12, color: 'var(--ink-500)', lineHeight: 1.5 }}>{l.desc}</div>
           </a>

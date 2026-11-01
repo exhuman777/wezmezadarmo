@@ -6,6 +6,7 @@
  */
 
 import { NextRequest } from 'next/server';
+import { rateLimit } from '@/lib/sources/_helpers';
 import { chatCompletion } from '@/ai/openrouter';
 import { getAgentConfig } from '@/agents/registry';
 import { CORS_HEADERS, optionsResponse } from '@/lib/apiAuth';
@@ -97,6 +98,9 @@ const wniosekAgent = getAgentConfig('wnioski');
 const ZUS_SYSTEM_PROMPT = `${wniosekAgent.agentPrompt}\n\nZadanie: generuj krotkie oswiadczenia do formularzy ZUS. Pisz zwiezle, formalnie, po polsku. Uzywaj tylko informacji podanych przez uzytkownika, nie wymyslaj szczegolow.`;
 
 export async function POST(request: NextRequest) {
+  const limit = rateLimit('form-assist', request, 20, 60 * 60_000); // 20 wywołań AI / h / IP
+  if (!limit.ok) return limit.response;
+
   if (!process.env.OPENROUTER_API_KEY) {
     return new Response(JSON.stringify({ error: 'Brak klucza API' }), {
       status: 503,

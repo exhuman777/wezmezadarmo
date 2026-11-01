@@ -86,13 +86,13 @@ export const BIZNES: Benefit[] = [
   },
   {
     id: 'wakacje-skladkowe', nazwa: 'Wakacje składkowe (1 miesiąc wolny od ZUS)',
-    opis: 'Wakacje składkowe to prawo do zwolnienia z opłacania składek społecznych ZUS przez 1 wybrany miesiąc w roku. Skierowane do mikroprzedsiębiorców zatrudniających maksymalnie 9 pracowników (wliczając siebie) i z przychodem rocznym do 2 mln EUR. Oszczędność: ok. 1600 PLN jednorazowo. Wniosek RWS składasz przez PUE ZUS w miesiącu POPRZEDZAJĄCYM wybrany miesiąc zwolnienia. To najczęstszy błąd, bo wiele osób próbuje złożyć wniosek w tym samym miesiącu. W miesiącu wakacji nie płacisz składek społecznych, ale składkę zdrowotną musisz opłacić normalnie. Można skorzystać tylko 1 raz w roku kalendarzowym. Decyzja ZUS zapada w ciągu 40 dni. Praktyczna rada: wybierz miesiąc, w którym masz najwyższe składki (np. grudzień) lub miesiąc z niższymi przychodami.',
+    opis: 'Wakacje składkowe to prawo do zwolnienia z opłacania składek społecznych ZUS przez 1 wybrany miesiąc w roku. Skierowane do mikroprzedsiębiorców zgłaszających do ubezpieczeń nie więcej niż 10 ubezpieczonych (wliczając siebie, liczone w miesiącu przed złożeniem wniosku) i z przychodem rocznym do 2 mln EUR. Oszczędność: ok. 1600 PLN jednorazowo. Wniosek RWS składasz przez PUE ZUS w miesiącu POPRZEDZAJĄCYM wybrany miesiąc zwolnienia. To najczęstszy błąd, bo wiele osób próbuje złożyć wniosek w tym samym miesiącu. W miesiącu wakacji nie płacisz składek społecznych, ale składkę zdrowotną musisz opłacić normalnie. Można skorzystać tylko 1 raz w roku kalendarzowym. Decyzja ZUS zapada w ciągu 40 dni. Praktyczna rada: wybierz miesiąc, w którym masz najwyższe składki (np. grudzień) lub miesiąc z niższymi przychodami.',
     kategoria: 'BIZNES',
     kwota: 'ok. 1 600 PLN oszczędności (1 miesiąc)', kwotaMin: 1600, kwotaMax: 1600,
     czestotliwosc: 'rocznie (1 miesiąc)',
     wymagania: { prowadzDzialalnosc: true },
     wykluczenia: [
-      { opis: 'Więcej niż 9 pracowników', sprawdz: 'pracownicy_9' },
+      { opis: 'Więcej niż 10 ubezpieczonych (wraz z przedsiębiorcą)', sprawdz: 'pracownicy_9' },
       { opis: 'Przychód w poprzednim roku przekroczył 2 mln EUR', sprawdz: 'przychod_2mln_eur' },
     ],
     wniosek: {
@@ -105,11 +105,11 @@ export const BIZNES: Benefit[] = [
         'W wybranym miesiącu nie płacisz składek społecznych (zdrowotna nadal obowiązuje)',
       ],
       terminRealizacji: 'Decyzja w ciągu 40 dni',
-      pulapki: ['Wniosek trzeba złożyć MIESIĄC WCZEŚNIEJ', 'Można skorzystać tylko 1 raz w roku', 'Limit 9 pracowników (wraz z samozatrudnionym)'],
+      pulapki: ['Wniosek trzeba złożyć MIESIĄC WCZEŚNIEJ', 'Można skorzystać tylko 1 raz w roku', 'Limit 10 ubezpieczonych (wraz z przedsiębiorcą)'],
       odwolanie: 'Odwołanie do Prezesa ZUS',
     },
-    zrodloUrl: 'https://www.gov.pl/web/rozwoj-technologia/wakacje-skladkowe',
-    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
+    zrodloUrl: 'https://www.zus.pl/baza-wiedzy/biezace-wyjasnienia-komorek-merytorycznych/wakacje-skladkowe-pytania-i-odpowiedzi',
+    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-11-01', dataWaznosci: '2026-12-31',
   },
   {
     id: 'ryczalt', nazwa: 'Ryczałt od przychodów ewidencjonowanych',

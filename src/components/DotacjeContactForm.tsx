@@ -9,7 +9,7 @@ const inputStyle: React.CSSProperties = {
   fontSize: 14,
   background: 'var(--color-surface)',
   border: '1px solid var(--color-border)',
-  borderRadius: 12,
+  borderRadius: 2,
   color: 'var(--color-text-1)',
   outline: 'none',
   fontFamily: 'var(--font-sans)',
@@ -50,7 +50,7 @@ export function DotacjeContactForm() {
         padding: '24px',
         background: 'var(--color-green-bg)',
         border: '1px solid var(--color-green-border)',
-        borderRadius: 16,
+        borderRadius: 2,
         display: 'flex', alignItems: 'center', gap: 12,
       }}>
         <span style={{ width: 32, height: 32, borderRadius: '50%', background: 'var(--color-green)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, flexShrink: 0 }}>✓</span>
@@ -120,7 +120,7 @@ export function DotacjeContactForm() {
             color: status === 'sending' ? 'var(--color-text-3)' : 'var(--color-bg-0)',
             fontWeight: 500,
             fontSize: 14,
-            borderRadius: 12,
+            borderRadius: 2,
             border: 'none',
             cursor: status === 'sending' ? 'not-allowed' : 'pointer',
             transition: 'all 200ms',

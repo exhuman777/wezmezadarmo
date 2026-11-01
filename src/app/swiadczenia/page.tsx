@@ -42,8 +42,8 @@ function BenefitRow({ benefit, isExpanded, onToggle }: { benefit: Benefit; isExp
           className="shrink-0 mt-0.5"
           style={{
             width: 20, height: 20, borderRadius: '50%',
-            background: 'linear-gradient(135deg, rgba(34,160,107,0.18) 0%, rgba(34,160,107,0.08) 100%)',
-            border: '1px solid rgba(34,160,107,0.25)',
+            background: 'rgba(47,125,90,0.18)',
+            border: '1px solid rgba(47,125,90,0.25)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             color: 'var(--color-accent)', fontSize: 11, fontWeight: 700, flexShrink: 0,
           }}
@@ -56,7 +56,7 @@ function BenefitRow({ benefit, isExpanded, onToggle }: { benefit: Benefit; isExp
             <span
               className="text-[13px] sm:text-[14px] font-bold"
               style={{
-                background: 'linear-gradient(135deg, #22A06B, #1d9060)',
+                background: '#2b7353',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',
@@ -73,8 +73,8 @@ function BenefitRow({ benefit, isExpanded, onToggle }: { benefit: Benefit; isExp
             width: 18, height: 18,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             borderRadius: '50%',
-            background: isExpanded ? 'rgba(34,160,107,0.12)' : 'rgba(0,0,0,0.04)',
-            border: `1px solid ${isExpanded ? 'rgba(34,160,107,0.25)' : 'var(--color-border)'}`,
+            background: isExpanded ? 'rgba(47,125,90,0.12)' : 'rgba(0,0,0,0.04)',
+            border: `1px solid ${isExpanded ? 'rgba(47,125,90,0.25)' : 'var(--color-border)'}`,
             color: isExpanded ? 'var(--color-accent)' : 'var(--color-text-3)',
             transition: 'transform 0.2s ease, background 0.2s, border-color 0.2s',
             transform: isExpanded ? 'rotate(90deg)' : 'rotate(0deg)',
@@ -89,7 +89,7 @@ function BenefitRow({ benefit, isExpanded, onToggle }: { benefit: Benefit; isExp
         <div className="px-4 pb-4 pt-0 border-t border-border overflow-hidden" style={{ animation: 'fadeIn 0.3s ease', wordBreak: 'break-word' }}>
           {/* Description */}
           {benefit.opis && (
-            <p style={{ fontSize: 13, lineHeight: 1.75, color: 'var(--color-text-2)', margin: '12px 0', paddingLeft: 12, borderLeft: '2px solid rgba(34,160,107,0.3)' }}>
+            <p style={{ fontSize: 13, lineHeight: 1.75, color: 'var(--color-text-2)', margin: '12px 0', paddingLeft: 12, borderTop: '2px solid rgba(47,125,90,0.3)' }}>
               {benefit.opis}
             </p>
           )}
@@ -126,7 +126,7 @@ function BenefitRow({ benefit, isExpanded, onToggle }: { benefit: Benefit; isExp
           {(benefit.wniosek.dokumenty.length > 0 || benefit.wniosek.kroki.length > 0) && (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(220px, 100%), 1fr))', gap: 10, marginBottom: 12 }}>
               {benefit.wniosek.dokumenty.length > 0 && (
-                <div style={{ background: 'var(--color-bg-0)', border: '1px solid var(--color-border)', borderTop: '2px solid rgba(34,160,107,0.4)', borderRadius: 10, padding: '12px 14px' }}>
+                <div style={{ background: 'var(--color-bg-0)', border: '1px solid var(--color-border)', borderTop: '2px solid rgba(47,125,90,0.4)', borderRadius: 2, padding: '12px 14px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginBottom: 10 }}>
                     <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--color-accent)', flexShrink: 0 }} />
                     <span style={{ fontSize: 9, fontFamily: 'var(--font-mono)', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-text-3)' }}>
@@ -139,7 +139,7 @@ function BenefitRow({ benefit, isExpanded, onToggle }: { benefit: Benefit; isExp
                         <span style={{
                           width: 17, height: 17, flexShrink: 0,
                           display: 'flex', alignItems: 'center', justifyContent: 'center',
-                          borderRadius: 4, background: 'rgba(34,160,107,0.1)',
+                          borderRadius: 2, background: 'rgba(47,125,90,0.1)',
                           fontSize: 9, fontWeight: 700, color: 'var(--color-accent)',
                           fontFamily: 'var(--font-mono)', marginTop: 1,
                         }}>
@@ -153,7 +153,7 @@ function BenefitRow({ benefit, isExpanded, onToggle }: { benefit: Benefit; isExp
               )}
 
               {benefit.wniosek.kroki.length > 0 && (
-                <div style={{ background: 'var(--color-bg-0)', border: '1px solid var(--color-border)', borderTop: '2px solid rgba(34,160,107,0.4)', borderRadius: 10, padding: '12px 14px' }}>
+                <div style={{ background: 'var(--color-bg-0)', border: '1px solid var(--color-border)', borderTop: '2px solid rgba(47,125,90,0.4)', borderRadius: 2, padding: '12px 14px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginBottom: 10 }}>
                     <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--color-accent)', flexShrink: 0 }} />
                     <span style={{ fontSize: 9, fontFamily: 'var(--font-mono)', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-text-3)' }}>
@@ -167,10 +167,10 @@ function BenefitRow({ benefit, isExpanded, onToggle }: { benefit: Benefit; isExp
                           width: 19, height: 19, flexShrink: 0,
                           display: 'flex', alignItems: 'center', justifyContent: 'center',
                           borderRadius: '50%',
-                          background: 'linear-gradient(135deg, #22A06B, #1d9060)',
+                          background: '#2b7353',
                           fontSize: 9, fontWeight: 700, color: '#fff',
                           fontFamily: 'var(--font-mono)',
-                          boxShadow: '0 2px 5px rgba(34,160,107,0.25)',
+                          boxShadow: 'none',
                         }}>
                           {i + 1}
                         </span>
@@ -185,7 +185,7 @@ function BenefitRow({ benefit, isExpanded, onToggle }: { benefit: Benefit; isExp
 
           {/* Wymagania */}
           {benefit.wymagania && Object.keys(benefit.wymagania).length > 0 && (
-            <div style={{ marginBottom: 10, padding: '10px 12px', background: 'rgba(0,0,0,0.025)', border: '1px solid var(--color-border)', borderRadius: 8 }}>
+            <div style={{ marginBottom: 10, padding: '10px 12px', background: 'rgba(0,0,0,0.025)', border: '1px solid var(--color-border)', borderRadius: 2 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginBottom: 8, fontSize: 9, fontFamily: 'var(--font-mono)', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-text-3)' }}>
                 <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--color-accent)', opacity: 0.5, flexShrink: 0 }} />
                 Wymagania
@@ -222,9 +222,9 @@ function BenefitRow({ benefit, isExpanded, onToggle }: { benefit: Benefit; isExp
 
           {/* Na co uważać */}
           {benefit.wniosek.pulapki.length > 0 && (
-            <div style={{ marginBottom: 10, padding: '10px 12px', background: 'rgba(220,80,80,0.04)', border: '1px solid rgba(220,80,80,0.18)', borderRadius: 8 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginBottom: 7, fontSize: 9, fontFamily: 'var(--font-mono)', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#e05c5c' }}>
-                <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#e05c5c', flexShrink: 0 }} />
+            <div style={{ marginBottom: 10, padding: '10px 12px', background: 'rgba(196,72,58,0.04)', border: '1px solid rgba(196,72,58,0.18)', borderRadius: 2 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginBottom: 7, fontSize: 9, fontFamily: 'var(--font-mono)', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#c4483a' }}>
+                <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#c4483a', flexShrink: 0 }} />
                 Na co uważać
               </div>
               {benefit.wniosek.pulapki.map((p, i) => (
@@ -237,7 +237,7 @@ function BenefitRow({ benefit, isExpanded, onToggle }: { benefit: Benefit; isExp
 
           {/* Odwołanie */}
           {benefit.wniosek.odwolanie && (
-            <div style={{ marginBottom: 10, padding: '10px 12px', background: 'rgba(0,0,0,0.02)', border: '1px solid var(--color-border)', borderRadius: 8 }}>
+            <div style={{ marginBottom: 10, padding: '10px 12px', background: 'rgba(0,0,0,0.02)', border: '1px solid var(--color-border)', borderRadius: 2 }}>
               <div style={{ fontSize: 9, fontFamily: 'var(--font-mono)', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-text-3)', marginBottom: 5 }}>
                 Odwołanie
               </div>
@@ -316,15 +316,15 @@ export default function SwiadczeniaPage() {
           position: absolute;
           top: 0; left: 0; right: 0;
           height: 2px;
-          border-radius: 12px 12px 0 0;
-          background: linear-gradient(90deg, transparent 0%, #22A06B 30%, #8EEAAD 60%, #22A06B 80%, transparent 100%);
+          border-radius: 2px 12px 0 0;
+          background: transparent;
           opacity: 0;
           transition: opacity 0.2s ease;
           pointer-events: none;
         }
         .benefit-row:hover {
           transform: translateY(-1px);
-          box-shadow: 0 6px 20px rgba(0,0,0,0.08), 0 2px 6px rgba(34,160,107,0.06);
+          box-shadow: 0 6px 20px rgba(0,0,0,0.08), 0 2px 6px rgba(47,125,90,0.06);
         }
         .benefit-row:hover::after { opacity: 1; }
 
@@ -338,14 +338,14 @@ export default function SwiadczeniaPage() {
         }
         .category-pill:active { transform: translateY(0) scale(0.97); }
         .category-pill-active {
-          background: linear-gradient(135deg, rgba(34,160,107,0.14) 0%, rgba(34,160,107,0.08) 100%) !important;
-          box-shadow: 0 2px 8px rgba(34,160,107,0.2), inset 0 1px 0 rgba(255,255,255,0.3);
+          background: rgba(47,125,90,0.14) !important;
+          box-shadow: 0 2px 8px rgba(47,125,90,0.2), inset 0 1px 0 rgba(255,255,255,0.3);
         }
         .category-pill-active::before {
           content: '';
           position: absolute; top: 0; left: 0;
           width: 50%; height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+          background: transparent;
           transform: translateX(-120%) skewX(-12deg);
           animation: shimmer 0.6s ease-out;
         }
@@ -358,15 +358,15 @@ export default function SwiadczeniaPage() {
           content: '';
           position: absolute; top: 0; left: 0;
           width: 55%; height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(34,160,107,0.12), transparent);
+          background: transparent;
           transform: translateX(-120%) skewX(-12deg);
         }
         .btn-nav-shimmer:hover::before { animation: shimmer 0.5s ease-out; }
         .btn-nav-shimmer:hover { transform: translateY(-1px); }
 
         .search-input:focus {
-          border-color: rgba(34,160,107,0.5) !important;
-          box-shadow: 0 0 0 3px rgba(34,160,107,0.1), 0 1px 4px rgba(0,0,0,0.06) !important;
+          border-color: rgba(47,125,90,0.5) !important;
+          box-shadow: none;
           outline: none;
         }
 
@@ -385,7 +385,7 @@ export default function SwiadczeniaPage() {
           width: 6px; height: 6px;
           border-radius: 50%;
           background: var(--color-accent);
-          box-shadow: 0 0 7px rgba(34,160,107,0.55);
+          box-shadow: none;
           flex-shrink: 0;
         }
 
@@ -395,34 +395,34 @@ export default function SwiadczeniaPage() {
 
         .br-btn-guide {
           display: inline-flex; align-items: center; gap: 7;
-          padding: 8px 16px; border-radius: 9px;
-          background: linear-gradient(135deg, #22A06B, #1d9060);
+          padding: 8px 16px; border-radius: 2px;
+          background: #2b7353;
           color: #fff; font-size: 13px; font-weight: 600;
           text-decoration: none; position: relative; overflow: hidden;
-          box-shadow: 0 3px 10px rgba(34,160,107,0.28);
+          box-shadow: 0 3px 10px rgba(47,125,90,0.28);
           transition: transform 150ms, box-shadow 150ms;
         }
-        .br-btn-guide:hover { transform: translateY(-1px); box-shadow: 0 5px 16px rgba(34,160,107,0.38); }
+        .br-btn-guide:hover { transform: translateY(-1px); box-shadow: 0 5px 16px rgba(47,125,90,0.38); }
         .br-btn-guide::after {
           content: ''; position: absolute; top: 0; left: -100%;
           width: 55%; height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+          background: transparent;
           transform: skewX(-12deg); transition: left 0.4s;
         }
         .br-btn-guide:hover::after { left: 160%; }
 
         .br-btn-ask {
           display: inline-flex; align-items: center; gap: 6;
-          padding: 8px 14px; border-radius: 9px;
+          padding: 8px 14px; border-radius: 2px;
           background: transparent; color: var(--color-text-2);
           font-size: 13px; font-weight: 500;
           border: 1px solid var(--color-border); text-decoration: none;
           transition: border-color 150ms, color 150ms;
         }
-        .br-btn-ask:hover { border-color: rgba(34,160,107,0.4); color: #22A06B; }
+        .br-btn-ask:hover { border-color: rgba(47,125,90,0.4); color: #2b7353; }
 
         .req-tag {
-          font-size: 11px; padding: 2px 8px; border-radius: 4px;
+          font-size: 11px; padding: 2px 8px; border-radius: 2px;
           background: rgba(0,0,0,0.04); border: 1px solid var(--color-border);
           color: var(--color-text-2);
         }
@@ -433,8 +433,8 @@ export default function SwiadczeniaPage() {
         <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginBottom: 10 }}>
           <span style={{
             width: 6, height: 6, borderRadius: '50%', flexShrink: 0,
-            background: '#22A06B',
-            boxShadow: '0 0 8px rgba(34,160,107,0.6)',
+            background: '#2b7353',
+            boxShadow: 'none',
           }} />
           <span style={{
             fontFamily: 'var(--font-mono)', fontSize: 11,
@@ -452,13 +452,12 @@ export default function SwiadczeniaPage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))', gap: 10, marginBottom: 20 }}>
           <div style={{
             padding: '12px 16px',
-            background: 'rgba(34,160,107,0.06)',
-            border: '1px solid rgba(34,160,107,0.14)',
-            borderLeft: '2px solid #22A06B',
-            borderRadius: 10,
-            backdropFilter: 'blur(4px)',
+            background: 'rgba(47,125,90,0.06)',
+            border: '1px solid rgba(47,125,90,0.14)',
+            borderTop: '2px solid #2b7353',
+            borderRadius: 2,
           }}>
-            <span style={{ fontSize: 22, fontWeight: 700, color: '#22A06B', fontFamily: 'var(--font-mono)', display: 'block', marginBottom: 4 }}>
+            <span style={{ fontSize: 22, fontWeight: 700, color: '#2b7353', fontFamily: 'var(--font-mono)', display: 'block', marginBottom: 4 }}>
               {allBenefits.length}
             </span>
             <span className="text-[13px] text-text-2">
@@ -469,8 +468,7 @@ export default function SwiadczeniaPage() {
             padding: '12px 16px',
             background: 'rgba(0,0,0,0.03)',
             border: '1px solid var(--color-border)',
-            borderRadius: 10,
-            backdropFilter: 'blur(4px)',
+            borderRadius: 2,
           }}>
             <span style={{ fontSize: 13, fontFamily: 'var(--font-mono)', color: 'var(--color-text-3)', display: 'block', marginBottom: 4, textTransform: 'uppercase' as const, letterSpacing: '0.06em' }}>
               Każde świadczenie
@@ -492,7 +490,7 @@ export default function SwiadczeniaPage() {
             style={{
               caretColor: 'var(--color-green)',
               transition: 'border-color 0.15s, box-shadow 0.15s',
-              boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
+              boxShadow: 'none',
             }}
           />
           {search && (
@@ -512,18 +510,18 @@ export default function SwiadczeniaPage() {
           style={{
             display: 'inline-flex', alignItems: 'center', gap: 8,
             padding: '10px 18px', marginBottom: 16,
-            background: 'rgba(34,160,107,0.08)',
-            border: '1px solid rgba(34,160,107,0.2)',
-            borderRadius: 10,
+            background: 'rgba(47,125,90,0.08)',
+            border: '1px solid rgba(47,125,90,0.2)',
+            borderRadius: 2,
             fontSize: 14, fontWeight: 600,
-            color: '#22A06B',
+            color: '#2b7353',
             textDecoration: 'none',
           }}
         >
           <span style={{
             width: 6, height: 6, borderRadius: '50%',
-            background: '#22A06B',
-            boxShadow: '0 0 6px rgba(34,160,107,0.7)',
+            background: '#2b7353',
+            boxShadow: 'none',
             flexShrink: 0,
           }} />
           Sprawdź swoje świadczenia
