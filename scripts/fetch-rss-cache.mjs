@@ -76,7 +76,8 @@ const FEEDS = [
   { id: 'uokik',    name: 'UOKiK',        url: 'https://uokik.gov.pl/aktualnosci',                             audiences: ['wszyscy', 'firmy'],         parser: 'html-uokik' },
   { id: 'fundusze', name: 'Fundusze EU',  url: 'https://funduszeeuropejskie.gov.pl/aktualnosci',               audiences: ['jdg', 'firmy'],             parser: 'html-fundusze' },
   { id: 'ezdrowie', name: 'e-Zdrowie',    url: 'https://ezdrowie.gov.pl/portal/home/aktualnosci?isExtend=true', audiences: ['wszyscy'],                  parser: 'html-ezdrowie' },
-  { id: 'arimr',    name: 'ARiMR',        url: 'https://www.arimr.gov.pl/aktualnosci-i-komunikaty',            audiences: ['jdg', 'firmy'],             parser: 'html-arimr' },
+  // ARiMR: arimr.gov.pl przekierowuje na gov.pl/web/arimr; aplikacja pobiera listę wiadomości bezpośrednio
+  // (src/app/aktualnosci/rss.ts, format 'govpl'), więc tu już jej nie cache'ujemy.
 ];
 
 // ---------------------------------------------------------------------------

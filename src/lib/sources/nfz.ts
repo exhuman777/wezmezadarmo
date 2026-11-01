@@ -66,6 +66,7 @@ export async function getQueues(params: {
   if (params.locality) url.searchParams.set('locality', params.locality);
 
   const res = await fetch(url.toString(), {
+    signal: AbortSignal.timeout(10_000),
     headers: { Accept: 'application/json' },
     next: { revalidate: 3600 },
   });
@@ -86,6 +87,7 @@ export async function searchBenefits(query: string, limit: number = 25): Promise
   url.searchParams.set('limit', String(limit));
   url.searchParams.set('api-version', '1.3');
   const res = await fetch(url.toString(), {
+    signal: AbortSignal.timeout(10_000),
     headers: { Accept: 'application/json' },
     next: { revalidate: 86400 },
   });
@@ -142,6 +144,7 @@ export async function searchProviders(params: {
   if (params.branch) url.searchParams.set('branch', params.branch);
 
   const res = await fetch(url.toString(), {
+    signal: AbortSignal.timeout(10_000),
     headers: { Accept: 'application/json' },
     next: { revalidate: 86400 },
   });

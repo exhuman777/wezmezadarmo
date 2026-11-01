@@ -44,14 +44,19 @@ async function checkRssCache(): Promise<CheckResult> {
   if (!url || !key) return { ok: false, detail: 'missing env' };
   try {
     const res = await fetch(`${url}/rest/v1/rss_cache?select=fetched_at&order=fetched_at.desc&limit=1`, {
+      signal: AbortSignal.timeout(5000),
       headers: { apikey: key, Authorization: `Bearer ${key}` },
       cache: 'no-store',
     });
     if (!res.ok) return { ok: false, detail: `HTTP ${res.status}`, latency_ms: Date.now() - t0 };
     const data = await res.json() as Array<{ fetched_at: string }>;
+    const newest = data[0]?.fetched_at ?? null;
+    // Cache napełnia GitHub Action 2 razy dziennie; starszy niż 3 dni = Action nie działa
+    const fresh = !!newest && Date.now() - new Date(newest).getTime() < 3 * 24 * 60 * 60 * 1000;
     return {
-      ok: true,
-      newest: data[0]?.fetched_at ?? null,
+      ok: fresh,
+      detail: fresh ? undefined : 'cache nieaktualny: sprawdź workflow RSS Cache Fetch w GitHub Actions',
+      newest,
       latency_ms: Date.now() - t0,
     };
   } catch (e) {

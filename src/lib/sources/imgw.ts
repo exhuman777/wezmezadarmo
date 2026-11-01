@@ -75,6 +75,7 @@ function mapImgwWarning(w: ImgwWarning): RcbWarning {
 async function fetchImgwWarnings(url: string): Promise<RcbWarning[]> {
   try {
     const res = await fetch(url, {
+    signal: AbortSignal.timeout(10_000),
       headers: { Accept: 'application/json' },
       next: { revalidate: 900 },
     });

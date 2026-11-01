@@ -4,7 +4,7 @@ import { mapUnitData } from '@/lib/sources/bdl-gus';
 const RAW = {
   results: [
     {
-      id: '60559',
+      id: '72305',
       values: [{ year: '2024', val: 38500000 }],
     },
     {
