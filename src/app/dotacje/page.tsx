@@ -118,7 +118,7 @@ export default function DotacjePage() {
       <section className="prosta-blok" style={{ padding: '32px 0 0' }}>
         <h2>Skąd agent bierze informacje</h2>
         <p className="pod">Śledzi RSS instytucji i przygotowuje wstępne wnioski do Twojej weryfikacji. Nic nie jest składane bez Twojej zgody.</p>
-        <p className="mono mala" style={{ marginTop: 8 }}>ZUS · GUS · NBP · UOKiK · Fundusze EU · e-Zdrowie · Sejm · ARiMR</p>
+        <p className="mono mala" style={{ marginTop: 8 }}>ZUS · PFRON · GUS · Sejm · ARiMR · MF · MRiT · MRPiPS · CEIDG</p>
       </section>
 
       <section id="kontakt" className="prosta-blok" style={{ padding: '32px 0 0', scrollMarginTop: 80 }}>

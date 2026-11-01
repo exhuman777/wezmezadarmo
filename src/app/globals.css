@@ -1104,3 +1104,7 @@ html.dark .btn-ghost { background: transparent; border-color: var(--tusz); color
 .lista li:last-child { border-bottom: 1px solid var(--linia); }
 .lista b { font-family: var(--f-mono); font-weight: 700; }
 .etykieta { font-family: var(--f-mono); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--szary); margin: 0 0 8px; }
+
+/* /swiadczenia: kwadratowe rogi i bez cieni w całej liście */
+.sw-prosta *, .sw-prosta *::before, .sw-prosta *::after { border-radius: 0 !important; box-shadow: none !important; }
+.sw-prosta .benefit-row:last-child { border-bottom: 1px solid var(--linia); }

@@ -5,7 +5,7 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   alternates: canonical('/centrum-obywatela'),
   title: 'Centrum Obywatela - darmowe narzędzia urzędowe | wezmezadarmo',
-  description: '12 narzędzi z oficjalnych polskich API: NFZ, NBP, GIOŚ, Biała Lista VAT, IMGW/RCB, ELI/Sejm, BDL GUS, ARiMR, PKP. Bez logowania.',
+  description: '12 narzędzi z oficjalnych polskich API: NFZ, NBP, GIOŚ, Biała Lista VAT, IMGW, ELI/Sejm, BDL GUS, ARiMR, PKP. Bez logowania.',
 };
 
 interface Tool {
@@ -27,7 +27,7 @@ const TOOLS: Tool[] = [
     audiences: ['senior', 'rodzina', 'wszyscy'] },
   { href: '/centrum-obywatela/biala-lista', icon: 'V', label: 'Biała Lista VAT', desc: 'Sprawdź kontrahenta po NIP. Status VAT, konta, KRS', badge: 'na żywo', color: '#4527A0',
     audiences: ['firma'] },
-  { href: '/centrum-obywatela/pogoda', icon: 'P', label: 'Ostrzeżenia IMGW/RCB', desc: 'Burze, powodzie, mróz, smog. Alerty RCB co 15 min', badge: 'na żywo', color: '#c4841a',
+  { href: '/centrum-obywatela/pogoda', icon: 'P', label: 'Ostrzeżenia IMGW', desc: 'Ostrzeżenia meteorologiczne i hydrologiczne IMGW', badge: 'na żywo', color: '#c4841a',
     audiences: ['rolnik', 'senior', 'rodzina', 'wszyscy'] },
   { href: '/centrum-obywatela/prawo', icon: 'L', label: 'Zmiany w prawie (ELI/Sejm)', desc: 'Tracker ustaw i rozporządzeń o świadczeniach', badge: 'co 30 min', color: '#003874',
     audiences: ['senior', 'firma', 'student', 'wszyscy'] },
@@ -37,7 +37,7 @@ const TOOLS: Tool[] = [
     audiences: ['rolnik'] },
   { href: '/centrum-obywatela/transport', icon: 'T', label: 'Ulgi PKP', desc: 'Tabela ulg dla studenta, seniora, KDR, niepełnosprawnych', badge: 'tabela', color: '#a01818',
     audiences: ['senior', 'student', 'rodzina'] },
-  { href: '/aktualnosci', icon: 'R', label: 'Aktualności RSS', desc: 'Agregator z 8 instytucji państwowych, odświeżany 2x/dzień', badge: '2x/dzień', color: '#003874',
+  { href: '/aktualnosci', icon: 'R', label: 'Aktualności RSS', desc: 'Komunikaty urzędów i zmiany w prawie', badge: '2x/dzień', color: '#003874',
     audiences: ['firma', 'wszyscy'] },
   { href: '/swiadczenia', icon: 'S', label: 'Świadczenia i ulgi', desc: '133 świadczenia z ZUS, NFZ, PFRON, KRUS i MOPS w jednej wyszukiwarce', badge: 'baza wiedzy', color: '#2b7353',
     audiences: ['rolnik', 'senior', 'rodzina', 'student', 'wszyscy'] },
@@ -110,7 +110,7 @@ const SOURCES = [
   { name: 'api.nbp.pl', purpose: 'kursy walut Tabela A' },
   { name: 'api.gios.gov.pl', purpose: 'indeks powietrza PM10/PM2.5' },
   { name: 'wl-api.mf.gov.pl', purpose: 'Biała Lista VAT' },
-  { name: 'rcb.gov.pl', purpose: 'ostrzeżenia meteo i kryzysowe' },
+  { name: 'danepubliczne.imgw.pl', purpose: 'ostrzeżenia meteo i hydrologiczne' },
   { name: 'api.sejm.gov.pl/eli', purpose: 'zmiany w przepisach' },
   { name: 'bdl.stat.gov.pl', purpose: 'dane demograficzne GUS' },
   { name: 'geoportal.arimr.gov.pl', purpose: 'mapy działek rolnych' },

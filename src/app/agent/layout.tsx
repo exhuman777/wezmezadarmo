@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { MobileAgentWarning } from '@/components/MobileAgentWarning';
 
 export const metadata: Metadata = {
-  title: 'Twój agent AI - świadczenia i aktualności | wezmezadarmo',
-  description: 'Agent AI pilnuje co Ci przysługuje i informuje o zmianach w prawie. Dla JDG i osób prywatnych. Dzienny raport na e-mail.',
+  title: 'Asystent AI: świadczenia, ZUS i urzędy | wezmezadarmo',
+  description: 'Asystent AI odpowiada na pytania o świadczenia, ZUS i urzędy z bazy świadczeń i danych urzędów. 3 pytania dziennie bez konta.',
 };
 
 export default function AgentLayout({ children }: { children: React.ReactNode }) {

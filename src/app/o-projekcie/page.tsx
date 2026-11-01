@@ -20,7 +20,7 @@ const MODULY = [
 
 const ZRODLA = [
   'gov.pl', 'zus.pl', 'podatki.gov.pl', 'pfron.org.pl', 'nfz.gov.pl', 'praca.gov.pl', 'nfosigw.gov.pl',
-  'krus.gov.pl', 'biznes.gov.pl', 'rcb.gov.pl', 'api.sejm.gov.pl', 'bdl.stat.gov.pl', 'geoportal.arimr.gov.pl', 'portalpasazera.pl',
+  'krus.gov.pl', 'biznes.gov.pl', 'danepubliczne.imgw.pl', 'api.sejm.gov.pl', 'bdl.stat.gov.pl', 'geoportal.arimr.gov.pl', 'portalpasazera.pl',
 ];
 
 export default function OProjekciePage() {

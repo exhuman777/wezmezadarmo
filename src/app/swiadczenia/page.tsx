@@ -31,36 +31,19 @@ const CATEGORY_ORDER: BenefitCategory[] = [
 function BenefitRow({ benefit, isExpanded, onToggle }: { benefit: Benefit; isExpanded: boolean; onToggle: () => void }) {
   return (
     <div
-      className="benefit-row border border-border rounded-xl overflow-hidden transition-all"
-      style={{ background: 'var(--color-bg-1)' }}
+      className="benefit-row overflow-hidden"
+      style={{ borderTop: '1px solid var(--linia)' }}
     >
       <button
         onClick={onToggle}
-        className="w-full text-left px-4 py-3 cursor-pointer bg-transparent border-none flex items-start gap-3"
+        className="w-full text-left px-0 py-3 cursor-pointer bg-transparent border-none flex items-start gap-3"
       >
-        <span
-          className="shrink-0 mt-0.5"
-          style={{
-            width: 20, height: 20, borderRadius: '50%',
-            background: 'rgba(47,125,90,0.18)',
-            border: '1px solid rgba(47,125,90,0.25)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            color: 'var(--color-accent)', fontSize: 11, fontWeight: 700, flexShrink: 0,
-          }}
-        >
-          {'→'}
-        </span>
         <div className="flex-1 min-w-0 overflow-hidden">
           <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
             <span className="text-[14px] sm:text-[15px] font-semibold text-text-1 break-words">{benefit.nazwa}</span>
             <span
               className="text-[13px] sm:text-[14px] font-bold"
-              style={{
-                background: '#2b7353',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
+              style={{ color: 'var(--zielen)' }}
             >
               {benefit.kwota}
             </span>
@@ -86,10 +69,10 @@ function BenefitRow({ benefit, isExpanded, onToggle }: { benefit: Benefit; isExp
       </button>
 
       {isExpanded && (
-        <div className="px-4 pb-4 pt-0 border-t border-border overflow-hidden" style={{ animation: 'fadeIn 0.3s ease', wordBreak: 'break-word' }}>
+        <div className="pb-4 pt-0 overflow-hidden" style={{ wordBreak: 'break-word' }}>
           {/* Description */}
           {benefit.opis && (
-            <p style={{ fontSize: 13, lineHeight: 1.75, color: 'var(--color-text-2)', margin: '12px 0', paddingLeft: 12, borderTop: '2px solid rgba(47,125,90,0.3)' }}>
+            <p style={{ fontSize: 13, lineHeight: 1.75, color: 'var(--color-text-2)', margin: '12px 0', }}>
               {benefit.opis}
             </p>
           )}
@@ -429,7 +412,7 @@ export default function SwiadczeniaPage() {
       `}</style>
 
       {/* Hero */}
-      <div className="px-4 sm:px-6 py-6 sm:py-8 max-w-3xl mx-auto">
+      <div className="sw-prosta px-4 sm:px-6 py-6 sm:py-8 mx-auto" style={{ maxWidth: 680 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginBottom: 10 }}>
           <span style={{
             width: 6, height: 6, borderRadius: '50%', flexShrink: 0,
@@ -448,36 +431,9 @@ export default function SwiadczeniaPage() {
           Baza świadczeń i programów rządowych
         </h1>
 
-        {/* Subtitle boxes */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))', gap: 10, marginBottom: 20 }}>
-          <div style={{
-            padding: '12px 16px',
-            background: 'rgba(47,125,90,0.06)',
-            border: '1px solid rgba(47,125,90,0.14)',
-            borderTop: '2px solid #2b7353',
-            borderRadius: 2,
-          }}>
-            <span style={{ fontSize: 22, fontWeight: 700, color: '#2b7353', fontFamily: 'var(--font-mono)', display: 'block', marginBottom: 4 }}>
-              {allBenefits.length}
-            </span>
-            <span className="text-[13px] text-text-2">
-              świadczeń w {CATEGORY_ORDER.length} kategoriach. Zasiłki, ulgi podatkowe, dotacje, darmowe badania, programy wsparcia.
-            </span>
-          </div>
-          <div style={{
-            padding: '12px 16px',
-            background: 'rgba(0,0,0,0.03)',
-            border: '1px solid var(--color-border)',
-            borderRadius: 2,
-          }}>
-            <span style={{ fontSize: 13, fontFamily: 'var(--font-mono)', color: 'var(--color-text-3)', display: 'block', marginBottom: 4, textTransform: 'uppercase' as const, letterSpacing: '0.06em' }}>
-              Każde świadczenie
-            </span>
-            <span className="text-[13px] text-text-2">
-              Instrukcja krok po kroku, wymagane dokumenty, pułapki i link do źródła.
-            </span>
-          </div>
-        </div>
+        <p style={{ fontSize: 17, lineHeight: 1.6, color: 'var(--szary)', margin: '0 0 20px' }}>
+          {allBenefits.length} świadczeń, ulg i programów w {CATEGORY_ORDER.length} kategoriach. Przy każdym: kwota, dokumenty, kroki i link do źródła.
+        </p>
 
         {/* Search */}
         <div className="relative mb-3">
@@ -486,12 +442,8 @@ export default function SwiadczeniaPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Szukaj świadczenia, np. 800+, becikowe, ulga..."
-            className="search-input w-full px-4 py-3 rounded-xl text-[14px] sm:text-[15px] border border-border bg-bg-1 text-text-1 outline-none"
-            style={{
-              caretColor: 'var(--color-green)',
-              transition: 'border-color 0.15s, box-shadow 0.15s',
-              boxShadow: 'none',
-            }}
+            className="search-input w-full px-4 py-3 text-[14px] sm:text-[15px] bg-bg-1 text-text-1 outline-none"
+            style={{ caretColor: 'var(--zielen)', border: '2px solid var(--tusz)', borderRadius: 0 }}
           />
           {search && (
             <button
@@ -504,35 +456,15 @@ export default function SwiadczeniaPage() {
         </div>
 
         {/* Sprawdź swoje CTA */}
-        <Link
-          href="/"
-          className="btn-nav-shimmer"
-          style={{
-            display: 'inline-flex', alignItems: 'center', gap: 8,
-            padding: '10px 18px', marginBottom: 16,
-            background: 'rgba(47,125,90,0.08)',
-            border: '1px solid rgba(47,125,90,0.2)',
-            borderRadius: 2,
-            fontSize: 14, fontWeight: 600,
-            color: '#2b7353',
-            textDecoration: 'none',
-          }}
-        >
-          <span style={{
-            width: 6, height: 6, borderRadius: '50%',
-            background: '#2b7353',
-            boxShadow: 'none',
-            flexShrink: 0,
-          }} />
-          Sprawdź swoje świadczenia
-          <span style={{ fontSize: 13, opacity: 0.7 }}>→</span>
-        </Link>
+        <div className="przyciski" style={{ margin: '0 0 16px' }}>
+          <Link href="/#kalkulator" className="btn btn-rdza">Sprawdź, co Ci się należy</Link>
+        </div>
 
         {/* Category pills */}
         <div className="flex flex-wrap gap-1.5 mb-6">
           <button
             onClick={() => setActiveCategory('ALL')}
-            className={`category-pill px-3 py-1.5 rounded-lg text-[12px] sm:text-[13px] font-semibold border cursor-pointer ${
+            className={`category-pill px-3 py-1.5 text-[12px] sm:text-[13px] font-semibold border cursor-pointer ${
               activeCategory === 'ALL' ? 'category-pill-active border-green text-green' : 'border-border text-text-3 hover:text-text-1'
             }`}
             style={{
@@ -549,7 +481,7 @@ export default function SwiadczeniaPage() {
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat === activeCategory ? 'ALL' : cat)}
-                className={`category-pill px-3 py-1.5 rounded-lg text-[12px] sm:text-[13px] font-semibold border cursor-pointer ${
+                className={`category-pill px-3 py-1.5 text-[12px] sm:text-[13px] font-semibold border cursor-pointer ${
                   isActive ? 'category-pill-active border-green text-green' : 'border-border text-text-3 hover:text-text-1'
                 }`}
                 style={{
@@ -622,7 +554,7 @@ export default function SwiadczeniaPage() {
         {/* Footer */}
         <div className="mt-8 pt-4 border-t border-border text-center space-y-2">
           <div className="text-[12px] sm:text-[13px] text-text-3">
-            Baza: {allBenefits.length} świadczeń | Ostatnia aktualizacja: listopad 2026
+            {allBenefits.length} świadczeń w bazie · aktualizacja: listopad 2026
           </div>
           <div className="text-[11px] sm:text-[12px] text-text-3">
             Informacje orientacyjne. Zawsze weryfikuj na stronach źródłowych.
