@@ -12,8 +12,8 @@ export const metadata: Metadata = {
 const CONTACT_EMAIL = 'kamil.sobkowicz@dogtronic.io';
 
 // Spójny zielony akcent całej zakładki (nazwy produktów, tagline'y, wyróżnienia).
-const BRAND_GREEN = '#22A06B';
-const BRAND_GREEN_ON_DARK = '#8EEAAD';
+const BRAND_GREEN = '#2b7353';
+const BRAND_GREEN_ON_DARK = '#a9d4bd';
 
 interface UseCase { who: string; story: string }
 interface Tier { name: string; price: string; detail: string; highlight?: boolean }
@@ -109,7 +109,7 @@ function UseCases({ items, dark }: { items: UseCase[]; dark?: boolean }) {
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))', gap: 12 }}>
       {items.map(u => (
         <div key={u.who} className="hover-lift" style={{
-          padding: '16px 18px', borderRadius: 12,
+          padding: '16px 18px', borderRadius: 2,
           background: dark ? 'rgba(255,255,255,0.05)' : 'var(--color-bg-0)',
           border: `1px solid ${dark ? 'rgba(255,255,255,0.1)' : 'var(--color-border)'}`,
         }}>
@@ -126,8 +126,8 @@ function PricingRow({ tiers, dark }: { tiers: Tier[]; dark?: boolean }) {
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(180px, 100%), 1fr))', gap: 10 }}>
       {tiers.map(t => (
         <div key={t.name} style={{
-          padding: '14px 16px', borderRadius: 12,
-          background: t.highlight ? (dark ? 'rgba(142,234,173,0.12)' : 'var(--color-surface-2)') : (dark ? 'rgba(255,255,255,0.04)' : 'var(--color-bg-0)'),
+          padding: '14px 16px', borderRadius: 2,
+          background: t.highlight ? (dark ? 'rgba(169,212,189,0.12)' : 'var(--color-surface-2)') : (dark ? 'rgba(255,255,255,0.04)' : 'var(--color-bg-0)'),
           border: `1px solid ${t.highlight ? (dark ? BRAND_GREEN_ON_DARK : BRAND_GREEN) : (dark ? 'rgba(255,255,255,0.1)' : 'var(--color-border)')}`,
         }}>
           <div style={{ fontSize: 12, fontWeight: 600, color: dark ? 'rgba(255,255,255,0.6)' : 'var(--color-text-3)' }}>{t.name}</div>
@@ -161,7 +161,7 @@ export default function ZaDarmoDlaBiznesuPage() {
       </header>
 
       {/* ---------------- DOGINVOICE ---------------- */}
-      <article style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 18, overflow: 'hidden', marginBottom: 32 }}>
+      <article style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 2, overflow: 'hidden', marginBottom: 32 }}>
         <div style={{ padding: 'clamp(22px, 3vw, 36px)' }}>
           <SectionTag>Faktury i KSeF</SectionTag>
           <div style={{ fontSize: 30, fontWeight: 800, letterSpacing: '-0.02em', color: BRAND_GREEN, marginBottom: 6 }}>
@@ -172,7 +172,7 @@ export default function ZaDarmoDlaBiznesuPage() {
         </div>
 
         <div style={{ padding: '0 clamp(22px, 3vw, 36px)' }}>
-          <div style={{ borderRadius: 12, overflow: 'hidden', border: '1px solid var(--color-border)', boxShadow: '0 12px 34px rgba(0,0,0,0.1)' }}>
+          <div style={{ borderRadius: 2, overflow: 'hidden', border: '1px solid var(--color-border)', boxShadow: 'none' }}>
             <Image src="/partnerzy/doginvoice-dashboard.png" alt="DogInvoice - pulpit do zarządzania fakturami" width={2920} height={1532} style={{ width: '100%', height: 'auto', display: 'block' }} />
           </div>
         </div>
@@ -184,7 +184,7 @@ export default function ZaDarmoDlaBiznesuPage() {
           <UseCases items={DOGINVOICE.useCases} />
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px,100%), 1fr))', gap: 20, alignItems: 'center', marginTop: 28 }}>
-            <div style={{ borderRadius: 12, overflow: 'hidden', border: '1px solid var(--color-border)' }}>
+            <div style={{ borderRadius: 2, overflow: 'hidden', border: '1px solid var(--color-border)' }}>
               <Image src="/partnerzy/doginvoice-ksef-pdf.png" alt="Zamiana nieczytelnego XML z KSeF na zwykły PDF" width={1544} height={1476} style={{ width: '100%', height: 'auto', display: 'block' }} />
             </div>
             <div>
@@ -200,7 +200,7 @@ export default function ZaDarmoDlaBiznesuPage() {
           <PricingRow tiers={DOGINVOICE.pricing} />
 
           <div style={{ marginTop: 22 }}>
-            <a href={DOGINVOICE.href} target="_blank" rel="noopener noreferrer" className="hover-lift" style={{ padding: '11px 22px', background: 'var(--color-text-1)', color: 'var(--color-bg-0)', borderRadius: 9, fontSize: 14, fontWeight: 600, textDecoration: 'none', display: 'inline-block' }}>
+            <a href={DOGINVOICE.href} target="_blank" rel="noopener noreferrer" className="hover-lift" style={{ padding: '11px 22px', background: 'var(--color-text-1)', color: 'var(--color-bg-0)', borderRadius: 2, fontSize: 14, fontWeight: 600, textDecoration: 'none', display: 'inline-block' }}>
               Zobacz DogInvoice →
             </a>
           </div>
@@ -208,7 +208,7 @@ export default function ZaDarmoDlaBiznesuPage() {
       </article>
 
       {/* ---------------- DOGANSWER ---------------- */}
-      <article style={{ background: '#07160f', borderRadius: 18, overflow: 'hidden', marginBottom: 32 }}>
+      <article style={{ background: '#191510', borderRadius: 2, overflow: 'hidden', marginBottom: 32 }}>
         <div style={{ padding: 'clamp(22px, 3vw, 36px)' }}>
           <SectionTag dark>Telefon</SectionTag>
           <div style={{ fontSize: 30, fontWeight: 800, letterSpacing: '-0.02em', color: BRAND_GREEN_ON_DARK, marginBottom: 6 }}>
@@ -223,10 +223,10 @@ export default function ZaDarmoDlaBiznesuPage() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(240px,100%), 1fr))', gap: 16 }}>
             {DOGANSWER.steps.map(([t, d, img], i) => (
               <div key={t}>
-                <div style={{ borderRadius: 12, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.12)', marginBottom: 12 }}>
+                <div style={{ borderRadius: 2, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.12)', marginBottom: 12 }}>
                   <Image src={img} alt={t} width={1408} height={768} style={{ width: '100%', height: 'auto', display: 'block' }} />
                 </div>
-                <div style={{ fontSize: 13, fontWeight: 700, color: '#8EEAAD', marginBottom: 4 }}>Krok {i + 1}. {t}</div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: '#a9d4bd', marginBottom: 4 }}>Krok {i + 1}. {t}</div>
                 <p style={{ fontSize: 13, lineHeight: 1.55, color: 'rgba(255,255,255,0.72)', margin: 0 }}>{d}</p>
               </div>
             ))}
@@ -243,18 +243,18 @@ export default function ZaDarmoDlaBiznesuPage() {
           <PricingRow tiers={DOGANSWER.pricing} dark />
 
           <div style={{ marginTop: 22, display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'center' }}>
-            <a href={DOGANSWER.href} target="_blank" rel="noopener noreferrer" className="hover-lift" style={{ padding: '11px 22px', background: '#8EEAAD', color: '#07160f', borderRadius: 9, fontSize: 14, fontWeight: 700, textDecoration: 'none', display: 'inline-block' }}>
+            <a href={DOGANSWER.href} target="_blank" rel="noopener noreferrer" className="hover-lift" style={{ padding: '11px 22px', background: '#a9d4bd', color: '#191510', borderRadius: 2, fontSize: 14, fontWeight: 700, textDecoration: 'none', display: 'inline-block' }}>
               Zobacz DogAnswer →
             </a>
             <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.6)' }}>
-              Chcesz usłyszeć jak brzmi? Zadzwoń na demo: <a href={`tel:${DOGANSWER.demo.replace(/\s/g, '')}`} style={{ color: '#8EEAAD', textDecoration: 'none', fontWeight: 600 }}>{DOGANSWER.demo}</a>
+              Chcesz usłyszeć jak brzmi? Zadzwoń na demo: <a href={`tel:${DOGANSWER.demo.replace(/\s/g, '')}`} style={{ color: '#a9d4bd', textDecoration: 'none', fontWeight: 600 }}>{DOGANSWER.demo}</a>
             </span>
           </div>
         </div>
       </article>
 
       {/* ---------------- CTA: rozwiązania dedykowane ---------------- */}
-      <section style={{ padding: 'clamp(28px, 4vw, 44px)', background: 'var(--color-surface-2)', border: '1px solid var(--color-border)', borderRadius: 18 }}>
+      <section style={{ padding: 'clamp(28px, 4vw, 44px)', background: 'var(--color-surface-2)', border: '1px solid var(--color-border)', borderRadius: 2 }}>
         <h2 style={{ fontSize: 'clamp(21px, 3vw, 28px)', fontWeight: 700, color: 'var(--color-text-1)', margin: '0 0 10px' }}>
           A jeśli potrzebujesz czegoś skrojonego na miarę?
         </h2>
@@ -265,10 +265,10 @@ export default function ZaDarmoDlaBiznesuPage() {
           go zautomatyzować.
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
-          <a href={`mailto:${CONTACT_EMAIL}?subject=Rozwiązanie%20dedykowane%20dla%20biznesu`} className="hover-lift" style={{ padding: '12px 24px', background: BRAND_GREEN, color: '#fff', borderRadius: 9, fontSize: 14.5, fontWeight: 600, textDecoration: 'none' }}>
+          <a href={`mailto:${CONTACT_EMAIL}?subject=Rozwiązanie%20dedykowane%20dla%20biznesu`} className="hover-lift" style={{ padding: '12px 24px', background: BRAND_GREEN, color: '#fff', borderRadius: 2, fontSize: 14.5, fontWeight: 600, textDecoration: 'none' }}>
             Napisz: {CONTACT_EMAIL}
           </a>
-          <a href="https://dogtronic.io/kontakt/" target="_blank" rel="noopener noreferrer" style={{ padding: '12px 24px', background: 'transparent', color: 'var(--color-text-1)', border: '1px solid var(--color-border)', borderRadius: 9, fontSize: 14.5, fontWeight: 600, textDecoration: 'none' }}>
+          <a href="https://dogtronic.io/kontakt/" target="_blank" rel="noopener noreferrer" style={{ padding: '12px 24px', background: 'transparent', color: 'var(--color-text-1)', border: '1px solid var(--color-border)', borderRadius: 2, fontSize: 14.5, fontWeight: 600, textDecoration: 'none' }}>
             Strona Dogtronic →
           </a>
         </div>

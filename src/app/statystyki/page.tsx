@@ -63,14 +63,14 @@ export default async function StatystykiPage() {
       <section style={{
         marginBottom: 28,
         padding: '36px 40px',
-        background: 'linear-gradient(135deg, var(--color-bg-2) 0%, var(--color-bg-0) 60%)',
-        borderRadius: 18,
+        background: 'var(--color-bg-2)',
+        borderRadius: 2,
         border: '1px solid var(--color-green-border)',
         position: 'relative',
         overflow: 'hidden',
       }}>
-        <div style={{ position: 'absolute', right: -60, top: -60, width: 240, height: 240, borderRadius: '50%', background: 'radial-gradient(circle, rgba(34,160,107,0.14) 0%, transparent 70%)', pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', right: 60, bottom: -30, width: 120, height: 120, borderRadius: '50%', border: '1px solid rgba(34,160,107,0.12)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', right: -60, top: -60, width: 240, height: 240, borderRadius: '50%', background: 'transparent', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', right: 60, bottom: -30, width: 120, height: 120, borderRadius: '50%', border: '1px solid rgba(47,125,90,0.12)', pointerEvents: 'none' }} />
 
         <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--color-green)', marginBottom: 12, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
           Polska w liczbach
@@ -88,14 +88,14 @@ export default async function StatystykiPage() {
             { label: 'Wskaźniki SDG', val: '200+' },
           ].map(s => (
             <div key={s.label} style={{
-              background: s.green ? 'rgba(34,160,107,0.1)' : 'rgba(13,80,54,0.06)',
+              background: s.green ? 'rgba(47,125,90,0.1)' : 'rgba(43,36,32,0.06)',
               padding: '10px 18px',
-              borderRadius: 10,
-              border: `1px solid ${s.green ? 'rgba(34,160,107,0.25)' : 'rgba(13,80,54,0.12)'}`,
+              borderRadius: 2,
+              border: `1px solid ${s.green ? 'rgba(47,125,90,0.25)' : 'rgba(43,36,32,0.12)'}`,
               minWidth: 90,
             }}>
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: 9, color: 'var(--color-green)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 4 }}>{s.label}</div>
-              <div style={{ fontSize: 22, fontWeight: 700, color: s.green ? '#22a06b' : 'var(--color-text-1)', letterSpacing: '-0.02em' }}>{s.val}</div>
+              <div style={{ fontSize: 22, fontWeight: 700, color: s.green ? '#2b7353' : 'var(--color-text-1)', letterSpacing: '-0.02em' }}>{s.val}</div>
             </div>
           ))}
         </div>
@@ -104,10 +104,10 @@ export default async function StatystykiPage() {
       {/* Cena 1m2 */}
       <section style={{ marginBottom: 28 }}>
         <SectionHeader badge="Budownictwo · GUS" title="Cena 1 m² powierzchni użytkowej nowego mieszkania" />
-        <div style={{ border: '1px solid var(--color-border)', borderRadius: 14, overflow: 'hidden', background: 'var(--color-bg-1)' }}>
+        <div style={{ border: '1px solid var(--color-border)', borderRadius: 2, overflow: 'hidden', background: 'var(--color-bg-1)' }}>
           <div style={{
             padding: '16px 24px',
-            background: 'linear-gradient(90deg, var(--color-bg-2) 0%, var(--color-bg-0) 100%)',
+            background: 'var(--color-bg-2)',
             borderBottom: '1px solid var(--color-border)',
             display: 'flex', alignItems: 'baseline', gap: 14, flexWrap: 'wrap',
           }}>
@@ -115,9 +115,9 @@ export default async function StatystykiPage() {
               {lastM2.toLocaleString('pl')} zł/m²
             </span>
             <span style={{
-              fontSize: 12, color: '#22a06b', fontWeight: 500,
-              background: 'rgba(34,160,107,0.1)', padding: '3px 10px', borderRadius: 6,
-              border: '1px solid rgba(34,160,107,0.22)',
+              fontSize: 12, color: '#2b7353', fontWeight: 500,
+              background: 'rgba(47,125,90,0.1)', padding: '3px 10px', borderRadius: 2,
+              border: '1px solid rgba(47,125,90,0.22)',
             }}>
               +{zmianaPct}% od 2020
             </span>
@@ -144,8 +144,8 @@ export default async function StatystykiPage() {
         <div style={{ display: 'flex', alignItems: 'center', marginBottom: 16 }}>
           <SectionHeader badge="Live · SDG API" title="Wskaźniki SDG (LIVE z GUS)" />
           <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 6 }}>
-            <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#22a06b', boxShadow: '0 0 0 3px rgba(34,160,107,0.2)', display: 'inline-block' }} />
-            <span style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: '#22a06b', textTransform: 'uppercase', letterSpacing: '0.08em' }}>live</span>
+            <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#2b7353', boxShadow: '0 0 0 3px rgba(47,125,90,0.2)', display: 'inline-block' }} />
+            <span style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: '#2b7353', textTransform: 'uppercase', letterSpacing: '0.08em' }}>live</span>
           </div>
         </div>
         <p style={{ color: 'var(--color-text-2)', marginBottom: 16, fontSize: 13 }}>
@@ -156,7 +156,7 @@ export default async function StatystykiPage() {
             <div key={ind.id} style={{
               border: '1px solid var(--color-border)',
               borderTop: '3px solid var(--color-green)',
-              borderRadius: 12,
+              borderRadius: 2,
               padding: '16px 18px',
               background: 'var(--color-bg-1)',
             }}>
@@ -185,7 +185,7 @@ export default async function StatystykiPage() {
       {/* Status API */}
       <section style={{ marginBottom: 28 }}>
         <SectionHeader badge="Infrastruktura" title="Status integracji z API państwowymi" />
-        <div style={{ border: '1px solid var(--color-border)', borderRadius: 14, overflow: 'hidden' }}>
+        <div style={{ border: '1px solid var(--color-border)', borderRadius: 2, overflow: 'hidden' }}>
           {STATUS_API.map((api, i) => (
             <div key={api.name} style={{
               padding: '12px 20px',
@@ -204,10 +204,10 @@ export default async function StatystykiPage() {
                 </a>
               </div>
               <span style={{
-                fontSize: 10, fontFamily: 'var(--font-mono)', padding: '4px 10px', borderRadius: 999, whiteSpace: 'nowrap',
-                background: api.status === 'live' ? 'rgba(34,160,107,0.1)' : api.status === 'pending' ? 'rgba(184,116,26,0.1)' : 'rgba(120,120,120,0.08)',
-                color: api.status === 'live' ? '#22a06b' : api.status === 'pending' ? '#B8741A' : 'var(--color-text-2)',
-                border: `1px solid ${api.status === 'live' ? 'rgba(34,160,107,0.28)' : api.status === 'pending' ? 'rgba(184,116,26,0.28)' : 'rgba(120,120,120,0.2)'}`,
+                fontSize: 10, fontFamily: 'var(--font-mono)', padding: '4px 10px', borderRadius: 2, whiteSpace: 'nowrap',
+                background: api.status === 'live' ? 'rgba(47,125,90,0.1)' : api.status === 'pending' ? 'rgba(184,116,26,0.1)' : 'rgba(120,120,120,0.08)',
+                color: api.status === 'live' ? '#2b7353' : api.status === 'pending' ? '#B8741A' : 'var(--color-text-2)',
+                border: `1px solid ${api.status === 'live' ? 'rgba(47,125,90,0.28)' : api.status === 'pending' ? 'rgba(184,116,26,0.28)' : 'rgba(120,120,120,0.2)'}`,
                 textTransform: 'uppercase', letterSpacing: '0.06em',
               }}>
                 {api.status === 'live' ? '● LIVE' : api.status === 'pending' ? '○ KLUCZ API' : '- PLANOWANE'}
@@ -220,8 +220,8 @@ export default async function StatystykiPage() {
       {/* CTA */}
       <section style={{
         padding: '36px 40px',
-        background: 'linear-gradient(135deg, var(--color-green) 0%, #105c40 100%)',
-        borderRadius: 16,
+        background: 'var(--color-green)',
+        borderRadius: 2,
         position: 'relative',
         overflow: 'hidden',
       }}>
@@ -238,8 +238,8 @@ export default async function StatystykiPage() {
           href="mailto:hello@wezmezadarmo.com?subject=Dashboard%20-%20propozycja%20wska%C5%BAnika"
           style={{
             display: 'inline-block', padding: '10px 22px',
-            background: '#fff', color: 'var(--color-green)',
-            borderRadius: 999, textDecoration: 'none', fontWeight: 600, fontSize: 13,
+            background: 'var(--surface)', color: 'var(--color-green)',
+            borderRadius: 2, textDecoration: 'none', fontWeight: 600, fontSize: 13,
           }}
         >
           Zaproponuj wskaźnik →
@@ -251,7 +251,7 @@ export default async function StatystykiPage() {
 
 function SectionHeader({ badge, title }: { badge: string; title: string }) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 3, marginBottom: 16, paddingLeft: 14, borderLeft: '3px solid var(--color-green)' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 3, marginBottom: 16, paddingLeft: 14, borderTop: '3px solid var(--color-green)' }}>
       <div style={{ fontFamily: 'var(--font-mono)', fontSize: 9, color: 'var(--color-green)', textTransform: 'uppercase', letterSpacing: '0.12em' }}>{badge}</div>
       <h2 style={{ fontSize: 20, fontWeight: 600, color: 'var(--color-text-1)', letterSpacing: '-0.02em', lineHeight: 1.2 }}>{title}</h2>
     </div>

@@ -28,7 +28,7 @@ export default function BladKonfiguracji() {
           textAlign: 'left',
           background: 'var(--color-surface)',
           border: '1px solid var(--color-border)',
-          borderRadius: 10,
+          borderRadius: 2,
           padding: '18px 20px',
           marginBottom: 28,
         }}>
@@ -46,7 +46,7 @@ export default function BladKonfiguracji() {
             padding: '12px 28px',
             background: 'var(--color-text-1)',
             color: 'var(--color-bg-0)',
-            borderRadius: 10,
+            borderRadius: 2,
             fontSize: 15, fontWeight: 500,
             textDecoration: 'none',
           }}>
@@ -58,7 +58,7 @@ export default function BladKonfiguracji() {
             background: 'var(--color-surface)',
             color: 'var(--color-text-1)',
             border: '1px solid var(--color-border)',
-            borderRadius: 10,
+            borderRadius: 2,
             fontSize: 15, fontWeight: 500,
             textDecoration: 'none',
           }}>

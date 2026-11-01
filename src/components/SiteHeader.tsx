@@ -11,10 +11,8 @@ export function SiteHeader() {
     <header style={{
       position: 'sticky', top: 0, zIndex: 50,
       background: theme === 'dark'
-        ? 'rgba(10,18,10,0.85)'
-        : 'rgba(236,242,236,0.85)',
-      backdropFilter: 'saturate(140%) blur(14px)',
-      WebkitBackdropFilter: 'saturate(140%) blur(14px)',
+        ? 'rgba(25,21,16,0.85)'
+        : 'rgba(246,240,228,0.85)',
       borderBottom: '1px solid var(--color-border)',
     }}>
       <div className="container" style={{

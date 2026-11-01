@@ -27,13 +27,13 @@ export default function AutomatyzacjePage() {
 
         {/* Dark green hero */}
         <div style={{
-          background: 'radial-gradient(800px 500px at 80% 20%, rgba(34,160,107,.25), transparent 60%), radial-gradient(600px 400px at 20% 80%, rgba(78,196,138,.18), transparent 60%), var(--green-950)',
-          borderRadius: '0 0 24px 24px',
+          background: 'var(--green-950)',
+          borderRadius: 0,
           padding: 'clamp(48px, 6vw, 80px) 0 clamp(40px, 5vw, 64px)',
           marginBottom: 'clamp(32px, 5vw, 64px)',
           position: 'relative', overflow: 'hidden',
         }}>
-          <div style={{ position: 'absolute', top: '20%', right: '15%', width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(34,160,107,0.12) 0%, transparent 70%)', pointerEvents: 'none' }} />
+          <div style={{ position: 'absolute', top: '20%', right: '15%', width: 400, height: 400, borderRadius: '50%', background: 'transparent', pointerEvents: 'none' }} />
           <div className="container" style={{ position: 'relative', maxWidth: 960 }}>
             <div className="rise" style={{ marginBottom: 20 }}>
               <span className="mono" style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--green-300)' }}>Automatyzacje AI - strona informacyjna</span>
@@ -66,7 +66,7 @@ export default function AutomatyzacjePage() {
           <div className="rise" style={{ marginBottom: 56 }}>
             <div style={{
               border: '1px solid var(--color-border)',
-              borderRadius: 16,
+              borderRadius: 2,
               padding: '24px 28px',
               background: 'var(--color-surface)',
             }}>
@@ -92,7 +92,7 @@ export default function AutomatyzacjePage() {
 
             <div style={{
               border: '1px solid var(--color-border)',
-              borderRadius: 16,
+              borderRadius: 2,
               overflow: 'hidden',
             }}>
               {MOZLIWOSCI.map((p, i) => {
@@ -134,7 +134,7 @@ export default function AutomatyzacjePage() {
                 return (
                   <div key={p.tytul} style={{
                     border: '1px solid var(--color-border)',
-                    borderRadius: 14,
+                    borderRadius: 2,
                     padding: '22px 28px',
                     background: 'var(--color-surface)',
                   }}>
@@ -158,7 +158,7 @@ export default function AutomatyzacjePage() {
           <div className="rise" style={{ marginBottom: 64 }}>
             <div style={{
               border: '1px solid var(--color-border)',
-              borderRadius: 16,
+              borderRadius: 2,
               padding: '28px 32px',
               background: 'var(--color-surface)',
             }}>
@@ -176,7 +176,7 @@ export default function AutomatyzacjePage() {
                 display: 'inline-block',
                 padding: '10px 22px',
                 background: 'var(--color-accent)', color: 'var(--color-bg-0)',
-                fontWeight: 600, fontSize: 14, borderRadius: 10,
+                fontWeight: 600, fontSize: 14, borderRadius: 2,
                 textDecoration: 'none',
               }}>
                 Zobacz monitoring dotacji

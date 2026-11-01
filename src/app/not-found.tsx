@@ -33,7 +33,7 @@ export default function NotFound() {
               display: 'block', padding: '14px 16px',
               background: 'var(--color-surface)',
               border: '1px solid var(--color-border)',
-              borderRadius: 10,
+              borderRadius: 2,
               textDecoration: 'none',
               textAlign: 'left',
               transition: 'all 0.15s',
@@ -49,7 +49,7 @@ export default function NotFound() {
           padding: '12px 28px',
           background: 'var(--color-text-1)',
           color: 'var(--color-bg-0)',
-          borderRadius: 10,
+          borderRadius: 2,
           fontSize: 15, fontWeight: 500,
           textDecoration: 'none',
         }}>

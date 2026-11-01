@@ -44,9 +44,9 @@ export function NewsletterSignup() {
     return (
       <div style={{
         padding: '14px 18px',
-        background: 'rgba(34,160,107,0.08)',
-        border: '1px solid rgba(34,160,107,0.3)',
-        borderRadius: 10,
+        background: 'rgba(47,125,90,0.08)',
+        border: '1px solid rgba(47,125,90,0.3)',
+        borderRadius: 2,
         fontSize: 13,
         color: 'var(--color-text-1)',
       }}>
@@ -73,7 +73,7 @@ export function NewsletterSignup() {
             background: profileType === 'private' ? 'var(--ink-900)' : 'transparent',
             color: profileType === 'private' ? '#fff' : 'var(--ink-700)',
             border: '1px solid ' + (profileType === 'private' ? 'var(--ink-900)' : 'var(--line)'),
-            borderRadius: 6, cursor: 'pointer',
+            borderRadius: 2, cursor: 'pointer',
           }}
         >
           Osoba prywatna
@@ -86,7 +86,7 @@ export function NewsletterSignup() {
             background: profileType === 'jdg' ? 'var(--ink-900)' : 'transparent',
             color: profileType === 'jdg' ? '#fff' : 'var(--ink-700)',
             border: '1px solid ' + (profileType === 'jdg' ? 'var(--ink-900)' : 'var(--line)'),
-            borderRadius: 6, cursor: 'pointer',
+            borderRadius: 2, cursor: 'pointer',
           }}
         >
           Firma / JDG
@@ -103,9 +103,9 @@ export function NewsletterSignup() {
         style={{
           width: '100%', padding: '10px 12px',
           fontSize: 14,
-          background: '#fff',
+          background: 'var(--surface)',
           border: '1px solid var(--line)',
-          borderRadius: 8,
+          borderRadius: 2,
           color: 'var(--ink-900)',
           outline: 'none',
         }}
@@ -116,7 +116,7 @@ export function NewsletterSignup() {
           type="checkbox"
           checked={accepted}
           onChange={(e) => setAccepted(e.target.checked)}
-          style={{ marginTop: 2, accentColor: '#22A06B', flexShrink: 0 }}
+          style={{ marginTop: 2, accentColor: '#2b7353', flexShrink: 0 }}
         />
         <span>
           Zgadzam się na otrzymywanie newslettera. Mogę się wypisać w każdej chwili.{' '}
@@ -131,7 +131,7 @@ export function NewsletterSignup() {
           padding: '10px 16px',
           background: (status === 'sending' || !email || !accepted) ? 'var(--line)' : 'var(--ink-900)',
           color: '#fff',
-          border: 'none', borderRadius: 8,
+          border: 'none', borderRadius: 2,
           fontSize: 13, fontWeight: 500,
           cursor: (status === 'sending' || !email || !accepted) ? 'not-allowed' : 'pointer',
         }}
@@ -140,7 +140,7 @@ export function NewsletterSignup() {
       </button>
 
       {status === 'error' && errorMsg && (
-        <div style={{ fontSize: 11, color: '#c0392b', marginTop: 2 }}>
+        <div style={{ fontSize: 11, color: '#b23d30', marginTop: 2 }}>
           {errorMsg}
         </div>
       )}

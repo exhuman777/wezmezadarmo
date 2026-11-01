@@ -26,7 +26,13 @@ Przed każdym commitem przejrzyj WSZYSTKIE nowe ciągi tekstowe pod kątem polsk
 - Polskie znaki obowiązkowe: ą ę ó ś ź ż ć ń ł
 - Brak "--" w tekstach widocznych dla użytkownika (używaj pojedynczego "-" lub przepisz zdanie)
 - TypeScript strict -- nie wprowadzaj błędów typów, nie używaj `any`
-- Nie łam istniejącego designu: ciemne tło #0d0b0a, amber #e6993a, JetBrains Mono
+- Nie łam designu (od 11.2026, styl pixel-kamil, tokeny w `src/app/globals.css`):
+  - paleta: papier #f6f0e4, kafel #efe4cf, tusz #2b2420, szary #6f655b, rdza #c4483a, zieleń #2f7d5a, linia #d9cbb2
+  - kroje: Inter (tekst), JetBrains Mono (nagłówki, nawigacja, przyciski)
+  - prosto jak strona z linkiem w bio: jedna wąska kolumna (klasa `.prosta`, max 680 px), 1-2 zdania na blok, listy z cienką linią zamiast kart
+  - przyciski: kwadratowe, ramka 2 px, min. 44 px wysokości, najechanie = przesunięcie i twardy cień 4 px (bez rozmycia)
+  - zakazane: gradienty, glow, rozmycia tła (glassmorphism), paski z lewej, emoji, karty z ikoną i trzema punktami, animacje (poza grą)
+  - piksele tylko w grze (`public/gra/`) i w znaku marki (`PixelMark` w `src/components/SiteNav.tsx`)
 
 # Protokół zakończenia pracy
 
@@ -41,7 +47,7 @@ Po każdym zadaniu, przed zgłoszeniem gotowości:
 # Mapa projektu (aktualizuj przy każdej zmianie)
 
 Strony publiczne:
-- `/` -- kalkulator świadczeń dla obywateli (133+ świadczeń ZUS, NFZ, PFRON itd.)
+- `/` -- gra „Należy Ci się” (iframe `/gra/index.html`, pliki w `public/gra/`), pod nią kalkulator świadczeń (#kalkulator), asystent AI i lista linków
 - `/wnioski/` -- AI-asystowane wypełnianie wniosków ZUS z eksportem PDF
 - `/aktualnosci/` -- monitoring RSS (publiczny podgląd + B2B panel dla firm)
 - `/statystyki/` -- dashboard GUS/SDG: wskaźniki live, wykresy, status API państwowych

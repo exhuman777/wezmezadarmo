@@ -16,7 +16,7 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-57R2TFXNH7';
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#f0f6f1',
+  themeColor: '#f6f0e4',
 };
 
 export const metadata: Metadata = {

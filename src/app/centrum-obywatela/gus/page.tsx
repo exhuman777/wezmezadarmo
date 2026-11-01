@@ -50,7 +50,7 @@ export default function GusPage() {
 
   return (
     <main style={{ maxWidth: 760, margin: '0 auto', padding: '32px 24px 60px' }}>
-      <Link href="/centrum-obywatela" style={{ fontSize: 13, color: '#22A06B', textDecoration: 'none', marginBottom: 18, display: 'inline-block' }}>
+      <Link href="/centrum-obywatela" style={{ fontSize: 13, color: '#2b7353', textDecoration: 'none', marginBottom: 18, display: 'inline-block' }}>
         ← Centrum Obywatela
       </Link>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
@@ -67,11 +67,11 @@ export default function GusPage() {
       <form onSubmit={search} style={{ display: 'flex', gap: 8, marginBottom: 20, flexWrap: 'wrap' }}>
         <input type="text" placeholder="Nazwa gminy (np. Warszawa, Kraków, Łomianki)"
           value={q} onChange={e => setQ(e.target.value)}
-          style={{ flex: 1, minWidth: 220, padding: '10px 14px', border: '1px solid var(--line)', borderRadius: 8, fontSize: 15 }} />
+          style={{ flex: 1, minWidth: 220, padding: '10px 14px', border: '1px solid var(--line)', borderRadius: 2, fontSize: 15 }} />
         <button type="submit" className="btn btn-primary" disabled={loading}>Szukaj</button>
       </form>
 
-      {error && <div style={{ padding: '12px 16px', background: 'rgba(220,80,80,0.05)', border: '1px solid rgba(220,80,80,0.25)', borderRadius: 8, color: '#dc5050', fontSize: 13, marginBottom: 14 }}>{error}</div>}
+      {error && <div style={{ padding: '12px 16px', background: 'rgba(196,72,58,0.05)', border: '1px solid rgba(196,72,58,0.25)', borderRadius: 2, color: '#c4483a', fontSize: 13, marginBottom: 14 }}>{error}</div>}
 
       {units.length > 0 && !picked && (
         <div style={{ marginBottom: 18 }}>
@@ -81,7 +81,7 @@ export default function GusPage() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
             {units.map(u => (
               <button key={u.id} onClick={() => pickUnit(u)}
-                style={{ textAlign: 'left', padding: '10px 14px', background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 8, cursor: 'pointer' }}>
+                style={{ textAlign: 'left', padding: '10px 14px', background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 2, cursor: 'pointer' }}>
                 <div style={{ fontSize: 14, color: 'var(--ink-900)', fontWeight: 500 }}>{u.name}</div>
                 {u.parentName && <div style={{ fontSize: 11, color: 'var(--ink-500)' }}>{u.parentName}</div>}
               </button>
@@ -91,7 +91,7 @@ export default function GusPage() {
       )}
 
       {picked && data && (
-        <div style={{ padding: 20, background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 12 }}>
+        <div style={{ padding: 20, background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 2 }}>
           <div style={{ fontSize: 17, fontWeight: 600, marginBottom: 14, color: 'var(--ink-900)' }}>
             {picked.name}
             {picked.parentName && <span style={{ fontSize: 12, fontWeight: 400, color: 'var(--ink-500)', marginLeft: 8 }}>· {picked.parentName}</span>}
@@ -108,7 +108,7 @@ export default function GusPage() {
       )}
 
       <p style={{ marginTop: 24, fontSize: 11, color: 'var(--ink-400)' }}>
-        Źródło: <a href="https://bdl.stat.gov.pl" target="_blank" rel="noopener noreferrer" style={{ color: '#22A06B' }}>bdl.stat.gov.pl</a>
+        Źródło: <a href="https://bdl.stat.gov.pl" target="_blank" rel="noopener noreferrer" style={{ color: '#2b7353' }}>bdl.stat.gov.pl</a>
       </p>
     </main>
   );

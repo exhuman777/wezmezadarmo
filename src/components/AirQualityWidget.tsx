@@ -11,7 +11,7 @@ interface AirQuality {
 }
 
 const LEVEL_COLOR: Record<string, string> = {
-  'Bardzo dobry': '#22A06B',
+  'Bardzo dobry': '#2b7353',
   'Dobry': '#4DB97A',
   'Umiarkowany': '#FFB020',
   'Dostateczny': '#FF8A1F',
@@ -96,7 +96,7 @@ export function AirQualityWidget() {
       padding: 16,
       background: 'var(--color-surface)',
       border: '1px solid var(--color-border)',
-      borderRadius: 12,
+      borderRadius: 2,
       display: 'flex', flexDirection: 'column', gap: 12,
     }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, flexWrap: 'wrap' }}>
@@ -108,7 +108,7 @@ export function AirQualityWidget() {
           onChange={(e) => handleCity(e.target.value)}
           style={{
             fontSize: 12, fontFamily: 'var(--font-mono)',
-            padding: '4px 8px', borderRadius: 6,
+            padding: '4px 8px', borderRadius: 2,
             border: '1px solid var(--color-border)',
             background: 'var(--color-bg-2)',
             color: 'var(--color-text-1)',
@@ -151,7 +151,7 @@ export function AirQualityWidget() {
               return (
                 <div key={key} style={{
                   padding: '6px 10px',
-                  borderRadius: 8,
+                  borderRadius: 2,
                   background: 'var(--color-bg-2)',
                   border: '1px solid var(--color-border)',
                 }}>

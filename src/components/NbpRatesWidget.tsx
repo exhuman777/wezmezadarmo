@@ -37,7 +37,7 @@ export function NbpRatesWidget() {
       padding: 16,
       background: 'var(--color-surface)',
       border: '1px solid var(--color-border)',
-      borderRadius: 12,
+      borderRadius: 2,
       display: 'flex', flexDirection: 'column', gap: 12,
     }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
@@ -58,7 +58,7 @@ export function NbpRatesWidget() {
           {shown.map(r => (
             <div key={r.code} style={{
               padding: '8px 12px',
-              borderRadius: 8,
+              borderRadius: 2,
               background: 'var(--color-bg-2)',
               border: '1px solid var(--color-border)',
             }}>

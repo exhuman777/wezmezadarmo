@@ -130,7 +130,7 @@ export default function MonitoringPage() {
         style={{
           background: 'var(--color-bg-1)',
           border: '1px solid var(--color-border)',
-          borderRadius: '6px',
+          borderRadius: 2,
           overflow: 'hidden',
           marginBottom: '20px',
         }}
@@ -225,7 +225,7 @@ export default function MonitoringPage() {
             background: saving || loading ? 'var(--color-bg-2)' : 'var(--color-green)',
             color: saving || loading ? 'var(--color-text-3)' : 'white',
             border: '1px solid var(--color-border-light)',
-            borderRadius: '5px',
+            borderRadius: 2,
             padding: '9px 20px',
             fontFamily: 'var(--font-mono)',
             fontSize: '13px',
@@ -268,7 +268,7 @@ export default function MonitoringPage() {
             style={{
               background: 'var(--color-bg-1)',
               border: '1px solid var(--color-border)',
-              borderRadius: '6px',
+              borderRadius: 2,
               padding: '16px',
             }}
           >
@@ -288,7 +288,7 @@ export default function MonitoringPage() {
             style={{
               background: 'var(--color-bg-1)',
               border: '1px solid var(--color-border)',
-              borderRadius: '6px',
+              borderRadius: 2,
               overflow: 'hidden',
             }}
           >

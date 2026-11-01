@@ -125,7 +125,7 @@ export default async function PanelPage() {
               fontWeight: 600,
               color: 'var(--color-green)',
               border: '1px solid var(--color-green)',
-              borderRadius: '3px',
+              borderRadius: 2,
               padding: '3px 8px',
               letterSpacing: '0.04em',
               textTransform: 'uppercase',
@@ -141,7 +141,7 @@ export default async function PanelPage() {
         style={{
           background: 'var(--color-bg-1)',
           border: '1px solid var(--color-border)',
-          borderRadius: '6px',
+          borderRadius: 2,
           padding: '16px 20px',
           marginBottom: '32px',
           display: 'flex',
@@ -234,7 +234,7 @@ export default async function PanelPage() {
           style={{
             background: 'var(--color-bg-1)',
             border: '1px solid var(--color-green)',
-            borderRadius: '6px',
+            borderRadius: 2,
             padding: '20px 24px',
             marginBottom: '32px',
           }}
@@ -268,7 +268,7 @@ export default async function PanelPage() {
               color: 'white',
               background: 'var(--color-green)',
               padding: '7px 14px',
-              borderRadius: '4px',
+              borderRadius: 2,
               textDecoration: 'none',
               fontWeight: 600,
             }}
@@ -307,7 +307,7 @@ export default async function PanelPage() {
               display: 'block',
               background: 'var(--color-bg-1)',
               border: '1px solid var(--color-border)',
-              borderRadius: '8px',
+              borderRadius: 2,
               padding: '20px',
               textDecoration: 'none',
             }}

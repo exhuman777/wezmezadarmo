@@ -170,7 +170,7 @@ export default function PanelAktualnosciPage() {
   const inputStyle: React.CSSProperties = {
     background: 'var(--color-bg-0)',
     border: '1px solid var(--color-border)',
-    borderRadius: '4px',
+    borderRadius: 2,
     padding: '9px 13px',
     fontFamily: 'var(--font-mono)',
     fontSize: '14px',
@@ -213,7 +213,7 @@ export default function PanelAktualnosciPage() {
           Twoje kanały RSS
         </p>
 
-        <div style={{ background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: '6px', overflow: 'hidden', marginBottom: '16px' }}>
+        <div style={{ background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 2, overflow: 'hidden', marginBottom: '16px' }}>
           {loading ? (
             <div style={{ padding: '16px' }}>
               <p style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--color-text-3)', margin: 0 }}>
@@ -272,7 +272,7 @@ export default function PanelAktualnosciPage() {
                     style={{
                       background: 'none',
                       border: '1px solid var(--color-border)',
-                      borderRadius: '3px',
+                      borderRadius: 2,
                       padding: '4px 8px',
                       fontFamily: 'var(--font-mono)',
                       fontSize: '11px',
@@ -289,7 +289,7 @@ export default function PanelAktualnosciPage() {
         </div>
 
         {/* Add feed form */}
-        <div style={{ background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: '6px', overflow: 'hidden' }}>
+        <div style={{ background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 2, overflow: 'hidden' }}>
           <div style={{ padding: '12px 16px', borderBottom: '1px solid var(--color-border)', background: 'var(--color-bg-2)' }}>
             <p style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--color-text-3)', textTransform: 'uppercase', letterSpacing: '0.06em', margin: 0 }}>
               Dodaj kanał RSS
@@ -356,7 +356,7 @@ export default function PanelAktualnosciPage() {
                   background: submitting || !formUrl.trim() || !formName.trim() ? 'var(--color-bg-2)' : 'var(--color-green)',
                   color: submitting || !formUrl.trim() || !formName.trim() ? 'var(--color-text-3)' : 'white',
                   border: '1px solid var(--color-border-light)',
-                  borderRadius: '5px',
+                  borderRadius: 2,
                   padding: '9px 20px',
                   fontFamily: 'var(--font-mono)',
                   fontSize: '13px',
@@ -393,7 +393,7 @@ export default function PanelAktualnosciPage() {
               style={{
                 background: 'none',
                 border: '1px solid var(--color-border)',
-                borderRadius: '3px',
+                borderRadius: 2,
                 padding: '4px 10px',
                 fontFamily: 'var(--font-mono)',
                 fontSize: '11px',
@@ -407,21 +407,21 @@ export default function PanelAktualnosciPage() {
         </div>
 
         {loading ? (
-          <div style={{ background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: '6px', padding: '16px' }}>
+          <div style={{ background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 2, padding: '16px' }}>
             <p style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--color-text-3)', margin: 0 }}>Ładowanie aktualności...</p>
           </div>
         ) : itemsError ? (
-          <div style={{ background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: '6px', padding: '16px' }}>
+          <div style={{ background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 2, padding: '16px' }}>
             <p style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--color-accent)', margin: 0 }}>{itemsError}</p>
           </div>
         ) : items.length === 0 ? (
-          <div style={{ background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: '6px', padding: '16px' }}>
+          <div style={{ background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 2, padding: '16px' }}>
             <p style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--color-text-3)', margin: 0 }}>
               Brak aktualności. Dodaj kanały RSS, aby zacząć monitorowanie.
             </p>
           </div>
         ) : (
-          <div style={{ background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: '6px', overflow: 'hidden' }}>
+          <div style={{ background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 2, overflow: 'hidden' }}>
             {items.slice(0, 15).map((item, idx) => {
               const isRead = readIds.has(item.id);
               return (
@@ -469,7 +469,7 @@ export default function PanelAktualnosciPage() {
                     style={{
                       background: 'none',
                       border: '1px solid var(--color-border)',
-                      borderRadius: '3px',
+                      borderRadius: 2,
                       padding: '3px 8px',
                       fontFamily: 'var(--font-mono)',
                       fontSize: '10px',
@@ -493,7 +493,7 @@ export default function PanelAktualnosciPage() {
         <p style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--color-text-3)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '10px' }}>
           Konfiguracja agenta
         </p>
-        <div style={{ background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: '6px', padding: '16px 20px' }}>
+        <div style={{ background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 2, padding: '16px 20px' }}>
           <p style={{ fontFamily: 'var(--font-sans)', fontSize: '13px', color: 'var(--color-text-2)', margin: '0 0 10px', lineHeight: 1.6 }}>
             Powiadomienia trafiają na adres email przypisany do Twojego konta. Aby zmienić adres kontaktowy, zaktualizuj profil firmy.
           </p>

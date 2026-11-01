@@ -66,7 +66,7 @@ export function BenefitCard({ result, onGuide }: BenefitCardProps) {
           <span style={{
             display: 'inline-flex', alignItems: 'center',
             fontSize: 10, fontWeight: 500, padding: '3px 8px',
-            borderRadius: 999, whiteSpace: 'nowrap', flexShrink: 0,
+            borderRadius: 2, whiteSpace: 'nowrap', flexShrink: 0,
             background: s.bgVar, color: s.colorVar,
             fontFamily: 'var(--font-mono)',
             letterSpacing: '0.04em',
@@ -136,7 +136,7 @@ export function BenefitCard({ result, onGuide }: BenefitCardProps) {
             onClick={(e) => { e.stopPropagation(); onGuide(b.id); }}
             style={{
               padding: '6px 14px',
-              borderRadius: 999,
+              borderRadius: 2,
               border: 'none',
               background: 'var(--color-text-1)',
               color: 'var(--color-bg-0)',

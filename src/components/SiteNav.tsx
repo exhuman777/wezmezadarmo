@@ -19,6 +19,32 @@ const NAV_ITEMS = [
   { href: '/o-projekcie', label: 'O projekcie', prefixes: ['/o-projekcie'] },
 ];
 
+/* Znak marki: pikselowy prezent 8 x 8 (zieleń i rdza) */
+const MARK = [
+  '..R..R..',
+  '...RR...',
+  'GGGRRGGG',
+  'GGGRRGGG',
+  '.GGRRGG.',
+  '.GGRRGG.',
+  '.GGRRGG.',
+  '.GGRRGG.',
+];
+
+export function PixelMark({ size = 22 }: { size?: number }) {
+  return (
+    <svg className="logo-mark" width={size} height={size} viewBox="0 0 8 8" aria-hidden="true" focusable="false">
+      {MARK.flatMap((row, y) =>
+        row.split('').map((c, x) =>
+          c === '.' ? null : (
+            <rect key={`${x}-${y}`} x={x} y={y} width="1" height="1" fill={c === 'R' ? '#c4483a' : '#2b7353'} />
+          ),
+        ),
+      )}
+    </svg>
+  );
+}
+
 export function SiteNav() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -49,9 +75,9 @@ export function SiteNav() {
     <header className="topnav">
       <div className="topnav-inner">
         {/* Logo */}
-        <Link href="/" className="logo">
-          <span className="logo-dot" />
-          wezmezadarmo<span className="dim">.com</span>
+        <Link href="/" className="logo" aria-label="wezmezadarmo.com, strona główna">
+          <PixelMark />
+          <span>wezmezadarmo<span className="dim">.com</span></span>
         </Link>
 
         {/* Center nav -- hidden on mobile via CSS */}
@@ -74,8 +100,9 @@ export function SiteNav() {
             className="mobile-menu-btn"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Menu"
+            aria-expanded={mobileOpen}
           >
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square">
               {mobileOpen ? (
                 <>
                   <line x1="4" y1="4" x2="16" y2="16" />
@@ -99,7 +126,7 @@ export function SiteNav() {
               <Link href="/logowanie" className="btn btn-ghost btn-sm hide-on-mobile">
                 Zaloguj
               </Link>
-              <Link href="/" className="btn btn-primary btn-sm hide-on-mobile">
+              <Link href="/#kalkulator" className="btn btn-primary btn-sm hide-on-mobile">
                 Sprawdź za darmo
               </Link>
             </>
@@ -131,7 +158,7 @@ export function SiteNav() {
                 <Link href="/logowanie" className="btn btn-ghost btn-sm" onClick={() => setMobileOpen(false)}>
                   Zaloguj
                 </Link>
-                <Link href="/" className="btn btn-primary btn-sm" onClick={() => setMobileOpen(false)}>
+                <Link href="/#kalkulator" className="btn btn-primary btn-sm" onClick={() => setMobileOpen(false)}>
                   Sprawdź za darmo
                 </Link>
               </>

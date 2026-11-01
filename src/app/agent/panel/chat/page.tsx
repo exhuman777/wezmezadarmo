@@ -385,7 +385,7 @@ function AgentChatInner() {
             onClick={() => { setMessages([]); setInput(''); }}
             style={{
               background: 'none', border: '1px solid var(--color-border)',
-              borderRadius: 6, padding: '6px 12px',
+              borderRadius: 2, padding: '6px 12px',
               fontSize: 12, color: 'var(--color-text-3)',
               cursor: 'pointer', fontFamily: 'var(--font-mono)',
             }}
@@ -414,7 +414,7 @@ function AgentChatInner() {
             <div style={{
               width: 56, height: 56,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              borderRadius: 14,
+              borderRadius: 2,
               background: 'var(--color-green)',
               color: '#FFFFFF',
               fontFamily: 'var(--font-mono)',
@@ -439,7 +439,7 @@ function AgentChatInner() {
                     padding: '8px 14px',
                     background: 'var(--color-bg-1)',
                     border: '1px solid var(--color-border)',
-                    borderRadius: 8,
+                    borderRadius: 2,
                     fontSize: 13,
                     color: 'var(--color-text-2)',
                     cursor: 'pointer',
@@ -526,7 +526,7 @@ function AgentChatInner() {
             flex: 1,
             height: 48, minHeight: 48, maxHeight: 120,
             padding: '13px 18px',
-            borderRadius: 14,
+            borderRadius: 2,
             background: 'var(--color-bg-0)',
             border: '1px solid var(--color-border)',
             color: 'var(--color-text-1)',
@@ -546,7 +546,7 @@ function AgentChatInner() {
           className="btn btn-primary chat-send-btn"
           style={{
             height: 48, padding: '0 20px',
-            borderRadius: 14,
+            borderRadius: 2,
             opacity: (isStreaming || !input.trim()) ? 0.3 : 1,
             cursor: (isStreaming || !input.trim()) ? 'not-allowed' : 'pointer',
             flexShrink: 0,

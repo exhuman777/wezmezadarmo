@@ -235,7 +235,7 @@ export default function AgentRejestracja() {
                 Akceptuję{' '}
                 <a href="/regulamin" target="_blank" style={{ color: 'var(--color-green)' }}>regulamin serwisu</a>
               </label>
-              {error && <p style={{ fontSize: 13, color: '#e05c5c', margin: 0 }}>{error}</p>}
+              {error && <p style={{ fontSize: 13, color: '#c4483a', margin: 0 }}>{error}</p>}
               <button
                 onClick={() => {
                   if (!form.email || !form.password || form.password.length < 8 || !form.acceptTerms) {
@@ -287,7 +287,7 @@ export default function AgentRejestracja() {
                       {form.nipLoading ? 'Sprawdzam...' : 'Sprawdź NIP'}
                     </button>
                   </div>
-                  {form.nipError && <p style={{ fontSize: 12, color: '#e05c5c', marginTop: 4 }}>{form.nipError}</p>}
+                  {form.nipError && <p style={{ fontSize: 12, color: '#c4483a', marginTop: 4 }}>{form.nipError}</p>}
                 </div>
                 {form.company_name && (
                   <div style={{ padding: '12px 16px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-sm)' }}>
@@ -465,7 +465,7 @@ export default function AgentRejestracja() {
               </div>
             )}
 
-            {error && <p style={{ fontSize: 13, color: '#e05c5c', marginBottom: 12 }}>{error}</p>}
+            {error && <p style={{ fontSize: 13, color: '#c4483a', marginBottom: 12 }}>{error}</p>}
 
             <div style={{ display: 'flex', gap: 12 }}>
               <button onClick={() => setStep(2)} style={{ padding: '10px 20px', background: 'transparent', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-sm)', color: 'var(--color-text-2)', cursor: 'pointer', fontFamily: 'var(--font-mono)', fontSize: 12 }}>

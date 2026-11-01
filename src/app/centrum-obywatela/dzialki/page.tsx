@@ -16,7 +16,7 @@ const KROKI = [
 export default function DzialkiPage() {
   return (
     <main style={{ maxWidth: 760, margin: '0 auto', padding: '32px 24px 60px' }}>
-      <Link href="/centrum-obywatela" style={{ fontSize: 13, color: '#22A06B', textDecoration: 'none', marginBottom: 18, display: 'inline-block' }}>
+      <Link href="/centrum-obywatela" style={{ fontSize: 13, color: '#2b7353', textDecoration: 'none', marginBottom: 18, display: 'inline-block' }}>
         ← Centrum Obywatela
       </Link>
 
@@ -36,7 +36,7 @@ export default function DzialkiPage() {
         style={{
           display: 'inline-flex', alignItems: 'center', gap: 8,
           padding: '12px 20px', background: '#5d7c1f', color: '#fff',
-          borderRadius: 10, textDecoration: 'none', fontWeight: 500, fontSize: 15,
+          borderRadius: 2, textDecoration: 'none', fontWeight: 500, fontSize: 15,
           marginBottom: 28,
         }}>
         Otwórz Geoportal ARiMR
@@ -47,7 +47,7 @@ export default function DzialkiPage() {
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         {KROKI.map(k => (
-          <div key={k.n} style={{ display: 'flex', gap: 14, padding: 14, background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 10 }}>
+          <div key={k.n} style={{ display: 'flex', gap: 14, padding: 14, background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 2 }}>
             <div style={{ flexShrink: 0, width: 30, height: 30, borderRadius: '50%', background: 'var(--green-100)', color: 'var(--green-900)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 600, fontSize: 13, fontFamily: 'var(--f-mono)' }}>{k.n}</div>
             <div>
               <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--ink-900)', marginBottom: 4 }}>{k.tytul}</div>
@@ -58,7 +58,7 @@ export default function DzialkiPage() {
       </div>
 
       <p style={{ marginTop: 24, fontSize: 11, color: 'var(--ink-400)' }}>
-        Źródło: <a href="https://geoportal.arimr.gov.pl" target="_blank" rel="noopener noreferrer" style={{ color: '#22A06B' }}>geoportal.arimr.gov.pl</a>
+        Źródło: <a href="https://geoportal.arimr.gov.pl" target="_blank" rel="noopener noreferrer" style={{ color: '#2b7353' }}>geoportal.arimr.gov.pl</a>
       </p>
     </main>
   );

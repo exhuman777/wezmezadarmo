@@ -144,7 +144,7 @@ export default function PanelLayout({ children }: { children: React.ReactNode })
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           background: 'var(--white)',
           border: '1px solid var(--line)',
-          borderRadius: 4,
+          borderRadius: 2,
           cursor: 'pointer',
           fontSize: 10,
           color: 'var(--ink-400)',

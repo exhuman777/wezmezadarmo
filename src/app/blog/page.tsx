@@ -23,7 +23,7 @@ export default function BlogIndex() {
   return (
     <main style={{ maxWidth: 760, margin: '0 auto', padding: '48px 24px 60px' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
-        <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#22A06B', boxShadow: '0 0 7px rgba(34,160,107,0.55)' }} />
+        <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#2b7353', boxShadow: 'none' }} />
         <span style={{ fontFamily: 'var(--f-mono)', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink-500)' }}>
           Blog
         </span>
@@ -43,7 +43,7 @@ export default function BlogIndex() {
             key={post.slug}
             href={`/blog/${post.slug}`}
             style={{
-              display: 'block', padding: 24, borderRadius: 14,
+              display: 'block', padding: 24, borderRadius: 2,
               background: 'var(--white)', border: '1px solid var(--line)',
               textDecoration: 'none', color: 'inherit',
               transition: 'transform 150ms, box-shadow 150ms',
@@ -68,7 +68,7 @@ export default function BlogIndex() {
             <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
               {post.tags.slice(0, 4).map(tag => (
                 <span key={tag} style={{
-                  fontSize: 10, padding: '2px 8px', borderRadius: 4,
+                  fontSize: 10, padding: '2px 8px', borderRadius: 2,
                   background: 'var(--green-50)', color: 'var(--green-800)',
                   fontFamily: 'var(--f-mono)', letterSpacing: '0.04em', textTransform: 'uppercase',
                 }}>
@@ -81,7 +81,7 @@ export default function BlogIndex() {
       </div>
 
       {sorted.length === 1 && (
-        <div style={{ marginTop: 32, padding: 18, background: 'var(--green-50)', border: '1px solid var(--green-200)', borderRadius: 10, fontSize: 13, color: 'var(--green-900)', lineHeight: 1.6 }}>
+        <div style={{ marginTop: 32, padding: 18, background: 'var(--green-50)', border: '1px solid var(--green-200)', borderRadius: 2, fontSize: 13, color: 'var(--green-900)', lineHeight: 1.6 }}>
           To dopiero początek bloga. Kolejne artykuły wkrótce: KSeF dla JDG, Czyste Powietrze krok po kroku, renta wdowia i więcej.
         </div>
       )}

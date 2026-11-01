@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { FooterContactForm } from './FooterContactForm';
 import { NewsletterSignup } from './NewsletterSignup';
+import { PixelMark } from './SiteNav';
 
 const PRODUKT = [
   { href: '/', label: 'Świadczenia dla osoby' },
@@ -37,11 +38,9 @@ function FooterCol({ title, children }: { title: string; children: React.ReactNo
 export function SiteFooter() {
   return (
     <footer style={{
-      background: `
-        linear-gradient(180deg, transparent, rgba(6,36,24,.04) 40%, rgba(6,36,24,.08)),
-        var(--paper)
-      `,
-      padding: '80px 0 40px',
+      background: 'var(--kafel)',
+      borderTop: '1px solid var(--linia)',
+      padding: '56px 0 40px',
     }}>
       <div className="wrap">
         {/* Columns */}
@@ -53,9 +52,9 @@ export function SiteFooter() {
           {/* Brand */}
           <div className="stack-16">
             <div className="row-8">
-              <span className="logo-dot" />
+              <PixelMark size={20} />
               <span style={{
-                fontWeight: 600, fontSize: 17, letterSpacing: '-0.02em',
+                fontFamily: 'var(--f-mono)', fontWeight: 700, fontSize: 16, letterSpacing: '-0.01em',
                 color: 'var(--ink-900)',
               }}>
                 wezmezadarmo<span className="dim" style={{ fontFamily: 'var(--f-mono)', fontWeight: 400, fontSize: 12 }}>.com</span>
@@ -117,9 +116,9 @@ export function SiteFooter() {
         <div className="divider" style={{ margin: '40px 0 24px' }} />
         <div style={{
           padding: '20px 24px',
-          background: 'rgba(34,160,107,0.04)',
-          border: '1px solid rgba(34,160,107,0.15)',
-          borderRadius: 12,
+          background: 'rgba(47,125,90,0.04)',
+          border: '1px solid rgba(47,125,90,0.15)',
+          borderRadius: 2,
           marginBottom: 24,
           maxWidth: 480,
         }}>
