@@ -29,7 +29,7 @@ export function ImgwAlertWidget() {
       padding: 16,
       background: 'var(--color-surface)',
       border: '1px solid var(--color-border)',
-      borderRadius: 12,
+      borderRadius: 2,
       display: 'flex', flexDirection: 'column', gap: 10,
     }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
@@ -48,7 +48,7 @@ export function ImgwAlertWidget() {
           {(data ?? []).slice(0, 3).map(w => (
             <a key={w.link} href={w.link} target="_blank" rel="noopener noreferrer"
               style={{
-                padding: '8px 10px', borderRadius: 8,
+                padding: '8px 10px', borderRadius: 2,
                 background: 'var(--color-bg-2)', border: '1px solid var(--color-border)',
                 textDecoration: 'none', color: 'var(--color-text-1)',
               }}>

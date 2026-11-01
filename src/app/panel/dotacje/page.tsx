@@ -16,7 +16,7 @@ interface CeidgData {
 }
 
 const STATUS_LABELS: Record<string, { label: string; color: string }> = {
-  open: { label: 'OTWARTY', color: '#22A06B' },
+  open: { label: 'OTWARTY', color: '#2b7353' },
   continuous: { label: 'CIĄGŁY', color: '#0d5036' },
   expected: { label: 'PLANOWANY', color: '#c4841a' },
   closed: { label: 'ZAMKNIĘTY', color: '#999' },
@@ -113,7 +113,7 @@ export default function PanelDotacjePage() {
   return (
     <main style={{ maxWidth: 1000, margin: '0 auto', padding: '32px 24px 60px' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
-        <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#22A06B', boxShadow: '0 0 7px rgba(34,160,107,0.55)' }} />
+        <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#2b7353', boxShadow: 'none' }} />
         <span style={{ fontFamily: 'var(--f-mono)', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink-500)' }}>
           Dotacje dla firm
         </span>
@@ -133,7 +133,7 @@ export default function PanelDotacjePage() {
           value={nip} onChange={e => setNip(e.target.value)}
           style={{
             flex: 1, minWidth: 240, padding: '11px 16px',
-            border: '1px solid var(--line)', borderRadius: 10,
+            border: '1px solid var(--line)', borderRadius: 2,
             fontSize: 15, fontFamily: 'var(--f-mono)',
           }}
         />
@@ -143,14 +143,14 @@ export default function PanelDotacjePage() {
       </form>
 
       {error && (
-        <div style={{ padding: '12px 16px', background: 'rgba(220,80,80,0.05)', border: '1px solid rgba(220,80,80,0.25)', borderRadius: 8, color: '#dc5050', fontSize: 13, marginBottom: 16 }}>
+        <div style={{ padding: '12px 16px', background: 'rgba(196,72,58,0.05)', border: '1px solid rgba(196,72,58,0.25)', borderRadius: 2, color: '#c4483a', fontSize: 13, marginBottom: 16 }}>
           {error}
         </div>
       )}
 
       {ceidg && (
         <>
-          <div style={{ padding: 18, background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 12, marginBottom: 20 }}>
+          <div style={{ padding: 18, background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 2, marginBottom: 20 }}>
             <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 14, flexWrap: 'wrap', marginBottom: 12 }}>
               <div>
                 <div style={{ fontSize: 16, fontWeight: 600, color: 'var(--ink-900)', marginBottom: 4 }}>
@@ -160,12 +160,12 @@ export default function PanelDotacjePage() {
               </div>
               <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
                 {ceidg.aktywna && (
-                  <span style={{ fontSize: 11, padding: '3px 10px', borderRadius: 4, background: 'rgba(34,160,107,0.12)', color: '#22A06B', fontWeight: 600, fontFamily: 'var(--f-mono)', textTransform: 'uppercase' }}>
+                  <span style={{ fontSize: 11, padding: '3px 10px', borderRadius: 2, background: 'rgba(47,125,90,0.12)', color: '#2b7353', fontWeight: 600, fontFamily: 'var(--f-mono)', textTransform: 'uppercase' }}>
                     Aktywna
                   </span>
                 )}
                 {ceidg.vat?.status && (
-                  <span style={{ fontSize: 11, padding: '3px 10px', borderRadius: 4, background: ceidg.vat.status === 'Czynny' ? 'rgba(34,160,107,0.12)' : 'rgba(200,130,40,0.12)', color: ceidg.vat.status === 'Czynny' ? '#22A06B' : '#c4841a', fontWeight: 600, fontFamily: 'var(--f-mono)', textTransform: 'uppercase' }}>
+                  <span style={{ fontSize: 11, padding: '3px 10px', borderRadius: 2, background: ceidg.vat.status === 'Czynny' ? 'rgba(47,125,90,0.12)' : 'rgba(200,130,40,0.12)', color: ceidg.vat.status === 'Czynny' ? '#2b7353' : '#c4841a', fontWeight: 600, fontFamily: 'var(--f-mono)', textTransform: 'uppercase' }}>
                     VAT {ceidg.vat.status}
                   </span>
                 )}
@@ -180,7 +180,7 @@ export default function PanelDotacjePage() {
                 return (
                   <div style={{ gridColumn: '1 / -1' }}>
                     {section && (
-                      <div style={{ marginBottom: 12, padding: '10px 14px', background: 'var(--green-50)', border: '1px solid var(--green-200)', borderRadius: 8 }}>
+                      <div style={{ marginBottom: 12, padding: '10px 14px', background: 'var(--green-50)', border: '1px solid var(--green-200)', borderRadius: 2 }}>
                         <div style={{ fontFamily: 'var(--f-mono)', fontSize: 10, color: 'var(--ink-400)', textTransform: 'uppercase', marginBottom: 3 }}>Branża (główna sekcja PKD)</div>
                         <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--ink-900)' }}>{section.label}</div>
                       </div>
@@ -191,7 +191,7 @@ export default function PanelDotacjePage() {
                         const name = getPkdName(code);
                         return (
                           <div key={code} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', padding: '6px 0', fontSize: 12 }}>
-                            <span style={{ fontFamily: 'var(--f-mono)', fontWeight: 600, color: '#22A06B', flexShrink: 0, minWidth: 60 }}>{code}</span>
+                            <span style={{ fontFamily: 'var(--f-mono)', fontWeight: 600, color: '#2b7353', flexShrink: 0, minWidth: 60 }}>{code}</span>
                             <span style={{ color: 'var(--ink-700)', lineHeight: 1.4 }}>{name ?? <span style={{ color: 'var(--ink-400)', fontStyle: 'italic' }}>brak opisu w słowniku</span>}</span>
                           </div>
                         );
@@ -209,7 +209,7 @@ export default function PanelDotacjePage() {
           {matchResult && (
             <>
               <div style={{ display: 'flex', gap: 14, marginBottom: 16, flexWrap: 'wrap', fontSize: 13 }}>
-                <span><strong style={{ color: '#22A06B' }}>{matchResult.matched.length}</strong> pasujące</span>
+                <span><strong style={{ color: '#2b7353' }}>{matchResult.matched.length}</strong> pasujące</span>
                 <span><strong style={{ color: '#c4841a' }}>{matchResult.partial.length}</strong> potencjalne</span>
                 <span><strong style={{ color: 'var(--ink-500)' }}>{matchResult.unmatched.length}</strong> niedostępne</span>
               </div>
@@ -259,11 +259,11 @@ export default function PanelDotacjePage() {
       )}
 
       {!ceidg && !error && (
-        <div style={{ padding: 32, background: 'var(--green-50)', border: '1px solid var(--green-200)', borderRadius: 12, textAlign: 'center', color: 'var(--green-900)' }}>
+        <div style={{ padding: 32, background: 'var(--green-50)', border: '1px solid var(--green-200)', borderRadius: 2, textAlign: 'center', color: 'var(--green-900)' }}>
           <div style={{ fontSize: 14, marginBottom: 8 }}>Wpisz NIP firmy żeby zobaczyć dopasowane dotacje.</div>
           <div style={{ fontSize: 12, color: 'var(--ink-500)' }}>
             Dane z CEIDG (rejestr firm) + Białej Listy VAT. Limit: 10 zapytań/dzień/IP.
-            <Link href="/dotacje" style={{ color: '#22A06B', marginLeft: 6 }}>Zobacz wszystkie 23 programy bez personalizacji →</Link>
+            <Link href="/dotacje" style={{ color: '#2b7353', marginLeft: 6 }}>Zobacz wszystkie 23 programy bez personalizacji →</Link>
           </div>
         </div>
       )}
@@ -274,14 +274,14 @@ export default function PanelDotacjePage() {
 function ProgramCard({ program }: { program: B2BProgram }) {
   const status = STATUS_LABELS[program.status] ?? { label: program.status, color: '#666' };
   return (
-    <div style={{ padding: 16, background: 'var(--white)', border: '1px solid var(--line)', borderLeft: `3px solid ${status.color}`, borderRadius: 10 }}>
+    <div style={{ padding: 16, background: 'var(--white)', border: '1px solid var(--line)', borderLeft: `3px solid ${status.color}`, borderRadius: 2 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12, marginBottom: 8, flexWrap: 'wrap' }}>
         <div>
           <div style={{ display: 'flex', gap: 6, alignItems: 'center', marginBottom: 4, flexWrap: 'wrap' }}>
-            <span style={{ fontSize: 9, padding: '2px 7px', borderRadius: 3, background: status.color, color: '#fff', fontWeight: 700, fontFamily: 'var(--f-mono)', letterSpacing: '0.04em' }}>
+            <span style={{ fontSize: 9, padding: '2px 7px', borderRadius: 2, background: status.color, color: '#fff', fontWeight: 700, fontFamily: 'var(--f-mono)', letterSpacing: '0.04em' }}>
               {status.label}
             </span>
-            <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 3, background: 'var(--green-50)', color: 'var(--ink-700)', fontFamily: 'var(--f-mono)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+            <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 2, background: 'var(--green-50)', color: 'var(--ink-700)', fontFamily: 'var(--f-mono)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
               {CATEGORY_LABELS[program.category] ?? program.category}
             </span>
           </div>
@@ -289,7 +289,7 @@ function ProgramCard({ program }: { program: B2BProgram }) {
           <div style={{ fontSize: 11, color: 'var(--ink-500)' }}>{program.institution}</div>
         </div>
         <div style={{ textAlign: 'right', flexShrink: 0 }}>
-          <div style={{ fontSize: 16, fontWeight: 700, color: '#22A06B', fontFamily: 'var(--f-mono)' }}>{fmtPLN(program.maxAmountPLN)}</div>
+          <div style={{ fontSize: 16, fontWeight: 700, color: '#2b7353', fontFamily: 'var(--f-mono)' }}>{fmtPLN(program.maxAmountPLN)}</div>
           {program.openDate && program.closeDate && (
             <div style={{ fontSize: 10, color: 'var(--ink-500)', marginTop: 2 }}>
               {program.openDate} → {program.closeDate}
@@ -304,7 +304,7 @@ function ProgramCard({ program }: { program: B2BProgram }) {
       {program.notes && (
         <p style={{ fontSize: 11, color: 'var(--ink-500)', lineHeight: 1.5, margin: '6px 0 8px', paddingTop: 6, borderTop: '1px solid var(--line)' }}>{program.notes}</p>
       )}
-      <a href={program.url} target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: '#22A06B', textDecoration: 'none' }}>
+      <a href={program.url} target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: '#2b7353', textDecoration: 'none' }}>
         Szczegóły programu →
       </a>
     </div>
@@ -316,15 +316,15 @@ function ViaPromoCard() {
     <div style={{
       marginTop: 10,
       padding: 18,
-      background: 'linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%)',
+      background: '#f5f3ff',
       border: '1px solid #c4b5fd',
-      borderLeft: '3px solid #7c3aed',
-      borderRadius: 10,
+      borderTop: '3px solid #7c3aed',
+      borderRadius: 2,
       position: 'relative', overflow: 'hidden',
     }}>
       <div style={{
         position: 'absolute', top: 12, right: 14,
-        fontSize: 9, padding: '2px 7px', borderRadius: 3,
+        fontSize: 9, padding: '2px 7px', borderRadius: 2,
         background: '#7c3aed', color: '#fff', fontWeight: 700,
         fontFamily: 'var(--f-mono)', letterSpacing: '0.06em',
       }}>
@@ -332,10 +332,10 @@ function ViaPromoCard() {
       </div>
 
       <div style={{ display: 'flex', gap: 6, alignItems: 'center', marginBottom: 6, flexWrap: 'wrap' }}>
-        <span style={{ fontSize: 9, padding: '2px 7px', borderRadius: 3, background: '#7c3aed', color: '#fff', fontWeight: 700, fontFamily: 'var(--f-mono)', letterSpacing: '0.04em' }}>
+        <span style={{ fontSize: 9, padding: '2px 7px', borderRadius: 2, background: '#7c3aed', color: '#fff', fontWeight: 700, fontFamily: 'var(--f-mono)', letterSpacing: '0.04em' }}>
           AI AGENT
         </span>
-        <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 3, background: 'rgba(124,58,237,0.1)', color: '#5b21b6', fontFamily: 'var(--f-mono)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+        <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 2, background: 'rgba(124,58,237,0.1)', color: '#5b21b6', fontFamily: 'var(--f-mono)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
           27 KRAJÓW UE
         </span>
       </div>
@@ -359,9 +359,9 @@ function ViaPromoCard() {
         <a href="https://www.tryvia.eu/#" target="_blank" rel="noopener noreferrer" style={{
           display: 'inline-flex', alignItems: 'center', gap: 6,
           fontSize: 13, fontWeight: 600,
-          padding: '8px 16px', borderRadius: 8,
+          padding: '8px 16px', borderRadius: 2,
           background: '#7c3aed', color: '#fff', textDecoration: 'none',
-          boxShadow: '0 3px 10px rgba(124,58,237,0.3)',
+          boxShadow: 'none',
           transition: 'transform 150ms, box-shadow 150ms',
         }}>
           Sprawdź VIA →

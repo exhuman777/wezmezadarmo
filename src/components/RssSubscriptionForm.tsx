@@ -84,7 +84,7 @@ export default function RssSubscriptionForm() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-      <div style={{ padding: '14px 16px', background: 'rgba(34,160,107,0.06)', border: '1px solid rgba(34,160,107,0.18)', borderRadius: 10, fontSize: 13, color: 'var(--color-text-2)', lineHeight: 1.6 }}>
+      <div style={{ padding: '14px 16px', background: 'rgba(47,125,90,0.06)', border: '1px solid rgba(47,125,90,0.18)', borderRadius: 2, fontSize: 13, color: 'var(--color-text-2)', lineHeight: 1.6 }}>
         Alerty wysyłane <strong>maks. 2x dziennie</strong> (~10:00 i ~15:00) po automatycznym pobraniu źródeł.
         Nie można wywołać ręcznie. Bez duplikatów: każdy artykuł wysłany tylko raz.
       </div>
@@ -107,9 +107,9 @@ export default function RssSubscriptionForm() {
                 return (
                   <label key={s.id} style={{
                     display: 'flex', gap: 9, alignItems: 'flex-start',
-                    padding: '10px 12px', borderRadius: 8, cursor: 'pointer',
-                    background: checked ? 'rgba(34,160,107,0.08)' : 'var(--color-bg-1)',
-                    border: `1px solid ${checked ? 'rgba(34,160,107,0.3)' : 'var(--color-border)'}`,
+                    padding: '10px 12px', borderRadius: 2, cursor: 'pointer',
+                    background: checked ? 'rgba(47,125,90,0.08)' : 'var(--color-bg-1)',
+                    border: `1px solid ${checked ? 'rgba(47,125,90,0.3)' : 'var(--color-border)'}`,
                     transition: 'all 120ms',
                   }}>
                     <input type="checkbox" checked={checked} onChange={() => toggle(sourceIds, setSourceIds, s.id)} style={{ marginTop: 2 }} />
@@ -140,11 +140,11 @@ export default function RssSubscriptionForm() {
                     type="button"
                     onClick={() => toggle(audiences, setAudiences, a.id)}
                     style={{
-                      padding: '6px 14px', borderRadius: 6, cursor: 'pointer',
+                      padding: '6px 14px', borderRadius: 2, cursor: 'pointer',
                       fontSize: 12, fontWeight: 500,
-                      background: checked ? 'rgba(34,160,107,0.12)' : 'var(--color-bg-1)',
-                      color: checked ? '#22A06B' : 'var(--color-text-2)',
-                      border: `1px solid ${checked ? 'rgba(34,160,107,0.35)' : 'var(--color-border)'}`,
+                      background: checked ? 'rgba(47,125,90,0.12)' : 'var(--color-bg-1)',
+                      color: checked ? '#2b7353' : 'var(--color-text-2)',
+                      border: `1px solid ${checked ? 'rgba(47,125,90,0.35)' : 'var(--color-border)'}`,
                     }}
                   >
                     {a.label}
@@ -170,7 +170,7 @@ export default function RssSubscriptionForm() {
               style={{
                 width: '100%', padding: '10px 14px',
                 background: 'var(--color-bg-0)', border: '1px solid var(--color-border)',
-                borderRadius: 8, fontSize: 13, color: 'var(--color-text-1)',
+                borderRadius: 2, fontSize: 13, color: 'var(--color-text-1)',
                 outline: 'none',
               }}
             />
@@ -186,8 +186,8 @@ export default function RssSubscriptionForm() {
         disabled={saving}
         style={{
           padding: '10px 24px', alignSelf: 'flex-start',
-          background: saved ? 'var(--color-border)' : '#22A06B',
-          color: '#fff', border: 'none', borderRadius: 8,
+          background: saved ? 'var(--color-border)' : '#2b7353',
+          color: '#fff', border: 'none', borderRadius: 2,
           fontSize: 13, fontWeight: 600,
           cursor: saving ? 'not-allowed' : 'pointer',
         }}

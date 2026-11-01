@@ -30,7 +30,7 @@ function PanelLayoutInner({ children }: { children: React.ReactNode }) {
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           background: 'var(--color-bg-1)',
           border: '1px solid var(--color-border)',
-          borderRadius: 4,
+          borderRadius: 2,
           cursor: 'pointer',
           fontSize: 10,
           color: 'var(--color-text-3)',

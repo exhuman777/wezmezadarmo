@@ -539,7 +539,7 @@ export default function RejestracjaPage() {
                         padding: '3px 8px',
                         background: 'var(--color-bg-2)',
                         border: '1px solid var(--color-border-light)',
-                        borderRadius: '3px',
+                        borderRadius: 2,
                         fontFamily: 'var(--font-mono)',
                         fontSize: '11px',
                         color: 'var(--color-text-2)',

@@ -41,13 +41,13 @@ export default function BialaListaPage() {
     setLoading(false);
   }
 
-  const statusColor = result?.statusVat === 'Czynny' ? '#22A06B'
+  const statusColor = result?.statusVat === 'Czynny' ? '#2b7353'
     : result?.statusVat === 'Zwolniony' ? '#c4841a'
-    : '#dc5050';
+    : '#c4483a';
 
   return (
     <main style={{ maxWidth: 760, margin: '0 auto', padding: '32px 24px 60px' }}>
-      <Link href="/centrum-obywatela" style={{ fontSize: 13, color: '#22A06B', textDecoration: 'none', marginBottom: 18, display: 'inline-block' }}>
+      <Link href="/centrum-obywatela" style={{ fontSize: 13, color: '#2b7353', textDecoration: 'none', marginBottom: 18, display: 'inline-block' }}>
         ← Centrum Obywatela
       </Link>
 
@@ -67,30 +67,30 @@ export default function BialaListaPage() {
         <input
           type="text" inputMode="numeric" placeholder="NIP - 10 cyfr"
           value={nip} onChange={e => setNip(e.target.value)}
-          style={{ flex: 1, minWidth: 200, padding: '10px 14px', border: '1px solid var(--line)', borderRadius: 8, fontSize: 15, fontFamily: 'var(--f-mono)' }}
+          style={{ flex: 1, minWidth: 200, padding: '10px 14px', border: '1px solid var(--line)', borderRadius: 2, fontSize: 15, fontFamily: 'var(--f-mono)' }}
         />
         <button type="submit" disabled={loading} className="btn btn-primary">
           {loading ? 'Sprawdzam...' : 'Sprawdź'}
         </button>
       </form>
 
-      {error && <div style={{ padding: '12px 16px', background: 'rgba(220,80,80,0.05)', border: '1px solid rgba(220,80,80,0.25)', borderRadius: 8, color: '#dc5050', fontSize: 13, marginBottom: 16 }}>{error}</div>}
+      {error && <div style={{ padding: '12px 16px', background: 'rgba(196,72,58,0.05)', border: '1px solid rgba(196,72,58,0.25)', borderRadius: 2, color: '#c4483a', fontSize: 13, marginBottom: 16 }}>{error}</div>}
 
       {result && !result.found && (
-        <div style={{ padding: '14px 18px', background: 'rgba(220,80,80,0.04)', border: '1px solid rgba(220,80,80,0.2)', borderRadius: 10 }}>
-          <div style={{ fontWeight: 600, color: '#dc5050', marginBottom: 4 }}>Nie znaleziono</div>
+        <div style={{ padding: '14px 18px', background: 'rgba(196,72,58,0.04)', border: '1px solid rgba(196,72,58,0.2)', borderRadius: 2 }}>
+          <div style={{ fontWeight: 600, color: '#c4483a', marginBottom: 4 }}>Nie znaleziono</div>
           <div style={{ fontSize: 13, color: 'var(--ink-500)' }}>Podmiot o NIP {nip} nie figuruje w wykazie podatników VAT.</div>
         </div>
       )}
 
       {result && result.found && (
-        <div style={{ padding: 20, background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 12 }}>
+        <div style={{ padding: 20, background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 2 }}>
           <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12, marginBottom: 14, flexWrap: 'wrap' }}>
             <div>
               <div style={{ fontSize: 17, fontWeight: 600, color: 'var(--ink-900)', marginBottom: 4 }}>{result.name}</div>
               <div style={{ fontSize: 12, color: 'var(--ink-500)', fontFamily: 'var(--f-mono)' }}>NIP: {result.nip}</div>
             </div>
-            <span style={{ padding: '5px 12px', borderRadius: 6, background: `${statusColor}15`, color: statusColor, fontSize: 12, fontWeight: 600, fontFamily: 'var(--f-mono)', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
+            <span style={{ padding: '5px 12px', borderRadius: 2, background: `${statusColor}15`, color: statusColor, fontSize: 12, fontWeight: 600, fontFamily: 'var(--f-mono)', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
               {result.statusVat}
             </span>
           </div>
@@ -110,7 +110,7 @@ export default function BialaListaPage() {
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                 {result.accounts.map(acc => (
-                  <code key={acc} style={{ padding: '6px 10px', background: 'var(--green-50)', border: '1px solid var(--green-200)', borderRadius: 6, fontSize: 12, color: 'var(--ink-900)', fontFamily: 'var(--f-mono)' }}>
+                  <code key={acc} style={{ padding: '6px 10px', background: 'var(--green-50)', border: '1px solid var(--green-200)', borderRadius: 2, fontSize: 12, color: 'var(--ink-900)', fontFamily: 'var(--f-mono)' }}>
                     {acc.match(/.{1,4}/g)?.join(' ')}
                   </code>
                 ))}
@@ -121,7 +121,7 @@ export default function BialaListaPage() {
       )}
 
       <p style={{ marginTop: 24, fontSize: 11, color: 'var(--ink-400)' }}>
-        Źródło: <a href="https://wl-api.mf.gov.pl" target="_blank" rel="noopener noreferrer" style={{ color: '#22A06B' }}>wl-api.mf.gov.pl</a> · Limit: 10 zapytań / min / IP.
+        Źródło: <a href="https://wl-api.mf.gov.pl" target="_blank" rel="noopener noreferrer" style={{ color: '#2b7353' }}>wl-api.mf.gov.pl</a> · Limit: 10 zapytań / min / IP.
       </p>
     </main>
   );

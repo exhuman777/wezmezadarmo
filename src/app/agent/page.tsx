@@ -43,7 +43,7 @@ function onTiltMove(e: React.MouseEvent<HTMLDivElement>) {
   const tX = (y - 0.5) * -7;
   const tY = (x - 0.5) * 7;
   e.currentTarget.style.transform = `perspective(700px) rotateX(${tX}deg) rotateY(${tY}deg) translateY(-4px)`;
-  e.currentTarget.style.boxShadow = '0 20px 48px rgba(0,0,0,0.4), 0 4px 16px rgba(34,160,107,0.12)';
+  e.currentTarget.style.boxShadow = '0 20px 48px rgba(0,0,0,0.4), 0 4px 16px rgba(47,125,90,0.12)';
   e.currentTarget.style.transition = 'box-shadow 0.15s ease';
 }
 function onTiltLeave(e: React.MouseEvent<HTMLDivElement>) {
@@ -76,7 +76,7 @@ function AgentContent() {
   const secondaryLabel = loggedIn ? 'Otwórz Czat AI' : 'Mam już konto';
 
   return (
-    <main style={{ background: '#0a1f14', minHeight: '100vh' }}>
+    <main style={{ background: '#2b2420', minHeight: '100vh' }}>
       <style>{`
         @keyframes shimmer {
           0%   { transform: translateX(-120%) skewX(-12deg); }
@@ -85,8 +85,8 @@ function AgentContent() {
 
         .btn-agent-primary {
           position: relative; overflow: hidden;
-          background: linear-gradient(135deg, #25b278 0%, #22A06B 50%, #1b8a5b 100%);
-          box-shadow: 0 4px 18px rgba(34,160,107,0.45), 0 1px 4px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.12);
+          background: #3f8c69;
+          box-shadow: 0 4px 18px rgba(47,125,90,0.45), 0 1px 4px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.12);
           transition: transform 0.18s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.18s ease;
           text-decoration: none;
         }
@@ -94,13 +94,13 @@ function AgentContent() {
           content: '';
           position: absolute; top: 0; left: 0;
           width: 55%; height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+          background: transparent;
           transform: translateX(-120%) skewX(-12deg);
         }
         .btn-agent-primary:hover::before { animation: shimmer 0.55s ease-out; }
         .btn-agent-primary:hover {
           transform: translateY(-2px);
-          box-shadow: 0 10px 30px rgba(34,160,107,0.55), 0 2px 8px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.15);
+          box-shadow: 0 10px 30px rgba(47,125,90,0.55), 0 2px 8px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.15);
         }
         .btn-agent-primary:active { transform: translateY(0) scale(0.97); }
 
@@ -128,8 +128,8 @@ function AgentContent() {
           position: absolute;
           top: 0; left: 0; right: 0;
           height: 2px;
-          border-radius: 16px 16px 0 0;
-          background: linear-gradient(90deg, transparent 0%, rgba(142,234,173,0.6) 30%, #8EEAAD 60%, rgba(142,234,173,0.6) 80%, transparent 100%);
+          border-radius: 2px 16px 0 0;
+          background: transparent;
           opacity: 0;
           transition: opacity 0.25s ease;
           pointer-events: none;
@@ -145,35 +145,35 @@ function AgentContent() {
           content: '';
           position: absolute; top: 0; left: 0;
           width: 55%; height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(142,234,173,0.12), transparent);
+          background: transparent;
           transform: translateX(-120%) skewX(-12deg);
         }
         .example-chip:hover::before { animation: shimmer 0.5s ease-out; }
         .example-chip:hover {
           transform: translateY(-2px) !important;
-          border-color: rgba(142,234,173,0.55) !important;
-          background: rgba(142,234,173,0.14) !important;
-          box-shadow: 0 6px 18px rgba(0,0,0,0.25), 0 2px 8px rgba(34,160,107,0.1);
+          border-color: rgba(169,212,189,0.55) !important;
+          background: rgba(169,212,189,0.14) !important;
+          box-shadow: 0 6px 18px rgba(0,0,0,0.25), 0 2px 8px rgba(47,125,90,0.1);
         }
         .example-chip:active { transform: translateY(0) scale(0.98) !important; }
       `}</style>
 
       {/* Hero */}
       <section style={{ position: 'relative', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', top: '20%', right: '5%', width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(34,160,107,0.15) 0%, transparent 70%)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', top: '20%', right: '5%', width: 500, height: 500, borderRadius: '50%', background: 'transparent', pointerEvents: 'none' }} />
         <div style={{ maxWidth: 960, margin: '0 auto', padding: 'clamp(32px, 4vw, 56px) 24px clamp(20px, 2vw, 28px)', position: 'relative' }}>
 
           {/* Eyebrow */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
             <span style={{
               width: 6, height: 6, borderRadius: '50%', flexShrink: 0,
-              background: '#8EEAAD',
-              boxShadow: '0 0 10px rgba(142,234,173,0.7)',
+              background: '#a9d4bd',
+              boxShadow: 'none',
             }} />
             <span style={{
               fontFamily: 'var(--font-mono)', fontSize: 11,
               letterSpacing: '0.1em', textTransform: 'uppercase' as const,
-              color: 'rgba(142,234,173,0.6)',
+              color: 'rgba(169,212,189,0.6)',
             }}>
               Asystent AI
             </span>
@@ -181,7 +181,7 @@ function AgentContent() {
 
           <h1 className="agent-hero-title" style={{ fontSize: 'clamp(28px, 5.5vw, 64px)', fontWeight: 600, lineHeight: 1.08, letterSpacing: '-0.035em', color: '#fff', margin: '0 0 20px', maxWidth: 700 }}>
             Twój agent AI.<br />
-            <span style={{ color: '#8EEAAD' }}>Pilnuje spraw, gdy Ty żyjesz.</span>
+            <span style={{ color: '#a9d4bd' }}>Pilnuje spraw, gdy Ty żyjesz.</span>
           </h1>
           <p style={{ fontSize: 'clamp(15px, 2.5vw, 18px)', lineHeight: 1.6, color: 'rgba(255,255,255,0.7)', margin: '0 0 28px', maxWidth: 560 }}>
             Dla firm i osób prywatnych. Asystent zna 133 świadczenia, śledzi 8 instytucji państwowych,
@@ -191,14 +191,14 @@ function AgentContent() {
             <Link
               href={primaryHref}
               className="btn-agent-primary"
-              style={{ fontSize: 15, fontWeight: 600, color: '#fff', padding: '14px 28px', borderRadius: 12, display: 'inline-block' }}
+              style={{ fontSize: 15, fontWeight: 600, color: '#fff', padding: '14px 28px', borderRadius: 2, display: 'inline-block' }}
             >
               {primaryLabel}
             </Link>
             <Link
               href={secondaryHref}
               className="btn-agent-secondary"
-              style={{ fontSize: 15, fontWeight: 500, color: 'rgba(255,255,255,0.85)', border: '1px solid rgba(255,255,255,0.25)', padding: '14px 28px', borderRadius: 12, display: 'inline-block' }}
+              style={{ fontSize: 15, fontWeight: 500, color: 'rgba(255,255,255,0.85)', border: '1px solid rgba(255,255,255,0.25)', padding: '14px 28px', borderRadius: 2, display: 'inline-block' }}
             >
               {secondaryLabel}
             </Link>
@@ -213,27 +213,27 @@ function AgentContent() {
       {q && (
         <section style={{ maxWidth: 960, margin: '0 auto', padding: '0 24px 24px' }}>
           <div style={{
-            background: 'rgba(34,160,107,0.1)',
-            border: '1px solid rgba(142,234,173,0.22)',
-            borderRadius: 18,
+            background: 'rgba(47,125,90,0.1)',
+            border: '1px solid rgba(169,212,189,0.22)',
+            borderRadius: 2,
             padding: '28px 32px',
-            boxShadow: '0 8px 32px rgba(0,0,0,0.25), inset 0 1px 0 rgba(142,234,173,0.08)',
+            boxShadow: 'none',
             position: 'relative', overflow: 'hidden',
           }}>
             {/* subtle top glow line */}
             <div style={{
               position: 'absolute', top: 0, left: '10%', right: '10%', height: 1,
-              background: 'linear-gradient(90deg, transparent, rgba(142,234,173,0.4), transparent)',
+              background: 'transparent',
               pointerEvents: 'none',
             }} />
             <div style={{ display: 'flex', alignItems: 'flex-start', gap: 18 }}>
               <span style={{
                 width: 44, height: 44, borderRadius: '50%', flexShrink: 0,
-                background: 'linear-gradient(135deg, #25b278, #22A06B)',
+                background: '#3f8c69',
                 color: '#fff',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 fontSize: 20, fontWeight: 700,
-                boxShadow: '0 4px 14px rgba(34,160,107,0.4)',
+                boxShadow: 'none',
               }}>?</span>
               <div style={{ flex: 1 }}>
                 <p style={{ fontSize: 20, fontWeight: 600, color: '#fff', margin: '0 0 10px', lineHeight: 1.35 }}>
@@ -248,7 +248,7 @@ function AgentContent() {
                   <Link
                     href={loggedIn ? `/panel/chat?q=${encodeURIComponent(q!)}` : `/logowanie?next=${encodeURIComponent('/panel/chat?q=' + q)}`}
                     className="btn-agent-primary"
-                    style={{ fontSize: 15, fontWeight: 600, color: '#fff', padding: '12px 24px', borderRadius: 12, display: 'inline-block' }}
+                    style={{ fontSize: 15, fontWeight: 600, color: '#fff', padding: '12px 24px', borderRadius: 2, display: 'inline-block' }}
                   >
                     {loggedIn ? 'Otwórz Czat AI →' : 'Zaloguj się i zapytaj AI'}
                   </Link>
@@ -257,13 +257,13 @@ function AgentContent() {
                       <Link
                         href={`/swiadczenia?q=${encodeURIComponent(q!)}`}
                         className="btn-agent-secondary"
-                        style={{ fontSize: 14, color: 'rgba(255,255,255,0.85)', border: '1px solid rgba(255,255,255,0.25)', padding: '12px 20px', borderRadius: 12, display: 'inline-block' }}
+                        style={{ fontSize: 14, color: 'rgba(255,255,255,0.85)', border: '1px solid rgba(255,255,255,0.25)', padding: '12px 20px', borderRadius: 2, display: 'inline-block' }}
                       >
                         Sprawdź w bazie (bez logowania)
                       </Link>
                       <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)' }}>
                         lub{' '}
-                        <Link href="/rejestracja" style={{ color: '#8EEAAD', textDecoration: 'underline', textUnderlineOffset: 3 }}>
+                        <Link href="/rejestracja" style={{ color: '#a9d4bd', textDecoration: 'underline', textUnderlineOffset: 3 }}>
                           załóż konto
                         </Link>
                       </span>
@@ -280,16 +280,16 @@ function AgentContent() {
       <section style={{ maxWidth: 960, margin: '0 auto', padding: '0 24px 16px' }}>
         <div style={{
           background: 'rgba(255,255,255,0.02)',
-          border: '1px solid rgba(142,234,173,0.1)',
-          borderRadius: 20,
+          border: '1px solid rgba(169,212,189,0.1)',
+          borderRadius: 2,
           padding: '32px',
-          boxShadow: '0 4px 24px rgba(0,0,0,0.15), inset 0 1px 0 rgba(142,234,173,0.04)',
+          boxShadow: 'none',
           position: 'relative', overflow: 'hidden',
         }}>
           {/* top glow */}
           <div style={{
             position: 'absolute', top: 0, left: '5%', right: '5%', height: 1,
-            background: 'linear-gradient(90deg, transparent, rgba(142,234,173,0.2), transparent)',
+            background: 'transparent',
             pointerEvents: 'none',
           }} />
 
@@ -297,13 +297,13 @@ function AgentContent() {
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
             <span style={{
               width: 6, height: 6, borderRadius: '50%', flexShrink: 0,
-              background: '#8EEAAD',
-              boxShadow: '0 0 8px rgba(142,234,173,0.6)',
+              background: '#a9d4bd',
+              boxShadow: 'none',
             }} />
             <span style={{
               fontFamily: 'var(--font-mono)', fontSize: 11,
               letterSpacing: '0.1em', textTransform: 'uppercase' as const,
-              color: 'rgba(142,234,173,0.5)',
+              color: 'rgba(169,212,189,0.5)',
             }}>
               Co może Asystent AI
             </span>
@@ -327,9 +327,9 @@ function AgentContent() {
                   style={{
                     fontSize: 15,
                     color: '#fff',
-                    background: 'rgba(142,234,173,0.07)',
-                    border: '1px solid rgba(142,234,173,0.18)',
-                    borderRadius: 12,
+                    background: 'rgba(169,212,189,0.07)',
+                    border: '1px solid rgba(169,212,189,0.18)',
+                    borderRadius: 2,
                     padding: '12px 20px',
                     lineHeight: 1.4,
                     display: 'inline-block',
@@ -350,13 +350,13 @@ function AgentContent() {
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
           <span style={{
             width: 6, height: 6, borderRadius: '50%', flexShrink: 0,
-            background: '#8EEAAD',
-            boxShadow: '0 0 8px rgba(142,234,173,0.6)',
+            background: '#a9d4bd',
+            boxShadow: 'none',
           }} />
           <span style={{
             fontFamily: 'var(--font-mono)', fontSize: 11,
             letterSpacing: '0.1em', textTransform: 'uppercase' as const,
-            color: 'rgba(142,234,173,0.5)',
+            color: 'rgba(169,212,189,0.5)',
           }}>
             Funkcje
           </span>
@@ -372,18 +372,18 @@ function AgentContent() {
               onMouseLeave={onTiltLeave}
               style={{
                 background: 'rgba(255,255,255,0.04)',
-                border: '1px solid rgba(142,234,173,0.1)',
-                borderRadius: 16,
+                border: '1px solid rgba(169,212,189,0.1)',
+                borderRadius: 2,
                 padding: '24px',
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
                 <span style={{
                   width: 38, height: 38, borderRadius: '50%',
-                  background: 'linear-gradient(145deg, rgba(34,160,107,0.25) 0%, rgba(34,160,107,0.1) 100%)',
-                  border: '1px solid rgba(142,234,173,0.2)',
-                  boxShadow: '0 3px 10px rgba(0,0,0,0.2), inset 0 1px 0 rgba(142,234,173,0.1)',
-                  color: '#8EEAAD',
+                  background: 'rgba(47,125,90,0.25)',
+                  border: '1px solid rgba(169,212,189,0.2)',
+                  boxShadow: 'none',
+                  color: '#a9d4bd',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   fontSize: 14, fontWeight: 700, flexShrink: 0,
                   fontFamily: 'var(--font-mono)',

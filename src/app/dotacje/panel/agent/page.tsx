@@ -156,7 +156,7 @@ export default function AgentPage() {
               style={{
                 maxWidth: '72%',
                 padding: '12px 16px',
-                borderRadius: '6px',
+                borderRadius: 2,
                 background:
                   msg.role === 'user'
                     ? 'var(--color-green)'
@@ -188,7 +188,7 @@ export default function AgentPage() {
             <div
               style={{
                 padding: '12px 16px',
-                borderRadius: '6px',
+                borderRadius: 2,
                 background: 'var(--color-bg-2)',
                 border: '1px solid var(--color-border-light)',
                 fontFamily: 'var(--font-mono)',
@@ -228,7 +228,7 @@ export default function AgentPage() {
             flex: 1,
             background: 'var(--color-bg-1)',
             border: '1px solid var(--color-border-light)',
-            borderRadius: '6px',
+            borderRadius: 2,
             padding: '10px 14px',
             fontFamily: 'var(--font-mono)',
             fontSize: '14px',
@@ -244,7 +244,7 @@ export default function AgentPage() {
             background: loading || !input.trim() ? 'var(--color-bg-2)' : 'var(--color-green)',
             color: loading || !input.trim() ? 'var(--color-text-3)' : 'white',
             border: '1px solid var(--color-border-light)',
-            borderRadius: '6px',
+            borderRadius: 2,
             padding: '10px 18px',
             fontFamily: 'var(--font-mono)',
             fontSize: '13px',

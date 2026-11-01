@@ -2,7 +2,7 @@
 
 interface Point { x: number | string; y: number }
 
-export function LineChart({ data, xLabel, yLabel, color = '#22A06B' }: {
+export function LineChart({ data, xLabel, yLabel, color = '#2b7353' }: {
   data: Point[];
   xLabel?: string;
   yLabel?: string;

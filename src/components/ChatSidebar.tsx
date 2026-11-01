@@ -75,11 +75,11 @@ export default function ChatSidebar({ activeId, onSelect, onNew, onDelete, refre
     }}>
       <style>{`
         .chat-conv-item { transition: background 120ms; }
-        .chat-conv-item:hover { background: rgba(34,160,107,0.05); }
-        .chat-conv-item.active { background: rgba(34,160,107,0.1); border-left-color: #22A06B !important; }
+        .chat-conv-item:hover { background: rgba(47,125,90,0.05); }
+        .chat-conv-item.active { background: rgba(47,125,90,0.1); border-left-color: #2b7353 !important; }
         .chat-conv-del { opacity: 0; transition: opacity 120ms; }
         .chat-conv-item:hover .chat-conv-del { opacity: 0.6; }
-        .chat-conv-del:hover { opacity: 1 !important; color: #dc5050 !important; }
+        .chat-conv-del:hover { opacity: 1 !important; color: #c4483a !important; }
         @media (max-width: 700px) {
           .chat-sidebar-root { width: 100% !important; }
         }
@@ -91,12 +91,12 @@ export default function ChatSidebar({ activeId, onSelect, onNew, onDelete, refre
           disabled={isOverLimit}
           style={{
             width: '100%', padding: '10px 14px',
-            borderRadius: 10,
-            background: isOverLimit ? 'var(--color-bg-2)' : 'linear-gradient(135deg, #22A06B, #1d9060)',
+            borderRadius: 2,
+            background: isOverLimit ? 'var(--color-bg-2)' : '#2b7353',
             color: isOverLimit ? 'var(--color-text-3)' : '#fff',
             fontSize: 13, fontWeight: 600,
             border: 'none', cursor: isOverLimit ? 'not-allowed' : 'pointer',
-            boxShadow: isOverLimit ? 'none' : '0 2px 8px rgba(34,160,107,0.3)',
+            boxShadow: isOverLimit ? 'none' : '0 2px 8px rgba(47,125,90,0.3)',
             display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
           }}
         >
@@ -129,7 +129,7 @@ export default function ChatSidebar({ activeId, onSelect, onNew, onDelete, refre
               width: '100%', textAlign: 'left',
               padding: '10px 12px',
               background: 'transparent',
-              border: 'none', borderLeft: `2px solid ${activeId === conv.id ? '#22A06B' : 'transparent'}`,
+              border: 'none', borderLeft: `2px solid ${activeId === conv.id ? '#2b7353' : 'transparent'}`,
               cursor: 'pointer',
               display: 'flex', alignItems: 'flex-start', gap: 8,
               marginBottom: 1,

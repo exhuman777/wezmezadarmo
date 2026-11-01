@@ -109,12 +109,12 @@ export default async function BlogPost({ params }: Props) {
     <main style={{ maxWidth: 720, margin: '0 auto', padding: '40px 24px 60px' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }} />
 
-      <Link href="/blog" style={{ fontSize: 13, color: '#22A06B', textDecoration: 'none', marginBottom: 20, display: 'inline-block' }}>
+      <Link href="/blog" style={{ fontSize: 13, color: '#2b7353', textDecoration: 'none', marginBottom: 20, display: 'inline-block' }}>
         ← Wszystkie artykuły
       </Link>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
-        <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#22A06B' }} />
+        <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#2b7353' }} />
         <time style={{ fontFamily: 'var(--f-mono)', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink-500)' }}>
           {new Date(post.date).toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' })}
         </time>
@@ -126,7 +126,7 @@ export default async function BlogPost({ params }: Props) {
         {post.title}
       </h1>
 
-      <p style={{ fontSize: 17, color: 'var(--ink-700)', lineHeight: 1.6, marginBottom: 28, paddingLeft: 14, borderLeft: '2px solid var(--green-200)' }}>
+      <p style={{ fontSize: 17, color: 'var(--ink-700)', lineHeight: 1.6, marginBottom: 28, paddingLeft: 14, borderTop: '2px solid var(--green-200)' }}>
         {post.description}
       </p>
 
@@ -145,7 +145,7 @@ export default async function BlogPost({ params }: Props) {
               <ul key={i} style={{ marginTop: 12, marginBottom: 20, paddingLeft: 0, listStyle: 'none' }}>
                 {(block.content as string[]).map((item, j) => (
                   <li key={j} style={{ paddingLeft: 22, position: 'relative', marginBottom: 8 }}>
-                    <span style={{ position: 'absolute', left: 4, color: '#22A06B', fontWeight: 700 }}>•</span>
+                    <span style={{ position: 'absolute', left: 4, color: '#2b7353', fontWeight: 700 }}>•</span>
                     {item}
                   </li>
                 ))}
@@ -155,8 +155,8 @@ export default async function BlogPost({ params }: Props) {
           if (block.type === 'cta') {
             const [label, url] = (block.content as string).split('|');
             return (
-              <div key={i} style={{ margin: '24px 0', padding: '16px 20px', background: 'var(--green-50)', border: '1px solid var(--green-200)', borderRadius: 10 }}>
-                <Link href={url} style={{ color: '#22A06B', fontWeight: 600, textDecoration: 'none', fontSize: 15 }}>
+              <div key={i} style={{ margin: '24px 0', padding: '16px 20px', background: 'var(--green-50)', border: '1px solid var(--green-200)', borderRadius: 2 }}>
+                <Link href={url} style={{ color: '#2b7353', fontWeight: 600, textDecoration: 'none', fontSize: 15 }}>
                   {label} →
                 </Link>
               </div>
@@ -168,7 +168,7 @@ export default async function BlogPost({ params }: Props) {
         })}
       </article>
 
-      <div style={{ marginTop: 48, padding: '20px 24px', background: 'var(--green-50)', border: '1px solid var(--green-200)', borderRadius: 14, textAlign: 'center' }}>
+      <div style={{ marginTop: 48, padding: '20px 24px', background: 'var(--green-50)', border: '1px solid var(--green-200)', borderRadius: 2, textAlign: 'center' }}>
         <div style={{ fontSize: 11, color: 'var(--ink-500)', fontFamily: 'var(--f-mono)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 8 }}>
           Sprawdź teraz
         </div>
@@ -179,10 +179,10 @@ export default async function BlogPost({ params }: Props) {
           10 pytań, 2 minuty, bez logowania, bez PESEL.
         </p>
         <Link href="/" style={{
-          display: 'inline-block', padding: '12px 28px', borderRadius: 12,
-          background: 'linear-gradient(135deg, #22A06B, #1d9060)',
+          display: 'inline-block', padding: '12px 28px', borderRadius: 2,
+          background: '#2b7353',
           color: '#fff', fontSize: 14, fontWeight: 600, textDecoration: 'none',
-          boxShadow: '0 4px 14px rgba(34,160,107,0.3)',
+          boxShadow: 'none',
         }}>
           Sprawdź za darmo →
         </Link>

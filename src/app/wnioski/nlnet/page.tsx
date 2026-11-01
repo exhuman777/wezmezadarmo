@@ -294,9 +294,7 @@ function WizardShell({ children, step, total }: { children: React.ReactNode; ste
     <div style={{ minHeight: '100vh', background: 'var(--color-bg-0)' }}>
       <header style={{
         position: 'sticky', top: 0, zIndex: 50,
-        background: 'rgba(236,242,236,0.85)',
-        backdropFilter: 'saturate(140%) blur(14px)',
-        WebkitBackdropFilter: 'saturate(140%) blur(14px)',
+        background: 'rgba(246,240,228,0.85)',
         borderBottom: '1px solid var(--color-border)',
       }}>
         <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
@@ -478,7 +476,7 @@ function ProfileStep({ profile, amountRequested, updateProfile, setAmount, onNex
             onClick={onNext}
             disabled={!valid}
             className="btn btn-primary btn-lg"
-            style={{ borderRadius: 999, opacity: valid ? 1 : 0.4, cursor: valid ? 'pointer' : 'not-allowed' }}
+            style={{ borderRadius: 2, opacity: valid ? 1 : 0.4, cursor: valid ? 'pointer' : 'not-allowed' }}
           >
             Generuj wniosek z AI
           </button>
@@ -611,7 +609,7 @@ function ReviewStep({ fields, setFields, currentIdx, setCurrentIdx, copied, onCo
               <div style={{
                 background: 'var(--color-bg-1)',
                 border: '1px solid var(--color-border)',
-                borderRadius: 10,
+                borderRadius: 2,
                 padding: '16px 20px',
                 fontSize: 13,
                 color: 'var(--color-text-2)',
@@ -626,14 +624,14 @@ function ReviewStep({ fields, setFields, currentIdx, setCurrentIdx, copied, onCo
                 <button
                   onClick={() => setEditing(currentField.key, true)}
                   className="btn btn-outline"
-                  style={{ height: 34, padding: '0 14px', borderRadius: 6, fontSize: 12 }}
+                  style={{ height: 34, padding: '0 14px', borderRadius: 2, fontSize: 12 }}
                 >
                   Edytuj
                 </button>
                 <button
                   onClick={() => onCopy(currentField.key, currentState.value)}
                   className="btn btn-outline"
-                  style={{ height: 34, padding: '0 14px', borderRadius: 6, fontSize: 12 }}
+                  style={{ height: 34, padding: '0 14px', borderRadius: 2, fontSize: 12 }}
                 >
                   {copied === currentField.key ? 'Skopiowano!' : 'Kopiuj'}
                 </button>
@@ -648,17 +646,17 @@ function ReviewStep({ fields, setFields, currentIdx, setCurrentIdx, copied, onCo
             onClick={() => setCurrentIdx(Math.max(0, currentIdx - 1))}
             disabled={currentIdx === 0}
             className="btn btn-ghost"
-            style={{ borderRadius: 6, opacity: currentIdx === 0 ? 0.3 : 1, fontSize: 13 }}
+            style={{ borderRadius: 2, opacity: currentIdx === 0 ? 0.3 : 1, fontSize: 13 }}
           >
             Poprzednie
           </button>
 
           {isLast ? (
-            <button onClick={onDone} className="btn btn-primary" style={{ borderRadius: 999, fontSize: 13 }}>
+            <button onClick={onDone} className="btn btn-primary" style={{ borderRadius: 2, fontSize: 13 }}>
               Pobierz wniosek
             </button>
           ) : (
-            <button onClick={() => setCurrentIdx(currentIdx + 1)} className="btn btn-primary" style={{ borderRadius: 999, fontSize: 13 }}>
+            <button onClick={() => setCurrentIdx(currentIdx + 1)} className="btn btn-primary" style={{ borderRadius: 2, fontSize: 13 }}>
               Następne pole
             </button>
           )}
@@ -672,14 +670,14 @@ function ReviewStep({ fields, setFields, currentIdx, setCurrentIdx, copied, onCo
               <button
                 onClick={onCopyAll}
                 className="btn btn-ghost"
-                style={{ height: 32, padding: '0 12px', fontSize: 12, borderRadius: 6 }}
+                style={{ height: 32, padding: '0 12px', fontSize: 12, borderRadius: 2 }}
               >
                 Kopiuj wszystko
               </button>
               <button
                 onClick={onDownload}
                 className="btn btn-outline"
-                style={{ height: 32, padding: '0 12px', fontSize: 12, borderRadius: 6 }}
+                style={{ height: 32, padding: '0 12px', fontSize: 12, borderRadius: 2 }}
               >
                 Pobierz .txt
               </button>
@@ -695,7 +693,7 @@ function ReviewStep({ fields, setFields, currentIdx, setCurrentIdx, copied, onCo
                   style={{
                     width: '100%', textAlign: 'left',
                     display: 'flex', alignItems: 'center', gap: 12,
-                    padding: '10px 14px', borderRadius: 8,
+                    padding: '10px 14px', borderRadius: 2,
                     border: `1px solid ${i === currentIdx ? 'var(--color-accent)' : 'var(--color-border)'}`,
                     background: i === currentIdx ? 'var(--color-accent-soft)' : 'transparent',
                     cursor: 'pointer', transition: 'all 150ms',
@@ -739,14 +737,14 @@ function DoneStep({ onDownload, onCopyAll, copied, onRestart }: {
           <button
             onClick={onDownload}
             className="btn btn-primary"
-            style={{ width: '100%', height: 50, borderRadius: 10, fontSize: 14 }}
+            style={{ width: '100%', height: 50, borderRadius: 2, fontSize: 14 }}
           >
             Pobierz wniosek (.txt)
           </button>
           <button
             onClick={onCopyAll}
             className="btn btn-outline"
-            style={{ width: '100%', height: 44, borderRadius: 10, fontSize: 13 }}
+            style={{ width: '100%', height: 44, borderRadius: 2, fontSize: 13 }}
           >
             {copied ? 'Skopiowano!' : 'Kopiuj wszystko do schowka'}
           </button>
@@ -755,7 +753,7 @@ function DoneStep({ onDownload, onCopyAll, copied, onRestart }: {
         <div style={{
           background: 'var(--color-bg-1)',
           border: '1px solid var(--color-border)',
-          borderRadius: 12,
+          borderRadius: 2,
           padding: '24px 28px',
           marginBottom: 32,
           boxShadow: 'var(--shadow-1)',
@@ -785,14 +783,14 @@ function DoneStep({ onDownload, onCopyAll, copied, onRestart }: {
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-primary"
-            style={{ flex: 1, borderRadius: 999, fontSize: 13 }}
+            style={{ flex: 1, borderRadius: 2, fontSize: 13 }}
           >
             Przejdź do formularza NLnet
           </Link>
           <button
             onClick={onRestart}
             className="btn btn-ghost"
-            style={{ fontSize: 13, borderRadius: 999 }}
+            style={{ fontSize: 13, borderRadius: 2 }}
           >
             Zacznij od nowa
           </button>

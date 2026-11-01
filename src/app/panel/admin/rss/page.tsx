@@ -35,9 +35,9 @@ interface StatusResponse {
 }
 
 function statusColor(rate: number) {
-  if (rate >= 80) return { bg: 'rgba(34,160,107,0.12)', fg: '#22A06B', label: 'OK' };
+  if (rate >= 80) return { bg: 'rgba(47,125,90,0.12)', fg: '#2b7353', label: 'OK' };
   if (rate >= 50) return { bg: 'rgba(220,150,40,0.12)', fg: '#c4841a', label: 'WARN' };
-  return { bg: 'rgba(220,80,80,0.1)', fg: '#dc5050', label: 'FAIL' };
+  return { bg: 'rgba(196,72,58,0.1)', fg: '#c4483a', label: 'FAIL' };
 }
 
 function fmtAgo(iso: string | null) {
@@ -67,7 +67,7 @@ export default function RssAdminPage() {
   }, []);
 
   if (loading) return <div style={{ padding: 40, textAlign: 'center', fontSize: 13, color: 'var(--color-text-3)' }}>Ładowanie...</div>;
-  if (error) return <div style={{ padding: 40, color: '#dc5050', fontSize: 13 }}>Błąd: {error}</div>;
+  if (error) return <div style={{ padding: 40, color: '#c4483a', fontSize: 13 }}>Błąd: {error}</div>;
   if (!data) return null;
 
   return (
@@ -88,7 +88,7 @@ export default function RssAdminPage() {
           const c = statusColor(s.success_rate);
           return (
             <div key={s.source_id} style={{
-              padding: '16px 18px', borderRadius: 12,
+              padding: '16px 18px', borderRadius: 2,
               background: 'var(--color-bg-1)',
               border: '1px solid var(--color-border)',
               borderLeft: `3px solid ${c.fg}`,
@@ -97,7 +97,7 @@ export default function RssAdminPage() {
                 <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--color-text-1)', textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>
                   {s.source_id}
                 </div>
-                <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 4, background: c.bg, color: c.fg, fontWeight: 700, fontFamily: 'var(--font-mono)' }}>
+                <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 2, background: c.bg, color: c.fg, fontWeight: 700, fontFamily: 'var(--font-mono)' }}>
                   {c.label} {s.success_rate}%
                 </span>
               </div>
@@ -113,7 +113,7 @@ export default function RssAdminPage() {
                 </div>
               )}
               {s.last_error && (
-                <div style={{ marginTop: 6, fontSize: 11, color: '#dc5050', wordBreak: 'break-word' }}>
+                <div style={{ marginTop: 6, fontSize: 11, color: '#c4483a', wordBreak: 'break-word' }}>
                   {s.last_error.slice(0, 200)}
                 </div>
               )}
@@ -124,7 +124,7 @@ export default function RssAdminPage() {
 
       {/* Recent runs */}
       <h2 style={{ fontSize: 16, fontWeight: 600, marginBottom: 12, color: 'var(--color-text-1)' }}>Ostatnie runy</h2>
-      <div style={{ background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 10, overflow: 'hidden' }}>
+      <div style={{ background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 2, overflow: 'hidden' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12 }}>
           <thead>
             <tr style={{ background: 'rgba(0,0,0,0.03)', textAlign: 'left' }}>
@@ -144,7 +144,7 @@ export default function RssAdminPage() {
                 <td style={{ padding: '10px 14px', fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--color-text-3)' }}>
                   {r.run_id.slice(0, 8)}...
                 </td>
-                <td style={{ padding: '10px 14px', color: r.ok === r.sources ? '#22A06B' : r.ok > 0 ? '#c4841a' : '#dc5050', fontWeight: 600 }}>
+                <td style={{ padding: '10px 14px', color: r.ok === r.sources ? '#2b7353' : r.ok > 0 ? '#c4841a' : '#c4483a', fontWeight: 600 }}>
                   {r.ok}/{r.sources}
                 </td>
                 <td style={{ padding: '10px 14px', color: 'var(--color-text-1)' }}>{r.total_items}</td>

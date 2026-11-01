@@ -135,7 +135,7 @@ function Field({ label, hint, children }: { label: string; hint?: string; childr
 }
 
 const inputStyle: React.CSSProperties = {
-  width: '100%', padding: '10px 12px', borderRadius: 8,
+  width: '100%', padding: '10px 12px', borderRadius: 2,
   border: '1px solid var(--color-border)', background: 'var(--color-bg-1)',
   color: 'var(--color-text-1)', fontSize: 14, fontFamily: 'inherit',
   boxSizing: 'border-box',
@@ -146,12 +146,12 @@ function NavButtons({ onBack, onNext, nextLabel = 'Dalej' }: { onBack?: () => vo
     <div style={{ display: 'flex', gap: 12, marginTop: 32 }}>
       {onBack && (
         <button onClick={onBack} style={{
-          flex: 1, padding: '12px 24px', borderRadius: 8, border: '1px solid var(--color-border)',
+          flex: 1, padding: '12px 24px', borderRadius: 2, border: '1px solid var(--color-border)',
           background: 'transparent', color: 'var(--color-text-2)', fontSize: 14, cursor: 'pointer',
         }}>Wstecz</button>
       )}
       <button onClick={onNext} style={{
-        flex: 2, padding: '12px 24px', borderRadius: 8, border: 'none',
+        flex: 2, padding: '12px 24px', borderRadius: 2, border: 'none',
         background: 'var(--color-accent)', color: '#fff', fontSize: 14, fontWeight: 600, cursor: 'pointer',
       }}>{nextLabel}</button>
     </div>
@@ -167,7 +167,7 @@ function OświadczenieBlock({ label, value, onChange }: {
       <div style={{ display: 'flex', gap: 10 }}>
         {(['NIE', 'TAK'] as const).map(opt => (
           <button key={opt} onClick={() => onChange(opt === 'TAK')} style={{
-            flex: 1, padding: '10px', borderRadius: 8,
+            flex: 1, padding: '10px', borderRadius: 2,
             border: `1px solid ${(opt === 'TAK') === value ? 'var(--color-accent)' : 'var(--color-border)'}`,
             background: (opt === 'TAK') === value ? 'var(--color-accent-soft)' : 'var(--color-bg-1)',
             color: (opt === 'TAK') === value ? 'var(--color-accent)' : 'var(--color-text-2)',
@@ -206,7 +206,7 @@ function StepWnioskodawca({ data, update, onNext }: {
         <div style={{ display: 'flex', gap: 10 }}>
           {(['K', 'M'] as const).map(p => (
             <button key={p} onClick={() => update('płeć', p)} style={{
-              flex: 1, padding: '10px', borderRadius: 8,
+              flex: 1, padding: '10px', borderRadius: 2,
               border: `1px solid ${data.płeć === p ? 'var(--color-accent)' : 'var(--color-border)'}`,
               background: data.płeć === p ? 'var(--color-accent-soft)' : 'var(--color-bg-1)',
               color: data.płeć === p ? 'var(--color-accent)' : 'var(--color-text-2)',
@@ -231,7 +231,7 @@ function StepDzieci({ data, update, onBack, onNext }: {
       <h2 style={{ fontSize: 22, marginBottom: 24 }}>Informacje o dzieciach</h2>
       <div style={{
         padding: '16px 20px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)',
-        borderRadius: 10, fontSize: 13, color: 'var(--color-text-2)', marginBottom: 28, lineHeight: 1.6,
+        borderRadius: 2, fontSize: 13, color: 'var(--color-text-2)', marginBottom: 28, lineHeight: 1.6,
       }}>
         <p>Świadczenie przysługuje gdy {gender ? 'urodziłaś' : 'urodził'} i {gender ? 'wychowała' : 'wychował'} {gender ? 'Pani' : 'Pan'} co najmniej <strong>4 dzieci</strong> i nie {gender ? 'nabyłaś' : 'nabył'} prawa do emerytury lub masz emeryturę poniżej minimum (1978,49 zł od marca 2026).</p>
       </div>
@@ -274,7 +274,7 @@ function StepSytuacja({ data, update, onBack, onNext }: {
         onChange={v => update('blyAreszt', v)}
       />
       {data.blyAreszt && (
-        <div style={{ padding: '16px 20px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 10, marginBottom: 20 }}>
+        <div style={{ padding: '16px 20px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 2, marginBottom: 20 }}>
           <p style={{ fontSize: 12, fontWeight: 600, marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.04em', color: 'var(--color-text-2)' }}>Okresy pobytu (od / do)</p>
           {data.okresy_areszt.map((o, i) => (
             <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 8 }}>
@@ -303,7 +303,7 @@ function StepSytuacja({ data, update, onBack, onNext }: {
         onChange={v => update('zamieszkaWrp', v)}
       />
       {!data.zamieszkaWrp && (
-        <div style={{ padding: '16px 20px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 10, marginBottom: 20 }}>
+        <div style={{ padding: '16px 20px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 2, marginBottom: 20 }}>
           <p style={{ fontSize: 12, fontWeight: 600, marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.04em', color: 'var(--color-text-2)' }}>Okresy pobytu POZA RP (od / do)</p>
           {data.okresy_poza_rp.map((o, i) => (
             <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 8 }}>
@@ -342,7 +342,7 @@ function StepPrzerwy({ data, update, onBack, onNext }: {
       <p style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 24 }}>Jeżeli były przerwy w wychowywaniu dzieci, podaj okresy i przyczyny. Zostaw puste jeżeli nie bylo przerw.</p>
 
       {data.przerwy.map((p, i) => (
-        <div key={i} style={{ padding: '16px 20px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 10, marginBottom: 14 }}>
+        <div key={i} style={{ padding: '16px 20px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 2, marginBottom: 14 }}>
           <p style={{ fontSize: 12, fontWeight: 600, marginBottom: 12, color: 'var(--color-text-2)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Przerwa {i + 1}</p>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 10 }}>
             <div>
@@ -499,7 +499,7 @@ function StepPodgląd({ data, onBack, onDone, onCopy, copied }: {
     <div>
       <h2 style={{ fontSize: 22, marginBottom: 24 }}>Podgląd oświadczenia</h2>
 
-      <div style={{ padding: '20px 24px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 10, marginBottom: 24 }}>
+      <div style={{ padding: '20px 24px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 2, marginBottom: 24 }}>
         <Row label="Imię i nazwisko" value={`${data.imie} ${data.nazwisko}`} />
         <Row label="PESEL" value={data.pesel} mono />
         <Row label="Adres" value={`${data.ulica} ${data.nrDomu}${data.nrLokalu ? '/' + data.nrLokalu : ''}, ${data.kodPocztowy} ${data.miejscowość}`} />
@@ -512,7 +512,7 @@ function StepPodgląd({ data, onBack, onDone, onCopy, copied }: {
 
       <div style={{ display: 'flex', gap: 12, marginBottom: 32 }}>
         <button onClick={onCopy} style={{
-          flex: 1, padding: '13px 24px', borderRadius: 8,
+          flex: 1, padding: '13px 24px', borderRadius: 2,
           border: '1px solid var(--color-accent)', background: 'transparent',
           color: 'var(--color-accent)', fontSize: 14, fontWeight: 600, cursor: 'pointer',
         }}>{copied ? 'Skopiowano!' : 'Kopiuj do schowka'}</button>
@@ -552,23 +552,23 @@ function StepDone({ onCopy, copied, onRestart }: { onCopy: () => void; copied: b
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 400, margin: '0 auto 32px' }}>
         <button onClick={onCopy} style={{
-          padding: '13px 24px', borderRadius: 8,
+          padding: '13px 24px', borderRadius: 2,
           border: '1px solid var(--color-accent)', background: 'var(--color-accent-soft)',
           color: 'var(--color-accent)', fontSize: 14, fontWeight: 600, cursor: 'pointer',
         }}>{copied ? 'Skopiowano!' : 'Kopiuj dane do schowka'}</button>
         <a href="https://www.zus.pl/ezus/logowanie?jezyk=pl" target="_blank" rel="noopener noreferrer" style={{
-          display: 'block', padding: '13px 24px', borderRadius: 8,
+          display: 'block', padding: '13px 24px', borderRadius: 2,
           border: '1px solid var(--color-border)', background: 'var(--color-bg-1)',
           color: 'var(--color-text-1)', fontSize: 14, textDecoration: 'none', textAlign: 'center',
         }}>Przejdź do eZUS (logowanie)</a>
         <button onClick={onRestart} style={{
-          padding: '13px 24px', borderRadius: 8,
+          padding: '13px 24px', borderRadius: 2,
           border: '1px solid var(--color-border)', background: 'transparent',
           color: 'var(--color-text-2)', fontSize: 14, cursor: 'pointer',
         }}>Zacznij od nowa</button>
       </div>
 
-      <div style={{ padding: '16px 20px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 10, fontSize: 13, color: 'var(--color-text-2)', maxWidth: 460, margin: '0 auto', textAlign: 'left', lineHeight: 1.6 }}>
+      <div style={{ padding: '16px 20px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 2, fontSize: 13, color: 'var(--color-text-2)', maxWidth: 460, margin: '0 auto', textAlign: 'left', lineHeight: 1.6 }}>
         <p style={{ fontWeight: 600, marginBottom: 8, color: 'var(--color-text-1)', textTransform: 'uppercase', fontSize: 11, letterSpacing: '0.05em' }}>Co dalej</p>
         <p style={{ marginBottom: 6 }}>1. Pobierz oryginalny formularz ERU ze strony zus.pl/wzory-formularzy</p>
         <p style={{ marginBottom: 6 }}>2. Pobierz formularz ERSU (wniosek glowny). ERU to tylko załącznik</p>
@@ -617,9 +617,7 @@ export default function ZusErsuPage() {
     <div style={{ minHeight: '100vh', background: 'var(--color-bg-0)' }}>
       <header style={{
         position: 'sticky', top: 0, zIndex: 50,
-        background: 'rgba(236,242,236,0.85)',
-        backdropFilter: 'saturate(140%) blur(14px)',
-        WebkitBackdropFilter: 'saturate(140%) blur(14px)',
+        background: 'rgba(246,240,228,0.85)',
         borderBottom: '1px solid var(--color-border)',
       }}>
         <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
@@ -648,7 +646,7 @@ export default function ZusErsuPage() {
       <div style={{ maxWidth: 600, margin: '0 auto', padding: '48px 24px 80px' }}>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-          <span className="mono" style={{ fontSize: 11, color: 'var(--color-accent)', background: 'var(--color-accent-soft)', padding: '3px 8px', borderRadius: 6, fontWeight: 500 }}>ERSU + ERU</span>
+          <span className="mono" style={{ fontSize: 11, color: 'var(--color-accent)', background: 'var(--color-accent-soft)', padding: '3px 8px', borderRadius: 2, fontWeight: 500 }}>ERSU + ERU</span>
           <span style={{ fontSize: 12, color: 'var(--color-text-3)' }}>Zaklad Ubezpieczeń Spolecznych</span>
         </div>
         <h1 className="display" style={{ fontSize: 'clamp(26px, 4vw, 38px)', marginBottom: 8 }}>Mama 4+ / Tata 4+</h1>
@@ -657,7 +655,7 @@ export default function ZusErsuPage() {
         <div style={{
           marginBottom: 32, padding: '20px 24px',
           background: 'var(--color-bg-1)', border: '1px solid var(--color-border)',
-          borderRadius: 12, fontSize: 13, color: 'var(--color-text-2)', lineHeight: 1.7,
+          borderRadius: 2, fontSize: 13, color: 'var(--color-text-2)', lineHeight: 1.7,
           boxShadow: 'var(--shadow-1)',
         }}>
           <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 6, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Dla kogo</p>

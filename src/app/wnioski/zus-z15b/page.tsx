@@ -178,9 +178,7 @@ export default function ZusZ15bPage() {
       {/* Header */}
       <header style={{
         position: 'sticky', top: 0, zIndex: 50,
-        background: 'rgba(236,242,236,0.85)',
-        backdropFilter: 'saturate(140%) blur(14px)',
-        WebkitBackdropFilter: 'saturate(140%) blur(14px)',
+        background: 'rgba(246,240,228,0.85)',
         borderBottom: '1px solid var(--color-border)',
       }}>
         <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
@@ -210,7 +208,7 @@ export default function ZusZ15bPage() {
 
         {/* Title */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-          <span className="mono" style={{ fontSize: 11, color: 'var(--color-accent)', background: 'var(--color-accent-soft)', padding: '3px 8px', borderRadius: 6, fontWeight: 500 }}>Z-15b</span>
+          <span className="mono" style={{ fontSize: 11, color: 'var(--color-accent)', background: 'var(--color-accent-soft)', padding: '3px 8px', borderRadius: 2, fontWeight: 500 }}>Z-15b</span>
           <span style={{ fontSize: 12, color: 'var(--color-text-3)' }}>Zakład Ubezpieczeń Społecznych</span>
         </div>
         <h1 className="display" style={{ fontSize: 'clamp(26px, 4vw, 38px)', marginBottom: 8 }}>Zasiłek opiekuńczy</h1>
@@ -221,7 +219,7 @@ export default function ZusZ15bPage() {
           marginBottom: 32, padding: '20px 24px',
           background: 'var(--color-bg-1)',
           border: '1px solid var(--color-border)',
-          borderRadius: 12, fontSize: 13,
+          borderRadius: 2, fontSize: 13,
           color: 'var(--color-text-2)', lineHeight: 1.7,
           boxShadow: 'var(--shadow-1)',
         }}>
@@ -372,7 +370,7 @@ function StepEzla({ data, update, onBack, onNext }: { data: Z15bData; update: (k
         <Field label="Seria i numer e-ZLA" hint="Opcjonalne. Jeśli lekarz wystawił elektroniczne zwolnienie (e-ZLA) - podaj serię i numer jeśli go pamiętasz. Trafia automatycznie do ZUS.">
           <input className={IC} value={data.numerEzla} onChange={e => update('numerEzla', e.target.value)} placeholder="np. K/12345678" />
         </Field>
-        <div style={{ padding: '12px 16px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 8, fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.6 }}>
+        <div style={{ padding: '12px 16px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 2, fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.6 }}>
           <p style={{ fontWeight: 600, color: 'var(--color-text-2)', marginBottom: 4 }}>e-ZLA</p>
           <p>Zaświadczenie lekarskie wystawione elektronicznie trafia do ZUS automatycznie. Jeśli masz papierowe zaświadczenie, dołącz oryginał do wniosku. Limit zasiłku Z-15b: 14 dni w roku kalendarzowym.</p>
         </div>
@@ -409,7 +407,7 @@ function StepChory({ data, update, onBack, onNext }: { data: Z15bData; update: (
         <Field label="Data urodzenia" hint="DD.MM.RRRR -- podaj jeśli brak PESEL">
           <DateInput className={IC} value={data.dataUrodzChory} onChange={v => update('dataUrodzChory', v)} placeholder="15.03.1950" />
         </Field>
-        <div style={{ padding: '12px 16px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 8, fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.6 }}>
+        <div style={{ padding: '12px 16px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 2, fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.6 }}>
           Czlonkami rodziny objety wnioskiem Z-15b sa: małżonek, rodzice, rodzic dziecka, ojczym, macocha, rodzice adopcyjni, teściowie, dziadkowie, wnuki, rodzeństwo. Muszą prowadzic z Toba wspólne gospodarstwo domowe w okresie sprawowania opieki.
         </div>
       </div>
@@ -462,7 +460,7 @@ function StepOświadczenia({ data, update, onBack, onNext }: { data: Z15bData; u
                 padding: '12px 14px',
                 background: data.zmianaPłatnika === opt.v ? 'color-mix(in srgb, var(--color-accent) 8%, var(--color-bg-1))' : 'var(--color-bg-1)',
                 border: `1px solid ${data.zmianaPłatnika === opt.v ? 'var(--color-accent)' : 'var(--color-border)'}`,
-                borderRadius: 8, cursor: 'pointer',
+                borderRadius: 2, cursor: 'pointer',
               }}>
                 <input type="radio" name="zmianaPłatnika" value={opt.v} checked={data.zmianaPłatnika === opt.v} onChange={() => update('zmianaPłatnika', opt.v)} style={{ accentColor: 'var(--color-accent)' }} />
                 <span style={{ fontSize: 13, color: 'var(--color-text-2)' }}>{opt.label}</span>
@@ -487,7 +485,7 @@ function StepMałżonek({ data, update, onBack, onNext }: { data: Z15bData; upda
         padding: '14px 16px',
         background: data.brakMalzonka ? 'color-mix(in srgb, var(--color-accent) 8%, var(--color-bg-1))' : 'var(--color-bg-1)',
         border: `1px solid ${data.brakMalzonka ? 'var(--color-accent)' : 'var(--color-border)'}`,
-        borderRadius: 8, cursor: 'pointer',
+        borderRadius: 2, cursor: 'pointer',
       }}>
         <input
           type="checkbox"
@@ -541,7 +539,7 @@ function StepPodgląd({ data, onBack, onDone, onDownloadPdf, downloadingPdf, onC
       <h2 style={{ fontSize: 18, fontWeight: 500, color: 'var(--color-text-1)', marginBottom: 24, letterSpacing: '-0.01em' }}>Podgląd wniosku Z-15b</h2>
       <div className="mono" style={{
         background: 'var(--color-bg-1)', border: '1px solid var(--color-border)',
-        borderRadius: 10, padding: '20px 24px',
+        borderRadius: 2, padding: '20px 24px',
         fontSize: 12, color: 'var(--color-text-2)',
         lineHeight: 1.8, whiteSpace: 'pre-wrap',
         boxShadow: 'var(--shadow-1)',
@@ -554,11 +552,11 @@ function StepPodgląd({ data, onBack, onDone, onDownloadPdf, downloadingPdf, onC
           onClick={onDownloadPdf}
           disabled={downloadingPdf}
           className="btn btn-primary"
-          style={{ borderRadius: 8, fontSize: 13, opacity: downloadingPdf ? 0.6 : 1, cursor: downloadingPdf ? 'wait' : 'pointer' }}
+          style={{ borderRadius: 2, fontSize: 13, opacity: downloadingPdf ? 0.6 : 1, cursor: downloadingPdf ? 'wait' : 'pointer' }}
         >
           {downloadingPdf ? 'Generuje PDF...' : 'Pobierz PDF'}
         </button>
-        <button onClick={onCopy} className="btn btn-outline" style={{ borderRadius: 8, fontSize: 13 }}>
+        <button onClick={onCopy} className="btn btn-outline" style={{ borderRadius: 2, fontSize: 13 }}>
           {copied ? 'Skopiowano!' : 'Kopiuj do schowka'}
         </button>
       </div>
@@ -566,7 +564,7 @@ function StepPodgląd({ data, onBack, onDone, onDownloadPdf, downloadingPdf, onC
       <div style={{
         marginTop: 24, padding: '20px 24px',
         background: 'var(--color-bg-1)', border: '1px solid var(--color-border)',
-        borderRadius: 10, fontSize: 13, color: 'var(--color-text-2)',
+        borderRadius: 2, fontSize: 13, color: 'var(--color-text-2)',
         boxShadow: 'var(--shadow-1)',
       }}>
         <p style={{ fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 12, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Co zrobić dalej</p>
@@ -600,11 +598,11 @@ function StepDone({ onDownloadPdf, downloadingPdf, onCopy, copied, onRestart }: 
           onClick={onDownloadPdf}
           disabled={downloadingPdf}
           className="btn btn-primary"
-          style={{ width: '100%', height: 50, borderRadius: 10, fontSize: 14, opacity: downloadingPdf ? 0.6 : 1, cursor: downloadingPdf ? 'wait' : 'pointer' }}
+          style={{ width: '100%', height: 50, borderRadius: 2, fontSize: 14, opacity: downloadingPdf ? 0.6 : 1, cursor: downloadingPdf ? 'wait' : 'pointer' }}
         >
           {downloadingPdf ? 'Generuje PDF...' : 'Pobierz Z-15b (PDF)'}
         </button>
-        <button onClick={onCopy} className="btn btn-outline" style={{ width: '100%', height: 44, borderRadius: 10, fontSize: 13 }}>
+        <button onClick={onCopy} className="btn btn-outline" style={{ width: '100%', height: 44, borderRadius: 2, fontSize: 13 }}>
           {copied ? 'Skopiowano!' : 'Kopiuj dane do schowka'}
         </button>
         <a
@@ -612,7 +610,7 @@ function StepDone({ onDownloadPdf, downloadingPdf, onCopy, copied, onRestart }: 
           target="_blank"
           rel="noopener noreferrer"
           className="btn"
-          style={{ width: '100%', height: 44, borderRadius: 10, fontSize: 13, color: 'var(--color-accent)', border: '1px solid var(--color-accent)', justifyContent: 'center' }}
+          style={{ width: '100%', height: 44, borderRadius: 2, fontSize: 13, color: 'var(--color-accent)', border: '1px solid var(--color-accent)', justifyContent: 'center' }}
         >
           Oryginalny formularz Z-15b na zus.pl
         </a>
@@ -729,7 +727,7 @@ function OświadczenieBlock({ label, hint, value, onChange }: {
             padding: '12px',
             background: value === v ? 'color-mix(in srgb, var(--color-accent) 10%, var(--color-bg-1))' : 'var(--color-bg-1)',
             border: `1px solid ${value === v ? 'var(--color-accent)' : 'var(--color-border)'}`,
-            borderRadius: 8, cursor: 'pointer', fontSize: 13,
+            borderRadius: 2, cursor: 'pointer', fontSize: 13,
             color: value === v ? 'var(--color-text-1)' : 'var(--color-text-2)',
             fontWeight: value === v ? 600 : 400,
           }}>
@@ -748,14 +746,14 @@ function NavButtons({ onBack, onNext, nextLabel = 'Dalej', nextDisabled = false 
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 40, paddingTop: 24, borderTop: '1px solid var(--color-border)' }}>
       {onBack ? (
-        <button onClick={onBack} className="btn btn-ghost" style={{ borderRadius: 8, fontSize: 13 }}>Wstecz</button>
+        <button onClick={onBack} className="btn btn-ghost" style={{ borderRadius: 2, fontSize: 13 }}>Wstecz</button>
       ) : <div />}
       {onNext && (
         <button
           onClick={onNext}
           disabled={nextDisabled}
           className="btn btn-primary"
-          style={{ borderRadius: 999, fontSize: 13, opacity: nextDisabled ? 0.4 : 1, cursor: nextDisabled ? 'not-allowed' : 'pointer' }}
+          style={{ borderRadius: 2, fontSize: 13, opacity: nextDisabled ? 0.4 : 1, cursor: nextDisabled ? 'not-allowed' : 'pointer' }}
         >
           {nextLabel}
         </button>

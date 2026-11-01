@@ -134,7 +134,7 @@ export default function AgentAktualnosci() {
           padding: 14px 18px;
           background: var(--color-bg-1);
           border: 1px solid var(--color-border);
-          border-radius: 10px;
+          border-radius: 2px;
           transition: transform 150ms, box-shadow 150ms, border-color 150ms;
           text-decoration: none;
           display: block;
@@ -142,7 +142,7 @@ export default function AgentAktualnosci() {
         .akt-card:hover {
           transform: translateY(-1px);
           box-shadow: 0 4px 14px rgba(0,0,0,0.06);
-          border-color: rgba(34,160,107,0.3);
+          border-color: rgba(47,125,90,0.3);
         }
       `}</style>
 
@@ -160,23 +160,23 @@ export default function AgentAktualnosci() {
 
       {/* Subscription banner */}
       {!hasSubscription ? (
-        <div style={{ padding: '12px 16px', background: 'rgba(34,160,107,0.06)', border: '1px solid rgba(34,160,107,0.2)', borderRadius: 10, marginBottom: 20, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+        <div style={{ padding: '12px 16px', background: 'rgba(47,125,90,0.06)', border: '1px solid rgba(47,125,90,0.2)', borderRadius: 2, marginBottom: 20, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
           <div style={{ fontSize: 13, color: 'var(--color-text-2)', lineHeight: 1.5 }}>
             Widzisz <strong>wszystkie</strong> aktualności. Możesz wybrać tylko interesujące Cię źródła.
           </div>
-          <Link href="/panel/powiadomienia" style={{ fontSize: 13, color: '#22A06B', textDecoration: 'none', fontWeight: 600, whiteSpace: 'nowrap' }}>
+          <Link href="/panel/powiadomienia" style={{ fontSize: 13, color: '#2b7353', textDecoration: 'none', fontWeight: 600, whiteSpace: 'nowrap' }}>
             Ustaw subskrypcję →
           </Link>
         </div>
       ) : (
-        <div style={{ padding: '10px 16px', background: 'rgba(34,160,107,0.05)', border: '1px solid rgba(34,160,107,0.15)', borderRadius: 10, marginBottom: 20, fontSize: 12, color: 'var(--color-text-2)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+        <div style={{ padding: '10px 16px', background: 'rgba(47,125,90,0.05)', border: '1px solid rgba(47,125,90,0.15)', borderRadius: 2, marginBottom: 20, fontSize: 12, color: 'var(--color-text-2)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
           <span>
             Filtruję wg Twojej subskrypcji
             {sub!.source_ids.length > 0 && ` · źródła: ${sub!.source_ids.length}`}
             {sub!.audiences.length > 0 && ` · grupy: ${sub!.audiences.join(', ')}`}
             {sub!.keywords.length > 0 && ` · słowa: ${sub!.keywords.join(', ')}`}
           </span>
-          <Link href="/panel/powiadomienia" style={{ fontSize: 12, color: '#22A06B', textDecoration: 'none' }}>
+          <Link href="/panel/powiadomienia" style={{ fontSize: 12, color: '#2b7353', textDecoration: 'none' }}>
             Edytuj →
           </Link>
         </div>
@@ -192,7 +192,7 @@ export default function AgentAktualnosci() {
               key={id}
               onClick={() => toggleSource(id)}
               style={{
-                padding: '5px 12px', borderRadius: 6, cursor: 'pointer',
+                padding: '5px 12px', borderRadius: 2, cursor: 'pointer',
                 fontSize: 12, fontWeight: 500,
                 background: checked ? meta.color : 'var(--color-bg-1)',
                 color: checked ? '#fff' : 'var(--color-text-3)',
@@ -209,7 +209,7 @@ export default function AgentAktualnosci() {
           <button
             onClick={() => setFilterOverride(null)}
             style={{
-              padding: '5px 12px', borderRadius: 6, cursor: 'pointer',
+              padding: '5px 12px', borderRadius: 2, cursor: 'pointer',
               fontSize: 12, fontWeight: 500,
               background: 'transparent', color: 'var(--color-text-3)',
               border: '1px dashed var(--color-border)',
@@ -233,7 +233,7 @@ export default function AgentAktualnosci() {
               <a key={item.id} href={item.link} target="_blank" rel="noopener noreferrer" className="akt-card">
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
                   <span style={{
-                    fontSize: 10, padding: '2px 8px', borderRadius: 4,
+                    fontSize: 10, padding: '2px 8px', borderRadius: 2,
                     background: meta?.color ?? '#666', color: '#fff',
                     fontWeight: 600, letterSpacing: '0.03em',
                     fontFamily: 'var(--font-mono)',
@@ -261,7 +261,7 @@ export default function AgentAktualnosci() {
       {/* Disclaimer */}
       <div style={{ marginTop: 28, paddingTop: 16, borderTop: '1px solid var(--color-border)', fontSize: 11, color: 'var(--color-text-3)', lineHeight: 1.6 }}>
         Dane z oficjalnych źródeł rządowych. Aktualizacja: ZUS i GUS - live; pozostałe - 2x dziennie z cache.
-        Subskrypcja w <Link href="/panel/powiadomienia" style={{ color: '#22A06B' }}>powiadomieniach</Link>.
+        Subskrypcja w <Link href="/panel/powiadomienia" style={{ color: '#2b7353' }}>powiadomieniach</Link>.
       </div>
     </div>
   );

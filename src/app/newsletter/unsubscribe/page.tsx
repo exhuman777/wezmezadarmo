@@ -38,8 +38,8 @@ export default async function UnsubscribePage({ searchParams }: Props) {
   const status = params.status ?? 'invalid';
   const msg = MESSAGES[status] ?? MESSAGES.invalid;
 
-  const toneColor = msg.tone === 'success' ? '#22A06B' : msg.tone === 'error' ? '#c0392b' : '#6b7a72';
-  const toneBg = msg.tone === 'success' ? 'rgba(34,160,107,0.08)' : msg.tone === 'error' ? 'rgba(192,57,43,0.06)' : 'var(--color-bg-2)';
+  const toneColor = msg.tone === 'success' ? '#2b7353' : msg.tone === 'error' ? '#b23d30' : '#6f655b';
+  const toneBg = msg.tone === 'success' ? 'rgba(47,125,90,0.08)' : msg.tone === 'error' ? 'rgba(192,57,43,0.06)' : 'var(--color-bg-2)';
 
   return (
     <main style={{ minHeight: 'calc(100vh - 200px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 20px' }}>
@@ -48,14 +48,14 @@ export default async function UnsubscribePage({ searchParams }: Props) {
           padding: '32px 36px',
           background: 'var(--color-surface)',
           border: '1px solid var(--color-border)',
-          borderRadius: 14,
+          borderRadius: 2,
         }}>
           <div style={{
             display: 'inline-block',
             padding: '4px 12px',
             background: toneBg,
             color: toneColor,
-            borderRadius: 999,
+            borderRadius: 2,
             fontSize: 11,
             fontWeight: 600,
             letterSpacing: '0.08em',
@@ -90,7 +90,7 @@ export default async function UnsubscribePage({ searchParams }: Props) {
               padding: '12px 24px',
               background: 'var(--color-text-1)',
               color: 'var(--color-bg-0)',
-              borderRadius: 10,
+              borderRadius: 2,
               fontSize: 14,
               fontWeight: 500,
               textDecoration: 'none',
@@ -103,7 +103,7 @@ export default async function UnsubscribePage({ searchParams }: Props) {
                 background: 'transparent',
                 color: 'var(--color-text-1)',
                 border: '1px solid var(--color-border)',
-                borderRadius: 10,
+                borderRadius: 2,
                 fontSize: 14,
                 fontWeight: 500,
                 textDecoration: 'none',

@@ -12,7 +12,7 @@ export function ThemeToggle({ theme, onToggle }: ThemeToggleProps) {
       aria-label={theme === 'light' ? 'Tryb ciemny' : 'Tryb jasny'}
       style={{
         width: 40, height: 40,
-        borderRadius: 999,
+        borderRadius: 2,
         border: '1px solid var(--color-border)',
         background: 'var(--color-surface)',
         display: 'inline-flex',

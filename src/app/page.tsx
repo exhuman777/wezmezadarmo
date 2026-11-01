@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import { IntakeForm } from '@/components/IntakeForm';
 import { ChatWindow, ChatMessage } from '@/components/ChatWindow';
 import { MatchResult, UserProfile } from '@/engine/types';
@@ -27,17 +26,6 @@ const CATEGORIES = (() => {
     .map(([id, count]) => ({ id: id.toLowerCase(), label: CATEGORY_LABELS[id] ?? id, count }))
     .sort((a, b) => b.count - a.count);
 })();
-
-const EXAMPLE_BENEFITS = [
-  { nazwa: 'Świadczenie 800+', kwota: '800 PLN/mies.', opis: 'Na każde dziecko do 18 roku życia, bez progu dochodowego' },
-  { nazwa: 'Bon ciepłowniczy', kwota: 'do 3500 PLN', opis: 'Świadczenie dla odbiorców ciepła systemowego (nabór od lipca 2026)' },
-  { nazwa: 'Ulga na dziecko (PIT)', kwota: 'do 2700 PLN/rok', opis: 'Odliczenie od podatku za każde dziecko' },
-  { nazwa: 'Dodatek mieszkaniowy', kwota: 'do 1500 PLN/mies.', opis: 'Dopłata do czynszu przy niskim dochodzie' },
-  { nazwa: 'Refundacja okularów (NFZ)', kwota: 'do 500 PLN', opis: 'Dofinansowanie do soczewek i oprawek' },
-  { nazwa: 'Zasiłek pogrzebowy', kwota: '7000 PLN', opis: 'Jednorazowe świadczenie na pokrycie kosztów pogrzebu (od 2026 r.)' },
-  { nazwa: 'Trzynasta emerytura', kwota: '1978 PLN brutto', opis: 'Dodatkowe roczne świadczenie dla emerytów i rencistów (kwiecień 2026)' },
-  { nazwa: 'Becikowe', kwota: '1000 PLN', opis: 'Jednorazowa zapomoga z tytułu urodzenia dziecka' },
-];
 
 interface QualifyingQuestion {
   id: string;
@@ -175,31 +163,6 @@ const QUESTIONS: QualifyingQuestion[] = [
   },
 ];
 
-/* ---- CountUp ticker ---- */
-function CountUp({ to, suffix = '', delay = 0 }: { to: number; suffix?: string; delay?: number }) {
-  const [val, setVal] = useState(0);
-  useEffect(() => {
-    let raf: number;
-    let t0: number;
-    const duration = 1400;
-    const easing = (t: number) => 1 - Math.pow(1 - t, 3);
-    const start = () => {
-      t0 = performance.now();
-      const tick = (t: number) => {
-        const p = Math.min(1, (t - t0) / duration);
-        setVal(Math.round(to * easing(p)));
-        if (p < 1) raf = requestAnimationFrame(tick);
-      };
-      raf = requestAnimationFrame(tick);
-    };
-    const id = setTimeout(start, delay);
-    return () => { clearTimeout(id); cancelAnimationFrame(raf); };
-  }, [to, delay]);
-  return <span>{val}{suffix}</span>;
-}
-
-/* ---- FlagStripe + Logo removed: no longer used (SiteNav in root layout) ---- */
-
 /* ---- Chip ---- */
 function Chip({ children, tone = 'default', mono = false }: { children: React.ReactNode; tone?: string; mono?: boolean }) {
   const tones: Record<string, { bg: string; color: string; border: string }> = {
@@ -218,7 +181,7 @@ function Chip({ children, tone = 'default', mono = false }: { children: React.Re
       background: t.bg,
       color: t.color,
       border: `1px solid ${t.border}`,
-      borderRadius: 999,
+      borderRadius: 2,
       fontSize: 11,
       fontWeight: 500,
       letterSpacing: mono ? '0.04em' : '-0.005em',
@@ -233,21 +196,6 @@ function Chip({ children, tone = 'default', mono = false }: { children: React.Re
 /* ---- TopBar removed: SiteNav is in root layout ---- */
 
 /* ---- Icons ---- */
-const IconLock = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>
-  </svg>
-);
-const IconShield = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 3l8 4v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/>
-  </svg>
-);
-const IconCheck = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M5 12l5 5L20 7"/>
-  </svg>
-);
 const IconArrowRight = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
     <path d="M5 12h14M13 6l6 6-6 6"/>
@@ -633,773 +581,112 @@ export default function Home() {
 
   // ===================== LANDING =====================
   if (phase === 'landing') {
+    const shareText = 'Sprawdź, co Ci się należy od państwa. wezmezadarmo.com: świadczenia, ulgi i dotacje w jednym miejscu. Bez logowania, za darmo.';
     return (
-      <div style={{ minHeight: '100vh' }}>
+      <div className="prosta">
 
-        {/* Hero -- dark green gradient */}
-        <section style={{
-          padding: 'clamp(40px, 6vw, 72px) 0 clamp(96px, 10vw, 140px)',
-          position: 'relative', overflow: 'hidden',
-          background: `radial-gradient(800px 500px at 80% 20%, rgba(34,160,107,.25), transparent 60%), radial-gradient(600px 400px at 20% 80%, rgba(78,196,138,.18), transparent 60%), var(--green-950)`,
-          borderRadius: '0 0 24px 24px',
-        }}>
-          {/* Gradient glow */}
-          <div style={{ position: 'absolute', top: '20%', left: '60%', width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(34,160,107,0.15) 0%, transparent 70%)', pointerEvents: 'none' }} />
-          <div className="wrap" style={{ position: 'relative' }}>
-            <div className="grid-hero" style={{ display: 'grid', gridTemplateColumns: '1.15fr .85fr', gap: 'clamp(24px, 4vw, 64px)', alignItems: 'center' }}>
-              {/* Left -- copy */}
-              <div className="stack-32">
-                <div className="mono" style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(142,234,173,0.7)' }}>
-                  SPRAWDŹ SWOJE ŚWIADCZENIA
-                </div>
-                <h1 style={{ maxWidth: 760, color: '#fff' }}>
-                  Sprawdź co Ci się&nbsp;<span style={{ color: 'var(--green-300)' }}>należy</span>.
-                  <br />
-                  <span style={{ fontSize: '0.78em', color: 'rgba(255,255,255,0.6)', fontWeight: 400 }}>
-                    Szybko, bez rejestracji, bez czekania.
-                  </span>
-                </h1>
-                <p style={{ maxWidth: 560, fontSize: 18, color: 'rgba(255,255,255,0.7)', lineHeight: 1.55 }}>
-                  Łatwo sprawdź wstępnie czy są jakieś świadczenia, które mogą Ci przysługiwać.
-                  Ta strona to projekt prywatny, nie rządowy.
-                </p>
-                <div className="row-12 gap-wrap">
-                  <a href="#formularz" style={{
-                    display: 'inline-flex', alignItems: 'center', gap: 8,
-                    padding: '12px 24px', borderRadius: 10,
-                    background: 'var(--green-500)', color: '#fff',
-                    fontSize: 15, fontWeight: 500, textDecoration: 'none',
-                    transition: 'opacity 200ms',
-                  }}>
-                    Zacznij sprawdzanie <IconArrowRight />
-                  </a>
-                  <a href="/dla-firm" style={{
-                    display: 'inline-flex', alignItems: 'center', gap: 8,
-                    padding: '12px 24px', borderRadius: 10,
-                    border: '1px solid rgba(255,255,255,0.25)', color: 'rgba(255,255,255,0.85)',
-                    fontSize: 15, textDecoration: 'none',
-                    transition: 'border-color 200ms',
-                  }}>
-                    Jestem firmą &rarr;
-                  </a>
-                </div>
-              </div>
-
-              {/* Right -- hero visual: staggered card stack */}
-              <div className="glow hide-mobile" style={{ position: 'relative', minHeight: 520 }}>
-                <div style={{
-                  position: 'absolute', inset: 0,
-                  background: 'radial-gradient(60% 60% at 60% 40%, rgba(34,160,107,.18), transparent 70%)',
-                  pointerEvents: 'none', zIndex: 0,
-                }} />
-
-                {/* Search/assistant pill */}
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    const trimmed = heroQuery.trim();
-                    router.push(trimmed ? `/agent?q=${encodeURIComponent(trimmed)}` : '/agent');
-                  }}
-                  style={{
-                    position: 'relative', zIndex: 6,
-                    background: 'white', borderRadius: 14, padding: '12px 16px',
-                    boxShadow: 'var(--shadow-md)',
-                    display: 'flex', alignItems: 'center', gap: 10,
-                    marginBottom: 32,
-                  }}
-                >
-                  <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'var(--green-500)', flexShrink: 0, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'var(--green-950)' }}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M12 3v3m0 12v3m-7-9H2m20 0h-3M5.6 5.6l2.1 2.1m8.6 8.6l2.1 2.1m0-12.8l-2.1 2.1M7.7 16.3l-2.1 2.1" /></svg>
-                  </div>
-                  <input
-                    type="text"
-                    value={heroQuery}
-                    onChange={(e) => setHeroQuery(e.target.value)}
-                    placeholder="Jakie świadczenia mi przysługują?"
-                    style={{
-                      flex: 1, minWidth: 0, fontSize: 14, fontFamily: 'var(--f-mono)',
-                      border: 'none', outline: 'none', background: 'transparent',
-                      color: 'var(--ink-900)',
-                    }}
-                  />
-                  <button type="submit" className="btn btn-primary btn-sm" style={{ padding: '8px 12px', flexShrink: 0, cursor: 'pointer' }}>Zapytaj AI</button>
-                </form>
-
-                {/* Staggered benefit cards */}
-                <div style={{ position: 'relative', zIndex: 4, display: 'flex', flexDirection: 'column', gap: 16 }}>
-                  {[
-                    { tag: 'ZUS', title: 'Świadczenie 800+', amt: '800 PLN/mies.', cat: 'Rodzina', color: 'var(--green-100)', tone: 'var(--green-800)' },
-                    { tag: 'NFZ', title: 'Refundacja okularów', amt: 'do 500 PLN', cat: 'Zdrowie', color: 'var(--paper-2)', tone: 'var(--ink-900)' },
-                    { tag: 'PIT', title: 'Ulga na dziecko', amt: 'do 2700 PLN/rok', cat: 'Podatki', color: 'var(--red-100)', tone: 'var(--red-700)' },
-                    { tag: 'PFRON', title: 'Dodatek mieszkaniowy', amt: 'do 1500 PLN/mies.', cat: 'Mieszkanie', color: 'white', tone: 'var(--green-800)' },
-                  ].map((c, i) => (
-                    <div key={i} className={i === 0 ? 'float-1' : i === 1 ? 'float-2' : i === 2 ? 'float-3' : ''} style={{
-                      background: c.color,
-                      borderRadius: 18,
-                      padding: '20px 22px',
-                      boxShadow: i === 0 ? 'var(--shadow-lg)' : 'var(--shadow-md)',
-                      transform: `translateX(${[0, 44, 12, 60][i]}px) rotate(${[-1.2, 1.1, -0.6, 0.8][i]}deg)`,
-                      border: '1px solid rgba(8,17,13,.05)',
-                      marginRight: [60, 0, 40, 0][i],
-                    }}>
-                      <div className="row-8" style={{ marginBottom: 10, justifyContent: 'space-between' }}>
-                        <span className="chip chip-mono" style={{ background: 'rgba(255,255,255,.7)', color: c.tone, whiteSpace: 'nowrap' }}>{c.tag}</span>
-                        <span className="mono" style={{ fontSize: 11, color: 'var(--ink-500)', whiteSpace: 'nowrap' }}>{c.cat}</span>
-                      </div>
-                      <div style={{ fontSize: 18, fontWeight: 500, letterSpacing: '-0.015em', marginBottom: 8 }}>{c.title}</div>
-                      <div className="row-8" style={{ justifyContent: 'space-between', flexWrap: 'wrap', gap: 6 }}>
-                        <span style={{ fontSize: 22, fontWeight: 500, color: c.tone, letterSpacing: '-0.02em', whiteSpace: 'nowrap' }}>{c.amt}</span>
-                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 12, fontFamily: 'var(--f-mono)', color: 'var(--ink-600)', whiteSpace: 'nowrap' }}>
-                          <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--green-500)' }} /> dostępne
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+        {/* Gra na start */}
+        <section className="prosta-blok" aria-labelledby="gra-tytul" style={{ padding: 0 }}>
+          <h1 id="gra-tytul" style={{ fontSize: 'clamp(26px, 5vw, 36px)' }}>Należy Ci się. Zagraj i sprawdź.</h1>
+          <div className="gra-pelna" style={{ marginTop: 16 }}>
+            <div className="gra-ramka">
+              <iframe
+                src="/gra/index.html"
+                title="Gra Należy Ci się: dopasuj świadczenia do osób"
+                loading="eager"
+                allow="autoplay"
+              />
             </div>
           </div>
-          {/* Gradient fade -- clipped by section's overflow:hidden + borderRadius */}
-          <div style={{
-            position: 'absolute', bottom: 0, left: 0, right: 0,
-            height: 64,
-            background: 'linear-gradient(to bottom, transparent 0%, rgba(240,246,241,0.85) 65%, #f0f6f1 100%)',
-            pointerEvents: 'none',
-          }} />
-        </section>
-
-        <section style={{ position: 'relative', paddingTop: 0, paddingBottom: 80 }}>
-          <div className="grain-bg" />
-          <div className="wrap" style={{ position: 'relative' }}>
-
-            {/* Form + info section */}
-            <div id="formularz" className="grid-hero" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'clamp(24px, 4vw, 48px)', alignItems: 'start', marginBottom: 'clamp(32px, 5vw, 64px)' }}>
-
-              {/* LEFT: stats + trust */}
-              <div>
-                {/* Opis w boksie */}
-                <div className="rise" style={{
-                  background: 'var(--color-surface)',
-                  border: '1px solid var(--color-border)',
-                  borderRadius: 16,
-                  padding: '24px',
-                  marginBottom: 20,
-                  animationDelay: '60ms',
-                  boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
-                }}>
-                  <p style={{
-                    maxWidth: 480,
-                    fontSize: 15, lineHeight: 1.65,
-                    color: 'var(--color-text-2)',
-                    margin: 0,
-                  }}>
-                    Polska ma ponad 133 świadczeń, ulg i dotacji wartych miliardy złotych rocznie.
-                    Większość ludzi nie wie, że im przysługują.
-                    Na tej stronie sprawdzisz to szybko i za darmo. W dwie minuty, bez zakładania konta.
-                  </p>
-                  <div style={{
-                    marginTop: 14, fontSize: 12, color: 'var(--color-text-3)',
-                    fontFamily: 'var(--font-mono)', letterSpacing: '0.02em',
-                  }}>
-                    Aktualizacja bazy: lipiec 2026 · 133 świadczeń · 23 programy dotacyjne · 11 narzędzi Centrum Obywatela
-                  </div>
-                </div>
-
-                {/* Stat counters w boksie */}
-                <div className="rise" style={{
-                  background: 'var(--color-surface)',
-                  border: '1px solid var(--color-border)',
-                  borderRadius: 16,
-                  padding: '20px 24px',
-                  marginBottom: 20,
-                  animationDelay: '120ms',
-                  boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
-                }}>
-                  <div className="grid-stats" style={{
-                    display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)',
-                    gap: 0,
-                  }}>
-                    {[
-                      { n: 133, suf: '', lbl: 'świadczeń w bazie' },
-                      { n: 23, suf: '', lbl: 'programy dotacyjne B2B' },
-                      { n: 11, suf: '', lbl: 'narzędzi Centrum Obywatela' },
-                    ].map((s, i) => (
-                      <div key={i} style={{ borderLeft: i ? '1px solid var(--color-border)' : 'none', paddingLeft: i ? 'clamp(12px, 2vw, 28px)' : 0 }}>
-                        <div className="mono" style={{ fontSize: 11, color: 'var(--color-text-3)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 8 }}>
-                          {String(i + 1).padStart(2, '0')}
-                        </div>
-                        <div style={{
-                          fontSize: 'clamp(32px, 4vw, 48px)', fontWeight: 400, letterSpacing: '-0.04em',
-                          lineHeight: 1, color: 'var(--color-text-1)',
-                          fontVariantNumeric: 'tabular-nums',
-                        }}>
-                          <CountUp to={s.n} suffix={s.suf} delay={300 + i * 120} />
-                        </div>
-                        <div style={{ fontSize: 12, color: 'var(--color-text-3)', marginTop: 8 }}>{s.lbl}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Trust row w boksie */}
-                <div className="rise" style={{
-                  background: 'var(--color-surface)',
-                  border: '1px solid var(--color-border)',
-                  borderRadius: 16,
-                  padding: '16px 24px',
-                  animationDelay: '180ms',
-                  boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
-                }}>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                    {[
-                      { label: 'Bez rejestracji i konta', icon: <IconLock /> },
-                      { label: 'Kalkulator bez bazy danych', icon: <IconShield /> },
-                      { label: 'Połączenie HTTPS', icon: <IconCheck /> },
-                    ].map((item, i) => (
-                      <a key={i} href="/o-projekcie" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, fontSize: 13, color: 'var(--color-text-2)', textDecoration: 'none' }}>
-                        <span style={{ color: 'var(--color-green)', display: 'inline-flex', flexShrink: 0 }}>{item.icon}</span>
-                        {item.label}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* RIGHT -- form card */}
-              <div className="rise hero-form-col" style={{ animationDelay: '300ms', position: 'relative' }}>
-                <div className="hero-form-card" style={{
-                  background: 'var(--color-surface)',
-                  border: '1px solid var(--color-border)',
-                  borderRadius: 'var(--radius-xl)',
-                  boxShadow: 'var(--shadow-3)',
-                  padding: 32,
-                  position: 'relative',
-                  overflow: 'hidden',
-                }}>
-                  {/* Polish flag top accent */}
-                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 4, display: 'flex' }}>
-                    <div style={{ flex: 1, background: '#fff' }} />
-                    <div style={{ flex: 1, background: 'var(--color-pl-red)' }} />
-                  </div>
-
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 28 }}>
-                    <span className="label-eyebrow">Formularz | krok 1 / 3</span>
-                  </div>
-
-                  <h3 style={{ fontSize: 22, marginBottom: 6, letterSpacing: '-0.02em' }}>Podaj swoje dane</h3>
-                  <p style={{ fontSize: 13, color: 'var(--color-text-3)', marginBottom: 24 }}>
-                    Wiek i płeć wystarczą do dopasowania świadczeń.
-                  </p>
-
-                  <IntakeForm onSubmit={handleIntakeSubmit} isLoading={isLoading} />
-
-                  <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 18, fontSize: 13 }}>
-                    <a className="link-u" href="/swiadczenia" style={{ color: 'var(--color-accent)' }}>
-                      Przegladaj baze <IconArrowRight />
-                    </a>
-                  </div>
-                </div>
-
-                {/* Disclaimer callout */}
-                <div style={{
-                  marginTop: 16,
-                  padding: '14px 18px',
-                  border: '1px solid var(--color-border)',
-                  borderRadius: 14,
-                  background: 'var(--color-surface)',
-                  fontSize: 13, color: 'var(--color-text-3)',
-                  display: 'flex', alignItems: 'center', gap: 10,
-                }}>
-                  <IconLock />
-                  Informacja orientacyjna, nie decyzja urzędowa. Weryfikuj na stronach źródłowych.
-                </div>
-              </div>
-            </div>
-
-            {/* Photo strip */}
-            <div className="rise" style={{ marginTop: 64, animationDelay: '380ms' }}>
-              <div className="grid-photos" style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1.35fr 1fr',
-                gap: 12,
-                alignItems: 'flex-end',
-              }}>
-                <div style={{ position: 'relative', height: 220, borderRadius: 14, overflow: 'hidden', flexShrink: 0 }}>
-                  <Image
-                    src="/foto-rodzina.png"
-                    alt="Seniorka z pomocą bliskich sprawdza przysługujące świadczenia"
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    style={{ objectFit: 'cover', filter: 'brightness(0.92) saturate(0.9)' }}
-                  />
-                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,18,10,0.75) 0%, transparent 50%)' }} />
-                  <div style={{ position: 'absolute', bottom: 14, left: 14, right: 14 }}>
-                    <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--green-300)', marginBottom: 4, textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>Dla seniorów i rodzin</div>
-                    <div style={{ fontSize: 13, color: '#fff', lineHeight: 1.4 }}>Każde pokolenie może skorzystać</div>
-                  </div>
-                </div>
-                <div style={{ position: 'relative', height: 260, borderRadius: 14, overflow: 'hidden', flexShrink: 0 }}>
-                  <Image
-                    src="/foto-biuro.jpg"
-                    alt="Zespół w pracy sprawdza dostępne świadczenia i ulgi"
-                    fill
-                    sizes="(max-width: 768px) 100vw, 40vw"
-                    style={{ objectFit: 'cover', filter: 'brightness(0.9) saturate(0.9)' }}
-                  />
-                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,18,10,0.75) 0%, transparent 55%)' }} />
-                  <div style={{ position: 'absolute', bottom: 14, left: 14, right: 14 }}>
-                    <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--green-300)', marginBottom: 4, textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>Dla firm i pracowników</div>
-                    <div style={{ fontSize: 13, color: '#fff', lineHeight: 1.4 }}>Świadczenia, do których pracownicy mają prawo</div>
-                  </div>
-                </div>
-                <div style={{ position: 'relative', height: 220, borderRadius: 14, overflow: 'hidden', flexShrink: 0 }}>
-                  <Image
-                    src="/foto-nowy.png"
-                    alt="Mężczyzna sprawdza przysługujące mu świadczenia"
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    style={{ objectFit: 'cover', filter: 'brightness(0.9) saturate(0.9)' }}
-                  />
-                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,18,10,0.75) 0%, transparent 55%)' }} />
-                  <div style={{ position: 'absolute', bottom: 14, left: 14, right: 14 }}>
-                    <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--green-300)', marginBottom: 4, textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>Asystent AI</div>
-                    <div style={{ fontSize: 13, color: '#fff', lineHeight: 1.4 }}>Odpowie na każde pytanie o świadczenia</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Example benefits */}
-            <div className="rise" style={{ marginTop: 80, animationDelay: '420ms' }}>
-              <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 20 }}>
-                <span className="label-eyebrow">Przykładowe świadczenia</span>
-                <span className="label-eyebrow" style={{ color: 'var(--color-muted-2)' }}>3 z 133</span>
-              </div>
-              <div className="grid-benefits" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
-                {EXAMPLE_BENEFITS.slice(0, 3).map((b, i) => {
-                  const icons = ['8', 'R', 'U'];
-                  return (
-                  <a key={i} href="/swiadczenia" className="hover-lift" style={{
-                    background: 'var(--color-surface)',
-                    border: '1px solid var(--color-border)',
-                    borderRadius: 16,
-                    padding: '22px',
-                    display: 'flex', flexDirection: 'column', gap: 12,
-                    textDecoration: 'none', color: 'inherit', cursor: 'pointer',
-                  }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                      <span style={{ width: 38, height: 38, borderRadius: '50%', background: 'var(--green-950)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-mono)', fontSize: 14, fontWeight: 600, flexShrink: 0 }}>{icons[i]}</span>
-                      <div style={{ fontSize: 16, fontWeight: 600, letterSpacing: '-0.015em', color: 'var(--color-text-1)' }}>{b.nazwa}</div>
-                    </div>
-                    <p style={{ fontSize: 13, color: 'var(--color-text-3)', lineHeight: 1.5, flex: 1 }}>{b.opis}</p>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                        <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--color-green)', flexShrink: 0 }} />
-                        <div className="mono" style={{ fontSize: 20, fontWeight: 500, letterSpacing: '-0.02em', color: 'var(--color-text-1)' }}>{b.kwota}</div>
-                      </div>
-                      <span className="mono" style={{ fontSize: 10, padding: '3px 10px', border: '1px solid var(--color-border)', borderRadius: 999, color: 'var(--color-text-3)' }}>Sprawdź</span>
-                    </div>
-                  </a>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* ---- Wnioski ZUS ---- */}
-            <div className="rise" style={{ marginTop: 80, animationDelay: '460ms' }}>
-              <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 20 }}>
-                <span className="label-eyebrow">Wnioski ZUS</span>
-                <span className="label-eyebrow" style={{ color: 'var(--color-muted-2)' }}>Bezpłatne</span>
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))', gap: 12 }}>
-
-                {/* Card: Wnioski ZUS */}
-                <a href="/wnioski" className="hover-lift" style={{
-                  background: 'var(--color-surface)',
-                  border: '1px solid var(--color-border)',
-                  borderRadius: 16,
-                  padding: '24px',
-                  display: 'flex', flexDirection: 'column', gap: 14,
-                  textDecoration: 'none', color: 'inherit',
-                }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-                    <span style={{ width: 40, height: 40, borderRadius: '50%', background: 'var(--green-950)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-mono)', fontSize: 15, fontWeight: 600, flexShrink: 0 }}>W</span>
-                    <div>
-                      <div style={{ fontSize: 16, fontWeight: 600, letterSpacing: '-0.015em', color: 'var(--color-text-1)' }}>
-                        Wypełnij wniosek ZUS
-                      </div>
-                      <div style={{ fontSize: 12, color: 'var(--color-text-3)', marginTop: 2 }}>Kreator formularzy z PDF</div>
-                    </div>
-                  </div>
-                  <p style={{ fontSize: 13, color: 'var(--color-text-3)', lineHeight: 1.55, flex: 1, margin: 0 }}>
-                    Kreator pyta o Twoje dane krok po kroku i wypełnia formularz ZUS.
-                    Na końcu generuje PDF, który drukujesz i składasz osobiście lub wysyłasz pocztą.
-                  </p>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 'auto' }}>
-                    {['Z-15a', 'Z-15b', 'Z-3', 'ERPO', 'ZAS-53', 'PEL'].map(sym => (
-                      <span key={sym} className="mono" style={{
-                        fontSize: 10, padding: '3px 8px',
-                        border: '1px solid var(--color-border)',
-                        borderRadius: 999, color: 'var(--color-text-3)',
-                      }}>{sym}</span>
-                    ))}
-                  </div>
-                </a>
-
-              </div>
-            </div>
-
-            {/* Jak to działa -- 3 steps */}
-            <div className="rise" style={{ marginTop: 'clamp(48px, 7vw, 96px)', animationDelay: '475ms' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-                <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#c44', flexShrink: 0 }} />
-                <span className="mono" style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-text-3)', fontWeight: 600 }}>Jak to działa</span>
-              </div>
-              <h2 style={{ fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 700, letterSpacing: '-0.03em', lineHeight: 1.1, marginBottom: 'clamp(24px, 4vw, 48px)', color: 'var(--color-text-1)' }}>
-                Trzy kroki. Dwie minuty.<br /><span style={{ color: '#c44' }}>Zero opłat.</span>
-              </h2>
-              <div className="steps-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 0 }}>
-                {[
-                  { num: '01', title: 'Podaj minimum danych', desc: 'Wiek i płeć wystarczą. Opcjonalnie NIP, jeśli prowadzisz firmę - wtedy sprawdzimy też świadczenia i ulgi dla JDG.', iconPath: 'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 5v5l4 2' },
-                  { num: '02', title: 'Odpowiedz na 11 pytań', desc: 'Stan cywilny, dzieci, dochód, zatrudnienie, niepełnosprawność, mieszkanie, województwo. Klikasz, nie piszesz.', iconPath: 'M13 2L3 14h9l-1 8 10-12h-9l1-8' },
-                  { num: '03', title: 'Dostań spersonalizowaną listę', desc: 'Kwoty, dokumenty, kroki i pułapki. Pobierasz .MD lub PDF. Pytasz asystenta o szczegóły.', iconPath: 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6 M16 13H8 M16 17H8 M10 9H8' },
-                ].map((step, i) => (
-                  <div key={step.num} style={{
-                    padding: '0 clamp(12px, 2vw, 28px) 32px',
-                    borderRight: i < 2 ? '1px solid var(--color-border)' : 'none',
-                  }}>
-                    {/* Progress bar */}
-                    <div style={{ height: 3, background: i === 0 ? 'var(--green-500)' : 'var(--color-border)', borderRadius: 2, marginBottom: 24 }} />
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
-                      <span className="mono" style={{ fontSize: 13, color: 'var(--color-text-3)', fontWeight: 500 }}>{step.num}</span>
-                      <span style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--green-950)', color: 'var(--green-300)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d={step.iconPath} /></svg>
-                      </span>
-                    </div>
-                    <h3 style={{ fontSize: 18, fontWeight: 600, letterSpacing: '-0.02em', marginBottom: 10, color: 'var(--color-text-1)' }}>{step.title}</h3>
-                    <p style={{ fontSize: 14, color: 'var(--color-text-3)', lineHeight: 1.6, margin: 0 }}>{step.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* OKI section */}
-            <div className="rise" style={{ marginTop: 80, animationDelay: '480ms' }}>
-              <div style={{
-                background: 'var(--color-surface)',
-                border: '1px solid var(--color-border)',
-                borderRadius: 'var(--radius-xl)',
-                padding: '32px',
-                boxShadow: 'var(--shadow-2)',
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
-                  <span className="label-eyebrow" style={{ color: 'var(--color-green)' }}>Czy wiesz?</span>
-                  <span style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
-                </div>
-                <h3 style={{ fontSize: 24, letterSpacing: '-0.025em', marginBottom: 12 }}>
-                  OKI: 100{'\u00A0'}000 PLN wolne od podatku
-                </h3>
-                <p style={{ fontSize: 15, color: 'var(--color-text-2)', lineHeight: 1.55, marginBottom: 16, maxWidth: 680 }}>
-                  Ogólnopolskie Konto Inwestycyjne: sposób na inwestowanie bez podatku Belki (19%).
-                  Do <strong>100{'\u00A0'}000{'\u00A0'}PLN rocznie</strong> bez ani złotówki podatku od zysków.
-                </p>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                  {[
-                    'ETF-y na Bitcoin, złoto, S&P 500 lub inne aktywa',
-                    'Limit 100 000 PLN rocznie, odnawialny co roku',
-                    'Zyski całkowicie zwolnione z podatku',
-                  ].map((item, i) => (
-                    <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'center', fontSize: 14, color: 'var(--color-text-2)' }}>
-                      <span style={{ color: 'var(--color-accent)', display: 'inline-flex' }}><IconArrowRight /></span>
-                      {item}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-            {/* Testimonials */}
-            <div className="rise" style={{ marginTop: 80, animationDelay: '540ms' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
-                <span className="label-eyebrow">Co mówią użytkownicy</span>
-                <span style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))', gap: 16 }}>
-
-                {/* Testimonial 1 */}
-                <div style={{
-                  background: 'var(--color-surface)',
-                  border: '1px solid var(--color-border)',
-                  borderRadius: 16,
-                  padding: '20px 22px',
-                  display: 'flex', flexDirection: 'column', gap: 14,
-                }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                    <div style={{
-                      width: 36, height: 36, borderRadius: '50%',
-                      background: 'var(--color-accent-soft)',
-                      border: '1px solid var(--color-border)',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      fontSize: 14, fontWeight: 600, color: 'var(--color-accent)',
-                      flexShrink: 0,
-                    }}>A</div>
-                    <div>
-                      <div style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-text-1)' }}>Mikka</div>
-                      <div style={{ fontSize: 11, color: 'var(--color-text-3)' }}>użytkowniczka</div>
-                    </div>
-                  </div>
-                  <p style={{ fontSize: 14, lineHeight: 1.6, color: 'var(--color-text-2)', margin: 0 }}>
-                    &ldquo;Byłam wczoraj służbowo w takim stowarzyszeniu i poleciłam im wezmezadarmo.com.
-                    I koleś który tam pracuje był tak wdzięczny, że trudno opisać.
-                    Polecam polecać.&rdquo;
-                  </p>
-                  <div style={{ display: 'flex', gap: 6, alignItems: 'center', marginTop: 'auto', paddingTop: 10, borderTop: '1px solid var(--color-border)' }}>
-                    <span style={{ fontSize: 11, color: 'var(--color-text-3)' }}>3 polubienia</span>
-                    <span style={{ fontSize: 11, color: 'var(--color-muted-2)' }}>08:12</span>
-                  </div>
-                </div>
-
-                {/* Testimonial 2 */}
-                <div style={{
-                  background: 'var(--color-surface)',
-                  border: '1px solid var(--color-border)',
-                  borderRadius: 16,
-                  padding: '20px 22px',
-                  display: 'flex', flexDirection: 'column', gap: 14,
-                }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                    <div style={{
-                      width: 36, height: 36, borderRadius: '50%',
-                      background: 'var(--color-green-bg)',
-                      border: '1px solid var(--color-green-border)',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      fontSize: 14, fontWeight: 600, color: 'var(--color-green)',
-                      flexShrink: 0,
-                    }}>M</div>
-                    <div>
-                      <div style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-text-1)' }}>Marek</div>
-                      <div style={{ fontSize: 11, color: 'var(--color-text-3)' }}>użytkownik</div>
-                    </div>
-                  </div>
-                  <p style={{ fontSize: 14, lineHeight: 1.6, color: 'var(--color-text-2)', margin: 0 }}>
-                    &ldquo;Ooo, przysługuje mi: Refundacja okularów i soczewek z NFZ
-                    50&ndash;700 PLN na okulary, do 600 PLN na soczewki kontaktowe.&rdquo;
-                  </p>
-                  <div style={{ display: 'flex', gap: 6, alignItems: 'center', marginTop: 'auto', paddingTop: 10, borderTop: '1px solid var(--color-border)' }}>
-                    <span style={{ fontSize: 11, color: 'var(--color-green)', fontWeight: 500 }}>Znalazł świadczenie</span>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-            {/* ---- Dlaczego warto założyć konto ---- */}
-            <div className="rise" style={{ marginTop: 80, animationDelay: '560ms' }}>
-              <div style={{
-                background: 'linear-gradient(135deg, #0a1f14 0%, #0d2b1c 100%)',
-                borderRadius: 'var(--radius-xl)',
-                padding: 'clamp(28px, 4vw, 44px)',
-                boxShadow: 'var(--shadow-2)',
-                overflow: 'hidden',
-                position: 'relative',
-              }}>
-                <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#8EEAAD', marginBottom: 12 }}>
-                  Darmowe konto
-                </div>
-                <h3 style={{ fontSize: 'clamp(22px, 3.2vw, 30px)', fontWeight: 700, letterSpacing: '-0.02em', color: '#fff', margin: '0 0 12px', maxWidth: 640 }}>
-                  Załóż konto, a nowe pieniądze znajdą Cię same
-                </h3>
-                <p style={{ fontSize: 15.5, lineHeight: 1.65, color: 'rgba(255,255,255,0.8)', margin: '0 0 26px', maxWidth: 660 }}>
-                  Świadczenia, ulgi i nabory zmieniają się w czasie. Gdy masz konto, pilnujemy tego za Ciebie:
-                  kiedy pojawi się nowe świadczenie, do którego się kwalifikujesz, otwarty nabór albo ważna zmiana
-                  w prawie, dostajesz krótką wiadomość. Najwyżej 1 e-mail dziennie, zwykle rzadziej, i tylko wtedy,
-                  gdy naprawdę jest coś dla Ciebie. Bez spamu, bez karty, w każdej chwili możesz wyłączyć.
-                </p>
-
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(220px, 100%), 1fr))', gap: 14, marginBottom: 28 }}>
-                  {[
-                    ['Nowe pieniądze dla Ciebie', 'Sprawdzamy 133 świadczenia pod Twój profil i dajemy znać, gdy pojawi się coś nowego, co Ci przysługuje.'],
-                    ['Zmiany w prawie', 'Śledzimy 8 instytucji państwowych i Sejm. Ważna zmiana przepisów? Dowiesz się od nas.'],
-                    ['Wszystko w jednym miejscu', 'Zapisane świadczenia, wnioski ZUS i czat AI, który zna Twoją sytuację.'],
-                  ].map(([t, d]) => (
-                    <div key={t} style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 12, padding: '16px 18px' }}>
-                      <div style={{ fontSize: 14, fontWeight: 600, color: '#8EEAAD', marginBottom: 6 }}>{t}</div>
-                      <div style={{ fontSize: 13, lineHeight: 1.55, color: 'rgba(255,255,255,0.72)' }}>{d}</div>
-                    </div>
-                  ))}
-                </div>
-
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'center' }}>
-                  <a href="/rejestracja" style={{ padding: '12px 26px', background: '#8EEAAD', color: '#07160f', borderRadius: 10, fontSize: 15, fontWeight: 700, textDecoration: 'none' }}>
-                    Załóż darmowe konto
-                  </a>
-                  <a href="/logowanie" style={{ padding: '12px 26px', background: 'transparent', color: '#fff', border: '1px solid rgba(255,255,255,0.25)', borderRadius: 10, fontSize: 15, fontWeight: 500, textDecoration: 'none' }}>
-                    Mam już konto
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            {/* ---- Centrum Obywatela preview ---- */}
-            <div className="rise" style={{ marginTop: 80, animationDelay: '580ms' }}>
-              <div style={{
-                background: 'var(--color-surface)',
-                border: '1px solid var(--color-border)',
-                borderRadius: 'var(--radius-xl)',
-                padding: '32px',
-                boxShadow: 'var(--shadow-2)',
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
-                  <span className="label-eyebrow" style={{ color: 'var(--color-accent)' }}>Centrum Obywatela</span>
-                  <span style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
-                  <span className="mono" style={{ fontSize: 10, color: 'var(--color-muted-2)' }}>11 narzędzi, bez logowania</span>
-                </div>
-                <h3 style={{ fontSize: 22, letterSpacing: '-0.025em', marginBottom: 10 }}>
-                  Dane z oficjalnych API państwowych w jednym miejscu
-                </h3>
-                <p style={{ fontSize: 14, color: 'var(--color-text-2)', lineHeight: 1.55, marginBottom: 24, maxWidth: 620 }}>
-                  NFZ, NBP, GIOŚ, ARiMR, GUS, Sejm i inne. Aktualizowane na żywo lub codziennie.
-                  Bez rejestracji, bez opłat.
-                </p>
-
-                {/* Tools grid */}
-                <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-                  gap: 8,
-                  marginBottom: 28,
-                }}>
-                  {[
-                    { icon: 'N', label: 'NFZ - kolejki i lekarze', badge: 'na żywo', color: '#1B5E20' },
-                    { icon: 'K', label: 'Kursy walut NBP', badge: 'codziennie', color: '#CC0000' },
-                    { icon: 'A', label: 'Jakość powietrza GIOŚ', badge: 'na żywo', color: '#00695C' },
-                    { icon: 'V', label: 'Biała Lista VAT', badge: 'na żywo', color: '#4527A0' },
-                    { icon: 'P', label: 'Ostrzeżenia IMGW/RCB', badge: 'na żywo', color: '#c4841a' },
-                    { icon: 'L', label: 'Zmiany w prawie (ELI)', badge: 'co 30 min', color: '#003874' },
-                    { icon: 'G', label: 'Dane gminy (BDL GUS)', badge: 'wyszukiwarka', color: '#004B8D' },
-                    { icon: 'D', label: 'Geoportal ARiMR', badge: 'instrukcja', color: '#5d7c1f' },
-                    { icon: 'T', label: 'Ulgi PKP', badge: 'tabela', color: '#a01818' },
-                    { icon: 'R', label: 'Aktualności RSS', badge: '2x/dzień', color: '#003874' },
-                    { icon: 'S', label: 'Świadczenia i ulgi', badge: 'baza wiedzy', color: '#22A06B' },
-                  ].map(t => (
-                    <div key={t.icon} style={{
-                      display: 'flex', alignItems: 'center', gap: 10,
-                      padding: '10px 12px',
-                      borderRadius: 'var(--radius-md)',
-                      border: '1px solid var(--color-border)',
-                      background: 'var(--color-bg-1)',
-                    }}>
-                      <span style={{
-                        width: 28, height: 28, borderRadius: 6, flexShrink: 0,
-                        background: t.color, color: '#fff',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        fontSize: 12, fontWeight: 700, fontFamily: 'var(--font-mono)',
-                      }}>{t.icon}</span>
-                      <div style={{ minWidth: 0 }}>
-                        <div style={{ fontSize: 12, color: 'var(--color-text-1)', lineHeight: 1.3, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{t.label}</div>
-                        <div style={{ fontSize: 10, color: 'var(--color-accent)', fontFamily: 'var(--font-mono)', marginTop: 2 }}>{t.badge}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <a href="/centrum-obywatela" style={{
-                  display: 'inline-flex', alignItems: 'center', gap: 8,
-                  padding: '10px 20px', borderRadius: 999,
-                  background: 'var(--color-accent)', color: 'var(--color-bg-0)',
-                  fontSize: 14, fontWeight: 500, textDecoration: 'none',
-                  fontFamily: 'var(--font-mono)', letterSpacing: '0.02em',
-                  transition: 'opacity 200ms',
-                }}>
-                  Otwórz Centrum Obywatela <IconArrowRight />
-                </a>
-              </div>
-            </div>
-
-            {/* Share section */}
-            <div className="rise" style={{ marginTop: 64, animationDelay: '600ms' }}>
-              <div style={{
-                background: 'var(--color-surface)',
-                border: '1px solid var(--color-border)',
-                borderRadius: 'var(--radius-xl)',
-                padding: '32px',
-                textAlign: 'center',
-              }}>
-                <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-text-3)', marginBottom: 12 }}>
-                  Ta strona działa, jeśli ją udostępniasz
-                </div>
-                <h3 style={{ fontSize: 22, letterSpacing: '-0.02em', marginBottom: 12 }}>
-                  Podziel się z bliskimi
-                </h3>
-                <p style={{ fontSize: 15, color: 'var(--color-text-2)', lineHeight: 1.6, maxWidth: 520, margin: '0 auto 28px' }}>
-                  Ta strona walczy z niewiedzą. Im więcej osób o niej wie, tym więcej ludzi
-                  dostaje pieniądze, które im się należą. Podziel się z rodziną, znajomymi,
-                  kolegami z pracy, sąsiadami. Jeden link może komuś pomóc znaleźć kilka
-                  tysięcy złotych rocznie.
-                </p>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, justifyContent: 'center' }}>
-                  <a
-                    href={`https://wa.me/?text=${encodeURIComponent('Sprawdź co Ci się należy od państwa! wezmezadarmo.com – 133 świadczeń, ulg i dotacji. Bez logowania, za darmo, w 2 minuty.')}`}
-                    target="_blank" rel="noopener noreferrer"
-                    style={{
-                      display: 'inline-flex', alignItems: 'center', gap: 8,
-                      padding: '10px 18px', borderRadius: 999,
-                      background: '#25D366', color: '#fff',
-                      fontSize: 14, fontWeight: 500, textDecoration: 'none',
-                    }}
-                  >
-                    WhatsApp
-                  </a>
-                  <a
-                    href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://wezmezadarmo.com')}`}
-                    target="_blank" rel="noopener noreferrer"
-                    style={{
-                      display: 'inline-flex', alignItems: 'center', gap: 8,
-                      padding: '10px 18px', borderRadius: 999,
-                      background: '#1877F2', color: '#fff',
-                      fontSize: 14, fontWeight: 500, textDecoration: 'none',
-                    }}
-                  >
-                    Facebook
-                  </a>
-                  <a
-                    href={`https://x.com/intent/tweet?text=${encodeURIComponent('Sprawdź co Ci się należy od państwa!')}&url=${encodeURIComponent('https://wezmezadarmo.com')}`}
-                    target="_blank" rel="noopener noreferrer"
-                    style={{
-                      display: 'inline-flex', alignItems: 'center', gap: 8,
-                      padding: '10px 18px', borderRadius: 999,
-                      background: 'var(--color-text-1)', color: 'var(--color-bg-0)',
-                      fontSize: 14, fontWeight: 500, textDecoration: 'none',
-                    }}
-                  >
-                    X (Twitter)
-                  </a>
-                  <button
-                    onClick={() => {
-                      navigator.clipboard.writeText('https://wezmezadarmo.com').then(() => {
-                        setCopyDone(true);
-                        setTimeout(() => setCopyDone(false), 2500);
-                      });
-                    }}
-                    style={{
-                      display: 'inline-flex', alignItems: 'center', gap: 8,
-                      padding: '10px 18px', borderRadius: 999,
-                      background: copyDone ? 'var(--color-green-bg)' : 'var(--color-surface-2)',
-                      color: copyDone ? 'var(--color-green)' : 'var(--color-text-1)',
-                      border: `1px solid ${copyDone ? 'var(--color-green-border)' : 'var(--color-border)'}`,
-                      fontSize: 14, fontWeight: 500, cursor: 'pointer',
-                      transition: 'all 200ms',
-                    }}
-                  >
-                    {copyDone ? 'Skopiowano!' : 'Kopiuj link'}
-                  </button>
-                </div>
-              </div>
-            </div>
-
+          <p style={{ marginTop: 16 }}>W grze dopasowujesz świadczenia do osób. Poniżej sprawdzisz, które należą się Tobie.</p>
+          <div className="przyciski">
+            <a href="#kalkulator" className="btn btn-rdza btn-lg">Sprawdź, co Ci się należy</a>
           </div>
         </section>
 
-        {/* Footer is rendered by root layout */}
+        {/* Kalkulator */}
+        <section id="kalkulator" className="prosta-blok" style={{ padding: '32px 0 0', scrollMarginTop: 80 }}>
+          <span id="formularz" />
+          <h2>Sprawdź, co Ci się należy</h2>
+          <p className="pod">Wiek i płeć wystarczą na start. Dwie minuty, bez konta, za darmo.</p>
+          <div style={{ marginTop: 20, padding: 20, background: 'var(--surface)', border: '2px solid var(--tusz)' }}>
+            <IntakeForm onSubmit={handleIntakeSubmit} isLoading={isLoading} />
+          </div>
+          <p className="mala" style={{ marginTop: 12 }}>
+            Informacja orientacyjna, nie decyzja urzędowa. Projekt prywatny, nie rządowy.
+          </p>
+        </section>
+
+        {/* Pytanie do asystenta */}
+        <section className="prosta-blok" style={{ padding: '32px 0 0' }}>
+          <h2>Zapytaj asystenta AI</h2>
+          <p className="pod">Napisz pytanie własnymi słowami.</p>
+          <form
+            className="pytaj"
+            onSubmit={(e) => {
+              e.preventDefault();
+              const trimmed = heroQuery.trim();
+              router.push(trimmed ? `/agent?q=${encodeURIComponent(trimmed)}` : '/agent');
+            }}
+          >
+            <label htmlFor="pytanie-ai" className="sr-only">Twoje pytanie</label>
+            <input
+              id="pytanie-ai"
+              type="text"
+              value={heroQuery}
+              onChange={(e) => setHeroQuery(e.target.value)}
+              placeholder="Jakie świadczenia mi przysługują?"
+            />
+            <button type="submit" className="btn btn-primary">Zapytaj</button>
+          </form>
+        </section>
+
+        {/* Linki jak w bio */}
+        <section className="prosta-blok" style={{ padding: '32px 0 0' }}>
+          <h2>Wszystko w jednym miejscu</h2>
+          <ul className="linki">
+            <li><a href="/swiadczenia"><span>Baza świadczeń<small>Kwoty, warunki i źródła.</small></span><IconArrowRight /></a></li>
+            <li><a href="/wnioski"><span>Wnioski ZUS z pomocą AI<small>Wypełnisz i pobierzesz PDF.</small></span><IconArrowRight /></a></li>
+            <li><a href="/dla-firm"><span>Dla firm i JDG<small>Dotacje, ulgi i automatyzacje.</small></span><IconArrowRight /></a></li>
+            <li><a href="/dotacje"><span>Dotacje dla firm<small>Programy dopasowane do profilu firmy.</small></span><IconArrowRight /></a></li>
+            <li><a href="/centrum-obywatela"><span>Centrum Obywatela<small>NFZ, NBP, GIOŚ, GUS i inne, bez logowania.</small></span><IconArrowRight /></a></li>
+            <li><a href="/aktualnosci"><span>Aktualności<small>Zmiany w prawie i nowe nabory.</small></span><IconArrowRight /></a></li>
+          </ul>
+        </section>
+
+        {/* Konto */}
+        <section className="prosta-blok" style={{ padding: '32px 0 0' }}>
+          <h2>Załóż darmowe konto</h2>
+          <p className="pod">Damy znać, gdy pojawi się świadczenie, nabór albo zmiana w prawie dla Ciebie. Najwyżej 1 e-mail dziennie, wyłączysz w każdej chwili.</p>
+          <div className="przyciski">
+            <a href="/rejestracja" className="btn btn-primary btn-lg">Załóż darmowe konto</a>
+            <a href="/logowanie" className="btn btn-lg">Mam już konto</a>
+          </div>
+        </section>
+
+        {/* Udostępnij */}
+        <section className="prosta-blok" style={{ padding: '32px 0 0' }}>
+          <h2>Podziel się z bliskimi</h2>
+          <p className="pod">Jeden link może komuś pomóc znaleźć pieniądze, które mu się należą.</p>
+          <div className="przyciski">
+            <a className="btn" href={`https://wa.me/?text=${encodeURIComponent(shareText)}`} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            <a className="btn" href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://wezmezadarmo.com')}`} target="_blank" rel="noopener noreferrer">Facebook</a>
+            <a className="btn" href={`https://x.com/intent/tweet?text=${encodeURIComponent('Sprawdź, co Ci się należy od państwa.')}&url=${encodeURIComponent('https://wezmezadarmo.com')}`} target="_blank" rel="noopener noreferrer">X</a>
+            <button
+              type="button"
+              className="btn"
+              onClick={() => {
+                navigator.clipboard.writeText('https://wezmezadarmo.com').then(() => {
+                  setCopyDone(true);
+                  setTimeout(() => setCopyDone(false), 2500);
+                });
+              }}
+              aria-live="polite"
+            >
+              {copyDone ? 'Skopiowano' : 'Kopiuj link'}
+            </button>
+          </div>
+        </section>
 
       </div>
     );
@@ -1442,12 +729,12 @@ export default function Home() {
                 border: `1px solid ${profile.statusVat === 'Czynny' ? 'var(--green-200)'
                   : profile.statusVat === 'Zwolniony' ? 'rgba(196, 132, 26, 0.25)'
                   : 'rgba(150, 150, 150, 0.25)'}`,
-                borderRadius: 12,
+                borderRadius: 2,
                 display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap',
               }}>
                 <span style={{
-                  padding: '4px 10px', borderRadius: 999,
-                  background: profile.statusVat === 'Czynny' ? '#22A06B' : profile.statusVat === 'Zwolniony' ? '#c4841a' : '#888',
+                  padding: '4px 10px', borderRadius: 2,
+                  background: profile.statusVat === 'Czynny' ? '#2b7353' : profile.statusVat === 'Zwolniony' ? '#c4841a' : '#888',
                   color: '#fff', fontSize: 11, fontWeight: 600, fontFamily: 'var(--font-mono)', letterSpacing: '0.04em', textTransform: 'uppercase',
                 }}>
                   VAT: {profile.statusVat}
@@ -1475,7 +762,7 @@ export default function Home() {
                     width: '100%',
                     textAlign: 'left',
                     padding: '16px 20px',
-                    borderRadius: 14,
+                    borderRadius: 2,
                     border: '1px solid var(--color-border)',
                     background: 'var(--color-surface)',
                     color: 'var(--color-text-1)',
@@ -1583,7 +870,7 @@ export default function Home() {
                       <span key={c.id} className="mono" style={{
                         fontSize: 11,
                         padding: '6px 10px',
-                        borderRadius: 999,
+                        borderRadius: 2,
                         border: `1px solid ${active ? 'var(--color-text-1)' : 'var(--color-border)'}`,
                         background: current ? 'var(--color-text-1)' : (active ? 'var(--color-surface)' : 'transparent'),
                         color: current ? 'var(--color-bg-0)' : (active ? 'var(--color-text-1)' : 'var(--color-muted-2)'),

@@ -17,7 +17,7 @@ interface AqiData {
 }
 
 const LEVEL_COLOR: Record<string, string> = {
-  'Bardzo dobry': '#22A06B',
+  'Bardzo dobry': '#2b7353',
   'Dobry': '#5cb85c',
   'Umiarkowany': '#f0ad4e',
   'Dostateczny': '#ff8c00',
@@ -28,7 +28,7 @@ const LEVEL_COLOR: Record<string, string> = {
 function Pill({ label, level }: { label: string; level: string | null }) {
   const color = level ? (LEVEL_COLOR[level] ?? '#777') : '#aaa';
   return (
-    <div style={{ padding: '12px 14px', background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 10 }}>
+    <div style={{ padding: '12px 14px', background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 2 }}>
       <div style={{ fontFamily: 'var(--f-mono)', fontSize: 10, color: 'var(--ink-400)', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 6 }}>{label}</div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
         <span style={{ width: 10, height: 10, borderRadius: '50%', background: color, flexShrink: 0 }} />
@@ -68,7 +68,7 @@ export default function PowietrzePage() {
 
   return (
     <main style={{ maxWidth: 880, margin: '0 auto', padding: '32px 24px 60px' }}>
-      <Link href="/centrum-obywatela" style={{ fontSize: 13, color: '#22A06B', textDecoration: 'none', marginBottom: 18, display: 'inline-block' }}>
+      <Link href="/centrum-obywatela" style={{ fontSize: 13, color: '#2b7353', textDecoration: 'none', marginBottom: 18, display: 'inline-block' }}>
         ← Centrum Obywatela
       </Link>
 
@@ -94,11 +94,11 @@ export default function PowietrzePage() {
         <button onClick={() => checkCity(54.3520, 18.6466)} disabled={loading} style={btnStyle}>Gdańsk</button>
       </div>
 
-      {error && <p style={{ color: '#dc5050', marginBottom: 16 }}>{error}</p>}
+      {error && <p style={{ color: '#c4483a', marginBottom: 16 }}>{error}</p>}
 
       {aqi && (
         <>
-          <div style={{ padding: 18, background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 12, marginBottom: 16 }}>
+          <div style={{ padding: 18, background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 2, marginBottom: 16 }}>
             <div style={{ fontFamily: 'var(--f-mono)', fontSize: 10, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink-400)', marginBottom: 6 }}>
               Stacja pomiarowa {aqi.station.distanceKm != null && `· ${aqi.station.distanceKm} km od Ciebie`}
             </div>
@@ -118,7 +118,7 @@ export default function PowietrzePage() {
       )}
 
       <p style={{ marginTop: 24, fontSize: 11, color: 'var(--ink-400)' }}>
-        Źródło: <a href="https://powietrze.gios.gov.pl" target="_blank" rel="noopener noreferrer" style={{ color: '#22A06B' }}>powietrze.gios.gov.pl</a> · API GIOŚ.
+        Źródło: <a href="https://powietrze.gios.gov.pl" target="_blank" rel="noopener noreferrer" style={{ color: '#2b7353' }}>powietrze.gios.gov.pl</a> · API GIOŚ.
       </p>
     </main>
   );
@@ -128,7 +128,7 @@ const btnStyle: React.CSSProperties = {
   padding: '6px 14px',
   background: 'var(--white)',
   border: '1px solid var(--line)',
-  borderRadius: 8,
+  borderRadius: 2,
   fontSize: 13,
   cursor: 'pointer',
   color: 'var(--ink-700)',

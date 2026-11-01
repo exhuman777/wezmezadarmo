@@ -47,7 +47,7 @@ function DetailView({
       {/* Badges */}
       <div style={{ display: 'flex', gap: 8, marginBottom: 14, alignItems: 'center', flexWrap: 'wrap' }}>
         <span style={{
-          fontSize: 10, padding: '3px 10px', borderRadius: 4,
+          fontSize: 10, padding: '3px 10px', borderRadius: 2,
           background: 'rgba(0,0,0,0.04)', border: '1px solid var(--color-border)',
           color: 'var(--color-text-3)', fontFamily: 'var(--font-mono)',
           letterSpacing: '0.06em', textTransform: 'uppercase',
@@ -55,10 +55,10 @@ function DetailView({
           {CATEGORY_LABELS[full.kategoria] || full.kategoria}
         </span>
         <span style={{
-          fontSize: 10, padding: '3px 10px', borderRadius: 4,
-          background: pewne ? 'rgba(34,160,107,0.1)' : 'rgba(220,150,40,0.1)',
-          border: `1px solid ${pewne ? 'rgba(34,160,107,0.3)' : 'rgba(220,150,40,0.3)'}`,
-          color: pewne ? '#22A06B' : '#c4841a',
+          fontSize: 10, padding: '3px 10px', borderRadius: 2,
+          background: pewne ? 'rgba(47,125,90,0.1)' : 'rgba(220,150,40,0.1)',
+          border: `1px solid ${pewne ? 'rgba(47,125,90,0.3)' : 'rgba(220,150,40,0.3)'}`,
+          color: pewne ? '#2b7353' : '#c4841a',
           fontFamily: 'var(--font-mono)', letterSpacing: '0.06em', textTransform: 'uppercase',
         }}>
           {pewne ? 'przysługuje' : 'możliwe'}
@@ -73,7 +73,7 @@ function DetailView({
       {/* Amount */}
       <div style={{
         fontSize: 'clamp(15px, 2vw, 18px)', fontWeight: 700, marginBottom: 6,
-        background: 'linear-gradient(135deg, #22A06B, #1d9060)',
+        background: '#2b7353',
         WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
       }}>
         {full.kwota}
@@ -88,7 +88,7 @@ function DetailView({
 
       {/* Description */}
       {full.opis && (
-        <p style={{ fontSize: 13, lineHeight: 1.75, color: 'var(--color-text-2)', marginBottom: 20, borderLeft: '2px solid rgba(34,160,107,0.3)', paddingLeft: 12 }}>
+        <p style={{ fontSize: 13, lineHeight: 1.75, color: 'var(--color-text-2)', marginBottom: 20, borderTop: '2px solid rgba(47,125,90,0.3)', paddingLeft: 12 }}>
           {full.opis}
         </p>
       )}
@@ -117,9 +117,9 @@ function DetailView({
       {(full.wniosek.dokumenty.length > 0 || full.wniosek.kroki.length > 0) && (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(240px, 100%), 1fr))', gap: 12, marginBottom: 16 }}>
           {full.wniosek.dokumenty.length > 0 && (
-            <div style={{ background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 12, padding: '14px 16px' }}>
+            <div style={{ background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 2, padding: '14px 16px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 12 }}>
-                <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#22A06B', boxShadow: '0 0 5px rgba(34,160,107,0.5)', flexShrink: 0 }} />
+                <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#2b7353', boxShadow: 'none', flexShrink: 0 }} />
                 <span style={{ fontSize: 9, fontFamily: 'var(--font-mono)', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-text-3)' }}>
                   Co potrzebujesz
                 </span>
@@ -130,8 +130,8 @@ function DetailView({
                     <span style={{
                       width: 18, height: 18, flexShrink: 0,
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      borderRadius: 4, background: 'rgba(34,160,107,0.1)',
-                      fontSize: 9, fontWeight: 700, color: '#22A06B',
+                      borderRadius: 2, background: 'rgba(47,125,90,0.1)',
+                      fontSize: 9, fontWeight: 700, color: '#2b7353',
                       fontFamily: 'var(--font-mono)', marginTop: 1,
                     }}>
                       {i + 1}
@@ -144,9 +144,9 @@ function DetailView({
           )}
 
           {full.wniosek.kroki.length > 0 && (
-            <div style={{ background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 12, padding: '14px 16px' }}>
+            <div style={{ background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 2, padding: '14px 16px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 12 }}>
-                <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#22A06B', boxShadow: '0 0 5px rgba(34,160,107,0.5)', flexShrink: 0 }} />
+                <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#2b7353', boxShadow: 'none', flexShrink: 0 }} />
                 <span style={{ fontSize: 9, fontFamily: 'var(--font-mono)', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-text-3)' }}>
                   Krok po kroku
                 </span>
@@ -158,10 +158,10 @@ function DetailView({
                       width: 20, height: 20, flexShrink: 0,
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                       borderRadius: '50%',
-                      background: 'linear-gradient(135deg, #22A06B, #1d9060)',
+                      background: '#2b7353',
                       fontSize: 10, fontWeight: 700, color: '#fff',
                       fontFamily: 'var(--font-mono)',
-                      boxShadow: '0 2px 6px rgba(34,160,107,0.25)',
+                      boxShadow: 'none',
                     }}>
                       {i + 1}
                     </span>
@@ -176,13 +176,13 @@ function DetailView({
 
       {/* Dopasowane kryteria */}
       {match.matchedCriteria.length > 0 && (
-        <div style={{ marginBottom: 12, padding: '12px 14px', background: 'rgba(34,160,107,0.05)', border: '1px solid rgba(34,160,107,0.15)', borderRadius: 10 }}>
-          <div style={{ fontSize: 9, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#22A06B', marginBottom: 8 }}>
+        <div style={{ marginBottom: 12, padding: '12px 14px', background: 'rgba(47,125,90,0.05)', border: '1px solid rgba(47,125,90,0.15)', borderRadius: 2 }}>
+          <div style={{ fontSize: 9, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#2b7353', marginBottom: 8 }}>
             Dopasowane kryteria
           </div>
           <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
             {match.matchedCriteria.map((c, i) => (
-              <span key={i} style={{ fontSize: 11, padding: '2px 8px', borderRadius: 4, background: 'rgba(34,160,107,0.1)', color: '#22A06B', border: '1px solid rgba(34,160,107,0.2)' }}>
+              <span key={i} style={{ fontSize: 11, padding: '2px 8px', borderRadius: 2, background: 'rgba(47,125,90,0.1)', color: '#2b7353', border: '1px solid rgba(47,125,90,0.2)' }}>
                 {c}
               </span>
             ))}
@@ -192,8 +192,8 @@ function DetailView({
 
       {/* Warnings + pulapki */}
       {(match.warnings.length > 0 || full.wniosek.pulapki.length > 0) && (
-        <div style={{ marginBottom: 12, padding: '12px 14px', background: 'rgba(220,80,80,0.04)', border: '1px solid rgba(220,80,80,0.18)', borderRadius: 10 }}>
-          <div style={{ fontSize: 9, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#e05c5c', marginBottom: 8 }}>
+        <div style={{ marginBottom: 12, padding: '12px 14px', background: 'rgba(196,72,58,0.04)', border: '1px solid rgba(196,72,58,0.18)', borderRadius: 2 }}>
+          <div style={{ fontSize: 9, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#c4483a', marginBottom: 8 }}>
             Na co uważać
           </div>
           {[...match.warnings, ...full.wniosek.pulapki].map((w, i) => (
@@ -207,7 +207,7 @@ function DetailView({
 
       {/* Odwołanie */}
       {full.wniosek.odwolanie && (
-        <div style={{ marginBottom: 12, padding: '10px 14px', background: 'rgba(0,0,0,0.03)', border: '1px solid var(--color-border)', borderRadius: 10 }}>
+        <div style={{ marginBottom: 12, padding: '10px 14px', background: 'rgba(0,0,0,0.03)', border: '1px solid var(--color-border)', borderRadius: 2 }}>
           <div style={{ fontSize: 9, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-text-3)', marginBottom: 6 }}>
             Odwołanie
           </div>
@@ -218,7 +218,7 @@ function DetailView({
       {/* Source + date */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap', paddingTop: 12, borderTop: '1px solid var(--color-border)' }}>
         <a href={full.zrodloUrl} target="_blank" rel="noopener noreferrer"
-          style={{ fontSize: 12, color: '#22A06B', textDecoration: 'none' }}>
+          style={{ fontSize: 12, color: '#2b7353', textDecoration: 'none' }}>
           Źródło: {full.zrodloNazwa} →
         </a>
         <span style={{ fontSize: 11, color: 'var(--color-text-3)' }}>
@@ -441,7 +441,7 @@ export default function AgentSwiadczenia() {
 
   if (loading) return (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', flexDirection: 'column', gap: 12 }}>
-      <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#22A06B', display: 'inline-block', animation: 'sw-pulse 1s ease-in-out infinite' }} />
+      <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#2b7353', display: 'inline-block', animation: 'sw-pulse 1s ease-in-out infinite' }} />
       <div style={{ fontSize: 12, color: 'var(--color-text-3)', fontFamily: 'var(--font-mono)' }}>Obliczam świadczenia...</div>
       <style>{`@keyframes sw-pulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.5);opacity:0.5} }`}</style>
     </div>
@@ -453,11 +453,11 @@ export default function AgentSwiadczenia() {
       <div style={{ maxWidth: 560, margin: '40px auto', padding: '32px 24px', textAlign: 'center' }}>
         <div style={{
           width: 64, height: 64, borderRadius: '50%',
-          background: 'linear-gradient(135deg, rgba(34,160,107,0.15) 0%, rgba(34,160,107,0.05) 100%)',
-          border: '2px solid rgba(34,160,107,0.25)',
+          background: 'rgba(47,125,90,0.15)',
+          border: '2px solid rgba(47,125,90,0.25)',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           margin: '0 auto 20px',
-          fontSize: 28, color: '#22A06B', fontWeight: 700, fontFamily: 'var(--font-mono)',
+          fontSize: 28, color: '#2b7353', fontWeight: 700, fontFamily: 'var(--font-mono)',
         }}>?</div>
         <h2 style={{ fontSize: 22, fontWeight: 700, color: 'var(--color-text-1)', marginBottom: 10 }}>
           Najpierw uzupełnij profil
@@ -468,15 +468,15 @@ export default function AgentSwiadczenia() {
           i pokażemy te które Ci się należą.
         </p>
         <a href="/panel/profil" style={{
-          display: 'inline-block', padding: '12px 28px', borderRadius: 12,
-          background: 'linear-gradient(135deg, #22A06B, #1d9060)',
+          display: 'inline-block', padding: '12px 28px', borderRadius: 2,
+          background: '#2b7353',
           color: '#fff', fontSize: 14, fontWeight: 600, textDecoration: 'none',
-          boxShadow: '0 4px 14px rgba(34,160,107,0.35)',
+          boxShadow: 'none',
         }}>
           Wypełnij profil →
         </a>
         {error && (
-          <p style={{ marginTop: 16, fontSize: 12, color: '#dc5050' }}>{error}</p>
+          <p style={{ marginTop: 16, fontSize: 12, color: '#c4483a' }}>{error}</p>
         )}
       </div>
     );
@@ -490,30 +490,30 @@ export default function AgentSwiadczenia() {
 
         .sw-list-item {
           width: 100%; text-align: left; padding: 10px 14px;
-          background: transparent; border: none; border-left: 2px solid transparent;
+          background: transparent; border: none; border-top: 2px solid transparent;
           cursor: pointer; display: flex; align-items: flex-start; gap: 10;
           transition: background 150ms, border-color 150ms;
         }
-        .sw-list-item:hover { background: rgba(34,160,107,0.04); }
+        .sw-list-item:hover { background: rgba(47,125,90,0.04); }
         .sw-list-item.active {
-          background: rgba(34,160,107,0.08) !important;
-          border-left-color: #22A06B !important;
+          background: rgba(47,125,90,0.08) !important;
+          border-left-color: #2b7353 !important;
         }
 
         .sw-btn-guide {
           display: inline-flex; align-items: center; gap: 8;
           padding: 9px 18px; border-radius: 10;
-          background: linear-gradient(135deg, #22A06B, #1d9060);
+          background: #2b7353;
           color: #fff; font-size: 13px; font-weight: 600;
           text-decoration: none; position: relative; overflow: hidden;
-          box-shadow: 0 4px 12px rgba(34,160,107,0.3);
+          box-shadow: 0 4px 12px rgba(47,125,90,0.3);
           transition: transform 150ms, box-shadow 150ms;
         }
-        .sw-btn-guide:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(34,160,107,0.4); }
+        .sw-btn-guide:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(47,125,90,0.4); }
         .sw-btn-guide::after {
           content: ''; position: absolute; top: 0; left: -100%;
           width: 60%; height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+          background: transparent;
           transform: skewX(-12deg);
           transition: left 0.4s;
         }
@@ -527,7 +527,7 @@ export default function AgentSwiadczenia() {
           border: 1px solid var(--color-border); cursor: pointer;
           transition: border-color 150ms, color 150ms;
         }
-        .sw-btn-ask:hover { border-color: rgba(34,160,107,0.4); color: #22A06B; }
+        .sw-btn-ask:hover { border-color: rgba(47,125,90,0.4); color: #2b7353; }
 
         .sw-chat-hint {
           text-align: left; font-size: 11px; padding: 5px 8px;
@@ -535,7 +535,7 @@ export default function AgentSwiadczenia() {
           border-radius: 6; color: var(--color-text-2); cursor: pointer;
           width: 100%; transition: border-color 150ms, color 150ms;
         }
-        .sw-chat-hint:hover { border-color: rgba(34,160,107,0.3); color: var(--color-text-1); }
+        .sw-chat-hint:hover { border-color: rgba(47,125,90,0.3); color: var(--color-text-1); }
 
         @media (max-width: 900px) {
           /* Schowaj chat sidebar na tabletach */
@@ -572,20 +572,20 @@ export default function AgentSwiadczenia() {
             Twoje świadczenia
           </div>
           <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-            <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 4, background: 'rgba(34,160,107,0.1)', color: '#22A06B', border: '1px solid rgba(34,160,107,0.2)' }}>
+            <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 2, background: 'rgba(47,125,90,0.1)', color: '#2b7353', border: '1px solid rgba(47,125,90,0.2)' }}>
               {pewneCount} pewnych
             </span>
-            <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 4, background: 'rgba(200,130,40,0.08)', color: '#c4841a', border: '1px solid rgba(200,130,40,0.2)' }}>
+            <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 2, background: 'rgba(200,130,40,0.08)', color: '#c4841a', border: '1px solid rgba(200,130,40,0.2)' }}>
               {mozliweCount} możliwych
             </span>
           </div>
         </div>
 
-        {error && <div style={{ padding: 14, fontSize: 12, color: '#e05c5c' }}>{error}</div>}
+        {error && <div style={{ padding: 14, fontSize: 12, color: '#c4483a' }}>{error}</div>}
 
         {results.length === 0 && !error && (
           <div style={{ padding: 20, fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.6 }}>
-            Brak świadczeń. Uzupełnij <a href="/panel/profil" style={{ color: '#22A06B', textDecoration: 'none' }}>profil</a>.
+            Brak świadczeń. Uzupełnij <a href="/panel/profil" style={{ color: '#2b7353', textDecoration: 'none' }}>profil</a>.
           </div>
         )}
 
@@ -599,7 +599,7 @@ export default function AgentSwiadczenia() {
               display: 'flex', justifyContent: 'space-between', alignItems: 'center',
             }}>
               <span>{CATEGORY_LABELS[cat] || cat}</span>
-              <span style={{ background: 'rgba(0,0,0,0.05)', borderRadius: 3, padding: '1px 5px', fontSize: 9 }}>
+              <span style={{ background: 'rgba(0,0,0,0.05)', borderRadius: 2, padding: '1px 5px', fontSize: 9 }}>
                 {groupedResults[cat].length}
               </span>
             </div>
@@ -608,13 +608,13 @@ export default function AgentSwiadczenia() {
                 key={r.full.id}
                 className={`sw-list-item${selected?.full.id === r.full.id ? ' active' : ''}`}
                 onClick={() => { setSelected(r); setMobileView('detail'); }}
-                style={{ borderLeft: `2px solid ${selected?.full.id === r.full.id ? '#22A06B' : 'transparent'}` }}
+                style={{ borderLeft: `2px solid ${selected?.full.id === r.full.id ? '#2b7353' : 'transparent'}` }}
               >
                 <span style={{
                   width: 7, height: 7, borderRadius: '50%', flexShrink: 0, marginTop: 5,
-                  background: r.match.status === 'PRZYSLUGUJE' ? '#22A06B' : '#e07a35',
+                  background: r.match.status === 'PRZYSLUGUJE' ? '#2b7353' : '#e07a35',
                   boxShadow: r.match.status === 'PRZYSLUGUJE'
-                    ? '0 0 6px rgba(34,160,107,0.5)'
+                    ? '0 0 6px rgba(47,125,90,0.5)'
                     : '0 0 6px rgba(224,122,53,0.35)',
                 }} />
                 <div style={{ minWidth: 0 }}>
@@ -643,7 +643,7 @@ export default function AgentSwiadczenia() {
         <div className="sw-mobile-back" style={{ display: 'none', padding: '10px 16px', borderBottom: '1px solid var(--color-border)', flexShrink: 0 }}>
           <button
             onClick={() => setMobileView('list')}
-            style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 13, color: '#22A06B', display: 'flex', alignItems: 'center', gap: 5 }}
+            style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 13, color: '#2b7353', display: 'flex', alignItems: 'center', gap: 5 }}
           >
             ← Lista świadczeń
           </button>
@@ -669,7 +669,7 @@ export default function AgentSwiadczenia() {
           {/* Chat header */}
           <div style={{ padding: '12px 14px', borderBottom: '1px solid var(--color-border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
-              <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#22A06B', boxShadow: '0 0 7px rgba(34,160,107,0.7)' }} />
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#2b7353', boxShadow: 'none' }} />
               <span style={{ fontSize: 10, fontFamily: 'var(--font-mono)', letterSpacing: '0.09em', textTransform: 'uppercase', color: 'var(--color-text-2)', fontWeight: 600 }}>
                 Asystent AI
               </span>
@@ -683,9 +683,9 @@ export default function AgentSwiadczenia() {
           {selected && (
             <div style={{ padding: '6px 12px', borderBottom: '1px solid var(--color-border)', flexShrink: 0 }}>
               <span style={{
-                fontSize: 10, padding: '3px 8px', borderRadius: 4,
-                background: 'rgba(34,160,107,0.08)', color: 'var(--color-text-2)',
-                border: '1px solid rgba(34,160,107,0.15)',
+                fontSize: 10, padding: '3px 8px', borderRadius: 2,
+                background: 'rgba(47,125,90,0.08)', color: 'var(--color-text-2)',
+                border: '1px solid rgba(47,125,90,0.15)',
                 display: 'block', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
               }}>
                 {selected.full.nazwa}
@@ -705,14 +705,14 @@ export default function AgentSwiadczenia() {
             {chatMsgs.map((msg, i) => (
               <div key={msg.id} style={{ display: 'flex', flexDirection: 'column', alignItems: msg.role === 'user' ? 'flex-end' : 'flex-start' }}>
                 {msg.role === 'assistant' && (
-                  <div style={{ fontSize: 8, fontFamily: 'var(--font-mono)', color: '#22A06B', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 2 }}>
+                  <div style={{ fontSize: 8, fontFamily: 'var(--font-mono)', color: '#2b7353', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 2 }}>
                     AI
                   </div>
                 )}
                 <div style={{
                   padding: '7px 11px',
                   borderRadius: msg.role === 'user' ? '10px 10px 4px 10px' : '10px 10px 10px 4px',
-                  background: msg.role === 'user' ? '#22A06B' : 'var(--color-bg-0)',
+                  background: msg.role === 'user' ? '#2b7353' : 'var(--color-bg-0)',
                   color: msg.role === 'user' ? '#fff' : 'var(--color-text-1)',
                   border: msg.role === 'user' ? 'none' : '1px solid var(--color-border)',
                   fontSize: 12, lineHeight: 1.6, whiteSpace: 'pre-wrap',
@@ -720,7 +720,7 @@ export default function AgentSwiadczenia() {
                 }}>
                   {msg.content}
                   {chatStreaming && i === chatMsgs.length - 1 && msg.role === 'assistant' && (
-                    <span style={{ display: 'inline-block', width: 5, height: 11, background: '#22A06B', marginLeft: 2, animation: 'sw-blink 1s steps(2) infinite' }} />
+                    <span style={{ display: 'inline-block', width: 5, height: 11, background: '#2b7353', marginLeft: 2, animation: 'sw-blink 1s steps(2) infinite' }} />
                   )}
                 </div>
               </div>
@@ -754,7 +754,7 @@ export default function AgentSwiadczenia() {
               placeholder="Zadaj pytanie..."
               disabled={chatStreaming}
               style={{
-                flex: 1, padding: '7px 11px', borderRadius: 8,
+                flex: 1, padding: '7px 11px', borderRadius: 2,
                 background: 'var(--color-bg-0)', border: '1px solid var(--color-border)',
                 color: 'var(--color-text-1)', fontSize: 12, outline: 'none',
                 fontFamily: 'inherit',
@@ -764,8 +764,8 @@ export default function AgentSwiadczenia() {
               type="submit"
               disabled={chatStreaming || !chatInput.trim()}
               style={{
-                padding: '7px 12px', borderRadius: 8,
-                background: '#22A06B', color: '#fff',
+                padding: '7px 12px', borderRadius: 2,
+                background: '#2b7353', color: '#fff',
                 border: 'none', cursor: 'pointer', fontSize: 12, fontWeight: 600,
                 opacity: (chatStreaming || !chatInput.trim()) ? 0.35 : 1,
                 flexShrink: 0,
@@ -784,9 +784,9 @@ export default function AgentSwiadczenia() {
           style={{
             position: 'absolute', right: 16, bottom: 20,
             width: 42, height: 42, borderRadius: '50%',
-            background: 'linear-gradient(135deg, #22A06B, #1d9060)',
+            background: '#2b7353',
             border: 'none', cursor: 'pointer', color: '#fff',
-            boxShadow: '0 4px 16px rgba(34,160,107,0.4)',
+            boxShadow: 'none',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
           }}
           title="Otwórz Asystenta AI"

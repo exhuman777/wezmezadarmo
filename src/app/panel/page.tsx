@@ -111,9 +111,9 @@ export default function PanelDashboard() {
         <div data-tour="profile" style={{
           marginBottom: 28,
           padding: '20px 24px',
-          background: 'linear-gradient(135deg, rgba(34,160,107,0.1) 0%, rgba(34,160,107,0.05) 100%)',
-          border: '1px solid rgba(34,160,107,0.3)',
-          borderLeft: '3px solid #22A06B',
+          background: 'rgba(47,125,90,0.1)',
+          border: '1px solid rgba(47,125,90,0.3)',
+          borderTop: '3px solid #2b7353',
           borderRadius: 'var(--r-md)',
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           gap: 16, flexWrap: 'wrap',
@@ -128,10 +128,10 @@ export default function PanelDashboard() {
           </div>
           <Link href="/panel/profil" style={{
             flexShrink: 0, padding: '10px 20px',
-            background: '#22A06B', color: '#fff',
+            background: '#2b7353', color: '#fff',
             fontSize: 13, fontWeight: 600,
             borderRadius: 'var(--r-sm)', textDecoration: 'none',
-            boxShadow: '0 2px 8px rgba(34,160,107,0.3)',
+            boxShadow: 'none',
           }}>
             Uzupełnij profil →
           </Link>

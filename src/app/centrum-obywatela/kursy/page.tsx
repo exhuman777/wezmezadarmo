@@ -32,7 +32,7 @@ export default function KursyPage() {
 
   return (
     <main style={{ maxWidth: 900, margin: '0 auto', padding: '32px 24px 60px' }}>
-      <Link href="/centrum-obywatela" style={{ fontSize: 13, color: '#22A06B', textDecoration: 'none', marginBottom: 18, display: 'inline-block' }}>
+      <Link href="/centrum-obywatela" style={{ fontSize: 13, color: '#2b7353', textDecoration: 'none', marginBottom: 18, display: 'inline-block' }}>
         ← Centrum Obywatela
       </Link>
 
@@ -44,10 +44,10 @@ export default function KursyPage() {
       </div>
       <h1 style={{ fontSize: 26, fontWeight: 700, marginBottom: 6, color: 'var(--ink-900)' }}>Kursy średnie NBP</h1>
       {data && <p style={{ fontSize: 13, color: 'var(--ink-500)', marginBottom: 24 }}>Tabela A, kurs z dnia {data.effectiveDate}</p>}
-      {error && <p style={{ color: '#dc5050' }}>{error}</p>}
+      {error && <p style={{ color: '#c4483a' }}>{error}</p>}
 
       {/* Konwerter */}
-      <div style={{ padding: 18, background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 12, marginBottom: 24 }}>
+      <div style={{ padding: 18, background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 2, marginBottom: 24 }}>
         <div style={{ fontFamily: 'var(--f-mono)', fontSize: 10, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink-400)', marginBottom: 10 }}>
           Przelicznik na PLN
         </div>
@@ -55,18 +55,18 @@ export default function KursyPage() {
           <input
             type="number" min="0" step="0.01" value={amount}
             onChange={e => setAmount(e.target.value)}
-            style={{ width: 130, padding: '10px 12px', border: '1px solid var(--line)', borderRadius: 8, fontSize: 15 }}
+            style={{ width: 130, padding: '10px 12px', border: '1px solid var(--line)', borderRadius: 2, fontSize: 15 }}
           />
           <select
             value={from} onChange={e => setFrom(e.target.value)}
-            style={{ padding: '10px 12px', border: '1px solid var(--line)', borderRadius: 8, fontSize: 15, background: 'var(--white)' }}
+            style={{ padding: '10px 12px', border: '1px solid var(--line)', borderRadius: 2, fontSize: 15, background: 'var(--white)' }}
           >
             {(data?.rates ?? []).map(r => (
               <option key={r.code} value={r.code}>{r.code} - {r.currency}</option>
             ))}
           </select>
           <span style={{ fontSize: 16, color: 'var(--ink-500)' }}>=</span>
-          <div style={{ fontSize: 22, fontWeight: 700, color: '#22A06B', fontFamily: 'var(--f-mono)' }}>
+          <div style={{ fontSize: 22, fontWeight: 700, color: '#2b7353', fontFamily: 'var(--f-mono)' }}>
             {result ? `${result} PLN` : '—'}
           </div>
         </div>
@@ -80,7 +80,7 @@ export default function KursyPage() {
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: 8 }}>
             {popularRates.map(r => (
-              <div key={r.code} style={{ padding: '12px 14px', background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 10 }}>
+              <div key={r.code} style={{ padding: '12px 14px', background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 2 }}>
                 <div style={{ fontFamily: 'var(--f-mono)', fontSize: 11, color: 'var(--ink-400)', marginBottom: 4 }}>{r.code}</div>
                 <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--ink-900)' }}>{r.mid.toFixed(4)}</div>
                 <div style={{ fontSize: 11, color: 'var(--ink-500)', marginTop: 4 }}>{r.currency}</div>
@@ -95,10 +95,10 @@ export default function KursyPage() {
         <input
           type="text" placeholder="Szukaj waluty... (np. EUR, dolar, korona)"
           value={search} onChange={e => setSearch(e.target.value)}
-          style={{ width: '100%', padding: '10px 14px', border: '1px solid var(--line)', borderRadius: 8, fontSize: 14 }}
+          style={{ width: '100%', padding: '10px 14px', border: '1px solid var(--line)', borderRadius: 2, fontSize: 14 }}
         />
       </div>
-      <div style={{ background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 10, overflow: 'hidden' }}>
+      <div style={{ background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 2, overflow: 'hidden' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
           <thead>
             <tr style={{ background: 'rgba(0,0,0,0.03)', textAlign: 'left' }}>
@@ -120,7 +120,7 @@ export default function KursyPage() {
       </div>
 
       <p style={{ marginTop: 20, fontSize: 11, color: 'var(--ink-400)' }}>
-        Źródło: <a href="https://api.nbp.pl" target="_blank" rel="noopener noreferrer" style={{ color: '#22A06B' }}>api.nbp.pl</a> · Tabela A. Cache 1h.
+        Źródło: <a href="https://api.nbp.pl" target="_blank" rel="noopener noreferrer" style={{ color: '#2b7353' }}>api.nbp.pl</a> · Tabela A. Cache 1h.
       </p>
     </main>
   );

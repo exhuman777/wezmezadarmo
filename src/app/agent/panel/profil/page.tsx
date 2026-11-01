@@ -9,10 +9,10 @@ function Opt({ label, sub, active, onClick }: { label: string; sub?: string; act
   return (
     <button onClick={onClick} style={{
       display: 'flex', flexDirection: 'column', alignItems: 'flex-start',
-      padding: '14px 20px', borderRadius: 12, cursor: 'pointer', textAlign: 'left',
-      border: active ? '2px solid #22A06B' : '1px solid var(--color-border)',
-      background: active ? 'rgba(34,160,107,0.08)' : 'var(--color-bg-1)',
-      color: active ? '#22A06B' : 'var(--color-text-2)',
+      padding: '14px 20px', borderRadius: 2, cursor: 'pointer', textAlign: 'left',
+      border: active ? '2px solid #2b7353' : '1px solid var(--color-border)',
+      background: active ? 'rgba(47,125,90,0.08)' : 'var(--color-bg-1)',
+      color: active ? '#2b7353' : 'var(--color-text-2)',
       fontWeight: active ? 600 : 400, fontSize: 14,
       transition: 'all 150ms', minWidth: 120,
     }}>
@@ -33,12 +33,12 @@ function NumInput({ value, onChange, placeholder, unit }: { value: string; onCha
         placeholder={placeholder}
         style={{
           flex: 1, padding: '14px 18px', fontSize: 22, fontWeight: 500,
-          border: '2px solid var(--color-border)', borderRadius: 12,
+          border: '2px solid var(--color-border)', borderRadius: 2,
           background: 'var(--color-bg-1)', color: 'var(--color-text-1)',
           outline: 'none', fontFamily: 'var(--font-mono)',
           transition: 'border-color 150ms',
         }}
-        onFocus={e => { e.target.style.borderColor = '#22A06B'; }}
+        onFocus={e => { e.target.style.borderColor = '#2b7353'; }}
         onBlur={e => { e.target.style.borderColor = 'var(--color-border)'; }}
       />
       {unit && <span style={{ fontSize: 14, color: 'var(--color-text-3)', fontFamily: 'var(--font-mono)' }}>{unit}</span>}
@@ -302,14 +302,14 @@ export default function AgentProfil() {
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.08em', color: 'var(--color-text-3)', textTransform: 'uppercase' as const }}>
               Profil · pytanie {step + 1} z {total}
             </span>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: '#22A06B' }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: '#2b7353' }}>
               {Math.round(progress)}%
             </span>
           </div>
           <div style={{ height: 4, background: 'var(--color-border)', borderRadius: 2, overflow: 'hidden' }}>
             <div style={{
               height: '100%', borderRadius: 2,
-              background: 'linear-gradient(90deg, #22A06B, #8EEAAD)',
+              background: '#2b7353',
               width: `${progress}%`,
               transition: 'width 0.3s ease',
             }} />
@@ -345,11 +345,11 @@ export default function AgentProfil() {
               placeholder={currentStep.placeholder ?? ''}
               style={{
                 width: '100%', maxWidth: 360, padding: '14px 18px', fontSize: 16,
-                border: '2px solid var(--color-border)', borderRadius: 12,
+                border: '2px solid var(--color-border)', borderRadius: 2,
                 background: 'var(--color-bg-1)', color: 'var(--color-text-1)',
                 outline: 'none', boxSizing: 'border-box' as const,
               }}
-              onFocus={e => { e.target.style.borderColor = '#22A06B'; }}
+              onFocus={e => { e.target.style.borderColor = '#2b7353'; }}
               onBlur={e => { e.target.style.borderColor = 'var(--color-border)'; }}
             />
           )}
@@ -374,11 +374,11 @@ export default function AgentProfil() {
               onChange={e => setValue(e.target.value)}
               style={{
                 width: '100%', maxWidth: 360, padding: '14px 16px', fontSize: 15,
-                border: '2px solid var(--color-border)', borderRadius: 12,
+                border: '2px solid var(--color-border)', borderRadius: 2,
                 background: 'var(--color-bg-1)', color: 'var(--color-text-1)',
                 outline: 'none', cursor: 'pointer',
               }}
-              onFocus={e => { e.target.style.borderColor = '#22A06B'; }}
+              onFocus={e => { e.target.style.borderColor = '#2b7353'; }}
               onBlur={e => { e.target.style.borderColor = 'var(--color-border)'; }}
             >
               <option value="">(wybierz)</option>
@@ -397,10 +397,10 @@ export default function AgentProfil() {
                     key={opt.v}
                     onClick={() => toggleMulti(opt.v)}
                     style={{
-                      padding: '12px 20px', borderRadius: 12, cursor: 'pointer',
-                      border: isOn ? '2px solid #22A06B' : '1px solid var(--color-border)',
-                      background: isOn ? 'rgba(34,160,107,0.1)' : 'var(--color-bg-1)',
-                      color: isOn ? '#22A06B' : 'var(--color-text-2)',
+                      padding: '12px 20px', borderRadius: 2, cursor: 'pointer',
+                      border: isOn ? '2px solid #2b7353' : '1px solid var(--color-border)',
+                      background: isOn ? 'rgba(47,125,90,0.1)' : 'var(--color-bg-1)',
+                      color: isOn ? '#2b7353' : 'var(--color-text-2)',
                       fontSize: 14, fontWeight: isOn ? 600 : 400,
                       transition: 'all 150ms',
                     }}
@@ -424,10 +424,10 @@ export default function AgentProfil() {
             disabled={saving}
             style={{
               padding: '14px 32px', fontSize: 15, fontWeight: 600,
-              background: saving ? 'var(--color-border)' : '#22A06B',
-              color: '#fff', border: 'none', borderRadius: 12,
+              background: saving ? 'var(--color-border)' : '#2b7353',
+              color: '#fff', border: 'none', borderRadius: 2,
               cursor: saving ? 'not-allowed' : 'pointer',
-              boxShadow: saving ? 'none' : '0 4px 14px rgba(34,160,107,0.35)',
+              boxShadow: saving ? 'none' : '0 4px 14px rgba(47,125,90,0.35)',
               transition: 'all 150ms',
             }}
           >
@@ -436,7 +436,7 @@ export default function AgentProfil() {
           {step > 0 && (
             <button
               onClick={() => setStep(s => s - 1)}
-              style={{ padding: '14px 20px', fontSize: 14, background: 'none', border: '1px solid var(--color-border)', borderRadius: 12, cursor: 'pointer', color: 'var(--color-text-3)' }}
+              style={{ padding: '14px 20px', fontSize: 14, background: 'none', border: '1px solid var(--color-border)', borderRadius: 2, cursor: 'pointer', color: 'var(--color-text-3)' }}
             >
               ← Wróć
             </button>
@@ -489,7 +489,7 @@ export default function AgentProfil() {
       </Link>
 
       {saved && (
-        <div style={{ padding: '12px 16px', background: 'rgba(34,160,107,0.1)', border: '1px solid #22A06B', borderRadius: 10, marginBottom: 20, fontSize: 13, color: '#22A06B', fontFamily: 'var(--font-mono)' }}>
+        <div style={{ padding: '12px 16px', background: 'rgba(47,125,90,0.1)', border: '1px solid #2b7353', borderRadius: 2, marginBottom: 20, fontSize: 13, color: '#2b7353', fontFamily: 'var(--font-mono)' }}>
           Profil zapisany.
         </div>
       )}
@@ -505,20 +505,20 @@ export default function AgentProfil() {
           onClick={() => { setWizardMode(true); setStep(0); }}
           style={{
             padding: '10px 20px', fontSize: 13, fontWeight: 600,
-            background: '#22A06B', color: '#fff',
-            border: 'none', borderRadius: 10, cursor: 'pointer',
-            boxShadow: '0 2px 8px rgba(34,160,107,0.3)',
+            background: '#2b7353', color: '#fff',
+            border: 'none', borderRadius: 2, cursor: 'pointer',
+            boxShadow: 'none',
           }}
         >
           Edytuj
         </button>
       </div>
 
-      <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, padding: '8px 14px', background: 'rgba(34,160,107,0.06)', border: '1px solid rgba(34,160,107,0.15)', borderRadius: 8, marginBottom: 20, color: 'var(--color-text-3)' }}>
+      <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, padding: '8px 14px', background: 'rgba(47,125,90,0.06)', border: '1px solid rgba(47,125,90,0.15)', borderRadius: 2, marginBottom: 20, color: 'var(--color-text-3)' }}>
         {profileType === 'jdg' ? 'JDG - działalność gospodarcza' : 'Osoba prywatna'}
       </div>
 
-      <div style={{ border: '1px solid var(--color-border)', borderRadius: 12, overflow: 'hidden' }}>
+      <div style={{ border: '1px solid var(--color-border)', borderRadius: 2, overflow: 'hidden' }}>
         {Object.entries(profile)
           .filter(([key]) => !hiddenKeys.includes(key) && labelMap[key])
           .map(([key, value], i) => {
@@ -630,17 +630,17 @@ function DaneDoWnioskow({
       </div>
       <h2 style={{ fontSize: 20, fontWeight: 700, letterSpacing: '-0.02em', marginBottom: 12 }}>Dane do wniosków</h2>
 
-      <div style={{ padding: '12px 16px', background: 'rgba(34,160,107,0.08)', border: '1px solid rgba(34,160,107,0.3)', borderRadius: 8, marginBottom: 20, fontSize: 13, color: 'var(--color-text-2)', lineHeight: 1.5 }}>
+      <div style={{ padding: '12px 16px', background: 'rgba(47,125,90,0.08)', border: '1px solid rgba(47,125,90,0.3)', borderRadius: 2, marginBottom: 20, fontSize: 13, color: 'var(--color-text-2)', lineHeight: 1.5 }}>
         Te dane będą automatycznie wstawiane do wszystkich formularzy ZUS - wypełnij raz, oszczędzaj czas przy każdym wniosku.
       </div>
 
       {savedMsg && (
-        <div style={{ padding: '12px 16px', background: 'rgba(34,160,107,0.1)', border: '1px solid #22A06B', borderRadius: 10, marginBottom: 16, fontSize: 13, color: '#22A06B', fontFamily: 'var(--font-mono)' }}>
+        <div style={{ padding: '12px 16px', background: 'rgba(47,125,90,0.1)', border: '1px solid #2b7353', borderRadius: 2, marginBottom: 16, fontSize: 13, color: '#2b7353', fontFamily: 'var(--font-mono)' }}>
           Zapisano. Wnioski będą teraz auto-wypełniane.
         </div>
       )}
 
-      <div style={{ border: '1px solid var(--color-border)', borderRadius: 12, padding: 20, background: 'var(--color-bg-1)' }}>
+      <div style={{ border: '1px solid var(--color-border)', borderRadius: 2, padding: 20, background: 'var(--color-bg-1)' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 14 }}>
           {WNIOSKI_FIELDS.map(f => (
             <div key={f.key}>
@@ -654,12 +654,12 @@ function DaneDoWnioskow({
                 placeholder={f.placeholder}
                 style={{
                   width: '100%', padding: '10px 12px', fontSize: 14,
-                  border: '1px solid var(--color-border)', borderRadius: 8,
+                  border: '1px solid var(--color-border)', borderRadius: 2,
                   background: 'var(--color-bg-2)', color: 'var(--color-text-1)',
                   outline: 'none', boxSizing: 'border-box' as const,
                   fontFamily: f.key === 'pesel' || f.key === 'nr_konta' || f.key === 'kod_pocztowy' ? 'var(--font-mono)' : undefined,
                 }}
-                onFocus={e => { e.currentTarget.style.borderColor = '#22A06B'; }}
+                onFocus={e => { e.currentTarget.style.borderColor = '#2b7353'; }}
                 onBlur={e => { e.currentTarget.style.borderColor = 'var(--color-border)'; }}
               />
               {f.key === 'pesel' && peselWarn && (
@@ -680,10 +680,10 @@ function DaneDoWnioskow({
             disabled={saving}
             style={{
               padding: '12px 24px', fontSize: 14, fontWeight: 600,
-              background: saving ? 'var(--color-border)' : '#22A06B',
-              color: '#fff', border: 'none', borderRadius: 10,
+              background: saving ? 'var(--color-border)' : '#2b7353',
+              color: '#fff', border: 'none', borderRadius: 2,
               cursor: saving ? 'not-allowed' : 'pointer',
-              boxShadow: saving ? 'none' : '0 2px 8px rgba(34,160,107,0.3)',
+              boxShadow: saving ? 'none' : '0 2px 8px rgba(47,125,90,0.3)',
             }}
           >
             {saving ? 'Zapisuję...' : 'Zapisz dane do wniosków'}

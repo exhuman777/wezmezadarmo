@@ -34,7 +34,7 @@ export default function PrawoPage() {
 
   return (
     <main style={{ maxWidth: 820, margin: '0 auto', padding: '32px 24px 60px' }}>
-      <Link href="/centrum-obywatela" style={{ fontSize: 13, color: '#22A06B', textDecoration: 'none', marginBottom: 18, display: 'inline-block' }}>
+      <Link href="/centrum-obywatela" style={{ fontSize: 13, color: '#2b7353', textDecoration: 'none', marginBottom: 18, display: 'inline-block' }}>
         ← Centrum Obywatela
       </Link>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
@@ -53,14 +53,14 @@ export default function PrawoPage() {
         style={{ display: 'flex', gap: 8, marginBottom: 20, flexWrap: 'wrap' }}>
         <input type="text" placeholder="Słowo kluczowe (np. KRUS, emerytura)"
           value={q} onChange={e => setQ(e.target.value)}
-          style={{ flex: 1, minWidth: 200, padding: '10px 14px', border: '1px solid var(--line)', borderRadius: 8, fontSize: 15 }} />
+          style={{ flex: 1, minWidth: 200, padding: '10px 14px', border: '1px solid var(--line)', borderRadius: 2, fontSize: 15 }} />
         <button type="submit" className="btn btn-primary">Szukaj</button>
       </form>
 
       {loading && <div style={{ fontSize: 13, color: 'var(--ink-500)' }}>Ładowanie...</div>}
-      {error && <div style={{ padding: '12px 16px', background: 'rgba(220,80,80,0.05)', border: '1px solid rgba(220,80,80,0.25)', borderRadius: 8, color: '#dc5050', fontSize: 13 }}>{error}</div>}
+      {error && <div style={{ padding: '12px 16px', background: 'rgba(196,72,58,0.05)', border: '1px solid rgba(196,72,58,0.25)', borderRadius: 2, color: '#c4483a', fontSize: 13 }}>{error}</div>}
       {data && data.length === 0 && (
-        <div style={{ padding: '14px 18px', background: 'var(--green-50)', border: '1px solid var(--green-200)', borderRadius: 10, color: 'var(--green-900)' }}>
+        <div style={{ padding: '14px 18px', background: 'var(--green-50)', border: '1px solid var(--green-200)', borderRadius: 2, color: 'var(--green-900)' }}>
           Brak zmian pasujących do zapytania.
         </div>
       )}
@@ -69,7 +69,7 @@ export default function PrawoPage() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
           {data.map(a => (
             <a key={a.eli} href={a.eliUrl} target="_blank" rel="noopener noreferrer"
-              style={{ display: 'block', padding: 14, background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 10, textDecoration: 'none', color: 'inherit' }}>
+              style={{ display: 'block', padding: 14, background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 2, textDecoration: 'none', color: 'inherit' }}>
               <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--ink-900)', marginBottom: 4, lineHeight: 1.4 }}>{a.title}</div>
               <div style={{ fontSize: 11, color: 'var(--ink-500)', fontFamily: 'var(--f-mono)' }}>
                 {a.type} · {a.publisher} · {a.announcedAt} · ELI: {a.eli}
@@ -80,7 +80,7 @@ export default function PrawoPage() {
       )}
 
       <p style={{ marginTop: 24, fontSize: 11, color: 'var(--ink-400)' }}>
-        Źródło: <a href="https://api.sejm.gov.pl/eli" target="_blank" rel="noopener noreferrer" style={{ color: '#22A06B' }}>api.sejm.gov.pl/eli</a>
+        Źródło: <a href="https://api.sejm.gov.pl/eli" target="_blank" rel="noopener noreferrer" style={{ color: '#2b7353' }}>api.sejm.gov.pl/eli</a>
       </p>
     </main>
   );

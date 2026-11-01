@@ -90,10 +90,10 @@ export default async function NewsletterAdminPage() {
       {/* Stats */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 12, marginBottom: 32 }}>
         <Stat label="Łącznie zapisów" value={String(stats.total)} />
-        <Stat label="Potwierdzone (aktywne)" value={String(stats.confirmed)} color="#22A06B" />
+        <Stat label="Potwierdzone (aktywne)" value={String(stats.confirmed)} color="#2b7353" />
         <Stat label="Prywatne" value={String(stats.private)} />
         <Stat label="JDG/Firma" value={String(stats.jdg)} />
-        <Stat label="Wypisani" value={String(stats.unsubscribed)} color="#c0392b" />
+        <Stat label="Wypisani" value={String(stats.unsubscribed)} color="#b23d30" />
       </div>
 
       {/* Eksport CSV */}
@@ -106,7 +106,7 @@ export default async function NewsletterAdminPage() {
             padding: '8px 16px',
             background: 'var(--color-text-1)',
             color: 'var(--color-bg-0)',
-            borderRadius: 8,
+            borderRadius: 2,
             fontSize: 13,
             fontWeight: 500,
             textDecoration: 'none',
@@ -117,7 +117,7 @@ export default async function NewsletterAdminPage() {
       </div>
 
       {/* Tabela */}
-      <div style={{ overflowX: 'auto', background: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 12 }}>
+      <div style={{ overflowX: 'auto', background: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 2 }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
           <thead>
             <tr style={{ background: 'var(--color-bg-2)' }}>
@@ -166,7 +166,7 @@ export default async function NewsletterAdminPage() {
 
 function Stat({ label, value, color }: { label: string; value: string; color?: string }) {
   return (
-    <div style={{ padding: 16, background: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 10 }}>
+    <div style={{ padding: 16, background: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 2 }}>
       <div style={{ fontSize: 11, color: 'var(--color-text-3)', fontWeight: 600, marginBottom: 4 }}>{label}</div>
       <div style={{ fontSize: 24, fontWeight: 700, color: color ?? 'var(--color-text-1)' }}>{value}</div>
     </div>
@@ -187,14 +187,14 @@ function Td({ children, colSpan }: { children: React.ReactNode; colSpan?: number
 
 function Pill({ children, tone }: { children: React.ReactNode; tone: 'green' | 'amber' | 'red' }) {
   const colors = {
-    green: { bg: '#d4ecc8', fg: '#1e4d1c' },
+    green: { bg: '#e3ecdc', fg: '#27503c' },
     amber: { bg: '#fff4e0', fg: '#a05a1a' },
     red: { bg: '#fce4e6', fg: '#8b1f24' },
   };
   const c = colors[tone];
   return (
     <span style={{
-      padding: '4px 10px', borderRadius: 999,
+      padding: '4px 10px', borderRadius: 2,
       background: c.bg, color: c.fg,
       fontSize: 11, fontWeight: 600,
     }}>{children}</span>
