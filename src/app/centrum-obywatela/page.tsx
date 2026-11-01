@@ -39,7 +39,7 @@ const TOOLS: Tool[] = [
     audiences: ['senior', 'student', 'rodzina'] },
   { href: '/aktualnosci', icon: 'R', label: 'Aktualności RSS', desc: 'Agregator z 8 instytucji państwowych, odświeżany 2x/dzień', badge: '2x/dzień', color: '#003874',
     audiences: ['firma', 'wszyscy'] },
-  { href: '/swiadczenia', icon: 'S', label: 'Świadczenia i ulgi', desc: '133 świadczeń ZUS, NFZ, PFRON, KRUS, MOPS - przeszukiwalna baza', badge: 'baza wiedzy', color: '#2b7353',
+  { href: '/swiadczenia', icon: 'S', label: 'Świadczenia i ulgi', desc: '133 świadczenia z ZUS, NFZ, PFRON, KRUS i MOPS w jednej wyszukiwarce', badge: 'baza wiedzy', color: '#2b7353',
     audiences: ['rolnik', 'senior', 'rodzina', 'student', 'wszyscy'] },
   { href: '/centrum-obywatela/polska-cyfrowa', icon: 'C', label: 'Polska cyfrowa', desc: 'e-zdrowie, ElevenLabs, wykresy: dostępność mieszkań i wzrost e-usług', badge: 'dane + wykresy', color: '#157a4f',
     audiences: ['senior', 'firma', 'student', 'wszyscy'] },
@@ -105,13 +105,6 @@ const AUDIENCES: Audience[] = [
   },
 ];
 
-const STATS = [
-  { num: '12', label: 'darmowych narzędzi' },
-  { num: '9', label: 'oficjalnych API rządowych' },
-  { num: '8', label: 'źródeł danych live w czacie AI' },
-  { num: '0 PLN', label: 'koszt, bez rejestracji' },
-];
-
 const SOURCES = [
   { name: 'api.nfz.gov.pl', purpose: 'kolejki, lekarze, refundacja' },
   { name: 'api.nbp.pl', purpose: 'kursy walut Tabela A' },
@@ -126,203 +119,52 @@ const SOURCES = [
 
 export default function CentrumObywatelaPage() {
   return (
-    <main style={{ maxWidth: 1120, margin: '0 auto', padding: '32px 24px 60px' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
-        <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#2b7353', boxShadow: 'none' }} />
-        <span style={{ fontFamily: 'var(--f-mono)', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink-500)' }}>
-          Centrum Obywatela
-        </span>
-      </div>
+    <main className="prosta">
+      <section className="prosta-blok">
+        <p className="etykieta">Centrum Obywatela</p>
+        <h1>Narzędzia z danych urzędowych</h1>
+        <p className="pod">Kolejki NFZ, kursy NBP, powietrze, Biała Lista VAT, zmiany w prawie. Wszystko z oficjalnych API, bez logowania.</p>
+      </section>
 
-      <h1 style={{ fontSize: 'clamp(26px, 3.8vw, 38px)', fontWeight: 700, marginBottom: 14, color: 'var(--ink-900)', lineHeight: 1.15, letterSpacing: '-0.02em' }}>
-        12 darmowych narzędzi urzędowych w jednym miejscu
-      </h1>
-      <p style={{ fontSize: 16, color: 'var(--ink-500)', marginBottom: 28, lineHeight: 1.55, maxWidth: 780 }}>
-        Pogrupowane po grupach docelowych - wejdź w sekcję dla siebie i sprawdź czego potrzebujesz.
-        Dane z oficjalnych polskich API (NFZ, NBP, GIOŚ, MF, GUS, Sejm). Bez logowania, bez plików cookie, bez profilowania.
-      </p>
+      <section className="prosta-blok">
+        <h2>Narzędzia</h2>
+        <ul className="linki">
+          {TOOLS.map(t => (
+            <li key={t.href}>
+              <Link href={t.href}>
+                <span>{t.label}<small>{t.desc}</small></span>
+                <span aria-hidden="true">→</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
 
-      <div style={{
-        display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(130px, 100%), 1fr))', gap: 10,
-        marginBottom: 32,
-      }}>
-        {STATS.map(s => (
-          <div key={s.label} style={{
-            padding: '14px 16px',
-            background: 'var(--white)',
-            border: '1px solid var(--line)',
-            borderRadius: 2,
-            position: 'relative',
-            overflow: 'hidden',
-          }}>
-            <span style={{
-              position: 'absolute', top: 0, left: 0, bottom: 0, width: 3,
-              background: 'transparent',
-            }} />
-            <div style={{ fontSize: 22, fontWeight: 700, color: 'var(--ink-900)', letterSpacing: '-0.02em', fontFamily: 'var(--f-mono)', lineHeight: 1.1 }}>
-              {s.num}
-            </div>
-            <div style={{ fontSize: 11, color: 'var(--ink-500)', marginTop: 4, lineHeight: 1.35 }}>
-              {s.label}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-        {AUDIENCES.map(aud => {
-          const tools = TOOLS.filter(t => t.audiences.includes(aud.slug));
-          if (tools.length === 0) return null;
-          return (
-            <section key={aud.slug} style={{
-              padding: '20px 22px',
-              background: 'var(--white)',
-              border: '1px solid var(--line)',
-              borderRadius: 2,
-              position: 'relative',
-              overflow: 'hidden',
-            }}>
-              <span style={{
-                position: 'absolute', top: 0, left: 0, bottom: 0, width: 4,
-                background: aud.accent,
-                opacity: 0.85,
-              }} />
-              <div style={{
-                display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start',
-                gap: 16, flexWrap: 'wrap', marginBottom: 14, paddingLeft: 4,
-              }}>
-                <div style={{ flex: '1 1 360px', minWidth: 0 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6 }}>
-                    <span style={{
-                      fontFamily: 'var(--f-mono)', fontSize: 11, fontWeight: 600,
-                      color: aud.accent, letterSpacing: '0.08em',
-                      padding: '3px 8px', borderRadius: 2,
-                      background: `${aud.accent}15`,
-                      border: `1px solid ${aud.accent}30`,
-                    }}>
-                      {aud.marker}
-                    </span>
-                    <h2 style={{ fontSize: 19, fontWeight: 700, color: 'var(--ink-900)', margin: 0, letterSpacing: '-0.01em' }}>
-                      {aud.label}
-                    </h2>
-                    <span style={{
-                      fontSize: 10, fontFamily: 'var(--f-mono)', color: 'var(--ink-500)',
-                      letterSpacing: '0.06em', textTransform: 'uppercase',
-                      padding: '2px 7px', borderRadius: 2,
-                      background: 'var(--ink-100, #f0f0f0)',
-                      border: '1px solid var(--line)',
-                    }}>
-                      {tools.length} {tools.length === 1 ? 'narzędzie' : tools.length < 5 ? 'narzędzia' : 'narzędzi'}
-                    </span>
-                  </div>
-                  <p style={{ fontSize: 13.5, color: 'var(--ink-600)', margin: 0, lineHeight: 1.55, maxWidth: 720 }}>
-                    {aud.desc}
-                  </p>
-                </div>
-                <div style={{
-                  flex: '0 0 auto',
-                  padding: '8px 12px',
-                  background: `${aud.accent}08`,
-                  border: `1px dashed ${aud.accent}40`,
-                  borderRadius: 2,
-                  fontSize: 11.5, color: 'var(--ink-600)', fontStyle: 'italic',
-                  maxWidth: 260,
-                }}>
-                  {aud.benefit}
-                </div>
-              </div>
-
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))',
-                gap: 10,
-              }}>
-                {tools.map(t => (
-                  <Link key={t.href + aud.slug} href={t.href} className="card-hover"
-                    style={{
-                      display: 'block', textDecoration: 'none',
-                      padding: 14,
-                      background: 'var(--green-25, #fbf7ef)',
-                      border: '1px solid var(--line)',
-                      borderRadius: 2,
-                      position: 'relative', overflow: 'hidden',
-                      transition: 'transform 180ms, border-color 180ms',
-                    }}>
-                    <span style={{
-                      position: 'absolute', top: 0, left: 0, right: 0, height: 2,
-                      background: `transparent`,
-                      opacity: 0.6,
-                    }} />
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6 }}>
-                      <span style={{
-                        width: 32, height: 32, borderRadius: 2,
-                        background: t.color, color: '#fff',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        fontFamily: 'var(--f-mono)', fontSize: 13, fontWeight: 700, flexShrink: 0,
-                      }}>{t.icon}</span>
-                      <div style={{ minWidth: 0, flex: 1 }}>
-                        <div style={{ fontSize: 13.5, fontWeight: 600, color: 'var(--ink-900)', letterSpacing: '-0.01em', lineHeight: 1.25 }}>
-                          {t.label}
-                        </div>
-                        <div style={{ fontSize: 9.5, fontFamily: 'var(--f-mono)', color: t.color, letterSpacing: '0.06em', textTransform: 'uppercase', marginTop: 2 }}>
-                          {t.badge}
-                        </div>
-                      </div>
-                    </div>
-                    <p style={{ fontSize: 12, color: 'var(--ink-500)', lineHeight: 1.45, margin: 0 }}>
-                      {t.desc}
-                    </p>
-                  </Link>
+      <section className="prosta-blok">
+        <h2>Dla kogo co</h2>
+        <ul className="lista">
+          {AUDIENCES.map(aud => {
+            const tools = TOOLS.filter(t => t.audiences.includes(aud.slug));
+            return (
+              <li key={aud.slug}>
+                <b>{aud.label}:</b>{' '}
+                {tools.map((t, i) => (
+                  <span key={t.href}>{i > 0 ? ', ' : ''}<Link href={t.href}>{t.label}</Link></span>
                 ))}
-              </div>
-            </section>
-          );
-        })}
-      </div>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
 
-      <section style={{ marginTop: 28 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
-          <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--ink-400)' }} />
-          <span style={{ fontFamily: 'var(--f-mono)', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink-500)' }}>
-            Źródła danych
-          </span>
-        </div>
-        <div style={{
-          padding: '18px 22px',
-          background: 'var(--green-50)',
-          border: '1px solid var(--green-200)',
-          borderRadius: 2,
-        }}>
-          <div style={{ fontSize: 13, color: 'var(--green-900)', lineHeight: 1.55, marginBottom: 14 }}>
-            <strong>9 oficjalnych API rządowych</strong> - dane pobierane na żądanie, nigdzie nie przechowywane.
-            Bez profilowania, bez plików cookie, bez śledzenia.
-          </div>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-            gap: 8,
-          }}>
-            {SOURCES.map(s => (
-              <div key={s.name} style={{
-                padding: '8px 12px',
-                background: 'var(--white)',
-                border: '1px solid var(--green-200)',
-                borderRadius: 2,
-                display: 'flex', flexDirection: 'column', gap: 2,
-              }}>
-                <code style={{
-                  fontSize: 11.5, fontFamily: 'var(--f-mono)', color: 'var(--green-900)',
-                  fontWeight: 600, letterSpacing: '-0.005em',
-                }}>
-                  {s.name}
-                </code>
-                <span style={{ fontSize: 11, color: 'var(--ink-500)' }}>
-                  {s.purpose}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
+      <section className="prosta-blok">
+        <h2>Źródła</h2>
+        <p className="pod">Dane pobieramy na żądanie i niczego nie przechowujemy.</p>
+        <ul className="lista">
+          {SOURCES.map(src => (
+            <li key={src.name}><b>{src.name}</b> {src.purpose}</li>
+          ))}
+        </ul>
       </section>
     </main>
   );

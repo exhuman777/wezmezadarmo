@@ -1097,3 +1097,10 @@ html.dark .btn-ghost { background: transparent; border-color: var(--tusz); color
 .stopka-sekcja[open] summary::after { content: '-'; }
 .stopka-sekcja-in { padding: 8px 0 4px; }
 .stopka-dol { margin: 24px 0 0; padding-top: 16px; border-top: 1px solid var(--linia); font-size: 13px; color: var(--szary); }
+
+/* lista z cienką linią (zamiast kart) */
+.lista { list-style: none; margin: 16px 0 0; padding: 0; }
+.lista li { padding: 12px 0; border-top: 1px solid var(--linia); font-size: 16px; line-height: 1.55; }
+.lista li:last-child { border-bottom: 1px solid var(--linia); }
+.lista b { font-family: var(--f-mono); font-weight: 700; }
+.etykieta { font-family: var(--f-mono); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--szary); margin: 0 0 8px; }

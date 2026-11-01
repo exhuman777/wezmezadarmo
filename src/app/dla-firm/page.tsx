@@ -78,46 +78,17 @@ function TerminalWindow() {
 
 /* ── Kto korzysta z API: firmy, instytucje i organizacje wspierające ludzi ── */
 const ODBIORCY = [
-  {
-    ikona: 'N', tytul: 'NGO i OPS',
-    opis: 'Jedno zapytanie do API zamiast ręcznego przeszukiwania kilkudziesięciu rządowych stron. Doradca dostaje gotową listę świadczeń z instrukcją złożenia wniosku dla konkretnej osoby.',
-  },
-  {
-    ikona: 'S', tytul: 'Pracownicy socjalni i doradcy obywatelscy',
-    opis: 'Podczas rozmowy z podopiecznym system od razu pokazuje, co danej osobie przysługuje. Mniej biurokracji, więcej realnej pomocy, zero przechowywania danych klienta.',
-  },
-  {
-    ikona: 'D', tytul: 'Organizacje osób z niepełnosprawnością',
-    opis: 'Świadczenie wspierające, dofinansowania PFRON, ulgi i turnusy rehabilitacyjne w jednym miejscu. API pomaga dotrzeć z informacją do osób, które najczęściej zostają z niczym.',
-  },
-  {
-    ikona: 'E', tytul: 'Organizacje senioralne i opiekunowie',
-    opis: 'Trzynastka, czternastka, dodatek osłonowy, refundacja leków, opieka 75+. Wsparcie dla seniorów i osób, które na co dzień się nimi opiekują, bez konieczności znajomości przepisów.',
-  },
-  {
-    ikona: 'M', tytul: 'Wsparcie migrantów i osób wykluczonych cyfrowo',
-    opis: 'Dla ludzi, którzy nie poruszają się swobodnie po polskich portalach urzędowych. Prosty interfejs i jasna lista uprawnień zmniejszają barierę językową i cyfrową.',
-  },
-  {
-    ikona: 'B', tytul: 'Biblioteki i punkty pomocy cyfrowej',
-    opis: 'Punkty wsparcia obywatela mogą bezpłatnie sprawdzić uprawnienia osoby, której pomagają. Inkluzja cyfrowa zamiast odsyłania na dziesiątki różnych stron.',
-  },
-  {
-    ikona: 'R', tytul: 'Uczelnie i badacze',
-    opis: 'Otwarte dane (CC-BY-4.0) i otwarty silnik (AGPL-3.0) do badań nad nieskorzystaniem ze świadczeń (benefit take-up) oraz nad dostępnością wsparcia w różnych grupach.',
-  },
-  {
-    ikona: 'H', tytul: 'HR, kadry i fintech',
-    opis: 'Przy onboardingu lub wniosku kredytowym aplikacja w tle sprawdza, jakie regularne świadczenia przysługują osobie. Pracownik lub klient nie zostaje sam z biurokracją.',
-  },
+  { ikona: 'N', tytul: 'NGO i ośrodki pomocy', opis: 'Jedno zapytanie zamiast przeszukiwania wielu stron urzędów.' },
+  { ikona: 'S', tytul: 'Pracownicy socjalni i doradcy', opis: 'W trakcie rozmowy widać, co danej osobie może przysługiwać.' },
+  { ikona: 'B', tytul: 'Biblioteki i punkty pomocy cyfrowej', opis: 'Szybkie sprawdzenie uprawnień osoby, której pomagają.' },
+  { ikona: 'R', tytul: 'Uczelnie i badacze', opis: 'Otwarte dane (CC-BY-4.0) i otwarty kod (AGPL-3.0).' },
 ];
 
 const FEATURES = [
-  '133 świadczeń w 15 kategoriach, ręcznie zweryfikowanych',
-  'Odpowiedź <200ms, aktualizowana baza',
-  'Brak przechowywania danych (prywatność i RODO wbudowane)',
-  'Otwarte: kod AGPL-3.0, dane CC-BY-4.0 - wolno reużywać',
-  'Bezpłatne; klucz API także dla NGO i instytucji publicznych',
+  '133 świadczenia w 13 kategoriach, każde ze źródłem',
+  'API nie zapisuje danych osób, o które pytasz',
+  'Kod AGPL-3.0, dane CC-BY-4.0',
+  'Bezpłatne, także dla NGO i instytucji publicznych',
   'Dokumentacja dla AI: wezmezadarmo.com/llm.md',
 ];
 
@@ -182,7 +153,7 @@ export default function DlaFirmPage() {
 
       <section className="prosta-blok" style={{ padding: '32px 0 0' }}>
         <h2>Kto korzysta z API</h2>
-        <p className="pod">Przede wszystkim ci, którzy pomagają ludziom: NGO, pracownicy socjalni, instytucje i punkty wsparcia.</p>
+        <p className="pod">Głównie ci, którzy pomagają ludziom.</p>
         <ul style={{ margin: '16px 0 0', padding: 0, listStyle: 'none' }}>
           {ODBIORCY.map(k => (
             <li key={k.tytul} style={{ padding: '14px 0', borderTop: '1px solid var(--linia)' }}>
@@ -197,7 +168,7 @@ export default function DlaFirmPage() {
         <h2>Więcej dla firm</h2>
         <ul className="linki">
           <li><a href="/dotacje"><span>Dotacje dla firm<small>Agent AI śledzi nabory dla Twojej firmy.</small></span><span aria-hidden="true">&rarr;</span></a></li>
-          <li><a href="/za-darmo-dla-biznesu"><span>Za darmo dla biznesu<small>Bezpłatne narzędzia i programy.</small></span><span aria-hidden="true">&rarr;</span></a></li>
+          <li><a href="/za-darmo-dla-biznesu"><span>Narzędzia dla firm<small>DogInvoice i DogAnswer.</small></span><span aria-hidden="true">&rarr;</span></a></li>
           <li><a href="/automatyzacje"><span>Automatyzacje<small>KSeF, faktury zagraniczne i własne procesy.</small></span><span aria-hidden="true">&rarr;</span></a></li>
         </ul>
       </section>

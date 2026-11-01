@@ -100,8 +100,8 @@ const CATEGORIES: Category[] = [
         name: 'NLnet NGI Zero Commons Fund',
         institution: 'NLnet Foundation / UE Horizon Europe',
         amount: 'do 50 000 EUR',
-        deadline: '1 czerwca 2026, 12:00',
-        deadlineUrgent: true,
+        deadline: '1 czerwca 2026, nabór zamknięty',
+        deadlineUrgent: false,
         description: 'Grant dla projektów open-source z impaktem społecznym. Dla civic tech, narzędzi AI, infrastruktury cyfrowej. Bez wymogu spółki, solo-founder OK.',
       },
     ],
@@ -140,7 +140,7 @@ const ROADMAP: RoadmapItem[] = [
 const STEPS = [
   { n: '01', text: 'Wybierz formularz. Zalogowanym auto-wypełniamy dane z profilu (PESEL, imię, adres, nr konta).' },
   { n: '02', text: 'AI generuje treść pól na podstawie kontekstu wniosku - Ty tylko czytasz i potwierdzasz.' },
-  { n: '03', text: 'Dane zostają zapisane w Twojej przeglądarce - następnym razem wypełnisz wniosek w 2 minuty.' },
+  { n: '03', text: 'Dane zostają w Twojej przeglądarce, więc przy kolejnym wniosku pola wypełnią się same.' },
   { n: '04', text: 'Pobierasz gotowy PDF z wypełnionymi danymi, instrukcją złożenia i wskazówkami. Drukujesz, podpisujesz i składasz.' },
 ];
 

@@ -4,14 +4,14 @@ import AutomatyzacjePage from './AutomatyzacjePage';
 
 export const metadata: Metadata = {
   alternates: canonical('/automatyzacje'),
-  title: 'Automatyzacje AI dla europejskich firm | wezmezadarmo',
+  title: 'Automatyzacje w małej firmie: co da się zrobić | wezmezadarmo',
   description:
-    'Informacyjnie: jakie automatyzacje AI są dziś możliwe i dostępne dla europejskich firm i JDG. wezmezadarmo.com to projekt pro bono dla obywateli; rozwiązania dla firm realizują niezależni europejscy partnerzy w ramach co-promocji.',
+    'Faktury spoza KSeF, oferty, raporty, maile i terminy ZUS. Pięć przykładów automatyzacji w małej firmie, każda sprawdzana przez człowieka.',
   openGraph: {
     images: OG_IMAGES,
-    title: 'Automatyzacje AI dla europejskich firm: co jest dziś możliwe',
+    title: 'Co w firmie da się dziś zautomatyzować',
     description:
-      'Faktury spoza UE, oferty, raporty, maile, terminy. Takie automatyzacje są możliwe i dostępne dla europejskich firm. Strona informacyjna, w ramach co-promocji europejskich projektów.',
+      'Pięć przykładów automatyzacji w małej firmie.',
     locale: 'pl_PL',
     type: 'website',
   },

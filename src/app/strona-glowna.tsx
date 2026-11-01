@@ -459,7 +459,7 @@ export default function Home() {
         welcomeText += 'Napisz pytanie, jestem tutaj żeby pomóc.';
       } else {
         welcomeText = 'Nie znalazłem świadczeń pasujących do Twojego profilu.\n\n';
-        welcomeText += 'Algorytm przeszukał 133 świadczeń z 15 kategorii. Opisz mi swoją sytuację, a sprawdzę czy czegoś nie przeoczyłem.\n\n';
+        welcomeText += 'Sprawdziłem 133 świadczenia z 13 kategorii. Opisz mi swoją sytuację, a sprawdzę czy czegoś nie przeoczyłem.\n\n';
         welcomeText += 'Jestem asystentem AI. Moje odpowiedzi opierają się na zweryfikowanej bazie danych, ale zawsze sprawdź informacje na stronach źródłowych.';
       }
 
@@ -608,7 +608,7 @@ export default function Home() {
         <section id="kalkulator" className="prosta-blok" style={{ padding: '32px 0 0', scrollMarginTop: 80 }}>
           <span id="formularz" />
           <h2>Sprawdź, co Ci się należy</h2>
-          <p className="pod">Wiek i płeć wystarczą na start. Dwie minuty, bez konta, za darmo.</p>
+          <p className="pod">Kilka pytań o Twoją sytuację. Bez konta i za darmo.</p>
           <div style={{ marginTop: 20, padding: 20, background: 'var(--surface)', border: '2px solid var(--tusz)' }}>
             <IntakeForm onSubmit={handleIntakeSubmit} isLoading={isLoading} />
           </div>
@@ -643,7 +643,7 @@ export default function Home() {
 
         {/* Linki jak w bio */}
         <section className="prosta-blok" style={{ padding: '32px 0 0' }}>
-          <h2>Wszystko w jednym miejscu</h2>
+          <h2>Więcej na stronie</h2>
           <ul className="linki">
             <li><a href="/swiadczenia"><span>Baza świadczeń<small>Kwoty, warunki i źródła.</small></span><IconArrowRight /></a></li>
             <li><a href="/wnioski"><span>Wnioski ZUS z pomocą AI<small>Wypełnisz i pobierzesz PDF.</small></span><IconArrowRight /></a></li>
@@ -656,18 +656,18 @@ export default function Home() {
 
         {/* Konto */}
         <section className="prosta-blok" style={{ padding: '32px 0 0' }}>
-          <h2>Załóż darmowe konto</h2>
-          <p className="pod">Damy znać, gdy pojawi się świadczenie, nabór albo zmiana w prawie dla Ciebie. Najwyżej 1 e-mail dziennie, wyłączysz w każdej chwili.</p>
+          <h2>Konto</h2>
+          <p className="pod">Konto zapamięta Twój profil i dopasowane świadczenia. Jest darmowe.</p>
           <div className="przyciski">
-            <a href="/rejestracja" className="btn btn-primary btn-lg">Załóż darmowe konto</a>
+            <a href="/rejestracja" className="btn btn-primary btn-lg">Załóż konto</a>
             <a href="/logowanie" className="btn btn-lg">Mam już konto</a>
           </div>
         </section>
 
         {/* Udostępnij */}
         <section className="prosta-blok" style={{ padding: '32px 0 0' }}>
-          <h2>Podziel się z bliskimi</h2>
-          <p className="pod">Jeden link może komuś pomóc znaleźć pieniądze, które mu się należą.</p>
+          <h2>Podeślij komuś</h2>
+          <p className="pod">Ktoś z bliskich może nie wiedzieć, co mu przysługuje.</p>
           <div className="przyciski">
             <a className="btn" href={`https://wa.me/?text=${encodeURIComponent(shareText)}`} target="_blank" rel="noopener noreferrer">WhatsApp</a>
             <a className="btn" href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://wezmezadarmo.com')}`} target="_blank" rel="noopener noreferrer">Facebook</a>
@@ -703,7 +703,6 @@ export default function Home() {
         </div>
 
         <section style={{ position: 'relative', minHeight: 'calc(100vh - 105px)', display: 'flex', alignItems: 'center' }}>
-          <div className="grain-bg" />
           <div className="wrap" style={{ position: 'relative', maxWidth: 640, margin: '0 auto' }}>
             {/* Progress bar */}
             <div style={{ height: 2, background: 'var(--color-border)', borderRadius: 1, overflow: 'hidden', marginBottom: 48 }}>
@@ -818,128 +817,15 @@ export default function Home() {
 
   // ===================== LOADING =====================
   if (phase === 'loading') {
-    const counted = Math.round(loadingProgress * 133);
     const pct = Math.round(loadingProgress * 100);
-    const segments = CATEGORIES.length;
-    const ringR = 130;
-    const cx = 160, cy = 160;
-    const innerR = 100;
-
     return (
-      <div style={{ minHeight: '100vh' }}>
-        <div style={{ display: 'flex', justifyContent: 'center', padding: '12px 0' }}>
-          <Chip mono>ANALIZA</Chip>
-        </div>
-
-        <section style={{ position: 'relative', minHeight: 'calc(100vh - 105px)', display: 'flex', alignItems: 'center' }}>
-          <div className="grain-bg" />
-          <div className="wrap" style={{ position: 'relative' }}>
-            <div className="grid-hero" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'clamp(24px, 5vw, 80px)', alignItems: 'center' }}>
-
-              {/* LEFT: status */}
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
-                  <span className="red-dot" />
-                  <span className="label-eyebrow">Analiza w toku</span>
-                </div>
-
-                <h1 className="display" style={{ fontSize: 'clamp(40px, 6vw, 80px)', marginBottom: 36 }}>
-                  Sprawdzamy<br />
-                  <span style={{ color: 'var(--color-accent)', fontVariantNumeric: 'tabular-nums' }}>{counted}/133</span>
-                  <span style={{ color: 'var(--color-text-3)' }}> świadczeń</span>
-                </h1>
-
-                <p style={{ fontSize: 17, color: 'var(--color-text-2)', maxWidth: 480, marginBottom: 32, lineHeight: 1.5 }}>
-                  Dopasowujemy 133 świadczeń z 15 kategorii do Twojej sytuacji.
-                  Dopasowanie odbywa się na serwerze, ale dane nie są zapisywane.
-                </p>
-
-                <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 24 }}>
-                  <div className="mono" style={{ fontSize: 13, color: 'var(--color-text-3)' }}>{String(pct).padStart(2, '0')}%</div>
-                  <div style={{ flex: 1, height: 2, background: 'var(--color-border)', borderRadius: 1, overflow: 'hidden' }}>
-                    <div style={{ width: `${pct}%`, height: '100%', background: 'var(--color-text-1)', transition: 'width 200ms' }} />
-                  </div>
-                  <div className="mono" style={{ fontSize: 13, color: 'var(--color-text-3)' }}>{Math.max(0, Math.round((1 - loadingProgress) * 5))}s</div>
-                </div>
-
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-                  {CATEGORIES.map((c, i) => {
-                    const active = i / CATEGORIES.length <= loadingProgress;
-                    const current = i === loadingCatIdx;
-                    return (
-                      <span key={c.id} className="mono" style={{
-                        fontSize: 11,
-                        padding: '6px 10px',
-                        borderRadius: 2,
-                        border: `1px solid ${active ? 'var(--color-text-1)' : 'var(--color-border)'}`,
-                        background: current ? 'var(--color-text-1)' : (active ? 'var(--color-surface)' : 'transparent'),
-                        color: current ? 'var(--color-bg-0)' : (active ? 'var(--color-text-1)' : 'var(--color-muted-2)'),
-                        transition: 'all 280ms',
-                        letterSpacing: '0.02em',
-                      }}>
-                        {String(i + 1).padStart(2, '0')} {c.label}
-                      </span>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* RIGHT: ring visualization */}
-              <div className="hide-mobile" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <div style={{ position: 'relative', width: 'min(360px, 100%)', aspectRatio: '1', maxWidth: 360 }}>
-                  <svg viewBox="0 0 320 320" style={{ width: '100%', height: '100%', willChange: 'transform' }}>
-                    {/* 13-segment ring */}
-                    {Array.from({ length: segments }).map((_, i) => {
-                      const a0 = (i / segments) * Math.PI * 2 - Math.PI / 2 + 0.012;
-                      const a1 = ((i + 1) / segments) * Math.PI * 2 - Math.PI / 2 - 0.012;
-                      const r1 = ringR, r2 = ringR - 22;
-                      const x0 = cx + Math.cos(a0) * r1, y0 = cy + Math.sin(a0) * r1;
-                      const x1 = cx + Math.cos(a1) * r1, y1 = cy + Math.sin(a1) * r1;
-                      const x2 = cx + Math.cos(a1) * r2, y2 = cy + Math.sin(a1) * r2;
-                      const x3 = cx + Math.cos(a0) * r2, y3 = cy + Math.sin(a0) * r2;
-                      const active = i / segments <= loadingProgress;
-                      const current = i === loadingCatIdx;
-                      return (
-                        <path key={i}
-                          d={`M ${x0} ${y0} A ${r1} ${r1} 0 0 1 ${x1} ${y1} L ${x2} ${y2} A ${r2} ${r2} 0 0 0 ${x3} ${y3} Z`}
-                          fill={current ? 'var(--color-text-1)' : (active ? 'var(--color-accent)' : 'var(--color-border)')}
-                          style={{ transition: 'fill 360ms var(--ease-out)' }}
-                        />
-                      );
-                    })}
-                    {/* Inner tick ring */}
-                    {Array.from({ length: 133 }).map((_, i) => {
-                      const a = (i / 133) * Math.PI * 2 - Math.PI / 2;
-                      const r1 = innerR - 4, r2 = innerR - 12;
-                      const tickActive = i < counted;
-                      return (
-                        <line key={i}
-                          x1={cx + Math.cos(a) * r1} y1={cy + Math.sin(a) * r1}
-                          x2={cx + Math.cos(a) * r2} y2={cy + Math.sin(a) * r2}
-                          stroke={tickActive ? 'var(--color-text-1)' : 'var(--color-border)'}
-                          strokeWidth="1.4"
-                          style={{ transition: 'stroke 240ms' }}
-                        />
-                      );
-                    })}
-                    {/* Center disk */}
-                    <circle cx={cx} cy={cy} r={innerR - 24} fill="var(--color-bg-0)" stroke="var(--color-border)" />
-                  </svg>
-                  {/* Center text */}
-                  <div style={{
-                    position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'
-                  }}>
-                    <div className="mono" style={{ fontSize: 11, color: 'var(--color-text-3)', letterSpacing: '0.12em', marginBottom: 8 }}>KATEGORIA</div>
-                    <div key={loadingCatIdx} className="fade" style={{ fontSize: 22, fontWeight: 500, letterSpacing: '-0.02em' }}>
-                      {CATEGORIES[loadingCatIdx].label}
-                    </div>
-                    <div className="mono" style={{ fontSize: 12, color: 'var(--color-text-3)', marginTop: 8 }}>
-                      {String(loadingCatIdx + 1).padStart(2, '0')} / 13
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+      <div className="prosta" style={{ minHeight: '70vh' }}>
+        <section className="prosta-blok" aria-live="polite">
+          <p className="etykieta">Sprawdzam</p>
+          <h1>Dopasowuję świadczenia do Twoich odpowiedzi</h1>
+          <p className="pod">Teraz: {CATEGORIES[loadingCatIdx].label}. Odpowiedzi nie są zapisywane.</p>
+          <div style={{ marginTop: 24, height: 8, border: '2px solid var(--tusz)', background: 'var(--surface)' }}>
+            <div style={{ width: `${pct}%`, height: '100%', background: 'var(--tusz)' }} />
           </div>
         </section>
       </div>

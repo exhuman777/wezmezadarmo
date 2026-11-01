@@ -7,7 +7,7 @@ import { createBrowserClient } from '@supabase/ssr';
 
 const CECHY = [
   { label: 'Czat AI, który zna Twoją sytuację', desc: 'Zadajesz pytanie o świadczenie, ZUS, podatki lub formularz. Asystent zna Twój profil (wiek, dochód, dzieci, firma czy osoba prywatna, województwo) i odpowiada konkretnie pod Twoją sytuację.', icon: 'C' },
-  { label: '133 świadczeń dopasowanych', desc: 'Po wypełnieniu profilu system przelicza 133 świadczenia (ZUS, NFZ, PFRON, KRUS, MOPS, ulgi PIT) i pokazuje te pewne oraz możliwe, z linkami do źródeł.', icon: 'S' },
+  { label: '133 świadczenia do dopasowania', desc: 'Po wypełnieniu profilu system przelicza 133 świadczenia (ZUS, NFZ, PFRON, KRUS, MOPS, ulgi PIT) i pokazuje te pewne oraz możliwe, z linkami do źródeł.', icon: 'S' },
   { label: 'Aktualne dane z instytucji', desc: 'Pytasz o kurs euro, a asystent sprawdza go w NBP. Pytasz o kolejkę do kardiologa - sprawdza w NFZ. Podajesz NIP - sprawdza firmę na Białej Liście VAT. Pytasz o smog - podaje pomiar z GIOŚ. Wszystko w jednej rozmowie.', icon: 'L' },
   { label: 'Świeże aktualności urzędowe', desc: 'Asystent śledzi 8 polskich instytucji (ZUS, GUS, NBP, UOKiK, Fundusze UE, e-Zdrowie, Sejm, ARiMR), odświeżane dwa razy dziennie. Cytuje konkretne wiadomości z linkiem do źródła.', icon: 'R' },
   { label: 'Wnioski ZUS krok po kroku', desc: '7 formularzy z pomocą asystenta (Z-15a, Z-15b, Z-3, PEL, ZAS-53, ERPO, ERSU). Podpowiada co wpisać w pola i przygotowuje gotowy do wysyłki PDF.', icon: 'W' },

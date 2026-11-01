@@ -69,18 +69,9 @@ const STEPS = [
   {
     num: '04',
     title: 'Dostaj powiadomienia',
-    desc: 'Email gdy otworzy się nowy nabór pasujący do profilu firmy. Jedno miejsce zamiast 40 stron instytucji.',
+    desc: 'Email gdy otworzy się nowy nabór pasujący do profilu firmy. Jedno miejsce zamiast wielu stron instytucji.',
     icon: 'M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9',
   },
-];
-
-const INDUSTRIES = [
-  { icon: '💻', label: 'IT i software house', desc: 'Dofinansowania B+R, cyfryzacja, fundusze EU na innowacje i eksport.' },
-  { icon: '📱', label: 'Influencerzy i content creatorzy', desc: 'Dofinansowanie szkoleń, wsparcie dla JDG, ulgi i programy dla kreatywnych.' },
-  { icon: '🏥', label: 'Zarządzanie odpadami medycznymi', desc: 'Programy zielonej transformacji, ekologia, KPO dla firm z branży medycznej.' },
-  { icon: '🏭', label: 'Produkcja i przemysł', desc: 'KFS dla szkoleń, PFRON, dotacje na modernizację i zieloną transformację.' },
-  { icon: '🛒', label: 'E-commerce i retail', desc: 'Cyfryzacja, automatyzacja logistyki, programy wsparcia dla MŚP.' },
-  { icon: '🎓', label: 'Edukacja i szkolenia', desc: 'KFS, projekty unijne, dofinansowanie platform e-learningowych.' },
 ];
 
 export default function DotacjePage() {
@@ -125,21 +116,9 @@ export default function DotacjePage() {
       </section>
 
       <section className="prosta-blok" style={{ padding: '32px 0 0' }}>
-        <h2>Agent czyta za Ciebie</h2>
+        <h2>Skąd agent bierze informacje</h2>
         <p className="pod">Śledzi RSS instytucji i przygotowuje wstępne wnioski do Twojej weryfikacji. Nic nie jest składane bez Twojej zgody.</p>
         <p className="mono mala" style={{ marginTop: 8 }}>ZUS · GUS · NBP · UOKiK · Fundusze EU · e-Zdrowie · Sejm · ARiMR</p>
-      </section>
-
-      <section className="prosta-blok" style={{ padding: '32px 0 0' }}>
-        <h2>Dla jakich firm</h2>
-        <ul style={{ margin: '16px 0 0', padding: 0, listStyle: 'none' }}>
-          {INDUSTRIES.map((ind) => (
-            <li key={ind.label} style={{ padding: '12px 0', borderTop: '1px solid var(--linia)' }}>
-              <strong className="mono">{ind.label}</strong>
-              <p className="pod" style={{ margin: '2px 0 0' }}>{ind.desc}</p>
-            </li>
-          ))}
-        </ul>
       </section>
 
       <section id="kontakt" className="prosta-blok" style={{ padding: '32px 0 0', scrollMarginTop: 80 }}>
