@@ -7,7 +7,8 @@
  * Aktualizacja: dane roczne, najczesciej do 2024.
  */
 
-const SDG_BASE = 'https://api.github.com/repos/statisticspoland/sdg-indicators-pl/contents/api/v1';
+// raw.githubusercontent.com zamiast api.github.com: API GitHuba ma limit 60 zapytań/h bez tokenu
+const SDG_BASE = 'https://raw.githubusercontent.com/statisticspoland/sdg-indicators-pl/master/api/v1';
 
 export interface SdgMetadata {
   nazwa: string;
@@ -45,7 +46,7 @@ export async function getSdgIndicator(id: string, type: 'krajowe' | 'globalne' =
 
   try {
     const res = await fetch(url, {
-      headers: { Accept: 'application/vnd.github.v3.raw' },
+      signal: AbortSignal.timeout(10_000),
       next: { revalidate: 86400 },
     });
     if (!res.ok) return null;

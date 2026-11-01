@@ -8,6 +8,8 @@ export interface FeedMeta {
   audiences: Audience[];
   tags: string[];
   requiresProxy?: boolean; // wymaga CF Worker (blokada Incapsula/Imperva na Vercel)
+  /** 'govpl' = lista wiadomości ze strony instytucji na gov.pl (gov.pl nie udostępnia RSS). */
+  format?: 'rss' | 'govpl';
 }
 
 export interface FeedItem {
@@ -74,8 +76,8 @@ export const FEEDS: FeedMeta[] = [
     id: 'fundusze',
     name: 'Fundusze EU',
     fullName: 'Fundusze Europejskie',
-    // JS SPA — przez CF Worker (szansa na bypass Vercel-block)
-    url: 'https://www.funduszeeuropejskie.gov.pl/strony/aktualnosci/',
+    // Strona HTML (bez RSS), pobierana przez GitHub Action do rss_cache (scripts/fetch-rss-cache.mjs)
+    url: 'https://funduszeeuropejskie.gov.pl/aktualnosci',
     audiences: ['jdg', 'firmy'],
     tags: ['dotacje', 'UE', 'dofinansowania', 'granty', 'KPO'],
     requiresProxy: true,
@@ -104,11 +106,11 @@ export const FEEDS: FeedMeta[] = [
     id: 'arimr',
     name: 'ARiMR',
     fullName: 'Agencja Restrukturyzacji i Modernizacji Rolnictwa',
-    // Przez CF Worker
-    url: 'https://www.arimr.gov.pl/aktualnosci-i-komunikaty',
+    // arimr.gov.pl przekierowuje na gov.pl/web/arimr; lista wiadomości z datami, pobierana bezpośrednio
+    url: 'https://www.gov.pl/web/arimr',
     audiences: ['jdg', 'firmy'],
     tags: ['rolnictwo', 'dotacje', 'dopłaty', 'agro'],
-    requiresProxy: true,
+    format: 'govpl',
   },
 ];
 
@@ -216,7 +218,40 @@ function parseAtomEntries(xml: string, feed: FeedMeta): FeedItem[] {
   return items;
 }
 
+/**
+ * gov.pl nie ma kanałów RSS. Strony instytucji pokazują listę wiadomości w blokach:
+ * <span class="date">dd.mm.rrrr</span> ... <div class="title"><a href="/web/{instytucja}/...">Tytuł</a>
+ */
+export function parseGovPlList(html: string, feed: FeedMeta): FeedItem[] {
+  const site = feed.url.match(/gov\.pl\/web\/([^/?#]+)/)?.[1];
+  if (!site) return [];
+  const rx = /class="date">\s*(\d{2})\.(\d{2})\.(\d{4})\s*<\/span>[\s\S]{0,800}?<div class="title">\s*<a href="(\/web\/[^"]+)"[^>]*>\s*([^<]+)/g;
+  const items: FeedItem[] = [];
+  const seen = new Set<string>();
+  let m: RegExpExecArray | null;
+  while ((m = rx.exec(html)) !== null) {
+    const [, dd, mm, yyyy, path, rawTitle] = m;
+    if (!path.startsWith(`/web/${site}/`)) continue; // gov.pl wstawia też wiadomości premiera i innych resortów
+    const link = `https://www.gov.pl${path}`;
+    if (seen.has(link)) continue;
+    seen.add(link);
+    const title = rawTitle.replace(/&quot;/g, '"').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
+    items.push({
+      id: simpleHash(link + feed.id),
+      title,
+      link,
+      description: '',
+      pubDate: new Date(`${yyyy}-${mm}-${dd}T12:00:00+01:00`).toISOString(),
+      source: feed.name,
+      sourceId: feed.id,
+      audiences: feed.audiences,
+    });
+  }
+  return items;
+}
+
 function parseXml(xml: string, feed: FeedMeta): FeedItem[] {
+  if (feed.format === 'govpl') return parseGovPlList(xml, feed);
   const isAtom = /<feed[\s>]/i.test(xml) || xml.includes('xmlns="http://www.w3.org/2005/Atom"');
   return isAtom ? parseAtomEntries(xml, feed) : parseRss2Items(xml, feed);
 }
@@ -249,7 +284,7 @@ async function fetchFeed(feed: FeedMeta): Promise<FeedItem[]> {
       }
     : {
         'User-Agent': 'Mozilla/5.0 (compatible; wezmezadarmo-rss/1.0; +https://www.wezmezadarmo.com/llm.md)',
-        'Accept': 'application/rss+xml, application/atom+xml, text/xml, application/xml, */*',
+        'Accept': feed.format === 'govpl' ? 'text/html' : 'application/rss+xml, application/atom+xml, text/xml, application/xml, */*',
       };
 
   try {
@@ -306,7 +341,7 @@ export async function fetchAllFeeds(): Promise<FetchResult> {
 }
 
 // Live source IDs - dzialaja bezposrednio bez proxy
-const LIVE_SOURCE_IDS = new Set(['zus', 'gus']);
+const LIVE_SOURCE_IDS = new Set(['zus', 'gus', 'arimr']);
 
 // Pobiera z Supabase rss_cache dla zablokowanych zrodel
 async function fetchFromSupabaseCache(sourceIds: string[]): Promise<FeedItem[]> {
@@ -324,6 +359,9 @@ async function fetchFromSupabaseCache(sourceIds: string[]): Promise<FeedItem[]> 
     const params = new URLSearchParams({
       select: 'id,source_id,source_name,title,link,description,pub_date,audiences',
       source_id: `in.(${sourceIds.join(',')})`,
+      // Cache napełnia GitHub Action (scripts/fetch-rss-cache.mjs). Gdy przestanie działać,
+      // nie pokazujemy wpisów sprzed 14 dni jako aktualnych: źródło trafia do „niedostępne”.
+      fetched_at: `gte.${new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString()}`,
       order: 'fetched_at.desc',
       limit: '150',
     });
