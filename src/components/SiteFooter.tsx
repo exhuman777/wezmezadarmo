@@ -37,6 +37,7 @@ export function SiteFooter() {
           {LINKI.map(link => (
             <Link key={link.href} href={link.href}>{link.label}</Link>
           ))}
+          <a href="https://pixel-kamil.vercel.app" target="_blank" rel="noopener">Autor: Kamil Sobkowicz</a>
           <a href="https://linkedin.com/in/kamil-sobkowicz" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </nav>
 

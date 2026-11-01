@@ -627,6 +627,11 @@ export default function OProjekciePage() {
                     style={{ fontSize: 11, color: 'rgba(169,212,189,0.7)', textDecoration: 'none', fontFamily: 'var(--font-mono)' }}>
                     linkedin.com/in/kamil-sobkowicz →
                   </a>
+                  <br />
+                  <a href="https://pixel-kamil.vercel.app" target="_blank" rel="noopener"
+                    style={{ fontSize: 11, color: 'rgba(169,212,189,0.7)', textDecoration: 'none', fontFamily: 'var(--font-mono)' }}>
+                    pixel-kamil.vercel.app →
+                  </a>
                 </div>
               </div>
             </div>
