@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { canonical } from '@/lib/seo';
 
 export const metadata: Metadata = {
+  alternates: canonical('/regulamin'),
   title: 'Regulamin | wezmezadarmo',
   description: 'Regulamin świadczenia usług drogą elektroniczną serwisu wezmezadarmo.',
 };

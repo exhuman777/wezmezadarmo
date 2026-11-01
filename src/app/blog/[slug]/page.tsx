@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { OG_IMAGES } from '@/lib/seo';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { POSTS, getPostBySlug } from '@/data/blog-posts';
@@ -22,6 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: post.description,
     alternates: { canonical: url },
     openGraph: {
+      images: OG_IMAGES,
       title: post.title,
       description: post.description,
       url,

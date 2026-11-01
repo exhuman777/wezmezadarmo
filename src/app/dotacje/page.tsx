@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
+import { canonical } from '@/lib/seo';
 import { DotacjeContactForm } from '@/components/DotacjeContactForm';
 
 export const metadata: Metadata = {
-  title: 'AI dla Twojej firmy | Automatyzacja i monitoring dotacji | wezmezadarmo',
-  description: 'Agent AI monitorujący dotacje, automatyzujący procesy biurowe i przygotowujący wnioski. Dla IT, influencerów, content creatorów, firm medycznych i każdej branży.',
+  alternates: canonical('/dotacje'),
+  title: 'Dotacje dla firm 2026: monitoring naborów i agent AI | wezmezadarmo',
+  description: 'Dotacje dla firm 2026 w jednym miejscu: KFS, PUP, PFRON, KPO i programy samorządowe. Agent AI dopasowuje nabory do profilu firmy i pomaga przygotować wniosek. Bezpłatnie.',
 };
 
 const PROGRAMS = [

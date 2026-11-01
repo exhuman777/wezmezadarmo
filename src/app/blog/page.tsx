@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { OG_IMAGES } from '@/lib/seo';
 import Link from 'next/link';
 import { POSTS } from '@/data/blog-posts';
 
@@ -7,6 +8,7 @@ export const metadata: Metadata = {
   description: 'Praktyczne poradniki o świadczeniach, ulgach podatkowych i programach wsparcia w Polsce. Aktualizowane na 2026.',
   alternates: { canonical: 'https://www.wezmezadarmo.com/blog' },
   openGraph: {
+    images: OG_IMAGES,
     title: 'Blog wezmezadarmo - poradniki o świadczeniach',
     description: 'Co Ci się należy w 2026? Analizy, kalkulacje, instrukcje krok po kroku.',
     url: 'https://www.wezmezadarmo.com/blog',

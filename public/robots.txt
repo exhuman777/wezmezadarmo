@@ -1,21 +1,56 @@
+# Panele i admin poza indeksem. /api/public/* zostaje dostępne, bo strony narzędzi
+# pobierają z niego dane w przeglądarce (Google renderuje je tak samo). Strony logowania mają noindex w metadanych,
+# więc nie blokujemy ich tutaj (robot musi zobaczyć noindex).
+# Każda grupa User-agent jest osobna: boty z własną grupą ignorują grupę *,
+# dlatego reguły Disallow są powtórzone.
 User-agent: *
 Allow: /
+Disallow: /api/admin/
+Disallow: /admin/
+Disallow: /panel/
+Disallow: /dotacje/panel/
+Disallow: /agent/panel/
 
-# AI crawlers -- full access for beneficial AI indexing
+# AI crawlers: pełny dostęp do treści publicznych
 User-agent: GPTBot
 Allow: /
+Disallow: /api/admin/
+Disallow: /admin/
+Disallow: /panel/
+Disallow: /dotacje/panel/
+Disallow: /agent/panel/
 
 User-agent: ClaudeBot
 Allow: /
+Disallow: /api/admin/
+Disallow: /admin/
+Disallow: /panel/
+Disallow: /dotacje/panel/
+Disallow: /agent/panel/
 
 User-agent: PerplexityBot
 Allow: /
+Disallow: /api/admin/
+Disallow: /admin/
+Disallow: /panel/
+Disallow: /dotacje/panel/
+Disallow: /agent/panel/
 
 User-agent: Gemini-Web
 Allow: /
+Disallow: /api/admin/
+Disallow: /admin/
+Disallow: /panel/
+Disallow: /dotacje/panel/
+Disallow: /agent/panel/
 
 User-agent: Applebot-Extended
 Allow: /
+Disallow: /api/admin/
+Disallow: /admin/
+Disallow: /panel/
+Disallow: /dotacje/panel/
+Disallow: /agent/panel/
 
 Sitemap: https://www.wezmezadarmo.com/sitemap.xml
 

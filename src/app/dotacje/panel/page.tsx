@@ -4,9 +4,11 @@ import Link from 'next/link';
 import { matchPrograms } from '@/lib/dotacje/programMatcher';
 import type { EligibilityFlag } from '@/data/programs-b2b';
 import type { Metadata } from 'next';
+import { NOINDEX } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'Panel | Dotacje dla firm | wezmezadarmo',
+  robots: NOINDEX,
 };
 
 export default async function PanelPage() {

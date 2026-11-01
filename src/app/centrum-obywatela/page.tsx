@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
+import { canonical } from '@/lib/seo';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
+  alternates: canonical('/centrum-obywatela'),
   title: 'Centrum Obywatela - darmowe narzędzia urzędowe | wezmezadarmo',
   description: '12 narzędzi z oficjalnych polskich API: NFZ, NBP, GIOŚ, Biała Lista VAT, IMGW/RCB, ELI/Sejm, BDL GUS, ARiMR, PKP. Bez logowania.',
 };

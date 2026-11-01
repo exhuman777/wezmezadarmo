@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
+import { OG_IMAGES } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'Dotacje dla firm | Agent AI | wezmezadarmo',
-  description: 'Agent AI monitorujący KFS, PUP, PFRON, KPO i programy samorządowe. Powiadamia gdy otworzy się nabór pasujący do Twojej firmy. 25 PLN / miesiąc.',
+  description: 'Dotacje dla firm 2026: agent AI monitoruje KFS, PUP, PFRON, KPO i programy samorządowe. Powiadamia, gdy otworzy się nabór pasujący do Twojej firmy. Bezpłatnie.',
   openGraph: {
+    images: OG_IMAGES,
     title: 'Dotacje dla firm | Agent AI | wezmezadarmo',
     description: 'Monitoring dotacji dla MŚP. KFS, PUP, PFRON, KPO, samorządy. Agent AI znający profil Twojej firmy.',
     siteName: 'wezmezadarmo',

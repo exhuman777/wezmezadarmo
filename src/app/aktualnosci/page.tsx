@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { canonical, OG_IMAGES } from '@/lib/seo';
 import { fetchAllWithCache, FEEDS } from './rss';
 import FeedClient from './FeedClient';
 import Link from 'next/link';
@@ -10,10 +11,12 @@ import { EliChangesWidget } from '@/components/EliChangesWidget';
 export const revalidate = 1800;
 
 export const metadata: Metadata = {
+  alternates: canonical('/aktualnosci'),
   title: 'Aktualności z polskich instytucji | wezmezadarmo',
   description:
     'ZUS, GUS, NBP, UOKiK, Fundusze EU, NFZ, Sejm i ARiMR w jednym miejscu. Filtruj po profilu: JDG, firma lub obywatel.',
   openGraph: {
+    images: OG_IMAGES,
     title: 'Aktualności rządowe dla JDG, firm i obywateli',
     description:
       'Agregator RSS z 8 polskich instytucji rządowych. Filtruj po profilu: JDG, firma lub wszyscy.',

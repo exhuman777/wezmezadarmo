@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { rateLimit } from '@/lib/sources/_helpers';
 
 const OWNER_EMAIL = 'sobkowicz.kamil@gmail.com';
 
@@ -10,6 +11,9 @@ function getResend(): Resend {
 }
 
 export async function POST(req: NextRequest) {
+  const limit = rateLimit('contact', req, 5, 60 * 60_000); // 5 wiadomości / h / IP
+  if (!limit.ok) return limit.response;
+
   let body: { imie?: string; firma?: string; email?: string; wiadomosc?: string };
   try {
     body = await req.json();
@@ -27,6 +31,14 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Podaj poprawny adres e-mail.' }, { status: 400 });
   }
 
+  if (typeof imie !== 'string' || typeof email !== 'string' || typeof wiadomosc !== 'string' || (firma !== undefined && typeof firma !== 'string')) {
+    return NextResponse.json({ error: 'Nieprawidłowy format danych.' }, { status: 400 });
+  }
+
+  if (imie.length > 200 || email.length > 254 || (firma?.length ?? 0) > 200) {
+    return NextResponse.json({ error: 'Za długie dane w formularzu.' }, { status: 400 });
+  }
+
   if (wiadomosc.length > 5000) {
     return NextResponse.json({ error: 'Wiadomość jest za długa.' }, { status: 400 });
   }
@@ -37,7 +49,7 @@ export async function POST(req: NextRequest) {
       from: 'WezmeZaDarmo <hello@wezmezadarmo.com>',
       to: OWNER_EMAIL,
       replyTo: email,
-      subject: `Zapytanie o automatyzację: ${firma ?? imie}`,
+      subject: `Zapytanie o automatyzację: ${(firma || imie).replace(/[\r\n]+/g, ' ')}`,
       html: `
         <div style="font-family:monospace;max-width:600px;margin:0 auto;background:#0d0b0a;color:#c4a882;padding:32px;border-radius:12px;">
           <h2 style="color:#e6993a;margin:0 0 24px;">Nowe zapytanie o automatyzację</h2>
@@ -78,5 +90,6 @@ function escapeHtml(str: string): string {
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }

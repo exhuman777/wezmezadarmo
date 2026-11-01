@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
+import { canonical } from '@/lib/seo';
 
 export const metadata: Metadata = {
+  alternates: canonical('/dla-firm'),
   title: 'Otwarte API bazy świadczeń dla firm, NGO i instytucji | wezmezadarmo',
   description:
     'Bezpłatne, otwarte REST API z bazą 133 zweryfikowanych polskich świadczeń socjalnych, ulg i dotacji. Dla firm, organizacji pozarządowych, pracowników socjalnych i instytucji wspierających obywateli. Prywatność wbudowana, bez przechowywania danych.',
