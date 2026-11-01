@@ -47,6 +47,7 @@ export const EKOLOGIA: Benefit[] = [
     id: 'moj-prad', nazwa: 'Mój Prąd (zakończony)',
     opis: 'PROGRAM ZAKOŃCZONY. Mój Prąd 6.0 zakończył nabór wniosków we wrześniu 2025 roku po wyczerpaniu budżetu. NFOŚiGW oficjalnie potwierdziło w marcu 2026, że edycja 7.0 nie zostanie uruchomiona i program nie będzie kontynuowany. W edycji 6.0 dofinansowanie wynosiło: do 7000 PLN na fotowoltaikę (z magazynem energii lub ciepła), do 6000 PLN na samą fotowoltaikę, do 16 000 PLN na magazyn energii elektrycznej (min. 2 kWh), do 5000 PLN na magazyn ciepła (min. 20 dm3). Łącznie do 28 000 PLN, max 50% kosztów. Program miał charakter refundacyjny. Dla osób planujących fotowoltaikę dostępne są alternatywy: program Czyste Powietrze (jeśli wymiana źródła ciepła + PV) lub ulga termomodernizacyjna w PIT (30% kosztów fotowoltaiki, max 53 000 PLN odliczenia).',
     kategoria: 'EKOLOGIA',
+    zakonczony: true,
     kwota: 'do 28 000 PLN łącznie (ostatnia edycja 6.0, 2025)',
     kwotaMin: 0, kwotaMax: 28000,
     czestotliwosc: 'jednorazowo (ostatnia edycja 2025)',
@@ -76,7 +77,7 @@ export const EKOLOGIA: Benefit[] = [
       odwolanie: 'Nie dotyczy (program zakończony)',
     },
     zrodloUrl: 'https://mojprad.gov.pl',
-    zrodloNazwa: 'NFOŚiGW, Program Mój Prąd (zakończony)', dataWeryfikacji: '2026-05-23', dataWaznosci: '2025-09-30',
+    zrodloNazwa: 'NFOŚiGW, Program Mój Prąd (zakończony)', dataWeryfikacji: '2026-11-01', dataWaznosci: '2025-09-30',
   },
   {
     id: 'moje-cieplo', nazwa: 'Moje Ciepło',
@@ -202,9 +203,10 @@ export const EKOLOGIA: Benefit[] = [
     zrodloNazwa: 'Ministerstwo Klimatu i Środowiska, Program Stop Smog', dataWeryfikacji: '2026-07-06', dataWaznosci: '2026-12-31',
   },
   {
-    id: 'dodatek-oslonowy', nazwa: 'Dodatek osłonowy',
+    id: 'dodatek-oslonowy', nazwa: 'Dodatek osłonowy (zakończony)',
     opis: 'PROGRAM ZAKOŃCZONY. Ostatnia edycja w 2024 roku. Dodatek osłonowy był jednorazowym świadczeniem pieniężnym wprowadzonym w odpowiedzi na kryzys energetyczny 2022-2023, mającym złagodzić wzrost cen energii i żywności. Kwoty w ostatniej edycji: 1 osoba 228,80 PLN, 2-3 osoby 343,20 PLN, 4-5 osób 486,20 PLN, 6+ osób 657,80 PLN. Przy ogrzewaniu węglem stawki podwyższone: 1 osoba 286 PLN, 2-3 osoby 429 PLN, 4-5 osób 607,75 PLN, 6+ osób 822,25 PLN. Progi dochodowe: 2500 PLN netto/os. (jednoosobowe), 1700 PLN/os. (wieloosobowe). Rząd nie przedłużył programu na 2025/2026. Osoby w trudnej sytuacji energetycznej mogą rozważyć: bon energetyczny, dodatek mieszkaniowy, zasiłek celowy na opał, lub program Czyste Powietrze (wymiana starego pieca na tańsze źródło ciepła).',
     kategoria: 'EKOLOGIA',
+    zakonczony: true,
     kwota: '228,80-822,25 PLN (ostatnia edycja 2024)',
     kwotaMin: 228, kwotaMax: 822,
     czestotliwosc: 'jednorazowo (rocznie, ostatnia edycja 2024)',
@@ -236,6 +238,6 @@ export const EKOLOGIA: Benefit[] = [
       odwolanie: 'Nie dotyczy (program zakończony)',
     },
     zrodloUrl: 'https://www.gov.pl/web/klimat/dodatek-oslonowy',
-    zrodloNazwa: 'Ministerstwo Klimatu i Środowiska (program zakończony)', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Klimatu i Środowiska (program zakończony)', dataWeryfikacji: '2026-11-01', dataWaznosci: '2026-12-31',
   },
 ];

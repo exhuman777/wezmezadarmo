@@ -225,7 +225,7 @@ export const SENIOR: Benefit[] = [
   },
   {
     id: 'leki-senior-65plus', nazwa: 'Bezpłatne leki dla seniorów 65+',
-    opis: 'Program bezpłatnych leków dla osób, które ukończyły 65 rok życia. Od 1 września 2023 r. program rozszerzono z grupy 75+ na 65+. Lista bezpłatnych leków obejmuje ponad 2000 preparatów na choroby przewlekłe: nadciśnienie, cukrzyca, niewydolność serca, osteoporoza, choroba Alzheimera, depresja, astma, POCHP i inne. Aktualna lista publikowana jest co 2 miesiące przez Ministerstwo Zdrowia (obwieszczenie refundacyjne). Warunki: ubezpieczenie w NFZ oraz wiek 65+. Leki może przepisać lekarz POZ, lekarz specjalista z kontraktem NFZ, lekarz AOS, a od 2024 r. pielęgniarka POZ i pielęgniarka AOS (w zakresie swoich uprawnień). Na recepcie musi pojawić się litera "S" lub "Senior 65+" - pytaj o to wprost. Bezpłatny lek można zastąpić odpłatnym odpowiednikiem (np. zamiennik innej firmy), ale wymagana jest zgoda pacjenta. Nie wszystkie leki na daną chorobę są w wykazie bezpłatnym: aptekarz lub lekarz może sprawdzić aktualny wykaz w systemie. Częste nieporozumienie: program nie dotyczy suplementów diety, środków spożywczych specjalnego przeznaczenia ani wyrobów medycznych (np. glukometrów). Praktyczna rada: przed każdą wizytą zapytaj lekarza czy przepisywany lek jest na liście bezpłatnych leków dla seniorów. Lista zmienia się co 2 miesiące.',
+    opis: 'Program bezpłatnych leków dla osób, które ukończyły 65 rok życia. Od 1 września 2023 r. program rozszerzono z grupy 75+ na 65+. Lista bezpłatnych leków obejmuje kilka tysięcy pozycji (w 2026 r. media podawały blisko 3 800) na choroby przewlekłe: nadciśnienie, cukrzyca, niewydolność serca, osteoporoza, choroba Alzheimera, depresja, astma, POCHP i inne. Aktualna lista publikowana jest co 2 miesiące przez Ministerstwo Zdrowia (obwieszczenie refundacyjne). Warunki: ubezpieczenie w NFZ oraz wiek 65+. Leki może przepisać lekarz POZ, lekarz specjalista z kontraktem NFZ, lekarz AOS, a od 2024 r. pielęgniarka POZ i pielęgniarka AOS (w zakresie swoich uprawnień). Na recepcie musi pojawić się litera "S" lub "Senior 65+" - pytaj o to wprost. Bezpłatny lek można zastąpić odpłatnym odpowiednikiem (np. zamiennik innej firmy), ale wymagana jest zgoda pacjenta. Nie wszystkie leki na daną chorobę są w wykazie bezpłatnym: aptekarz lub lekarz może sprawdzić aktualny wykaz w systemie. Częste nieporozumienie: program nie dotyczy suplementów diety, środków spożywczych specjalnego przeznaczenia ani wyrobów medycznych (np. glukometrów). Praktyczna rada: przed każdą wizytą zapytaj lekarza czy przepisywany lek jest na liście bezpłatnych leków dla seniorów. Lista zmienia się przy każdym obwieszczeniu refundacyjnym; od 1.10.2026 Ministerstwo Zdrowia wprowadza nowe zasady aktualizacji listy, więc część leków może z niej wypaść.',
     kategoria: 'SENIOR',
     kwota: 'bezpłatne leki (oszczędność nawet kilkuset PLN miesięcznie)',
     kwotaMin: 0, kwotaMax: 0,
@@ -257,7 +257,7 @@ export const SENIOR: Benefit[] = [
       odwolanie: 'Reklamacja do oddziału NFZ lub Rzecznika Praw Pacjenta',
     },
     zrodloUrl: 'https://www.gov.pl/web/zdrowie/',
-    zrodloNazwa: 'Ministerstwo Zdrowia', dataWeryfikacji: '2026-05-27', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Zdrowia', dataWeryfikacji: '2026-11-01', dataWaznosci: '2026-12-31',
   },
   {
     id: 'bon-senioralny', nazwa: 'Bon senioralny (domowe usługi opiekuńcze)',

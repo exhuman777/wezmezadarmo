@@ -200,7 +200,7 @@ export const ZUS: Benefit[] = [
       odwolanie: 'Odwołanie do Sądu Pracy w ciągu 30 dni od decyzji ZUS',
     },
     zrodloUrl: 'https://www.zus.pl/swiadczenia/zasilki/zasilek-pogrzebowy',
-    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-11-01', dataWaznosci: '2026-12-31',
   },
   {
     id: 'renta-socjalna', nazwa: 'Renta socjalna',
@@ -245,7 +245,7 @@ export const ZUS: Benefit[] = [
       odwolanie: 'Sprzeciw do Komisji Lekarskiej ZUS w ciągu 14 dni, potem odwołanie do Sądu Pracy w ciągu 30 dni',
     },
     zrodloUrl: 'https://www.zus.pl/swiadczenia/renty/renta-socjalna',
-    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-11-01', dataWaznosci: '2026-12-31',
   },
   {
     id: 'emerytura-pomostowa', nazwa: 'Emerytura pomostowa',
@@ -384,7 +384,7 @@ export const ZUS: Benefit[] = [
       odwolanie: 'Wniosek o ponowne rozpatrzenie sprawy do Prezesa ZUS, potem skarga do WSA',
     },
     zrodloUrl: 'https://www.gov.pl/web/rodzina/mama-4-plus-rodzicielskie-swiadczenie-uzupelniajace',
-    zrodloNazwa: 'gov.pl', dataWeryfikacji: '2026-05-25', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'gov.pl', dataWeryfikacji: '2026-11-01', dataWaznosci: '2026-12-31',
   },
   {
     id: '13-emerytura', nazwa: '13. emerytura (trzynastka)',
@@ -417,7 +417,7 @@ export const ZUS: Benefit[] = [
       odwolanie: 'Odwołanie do Sądu Pracy w ciągu 30 dni od decyzji (jeśli ZUS odmówi)',
     },
     zrodloUrl: 'https://www.zus.pl/-/trzynasta-emerytura-czyli-dodatkowe-roczne-swiadczenie-pieniez-1',
-    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-11-01', dataWaznosci: '2026-12-31',
   },
   {
     id: '14-emerytura', nazwa: '14. emerytura (czternastka)',
@@ -453,7 +453,7 @@ export const ZUS: Benefit[] = [
       odwolanie: 'Odwołanie do Sądu Pracy w ciągu 30 dni od decyzji (jeśli ZUS odmówi)',
     },
     zrodloUrl: 'https://www.zus.pl/-/czternasta-emerytura-bez-wniosku-1',
-    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-11-01', dataWaznosci: '2026-12-31',
   },
   {
     id: 'renta-wdowia', nazwa: 'Renta wdowia (zbieg świadczeń)',
@@ -494,7 +494,7 @@ export const ZUS: Benefit[] = [
       odwolanie: 'Odwołanie do sądu okręgowego w ciągu 30 dni od decyzji',
     },
     zrodloUrl: 'https://www.zus.pl/-/wyp%C5%82ata-%C5%9Bwiadcze%C5%84-%C5%82%C4%85cznie-z-rent%C4%85-rodzinn%C4%85-czyli-tzw.-renta-wdowia',
-    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-11-01', dataWaznosci: '2026-12-31',
   },
   {
     id: 'renta-niezdolnosc-pracy', nazwa: 'Renta z tytułu niezdolności do pracy',
@@ -539,7 +539,7 @@ export const ZUS: Benefit[] = [
       odwolanie: 'Sprzeciw do Komisji Lekarskiej ZUS w ciągu 14 dni od orzeczenia, potem odwołanie do Sądu Pracy w ciągu 30 dni od decyzji',
     },
     zrodloUrl: 'https://www.zus.pl/swiadczenia/renty/renty-z-tytulu-niezdolnosci-do-pracy',
-    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-06-29', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-11-01', dataWaznosci: '2026-12-31',
   },
   {
     id: 'swiadczenie-uzupelniajace-500', nazwa: 'Świadczenie uzupełniające 500+ dla niesamodzielnych',
@@ -582,7 +582,7 @@ export const ZUS: Benefit[] = [
       odwolanie: 'Sprzeciw do Komisji Lekarskiej ZUS w ciągu 14 dni od orzeczenia, potem odwołanie do Sądu Pracy',
     },
     zrodloUrl: 'https://www.zus.pl/ustalanie-uprawnien-do-swiadczen/swiadczenie-dla-osob-niezdolnych-do-samodzielnej-egzystencji',
-    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-06-29', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-11-01', dataWaznosci: '2026-12-31',
   },
   {
     id: 'swiadczenie-honorowe-100', nazwa: 'Świadczenie honorowe dla stulatków (100+)',
@@ -617,7 +617,7 @@ export const ZUS: Benefit[] = [
       odwolanie: 'Odwołanie do Sądu Pracy w ciągu 30 dni od decyzji ZUS',
     },
     zrodloUrl: 'https://www.zus.pl/ustalanie-uprawnien-do-swiadczen/wiadczenie-honorowe-dla-osob-ktore-skonczyly-100-lat',
-    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-06-29', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-11-01', dataWaznosci: '2026-12-31',
   },
   {
     id: 'nauczycielskie-swiadczenie-kompensacyjne', nazwa: 'Nauczycielskie świadczenie kompensacyjne',
@@ -700,7 +700,7 @@ export const ZUS: Benefit[] = [
       odwolanie: 'Odwołanie do Sądu Pracy w ciągu 30 dni od decyzji ZUS',
     },
     zrodloUrl: 'https://www.zus.pl/swiadczenia/renty/renta-rodzinna',
-    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-06-03', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-11-01', dataWaznosci: '2026-12-31',
   },
   {
     id: 'renta-szkoleniowa', nazwa: 'Renta szkoleniowa (na przekwalifikowanie)',

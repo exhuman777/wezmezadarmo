@@ -82,7 +82,7 @@ export const POMOC_SPOLECZNA: Benefit[] = [
       odwolanie: 'Odwołanie do Samorządowego Kolegium Odwoławczego w ciągu 14 dni',
     },
     zrodloUrl: 'https://www.gov.pl/web/rodzina/zasilek-staly',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-11-01', dataWaznosci: '2026-12-31',
   },
   {
     id: 'zasilek-okresowy-mops', nazwa: 'Zasiłek okresowy (MOPS)',
@@ -316,7 +316,7 @@ export const POMOC_SPOLECZNA: Benefit[] = [
     id: 'opieka-wytchnieniowa', nazwa: 'Opieka wytchnieniowa (dla opiekunów osób niepełnosprawnych)',
     opis: 'Program Opieka wytchnieniowa zapewnia bezpłatne wsparcie dla rodzin i opiekunów osób z niepełnosprawnością w stopniu znacznym. Opiekun dostaje "wytchnienie" - czasowe zastępstwo w opiece, finansowane w całości z Funduszu Solidarnościowego (opiekun i podopieczny nic nie płacą). Dwie formy: pobyt dzienny (do 240 godzin/rok) i pobyt całodobowy (do 14 dni/rok). Skierowany do opiekunów faktycznych, którzy nie pobierają świadczeń opiekuńczych. Wniosek składa się w MOPS/GOPS. Program resortowy, gmina może przystąpić lub nie. Realizacja przez domy pomocy społecznej, ośrodki wsparcia, organizacje pozarządowe.',
     kategoria: 'POMOC_SPOLECZNA',
-    kwota: 'bezpłatne zastępstwo opiekuńcze (do 240 godzin dziennie lub 14 dni całodobowo)',
+    kwota: 'bezpłatne zastępstwo opiekuńcze (do 240 godzin rocznie w pobycie dziennym lub do 14 dni całodobowo)',
     kwotaMin: 0, kwotaMax: 0,
     czestotliwosc: 'do 240 godzin/rok (pobyt dzienny) lub do 14 dni/rok (całodobowy)',
     wymagania: { niepelnosprawnosc: ['znaczny'] },
@@ -350,7 +350,7 @@ export const POMOC_SPOLECZNA: Benefit[] = [
       odwolanie: 'Odwołanie do Samorządowego Kolegium Odwoławczego w ciągu 14 dni',
     },
     zrodloUrl: 'https://niepelnosprawni.gov.pl/program-fs/nabor-wnioskow-w-ramach-resortowego-programu-ministra-rodziny-pracy-i-polityki-spolecznej-opieka-wytchnieniowa-dla-jednostek-samorzadu-terytorialnego-edycja-2026/',
-    zrodloNazwa: 'Biuro Pełnomocnika Rządu ds. Osób Niepełnosprawnych', dataWeryfikacji: '2026-07-06', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Biuro Pełnomocnika Rządu ds. Osób Niepełnosprawnych', dataWeryfikacji: '2026-11-01', dataWaznosci: '2026-12-31',
   },
   {
     id: 'nieodplatna-pomoc-prawna', nazwa: 'Nieodpłatna pomoc prawna (bezpłatny prawnik)',

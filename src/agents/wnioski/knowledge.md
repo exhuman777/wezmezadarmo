@@ -160,13 +160,13 @@ Pułapki:
 - Kosztorys musi być szczegółowy -- komputer, oprogramowanie, narzędzia, wyposażenie
 - Nie możesz wydać na wynagrodzenia dla siebie, czynsz lokalu mieszkalnego, zakup samochodu osobowego
 
-=== PUP -- Bon szkoleniowy ===
-Cel: sfinansowanie szkolenia (do 100% kosztu, max ok. 17 000 PLN)
-Kto: bezrobotni do 30 lat zarejestrowani w PUP
+=== PUP -- Bon na kształcenie ustawiczne (dawniej bon szkoleniowy) ===
+Cel: sfinansowanie kształcenia do 100% przeciętnego wynagrodzenia (od 1.09.2026: 9 233,20 PLN)
+Kto: bezrobotni i poszukujący pracy zarejestrowani w PUP, bez limitu wieku
 KROK PO KROKU:
   1. Zarejestruj się w PUP
   2. Wskaż szkolenie które chcesz odbyć (i instytucję szkoleniową)
-  3. Złóż wniosek o bon szkoleniowy (formularz w PUP)
+  3. Złóż wniosek o bon na kształcenie ustawiczne (formularz w PUP)
   4. Doradca potwierdza zasadność szkolenia dla Twoich celów zawodowych
   5. PUP wystawia bon
   6. Realizujesz szkolenie w instytucji szkoleniowej

@@ -5,15 +5,15 @@ CROSS-REFERENCE: Dla zalogowanych firm (JDG/spółki) system automatycznie dopas
 === DLA OSÓB PRYWATNYCH ===
 
 POWIATOWY URZĄD PRACY (PUP):
-- Zasiłek dla bezrobotnych (od 1.06.2026): staż 5-20 lat = 1 784 PLN brutto pierwsze 90 dni, potem 1 401 PLN
-- Jednorazowe środki na podjęcie działalności: do ~55 187 PLN (6x przeciętne wynagrodzenie IV kw. 2025 = 9 197,79 PLN). Od 1.06.2026 może wzrosnąć do ~57 377 PLN.
+- Zasiłek dla bezrobotnych (od 1.06.2026): staż pracy poniżej 20 lat = 1 783,90 PLN brutto pierwsze 90 dni, potem 1 400,90 PLN; 20 lat i więcej = 2 140,70 / 1 681,10 PLN
+- Jednorazowe środki na podjęcie działalności: do 55 398,78 PLN (600% przeciętnego wynagrodzenia z II kw. 2026 = 9 233,13 PLN, stawki od 1.09.2026).
   REALIA: Każdy PUP ustala własny limit. Praktycznie 20 000 - 40 000 PLN. Bezzwrotna pod warunkiem prowadzenia firmy 12 mies.
   WARUNEK: Rejestracja jako bezrobotny w PUP PRZED rozpoczęciem działalności!
-- Staż: wynagrodzenie stażowe + ZUS, max 6 mies. (12 dla <30 lat)
-- Bon szkoleniowy: do 100% kosztów szkolenia (dla <30 lat)
-- Bon zasiedleniowy: ok. 8 000 PLN na przeprowadzkę za pracą (dla <30 lat)
+- Staż: stypendium stażowe 2 854,30 PLN brutto/mies. (160% zasiłku, od 1.06.2026)
+- Bon na kształcenie ustawiczne (zastąpił bon szkoleniowy 1.06.2025): do 9 233,20 PLN, bez limitu wieku. Bonu stażowego już nie ma.
+- Bon na zasiedlenie: do 18 466,30 PLN (200% przeciętnego wynagrodzenia), bez limitu wieku od 1.06.2025
 - Prace interwencyjne: pracodawca dostaje refundację części wynagrodzenia
-- Stypendium szkoleniowe: ok. 120% zasiłku podczas szkolenia
+- Stypendium szkoleniowe: 120% zasiłku (2 140,70 PLN brutto od 1.06.2026)
 
 PFRON (osoby z niepełnosprawnością):
 - Aktywny Samorząd 2026 - budżet 306,1 mln PLN:
@@ -44,13 +44,13 @@ EKOLOGIA (dla właścicieli domów):
   Bon na audyt energetyczny: 1 200 PLN (wypłacany PRZED wnioskiem, od kwietnia 2026)
   Źródło: czystepowietrze.gov.pl
 
-- Mój Prąd (program przejściowy po 6.0):
+- Mój Prąd: ZAKOŃCZONY (edycja 6.0 zamknięta we wrześniu 2025, brak edycji 7.0 na 11.2026). Nie obiecuj dotacji z Mój Prąd. Parametry ostatniej edycji dla kontekstu:
   Fotowoltaika: do 7 000 PLN
   Magazyn energii (min. 2 kWh): do 16 000 PLN
   Magazyn ciepła (min. 20 dm3): do 5 000 PLN
   Łącznie: do 28 000 PLN (max 50% kosztów)
   Od 1.08.2025: obowiązkowy montaż magazynów dla nowych instalacji
-  Mój Prąd 7.0: zapowiedziany, brak oficjalnego terminu
+  Mój Prąd 7.0: brak ogłoszenia na 1.11.2026
   Źródło: mojprad.gov.pl
 
 - Ulga termomodernizacyjna: odliczenie do 53 000 PLN w PIT (domy jednorodzinne)
@@ -64,7 +64,7 @@ ULGI ZUS:
 - Mały ZUS Plus: składki od przychodu (do 120 000 PLN/rok), max 36 z 60 mies.
 - Wakacje składkowe: 1 miesiąc/rok bez składek społecznych (oszczędność ~1 927 PLN)
   Wniosek RWS: w miesiącu POPRZEDZAJĄCYM wybrany miesiąc
-  Warunki: mikroprzedsiębiorca, CEIDG, max 9 ubezpieczonych, przychód do 2 mln EUR
+  Warunki: mikroprzedsiębiorca, CEIDG, max 10 ubezpieczonych (łącznie z przedsiębiorcą), przychód do 2 mln EUR
 
 KFS (Krajowy Fundusz Szkoleniowy) 2026:
 - Budżet: 419,6 mln PLN (417,5 mln do WUP)

@@ -217,13 +217,13 @@ KROK PO KROKU -- zasiłek dla bezrobotnych:
   PUŁAPKA: zwolnienie za porozumieniem stron lub z własnej winy = 90-dniowa karencja na zasiłek
   PUŁAPKA: praca za granicą w UE/EOG może być zaliczona do stażu -- zaświadczenie z zagranicznego urzędu pracy
 
-Staż z PUP: wynagrodzenie stażowe równe 120% zasiłku dla bezrobotnych + składki ZUS opłacane przez PUP.
-- Max 6 miesięcy (12 dla osób do 30 lat)
+Staż z PUP: stypendium stażowe 160% zasiłku dla bezrobotnych (od 1.06.2026: 2854,30 PLN brutto) + składki opłacane przez PUP.
+- Zwykle do 6 miesięcy
 - Organizator stażu nie musi zatrudnić po zakończeniu
 
-Bon szkoleniowy: do 100% kosztów szkolenia.
-- Limit: wg PUP (ok. 3-4x średnie wynagrodzenie)
-- Dla osób do 30 lat zarejestrowanych w PUP
+Bon na kształcenie ustawiczne (od 1.06.2025 zastąpił bon szkoleniowy): do 100% przeciętnego wynagrodzenia (od 1.09.2026: 9 233,20 PLN).
+- Bez limitu wieku, dla bezrobotnych i poszukujących pracy
+- Bon stażowy i przygotowanie zawodowe dorosłych zlikwidowano 1.06.2025
 
 Dodatek aktywizacyjny: 50% zasiłku przez resztę okresu zasiłkowego.
 - Warunek: podjęcie zatrudnienia w niepełnym wymiarze (z własnej inicjatywy)

@@ -27,8 +27,8 @@ export const RODZINA: Benefit[] = [
       ],
       odwolanie: 'Odwołanie do Prezesa ZUS w ciągu 14 dni od decyzji',
     },
-    zrodloUrl: 'https://www.gov.pl/web/rodzina/swiadczenie-wychowawcze',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-11-01', dataWaznosci: '2027-05-31',
+    zrodloUrl: 'https://www.zus.pl/swiadczenia/swiadczenia-dla-rodzin/swiadczenie-wychowawcze-800-plus',
+    zrodloNazwa: 'ZUS', dataWeryfikacji: '2026-11-01', dataWaznosci: '2027-05-31',
   },
   {
     id: 'becikowe', nazwa: 'Becikowe (jednorazowa zapomoga)',
@@ -60,8 +60,8 @@ export const RODZINA: Benefit[] = [
       ],
       odwolanie: 'Odwołanie do Samorządowego Kolegium Odwoławczego w ciągu 14 dni',
     },
-    zrodloUrl: 'https://www.gov.pl/web/rodzina/',
-    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-05-27', dataWaznosci: '2026-12-31',
+    zrodloUrl: 'https://www.gov.pl/web/gov/uzyskaj-becikowe',
+    zrodloNazwa: 'Ministerstwo Rodziny', dataWeryfikacji: '2026-11-01', dataWaznosci: '2026-12-31',
   },
   {
     id: 'kosiniakowe', nazwa: 'Świadczenie rodzicielskie (kosiniakowe)',

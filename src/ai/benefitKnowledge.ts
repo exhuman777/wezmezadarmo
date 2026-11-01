@@ -919,7 +919,7 @@ UWAGA: dlugosc okresu ulgi na start liczy sie w MIESIACACH od dnia rozpoczecia d
     szczegolyKwalifikacji: `
 Ulga na start -- 6 pelnych miesiecy calendarowych od rozpoczecia dzialalnosci:
 - Brak skladek spolecznych ZUS (emerytalnej, rentowej, wypadkowej, chorobowej)
-- Tylko skladka zdrowotna (9% dochodu, min. 381,78 PLN w 2026)
+- Tylko skladka zdrowotna (9% dochodu, min. 432,54 PLN od lutego 2026)
 - Brak ubezpieczenia chorobowego = brak prawa do zasilku chorobowego i macierzynskiego
 
 Po 6 mies.: przejscie na preferencyjny ZUS (nizsze skladki przez kolejne 24 miesiace).
@@ -953,7 +953,7 @@ Skladki przyblizone (2026):
 - Rentowa 8%: 101,76 PLN
 - Chorobowa 2,45% (dobrowolna): 31,16 PLN
 - Wypadkowa 1,67%: 21,24 PLN
-- Zdrowotna: 9% dochodu (min. 381,78 PLN)
+- Zdrowotna: 9% dochodu (min. 432,54 PLN od lutego 2026)
 
 Po 24 mies.: pelny ZUS (podstawa = 60% przecietnego wynagrodzenia, ok. 2547 PLN w 2026 --> skladki ~1400 PLN/mies).
 Mozliwosci dalej: Maly ZUS Plus (jesli przychod do 120.000 PLN rocznie).
@@ -1044,7 +1044,7 @@ DOKUMENTY:
 - Jesli student samodzielnie finansowo: oswiadczenie + dokumentacja (trudniejsze do udowodnienia)
 `,
     szczegolyKwalifikacji: `
-Kryterium dochodowe na 2025/2026: ustalone przez uczelnie, zwykle 1294-1600 PLN netto na osobe w rodzinie.
+Kryterium dochodowe jest ustawowe: 45% minimalnego wynagrodzenia z 1 stycznia roku poprzedzajacego rok akademicki. 2025/2026: 1908,90 PLN, 2026/2027: 2099,70 PLN netto na osobe w rodzinie. Uczelnia nie moze go podwyzszyc.
 Kazda uczelnia SAMA ustala prog (w granicach ustawy Prawo o szkolnictwie wyzszym).
 Sprawdz progi na stronie swojej uczelni.
 
@@ -1237,7 +1237,7 @@ Kto moze skorzystac z wakacji skladkowych:
 Zasady:
 - RAZ w roku mozna "zawiesic" skladki spoleczne na 1 miesiac (lipiec, sierpien, wrzesien lub grudzien -- wybierasz)
 - W tym miesiacu NIE placi sie: emerytalnej, rentowej, wypadkowej, chorobowej
-- Placi sie nadal: skladke zdrowotna (9% dochodu, min. 381,78 PLN)
+- Placi sie nadal: skladke zdrowotna (9% dochodu, min. 432,54 PLN od lutego 2026)
 - Za miesiac przerwy: brak ubezpieczenia chorobowego (nie mozna isc na chorobowe)
 
 Wakacje skladkowe SUMUJA sie z innymi ulgami (mozna byc na Malym ZUS Plus i jednoczesnie skorzystac z wakacji).
@@ -1524,44 +1524,25 @@ O: Tak, jezeli spelniasz warunki. Ekoschematy zwieksza dochod z hektara o kilkas
 
   'zasilek-opiekunczy-krus': {
     szczegolyKwalifikacji: `
-Zasilek opiekuńczy KRUS -- szczegoly:
+Zasiłek opiekuńczy w KRUS -- stan na 1.11.2026:
 
-STAWKA 2026: 1/30 emerytury podstawowej = 1780,64 PLN / 30 = 59,35 PLN za dzien opieki
+KRUS NIE wypłaca stałego zasiłku opiekuńczego (takiego jak w ZUS za opiekę nad chorym dzieckiem).
+Rolnik ubezpieczony w KRUS ma: zasiłek chorobowy 25 PLN/dzień (od 1.01.2025) i zasiłek macierzyński 1000 PLN/mies.
 
-KIEDY PRZYSLUGUJE:
-1. Opieka nad zdrowym dzieckiem ponizej 8 lat (zamkniecie zlobka/przedszkola/szkoly)
-2. Opieka nad chorym dzieckiem do 14 lat
-3. Opieka nad chorym dzieckiem do 18 lat z niepelnosprawnoscia
-4. Opieka nad chorym malzonkiem, rodzicami lub teściami
-5. W zwiazku z porodem malzonki (partner)
+Zasiłek opiekuńczy w KRUS był przyznawany tylko czasowo z przepisów szczególnych:
+- w czasie pandemii COVID-19 (zamknięcie żłobków, przedszkoli, szkół),
+- dla rodzin dotkniętych powodzią z 2024 r. (osobny wniosek o zasiłek opiekuńczy na dziecko z powodu powodzi).
 
-MAKSYMALNY OKRES:
-- 60 dni w roku kalendarzowym na dzieci do 14 lat
-- 14 dni w roku na doroslich czlonkow rodziny (malzonek, rodzice, teściowie)
-- Dodatkowe 60 dni na dziecko niepelnosprawne do 18 lat
-
-WARUNKI:
-- Minimum 1 rok ciaglego ubezpieczenia wypadkowego, chorobowego i macierzyńskiego w KRUS
-- WYJATKI: przy wypadku przy pracy rolniczej lub naglaej chorobie -- brak okresu karencji
-
-TERMIN ZGLOSZENIA: wniosek nalezy zlozyc do KRUS w ciagu 7 dni od powstania prawa
-
-DOMOWNICY: Osoby ubezpieczone jako domownicy rolnika maja takie same prawa
+NIE podawaj stawki dziennej ani limitu 60 dni dla KRUS: takie świadczenie nie istnieje.
 `,
     faq: `
-P: Czy moge dostac zasilek za opieke nad starszym rodzicem?
-O: TAK. Zasilek przysluguje tez za opieke nad chorym malzonkiem, rodzicami i tesciem/tesciowa, ale max 14 dni rocznie.
+P: Czy rolnik z KRUS dostanie zasiłek za opiekę nad chorym dzieckiem?
+O: Nie. W KRUS nie ma stałego zasiłku opiekuńczego. Wyjątki były tylko w przepisach szczególnych (COVID-19, powódź 2024).
 
-P: Czy zasilek opiekuńczy KRUS jest wyzszy niz z ZUS?
-O: Zasilek KRUS: 59,35 PLN/dzien (stala stawka). ZUS: 80% dziennej podstawy wymiaru (zalezy od zarobkow). Dla rolnikow ubezpieczonych w KRUS obowiazuje stawka KRUS.
-
-P: Oboje jestesmy ubezpieczeni w KRUS. Czy oboje mozemy wniaskowac?
-O: NIE. Za ten sam dzien zasilek przysluguje tylko JEDNEMU rodzicowi/opiekunowi.
-
-P: Co jesli przedszkole jest zamkniete z powodu epidemii?
-O: TAK, zasilek przysluguje za zamkniecie placowki z powodow sanitarnych, pogody lub strajku.
+P: Mój małżonek jest w ZUS, ja w KRUS. Co z opieką nad chorym dzieckiem?
+O: Zasiłek opiekuńczy z ZUS (80% podstawy, do 60 dni w roku na dziecko do 14 lat) może wziąć rodzic ubezpieczony w ZUS.
 `,
-    zrodlo: 'https://www.krus.gov.pl -- pobrano 2026-05-14',
+    zrodlo: 'https://www.gov.pl/web/krus/kwoty-swiadczen oraz https://www.gov.pl/web/krus/zasilki-z-tytulu-urodzenia-i-opieki-nad-dzieckiem -- sprawdzono 2026-11-01',
   },
 
   'bon-senioralny': {

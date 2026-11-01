@@ -92,7 +92,7 @@ const ODBIORCY = [
   },
   {
     ikona: 'E', tytul: 'Organizacje senioralne i opiekunowie',
-    opis: 'Trzynastka, czternastka, dodatek osłonowy, refundacja leków, opieka 75+. Wsparcie dla seniorów i osób, które na co dzień się nimi opiekują, bez konieczności znajomości przepisów.',
+    opis: 'Trzynastka, czternastka, dodatek pielęgnacyjny, bezpłatne leki 65+, opieka 75+. Wsparcie dla seniorów i osób, które na co dzień się nimi opiekują, bez konieczności znajomości przepisów.',
   },
   {
     ikona: 'M', tytul: 'Wsparcie migrantów i osób wykluczonych cyfrowo',
@@ -113,7 +113,7 @@ const ODBIORCY = [
 ];
 
 const FEATURES = [
-  '133 świadczeń w 15 kategoriach, ręcznie zweryfikowanych',
+  '133 świadczeń w 13 kategoriach, ręcznie zweryfikowanych',
   'Odpowiedź <200ms, aktualizowana baza',
   'Brak przechowywania danych (prywatność i RODO wbudowane)',
   'Otwarte: kod AGPL-3.0, dane CC-BY-4.0 - wolno reużywać',

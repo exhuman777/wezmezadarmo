@@ -130,7 +130,7 @@ const SECURITY = [
 
 const STATS = [
   { n: '133', label: 'świadczeń w bazie' },
-  { n: '15', label: 'kategorii' },
+  { n: '13', label: 'kategorii' },
   { n: '14', label: 'źródeł danych' },
   { n: '2 min', label: 'czas analizy' },
 ];
@@ -264,7 +264,7 @@ export default function OProjekciePage() {
                 color: 'var(--color-green)',
                 letterSpacing: '0.04em',
               }}>
-                133 świadczeń z 15 kategorii
+                133 świadczeń z 13 kategorii
               </div>
             </div>
 
@@ -290,7 +290,7 @@ export default function OProjekciePage() {
                 </p>
                 <p style={{ margin: 0 }}>
                   wezmezadarmo powstało, żeby zebrać w jednym miejscu{' '}
-                  <strong style={{ color: 'var(--color-text-1)' }}>133 świadczeń z 15 kategorii</strong>{' '}
+                  <strong style={{ color: 'var(--color-text-1)' }}>133 świadczeń z 13 kategorii</strong>{' '}
                   i dać każdemu możliwość sprawdzenia w 2 minuty, na co się kwalifikuje.
                   Bez rejestracji, bez opłat, bez zbędnych kroków.
                 </p>

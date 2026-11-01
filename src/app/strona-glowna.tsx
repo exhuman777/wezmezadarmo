@@ -459,7 +459,7 @@ export default function Home() {
         welcomeText += 'Napisz pytanie, jestem tutaj żeby pomóc.';
       } else {
         welcomeText = 'Nie znalazłem świadczeń pasujących do Twojego profilu.\n\n';
-        welcomeText += 'Algorytm przeszukał 133 świadczeń z 15 kategorii. Opisz mi swoją sytuację, a sprawdzę czy czegoś nie przeoczyłem.\n\n';
+        welcomeText += 'Algorytm przeszukał 133 świadczeń z 13 kategorii. Opisz mi swoją sytuację, a sprawdzę czy czegoś nie przeoczyłem.\n\n';
         welcomeText += 'Jestem asystentem AI. Moje odpowiedzi opierają się na zweryfikowanej bazie danych, ale zawsze sprawdź informacje na stronach źródłowych.';
       }
 
@@ -850,7 +850,7 @@ export default function Home() {
                 </h1>
 
                 <p style={{ fontSize: 17, color: 'var(--color-text-2)', maxWidth: 480, marginBottom: 32, lineHeight: 1.5 }}>
-                  Dopasowujemy 133 świadczeń z 15 kategorii do Twojej sytuacji.
+                  Dopasowujemy 133 świadczeń z 13 kategorii do Twojej sytuacji.
                   Dopasowanie odbywa się na serwerze, ale dane nie są zapisywane.
                 </p>
 

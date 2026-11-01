@@ -3,7 +3,7 @@ import { Benefit } from '../types';
 export const BIZNES: Benefit[] = [
   {
     id: 'ulga-na-start', nazwa: 'Ulga na Start',
-    opis: 'Ulga na Start to zwolnienie z opłacania składek społecznych ZUS przez pierwszych 6 pełnych miesięcy prowadzenia działalności gospodarczej. Skierowana do osób zakładających firmę po raz pierwszy (lub po przerwie min. 60 miesięcy). Oszczędność wynosi ok. 1927 PLN miesięcznie, płacisz TYLKO składkę zdrowotną (ok. 381 PLN). Warunki: musisz zarejestrować jednoosobową działalność w CEIDG, nie możesz wykonywać usług na rzecz byłego pracodawcy (u którego pracowałeś w bieżącym lub poprzednim roku kalendarzowym), i nie możesz mieć żadnej działalności gospodarczej w ciągu ostatnich 60 miesięcy (nawet zawieszonej). Częsty błąd: rozpoczęcie w połowie miesiąca, ten miesiąc nie liczy się do 6 pełnych miesięcy. Praktyczna rada: po Uldze na Start przejdź od razu na Preferencyjny ZUS (24 miesiące), a potem na Mały ZUS Plus, to daje nawet 5,5 roku niższych składek.',
+    opis: 'Ulga na Start to zwolnienie z opłacania składek społecznych ZUS przez pierwszych 6 pełnych miesięcy prowadzenia działalności gospodarczej. Skierowana do osób zakładających firmę po raz pierwszy (lub po przerwie min. 60 miesięcy). Oszczędność wynosi ok. 1927 PLN miesięcznie, płacisz TYLKO składkę zdrowotną (w 2026 przy skali podatkowej co najmniej 432,54 PLN). Warunki: musisz zarejestrować jednoosobową działalność w CEIDG, nie możesz wykonywać usług na rzecz byłego pracodawcy (u którego pracowałeś w bieżącym lub poprzednim roku kalendarzowym), i nie możesz mieć żadnej działalności gospodarczej w ciągu ostatnich 60 miesięcy (nawet zawieszonej). Częsty błąd: rozpoczęcie w połowie miesiąca, ten miesiąc nie liczy się do 6 pełnych miesięcy. Praktyczna rada: po Uldze na Start przejdź od razu na Preferencyjny ZUS (24 miesiące), a potem na Mały ZUS Plus, to daje nawet 5,5 roku niższych składek.',
     kategoria: 'BIZNES',
     kwota: 'ok. 1 927 PLN/mies. oszczędności (brak składek społecznych)', kwotaMin: 1927, kwotaMax: 1927,
     czestotliwosc: 'miesięcznie (6 pełnych miesięcy)',
@@ -30,14 +30,14 @@ export const BIZNES: Benefit[] = [
       ],
       odwolanie: 'Odwołanie do Sądu Pracy',
     },
-    zrodloUrl: 'https://www.biznes.gov.pl/pl/portal/00271',
-    zrodloNazwa: 'biznes.gov.pl', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
+    zrodloUrl: 'https://www.biznes.gov.pl/pl/portal/00285',
+    zrodloNazwa: 'biznes.gov.pl', dataWeryfikacji: '2026-11-01', dataWaznosci: '2026-12-31',
   },
   {
     id: 'preferencyjny-zus', nazwa: 'Preferencyjny ZUS (mały ZUS)',
-    opis: 'Preferencyjny ZUS (potocznie "mały ZUS") pozwala płacić obniżone składki społeczne przez 24 pełne miesiące. Podstawa wymiaru składek wynosi 30% minimalnego wynagrodzenia (w 2026: 1441,80 PLN), co daje składkę ok. 456 PLN/mies. zamiast ok. 1600 PLN na pełnym ZUS. Skierowany do przedsiębiorców, którzy prowadzą działalność co najmniej 6 miesięcy (po Uldze na Start) lub od razu po rejestracji (jeśli nie korzystali z Ulgi na Start). Warunek: nie możesz świadczyć usług na rzecz byłego pracodawcy. Rejestrujesz się na ZUS ZUA z kodem ubezpieczenia 05 70. Częsty błąd: wybór Preferencyjnego ZUS od razu zamiast Ulgi na Start, tracisz wtedy 6 miesięcy zwolnienia ze składek społecznych. Optymalna ścieżka: Ulga na Start (6 mies.) -> Preferencyjny ZUS (24 mies.) -> Mały ZUS Plus (36 mies.).',
+    opis: 'Preferencyjny ZUS (potocznie "mały ZUS") pozwala płacić obniżone składki społeczne przez 24 pełne miesiące. Podstawa wymiaru składek wynosi 30% minimalnego wynagrodzenia (w 2026: 1441,80 PLN), co daje składkę ok. 456 PLN/mies. zamiast ok. 1927 PLN na pełnym ZUS (składki społeczne z chorobową, 2026). Skierowany do przedsiębiorców, którzy prowadzą działalność co najmniej 6 miesięcy (po Uldze na Start) lub od razu po rejestracji (jeśli nie korzystali z Ulgi na Start). Warunek: nie możesz świadczyć usług na rzecz byłego pracodawcy. Rejestrujesz się na ZUS ZUA z kodem ubezpieczenia 05 70. Częsty błąd: wybór Preferencyjnego ZUS od razu zamiast Ulgi na Start, tracisz wtedy 6 miesięcy zwolnienia ze składek społecznych. Optymalna ścieżka: Ulga na Start (6 mies.) -> Preferencyjny ZUS (24 mies.) -> Mały ZUS Plus (36 mies.).',
     kategoria: 'BIZNES',
-    kwota: 'ok. 456 PLN/mies. zamiast ok. 1 600 PLN/mies.', kwotaMin: 456, kwotaMax: 456,
+    kwota: 'ok. 456 PLN/mies. zamiast ok. 1 927 PLN/mies.', kwotaMin: 456, kwotaMax: 456,
     czestotliwosc: 'miesięcznie (24 pełne miesiące)',
     wymagania: { prowadzDzialalnosc: true, miesiaceDzialalnosci: { min: 6, max: 30 } },
     wykluczenia: [{ opis: 'Wykonujesz działalność na rzecz byłego pracodawcy', sprawdz: 'byly_pracodawca' }],
@@ -55,7 +55,7 @@ export const BIZNES: Benefit[] = [
       odwolanie: 'Odwołanie do Sądu Pracy',
     },
     zrodloUrl: 'https://www.biznes.gov.pl/pl/portal/00286',
-    zrodloNazwa: 'biznes.gov.pl', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'biznes.gov.pl', dataWeryfikacji: '2026-11-01', dataWaznosci: '2026-12-31',
   },
   {
     id: 'maly-zus-plus', nazwa: 'Mały ZUS Plus',
@@ -86,13 +86,13 @@ export const BIZNES: Benefit[] = [
   },
   {
     id: 'wakacje-skladkowe', nazwa: 'Wakacje składkowe (1 miesiąc wolny od ZUS)',
-    opis: 'Wakacje składkowe to prawo do zwolnienia z opłacania składek społecznych ZUS przez 1 wybrany miesiąc w roku. Skierowane do mikroprzedsiębiorców zgłaszających do ubezpieczeń nie więcej niż 10 ubezpieczonych (wliczając siebie, liczone w miesiącu przed złożeniem wniosku) i z przychodem rocznym do 2 mln EUR. Oszczędność: ok. 1600 PLN jednorazowo. Wniosek RWS składasz przez PUE ZUS w miesiącu POPRZEDZAJĄCYM wybrany miesiąc zwolnienia. To najczęstszy błąd, bo wiele osób próbuje złożyć wniosek w tym samym miesiącu. W miesiącu wakacji nie płacisz składek społecznych, ale składkę zdrowotną musisz opłacić normalnie. Można skorzystać tylko 1 raz w roku kalendarzowym. Decyzja ZUS zapada w ciągu 40 dni. Praktyczna rada: wybierz miesiąc, w którym masz najwyższe składki (np. grudzień) lub miesiąc z niższymi przychodami.',
+    opis: 'Wakacje składkowe to prawo do zwolnienia z opłacania składek społecznych ZUS przez 1 wybrany miesiąc w roku. Skierowane do mikroprzedsiębiorców zgłaszających do ubezpieczeń nie więcej niż 10 ubezpieczonych (wliczając siebie, liczone w miesiącu przed złożeniem wniosku) i z przychodem rocznym do 2 mln EUR. Oszczędność to składki społeczne za 1 miesiąc: ok. 1927 PLN przy pełnym ZUS w 2026, mniej przy preferencyjnym ZUS (ok. 456 PLN). Wniosek RWS składasz przez PUE ZUS w miesiącu POPRZEDZAJĄCYM wybrany miesiąc zwolnienia. To najczęstszy błąd, bo wiele osób próbuje złożyć wniosek w tym samym miesiącu. W miesiącu wakacji nie płacisz składek społecznych, ale składkę zdrowotną musisz opłacić normalnie. Można skorzystać tylko 1 raz w roku kalendarzowym. Decyzja ZUS zapada w ciągu 40 dni. Praktyczna rada: wybierz miesiąc, w którym masz najwyższe składki (np. grudzień) lub miesiąc z niższymi przychodami.',
     kategoria: 'BIZNES',
-    kwota: 'ok. 1 600 PLN oszczędności (1 miesiąc)', kwotaMin: 1600, kwotaMax: 1600,
+    kwota: 'do ok. 1 927 PLN oszczędności (1 miesiąc, pełny ZUS 2026)', kwotaMin: 456, kwotaMax: 1927,
     czestotliwosc: 'rocznie (1 miesiąc)',
     wymagania: { prowadzDzialalnosc: true },
     wykluczenia: [
-      { opis: 'Więcej niż 10 ubezpieczonych (wraz z przedsiębiorcą)', sprawdz: 'pracownicy_9' },
+      { opis: 'Więcej niż 10 ubezpieczonych (wraz z przedsiębiorcą)', sprawdz: 'ubezpieczeni_10' },
       { opis: 'Przychód w poprzednim roku przekroczył 2 mln EUR', sprawdz: 'przychod_2mln_eur' },
     ],
     wniosek: {

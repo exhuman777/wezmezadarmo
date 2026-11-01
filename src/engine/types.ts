@@ -73,6 +73,8 @@ export interface Benefit {
   zrodloNazwa: string;
   dataWeryfikacji: string;
   dataWaznosci: string;
+  /** Program zakończony, zawieszony albo zlikwidowany: zostaje w bazie jako informacja, ale nie trafia do dopasowań. */
+  zakonczony?: boolean;
 }
 
 export interface UserProfile {

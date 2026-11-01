@@ -87,6 +87,7 @@ export function matchBenefits(profile: UserProfile): MatchResult[] {
   const allBenefits = getAllBenefits();
 
   for (const benefit of allBenefits) {
+    if (benefit.zakonczony) continue;
     const { matched, failed } = checkRequirements(benefit, profile);
     const totalCriteria = matched.length + failed.length;
 
@@ -113,7 +114,7 @@ export function matchBenefits(profile: UserProfile): MatchResult[] {
     if (totalCriteria === 0) {
       // No verifiable criteria -- can't confirm eligibility from profile alone
       status = 'MOZLIWE';
-      warnings.push('Wymaga indywidualnej weryfikacji -- brak danych do automatycznego sprawdzenia');
+      warnings.push('Wymaga indywidualnej weryfikacji: brak danych do automatycznego sprawdzenia');
     } else if (failed.length === 0) {
       status = 'PRZYSLUGUJE';
     } else if (failed.length <= 1 && totalCriteria > 2) {
@@ -124,7 +125,7 @@ export function matchBenefits(profile: UserProfile): MatchResult[] {
     }
 
     for (const wyk of benefit.wykluczenia) {
-      warnings.push(`Sprawdz wykluczenie: ${wyk.opis}`);
+      warnings.push(`Sprawdź wykluczenie: ${wyk.opis}`);
     }
 
     if (status !== 'NIE_PRZYSLUGUJE') {

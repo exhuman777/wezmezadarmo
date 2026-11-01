@@ -55,9 +55,9 @@ export const ZDROWIE: Benefit[] = [
   },
   {
     id: 'cytologia', nazwa: 'Cytologia profilaktyczna',
-    opis: 'Cytologia profilaktyczna to bezpłatne badanie przesiewowe w kierunku raka szyjki macicy, finansowane przez NFZ w ramach Programu Profilaktyki Raka Szyjki Macicy. Skierowane jest do kobiet w wieku 25-64 lat. Badanie polega na pobraniu przez ginekologa wymazu z szyjki macicy i kanału szyjki. Trwa kilka minut i jest bezbolesne (może być lekko nieprzyjemne). Można z niego skorzystać co 3 lata. Nie wymaga skierowania, wystarczy umówić się bezpośrednio w gabinecie ginekologicznym realizującym program. Ważne: nawet jeśli kobieta wykonała cytologię prywatnie, nadal może skorzystać z bezpłatnego programu NFZ (liczy się data ostatniej cytologii w ramach programu, nie prywatnej). Wynik jest dostępny w ciągu 2-4 tygodni. Jeśli wynik jest nieprawidłowy, pacjentka jest kierowana na dalszą diagnostykę: kolposkopię. Częste nieporozumienie: cytologia nie wykrywa HPV. To osobne badanie. Kobiety po histerektomii całkowitej (usunięciu macicy z szyjką) nie potrzebują cytologii, chyba że operacja była z powodu stanu przedrakowego. Przed badaniem nie należy stosować globulek dopochwowych ani współżyć przez 24-48 godzin.',
+    opis: 'Cytologia profilaktyczna to bezpłatne badanie przesiewowe w kierunku raka szyjki macicy, finansowane przez NFZ w ramach Programu Profilaktyki Raka Szyjki Macicy. Skierowane jest do kobiet w wieku 25-64 lat. Badanie polega na pobraniu przez ginekologa wymazu z szyjki macicy i kanału szyjki. Trwa kilka minut i jest bezbolesne (może być lekko nieprzyjemne). Klasyczną cytologię można wykonać co 3 lata. Od 1 lipca 2025 r. NFZ finansuje też nowoczesną ścieżkę: test HPV HR co 5 lat, a przy wyniku dodatnim cytologię na podłożu płynnym (LBC) z tego samego wymazu. Nie wymaga skierowania, wystarczy umówić się bezpośrednio w gabinecie ginekologicznym realizującym program. Ważne: nawet jeśli kobieta wykonała cytologię prywatnie, nadal może skorzystać z bezpłatnego programu NFZ (liczy się data ostatniej cytologii w ramach programu, nie prywatnej). Wynik jest dostępny w ciągu 2-4 tygodni. Jeśli wynik jest nieprawidłowy, pacjentka jest kierowana na dalszą diagnostykę: kolposkopię. Częste nieporozumienie: cytologia nie wykrywa HPV. To osobne badanie. Kobiety po histerektomii całkowitej (usunięciu macicy z szyjką) nie potrzebują cytologii, chyba że operacja była z powodu stanu przedrakowego. Przed badaniem nie należy stosować globulek dopochwowych ani współżyć przez 24-48 godzin.',
     kategoria: 'ZDROWIE',
-    kwota: 'bezpłatne badanie', kwotaMin: 0, kwotaMax: 0, czestotliwosc: 'co 3 lata',
+    kwota: 'bezpłatne badanie', kwotaMin: 0, kwotaMax: 0, czestotliwosc: 'co 3 lata (cytologia) lub co 5 lat (test HPV HR)',
     wymagania: { wiekMin: 25, wiekMax: 64, plec: 'K' },
     wykluczenia: [],
     wniosek: {
@@ -74,7 +74,7 @@ export const ZDROWIE: Benefit[] = [
       odwolanie: 'Nie dotyczy',
     },
     zrodloUrl: 'https://www.nfz.gov.pl/dla-pacjenta/programy-profilaktyczne/',
-    zrodloNazwa: 'NFZ', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'NFZ', dataWeryfikacji: '2026-11-01', dataWaznosci: '2026-12-31',
   },
   {
     id: 'kolonoskopia', nazwa: 'Kolonoskopia profilaktyczna',

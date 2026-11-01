@@ -14,7 +14,7 @@ Rodzaje świadczeń NFZ:
 REFUNDACJA LEKÓW:
 - Bezpłatne dla dzieci do 18 lat (lista B) -- od 2017
 - Bezpłatne dla kobiet w ciąży (lista W) -- od 2017
-- Bezpłatne dla seniorów 75+ (lista S) -- od 2016
+- Bezpłatne dla seniorów 65+ (lista S) -- od 1.09.2023 (wcześniej 75+, od 2016)
 - Dla pozostałych: dopłata ryczałtowa (3,20 PLN), 30% lub 50% ceny limitu
 - Lista refundacyjna aktualizowana co 3 miesiące
 - e-recepta: wystawiana przez lekarzy POZ i specjalistów NFZ
@@ -123,7 +123,7 @@ JAK UBIEGAĆ SIĘ O TURNUS REHABILITACYJNY (PFRON):
   2. Złóż wniosek w PCPR (Powiatowe Centrum Pomocy Rodzinie) -- właściwe dla miejsca zamieszkania
   3. Dołącz: orzeczenie o niepełnosprawności, wniosek lekarza, dowód osobisty
   4. PCPR rozpatruje w ciągu 30 dni od zakończenia przyjmowania wniosków (nabory ogłaszane przez PCPR)
-  5. Dofinansowanie: 20-30% przeciętnego wynagrodzenia (ok. 1 600-2 400 PLN) -- zależy od stopnia niepełnosprawności i dochodu
+  5. Dofinansowanie: 25-30% przeciętnego wynagrodzenia z poprzedniego kwartału (opiekun 20%); przy II kw. 2026 ok. 2 308-2 770 PLN -- zależy od stopnia niepełnosprawności i dochodu
   6. Wybierz ośrodek z listy PFRON (pfron.org.pl) -- musi być aktywny w systemie
   7. Zawiadom PCPR o wyborze
   8. Realizuj turnus (14-21 dni)
