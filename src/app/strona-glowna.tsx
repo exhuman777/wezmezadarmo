@@ -587,12 +587,12 @@ export default function Home() {
 
         {/* Gra na start */}
         <section className="prosta-blok" aria-labelledby="gra-tytul" style={{ padding: 0 }}>
-          <h1 id="gra-tytul" style={{ fontSize: 'clamp(26px, 5vw, 36px)' }}>Należy Ci się. Zagraj i sprawdź.</h1>
+          <h1 id="gra-tytul" style={{ fontSize: 'clamp(26px, 5vw, 36px)' }}>Należy Ci się więcej, niż myślisz. Zagraj i sprawdź.</h1>
           <div className="gra-pelna" style={{ marginTop: 16 }}>
             <div className="gra-ramka">
               <iframe
                 src="/gra/index.html"
-                title="Gra Należy Ci się: dopasuj świadczenia do osób"
+                title="Gra Należy Ci się więcej, niż myślisz: dopasuj świadczenia do osób"
                 loading="eager"
                 allow="autoplay"
               />
