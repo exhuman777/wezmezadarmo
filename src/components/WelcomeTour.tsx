@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
+import { PROGRAMS } from '@/data/programs-b2b';
 
 const TOUR_KEY = 'welcome_tour_v1_completed';
 
@@ -37,16 +38,17 @@ export default function WelcomeTour() {
       const tour = driver({
         showProgress: true,
         progressText: 'Krok {{current}} z {{total}}',
-        nextBtnText: 'Dalej →',
-        prevBtnText: '← Wstecz',
-        doneBtnText: 'Zaczynamy',
-        overlayColor: 'rgba(12, 23, 20, 0.55)',
+        nextBtnText: 'Dalej',
+        prevBtnText: 'Wstecz',
+        doneBtnText: 'Gotowe',
+        overlayColor: 'rgba(43, 36, 32, 0.35)',
+        popoverClass: 'wycieczka',
         steps: [
           {
             element: '[data-tour="profile"]',
             popover: {
               title: 'Najpierw uzupełnij profil',
-              description: 'Wiek, dochód, dzieci, województwo, NIP firmy (jeśli masz). Agent dopasuje świadczenia i dotacje do Twojej sytuacji. Zajmie 2 minuty.',
+              description: 'Wiek, dochód, dzieci i województwo. Na tej podstawie dopasujemy świadczenia i dotacje.',
               side: 'bottom',
               align: 'start',
             },
@@ -55,7 +57,7 @@ export default function WelcomeTour() {
             element: '[data-tour="swiadczenia"]',
             popover: {
               title: 'Zobacz dopasowane świadczenia',
-              description: 'Po wypełnieniu profilu silnik przeliczy 133 świadczeń (ZUS, NFZ, PFRON, KRUS, MOPS) i pokaże co Ci pewnie przysługuje (PRZYSŁUGUJE) oraz co możliwe (MOŻLIWE).',
+              description: 'Sprawdzimy 133 świadczenia (ZUS, NFZ, PFRON, KRUS, MOPS) i pokażemy, co Ci przysługuje, a co warto sprawdzić.',
               side: 'bottom',
               align: 'start',
             },
@@ -64,7 +66,7 @@ export default function WelcomeTour() {
             element: '[data-tour="dotacje"]',
             popover: {
               title: 'Dotacje dla Twojej firmy',
-              description: 'Wpisz NIP, pobierzemy PKD z CEIDG i dopasujemy 23 programy dotacyjne (KFS, PARP, NCBR, KPO, ARiMR). Także dla osób prywatnych prowadzących działalność.',
+              description: `Wpisz NIP, a pobierzemy PKD z CEIDG i sprawdzimy ${PROGRAMS.length} programów dotacyjnych (KFS, PUP, PFRON, KPO, ARiMR).`,
               side: 'bottom',
               align: 'start',
             },
@@ -73,7 +75,7 @@ export default function WelcomeTour() {
             element: '[data-tour="chat"]',
             popover: {
               title: 'Czat z asystentem AI',
-              description: 'Pytaj o cokolwiek: świadczenia, ulgi, terminy, kursy walut, sprawdzenie NIP, kolejki NFZ. Agent ma pełną wiedzę o systemie + dostęp do live API rządowych.',
+              description: 'Pytaj o świadczenia, ulgi, terminy, kursy walut, NIP firmy albo kolejki NFZ. Asystent korzysta z bazy serwisu i danych urzędów.',
               side: 'bottom',
               align: 'start',
             },
@@ -82,7 +84,7 @@ export default function WelcomeTour() {
             element: '[data-tour="aktualnosci"]',
             popover: {
               title: 'Aktualności RSS + powiadomienia',
-              description: 'Śledź zmiany z 8 instytucji rządowych. Ustaw subskrypcję e-mail, aby dostawać tylko to, co Cię interesuje (najwyżej 1 e-mail dziennie i tylko gdy pojawi się coś nowego, bez spamu).',
+              description: 'Zmiany w przepisach i komunikaty urzędów w jednym miejscu.',
               side: 'bottom',
               align: 'start',
             },

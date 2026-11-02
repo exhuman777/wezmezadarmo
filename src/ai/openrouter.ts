@@ -8,7 +8,7 @@ function getClient(): OpenAI {
       baseURL: 'https://openrouter.ai/api/v1',
       apiKey: process.env.OPENROUTER_API_KEY,
       defaultHeaders: {
-        'HTTP-Referer': 'https://wezmezadarmo.com',
+        'HTTP-Referer': 'https://www.wezmezadarmo.com',
         'X-Title': 'wezmezadarmo',
       },
     });

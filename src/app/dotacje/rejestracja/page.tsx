@@ -491,7 +491,7 @@ export default function RejestracjaPage() {
                   cursor: 'pointer',
                 }}
               >
-                <option value="">-- wybierz --</option>
+                <option value="">wybierz</option>
                 {VOIVODESHIPS.map(v => (
                   <option key={v} value={v}>{VOIVODESHIP_LABELS[v]}</option>
                 ))}

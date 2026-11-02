@@ -110,30 +110,23 @@ export default function PanelDashboard() {
       {profileEmpty && (
         <div data-tour="profile" style={{
           marginBottom: 28,
-          padding: '20px 24px',
-          background: 'rgba(47,125,90,0.1)',
-          border: '1px solid rgba(47,125,90,0.3)',
-          borderTop: '3px solid #2b7353',
-          borderRadius: 'var(--r-md)',
+          padding: 20,
+          background: 'var(--surface)',
+          border: '2px solid var(--tusz)',
+          borderRadius: 0,
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           gap: 16, flexWrap: 'wrap',
         }}>
-          <div>
-            <div style={{ fontWeight: 600, fontSize: 15, color: 'var(--ink-900)', marginBottom: 4 }}>
-              Uzupełnij profil, żeby agent AI mógł dopasować wyniki
+          <div style={{ flex: '1 1 260px', minWidth: 0 }}>
+            <div style={{ fontWeight: 600, fontSize: 15, color: 'var(--tusz)', marginBottom: 4 }}>
+              Uzupełnij profil, a dopasujemy świadczenia
             </div>
-            <div style={{ fontSize: 13, color: 'var(--ink-500)', lineHeight: 1.5 }}>
-              Wystarczy wiek, forma zatrudnienia i dochód - zajmie to 2 minuty.
+            <div style={{ fontSize: 14, color: 'var(--szary)', lineHeight: 1.5 }}>
+              Wystarczy wiek, forma zatrudnienia i dochód.
             </div>
           </div>
-          <Link href="/panel/profil" style={{
-            flexShrink: 0, padding: '10px 20px',
-            background: '#2b7353', color: '#fff',
-            fontSize: 13, fontWeight: 600,
-            borderRadius: 'var(--r-sm)', textDecoration: 'none',
-            boxShadow: 'none',
-          }}>
-            Uzupełnij profil →
+          <Link href="/panel/profil" className="btn btn-rdza" style={{ flexShrink: 0 }}>
+            Uzupełnij profil
           </Link>
         </div>
       )}

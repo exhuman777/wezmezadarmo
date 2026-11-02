@@ -670,13 +670,13 @@ export default function Home() {
           <p className="pod">Ktoś z bliskich może nie wiedzieć, co mu przysługuje.</p>
           <div className="przyciski">
             <a className="btn" href={`https://wa.me/?text=${encodeURIComponent(shareText)}`} target="_blank" rel="noopener noreferrer">WhatsApp</a>
-            <a className="btn" href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://wezmezadarmo.com')}`} target="_blank" rel="noopener noreferrer">Facebook</a>
-            <a className="btn" href={`https://x.com/intent/tweet?text=${encodeURIComponent('Sprawdź, co Ci się należy od państwa.')}&url=${encodeURIComponent('https://wezmezadarmo.com')}`} target="_blank" rel="noopener noreferrer">X</a>
+            <a className="btn" href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://www.wezmezadarmo.com')}`} target="_blank" rel="noopener noreferrer">Facebook</a>
+            <a className="btn" href={`https://x.com/intent/tweet?text=${encodeURIComponent('Sprawdź, co Ci się należy od państwa.')}&url=${encodeURIComponent('https://www.wezmezadarmo.com')}`} target="_blank" rel="noopener noreferrer">X</a>
             <button
               type="button"
               className="btn"
               onClick={() => {
-                navigator.clipboard.writeText('https://wezmezadarmo.com').then(() => {
+                navigator.clipboard.writeText('https://www.wezmezadarmo.com').then(() => {
                   setCopyDone(true);
                   setTimeout(() => setCopyDone(false), 2500);
                 });

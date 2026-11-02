@@ -1,4 +1,5 @@
 import { Resend } from 'resend';
+import { SITE_URL } from '@/lib/seo';
 
 interface AlertEmailData {
   to: string;
@@ -180,7 +181,7 @@ export async function sendProgramAlert(data: AlertEmailData): Promise<void> {
 export async function sendWelcomeEmail(to: string, companyName: string): Promise<void> {
   const resend = getResendClient();
 
-  const panelUrl = `${process.env.NEXT_PUBLIC_URL ?? 'https://wezmezadarmo.com'}/dotacje/panel`;
+  const panelUrl = `${SITE_URL}/dotacje/panel`;
 
   const { error } = await resend.emails.send({
     from: 'wezmezadarmo.com <hello@wezmezadarmo.com>',

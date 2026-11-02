@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createSupabaseServer } from '@/lib/dotacje/supabase';
+import { SITE_URL } from '@/lib/seo';
 
 export async function POST(request: NextRequest) {
   let body: { email?: unknown };
@@ -14,7 +15,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Podaj prawidłowy adres e-mail.' }, { status: 400 });
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://wezmezadarmo.com';
+  const siteUrl = SITE_URL;
   const supabase = await createSupabaseServer();
 
   await supabase.auth.resetPasswordForEmail(email.trim().toLowerCase(), {

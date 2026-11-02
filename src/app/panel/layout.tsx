@@ -22,6 +22,8 @@ export default function PanelLayout({ children }: { children: React.ReactNode })
   const [loggingOut, setLoggingOut] = useState(false);
 
   useEffect(() => {
+    // Blokada przewijania strony tylko na szerokim ekranie (tam przewija się sama treść panelu).
+    if (!window.matchMedia('(min-width: 901px)').matches) return;
     document.body.style.overflow = 'hidden';
     return () => { document.body.style.overflow = ''; };
   }, []);
@@ -33,9 +35,9 @@ export default function PanelLayout({ children }: { children: React.ReactNode })
   }
 
   return (
-    <div style={{ display: 'flex', height: 'calc(100vh - 60px)', overflow: 'hidden' }}>
-      {/* Sidebar */}
-      <aside style={{
+    <div className="panel-uklad" style={{ display: 'flex', height: 'calc(100vh - 60px)', overflow: 'hidden' }}>
+      {/* Sidebar: na telefonie pasek zakładek nad treścią (globals.css, .panel-*) */}
+      <aside className="panel-boczne" style={{
         width: collapsed ? 60 : 240,
         borderRight: '1px solid var(--line)',
         background: 'var(--white)',
@@ -48,7 +50,7 @@ export default function PanelLayout({ children }: { children: React.ReactNode })
         {/* Nav links */}
         <div style={{ padding: collapsed ? '16px 8px' : '16px 12px', flex: 1 }}>
           {!collapsed && (
-            <div style={{
+            <div className="panel-etykieta" style={{
               fontFamily: 'var(--f-mono)', fontSize: 10,
               color: 'var(--ink-400)', letterSpacing: '0.08em',
               textTransform: 'uppercase', marginBottom: 12, padding: '0 8px',
@@ -56,7 +58,7 @@ export default function PanelLayout({ children }: { children: React.ReactNode })
               Menu
             </div>
           )}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <nav aria-label="Panel" className="panel-linki" style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             {NAV_ITEMS.map(item => {
               const isActive = item.exact
                 ? pathname === item.href
@@ -97,11 +99,11 @@ export default function PanelLayout({ children }: { children: React.ReactNode })
                 </Link>
               );
             })}
-          </div>
+          </nav>
         </div>
 
         {/* Logout */}
-        <div style={{ padding: collapsed ? '12px 8px' : '12px', borderTop: '1px solid var(--line)' }}>
+        <div className="panel-wyloguj" style={{ padding: collapsed ? '12px 8px' : '12px', borderTop: '1px solid var(--line)' }}>
           <button
             onClick={handleLogout}
             disabled={loggingOut}
@@ -134,6 +136,7 @@ export default function PanelLayout({ children }: { children: React.ReactNode })
 
       {/* Collapse toggle */}
       <button
+        className="panel-zwin"
         onClick={() => setCollapsed(!collapsed)}
         style={{
           position: 'absolute',
@@ -156,7 +159,7 @@ export default function PanelLayout({ children }: { children: React.ReactNode })
       </button>
 
       {/* Main content */}
-      <main style={{ flex: 1, overflowY: 'auto', position: 'relative' }}>
+      <main className="panel-tresc" style={{ flex: 1, overflowY: 'auto', position: 'relative' }}>
         {children}
       </main>
     </div>

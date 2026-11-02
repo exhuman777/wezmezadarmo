@@ -1,6 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { SITE_URL } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';
 
@@ -52,7 +53,7 @@ export async function POST(request: NextRequest) {
   const userId = authData.user.id;
 
   // Wyślij e-mail weryfikacyjny
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://wezmezadarmo.com';
+  const siteUrl = SITE_URL;
 
   const { data: linkData, error: linkError } = await supabaseAdmin.auth.admin.generateLink({
     type: 'signup',

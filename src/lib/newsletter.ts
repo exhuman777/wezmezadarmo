@@ -4,9 +4,9 @@
 
 import { Resend } from 'resend';
 import { createHash, randomBytes } from 'crypto';
+import { SITE_URL } from '@/lib/seo';
 
 const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'WezmeZaDarmo <hello@wezmezadarmo.com>';
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.wezmezadarmo.com';
 
 export function getResend(): Resend {
   const key = process.env.RESEND_API_KEY;

@@ -4,7 +4,7 @@ import { canonical } from '@/lib/seo';
 export const metadata: Metadata = {
   alternates: canonical('/za-darmo-dla-biznesu'),
   title: 'Narzędzia dla firm: DogInvoice i DogAnswer | wezmezadarmo',
-  description: 'DogInvoice pobiera faktury z KSeF i pilnuje płatności. DogAnswer odbiera telefony, których nie zdążysz odebrać. Dwa narzędzia Dogtronic Labs z Lublina.',
+  description: 'DogInvoice dopasowuje przelewy do faktur z KSeF i płaci kilka faktur jednym plikiem do banku. DogAnswer odbiera telefony, kiedy Ty nie możesz. Narzędzia Dogtronic Labs z Lublina.',
   robots: { index: true, follow: true },
 };
 
@@ -12,18 +12,15 @@ const CONTACT_EMAIL = 'kamil.sobkowicz@dogtronic.io';
 
 // Opisy wyłącznie z inwentarzy funkcji produktów (12.09.2026) i z żywych stron doginvoice.com i doganswer.com.
 const DOGINVOICE = [
-  'Co godzinę pobiera faktury z KSeF i dzieli je na przychody, koszty i odrzucone.',
-  'Faktury spoza KSeF wgrywasz jako PDF albo zdjęcie z telefonu, albo przesyłasz na własny adres e-mail w DogInvoice.',
-  'Kalendarz pokazuje, która faktura jest opłacona, nieopłacona albo po terminie.',
-  'Wyciąg z banku dopasowuje wpłaty do faktur. Można też połączyć bank, wtedy opłacone faktury przychodowe oznaczają się same.',
-  'Dokumenty trafiają do folderów na Twoim Dysku Google.',
+  'Sam dopasowuje przelewy z banku do faktur z KSeF, więc od razu widzisz, co jest opłacone, a co nie.',
+  'Zaznaczasz kilka faktur, a on sprawdza kontrahentów na białej liście VAT, wpisuje numery faktur w tytuły i robi jeden plik do banku: płacisz wszystkim naraz.',
+  'Zapraszasz księgową i zespół, a miesiąc zamykasz jednym kliknięciem.',
 ];
 
 const DOGANSWER = [
-  'Sam decydujesz, kiedy asystent odbiera: zawsze albo tylko wtedy, gdy Ty nie możesz.',
-  'Włączasz go kodem przekierowania w telefonie, dzwoniący nadal wybiera Twój numer.',
-  'W bazie wiedzy wpisujesz pytania, opisy usług i tabele, np. cennik i godziny. Asystent odpowiada z nich w rozmowie.',
-  'Może umawiać wizyty w Twoim Kalendarzu Google.',
+  'Asystent głosowy AI, który odbiera, kiedy Ty nie możesz, o każdej porze.',
+  'Zna Twoją firmę i ofertę, odpowiada na pytania klientów i dopytuje o szczegóły jak dobra sekretarka.',
+  'Umawia spotkania w Twoim Kalendarzu Google i zapisuje, o czym była rozmowa.',
 ];
 
 export default function ZaDarmoDlaBiznesuPage() {
@@ -39,7 +36,6 @@ export default function ZaDarmoDlaBiznesuPage() {
 
       <section className="prosta-blok">
         <h2>DogInvoice</h2>
-        <p>Pilnuje finansów firmy: faktur, płatności i terminów. Nie jest programem do wystawiania faktur.</p>
         <ul className="lista">
           {DOGINVOICE.map(t => <li key={t}>{t}</li>)}
         </ul>
@@ -50,7 +46,6 @@ export default function ZaDarmoDlaBiznesuPage() {
 
       <section className="prosta-blok">
         <h2>DogAnswer</h2>
-        <p>Asystent głosowy AI, który odbiera telefony, gdy Ty nie możesz.</p>
         <ul className="lista">
           {DOGANSWER.map(t => <li key={t}>{t}</li>)}
         </ul>
