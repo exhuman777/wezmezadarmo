@@ -24,7 +24,7 @@ create index if not exists idx_leady_narzedzia_token on public.leady_narzedzia(t
 create index if not exists idx_leady_narzedzia_created on public.leady_narzedzia(created_at desc);
 
 create or replace function public.touch_leady_narzedzia_updated_at()
-returns trigger language plpgsql as $$
+returns trigger language plpgsql set search_path = public as $$
 begin
   new.updated_at = now();
   return new;
