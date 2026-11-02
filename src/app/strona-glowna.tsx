@@ -585,36 +585,36 @@ export default function Home() {
     return (
       <div className="prosta">
 
-        {/* Gra na start */}
-        <section className="prosta-blok" aria-labelledby="gra-tytul" style={{ padding: 0 }}>
-          <h1 id="gra-tytul" style={{ fontSize: 'clamp(26px, 5vw, 36px)' }}>Należy Ci się więcej, niż myślisz. Zagraj i sprawdź.</h1>
-          <div className="gra-pelna" style={{ marginTop: 16 }}>
-            <div className="gra-ramka">
-              <iframe
-                src="/gra/index.html"
-                title="Gra Należy Ci się więcej, niż myślisz: dopasuj świadczenia do osób"
-                loading="eager"
-                allow="autoplay"
-              />
-            </div>
-          </div>
-          <p style={{ marginTop: 16 }}>W grze dopasowujesz świadczenia do osób. Poniżej sprawdzisz, które należą się Tobie.</p>
-          <div className="przyciski">
-            <a href="#kalkulator" className="btn btn-rdza btn-lg">Sprawdź, co Ci się należy</a>
-          </div>
-        </section>
-
-        {/* Kalkulator */}
-        <section id="kalkulator" className="prosta-blok" style={{ padding: '32px 0 0', scrollMarginTop: 80 }}>
+        {/* Start: co się należy i od razu formularz */}
+        <section id="kalkulator" className="prosta-blok" style={{ padding: 0, scrollMarginTop: 80 }}>
           <span id="formularz" />
-          <h2>Sprawdź, co Ci się należy</h2>
-          <p className="pod">Kilka pytań o Twoją sytuację. Bez konta i za darmo.</p>
+          <h1 style={{ fontSize: 'clamp(28px, 5.5vw, 40px)' }}>Należy Ci się więcej, niż myślisz.</h1>
+          <p className="pod">Odpowiedz na kilka pytań i zobacz, które ze 133 świadczeń, ulg i dotacji mogą Ci przysługiwać. Bez konta i za darmo.</p>
+          <ul className="lista" style={{ marginTop: 16 }}>
+            <li><b>800+</b>: 800 zł miesięcznie na każde dziecko do 18 lat, bez względu na dochód.</li>
+            <li><b>13. emerytura</b>: 1978,49 zł brutto co roku w kwietniu dla emerytów i rencistów.</li>
+          </ul>
           <div style={{ marginTop: 20, padding: 20, background: 'var(--surface)', border: '2px solid var(--tusz)' }}>
             <IntakeForm onSubmit={handleIntakeSubmit} isLoading={isLoading} />
           </div>
           <p className="mala" style={{ marginTop: 12 }}>
             Informacja orientacyjna, nie decyzja urzędowa. Projekt prywatny, nie rządowy.
           </p>
+        </section>
+
+        {/* Gra jako dodatek */}
+        <section className="prosta-blok" aria-labelledby="gra-tytul" style={{ padding: '32px 0 0' }}>
+          <h2 id="gra-tytul">Zagraj: dopasuj świadczenia do osób</h2>
+          <div className="gra-pelna" style={{ marginTop: 16 }}>
+            <div className="gra-ramka">
+              <iframe
+                src="/gra/index.html"
+                title="Gra Należy Ci się więcej, niż myślisz: dopasuj świadczenia do osób"
+                loading="lazy"
+                allow="autoplay"
+              />
+            </div>
+          </div>
         </section>
 
         {/* Pytanie do asystenta */}

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { matchBenefits } from '../matcher';
+import { matchBenefits, NA_KONIEC } from '../matcher';
 import { UserProfile } from '../types';
 
 // Base profile factory
@@ -273,12 +273,12 @@ describe('E2E: matcher safety checks', () => {
     }
   });
 
-  it('results are sorted by kwotaMax descending', () => {
+  it('results are sorted by kwotaMax descending (death-related benefits last)', () => {
     const results = matchBenefits(makeProfile({
       liczbaDzieci: 2, wiekDzieci: [3, 7],
       dochodMiesiecznie: 2000, dochodNaOsobe: 500,
     }));
-    const withAmounts = results.filter(r => (r.benefit.kwotaMax ?? 0) > 0);
+    const withAmounts = results.filter(r => (r.benefit.kwotaMax ?? 0) > 0 && !NA_KONIEC.has(r.benefit.id));
     for (let i = 1; i < withAmounts.length; i++) {
       expect((withAmounts[i - 1].benefit.kwotaMax ?? 0))
         .toBeGreaterThanOrEqual((withAmounts[i].benefit.kwotaMax ?? 0));

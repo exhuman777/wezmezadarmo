@@ -1,6 +1,8 @@
 import { Benefit, UserProfile, MatchResult, BenefitStatus } from './types';
 import { getAllBenefits } from './benefits';
 
+export const NA_KONIEC = new Set(['zasilek-pogrzebowy', 'renta-rodzinna', 'renta-wdowia']);
+
 function checkRequirements(benefit: Benefit, profile: UserProfile): { matched: string[]; failed: string[] } {
   const matched: string[] = [];
   const failed: string[] = [];
@@ -137,6 +139,9 @@ export function matchBenefits(profile: UserProfile): MatchResult[] {
     }
   }
 
-  results.sort((a, b) => (b.benefit.kwotaMax ?? 0) - (a.benefit.kwotaMax ?? 0));
+  // Świadczenia związane ze śmiercią bliskiej osoby zawsze na końcu listy, żeby wyniki nie zaczynały się od nich.
+  results.sort((a, b) =>
+    Number(NA_KONIEC.has(a.benefit.id)) - Number(NA_KONIEC.has(b.benefit.id))
+    || (b.benefit.kwotaMax ?? 0) - (a.benefit.kwotaMax ?? 0));
   return results;
 }

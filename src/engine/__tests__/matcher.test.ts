@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { matchBenefits } from '../matcher';
+import { matchBenefits, NA_KONIEC } from '../matcher';
 import { UserProfile } from '../types';
 
 const baseProfile: UserProfile = {
@@ -64,7 +64,7 @@ describe('matchBenefits', () => {
       ...baseProfile, liczbaDzieci: 1, wiekDzieci: [5],
       prowadzDzialalnosc: true, pierwszaDzialalnosc: true,
     });
-    const withAmounts = results.filter(r => r.benefit.kwotaMax && r.benefit.kwotaMax > 0);
+    const withAmounts = results.filter(r => r.benefit.kwotaMax && r.benefit.kwotaMax > 0 && !NA_KONIEC.has(r.benefit.id));
     for (let i = 1; i < withAmounts.length; i++) {
       expect((withAmounts[i - 1].benefit.kwotaMax ?? 0)).toBeGreaterThanOrEqual(
         (withAmounts[i].benefit.kwotaMax ?? 0)
