@@ -54,7 +54,9 @@ Strony publiczne:
 - `/centrum-obywatela/polska-cyfrowa/` -- dowody cyfryzacji PL: newsy ElevenLabs + NFZ/e-zdrowie, kafelki, 3 wykresy (dostępność mieszkań, realne ceny m2, wzrost e-usług), lista darmowych API. Dane curated+cytowane w src/data/polska-cyfrowa.ts
 - `/automatyzacje/` -- AI automatyzacje dla firm: KSeF, faktury zagraniczne, custom workflows
 - `/dotacje/` -- B2B SaaS: monitoring dofinansowań, baza 59 programów, AI agent dopasowujący do profilu firmy
-- `/dla-firm/` -- landing dla firm i JDG
+- `/dla-firm/` -- landing dla firm i JDG (na górze wejście do narzędzi)
+- `/dla-firm/narzedzia/` -- narzędzia dla firm bez konta: formularz leadu (e-mail + opcjonalnie imię/telefon), link z maila daje ciasteczko dostępu na 30 dni; `/dla-firm/narzedzia/dofinansowania` (NIP, CEIDG)
+- `/narzedzia/kpir/`, `/narzedzia/jpk/` -- statyczne przeglądy KPiR i JPK_V7 w `public/narzedzia` (budowa: `scripts/narzedzia/zbuduj.sh`), dostęp tylko z ciasteczkiem (middleware); leady w `/admin/narzedzia`, tabela `leady_narzedzia`
 - `/o-projekcie/`, `/polityka-prywatnosci/`, `/regulamin/` -- strony informacyjne
 - `/agent/` -- Agent AI dla JDG i osób prywatnych (świadczenia, RSS, dzienny e-mail digest)
 

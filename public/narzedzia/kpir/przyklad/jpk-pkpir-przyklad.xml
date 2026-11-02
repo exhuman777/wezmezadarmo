@@ -1,0 +1,1455 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- DANE FIKCYJNE: przykład do narzędzia „Przegląd KPiR”. Firmy i NIP-y wymyślone. -->
+<tns:JPK xmlns:tns="http://jpk.mf.gov.pl/wzor/2024/10/30/10302/" xmlns:etd="http://crd.gov.pl/xml/schematy/dziedzinowe/mf/2022/01/05/eD/DefinicjeTypy/">
+  <tns:Naglowek>
+    <tns:KodFormularza kodSystemowy="JPK_PKPIR (3)" wersjaSchemy="1-0">JPK_PKPIR</tns:KodFormularza>
+    <tns:WariantFormularza>3</tns:WariantFormularza>
+    <tns:CelZlozenia>0</tns:CelZlozenia>
+    <tns:DataWytworzeniaJPK>2026-10-23T12:00:00Z</tns:DataWytworzeniaJPK>
+    <tns:DataOd>2026-01-01</tns:DataOd>
+    <tns:DataDo>2026-09-30</tns:DataDo>
+    <tns:KodUrzedu>0602</tns:KodUrzedu>
+  </tns:Naglowek>
+  <tns:Podmiot1 rola="Podatnik">
+    <tns:OsobaFizyczna>
+      <etd:NIP>9990010001</etd:NIP>
+      <etd:ImiePierwsze>JAN</etd:ImiePierwsze>
+      <etd:Nazwisko>TESTOWY (DANE FIKCYJNE)</etd:Nazwisko>
+      <etd:DataUrodzenia>1980-01-01</etd:DataUrodzenia>
+    </tns:OsobaFizyczna>
+  </tns:Podmiot1>
+  <tns:PKPIRInfo>
+    <tns:P_1>0.00</tns:P_1>
+    <tns:P_2>0.00</tns:P_2>
+    <tns:P_3>113489.05</tns:P_3>
+    <tns:P_4>142062.72</tns:P_4>
+  </tns:PKPIRInfo>
+  <tns:PKPIRWiersz>
+    <tns:K_1>1</tns:K_1>
+    <tns:K_2>2026-01-03</tns:K_2>
+    <tns:K_3A>L/01/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010490</tns:K_4B>
+    <tns:K_5A>OMEGA LEASING SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Zmyślona 7, 00-007 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - LEASING WX123AB 52,10% 2026 KAPITAŁ</tns:K_6>
+    <tns:K_13>1587.72</tns:K_13>
+    <tns:K_14>1587.72</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>2</tns:K_1>
+    <tns:K_2>2026-01-05</tns:K_2>
+    <tns:K_3A>KS/01/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990011124</tns:K_4B>
+    <tns:K_5A>BIURO RACHUNKOWE OMIKRON</tns:K_5A>
+    <tns:K_5B>ul. Liczona 15, 00-015 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - USŁUGI KSIĘGOWE</tns:K_6>
+    <tns:K_13>615.00</tns:K_13>
+    <tns:K_14>615.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>3</tns:K_1>
+    <tns:K_2>2026-01-08</tns:K_2>
+    <tns:K_3A>PAR/01/1</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010567</tns:K_4B>
+    <tns:K_5A>STACJA PALIW KAPPA</tns:K_5A>
+    <tns:K_5B>ul. Drogowa 8, 00-008 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - PALIWO/EKSPLOATACJA WX123AB</tns:K_6>
+    <tns:K_13>308.22</tns:K_13>
+    <tns:K_14>308.22</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>4</tns:K_1>
+    <tns:K_2>2026-01-10</tns:K_2>
+    <tns:K_3A>U/2025/12/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Lista płac (umowy/zlecenia) za 2025/12</tns:K_6>
+    <tns:K_12>3477.08</tns:K_12>
+    <tns:K_13>660.65</tns:K_13>
+    <tns:K_14>4137.73</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>5</tns:K_1>
+    <tns:K_2>2026-01-14</tns:K_2>
+    <tns:K_3A>R/01/88</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010633</tns:K_4B>
+    <tns:K_5A>RESTAURACJA POD LIPĄ</tns:K_5A>
+    <tns:K_5B>ul. Smaczna 9, 00-009 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - USŁUGI GASTRONOMICZNE - SPOTKANIE Z KLIENTEM</tns:K_6>
+    <tns:K_13>514.27</tns:K_13>
+    <tns:K_14>514.27</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>6</tns:K_1>
+    <tns:K_2>2026-01-15</tns:K_2>
+    <tns:K_3A>FV/01/02/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010142</tns:K_4B>
+    <tns:K_5A>BETA CONSULTING S.A.</tns:K_5A>
+    <tns:K_5B>ul. Fikcyjna 3, 00-003 Miasto</tns:K_5B>
+    <tns:K_6>Przychody ze sprzedaży usług szkoleniowych</tns:K_6>
+    <tns:K_7>7492.25</tns:K_7>
+    <tns:K_9>7492.25</tns:K_9>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>7</tns:K_1>
+    <tns:K_2>2026-01-16</tns:K_2>
+    <tns:K_3A>TEL/01/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990011199</tns:K_4B>
+    <tns:K_5A>TELEKOM RO S.A.</tns:K_5A>
+    <tns:K_5B>ul. Sygnałowa 16, 00-016 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - TELEFON</tns:K_6>
+    <tns:K_13>102.60</tns:K_13>
+    <tns:K_14>102.60</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>8</tns:K_1>
+    <tns:K_2>2026-01-17</tns:K_2>
+    <tns:K_3A>BON/01/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010981</tns:K_4B>
+    <tns:K_5A>BONY PHI SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Bonowa 13, 00-013 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - KARTA ŻYWIENIOWA</tns:K_6>
+    <tns:K_13>400.00</tns:K_13>
+    <tns:K_14>400.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>9</tns:K_1>
+    <tns:K_2>2026-01-20</tns:K_2>
+    <tns:K_3A>W/2025/12/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Składki ZUS (właściciela) za 2025/12 - SKŁADKA ZDROWOTNA ZA 122025</tns:K_6>
+    <tns:K_13>314.96</tns:K_13>
+    <tns:K_14>314.96</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>10</tns:K_1>
+    <tns:K_2>2026-01-22</tns:K_2>
+    <tns:K_3A>PAR/01/2</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010567</tns:K_4B>
+    <tns:K_5A>STACJA PALIW KAPPA</tns:K_5A>
+    <tns:K_5B>ul. Drogowa 8, 00-008 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - PALIWO/EKSPLOATACJA WX123AB</tns:K_6>
+    <tns:K_13>208.24</tns:K_13>
+    <tns:K_14>208.24</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>11</tns:K_1>
+    <tns:K_2>2026-01-28</tns:K_2>
+    <tns:K_3A>FV/01/01/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010076</tns:K_4B>
+    <tns:K_5A>ALFA SZKOLENIA SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Zmyślona 2, 00-002 Miasto</tns:K_5B>
+    <tns:K_6>Przychody ze sprzedaży usług szkoleniowych</tns:K_6>
+    <tns:K_7>23999.25</tns:K_7>
+    <tns:K_9>23999.25</tns:K_9>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>12</tns:K_1>
+    <tns:K_2>2026-02-02</tns:K_2>
+    <tns:K_3A>INV-2026-0202</tns:K_3A>
+    <tns:K_4A>DE</tns:K_4A>
+    <tns:K_4B>999001122</tns:K_4B>
+    <tns:K_5A>PSI SOFTWARE GMBH</tns:K_5A>
+    <tns:K_5B>Beispielstr. 1, 10000 Berlin NIEMCY</tns:K_5B>
+    <tns:K_6>KOSZT - OPROGRAMOWANIE - LICENCJA ROCZNA</tns:K_6>
+    <tns:K_13>320.00</tns:K_13>
+    <tns:K_14>320.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>13</tns:K_1>
+    <tns:K_2>2026-02-03</tns:K_2>
+    <tns:K_3A>L/02/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010490</tns:K_4B>
+    <tns:K_5A>OMEGA LEASING SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Zmyślona 7, 00-007 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - LEASING WX123AB 52,10% 2026 KAPITAŁ</tns:K_6>
+    <tns:K_13>1550.33</tns:K_13>
+    <tns:K_14>1550.33</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>14</tns:K_1>
+    <tns:K_2>2026-02-05</tns:K_2>
+    <tns:K_3A>KS/02/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990011124</tns:K_4B>
+    <tns:K_5A>BIURO RACHUNKOWE OMIKRON</tns:K_5A>
+    <tns:K_5B>ul. Liczona 15, 00-015 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - USŁUGI KSIĘGOWE</tns:K_6>
+    <tns:K_13>615.00</tns:K_13>
+    <tns:K_14>615.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>15</tns:K_1>
+    <tns:K_2>2026-02-08</tns:K_2>
+    <tns:K_3A>PAR/02/1</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010567</tns:K_4B>
+    <tns:K_5A>STACJA PALIW KAPPA</tns:K_5A>
+    <tns:K_5B>ul. Drogowa 8, 00-008 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - PALIWO/EKSPLOATACJA WX123AB</tns:K_6>
+    <tns:K_13>296.72</tns:K_13>
+    <tns:K_14>296.72</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>16</tns:K_1>
+    <tns:K_2>2026-02-10</tns:K_2>
+    <tns:K_3A>U/2026/1/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Lista płac (umowy/zlecenia) za 2026/1</tns:K_6>
+    <tns:K_12>3821.84</tns:K_12>
+    <tns:K_13>726.15</tns:K_13>
+    <tns:K_14>4547.99</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>17</tns:K_1>
+    <tns:K_2>2026-02-12</tns:K_2>
+    <tns:K_3A>FV/UP/12</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010917</tns:K_4B>
+    <tns:K_5A>MANUFAKTURA UPSILON</tns:K_5A>
+    <tns:K_5B>ul. Rękodzielnicza 12, 00-012 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - MATERIAŁY POZOSTAŁE - UPOMINKI DLA KLIENTÓW Z LOGO FIRMY</tns:K_6>
+    <tns:K_13>1840.00</tns:K_13>
+    <tns:K_14>1840.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>18</tns:K_1>
+    <tns:K_2>2026-02-16</tns:K_2>
+    <tns:K_3A>TEL/02/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990011199</tns:K_4B>
+    <tns:K_5A>TELEKOM RO S.A.</tns:K_5A>
+    <tns:K_5B>ul. Sygnałowa 16, 00-016 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - TELEFON</tns:K_6>
+    <tns:K_13>115.96</tns:K_13>
+    <tns:K_14>115.96</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>19</tns:K_1>
+    <tns:K_2>2026-02-17</tns:K_2>
+    <tns:K_3A>BON/02/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010981</tns:K_4B>
+    <tns:K_5A>BONY PHI SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Bonowa 13, 00-013 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - KARTA ŻYWIENIOWA</tns:K_6>
+    <tns:K_13>400.00</tns:K_13>
+    <tns:K_14>400.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>20</tns:K_1>
+    <tns:K_2>2026-02-20</tns:K_2>
+    <tns:K_3A>W/2026/1/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Składki ZUS (właściciela) za 2026/1</tns:K_6>
+    <tns:K_13>1788.29</tns:K_13>
+    <tns:K_14>1788.29</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>21</tns:K_1>
+    <tns:K_2>2026-02-20</tns:K_2>
+    <tns:K_3A>W/2026/1/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Składki ZUS (właściciela) za 2026/1 - SKŁADKA ZDROWOTNA ZA 012026</tns:K_6>
+    <tns:K_13>1048.67</tns:K_13>
+    <tns:K_14>1048.67</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>22</tns:K_1>
+    <tns:K_2>2026-02-22</tns:K_2>
+    <tns:K_3A>PAR/02/2</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010567</tns:K_4B>
+    <tns:K_5A>STACJA PALIW KAPPA</tns:K_5A>
+    <tns:K_5B>ul. Drogowa 8, 00-008 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - PALIWO/EKSPLOATACJA WX123AB</tns:K_6>
+    <tns:K_13>267.52</tns:K_13>
+    <tns:K_14>267.52</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>23</tns:K_1>
+    <tns:K_2>2026-02-28</tns:K_2>
+    <tns:K_3A>FV/02/01/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010076</tns:K_4B>
+    <tns:K_5A>ALFA SZKOLENIA SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Zmyślona 2, 00-002 Miasto</tns:K_5B>
+    <tns:K_6>Przychody ze sprzedaży usług szkoleniowych</tns:K_6>
+    <tns:K_7>20914.44</tns:K_7>
+    <tns:K_9>20914.44</tns:K_9>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>24</tns:K_1>
+    <tns:K_2>2026-03-03</tns:K_2>
+    <tns:K_3A>L/03/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010490</tns:K_4B>
+    <tns:K_5A>OMEGA LEASING SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Zmyślona 7, 00-007 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - LEASING WX123AB 52,10% 2026 KAPITAŁ</tns:K_6>
+    <tns:K_13>1543.50</tns:K_13>
+    <tns:K_14>1543.50</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>25</tns:K_1>
+    <tns:K_2>2026-03-05</tns:K_2>
+    <tns:K_3A>KS/03/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990011124</tns:K_4B>
+    <tns:K_5A>BIURO RACHUNKOWE OMIKRON</tns:K_5A>
+    <tns:K_5B>ul. Liczona 15, 00-015 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - USŁUGI KSIĘGOWE</tns:K_6>
+    <tns:K_13>615.00</tns:K_13>
+    <tns:K_14>615.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>26</tns:K_1>
+    <tns:K_2>2026-03-08</tns:K_2>
+    <tns:K_3A>PAR/03/1</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010567</tns:K_4B>
+    <tns:K_5A>STACJA PALIW KAPPA</tns:K_5A>
+    <tns:K_5B>ul. Drogowa 8, 00-008 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - PALIWO/EKSPLOATACJA WX123AB</tns:K_6>
+    <tns:K_13>180.02</tns:K_13>
+    <tns:K_14>180.02</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>27</tns:K_1>
+    <tns:K_2>2026-03-10</tns:K_2>
+    <tns:K_3A>U/2026/2/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Lista płac (umowy/zlecenia) za 2026/2</tns:K_6>
+    <tns:K_12>3861.68</tns:K_12>
+    <tns:K_13>733.72</tns:K_13>
+    <tns:K_14>4595.40</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>28</tns:K_1>
+    <tns:K_2>2026-03-11</tns:K_2>
+    <tns:K_3A>H/2026/311</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010774</tns:K_4B>
+    <tns:K_5A>HOTEL SIGMA SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Spokojna 10, 00-010 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - USŁUGI HOTELOWE - USŁUGA NOCLEGOWA</tns:K_6>
+    <tns:K_13>890.00</tns:K_13>
+    <tns:K_14>890.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>29</tns:K_1>
+    <tns:K_2>2026-03-14</tns:K_2>
+    <tns:K_3A>R/03/88</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010633</tns:K_4B>
+    <tns:K_5A>RESTAURACJA POD LIPĄ</tns:K_5A>
+    <tns:K_5B>ul. Smaczna 9, 00-009 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - USŁUGI GASTRONOMICZNE - SPOTKANIE Z KLIENTEM</tns:K_6>
+    <tns:K_13>449.07</tns:K_13>
+    <tns:K_14>449.07</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>30</tns:K_1>
+    <tns:K_2>2026-03-15</tns:K_2>
+    <tns:K_3A>FV/03/02/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010142</tns:K_4B>
+    <tns:K_5A>BETA CONSULTING S.A.</tns:K_5A>
+    <tns:K_5B>ul. Fikcyjna 3, 00-003 Miasto</tns:K_5B>
+    <tns:K_6>Przychody ze sprzedaży usług szkoleniowych</tns:K_6>
+    <tns:K_7>4714.21</tns:K_7>
+    <tns:K_9>4714.21</tns:K_9>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>31</tns:K_1>
+    <tns:K_2>2026-03-16</tns:K_2>
+    <tns:K_3A>TEL/03/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990011199</tns:K_4B>
+    <tns:K_5A>TELEKOM RO S.A.</tns:K_5A>
+    <tns:K_5B>ul. Sygnałowa 16, 00-016 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - TELEFON</tns:K_6>
+    <tns:K_13>139.42</tns:K_13>
+    <tns:K_14>139.42</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>32</tns:K_1>
+    <tns:K_2>2026-03-17</tns:K_2>
+    <tns:K_3A>BON/03/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010981</tns:K_4B>
+    <tns:K_5A>BONY PHI SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Bonowa 13, 00-013 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - KARTA ŻYWIENIOWA</tns:K_6>
+    <tns:K_13>400.00</tns:K_13>
+    <tns:K_14>400.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>33</tns:K_1>
+    <tns:K_2>2026-03-20</tns:K_2>
+    <tns:K_3A>FV/03/04/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010283</tns:K_4B>
+    <tns:K_5A>DELTA EDUKACJA SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Testowa 5, 00-005 Miasto</tns:K_5B>
+    <tns:K_6>Przychody ze sprzedaży usług szkoleniowych</tns:K_6>
+    <tns:K_7>7180.40</tns:K_7>
+    <tns:K_9>7180.40</tns:K_9>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>34</tns:K_1>
+    <tns:K_2>2026-03-20</tns:K_2>
+    <tns:K_3A>W/2026/2/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Składki ZUS (właściciela) za 2026/2</tns:K_6>
+    <tns:K_13>1788.29</tns:K_13>
+    <tns:K_14>1788.29</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>35</tns:K_1>
+    <tns:K_2>2026-03-20</tns:K_2>
+    <tns:K_3A>W/2026/2/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Składki ZUS (właściciela) za 2026/2 - SKŁADKA ZDROWOTNA ZA 022026</tns:K_6>
+    <tns:K_13>1065.42</tns:K_13>
+    <tns:K_14>1065.42</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>36</tns:K_1>
+    <tns:K_2>2026-03-22</tns:K_2>
+    <tns:K_3A>PAR/03/2</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010567</tns:K_4B>
+    <tns:K_5A>STACJA PALIW KAPPA</tns:K_5A>
+    <tns:K_5B>ul. Drogowa 8, 00-008 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - PALIWO/EKSPLOATACJA WX123AB</tns:K_6>
+    <tns:K_13>210.34</tns:K_13>
+    <tns:K_14>210.34</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>37</tns:K_1>
+    <tns:K_2>2026-03-28</tns:K_2>
+    <tns:K_3A>FV/03/01/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010076</tns:K_4B>
+    <tns:K_5A>ALFA SZKOLENIA SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Zmyślona 2, 00-002 Miasto</tns:K_5B>
+    <tns:K_6>Przychody ze sprzedaży usług szkoleniowych</tns:K_6>
+    <tns:K_7>17985.92</tns:K_7>
+    <tns:K_9>17985.92</tns:K_9>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>38</tns:K_1>
+    <tns:K_2>2026-04-03</tns:K_2>
+    <tns:K_3A>L/04/2026</tns:K_3A>
+    <tns:K_3B>9990010490-20260403-BADA2A-A3DF7E-2B</tns:K_3B>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010490</tns:K_4B>
+    <tns:K_5A>OMEGA LEASING SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Zmyślona 7, 00-007 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - LEASING WX123AB ODSETKI</tns:K_6>
+    <tns:K_13>1520.52</tns:K_13>
+    <tns:K_14>1520.52</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>39</tns:K_1>
+    <tns:K_2>2026-04-05</tns:K_2>
+    <tns:K_3A>FV/04/03/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010219</tns:K_4B>
+    <tns:K_5A>GAMMA UBEZPIECZENIA S.A.</tns:K_5A>
+    <tns:K_5B>ul. Wymyślna 4, 00-004 Miasto</tns:K_5B>
+    <tns:K_6>Przychody ze sprzedaży usług - stała opłata</tns:K_6>
+    <tns:K_7>3000.00</tns:K_7>
+    <tns:K_9>3000.00</tns:K_9>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>40</tns:K_1>
+    <tns:K_2>2026-04-05</tns:K_2>
+    <tns:K_3A>KS/04/2026</tns:K_3A>
+    <tns:K_3B>9990011124-20260405-D7BAF7-34B48C-7D</tns:K_3B>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990011124</tns:K_4B>
+    <tns:K_5A>BIURO RACHUNKOWE OMIKRON</tns:K_5A>
+    <tns:K_5B>ul. Liczona 15, 00-015 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - USŁUGI KSIĘGOWE</tns:K_6>
+    <tns:K_13>615.00</tns:K_13>
+    <tns:K_14>615.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>41</tns:K_1>
+    <tns:K_2>2026-04-08</tns:K_2>
+    <tns:K_3A>PAR/04/1</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010567</tns:K_4B>
+    <tns:K_5A>STACJA PALIW KAPPA</tns:K_5A>
+    <tns:K_5B>ul. Drogowa 8, 00-008 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - PALIWO/EKSPLOATACJA WX123AB</tns:K_6>
+    <tns:K_13>191.07</tns:K_13>
+    <tns:K_14>191.07</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>42</tns:K_1>
+    <tns:K_2>2026-04-09</tns:K_2>
+    <tns:K_3A>FV/115/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990011058</tns:K_4B>
+    <tns:K_5A>DRUKARNIA CHI</tns:K_5A>
+    <tns:K_5B>ul. Papierowa 14, 00-014 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - MATERIAŁY REKLAMOWE - ULOTKI</tns:K_6>
+    <tns:K_13>430.50</tns:K_13>
+    <tns:K_14>430.50</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>43</tns:K_1>
+    <tns:K_2>2026-04-10</tns:K_2>
+    <tns:K_3A>U/2026/3/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Lista płac (umowy/zlecenia) za 2026/3</tns:K_6>
+    <tns:K_12>3916.92</tns:K_12>
+    <tns:K_13>744.21</tns:K_13>
+    <tns:K_14>4661.13</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>44</tns:K_1>
+    <tns:K_2>2026-04-15</tns:K_2>
+    <tns:K_3A>FV/04/02/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010142</tns:K_4B>
+    <tns:K_5A>BETA CONSULTING S.A.</tns:K_5A>
+    <tns:K_5B>ul. Fikcyjna 3, 00-003 Miasto</tns:K_5B>
+    <tns:K_6>Przychody ze sprzedaży usług szkoleniowych</tns:K_6>
+    <tns:K_7>6267.94</tns:K_7>
+    <tns:K_9>6267.94</tns:K_9>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>45</tns:K_1>
+    <tns:K_2>2026-04-16</tns:K_2>
+    <tns:K_3A>TEL/04/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990011199</tns:K_4B>
+    <tns:K_5A>TELEKOM RO S.A.</tns:K_5A>
+    <tns:K_5B>ul. Sygnałowa 16, 00-016 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - TELEFON</tns:K_6>
+    <tns:K_13>94.82</tns:K_13>
+    <tns:K_14>94.82</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>46</tns:K_1>
+    <tns:K_2>2026-04-17</tns:K_2>
+    <tns:K_3A>BON/04/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010981</tns:K_4B>
+    <tns:K_5A>BONY PHI SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Bonowa 13, 00-013 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - KARTA ŻYWIENIOWA</tns:K_6>
+    <tns:K_13>400.00</tns:K_13>
+    <tns:K_14>400.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>47</tns:K_1>
+    <tns:K_2>2026-04-20</tns:K_2>
+    <tns:K_3A>W/2026/3/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Składki ZUS (właściciela) za 2026/3</tns:K_6>
+    <tns:K_13>1788.29</tns:K_13>
+    <tns:K_14>1788.29</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>48</tns:K_1>
+    <tns:K_2>2026-04-20</tns:K_2>
+    <tns:K_3A>W/2026/3/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Składki ZUS (właściciela) za 2026/3 - SKŁADKA ZDROWOTNA ZA 032026</tns:K_6>
+    <tns:K_13>742.64</tns:K_13>
+    <tns:K_14>742.64</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>49</tns:K_1>
+    <tns:K_2>2026-04-22</tns:K_2>
+    <tns:K_3A>PAR/04/2</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010567</tns:K_4B>
+    <tns:K_5A>STACJA PALIW KAPPA</tns:K_5A>
+    <tns:K_5B>ul. Drogowa 8, 00-008 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - PALIWO/EKSPLOATACJA WX123AB</tns:K_6>
+    <tns:K_13>252.82</tns:K_13>
+    <tns:K_14>252.82</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>50</tns:K_1>
+    <tns:K_2>2026-04-24</tns:K_2>
+    <tns:K_3A>FV/115/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990011058</tns:K_4B>
+    <tns:K_5A>DRUKARNIA CHI</tns:K_5A>
+    <tns:K_5B>ul. Papierowa 14, 00-014 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - MATERIAŁY REKLAMOWE - ULOTKI</tns:K_6>
+    <tns:K_13>430.50</tns:K_13>
+    <tns:K_14>430.50</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>51</tns:K_1>
+    <tns:K_2>2026-04-28</tns:K_2>
+    <tns:K_3A>FV/04/01/2026</tns:K_3A>
+    <tns:K_3B>9990010076-20260428-F2DB88-59994A-38</tns:K_3B>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010076</tns:K_4B>
+    <tns:K_5A>ALFA SZKOLENIA SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Zmyślona 2, 00-002 Miasto</tns:K_5B>
+    <tns:K_6>Przychody ze sprzedaży usług szkoleniowych</tns:K_6>
+    <tns:K_7>22903.54</tns:K_7>
+    <tns:K_9>22903.54</tns:K_9>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>52</tns:K_1>
+    <tns:K_2>2026-05-03</tns:K_2>
+    <tns:K_3A>L/05/2026</tns:K_3A>
+    <tns:K_3B>9990010490-20260503-6D3369-EBFF64-15</tns:K_3B>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010490</tns:K_4B>
+    <tns:K_5A>OMEGA LEASING SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Zmyślona 7, 00-007 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - LEASING WX123AB 52,10% 2026 KAPITAŁ</tns:K_6>
+    <tns:K_13>1528.74</tns:K_13>
+    <tns:K_14>1528.74</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>53</tns:K_1>
+    <tns:K_2>2026-05-05</tns:K_2>
+    <tns:K_3A>FV/05/03/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010219</tns:K_4B>
+    <tns:K_5A>GAMMA UBEZPIECZENIA S.A.</tns:K_5A>
+    <tns:K_5B>ul. Wymyślna 4, 00-004 Miasto</tns:K_5B>
+    <tns:K_6>Przychody ze sprzedaży usług - stała opłata</tns:K_6>
+    <tns:K_7>3000.00</tns:K_7>
+    <tns:K_9>3000.00</tns:K_9>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>54</tns:K_1>
+    <tns:K_2>2026-05-05</tns:K_2>
+    <tns:K_3A>KS/05/2026</tns:K_3A>
+    <tns:K_3B>9990011124-20260505-3DE08B-24B17C-D5</tns:K_3B>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990011124</tns:K_4B>
+    <tns:K_5A>BIURO RACHUNKOWE OMIKRON</tns:K_5A>
+    <tns:K_5B>ul. Liczona 15, 00-015 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - USŁUGI KSIĘGOWE</tns:K_6>
+    <tns:K_13>615.00</tns:K_13>
+    <tns:K_14>615.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>55</tns:K_1>
+    <tns:K_2>2026-05-06</tns:K_2>
+    <tns:K_3A>BIL/2026/0506</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010840</tns:K_4B>
+    <tns:K_5A>LINIE LOTNICZE TAU S.A.</tns:K_5A>
+    <tns:K_5B>ul. Lotnicza 11, 00-011 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - MATERIAŁY POZOSTAŁE - BILET LOTNICZY WARSZAWA-LIZBONA</tns:K_6>
+    <tns:K_13>2450.00</tns:K_13>
+    <tns:K_14>2450.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>56</tns:K_1>
+    <tns:K_2>2026-05-08</tns:K_2>
+    <tns:K_3A>PAR/05/1</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010567</tns:K_4B>
+    <tns:K_5A>STACJA PALIW KAPPA</tns:K_5A>
+    <tns:K_5B>ul. Drogowa 8, 00-008 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - PALIWO/EKSPLOATACJA WX123AB</tns:K_6>
+    <tns:K_13>190.21</tns:K_13>
+    <tns:K_14>190.21</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>57</tns:K_1>
+    <tns:K_2>2026-05-10</tns:K_2>
+    <tns:K_3A>U/2026/4/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Lista płac (umowy/zlecenia) za 2026/4</tns:K_6>
+    <tns:K_12>4041.81</tns:K_12>
+    <tns:K_13>767.94</tns:K_13>
+    <tns:K_14>4809.75</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>58</tns:K_1>
+    <tns:K_2>2026-05-12</tns:K_2>
+    <tns:K_3A>FV/05/05/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010426</tns:K_4B>
+    <tns:K_5A>EPSILON MEDIA SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Próbna 6, 00-006 Miasto</tns:K_5B>
+    <tns:K_6>Przychody ze sprzedaży usług szkoleniowych</tns:K_6>
+    <tns:K_7>2450.00</tns:K_7>
+    <tns:K_9>2450.00</tns:K_9>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>59</tns:K_1>
+    <tns:K_2>2026-05-14</tns:K_2>
+    <tns:K_3A>R/05/88</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010633</tns:K_4B>
+    <tns:K_5A>RESTAURACJA POD LIPĄ</tns:K_5A>
+    <tns:K_5B>ul. Smaczna 9, 00-009 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - USŁUGI GASTRONOMICZNE - SPOTKANIE Z KLIENTEM</tns:K_6>
+    <tns:K_13>527.25</tns:K_13>
+    <tns:K_14>527.25</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>60</tns:K_1>
+    <tns:K_2>2026-05-16</tns:K_2>
+    <tns:K_3A>TEL/05/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990011199</tns:K_4B>
+    <tns:K_5A>TELEKOM RO S.A.</tns:K_5A>
+    <tns:K_5B>ul. Sygnałowa 16, 00-016 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - TELEFON</tns:K_6>
+    <tns:K_13>106.93</tns:K_13>
+    <tns:K_14>106.93</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>61</tns:K_1>
+    <tns:K_2>2026-05-17</tns:K_2>
+    <tns:K_3A>BON/05/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010981</tns:K_4B>
+    <tns:K_5A>BONY PHI SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Bonowa 13, 00-013 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - KARTA ŻYWIENIOWA</tns:K_6>
+    <tns:K_13>400.00</tns:K_13>
+    <tns:K_14>400.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>62</tns:K_1>
+    <tns:K_2>2026-05-20</tns:K_2>
+    <tns:K_3A>W/2026/4/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Składki ZUS (właściciela) za 2026/4</tns:K_6>
+    <tns:K_13>1788.29</tns:K_13>
+    <tns:K_14>1788.29</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>63</tns:K_1>
+    <tns:K_2>2026-05-20</tns:K_2>
+    <tns:K_3A>W/2026/4/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Składki ZUS (właściciela) za 2026/4 - SKŁADKA ZDROWOTNA ZA 042026</tns:K_6>
+    <tns:K_13>863.99</tns:K_13>
+    <tns:K_14>863.99</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>64</tns:K_1>
+    <tns:K_2>2026-05-22</tns:K_2>
+    <tns:K_3A>PAR/05/2</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010567</tns:K_4B>
+    <tns:K_5A>STACJA PALIW KAPPA</tns:K_5A>
+    <tns:K_5B>ul. Drogowa 8, 00-008 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - PALIWO/EKSPLOATACJA WX123AB</tns:K_6>
+    <tns:K_13>227.16</tns:K_13>
+    <tns:K_14>227.16</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>65</tns:K_1>
+    <tns:K_2>2026-05-28</tns:K_2>
+    <tns:K_3A>FV/05/01/2026</tns:K_3A>
+    <tns:K_3B>9990010076-20260528-9322CD-6C76EB-7D</tns:K_3B>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010076</tns:K_4B>
+    <tns:K_5A>ALFA SZKOLENIA SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Zmyślona 2, 00-002 Miasto</tns:K_5B>
+    <tns:K_6>Przychody ze sprzedaży usług szkoleniowych</tns:K_6>
+    <tns:K_7>23398.19</tns:K_7>
+    <tns:K_9>23398.19</tns:K_9>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>66</tns:K_1>
+    <tns:K_2>2026-06-03</tns:K_2>
+    <tns:K_3A>L/06/2026</tns:K_3A>
+    <tns:K_3B>9990010490-20260603-62C359-A8AE18-48</tns:K_3B>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010490</tns:K_4B>
+    <tns:K_5A>OMEGA LEASING SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Zmyślona 7, 00-007 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - LEASING WX123AB 52,10% 2026 KAPITAŁ</tns:K_6>
+    <tns:K_13>1582.89</tns:K_13>
+    <tns:K_14>1582.89</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>67</tns:K_1>
+    <tns:K_2>2026-06-03</tns:K_2>
+    <tns:K_3A>PAR/2026/06</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>KOSZT - MATERIAŁY BIUROWE</tns:K_6>
+    <tns:K_13>86.40</tns:K_13>
+    <tns:K_14>86.40</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>68</tns:K_1>
+    <tns:K_2>2026-06-05</tns:K_2>
+    <tns:K_3A>FV/06/03/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010219</tns:K_4B>
+    <tns:K_5A>GAMMA UBEZPIECZENIA S.A.</tns:K_5A>
+    <tns:K_5B>ul. Wymyślna 4, 00-004 Miasto</tns:K_5B>
+    <tns:K_6>Przychody ze sprzedaży usług - stała opłata</tns:K_6>
+    <tns:K_7>3000.00</tns:K_7>
+    <tns:K_9>3000.00</tns:K_9>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>69</tns:K_1>
+    <tns:K_2>2026-06-05</tns:K_2>
+    <tns:K_3A>KS/06/2026</tns:K_3A>
+    <tns:K_3B>9990011124-20260605-40890B-E17F19-A1</tns:K_3B>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990011124</tns:K_4B>
+    <tns:K_5A>BIURO RACHUNKOWE OMIKRON</tns:K_5A>
+    <tns:K_5B>ul. Liczona 15, 00-015 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - USŁUGI KSIĘGOWE</tns:K_6>
+    <tns:K_13>615.00</tns:K_13>
+    <tns:K_14>615.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>70</tns:K_1>
+    <tns:K_2>2026-06-08</tns:K_2>
+    <tns:K_3A>PAR/06/1</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010567</tns:K_4B>
+    <tns:K_5A>STACJA PALIW KAPPA</tns:K_5A>
+    <tns:K_5B>ul. Drogowa 8, 00-008 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - PALIWO/EKSPLOATACJA WX123AB</tns:K_6>
+    <tns:K_13>272.59</tns:K_13>
+    <tns:K_14>272.59</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>71</tns:K_1>
+    <tns:K_2>2026-06-10</tns:K_2>
+    <tns:K_3A>U/2026/5/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Lista płac (umowy/zlecenia) za 2026/5</tns:K_6>
+    <tns:K_12>4421.31</tns:K_12>
+    <tns:K_14>4421.31</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>72</tns:K_1>
+    <tns:K_2>2026-06-15</tns:K_2>
+    <tns:K_3A>FV/06/02/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010142</tns:K_4B>
+    <tns:K_5A>BETA CONSULTING S.A.</tns:K_5A>
+    <tns:K_5B>ul. Fikcyjna 3, 00-003 Miasto</tns:K_5B>
+    <tns:K_6>Przychody ze sprzedaży usług szkoleniowych</tns:K_6>
+    <tns:K_7>5434.50</tns:K_7>
+    <tns:K_9>5434.50</tns:K_9>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>73</tns:K_1>
+    <tns:K_2>2026-06-16</tns:K_2>
+    <tns:K_3A>TEL/06/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990011199</tns:K_4B>
+    <tns:K_5A>TELEKOM RO S.A.</tns:K_5A>
+    <tns:K_5B>ul. Sygnałowa 16, 00-016 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - TELEFON</tns:K_6>
+    <tns:K_13>121.74</tns:K_13>
+    <tns:K_14>121.74</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>74</tns:K_1>
+    <tns:K_2>2026-06-17</tns:K_2>
+    <tns:K_3A>BON/06/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010981</tns:K_4B>
+    <tns:K_5A>BONY PHI SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Bonowa 13, 00-013 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - KARTA ŻYWIENIOWA</tns:K_6>
+    <tns:K_13>400.00</tns:K_13>
+    <tns:K_14>400.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>75</tns:K_1>
+    <tns:K_2>2026-06-18</tns:K_2>
+    <tns:K_3A>H/2026/618</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010774</tns:K_4B>
+    <tns:K_5A>HOTEL SIGMA SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Spokojna 10, 00-010 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - USŁUGI HOTELOWE - USŁUGA NOCLEGOWA</tns:K_6>
+    <tns:K_13>610.00</tns:K_13>
+    <tns:K_14>610.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>76</tns:K_1>
+    <tns:K_2>2026-06-20</tns:K_2>
+    <tns:K_3A>U/2026/5/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Składki ZUS (umowy/zlecenia) za 2026/5</tns:K_6>
+    <tns:K_13>840.05</tns:K_13>
+    <tns:K_14>840.05</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>77</tns:K_1>
+    <tns:K_2>2026-06-20</tns:K_2>
+    <tns:K_3A>W/2026/5/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Składki ZUS (właściciela) za 2026/5</tns:K_6>
+    <tns:K_13>1788.29</tns:K_13>
+    <tns:K_14>1788.29</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>78</tns:K_1>
+    <tns:K_2>2026-06-20</tns:K_2>
+    <tns:K_3A>W/2026/5/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Składki ZUS (właściciela) za 2026/5 - SKŁADKA ZDROWOTNA ZA 052026</tns:K_6>
+    <tns:K_13>1121.78</tns:K_13>
+    <tns:K_14>1121.78</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>79</tns:K_1>
+    <tns:K_2>2026-06-22</tns:K_2>
+    <tns:K_3A>PAR/06/2</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010567</tns:K_4B>
+    <tns:K_5A>STACJA PALIW KAPPA</tns:K_5A>
+    <tns:K_5B>ul. Drogowa 8, 00-008 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - PALIWO/EKSPLOATACJA WX123AB</tns:K_6>
+    <tns:K_13>254.81</tns:K_13>
+    <tns:K_14>254.81</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>80</tns:K_1>
+    <tns:K_2>2026-06-28</tns:K_2>
+    <tns:K_3A>FV/06/01/2026</tns:K_3A>
+    <tns:K_3B>9990010076-20260628-22A1CD-413874-07</tns:K_3B>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010076</tns:K_4B>
+    <tns:K_5A>ALFA SZKOLENIA SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Zmyślona 2, 00-002 Miasto</tns:K_5B>
+    <tns:K_6>Przychody ze sprzedaży usług szkoleniowych</tns:K_6>
+    <tns:K_7>17965.47</tns:K_7>
+    <tns:K_9>17965.47</tns:K_9>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>81</tns:K_1>
+    <tns:K_2>2026-07-03</tns:K_2>
+    <tns:K_3A>L/07/2026</tns:K_3A>
+    <tns:K_3B>9990010490-20260703-E2DD0D-C5943B-04</tns:K_3B>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010490</tns:K_4B>
+    <tns:K_5A>OMEGA LEASING SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Zmyślona 7, 00-007 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - LEASING WX123AB 52,10% 2026 KAPITAŁ</tns:K_6>
+    <tns:K_13>1598.98</tns:K_13>
+    <tns:K_14>1598.98</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>82</tns:K_1>
+    <tns:K_2>2026-07-05</tns:K_2>
+    <tns:K_3A>FV/07/03/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010219</tns:K_4B>
+    <tns:K_5A>GAMMA UBEZPIECZENIA S.A.</tns:K_5A>
+    <tns:K_5B>ul. Wymyślna 4, 00-004 Miasto</tns:K_5B>
+    <tns:K_6>Przychody ze sprzedaży usług - stała opłata</tns:K_6>
+    <tns:K_7>3000.00</tns:K_7>
+    <tns:K_9>3000.00</tns:K_9>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>83</tns:K_1>
+    <tns:K_2>2026-07-05</tns:K_2>
+    <tns:K_3A>KS/07/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990011124</tns:K_4B>
+    <tns:K_5A>BIURO RACHUNKOWE OMIKRON</tns:K_5A>
+    <tns:K_5B>ul. Liczona 15, 00-015 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - USŁUGI KSIĘGOWE</tns:K_6>
+    <tns:K_13>615.00</tns:K_13>
+    <tns:K_14>615.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>84</tns:K_1>
+    <tns:K_2>2026-07-08</tns:K_2>
+    <tns:K_3A>PAR/07/1</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010567</tns:K_4B>
+    <tns:K_5A>STACJA PALIW KAPPA</tns:K_5A>
+    <tns:K_5B>ul. Drogowa 8, 00-008 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - PALIWO/EKSPLOATACJA WX123AB</tns:K_6>
+    <tns:K_13>193.90</tns:K_13>
+    <tns:K_14>193.90</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>85</tns:K_1>
+    <tns:K_2>2026-07-10</tns:K_2>
+    <tns:K_3A>U/2026/6/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Lista płac (umowy/zlecenia) za 2026/6</tns:K_6>
+    <tns:K_12>3097.65</tns:K_12>
+    <tns:K_14>3097.65</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>86</tns:K_1>
+    <tns:K_2>2026-07-14</tns:K_2>
+    <tns:K_3A>R/07/88</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010633</tns:K_4B>
+    <tns:K_5A>RESTAURACJA POD LIPĄ</tns:K_5A>
+    <tns:K_5B>ul. Smaczna 9, 00-009 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - USŁUGI GASTRONOMICZNE - SPOTKANIE Z KLIENTEM</tns:K_6>
+    <tns:K_13>625.18</tns:K_13>
+    <tns:K_14>625.18</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>87</tns:K_1>
+    <tns:K_2>2026-07-15</tns:K_2>
+    <tns:K_3A>FV/07/02/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010142</tns:K_4B>
+    <tns:K_5A>BETA CONSULTING S.A.</tns:K_5A>
+    <tns:K_5B>ul. Fikcyjna 3, 00-003 Miasto</tns:K_5B>
+    <tns:K_6>Przychody ze sprzedaży usług szkoleniowych</tns:K_6>
+    <tns:K_7>7274.78</tns:K_7>
+    <tns:K_9>7274.78</tns:K_9>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>88</tns:K_1>
+    <tns:K_2>2026-07-16</tns:K_2>
+    <tns:K_3A>TEL/07/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990011199</tns:K_4B>
+    <tns:K_5A>TELEKOM RO S.A.</tns:K_5A>
+    <tns:K_5B>ul. Sygnałowa 16, 00-016 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - TELEFON</tns:K_6>
+    <tns:K_13>98.69</tns:K_13>
+    <tns:K_14>98.69</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>89</tns:K_1>
+    <tns:K_2>2026-07-17</tns:K_2>
+    <tns:K_3A>BON/07/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010981</tns:K_4B>
+    <tns:K_5A>BONY PHI SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Bonowa 13, 00-013 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - KARTA ŻYWIENIOWA</tns:K_6>
+    <tns:K_13>400.00</tns:K_13>
+    <tns:K_14>400.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>90</tns:K_1>
+    <tns:K_2>2026-07-20</tns:K_2>
+    <tns:K_3A>FV/07/04/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010283</tns:K_4B>
+    <tns:K_5A>DELTA EDUKACJA SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Testowa 5, 00-005 Miasto</tns:K_5B>
+    <tns:K_6>Przychody ze sprzedaży usług szkoleniowych</tns:K_6>
+    <tns:K_7>6549.44</tns:K_7>
+    <tns:K_9>6549.44</tns:K_9>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>91</tns:K_1>
+    <tns:K_2>2026-07-20</tns:K_2>
+    <tns:K_3A>U/2026/6/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Składki ZUS (umowy/zlecenia) za 2026/6</tns:K_6>
+    <tns:K_13>588.55</tns:K_13>
+    <tns:K_14>588.55</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>92</tns:K_1>
+    <tns:K_2>2026-07-20</tns:K_2>
+    <tns:K_3A>W/2026/6/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Składki ZUS (właściciela) za 2026/6</tns:K_6>
+    <tns:K_13>1788.29</tns:K_13>
+    <tns:K_14>1788.29</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>93</tns:K_1>
+    <tns:K_2>2026-07-20</tns:K_2>
+    <tns:K_3A>W/2026/6/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Składki ZUS (właściciela) za 2026/6 - SKŁADKA ZDROWOTNA ZA 062026</tns:K_6>
+    <tns:K_13>721.59</tns:K_13>
+    <tns:K_14>721.59</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>94</tns:K_1>
+    <tns:K_2>2026-07-22</tns:K_2>
+    <tns:K_3A>PAR/07/2</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010567</tns:K_4B>
+    <tns:K_5A>STACJA PALIW KAPPA</tns:K_5A>
+    <tns:K_5B>ul. Drogowa 8, 00-008 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - PALIWO/EKSPLOATACJA WX123AB</tns:K_6>
+    <tns:K_13>304.79</tns:K_13>
+    <tns:K_14>304.79</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>95</tns:K_1>
+    <tns:K_2>2026-07-28</tns:K_2>
+    <tns:K_3A>FV/07/01/2026</tns:K_3A>
+    <tns:K_3B>9990010076-20260728-E9D128-6BF5A0-56</tns:K_3B>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010076</tns:K_4B>
+    <tns:K_5A>ALFA SZKOLENIA SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Zmyślona 2, 00-002 Miasto</tns:K_5B>
+    <tns:K_6>Przychody ze sprzedaży usług szkoleniowych</tns:K_6>
+    <tns:K_7>18822.81</tns:K_7>
+    <tns:K_9>18822.81</tns:K_9>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>96</tns:K_1>
+    <tns:K_2>2026-08-03</tns:K_2>
+    <tns:K_3A>L/08/2026</tns:K_3A>
+    <tns:K_3B>9990010490-20260803-609F5D-05B45D-D3</tns:K_3B>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010490</tns:K_4B>
+    <tns:K_5A>OMEGA LEASING SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Zmyślona 7, 00-007 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - LEASING WX123AB 52,10% 2026 KAPITAŁ</tns:K_6>
+    <tns:K_13>1558.35</tns:K_13>
+    <tns:K_14>1558.35</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>97</tns:K_1>
+    <tns:K_2>2026-08-05</tns:K_2>
+    <tns:K_3A>FV/08/03/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010219</tns:K_4B>
+    <tns:K_5A>GAMMA UBEZPIECZENIA S.A.</tns:K_5A>
+    <tns:K_5B>ul. Wymyślna 4, 00-004 Miasto</tns:K_5B>
+    <tns:K_6>Przychody ze sprzedaży usług - stała opłata</tns:K_6>
+    <tns:K_7>3000.00</tns:K_7>
+    <tns:K_9>3000.00</tns:K_9>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>98</tns:K_1>
+    <tns:K_2>2026-08-05</tns:K_2>
+    <tns:K_3A>KS/08/2026</tns:K_3A>
+    <tns:K_3B>9990011124-20260805-569003-D09567-28</tns:K_3B>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990011124</tns:K_4B>
+    <tns:K_5A>BIURO RACHUNKOWE OMIKRON</tns:K_5A>
+    <tns:K_5B>ul. Liczona 15, 00-015 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - USŁUGI KSIĘGOWE</tns:K_6>
+    <tns:K_13>615.00</tns:K_13>
+    <tns:K_14>615.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>99</tns:K_1>
+    <tns:K_2>2026-08-08</tns:K_2>
+    <tns:K_3A>PAR/08/1</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010567</tns:K_4B>
+    <tns:K_5A>STACJA PALIW KAPPA</tns:K_5A>
+    <tns:K_5B>ul. Drogowa 8, 00-008 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - PALIWO/EKSPLOATACJA WX123AB</tns:K_6>
+    <tns:K_13>313.17</tns:K_13>
+    <tns:K_14>313.17</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>100</tns:K_1>
+    <tns:K_2>2026-08-10</tns:K_2>
+    <tns:K_3A>U/2026/7/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Lista płac (umowy/zlecenia) za 2026/7</tns:K_6>
+    <tns:K_12>3326.86</tns:K_12>
+    <tns:K_14>3326.86</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>101</tns:K_1>
+    <tns:K_2>2026-08-16</tns:K_2>
+    <tns:K_3A>TEL/08/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990011199</tns:K_4B>
+    <tns:K_5A>TELEKOM RO S.A.</tns:K_5A>
+    <tns:K_5B>ul. Sygnałowa 16, 00-016 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - TELEFON</tns:K_6>
+    <tns:K_13>114.64</tns:K_13>
+    <tns:K_14>114.64</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>102</tns:K_1>
+    <tns:K_2>2026-08-17</tns:K_2>
+    <tns:K_3A>BON/08/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010981</tns:K_4B>
+    <tns:K_5A>BONY PHI SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Bonowa 13, 00-013 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - KARTA ŻYWIENIOWA</tns:K_6>
+    <tns:K_13>400.00</tns:K_13>
+    <tns:K_14>400.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>103</tns:K_1>
+    <tns:K_2>2026-08-19</tns:K_2>
+    <tns:K_3A>FV/NI/819</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990011265</tns:K_4B>
+    <tns:K_5A>SKLEP KOMPUTEROWY NI</tns:K_5A>
+    <tns:K_5B>ul. Cyfrowa 17, 00-017 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - SPRZĘT KOMPUTEROWY - LAPTOP I MONITOR</tns:K_6>
+    <tns:K_13>12300.00</tns:K_13>
+    <tns:K_14>12300.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>104</tns:K_1>
+    <tns:K_2>2026-08-20</tns:K_2>
+    <tns:K_3A>U/2026/7/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Składki ZUS (umowy/zlecenia) za 2026/7</tns:K_6>
+    <tns:K_13>632.10</tns:K_13>
+    <tns:K_14>632.10</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>105</tns:K_1>
+    <tns:K_2>2026-08-20</tns:K_2>
+    <tns:K_3A>W/2026/7/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Składki ZUS (właściciela) za 2026/7</tns:K_6>
+    <tns:K_13>1788.29</tns:K_13>
+    <tns:K_14>1788.29</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>106</tns:K_1>
+    <tns:K_2>2026-08-20</tns:K_2>
+    <tns:K_3A>W/2026/7/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Składki ZUS (właściciela) za 2026/7 - SKŁADKA ZDROWOTNA ZA 072026</tns:K_6>
+    <tns:K_13>1153.95</tns:K_13>
+    <tns:K_14>1153.95</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>107</tns:K_1>
+    <tns:K_2>2026-08-22</tns:K_2>
+    <tns:K_3A>PAR/08/2</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010567</tns:K_4B>
+    <tns:K_5A>STACJA PALIW KAPPA</tns:K_5A>
+    <tns:K_5B>ul. Drogowa 8, 00-008 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - PALIWO/EKSPLOATACJA WX123AB</tns:K_6>
+    <tns:K_13>223.19</tns:K_13>
+    <tns:K_14>223.19</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>108</tns:K_1>
+    <tns:K_2>2026-08-28</tns:K_2>
+    <tns:K_3A>FV/08/01/2026</tns:K_3A>
+    <tns:K_3B>9990010076-20260828-5DC883-E9C05B-E4</tns:K_3B>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010076</tns:K_4B>
+    <tns:K_5A>ALFA SZKOLENIA SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Zmyślona 2, 00-002 Miasto</tns:K_5B>
+    <tns:K_6>Przychody ze sprzedaży usług szkoleniowych</tns:K_6>
+    <tns:K_7>19268.02</tns:K_7>
+    <tns:K_9>19268.02</tns:K_9>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>109</tns:K_1>
+    <tns:K_2>2026-09-03</tns:K_2>
+    <tns:K_3A>L/09/2026</tns:K_3A>
+    <tns:K_3B>9990010490-20260903-B68D9E-4CD9F5-65</tns:K_3B>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010490</tns:K_4B>
+    <tns:K_5A>OMEGA LEASING SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Zmyślona 7, 00-007 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - LEASING WX123AB 52,10% 2026 KAPITAŁ</tns:K_6>
+    <tns:K_13>1522.43</tns:K_13>
+    <tns:K_14>1522.43</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>110</tns:K_1>
+    <tns:K_2>2026-09-05</tns:K_2>
+    <tns:K_3A>FV/09/03/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010219</tns:K_4B>
+    <tns:K_5A>GAMMA UBEZPIECZENIA S.A.</tns:K_5A>
+    <tns:K_5B>ul. Wymyślna 4, 00-004 Miasto</tns:K_5B>
+    <tns:K_6>Przychody ze sprzedaży usług - stała opłata</tns:K_6>
+    <tns:K_7>3000.00</tns:K_7>
+    <tns:K_9>3000.00</tns:K_9>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>111</tns:K_1>
+    <tns:K_2>2026-09-05</tns:K_2>
+    <tns:K_3A>KS/09/2026</tns:K_3A>
+    <tns:K_3B>9990011124-20260905-BA5F3B-799225-8E</tns:K_3B>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990011124</tns:K_4B>
+    <tns:K_5A>BIURO RACHUNKOWE OMIKRON</tns:K_5A>
+    <tns:K_5B>ul. Liczona 15, 00-015 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - USŁUGI KSIĘGOWE</tns:K_6>
+    <tns:K_13>615.00</tns:K_13>
+    <tns:K_14>615.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>112</tns:K_1>
+    <tns:K_2>2026-09-08</tns:K_2>
+    <tns:K_3A>PAR/09/1</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010567</tns:K_4B>
+    <tns:K_5A>STACJA PALIW KAPPA</tns:K_5A>
+    <tns:K_5B>ul. Drogowa 8, 00-008 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - PALIWO/EKSPLOATACJA WX123AB</tns:K_6>
+    <tns:K_13>264.39</tns:K_13>
+    <tns:K_14>264.39</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>113</tns:K_1>
+    <tns:K_2>2026-09-10</tns:K_2>
+    <tns:K_3A>U/2026/8/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Lista płac (umowy/zlecenia) za 2026/8</tns:K_6>
+    <tns:K_12>4370.08</tns:K_12>
+    <tns:K_14>4370.08</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>114</tns:K_1>
+    <tns:K_2>2026-09-14</tns:K_2>
+    <tns:K_3A>R/09/88</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010633</tns:K_4B>
+    <tns:K_5A>RESTAURACJA POD LIPĄ</tns:K_5A>
+    <tns:K_5B>ul. Smaczna 9, 00-009 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - USŁUGI GASTRONOMICZNE - SPOTKANIE Z KLIENTEM</tns:K_6>
+    <tns:K_13>531.14</tns:K_13>
+    <tns:K_14>531.14</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>115</tns:K_1>
+    <tns:K_2>2026-09-15</tns:K_2>
+    <tns:K_3A>FV/09/02/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010142</tns:K_4B>
+    <tns:K_5A>BETA CONSULTING S.A.</tns:K_5A>
+    <tns:K_5B>ul. Fikcyjna 3, 00-003 Miasto</tns:K_5B>
+    <tns:K_6>Przychody ze sprzedaży usług szkoleniowych</tns:K_6>
+    <tns:K_7>7205.25</tns:K_7>
+    <tns:K_9>7205.25</tns:K_9>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>116</tns:K_1>
+    <tns:K_2>2026-09-16</tns:K_2>
+    <tns:K_3A>TEL/09/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990011199</tns:K_4B>
+    <tns:K_5A>TELEKOM RO S.A.</tns:K_5A>
+    <tns:K_5B>ul. Sygnałowa 16, 00-016 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - TELEFON</tns:K_6>
+    <tns:K_13>127.90</tns:K_13>
+    <tns:K_14>127.90</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>117</tns:K_1>
+    <tns:K_2>2026-09-17</tns:K_2>
+    <tns:K_3A>BON/09/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010981</tns:K_4B>
+    <tns:K_5A>BONY PHI SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Bonowa 13, 00-013 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - KARTA ŻYWIENIOWA</tns:K_6>
+    <tns:K_13>400.00</tns:K_13>
+    <tns:K_14>400.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>118</tns:K_1>
+    <tns:K_2>2026-09-20</tns:K_2>
+    <tns:K_3A>U/2026/8/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Składki ZUS (umowy/zlecenia) za 2026/8</tns:K_6>
+    <tns:K_13>830.32</tns:K_13>
+    <tns:K_14>830.32</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>119</tns:K_1>
+    <tns:K_2>2026-09-20</tns:K_2>
+    <tns:K_3A>W/2026/8/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Składki ZUS (właściciela) za 2026/8</tns:K_6>
+    <tns:K_13>1788.29</tns:K_13>
+    <tns:K_14>1788.29</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>120</tns:K_1>
+    <tns:K_2>2026-09-20</tns:K_2>
+    <tns:K_3A>W/2026/8/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Składki ZUS (właściciela) za 2026/8 - SKŁADKA ZDROWOTNA ZA 082026</tns:K_6>
+    <tns:K_13>769.09</tns:K_13>
+    <tns:K_14>769.09</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>121</tns:K_1>
+    <tns:K_2>2026-09-22</tns:K_2>
+    <tns:K_3A>PAR/09/2</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010567</tns:K_4B>
+    <tns:K_5A>STACJA PALIW KAPPA</tns:K_5A>
+    <tns:K_5B>ul. Drogowa 8, 00-008 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - PALIWO/EKSPLOATACJA WX123AB</tns:K_6>
+    <tns:K_13>207.09</tns:K_13>
+    <tns:K_14>207.09</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>122</tns:K_1>
+    <tns:K_2>2026-09-28</tns:K_2>
+    <tns:K_3A>FV/09/01/2026</tns:K_3A>
+    <tns:K_3B>9990010076-20260928-2DD861-6DEC3B-4E</tns:K_3B>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990010076</tns:K_4B>
+    <tns:K_5A>ALFA SZKOLENIA SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Zmyślona 2, 00-002 Miasto</tns:K_5B>
+    <tns:K_6>Przychody ze sprzedaży usług szkoleniowych</tns:K_6>
+    <tns:K_7>17725.36</tns:K_7>
+    <tns:K_9>17725.36</tns:K_9>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRCtrl>
+    <tns:LiczbaWierszy>122</tns:LiczbaWierszy>
+    <tns:SumaPrzychodow>255551.77</tns:SumaPrzychodow>
+  </tns:PKPIRCtrl>
+</tns:JPK>

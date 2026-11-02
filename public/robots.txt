@@ -10,6 +10,7 @@ Disallow: /admin/
 Disallow: /panel/
 Disallow: /dotacje/panel/
 Disallow: /agent/panel/
+Disallow: /narzedzia/
 
 # AI crawlers: pełny dostęp do treści publicznych
 User-agent: GPTBot
@@ -19,6 +20,7 @@ Disallow: /admin/
 Disallow: /panel/
 Disallow: /dotacje/panel/
 Disallow: /agent/panel/
+Disallow: /narzedzia/
 
 User-agent: ClaudeBot
 Allow: /
@@ -27,6 +29,7 @@ Disallow: /admin/
 Disallow: /panel/
 Disallow: /dotacje/panel/
 Disallow: /agent/panel/
+Disallow: /narzedzia/
 
 User-agent: PerplexityBot
 Allow: /
@@ -35,6 +38,7 @@ Disallow: /admin/
 Disallow: /panel/
 Disallow: /dotacje/panel/
 Disallow: /agent/panel/
+Disallow: /narzedzia/
 
 User-agent: Gemini-Web
 Allow: /
@@ -43,6 +47,7 @@ Disallow: /admin/
 Disallow: /panel/
 Disallow: /dotacje/panel/
 Disallow: /agent/panel/
+Disallow: /narzedzia/
 
 User-agent: Applebot-Extended
 Allow: /
@@ -51,6 +56,7 @@ Disallow: /admin/
 Disallow: /panel/
 Disallow: /dotacje/panel/
 Disallow: /agent/panel/
+Disallow: /narzedzia/
 
 Sitemap: https://www.wezmezadarmo.com/sitemap.xml
 

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Plik syntetyczny do testów i pokazu „Przegląd przed 2027”. Firmy i dane fikcyjne. -->
+<tns:JPK xmlns:etd="http://crd.gov.pl/xml/schematy/dziedzinowe/mf/2022/09/13/eD/DefinicjeTypy/" xmlns:tns="http://crd.gov.pl/wzor/2025/12/19/14089/">
+  <tns:Naglowek>
+    <tns:KodFormularza kodSystemowy="JPK_V7K (3)" wersjaSchemy="1-0E">JPK_VAT</tns:KodFormularza>
+    <tns:WariantFormularza>3</tns:WariantFormularza>
+    <tns:DataWytworzeniaJPK>2026-07-10T09:00:00Z</tns:DataWytworzeniaJPK>
+    <tns:NazwaSystemu>Generator testowy</tns:NazwaSystemu>
+    <tns:CelZlozenia poz="P_7">1</tns:CelZlozenia>
+    <tns:KodUrzedu>0611</tns:KodUrzedu>
+    <tns:Rok>2026</tns:Rok>
+    <tns:Miesiac>6</tns:Miesiac>
+  </tns:Naglowek>
+  <tns:Podmiot1 rola="Podatnik">
+    <tns:OsobaFizyczna>
+      <etd:NIP>7133003030</etd:NIP>
+      <etd:ImiePierwsze>Jan</etd:ImiePierwsze>
+      <etd:Nazwisko>Przykładowy</etd:Nazwisko>
+      <etd:DataUrodzenia>1980-05-05</etd:DataUrodzenia>
+      <tns:Email>sklep@przyklad.invalid</tns:Email>
+    </tns:OsobaFizyczna>
+  </tns:Podmiot1>
+  <tns:Deklaracja>
+    <tns:Naglowek>
+      <tns:KodFormularzaDekl kodSystemowy="VAT-7K (17)" kodPodatku="VAT" rodzajZobowiazania="Z" wersjaSchemy="1-0E">VAT-7K</tns:KodFormularzaDekl>
+      <tns:WariantFormularzaDekl>17</tns:WariantFormularzaDekl>
+      <tns:Kwartal>2</tns:Kwartal>
+    </tns:Naglowek>
+    <tns:PozycjeSzczegolowe>
+      <tns:P_19>41800</tns:P_19>
+      <tns:P_20>9614</tns:P_20>
+      <tns:P_37>41800</tns:P_37>
+      <tns:P_38>9614</tns:P_38>
+      <tns:P_42>23180</tns:P_42>
+      <tns:P_43>5331</tns:P_43>
+      <tns:P_48>5331</tns:P_48>
+      <tns:P_51>4283</tns:P_51>
+    </tns:PozycjeSzczegolowe>
+    <tns:Pouczenia>1</tns:Pouczenia>
+  </tns:Deklaracja>
+  <tns:Ewidencja>
+    <tns:SprzedazWiersz>
+      <tns:LpSprzedazy>1</tns:LpSprzedazy>
+      <tns:NrKontrahenta>7135151510</tns:NrKontrahenta>
+      <tns:NazwaKontrahenta>Klub Kolarski Testowy</tns:NazwaKontrahenta>
+      <tns:DowodSprzedazy>S/06/001</tns:DowodSprzedazy>
+      <tns:DataWystawienia>2026-06-03</tns:DataWystawienia>
+      <tns:NrKSeF>7133003030-20260603-392B39-FCCF2A-5B</tns:NrKSeF>
+      <tns:K_19>4200.00</tns:K_19>
+      <tns:K_20>966.00</tns:K_20>
+    </tns:SprzedazWiersz>
+    <tns:SprzedazWiersz>
+      <tns:LpSprzedazy>2</tns:LpSprzedazy>
+      <tns:NrKontrahenta>7135151510</tns:NrKontrahenta>
+      <tns:NazwaKontrahenta>Klub Kolarski Testowy</tns:NazwaKontrahenta>
+      <tns:DowodSprzedazy>S/06/002</tns:DowodSprzedazy>
+      <tns:DataWystawienia>2026-06-10</tns:DataWystawienia>
+      
+      <tns:K_19>1300.00</tns:K_19>
+      <tns:K_20>299.00</tns:K_20>
+    </tns:SprzedazWiersz>
+    <tns:SprzedazWiersz>
+      <tns:LpSprzedazy>3</tns:LpSprzedazy>
+      <tns:NrKontrahenta>7128008081</tns:NrKontrahenta>
+      <tns:NazwaKontrahenta>Bistro Literówka</tns:NazwaKontrahenta>
+      <tns:DowodSprzedazy>S/06/003</tns:DowodSprzedazy>
+      <tns:DataWystawienia>2026-06-12</tns:DataWystawienia>
+      <tns:NrKSeF>7133003030-20260612-AB76B7-6DFD52-CD</tns:NrKSeF>
+      <tns:K_19>900.00</tns:K_19>
+      <tns:K_20>207.00</tns:K_20>
+    </tns:SprzedazWiersz>
+    <tns:SprzedazWiersz>
+      <tns:LpSprzedazy>4</tns:LpSprzedazy>
+      <tns:NrKontrahenta>7135151510</tns:NrKontrahenta>
+      <tns:NazwaKontrahenta>Klub Kolarski Testowy</tns:NazwaKontrahenta>
+      <tns:DowodSprzedazy>S/06/001</tns:DowodSprzedazy>
+      <tns:DataWystawienia>2026-06-03</tns:DataWystawienia>
+      <tns:NrKSeF>7133003030-20260603-DB6926-9E6ABC-FD</tns:NrKSeF>
+      <tns:K_19>4200.00</tns:K_19>
+      <tns:K_20>966.00</tns:K_20>
+    </tns:SprzedazWiersz>
+    <tns:SprzedazWiersz>
+      <tns:LpSprzedazy>5</tns:LpSprzedazy>
+      <tns:NrKontrahenta>brak</tns:NrKontrahenta>
+      <tns:NazwaKontrahenta>brak</tns:NazwaKontrahenta>
+      <tns:DowodSprzedazy>RK/06/2026</tns:DowodSprzedazy>
+      <tns:DataWystawienia>2026-06-30</tns:DataWystawienia>
+      <tns:DI>1</tns:DI>
+      <tns:TypDokumentu>RO</tns:TypDokumentu>
+      <tns:K_19>31200.00</tns:K_19>
+      <tns:K_20>7176.00</tns:K_20>
+    </tns:SprzedazWiersz>
+    <tns:SprzedazCtrl>
+      <tns:LiczbaWierszySprzedazy>5</tns:LiczbaWierszySprzedazy>
+      <tns:PodatekNalezny>9614.00</tns:PodatekNalezny>
+    </tns:SprzedazCtrl>
+    <tns:ZakupWiersz>
+      <tns:LpZakupu>1</tns:LpZakupu>
+      <tns:NrDostawcy>1134141417</tns:NrDostawcy>
+      <tns:NazwaDostawcy>Rowery Hurt Demo Sp. z o.o.</tns:NazwaDostawcy>
+      <tns:DowodZakupu>RH/2026/0612</tns:DowodZakupu>
+      <tns:DataZakupu>2026-06-05</tns:DataZakupu>
+      <tns:NrKSeF>1134141417-20260605-E0B13C-A23E62-01</tns:NrKSeF>
+      <tns:K_42>22800.00</tns:K_42>
+      <tns:K_43>5244.00</tns:K_43>
+    </tns:ZakupWiersz>
+    <tns:ZakupWiersz>
+      <tns:LpZakupu>2</tns:LpZakupu>
+      <tns:NrDostawcy>5261010106</tns:NrDostawcy>
+      <tns:NazwaDostawcy>Energia Przykładowa S.A.</tns:NazwaDostawcy>
+      <tns:DowodZakupu>E/06/55102</tns:DowodZakupu>
+      <tns:DataZakupu>2026-06-15</tns:DataZakupu>
+      <tns:OFF>1</tns:OFF>
+      <tns:K_42>380.00</tns:K_42>
+      <tns:K_43>87.40</tns:K_43>
+    </tns:ZakupWiersz>
+    <tns:ZakupCtrl>
+      <tns:LiczbaWierszyZakupow>2</tns:LiczbaWierszyZakupow>
+      <tns:PodatekNaliczony>5331.40</tns:PodatekNaliczony>
+    </tns:ZakupCtrl>
+  </tns:Ewidencja>
+</tns:JPK>
