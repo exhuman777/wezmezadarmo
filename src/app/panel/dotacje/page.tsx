@@ -319,24 +319,29 @@ function ProgramCard({ program }: { program: B2BProgram }) {
 }
 
 function ViaPromoCard() {
-  // Karta partnerska VIA (tryvia.eu), dodana 31.05.2026. Styl strony, bez fioletu.
+  // Karta partnerska VIA (tryvia.eu). Treść według ich strony z 2.11.2026: „AI business development partner”,
+  // okazje z rynku UE przychodzą na Telegram, od 199 EUR miesięcznie. Styl strony, bez fioletu.
   return (
-    <div style={{ marginTop: 10, padding: 16, background: 'var(--surface)', border: '2px solid var(--tusz)', borderRadius: 0 }}>
-      <div style={{ display: 'flex', gap: 6, alignItems: 'center', marginBottom: 6, flexWrap: 'wrap' }}>
-        <span className="mono" style={{ fontSize: 11, padding: '2px 7px', border: '1px solid var(--tusz)', color: 'var(--tusz)', letterSpacing: '0.04em' }}>
-          POLECAMY
-        </span>
-        <span className="mono" style={{ fontSize: 11, color: 'var(--szary)' }}>poza wezmezadarmo</span>
+    <div style={{ marginTop: 10, background: '#e8e6df', border: '2px solid var(--tusz)', borderRadius: 0 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8, padding: '8px 14px', background: 'var(--tusz)', color: '#f6f0e4' }}>
+        <span className="mono" style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.06em' }}>VIA</span>
+        <span className="mono" style={{ fontSize: 11, opacity: 0.8 }}>polecamy · poza wezmezadarmo</span>
       </div>
-      <div className="mono" style={{ fontSize: 16, fontWeight: 700, color: 'var(--tusz)', lineHeight: 1.3, marginBottom: 6 }}>
-        VIA: agent AI do przetargów w UE
+      <div style={{ padding: 16 }}>
+        <div className="mono" style={{ fontSize: 17, fontWeight: 700, color: 'var(--tusz)', lineHeight: 1.3, marginBottom: 6 }}>
+          Następny kontrakt sam do Ciebie napisze
+        </div>
+        <p style={{ fontSize: 14, color: 'var(--tusz)', lineHeight: 1.6, margin: '0 0 12px' }}>
+          VIA to partner AI do pozyskiwania klientów: śledzi rynek w całej UE, przetargi, nowe przepisy i budżety, i wysyła Ci na Telegram okazje, które pasują do Twojej firmy. Bez instalacji, od 199 EUR miesięcznie.
+        </p>
+        <div aria-hidden="true" style={{ maxWidth: 360, margin: '0 0 14px', padding: '10px 12px', background: '#ffffff', border: '1px solid var(--linia)', fontSize: 13, lineHeight: 1.5, color: 'var(--tusz)' }}>
+          <span className="mono" style={{ display: 'block', fontSize: 11, color: 'var(--szary)', marginBottom: 4 }}>VIA · przykład wiadomości</span>
+          Dzień dobry. Przed pierwszym telefonem znalazłem przetarg na konstrukcję stalową, termin ofert za 5 tygodni. Robiliście już trzy takie. Biorę się za to?
+        </div>
+        <a href="https://www.tryvia.eu/" target="_blank" rel="noopener noreferrer" className="btn">
+          Zobacz VIA
+        </a>
       </div>
-      <p style={{ fontSize: 14, color: 'var(--tusz)', lineHeight: 1.6, margin: '0 0 12px' }}>
-        Przegląda przetargi, rundy finansowania i zmiany przepisów w 27 krajach UE. Pokazuje tylko te okazje, które pasują do Twojej firmy.
-      </p>
-      <a href="https://www.tryvia.eu/" target="_blank" rel="noopener noreferrer" className="btn">
-        Sprawdź VIA
-      </a>
     </div>
   );
 }
