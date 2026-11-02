@@ -94,7 +94,7 @@ export default function RegulaminPage() {
             <P className="pl-4">b) NBP (api.nbp.pl) - kursy walut;</P>
             <P className="pl-4">c) GIOŚ (api.gios.gov.pl) - jakość powietrza;</P>
             <P className="pl-4">d) Biała Lista VAT (wl-api.mf.gov.pl) - status VAT i konta bankowe firm;</P>
-            <P className="pl-4">e) IMGW / RCB (api.rcb.gov.pl) - ostrzeżenia meteorologiczne i kryzysowe;</P>
+            <P className="pl-4">e) IMGW (danepubliczne.imgw.pl) - ostrzeżenia meteorologiczne i hydrologiczne;</P>
             <P className="pl-4">f) ELI / Sejm RP (api.sejm.gov.pl/eli) - zmiany w przepisach;</P>
             <P className="pl-4">g) BDL GUS (bdl.stat.gov.pl) - dane demograficzne per gmina;</P>
             <P className="pl-4">h) ARiMR (geoportal.arimr.gov.pl) - mapy działek rolnych;</P>
@@ -173,7 +173,7 @@ export default function RegulaminPage() {
             <P>10.2. Operator nie ponosi odpowiedzialności za:</P>
             <P className="pl-4">a) decyzje podjęte przez Użytkownika na podstawie informacji uzyskanych z Serwisu;</P>
             <P className="pl-4">b) odmowę przyznania świadczenia przez właściwy organ administracji;</P>
-            <P className="pl-4">c) przerwy w działaniu Serwisu wynikające z przyczyn technicznych lub awarii API zewnętrznych (NFZ, GIOŚ, NBP, CEIDG, Biała Lista, RCB, Sejm, GUS, ARiMR, PKP);</P>
+            <P className="pl-4">c) przerwy w działaniu Serwisu wynikające z przyczyn technicznych lub awarii API zewnętrznych (NFZ, GIOŚ, NBP, CEIDG, Biała Lista, IMGW, Sejm, GUS, ARiMR, PKP);</P>
             <P className="pl-4">d) działanie serwisów partnerskich (m.in. VIA / tryvia.eu) prowadzonych przez podmioty trzecie.</P>
           </Section>
 

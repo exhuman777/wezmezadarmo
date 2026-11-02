@@ -142,6 +142,20 @@ function stripHtml(s: string): string {
   return s.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
+// Niektóre kanały RSS kodują cudzysłowy podwójnie (&amp;quot;), więc dekodujemy encje do skutku.
+function decodeEntities(s: string): string {
+  let prev = '';
+  let out = s;
+  for (let i = 0; i < 3 && out !== prev; i++) {
+    prev = out;
+    out = out
+      .replace(/&quot;/g, '"').replace(/&#0?39;|&apos;/g, "'")
+      .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&nbsp;/g, ' ')
+      .replace(/&amp;/g, '&');
+  }
+  return out;
+}
+
 function parseDate(s: string): Date | null {
   if (!s) return null;
   const d = new Date(s);
@@ -161,7 +175,7 @@ function parseRss2Items(xml: string, feed: FeedMeta): FeedItem[] {
   const raw = [...xml.matchAll(/<item[^>]*>([\s\S]*?)<\/item>/gi)];
   for (const m of raw) {
     const chunk = m[1];
-    const title = stripHtml(extractTagText(chunk, 'title'));
+    const title = decodeEntities(stripHtml(extractTagText(chunk, 'title')));
     const link =
       extractTagText(chunk, 'link') ||
       extractAttr(chunk, 'link', 'href') ||
@@ -192,7 +206,7 @@ function parseAtomEntries(xml: string, feed: FeedMeta): FeedItem[] {
   const raw = [...xml.matchAll(/<entry[^>]*>([\s\S]*?)<\/entry>/gi)];
   for (const m of raw) {
     const chunk = m[1];
-    const title = stripHtml(extractTagText(chunk, 'title'));
+    const title = decodeEntities(stripHtml(extractTagText(chunk, 'title')));
     const link =
       extractAttr(chunk, 'link', 'href') ||
       extractTagText(chunk, 'link') ||
@@ -383,9 +397,9 @@ async function fetchFromSupabaseCache(sourceIds: string[]): Promise<FeedItem[]> 
     }>;
     return data.map(row => ({
       id: row.id,
-      title: row.title,
+      title: decodeEntities(row.title),
       link: row.link,
-      description: row.description,
+      description: decodeEntities(row.description ?? ''),
       pubDate: row.pub_date,
       source: row.source_name,
       sourceId: row.source_id,

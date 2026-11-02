@@ -31,12 +31,12 @@ export default function PogodaPage() {
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
         <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#c4841a' }} />
         <span style={{ fontFamily: 'var(--f-mono)', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink-500)' }}>
-          IMGW / RCB · ostrzeżenia
+          IMGW · ostrzeżenia
         </span>
       </div>
-      <h1 style={{ fontSize: 26, fontWeight: 700, marginBottom: 6, color: 'var(--ink-900)' }}>Aktywne ostrzeżenia meteo i kryzysowe</h1>
+      <h1 style={{ fontSize: 26, fontWeight: 700, marginBottom: 6, color: 'var(--ink-900)' }}>Aktywne ostrzeżenia IMGW</h1>
       <p style={{ fontSize: 13, color: 'var(--ink-500)', marginBottom: 24, lineHeight: 1.6 }}>
-        Oficjalne alerty Rządowego Centrum Bezpieczeństwa - opady, burze, mróz, powodzie, smog. Aktualizacja co 15 minut.
+        Oficjalne ostrzeżenia meteorologiczne i hydrologiczne IMGW: opady, burze, mróz, wezbrania.
         Polecane dla rolników KRUS, alergików, planujących prace polowe lub wyjazdy.
       </p>
 
@@ -69,7 +69,7 @@ export default function PogodaPage() {
       )}
 
       <p style={{ marginTop: 24, fontSize: 11, color: 'var(--ink-400)' }}>
-        Źródło: <a href="https://rcb.gov.pl" target="_blank" rel="noopener noreferrer" style={{ color: '#2b7353' }}>rcb.gov.pl/feed</a>
+        Źródło: <a href="https://danepubliczne.imgw.pl/" target="_blank" rel="noopener noreferrer" style={{ color: '#2b7353' }}>danepubliczne.imgw.pl</a>
       </p>
     </main>
   );

@@ -3,12 +3,12 @@ import { canonical, OG_IMAGES } from '@/lib/seo';
 
 export const metadata: Metadata = {
   alternates: canonical('/centrum-obywatela/pogoda'),
-  title: 'Ostrzeżenia meteo IMGW/RCB - powódź, burze, mróz | wezmezadarmo',
-  description: 'Aktualne ostrzeżenia meteorologiczne i kryzysowe dla całej Polski. IMGW i Rządowe Centrum Bezpieczeństwa. Dane na żywo.',
+  title: 'Ostrzeżenia IMGW: burze, powodzie, mróz | wezmezadarmo',
+  description: 'Aktualne ostrzeżenia meteorologiczne i hydrologiczne IMGW dla całej Polski. Dane na żywo z danepubliczne.imgw.pl.',
   openGraph: {
     images: OG_IMAGES,
-    title: 'Ostrzeżenia meteo i kryzysowe',
-    description: 'Powódź, burze, mróz, smog - na żywo z IMGW i RCB.',
+    title: 'Ostrzeżenia meteorologiczne i hydrologiczne',
+    description: 'Burze, powodzie, mróz - na żywo z IMGW.',
     locale: 'pl_PL', type: 'website',
   },
 };
