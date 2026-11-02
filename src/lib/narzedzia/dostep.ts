@@ -1,7 +1,7 @@
 /**
  * Dostęp do narzędzi dla firm (/narzedzia/*) po potwierdzeniu e-maila.
  * Ciasteczko httpOnly: `<idLeada>.<wygasa_unix>.<podpis>`, podpis HMAC-SHA256 (Web Crypto: działa w middleware i w API).
- * Bez sekretu (NARZEDZIA_SECRET) dostępu nie da się wydać ani sprawdzić: fail closed.
+ * Sekret: NARZEDZIA_SECRET, a bez niego klucz pochodny od SUPABASE_SERVICE_ROLE_KEY. Bez obu dostępu nie da się wydać ani sprawdzić: fail closed.
  */
 
 export const COOKIE_DOSTEP = 'wzd_narzedzia';
@@ -15,6 +15,10 @@ export function trybTestowy(): boolean {
 export function sekret(): string | null {
   const s = process.env.NARZEDZIA_SECRET;
   if (s && s.length >= 16) return s;
+  // Bez osobnego sekretu: klucz pochodny od klucza serwisowego Supabase (tylko po stronie serwera),
+  // z prefiksem, żeby podpis ciasteczka nie był tym samym kluczem co dostęp do bazy.
+  const srk = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (srk && srk.length >= 16) return `narzedzia-dostep:${srk}`;
   return trybTestowy() ? TEST_SECRET : null;
 }
 

@@ -110,3 +110,14 @@ describe('middleware /narzedzia', () => {
     expect(z.headers.get('x-robots-tag')).toBe('noindex, nofollow');
   });
 });
+
+describe('powiadomienie o leadzie dla właściciela', () => {
+  it('pokazuje dane leada i ucieka znaki HTML', async () => {
+    const { mailLeadHtml, WLASCICIEL_EMAIL } = await import('../narzedzia/mail');
+    const html = mailLeadHtml({ email: 'a@b.pl', imie: '<script>x</script>', telefon: null }, new Date('2026-11-02T08:00:00Z'));
+    expect(WLASCICIEL_EMAIL).toBe('sobkowicz.kamil@gmail.com');
+    expect(html).toContain('a@b.pl');
+    expect(html).not.toContain('<script>');
+    expect(html).toContain('&lt;script&gt;');
+  });
+});

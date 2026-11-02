@@ -38,3 +38,34 @@ export async function wyslijLink(email: string, link: string, imie: string | nul
   });
   if (error) throw new Error('wysyłka maila nie powiodła się');
 }
+
+/** Adres Kamila: tu przychodzi każdy nowy lead z narzędzi dla firm (ten sam co raporty audytu i formularz kontaktowy). */
+export const WLASCICIEL_EMAIL = 'sobkowicz.kamil@gmail.com';
+
+const esc = (v: string) => v.replace(/[<>&"]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c] as string));
+
+export function mailLeadHtml(dane: { email: string; imie: string | null; telefon: string | null }, kiedy: Date): string {
+  const wiersz = (k: string, v: string | null) =>
+    `<tr><td style="padding:6px 12px 6px 0;color:#6f655b;">${k}</td><td style="padding:6px 0;font-weight:bold;">${v ? esc(v) : '-'}</td></tr>`;
+  return `<!DOCTYPE html><html lang="pl"><head><meta charset="utf-8"></head>
+<body style="margin:0;padding:24px 16px;background:#f6f0e4;font-family:Arial,Helvetica,sans-serif;color:#2b2420;">
+<h1 style="font-size:19px;margin:0 0 12px;">Nowy lead: narzędzia dla firm</h1>
+<table role="presentation" cellpadding="0" cellspacing="0" style="font-size:15px;">
+${wiersz('E-mail', dane.email)}${wiersz('Imię', dane.imie)}${wiersz('Telefon', dane.telefon)}${wiersz('Kiedy', kiedy.toLocaleString('pl-PL', { timeZone: 'Europe/Warsaw' }))}
+</table>
+<p style="font-size:13px;color:#6f655b;margin:16px 0 0;">Zgoda na kontakt: tak. Adres jeszcze niepotwierdzony; status potwierdzenia: <a href="${SITE_URL}/admin/narzedzia">${SITE_URL}/admin/narzedzia</a></p>
+</body></html>`;
+}
+
+/** Powiadomienie dla Kamila o nowym leadzie. Błąd nie blokuje formularza. */
+export async function powiadomWlasciciela(dane: { email: string; imie: string | null; telefon: string | null }): Promise<void> {
+  const resend = getResend();
+  const { error } = await resend.emails.send({
+    from: FROM_EMAIL,
+    to: WLASCICIEL_EMAIL,
+    replyTo: dane.email,
+    subject: `[lead] Narzędzia dla firm: ${dane.email}`,
+    html: mailLeadHtml(dane, new Date()),
+  });
+  if (error) throw new Error('powiadomienie o leadzie nie wyszło');
+}

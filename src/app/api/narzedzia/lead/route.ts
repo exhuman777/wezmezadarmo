@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { walidujLead } from '@/lib/narzedzia/walidacja';
 import { hashTokenu, nowyToken, terminTokenu } from '@/lib/narzedzia/token';
 import { magazyn } from '@/lib/narzedzia/leady';
-import { linkPotwierdzenia, wyslijLink } from '@/lib/narzedzia/mail';
+import { linkPotwierdzenia, powiadomWlasciciela, wyslijLink } from '@/lib/narzedzia/mail';
 import { trybTestowy } from '@/lib/narzedzia/dostep';
 import { hashIp, ipZadania, limitOk } from '@/lib/narzedzia/limit';
 
@@ -43,6 +43,11 @@ export async function POST(request: NextRequest) {
   } catch {
     console.error('[narzedzia/lead] wysyłka maila nieudana');
     return NextResponse.json({ error: 'Zapisaliśmy adres, ale mail nie wyszedł. Spróbuj ponownie za chwilę.' }, { status: 502 });
+  }
+  try {
+    await powiadomWlasciciela(wynik.dane);
+  } catch {
+    console.error('[narzedzia/lead] powiadomienie właściciela nieudane');
   }
   return NextResponse.json({ ok: true });
 }

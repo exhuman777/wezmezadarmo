@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
 
   const wartosc = await wydajDostep(wynik.id);
   if (!wartosc) {
-    console.error('[narzedzia/potwierdz] brak NARZEDZIA_SECRET');
+    console.error('[narzedzia/potwierdz] brak sekretu dostępu (NARZEDZIA_SECRET albo SUPABASE_SERVICE_ROLE_KEY)');
     return wroc('blad');
   }
   const res = wroc('ok');
