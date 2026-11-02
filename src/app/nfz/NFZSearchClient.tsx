@@ -508,23 +508,11 @@ export default function NFZSearchClient() {
 // ============================================================
 function Hero() {
   return (
-    <section style={{
-      background: '#2b2420',
-      borderRadius: 0,
-      position: 'relative', overflow: 'hidden',
-      padding: 'clamp(36px, 4vw, 56px) 20px clamp(32px, 4vw, 48px)',
-    }}>
-      <div style={{ position: 'absolute', top: '20%', right: '5%', width: 400, height: 400, borderRadius: '50%', background: 'transparent', pointerEvents: 'none' }} />
-      <div className="wrap" style={{ position: 'relative', maxWidth: 1080, margin: '0 auto' }}>
-        <div style={{ fontSize: 13, fontWeight: 600, color: 'rgba(169,212,189,0.95)', letterSpacing: '0.04em', textTransform: 'uppercase' as const, marginBottom: 16 }}>
-          Wyszukiwarka NFZ
-        </div>
-        <h1 style={{ fontSize: 'clamp(30px, 4.5vw, 44px)', fontWeight: 700, lineHeight: 1.1, letterSpacing: '-0.02em', color: '#fff', margin: '0 0 14px', maxWidth: 720 }}>
-          Kolejki i świadczeniodawcy NFZ
-        </h1>
-        <p style={{ fontSize: 17, lineHeight: 1.55, color: 'rgba(255,255,255,0.85)', margin: 0, maxWidth: 600 }}>
-          Sprawdź czas oczekiwania do specjalisty, znajdź szpital lub przychodnię. Dane na żywo z api.nfz.gov.pl.
-        </p>
+    <section className="prosta" style={{ paddingBottom: 8 }}>
+      <div className="prosta-blok">
+        <p className="etykieta">Wyszukiwarka NFZ</p>
+        <h1>Kolejki i świadczeniodawcy NFZ</h1>
+        <p className="pod">Czas oczekiwania do specjalisty, szpitale i przychodnie. Dane na żywo z api.nfz.gov.pl.</p>
       </div>
     </section>
   );

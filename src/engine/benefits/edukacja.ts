@@ -3,13 +3,13 @@ import { Benefit } from '../types';
 export const EDUKACJA: Benefit[] = [
   {
     id: 'stypendium-socjalne', nazwa: 'Stypendium socjalne',
-    opis: 'Stypendium socjalne to comiesięczne wsparcie dla studentów z rodzin o niskich dochodach. Próg: 1908,90 PLN netto na osobę w rodzinie (ustawowy, uczelnia nie może go zmienić). Kwota 1000-2500 PLN/mies. przez 10 miesięcy (zależy od uczelni i poziomu dochodu). Przy dochodzie poniżej 600 PLN/os. wymagane zaświadczenie z ośrodka pomocy społecznej o sytuacji rodziny. Łączna kwota stypendium socjalnego + rektora nie może przekroczyć 3560,60 PLN/mies. Nie można pobierać na dwóch kierunkach jednocześnie. Wniosek na początku semestru w dziekanacie lub biurze stypendialnym.',
+    opis: 'Stypendium socjalne to comiesięczne wsparcie dla studentów z rodzin o niskich dochodach. Próg w roku akademickim 2026/2027: 2099,70 PLN netto na osobę w rodzinie (45% minimalnego wynagrodzenia z 1.01.2025; w 2025/2026 było 1908,90 PLN). Próg jest ustawowy, uczelnia nie może go podwyższyć. Kwota 1000-2500 PLN/mies. przez 10 miesięcy (zależy od uczelni i poziomu dochodu). Przy dochodzie poniżej 600 PLN/os. wymagane zaświadczenie z ośrodka pomocy społecznej o sytuacji rodziny. Łączna kwota stypendium socjalnego + rektora nie może przekroczyć 3560,60 PLN/mies. Nie można pobierać na dwóch kierunkach jednocześnie. Wniosek na początku semestru w dziekanacie lub biurze stypendialnym.',
     kategoria: 'EDUKACJA',
     kwota: '1000-2500 PLN miesięcznie (zależy od uczelni)', kwotaMin: 1000, kwotaMax: 2500,
     czestotliwosc: 'miesięcznie (10 miesięcy w roku akademickim)',
-    wymagania: { student: true, dochodMax: 1908.90 },
+    wymagania: { student: true, dochodMax: 2099.70 },
     wykluczenia: [
-      { opis: 'Dochód netto na osobę w rodzinie przekracza 1908,90 PLN miesięcznie', sprawdz: 'dochod_na_osobe' },
+      { opis: 'Dochód netto na osobę w rodzinie przekracza 2099,70 PLN miesięcznie (rok akademicki 2026/2027)', sprawdz: 'dochod_na_osobe' },
       { opis: 'Student pobiera już stypendium socjalne na innym kierunku', sprawdz: 'podwojne_stypendium' },
     ],
     wniosek: {
@@ -30,7 +30,7 @@ export const EDUKACJA: Benefit[] = [
       ],
       terminRealizacji: '30 dni od złożenia kompletnego wniosku',
       pulapki: [
-        'Próg dochodowy 1908,90 PLN netto na osobę, nawet uczelnia nie może go podwyższyć',
+        'Próg dochodowy 2099,70 PLN netto na osobę w 2026/2027 (45% minimalnego wynagrodzenia z 1.01.2025), uczelnia nie może go podwyższyć',
         'Łączna kwota stypendium socjalnego i rektora nie może przekroczyć 3560,60 PLN miesięcznie',
         'Przy dochodzie poniżej 600 PLN na osobę musisz dołączyć zaświadczenie z ośrodka pomocy społecznej',
         'Termin składania wniosków ustala uczelnia, zwykle początek semestru',
@@ -38,7 +38,7 @@ export const EDUKACJA: Benefit[] = [
       odwolanie: 'Odwołanie do rektora w ciągu 14 dni od decyzji komisji stypendialnej',
     },
     zrodloUrl: 'https://www.gov.pl/web/nauka/swiadczenia-dla-studentow-w-roku-akademickim-2025-2026',
-    zrodloNazwa: 'Ministerstwo Nauki i Szkolnictwa Wyższego', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Nauki i Szkolnictwa Wyższego', dataWeryfikacji: '2026-11-01', dataWaznosci: '2026-12-31',
   },
   {
     id: 'stypendium-rektora', nazwa: 'Stypendium rektora',
@@ -144,13 +144,13 @@ export const EDUKACJA: Benefit[] = [
       pulapki: [
         'Termin składania: do 15 września, po tym terminie gmina może odrzucić wniosek',
         'Stypendium najczęściej wypłacane jako zwrot kosztów, musisz mieć rachunki',
-        'Kwota zależy od dochodu: do 411,50 PLN na osobę, 176 PLN/mies., 411,50-823 PLN, 106 PLN/mies.',
+        'Konkretną kwotę (99,20-248 PLN) ustala regulamin gminy, zwykle wyższą przy niższym dochodzie',
         'Łącznie w roku szkolnym można otrzymać maks. 2480 PLN',
       ],
       odwolanie: 'Odwołanie do Samorządowego Kolegium Odwoławczego w ciągu 14 dni',
     },
     zrodloUrl: 'https://www.gov.pl/web/edukacja/stypendium-szkolne-oraz-zasilek-szkolny',
-    zrodloNazwa: 'Ministerstwo Edukacji Narodowej', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
+    zrodloNazwa: 'Ministerstwo Edukacji Narodowej', dataWeryfikacji: '2026-11-01', dataWaznosci: '2026-12-31',
   },
   {
     id: 'zasilek-szkolny', nazwa: 'Zasiłek szkolny',

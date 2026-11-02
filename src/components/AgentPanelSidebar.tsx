@@ -43,7 +43,7 @@ export function AgentPanelSidebar({ activeMode, onModeChange, collapsed }: Props
   const pathname = usePathname();
 
   return (
-    <aside style={{
+    <aside className="panel-boczne" style={{
       width: collapsed ? 60 : 240,
       borderRight: '1px solid var(--color-border)',
       background: 'var(--color-bg-1)',
@@ -56,7 +56,7 @@ export function AgentPanelSidebar({ activeMode, onModeChange, collapsed }: Props
       {/* Agent types */}
       <div style={{ padding: collapsed ? '12px 6px' : '16px 12px', borderBottom: '1px solid var(--color-border)' }}>
         {!collapsed && (
-          <div style={{
+          <div className="panel-etykieta" style={{
             fontFamily: 'var(--font-mono)', fontSize: 10,
             color: 'var(--color-text-3)', letterSpacing: '0.08em',
             textTransform: 'uppercase', marginBottom: 6, padding: '0 6px',
@@ -65,11 +65,11 @@ export function AgentPanelSidebar({ activeMode, onModeChange, collapsed }: Props
           </div>
         )}
         {!collapsed && (
-          <div style={{ fontSize: 10, color: 'var(--color-text-3)', padding: '0 6px', marginBottom: 8 }}>
+          <div className="panel-etykieta" style={{ fontSize: 10, color: 'var(--color-text-3)', padding: '0 6px', marginBottom: 8 }}>
             Auto-routing (kliknij aby wymusić agenta)
           </div>
         )}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+        <div className="panel-linki" style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           {AGENT_TYPES.map(agent => {
             const isActive = activeMode === agent.id;
             return (
@@ -108,7 +108,7 @@ export function AgentPanelSidebar({ activeMode, onModeChange, collapsed }: Props
                 {!collapsed && (
                   <div style={{ minWidth: 0 }}>
                     <div style={{ fontSize: 13, fontWeight: 500, lineHeight: 1.2 }}>{agent.label}</div>
-                    <div style={{ fontSize: 10, opacity: 0.7, lineHeight: 1.2, marginTop: 1 }}>{agent.desc}</div>
+                    <div className="panel-opis" style={{ fontSize: 10, opacity: 0.7, lineHeight: 1.2, marginTop: 1 }}>{agent.desc}</div>
                   </div>
                 )}
               </button>
@@ -118,7 +118,7 @@ export function AgentPanelSidebar({ activeMode, onModeChange, collapsed }: Props
       </div>
 
       {/* Nav links */}
-      <div style={{ padding: collapsed ? '12px 6px' : '12px', flex: 1 }}>
+      <nav aria-label="Panel" className="panel-linki" style={{ padding: collapsed ? '12px 6px' : '12px', flex: 1 }}>
         {NAV_ITEMS.map(item => {
           const isActive = item.exact
             ? pathname === item.href
@@ -147,10 +147,10 @@ export function AgentPanelSidebar({ activeMode, onModeChange, collapsed }: Props
             </Link>
           );
         })}
-      </div>
+      </nav>
 
       {/* Logout */}
-      <div style={{ padding: collapsed ? '12px 6px' : '12px', borderTop: '1px solid var(--color-border)' }}>
+      <div className="panel-wyloguj" style={{ padding: collapsed ? '12px 6px' : '12px', borderTop: '1px solid var(--color-border)' }}>
         <Link
           href="/agent"
           style={{

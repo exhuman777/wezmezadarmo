@@ -9,7 +9,7 @@ function PanelLayoutInner({ children }: { children: React.ReactNode }) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   return (
-    <div style={{
+    <div className="panel-uklad" style={{
       display: 'flex',
       height: 'calc(100vh - 60px)',
       overflow: 'hidden',
@@ -20,6 +20,7 @@ function PanelLayoutInner({ children }: { children: React.ReactNode }) {
         collapsed={sidebarCollapsed}
       />
       <button
+        className="panel-zwin"
         onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
         style={{
           position: 'absolute',
@@ -36,11 +37,11 @@ function PanelLayoutInner({ children }: { children: React.ReactNode }) {
           color: 'var(--color-text-3)',
           transition: 'left 200ms',
         }}
-        title={sidebarCollapsed ? 'Rozwin sidebar' : 'Zwin sidebar'}
+        title={sidebarCollapsed ? 'Rozwiń menu' : 'Zwiń menu'}
       >
         {sidebarCollapsed ? '>' : '<'}
       </button>
-      <main style={{
+      <main className="panel-tresc" style={{
         flex: 1,
         overflowY: 'auto',
         position: 'relative',

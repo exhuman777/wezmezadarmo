@@ -107,7 +107,7 @@ export default function AgentPage() {
             margin: 0,
           }}
         >
-          Agent AI -- charakter informacyjny. Nie gwarantujemy przyznania dofinansowania.
+          Agent AI ma charakter informacyjny. Nie gwarantujemy przyznania dofinansowania.
         </p>
       </div>
 

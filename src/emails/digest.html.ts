@@ -83,11 +83,11 @@ export function buildDigestHtml(payload: DigestPayload): string {
         <!-- Footer -->
         <tr><td style="padding: 24px 32px; border-top: 1px solid ${borderColor}; background: #f5f0e8;">
           <div style="font-size: 11px; color: ${mutedColor}; line-height: 1.6;">
-            <a href="https://wezmezadarmo.com/agent/panel/powiadomienia" style="color: ${accentColor}; text-decoration: none;">Zarządzaj ustawieniami</a>
+            <a href="https://www.wezmezadarmo.com/agent/panel/powiadomienia" style="color: ${accentColor}; text-decoration: none;">Zarządzaj ustawieniami</a>
             &nbsp;&bull;&nbsp;
-            <a href="https://wezmezadarmo.com/agent/panel" style="color: ${accentColor}; text-decoration: none;">Panel agenta</a>
+            <a href="https://www.wezmezadarmo.com/agent/panel" style="color: ${accentColor}; text-decoration: none;">Panel agenta</a>
             &nbsp;&bull;&nbsp;
-            <a href="https://wezmezadarmo.com/api/newsletter/unsubscribe?email=${encodeURIComponent(payload.to)}&hash=${emailHash(payload.to)}" style="color: ${mutedColor}; text-decoration: underline;">Wypisz się</a>
+            <a href="https://www.wezmezadarmo.com/api/newsletter/unsubscribe?email=${encodeURIComponent(payload.to)}&hash=${emailHash(payload.to)}" style="color: ${mutedColor}; text-decoration: underline;">Wypisz się</a>
           </div>
           <div style="font-size: 10px; color: ${mutedColor}; margin-top: 8px; line-height: 1.5;">
             Ten e-mail nie zawiera Twoich danych osobowych.

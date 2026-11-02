@@ -21,6 +21,7 @@ const BASE = 'https://api.nbp.pl/api';
 
 export async function getCurrentRates(): Promise<NbpTable> {
   const res = await fetch(`${BASE}/exchangerates/tables/A?format=json`, {
+    signal: AbortSignal.timeout(10_000),
     headers: { Accept: 'application/json' },
     // Cache in Next.js fetch cache for 1h (rates update once a day on weekdays)
     next: { revalidate: 3600 },

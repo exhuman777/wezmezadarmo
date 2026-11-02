@@ -19,7 +19,8 @@ export interface CeidgBusinessData {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function parseCeidgResponse(data: any): CeidgBusinessData {
-  const firma = data?.firma?.[0];
+  // v3 zwraca listę w polu "firmy", stare v2 w polu "firma"
+  const firma = data?.firmy?.[0] ?? data?.firma?.[0];
   if (!firma) {
     return {
       aktywna: false, nazwa: null, dataRejestracji: null,
@@ -28,12 +29,15 @@ export function parseCeidgResponse(data: any): CeidgBusinessData {
     };
   }
   return {
-    aktywna: firma.status === 'AKTYWNY' && !firma.dataZakonczeniaDzialalnosci,
+    aktywna: firma.status === 'AKTYWNY' && !(firma.dataZakonczeniaDzialalnosci ?? firma.dataZakonczenia),
     nazwa: firma.nazwa ?? null,
-    dataRejestracji: firma.dataRozpoczeciaDzialalnosci ?? null,
-    dataZawieszenia: firma.dataZawieszeniaDzialalnosci ?? null,
-    dataZakonczenia: firma.dataZakonczeniaDzialalnosci ?? null,
-    pkd: (firma.pkd ?? []).map((p: { kod: string }) => p.kod),
+    dataRejestracji: firma.dataRozpoczeciaDzialalnosci ?? firma.dataRozpoczecia ?? null,
+    dataZawieszenia: firma.dataZawieszeniaDzialalnosci ?? firma.dataZawieszenia ?? null,
+    dataZakonczenia: firma.dataZakonczeniaDzialalnosci ?? firma.dataZakonczenia ?? null,
+    pkd: [
+      ...(firma.pkdGlowny?.kod ? [firma.pkdGlowny.kod as string] : []),
+      ...(firma.pkd ?? []).map((p: { kod: string }) => p.kod),
+    ].filter((k, i, a) => k && a.indexOf(k) === i),
     status: firma.status ?? null,
     wojewodztwo: firma.adresDzialalnosci?.wojewodztwo
       ? String(firma.adresDzialalnosci.wojewodztwo).toLowerCase()
@@ -60,8 +64,9 @@ export async function lookupNip(nip: string): Promise<CeidgBusinessData> {
   }
 
   const response = await fetch(
-    `https://dane.biznes.gov.pl/api/ceidg/v2/firmy?nip=${nip}`,
+    `https://dane.biznes.gov.pl/api/ceidg/v3/firmy?nip=${nip}`,
     {
+      signal: AbortSignal.timeout(10_000),
       headers: {
         Authorization: `Bearer ${token}`,
         Accept: 'application/json',

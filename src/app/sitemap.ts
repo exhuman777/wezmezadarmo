@@ -65,6 +65,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // B2B
     { url: `${BASE}/dla-firm`, lastModified: STATIC_LASTMOD, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE}/dla-firm/narzedzia`, lastModified: STATIC_LASTMOD, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/za-darmo-dla-biznesu`, lastModified: STATIC_LASTMOD, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE}/automatyzacje`, lastModified: STATIC_LASTMOD, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE}/dotacje`, lastModified: STATIC_LASTMOD, changeFrequency: 'weekly', priority: 0.8 },

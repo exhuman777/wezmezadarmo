@@ -1,95 +1,76 @@
 import type { FeedMeta } from '@/app/aktualnosci/rss';
 
-// B2B grant-specific RSS sources.
-// Failures handled gracefully -- failed feeds are silently skipped.
-// Verify URLs at each source if feed stops returning data.
+// Źródła RSS dla monitoringu naborów B2B (cron /api/dotacje/cron/daily-scrape).
+// Stan 1.11.2026: zostały tylko kanały, które zwracają prawdziwy RSS z aktualnymi wpisami
+// (sprawdzenie: npx tsx scripts/sprawdz-zrodla.ts). Usunięte, bo nie działały:
+// - Fundusze Europejskie (/rss to strona HTML, WordPress /?feed=rss2 bez wpisów),
+// - PARP i BGK (ochrona przed botami zwraca stronę z wyzwaniem zamiast RSS),
+// - NCBR (stary adres zwraca 400, nowego kanału nie znaleziono),
+// - PSZ (/rss 404).
+// ARiMR, MF, MRiPT i MRiPS są na gov.pl, który nie ma RSS (stare /api/feed przekierowywało
+// na stronę główną). Pobieramy listę wiadomości z ich stron (format: 'govpl').
+// Raport: docs/audyt-api-2026-11-01.md
 export const GRANT_RSS_SOURCES: FeedMeta[] = [
-  {
-    id: 'fundusze-eu',
-    name: 'Fundusze EU',
-    fullName: 'Fundusze Europejskie - nabory i aktualności',
-    url: 'https://www.funduszeeuropejskie.gov.pl/rss',
-    audiences: ['firmy'],
-    tags: ['dotacje', 'nabory', 'UE', 'KPO', 'FENG'],
-  },
-  {
-    id: 'parp',
-    name: 'PARP',
-    fullName: 'Polska Agencja Rozwoju Przedsiębiorczości',
-    url: 'https://www.parp.gov.pl/aktualnosci?format=feed&type=rss',
-    audiences: ['firmy'],
-    tags: ['parp', 'msp', 'innowacje', 'feng', 'dotacje'],
-  },
-  {
-    id: 'ncbr',
-    name: 'NCBR',
-    fullName: 'Narodowe Centrum Badań i Rozwoju',
-    url: 'https://www.ncbr.gov.pl/aktualnosci/?format=feed&type=rss',
-    audiences: ['firmy'],
-    tags: ['ncbr', 'badania', 'innowacje', 'szybka ścieżka'],
-  },
   {
     id: 'pfron',
     name: 'PFRON',
     fullName: 'Państwowy Fundusz Rehabilitacji Osób Niepełnosprawnych',
-    url: 'https://www.pfron.org.pl/aktualnosci/aktualnosci/rss.xml',
+    // Nowa domena pfron.gov.pl, kanał RSS TYPO3 (link z ikony RSS na stronie głównej)
+    url: 'https://www.pfron.gov.pl/?type=9818',
     audiences: ['firmy'],
     tags: ['pfron', 'niepełnosprawni', 'rehabilitacja', 'sod'],
   },
   {
-    id: 'psz-pup',
-    name: 'PSZ/PUP',
-    fullName: 'Publiczne Służby Zatrudnienia',
-    url: 'https://psz.praca.gov.pl/rss',
+    id: 'zus-b2b',
+    name: 'ZUS',
+    fullName: 'Zakład Ubezpieczeń Społecznych - aktualności',
+    // Adresy z https://www.zus.pl/kanal-rss
+    url: 'https://www.zus.pl/o-zus/aktualnosci/-/asset_publisher/aktualnosci/rss',
     audiences: ['firmy'],
-    tags: ['pup', 'kfs', 'zatrudnienie', 'szkolenia', 'bezrobotni'],
+    tags: ['zus', 'składki', 'ulgi', 'dofinansowania', 'mały zus plus'],
+  },
+  {
+    id: 'zus-wyjasnienia',
+    name: 'ZUS wyjaśnienia',
+    fullName: 'ZUS - bieżące wyjaśnienia komórek merytorycznych',
+    url: 'https://www.zus.pl/baza-wiedzy/biezace-wyjasnienia-komorek-merytorycznych/-/asset_publisher/biezace-wyjasnienia-komorek-merytorycznych/rss',
+    audiences: ['firmy'],
+    tags: ['zus', 'składki', 'przepisy', 'wyjaśnienia'],
   },
   {
     id: 'arimr-b2b',
     name: 'ARiMR',
     fullName: 'Agencja Restrukturyzacji i Modernizacji Rolnictwa',
-    url: 'https://www.arimr.gov.pl/rss.html',
+    url: 'https://www.gov.pl/web/arimr',
     audiences: ['firmy'],
     tags: ['rolnictwo', 'arimr', 'dotacje', 'modernizacja', 'restrukturyzacja'],
-  },
-  {
-    id: 'bgk',
-    name: 'BGK',
-    fullName: 'Bank Gospodarstwa Krajowego',
-    url: 'https://www.bgk.pl/aktualnosci/?format=feed&type=rss',
-    audiences: ['firmy'],
-    tags: ['bgk', 'pożyczki', 'innowacje', 'polska wschodnia'],
-  },
-  {
-    id: 'zus-b2b',
-    name: 'ZUS',
-    fullName: 'Zakład Ubezpieczeń Społecznych',
-    url: 'https://www.zus.pl/kanal-rss',
-    audiences: ['firmy'],
-    tags: ['zus', 'składki', 'ulgi', 'dofinansowania', 'mały zus plus'],
+    format: 'govpl',
   },
   {
     id: 'gov-mf',
     name: 'MF',
     fullName: 'Ministerstwo Finansów',
-    url: 'https://www.gov.pl/api/feed/web/finanse/aktualnosci',
+    url: 'https://www.gov.pl/web/finanse',
     audiences: ['firmy'],
     tags: ['podatki', 'ulgi podatkowe', 'przepisy', 'ksef'],
+    format: 'govpl',
   },
   {
     id: 'gov-mrpit',
-    name: 'MRiPT',
+    name: 'MRiT',
     fullName: 'Ministerstwo Rozwoju i Technologii',
-    url: 'https://www.gov.pl/api/feed/web/rozwoj-technologia/aktualnosci',
+    url: 'https://www.gov.pl/web/rozwoj-technologia',
     audiences: ['firmy'],
     tags: ['gospodarka', 'przedsiębiorczość', 'msp', 'inwestycje'],
+    format: 'govpl',
   },
   {
     id: 'gov-mps',
-    name: 'MRiPS',
-    fullName: 'Ministerstwo Rodziny i Polityki Społecznej',
-    url: 'https://www.gov.pl/api/feed/web/rodzina/aktualnosci',
+    name: 'MRPiPS',
+    fullName: 'Ministerstwo Rodziny, Pracy i Polityki Społecznej',
+    url: 'https://www.gov.pl/web/rodzina',
     audiences: ['firmy'],
     tags: ['zatrudnienie', 'rynek pracy', 'kfs', 'aktywizacja'],
+    format: 'govpl',
   },
 ];

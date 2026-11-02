@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Faktura syntetyczna do testów „Przegląd przed 2027”. Dane fikcyjne. -->
+<Faktura xmlns="http://crd.gov.pl/wzor/2025/06/25/13775/" xmlns:etd="http://crd.gov.pl/xml/schematy/dziedzinowe/mf/2022/01/05/eD/DefinicjeTypy/">
+  <Naglowek>
+    <KodFormularza kodSystemowy="FA (3)" wersjaSchemy="1-0E">FA</KodFormularza>
+    <WariantFormularza>3</WariantFormularza>
+    <DataWytworzeniaFa>2026-03-02T10:00:00Z</DataWytworzeniaFa>
+    <SystemInfo>Generator testowy</SystemInfo>
+  </Naglowek>
+  <Podmiot1>
+    <DaneIdentyfikacyjne><NIP>7129001013</NIP><Nazwa>Piekarnia Pod Kłosem Sp. z o.o. (dane fikcyjne)</Nazwa></DaneIdentyfikacyjne>
+    <Adres><KodKraju>PL</KodKraju><AdresL1>ul. Przykładowa 1, 20-000 Lublin</AdresL1></Adres>
+  </Podmiot1>
+  <Podmiot2>
+    <DaneIdentyfikacyjne><NIP>7126006062</NIP><Nazwa>Kawiarnia Fikcyjna s.c.</Nazwa></DaneIdentyfikacyjne>
+    <Adres><KodKraju>PL</KodKraju><AdresL1>ul. Testowa 2, 20-000 Lublin</AdresL1></Adres>
+    <JST>2</JST><GV>2</GV>
+  </Podmiot2>
+  <Fa>
+    <KodWaluty>PLN</KodWaluty>
+    <P_1>2026-03-02</P_1>
+    <P_2>FV/1/03/2026</P_2>
+    <P_13_1>1200.00</P_13_1>
+    <P_14_1>276.00</P_14_1>
+    <P_15>1476.00</P_15>
+    <Adnotacje><P_16>2</P_16><P_17>2</P_17><P_18>2</P_18><P_18A>2</P_18A><Zwolnienie><P_19N>1</P_19N></Zwolnienie><NoweSrodkiTransportu><P_22N>1</P_22N></NoweSrodkiTransportu><P_23>2</P_23><PMarzy><P_PMarzyN>1</P_PMarzyN></PMarzy></Adnotacje>
+    <RodzajFaktury>VAT</RodzajFaktury>
+  </Fa>
+</Faktura>

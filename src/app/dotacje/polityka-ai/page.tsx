@@ -362,7 +362,7 @@ export default function PolitykAiPage() {
             textDecoration: 'none',
           }}
         >
-          -- powrót do strony głównej dotacje
+          Powrót do strony głównej dotacji
         </Link>
         <Link
           href="/dotacje/regulamin"

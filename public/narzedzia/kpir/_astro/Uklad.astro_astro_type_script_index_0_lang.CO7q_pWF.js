@@ -1,0 +1,1 @@
+const n=t=>[...document.querySelectorAll(t)];addEventListener("beforeprint",()=>{const t=document.getElementById("druk-data");t&&(t.textContent="Wydruk "+new Date().toLocaleDateString("pl-PL")),n("details").forEach(e=>{e.dataset.byl=e.open?"1":""})});document.addEventListener("click",t=>{t.target.closest("[data-drukuj]")&&window.print()});

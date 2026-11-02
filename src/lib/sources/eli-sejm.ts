@@ -49,7 +49,10 @@ export function filterByKeywords(acts: EliAct[], keywords: string[]): EliAct[] {
 
 export async function fetchRecentChanges(opts?: { keywords?: string[]; limit?: number }): Promise<EliAct[]> {
   const limit = opts?.limit ?? 50;
-  const res = await fetch(`${BASE}/acts/DU/2026?limit=${limit}&offset=0`, {
+  // Bieżący rok (wcześniej na sztywno 2026: od stycznia lista byłaby pusta)
+  const year = new Date().getFullYear();
+  const res = await fetch(`${BASE}/acts/DU/${year}?limit=${limit}&offset=0`, {
+    signal: AbortSignal.timeout(10_000),
     headers: { Accept: 'application/json', 'User-Agent': 'wezmezadarmo/1.0' },
     next: { revalidate: 1800 },
   });

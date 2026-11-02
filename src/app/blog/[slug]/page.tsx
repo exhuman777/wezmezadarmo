@@ -108,94 +108,51 @@ export default async function BlogPost({ params }: Props) {
   };
 
   return (
-    <main style={{ maxWidth: 720, margin: '0 auto', padding: '40px 24px 60px' }}>
+    <main className="prosta">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }} />
 
-      <Link href="/blog" style={{ fontSize: 13, color: '#2b7353', textDecoration: 'none', marginBottom: 20, display: 'inline-block' }}>
-        ← Wszystkie artykuły
-      </Link>
+      <section className="prosta-blok">
+        <p className="mala" style={{ margin: '0 0 12px' }}><Link href="/blog">← Wszystkie artykuły</Link></p>
+        <p className="etykieta">
+          <time dateTime={post.date}>{new Date(post.date).toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' })}</time>
+          {' · '}{post.readingMinutes} min czytania
+        </p>
+        <h1>{post.title}</h1>
+        <p className="pod">{post.description}</p>
+      </section>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
-        <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#2b7353' }} />
-        <time style={{ fontFamily: 'var(--f-mono)', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink-500)' }}>
-          {new Date(post.date).toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' })}
-        </time>
-        <span style={{ fontSize: 11, color: 'var(--ink-400)' }}>·</span>
-        <span style={{ fontFamily: 'var(--f-mono)', fontSize: 11, color: 'var(--ink-500)' }}>{post.readingMinutes} min</span>
-      </div>
-
-      <h1 style={{ fontSize: 'clamp(26px, 4.5vw, 38px)', fontWeight: 700, marginBottom: 16, color: 'var(--ink-900)', lineHeight: 1.2 }}>
-        {post.title}
-      </h1>
-
-      <p style={{ fontSize: 17, color: 'var(--ink-700)', lineHeight: 1.6, marginBottom: 28, paddingLeft: 14, borderTop: '2px solid var(--green-200)' }}>
-        {post.description}
-      </p>
-
-      <article style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink-800)' }}>
+      <article className="prosta-blok" style={{ fontSize: 17, lineHeight: 1.7, color: 'var(--tusz)' }}>
         {blocks.map((block, i) => {
           if (block.type === 'h2') {
-            return (
-              <h2 key={i} style={{
-                fontSize: 22, fontWeight: 700, marginTop: 36, marginBottom: 14,
-                color: 'var(--ink-900)', letterSpacing: '-0.01em',
-              }}>{block.content as string}</h2>
-            );
+            return <h2 key={i} style={{ marginTop: 32 }}>{block.content as string}</h2>;
           }
           if (block.type === 'ul') {
             return (
-              <ul key={i} style={{ marginTop: 12, marginBottom: 20, paddingLeft: 0, listStyle: 'none' }}>
-                {(block.content as string[]).map((item, j) => (
-                  <li key={j} style={{ paddingLeft: 22, position: 'relative', marginBottom: 8 }}>
-                    <span style={{ position: 'absolute', left: 4, color: '#2b7353', fontWeight: 700 }}>•</span>
-                    {item}
-                  </li>
-                ))}
+              <ul key={i} className="lista">
+                {(block.content as string[]).map((item, j) => <li key={j}>{item}</li>)}
               </ul>
             );
           }
           if (block.type === 'cta') {
             const [label, url] = (block.content as string).split('|');
             return (
-              <div key={i} style={{ margin: '24px 0', padding: '16px 20px', background: 'var(--green-50)', border: '1px solid var(--green-200)', borderRadius: 2 }}>
-                <Link href={url} style={{ color: '#2b7353', fontWeight: 600, textDecoration: 'none', fontSize: 15 }}>
-                  {label} →
-                </Link>
+              <div key={i} className="przyciski">
+                <Link href={url} className="btn btn-lg" style={{ whiteSpace: 'normal', maxWidth: '100%', textAlign: 'center' }}>{label.replace(/\s*→\s*$/, '')} →</Link>
               </div>
             );
           }
-          return (
-            <p key={i} style={{ marginBottom: 16 }}>{block.content as string}</p>
-          );
+          return <p key={i} style={{ margin: '0 0 16px' }}>{block.content as string}</p>;
         })}
       </article>
 
-      <div style={{ marginTop: 48, padding: '20px 24px', background: 'var(--green-50)', border: '1px solid var(--green-200)', borderRadius: 2, textAlign: 'center' }}>
-        <div style={{ fontSize: 11, color: 'var(--ink-500)', fontFamily: 'var(--f-mono)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 8 }}>
-          Sprawdź teraz
+      <section className="prosta-blok">
+        <h2>Sprawdź, co Tobie się należy</h2>
+        <p className="pod">Kilka pytań, bez logowania i bez PESEL.</p>
+        <div className="przyciski">
+          <Link href="/#kalkulator" className="btn btn-rdza btn-lg">Sprawdź za darmo</Link>
         </div>
-        <h3 style={{ fontSize: 18, fontWeight: 600, marginBottom: 8, color: 'var(--ink-900)' }}>
-          Co Tobie się należy z 133 świadczeń?
-        </h3>
-        <p style={{ fontSize: 13, color: 'var(--ink-600)', marginBottom: 16, lineHeight: 1.5 }}>
-          10 pytań, 2 minuty, bez logowania, bez PESEL.
-        </p>
-        <Link href="/" style={{
-          display: 'inline-block', padding: '12px 28px', borderRadius: 2,
-          background: '#2b7353',
-          color: '#fff', fontSize: 14, fontWeight: 600, textDecoration: 'none',
-          boxShadow: 'none',
-        }}>
-          Sprawdź za darmo →
-        </Link>
-      </div>
-
-      <div style={{ marginTop: 32, paddingTop: 16, borderTop: '1px solid var(--line)', fontSize: 12, color: 'var(--ink-500)', display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-        <span>Tags:</span>
-        {post.tags.map(t => (
-          <span key={t} style={{ fontFamily: 'var(--f-mono)' }}>#{t}</span>
-        ))}
-      </div>
+        <p className="mala" style={{ marginTop: 16 }}>Tematy: {post.tags.join(', ')}</p>
+      </section>
     </main>
   );
 }

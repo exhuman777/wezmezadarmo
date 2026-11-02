@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { matchBenefits } from '../matcher';
+import { matchBenefits, NA_KONIEC } from '../matcher';
 import { UserProfile } from '../types';
 import { getAllBenefits } from '../benefits';
 
@@ -48,7 +48,7 @@ describe('matcher robustness (bad paths + invariants)', () => {
   });
 
   it('results are sorted by kwotaMax descending', () => {
-    const results = matchBenefits(makeProfile({ liczbaDzieci: 4, wiekDzieci: [1, 3, 6, 9], dochodNaOsobe: 600 }));
+    const results = matchBenefits(makeProfile({ liczbaDzieci: 4, wiekDzieci: [1, 3, 6, 9], dochodNaOsobe: 600 })).filter(r => !NA_KONIEC.has(r.benefit.id));
     for (let i = 1; i < results.length; i++) {
       const prev = results[i - 1].benefit.kwotaMax ?? 0;
       const cur = results[i].benefit.kwotaMax ?? 0;

@@ -9,7 +9,7 @@ const BASE = 'https://bdl.stat.gov.pl/api/v1';
 export interface BdlUnit {
   id: string;       // terytId
   name: string;
-  level: number;    // 5=gmina, 4=powiat, 2=województwo
+  level: number;    // poziomy BDL: 6=gmina, 5=powiat, 2=województwo
   parentName?: string;
 }
 
@@ -22,14 +22,24 @@ export interface BdlUnitData {
   year: string | null;
 }
 
-// Wybrane variableId z BDL (znajdź własne w panelu BDL -> metadane -> zmienne)
+// Wybrane variableId z BDL (sprawdzone 1.11.2026 przez /api/v1/variables/{id}).
+// Ludność i grupy wieku są dostępne dla gmin (poziom 6).
+// Stopa bezrobocia i wynagrodzenie GUS publikuje tylko dla powiatów (poziom 5),
+// więc dla gminy pobieramy je z jej powiatu.
 export const BDL_VARS = {
-  populationTotal: '60559',
-  populationPreproductive: '60565',
-  populationPostproductive: '60567',
-  unemploymentRate: '60270',
-  averageGrossSalary: '459163',
+  populationTotal: '72305',          // ludność ogółem (osoby)
+  populationPreproductive: '149',    // ludność w wieku przedprodukcyjnym (osoby)
+  populationPostproductive: '155',   // ludność w wieku poprodukcyjnym (osoby)
+  unemploymentRate: '60270',         // stopa bezrobocia rejestrowanego (%), powiat
+  averageGrossSalary: '64428',       // przeciętne miesięczne wynagrodzenie brutto (zł), powiat
 } as const;
+
+const POWIAT_VARS: ReadonlyArray<string> = [BDL_VARS.unemploymentRate, BDL_VARS.averageGrossSalary];
+
+/** Id powiatu dla jednostki BDL gminy (12 znaków, ostatnie 3 to typ gminy). */
+export function powiatIdForGmina(terytId: string): string | null {
+  return /^\d{12}$/.test(terytId) ? `${terytId.slice(0, 9)}000` : null;
+}
 
 interface RawResult {
   id: string | number;
@@ -55,11 +65,12 @@ export function mapUnitData(raw: { results?: RawResult[] }): BdlUnitData {
   };
 }
 
-export async function searchUnit(name: string, level: number = 5): Promise<BdlUnit[]> {
+export async function searchUnit(name: string, level: number = 6): Promise<BdlUnit[]> {
   const params = new URLSearchParams({
     name, level: String(level), format: 'json', 'page-size': '20',
   });
   const res = await fetch(`${BASE}/units/search?${params}`, {
+    signal: AbortSignal.timeout(10_000),
     headers: { Accept: 'application/json' },
     next: { revalidate: 86400 },
   });
@@ -81,19 +92,24 @@ export async function searchUnitSmart(rawName: string): Promise<BdlUnit[]> {
   // Capitalize 1st letter (locale-aware dla polskich znakow: ł, ą, ę itp.)
   const capitalized = trimmed.charAt(0).toLocaleUpperCase('pl-PL') + trimmed.slice(1);
 
-  // 1. Exact gmina (level 5)
-  let units = await searchUnit(capitalized, 5);
+  // Dokładna nazwa na początku listy (BDL dopasowuje po prefiksie: "Lublin" daje też "Lubliniec")
+  const lowerName = trimmed.toLocaleLowerCase('pl-PL');
+  const exactFirst = (list: BdlUnit[]) => [...list].sort((a, b) =>
+    Number(b.name.toLocaleLowerCase('pl-PL') === lowerName) - Number(a.name.toLocaleLowerCase('pl-PL') === lowerName));
+
+  // 1. Gmina (level 6)
+  let units = exactFirst(await searchUnit(capitalized, 6));
   if (units.length > 0) return units;
 
-  // 2. Powiat (level 4) -- np. "Warszawa" jako miasto na prawach powiatu
-  units = await searchUnit(capitalized, 4);
+  // 2. Powiat (level 5), np. miasto na prawach powiatu
+  units = exactFirst(await searchUnit(capitalized, 5));
   if (units.length > 0) return units;
 
   // 3. Prefix fallback dla dluzszych nazw (BDL match jest "starts with")
   //    "Łomianki" -> "Łom" -> znajduje "Łomianki gm. miejska"
   if (capitalized.length > 4) {
     const prefix = capitalized.slice(0, Math.min(5, capitalized.length));
-    const prefixUnits = await searchUnit(prefix, 5);
+    const prefixUnits = await searchUnit(prefix, 6);
     // Filter -- zostawiamy te ktore zawieraja oryginalna nazwe
     const lower = trimmed.toLocaleLowerCase('pl-PL');
     const filtered = prefixUnits.filter(u => u.name.toLocaleLowerCase('pl-PL').includes(lower));
@@ -105,15 +121,28 @@ export async function searchUnitSmart(rawName: string): Promise<BdlUnit[]> {
   return [];
 }
 
-export async function fetchUnitData(terytId: string): Promise<BdlUnitData> {
+async function fetchVars(terytId: string, vars: ReadonlyArray<string>): Promise<{ results?: RawResult[] }> {
   const params = new URLSearchParams({ format: 'json' });
-  for (const vid of Object.values(BDL_VARS)) {
-    params.append('var-id', vid);
-  }
+  for (const vid of vars) params.append('var-id', vid);
   const res = await fetch(`${BASE}/data/by-unit/${terytId}?${params}`, {
+    signal: AbortSignal.timeout(10_000),
     headers: { Accept: 'application/json' },
     next: { revalidate: 86400 },
   });
   if (!res.ok) throw new Error(`BDL data error: ${res.status}`);
-  return mapUnitData(await res.json());
+  return res.json();
+}
+
+export async function fetchUnitData(terytId: string): Promise<BdlUnitData> {
+  const own = await fetchVars(terytId, Object.values(BDL_VARS));
+  // Dla gminy bezrobocie i wynagrodzenie bierzemy z powiatu (GUS nie liczy ich dla gmin)
+  const powiat = powiatIdForGmina(terytId);
+  const missing = POWIAT_VARS.filter(v => !(own.results ?? []).some(r => String(r.id) === v && r.values?.length));
+  if (powiat && powiat !== terytId && missing.length) {
+    try {
+      const fromPowiat = await fetchVars(powiat, missing);
+      own.results = [...(own.results ?? []), ...(fromPowiat.results ?? [])];
+    } catch { /* bez danych powiatu pokazujemy to, co jest */ }
+  }
+  return mapUnitData(own);
 }

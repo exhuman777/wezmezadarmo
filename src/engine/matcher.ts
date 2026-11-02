@@ -1,6 +1,8 @@
 import { Benefit, UserProfile, MatchResult, BenefitStatus } from './types';
 import { getAllBenefits } from './benefits';
 
+export const NA_KONIEC = new Set(['zasilek-pogrzebowy', 'renta-rodzinna', 'renta-wdowia']);
+
 function checkRequirements(benefit: Benefit, profile: UserProfile): { matched: string[]; failed: string[] } {
   const matched: string[] = [];
   const failed: string[] = [];
@@ -87,6 +89,7 @@ export function matchBenefits(profile: UserProfile): MatchResult[] {
   const allBenefits = getAllBenefits();
 
   for (const benefit of allBenefits) {
+    if (benefit.zakonczony) continue;
     const { matched, failed } = checkRequirements(benefit, profile);
     const totalCriteria = matched.length + failed.length;
 
@@ -113,7 +116,7 @@ export function matchBenefits(profile: UserProfile): MatchResult[] {
     if (totalCriteria === 0) {
       // No verifiable criteria -- can't confirm eligibility from profile alone
       status = 'MOZLIWE';
-      warnings.push('Wymaga indywidualnej weryfikacji -- brak danych do automatycznego sprawdzenia');
+      warnings.push('Wymaga indywidualnej weryfikacji: brak danych do automatycznego sprawdzenia');
     } else if (failed.length === 0) {
       status = 'PRZYSLUGUJE';
     } else if (failed.length <= 1 && totalCriteria > 2) {
@@ -124,7 +127,7 @@ export function matchBenefits(profile: UserProfile): MatchResult[] {
     }
 
     for (const wyk of benefit.wykluczenia) {
-      warnings.push(`Sprawdz wykluczenie: ${wyk.opis}`);
+      warnings.push(`Sprawdź wykluczenie: ${wyk.opis}`);
     }
 
     if (status !== 'NIE_PRZYSLUGUJE') {
@@ -136,6 +139,9 @@ export function matchBenefits(profile: UserProfile): MatchResult[] {
     }
   }
 
-  results.sort((a, b) => (b.benefit.kwotaMax ?? 0) - (a.benefit.kwotaMax ?? 0));
+  // Świadczenia związane ze śmiercią bliskiej osoby zawsze na końcu listy, żeby wyniki nie zaczynały się od nich.
+  results.sort((a, b) =>
+    Number(NA_KONIEC.has(a.benefit.id)) - Number(NA_KONIEC.has(b.benefit.id))
+    || (b.benefit.kwotaMax ?? 0) - (a.benefit.kwotaMax ?? 0));
   return results;
 }

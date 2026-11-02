@@ -262,7 +262,7 @@ export default function RegulaminsPage() {
             textDecoration: 'none',
           }}
         >
-          -- powrót do strony głównej dotacje
+          Powrót do strony głównej dotacji
         </Link>
         <Link
           href="/dotacje/polityka-ai"

@@ -44,7 +44,7 @@ export default function PolitykaPage() {
               <li><strong className="text-text-1">Kalkulator świadczeń</strong> (strona główna): bezstanowy, bez kont, bez bazy danych osobowych. Dane przetwarzane jednorazowo w pamięci serwera i natychmiast usuwane.</li>
               <li><strong className="text-text-1">Kreator wniosków ZUS</strong> (/wnioski): formularze Z-15A, Z-15B, Z-3, ZAS-53, PEL, ERPO, ERSU. PESEL (jeśli wymagany) przetwarzany jednorazowo w pamięci serwera w celu wygenerowania PDF, bez zapisu.</li>
               <li><strong className="text-text-1">Wyszukiwarka NFZ</strong> (/nfz): bez konta. Zapytania (świadczenie, województwo, miasto) wysyłane do publicznego API NFZ. Brak danych osobowych Użytkownika w zapytaniach.</li>
-              <li><strong className="text-text-1">Centrum Obywatela</strong> (/centrum-obywatela): hub 11 publicznych polskich API (NFZ, NBP, GIOŚ, Biała Lista VAT, IMGW/RCB, ELI/Sejm, BDL GUS, ARiMR, PKP, CEIDG). Operator nie przekazuje do tych API żadnych danych osobowych Użytkownika.</li>
+              <li><strong className="text-text-1">Centrum Obywatela</strong> (/centrum-obywatela): hub 11 publicznych polskich API (NFZ, NBP, GIOŚ, Biała Lista VAT, IMGW, ELI/Sejm, BDL GUS, ARiMR, PKP, CEIDG). Operator nie przekazuje do tych API żadnych danych osobowych Użytkownika.</li>
               <li><strong className="text-text-1">Aktualności rządowe</strong> (/aktualnosci): agregator RSS z 8 instytucji + widgety publiczne (kursy NBP, jakość powietrza GIOŚ). Bez konta.</li>
               <li><strong className="text-text-1">Panel agenta AI</strong> (/agent/panel): bezpłatny, wymaga rejestracji. Profil demograficzny i preferencje e-mail w bazie Supabase (serwery UE).</li>
               <li><strong className="text-text-1">Panel monitoringu dotacji</strong> (/dotacje/panel): bezpłatny, wymaga rejestracji. Dane firmowe w Supabase (UE). Bez opłat.</li>
@@ -112,7 +112,7 @@ export default function PolitykaPage() {
                 <Tr><Td>Lat/lon wybranego miasta (GIOŚ)</Td><Td>Znalezienie najbliższej stacji pomiarowej</Td><Td>Nie - współrzędne miasta są publiczne</Td></Tr>
                 <Tr><Td>Świadczenie + województwo + miasto (NFZ)</Td><Td>Wyszukanie kolejek lub świadczeniodawców</Td><Td>Nie - parametry zapytania</Td></Tr>
                 <Tr><Td>NIP firmy (Biała Lista VAT, CEIDG)</Td><Td>Sprawdzenie kontrahenta</Td><Td>NIP firmy nie jest danymi osobowymi (osoba prawna)</Td></Tr>
-                <Tr><Td>Brak danych (NBP, ELI, RCB)</Td><Td>Pobranie publicznych komunikatów</Td><Td>Nie - dane statyczne</Td></Tr>
+                <Tr><Td>Brak danych (NBP, ELI, IMGW)</Td><Td>Pobranie publicznych komunikatów</Td><Td>Nie - dane statyczne</Td></Tr>
               </tbody>
             </TableWrapper>
           </Section>
@@ -169,7 +169,7 @@ export default function PolitykaPage() {
                 <Tr><Td>NFZ</Td><Td>Kolejki, świadczeniodawcy</Td><Td>api.nfz.gov.pl</Td></Tr>
                 <Tr><Td>NBP</Td><Td>Kursy walut</Td><Td>api.nbp.pl</Td></Tr>
                 <Tr><Td>GIOŚ</Td><Td>Jakość powietrza</Td><Td>api.gios.gov.pl</Td></Tr>
-                <Tr><Td>IMGW / RCB</Td><Td>Ostrzeżenia meteo i kryzysowe</Td><Td>api.rcb.gov.pl</Td></Tr>
+                <Tr><Td>IMGW</Td><Td>Ostrzeżenia meteorologiczne i hydrologiczne</Td><Td>danepubliczne.imgw.pl</Td></Tr>
                 <Tr><Td>Sejm RP (ELI)</Td><Td>Zmiany w prawie</Td><Td>api.sejm.gov.pl/eli</Td></Tr>
                 <Tr><Td>GUS (BDL)</Td><Td>Dane demograficzne per gmina</Td><Td>bdl.stat.gov.pl</Td></Tr>
                 <Tr><Td>ARiMR</Td><Td>Mapy działek rolnych</Td><Td>geoportal.arimr.gov.pl</Td></Tr>

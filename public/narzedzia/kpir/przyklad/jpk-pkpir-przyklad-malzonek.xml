@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- DANE FIKCYJNE: przykład małżonka do narzędzia „Przegląd KPiR”. Firmy i NIP-y wymyślone. -->
+<tns:JPK xmlns:tns="http://jpk.mf.gov.pl/wzor/2024/10/30/10302/" xmlns:etd="http://crd.gov.pl/xml/schematy/dziedzinowe/mf/2022/01/05/eD/DefinicjeTypy/">
+  <tns:Naglowek>
+    <tns:KodFormularza kodSystemowy="JPK_PKPIR (3)" wersjaSchemy="1-0">JPK_PKPIR</tns:KodFormularza>
+    <tns:WariantFormularza>3</tns:WariantFormularza>
+    <tns:CelZlozenia>0</tns:CelZlozenia>
+    <tns:DataWytworzeniaJPK>2026-10-26T12:00:00Z</tns:DataWytworzeniaJPK>
+    <tns:DataOd>2026-01-01</tns:DataOd>
+    <tns:DataDo>2026-09-30</tns:DataDo>
+    <tns:KodUrzedu>0602</tns:KodUrzedu>
+  </tns:Naglowek>
+  <tns:Podmiot1 rola="Podatnik">
+    <tns:OsobaFizyczna>
+      <etd:NIP>9990012001</etd:NIP>
+      <etd:ImiePierwsze>EWA</etd:ImiePierwsze>
+      <etd:Nazwisko>TESTOWA (DANE FIKCYJNE)</etd:Nazwisko>
+      <etd:DataUrodzenia>1982-01-01</etd:DataUrodzenia>
+    </tns:OsobaFizyczna>
+  </tns:Podmiot1>
+  <tns:PKPIRInfo>
+    <tns:P_1>0.00</tns:P_1>
+    <tns:P_2>0.00</tns:P_2>
+    <tns:P_3>108971.40</tns:P_3>
+    <tns:P_4>-31971.40</tns:P_4>
+  </tns:PKPIRInfo>
+  <tns:PKPIRWiersz>
+    <tns:K_1>1</tns:K_1>
+    <tns:K_2>2026-01-12</tns:K_2>
+    <tns:K_3A>PG/01/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990012032</tns:K_4B>
+    <tns:K_5A>PODWYKONAWCA GAMMA</tns:K_5A>
+    <tns:K_5B>ul. Testowa 22, 00-022 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - USŁUGI PODWYKONAWCÓW</tns:K_6>
+    <tns:K_13>4666.00</tns:K_13>
+    <tns:K_14>4666.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>2</tns:K_1>
+    <tns:K_2>2026-01-18</tns:K_2>
+    <tns:K_3A>TEL/01/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990011199</tns:K_4B>
+    <tns:K_5A>TELEKOM RO S.A.</tns:K_5A>
+    <tns:K_5B>ul. Sygnałowa 16, 00-016 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - TELEFON</tns:K_6>
+    <tns:K_13>70.72</tns:K_13>
+    <tns:K_14>70.72</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>3</tns:K_1>
+    <tns:K_2>2026-01-27</tns:K_2>
+    <tns:K_3A>FV/01/1/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990012018</tns:K_4B>
+    <tns:K_5A>PROJEKT ALFA SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Zmyślona 20, 00-020 Miasto</tns:K_5B>
+    <tns:K_6>Przychody ze sprzedaży usług projektowych</tns:K_6>
+    <tns:K_7>8000.00</tns:K_7>
+    <tns:K_9>8000.00</tns:K_9>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>4</tns:K_1>
+    <tns:K_2>2026-01-28</tns:K_2>
+    <tns:K_3A>E/2026/01/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Lista płac (umowa o pracę) za 2026/1</tns:K_6>
+    <tns:K_12>6200.00</tns:K_12>
+    <tns:K_13>1116.00</tns:K_13>
+    <tns:K_14>7316.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>5</tns:K_1>
+    <tns:K_2>2026-02-12</tns:K_2>
+    <tns:K_3A>PG/02/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990012032</tns:K_4B>
+    <tns:K_5A>PODWYKONAWCA GAMMA</tns:K_5A>
+    <tns:K_5B>ul. Testowa 22, 00-022 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - USŁUGI PODWYKONAWCÓW</tns:K_6>
+    <tns:K_13>3960.12</tns:K_13>
+    <tns:K_14>3960.12</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>6</tns:K_1>
+    <tns:K_2>2026-02-18</tns:K_2>
+    <tns:K_3A>TEL/02/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990011199</tns:K_4B>
+    <tns:K_5A>TELEKOM RO S.A.</tns:K_5A>
+    <tns:K_5B>ul. Sygnałowa 16, 00-016 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - TELEFON</tns:K_6>
+    <tns:K_13>77.90</tns:K_13>
+    <tns:K_14>77.90</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>7</tns:K_1>
+    <tns:K_2>2026-02-28</tns:K_2>
+    <tns:K_3A>E/2026/02/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Lista płac (umowa o pracę) za 2026/2</tns:K_6>
+    <tns:K_12>6200.00</tns:K_12>
+    <tns:K_13>1116.00</tns:K_13>
+    <tns:K_14>7316.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>8</tns:K_1>
+    <tns:K_2>2026-03-09</tns:K_2>
+    <tns:K_3A>G/03/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990012049</tns:K_4B>
+    <tns:K_5A>GEODEZJA DELTA</tns:K_5A>
+    <tns:K_5B>ul. Próbna 23, 00-023 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - USŁUGI GEODEZYJNE</tns:K_6>
+    <tns:K_13>1326.90</tns:K_13>
+    <tns:K_14>1326.90</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>9</tns:K_1>
+    <tns:K_2>2026-03-12</tns:K_2>
+    <tns:K_3A>PG/03/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990012032</tns:K_4B>
+    <tns:K_5A>PODWYKONAWCA GAMMA</tns:K_5A>
+    <tns:K_5B>ul. Testowa 22, 00-022 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - USŁUGI PODWYKONAWCÓW</tns:K_6>
+    <tns:K_13>5023.68</tns:K_13>
+    <tns:K_14>5023.68</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>10</tns:K_1>
+    <tns:K_2>2026-03-18</tns:K_2>
+    <tns:K_3A>TEL/03/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990011199</tns:K_4B>
+    <tns:K_5A>TELEKOM RO S.A.</tns:K_5A>
+    <tns:K_5B>ul. Sygnałowa 16, 00-016 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - TELEFON</tns:K_6>
+    <tns:K_13>103.38</tns:K_13>
+    <tns:K_14>103.38</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>11</tns:K_1>
+    <tns:K_2>2026-03-27</tns:K_2>
+    <tns:K_3A>FV/03/1/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990012018</tns:K_4B>
+    <tns:K_5A>PROJEKT ALFA SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Zmyślona 20, 00-020 Miasto</tns:K_5B>
+    <tns:K_6>Przychody ze sprzedaży usług projektowych</tns:K_6>
+    <tns:K_7>22000.00</tns:K_7>
+    <tns:K_9>22000.00</tns:K_9>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>12</tns:K_1>
+    <tns:K_2>2026-03-28</tns:K_2>
+    <tns:K_3A>E/2026/03/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Lista płac (umowa o pracę) za 2026/3</tns:K_6>
+    <tns:K_12>6200.00</tns:K_12>
+    <tns:K_13>1116.00</tns:K_13>
+    <tns:K_14>7316.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>13</tns:K_1>
+    <tns:K_2>2026-04-12</tns:K_2>
+    <tns:K_3A>PG/04/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990012032</tns:K_4B>
+    <tns:K_5A>PODWYKONAWCA GAMMA</tns:K_5A>
+    <tns:K_5B>ul. Testowa 22, 00-022 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - USŁUGI PODWYKONAWCÓW</tns:K_6>
+    <tns:K_13>4890.52</tns:K_13>
+    <tns:K_14>4890.52</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>14</tns:K_1>
+    <tns:K_2>2026-04-18</tns:K_2>
+    <tns:K_3A>TEL/04/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990011199</tns:K_4B>
+    <tns:K_5A>TELEKOM RO S.A.</tns:K_5A>
+    <tns:K_5B>ul. Sygnałowa 16, 00-016 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - TELEFON</tns:K_6>
+    <tns:K_13>106.45</tns:K_13>
+    <tns:K_14>106.45</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>15</tns:K_1>
+    <tns:K_2>2026-04-27</tns:K_2>
+    <tns:K_3A>FV/04/1/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990012025</tns:K_4B>
+    <tns:K_5A>BUDOWY BETA S.A.</tns:K_5A>
+    <tns:K_5B>ul. Fikcyjna 21, 00-021 Miasto</tns:K_5B>
+    <tns:K_6>Przychody ze sprzedaży usług projektowych</tns:K_6>
+    <tns:K_7>6000.00</tns:K_7>
+    <tns:K_9>6000.00</tns:K_9>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>16</tns:K_1>
+    <tns:K_2>2026-04-28</tns:K_2>
+    <tns:K_3A>E/2026/04/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Lista płac (umowa o pracę) za 2026/4</tns:K_6>
+    <tns:K_12>6200.00</tns:K_12>
+    <tns:K_13>1116.00</tns:K_13>
+    <tns:K_14>7316.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>17</tns:K_1>
+    <tns:K_2>2026-05-12</tns:K_2>
+    <tns:K_3A>PG/05/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990012032</tns:K_4B>
+    <tns:K_5A>PODWYKONAWCA GAMMA</tns:K_5A>
+    <tns:K_5B>ul. Testowa 22, 00-022 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - USŁUGI PODWYKONAWCÓW</tns:K_6>
+    <tns:K_13>4427.63</tns:K_13>
+    <tns:K_14>4427.63</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>18</tns:K_1>
+    <tns:K_2>2026-05-18</tns:K_2>
+    <tns:K_3A>TEL/05/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990011199</tns:K_4B>
+    <tns:K_5A>TELEKOM RO S.A.</tns:K_5A>
+    <tns:K_5B>ul. Sygnałowa 16, 00-016 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - TELEFON</tns:K_6>
+    <tns:K_13>91.90</tns:K_13>
+    <tns:K_14>91.90</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>19</tns:K_1>
+    <tns:K_2>2026-05-28</tns:K_2>
+    <tns:K_3A>E/2026/05/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Lista płac (umowa o pracę) za 2026/5</tns:K_6>
+    <tns:K_12>6200.00</tns:K_12>
+    <tns:K_13>1116.00</tns:K_13>
+    <tns:K_14>7316.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>20</tns:K_1>
+    <tns:K_2>2026-06-09</tns:K_2>
+    <tns:K_3A>G/06/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990012049</tns:K_4B>
+    <tns:K_5A>GEODEZJA DELTA</tns:K_5A>
+    <tns:K_5B>ul. Próbna 23, 00-023 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - USŁUGI GEODEZYJNE</tns:K_6>
+    <tns:K_13>1463.45</tns:K_13>
+    <tns:K_14>1463.45</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>21</tns:K_1>
+    <tns:K_2>2026-06-12</tns:K_2>
+    <tns:K_3A>PG/06/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990012032</tns:K_4B>
+    <tns:K_5A>PODWYKONAWCA GAMMA</tns:K_5A>
+    <tns:K_5B>ul. Testowa 22, 00-022 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - USŁUGI PODWYKONAWCÓW</tns:K_6>
+    <tns:K_13>2824.11</tns:K_13>
+    <tns:K_14>2824.11</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>22</tns:K_1>
+    <tns:K_2>2026-06-18</tns:K_2>
+    <tns:K_3A>TEL/06/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990011199</tns:K_4B>
+    <tns:K_5A>TELEKOM RO S.A.</tns:K_5A>
+    <tns:K_5B>ul. Sygnałowa 16, 00-016 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - TELEFON</tns:K_6>
+    <tns:K_13>74.07</tns:K_13>
+    <tns:K_14>74.07</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>23</tns:K_1>
+    <tns:K_2>2026-06-27</tns:K_2>
+    <tns:K_3A>FV/06/1/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990012025</tns:K_4B>
+    <tns:K_5A>BUDOWY BETA S.A.</tns:K_5A>
+    <tns:K_5B>ul. Fikcyjna 21, 00-021 Miasto</tns:K_5B>
+    <tns:K_6>Przychody ze sprzedaży usług projektowych</tns:K_6>
+    <tns:K_7>18000.00</tns:K_7>
+    <tns:K_9>18000.00</tns:K_9>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>24</tns:K_1>
+    <tns:K_2>2026-06-28</tns:K_2>
+    <tns:K_3A>E/2026/06/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Lista płac (umowa o pracę) za 2026/6</tns:K_6>
+    <tns:K_12>6200.00</tns:K_12>
+    <tns:K_13>1116.00</tns:K_13>
+    <tns:K_14>7316.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>25</tns:K_1>
+    <tns:K_2>2026-07-12</tns:K_2>
+    <tns:K_3A>PG/07/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990012032</tns:K_4B>
+    <tns:K_5A>PODWYKONAWCA GAMMA</tns:K_5A>
+    <tns:K_5B>ul. Testowa 22, 00-022 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - USŁUGI PODWYKONAWCÓW</tns:K_6>
+    <tns:K_13>3490.40</tns:K_13>
+    <tns:K_14>3490.40</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>26</tns:K_1>
+    <tns:K_2>2026-07-18</tns:K_2>
+    <tns:K_3A>TEL/07/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990011199</tns:K_4B>
+    <tns:K_5A>TELEKOM RO S.A.</tns:K_5A>
+    <tns:K_5B>ul. Sygnałowa 16, 00-016 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - TELEFON</tns:K_6>
+    <tns:K_13>105.46</tns:K_13>
+    <tns:K_14>105.46</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>27</tns:K_1>
+    <tns:K_2>2026-07-27</tns:K_2>
+    <tns:K_3A>FV/07/1/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990012018</tns:K_4B>
+    <tns:K_5A>PROJEKT ALFA SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Zmyślona 20, 00-020 Miasto</tns:K_5B>
+    <tns:K_6>Przychody ze sprzedaży usług projektowych</tns:K_6>
+    <tns:K_7>9000.00</tns:K_7>
+    <tns:K_9>9000.00</tns:K_9>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>28</tns:K_1>
+    <tns:K_2>2026-07-28</tns:K_2>
+    <tns:K_3A>E/2026/07/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Lista płac (umowa o pracę) za 2026/7</tns:K_6>
+    <tns:K_12>6200.00</tns:K_12>
+    <tns:K_13>1116.00</tns:K_13>
+    <tns:K_14>7316.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>29</tns:K_1>
+    <tns:K_2>2026-08-12</tns:K_2>
+    <tns:K_3A>PG/08/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990012032</tns:K_4B>
+    <tns:K_5A>PODWYKONAWCA GAMMA</tns:K_5A>
+    <tns:K_5B>ul. Testowa 22, 00-022 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - USŁUGI PODWYKONAWCÓW</tns:K_6>
+    <tns:K_13>4430.09</tns:K_13>
+    <tns:K_14>4430.09</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>30</tns:K_1>
+    <tns:K_2>2026-08-18</tns:K_2>
+    <tns:K_3A>TEL/08/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990011199</tns:K_4B>
+    <tns:K_5A>TELEKOM RO S.A.</tns:K_5A>
+    <tns:K_5B>ul. Sygnałowa 16, 00-016 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - TELEFON</tns:K_6>
+    <tns:K_13>96.95</tns:K_13>
+    <tns:K_14>96.95</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>31</tns:K_1>
+    <tns:K_2>2026-08-28</tns:K_2>
+    <tns:K_3A>E/2026/08/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Lista płac (umowa o pracę) za 2026/8</tns:K_6>
+    <tns:K_12>6200.00</tns:K_12>
+    <tns:K_13>1116.00</tns:K_13>
+    <tns:K_14>7316.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>32</tns:K_1>
+    <tns:K_2>2026-09-09</tns:K_2>
+    <tns:K_3A>G/09/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990012049</tns:K_4B>
+    <tns:K_5A>GEODEZJA DELTA</tns:K_5A>
+    <tns:K_5B>ul. Próbna 23, 00-023 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - USŁUGI GEODEZYJNE</tns:K_6>
+    <tns:K_13>1369.33</tns:K_13>
+    <tns:K_14>1369.33</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>33</tns:K_1>
+    <tns:K_2>2026-09-12</tns:K_2>
+    <tns:K_3A>PG/09/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990012032</tns:K_4B>
+    <tns:K_5A>PODWYKONAWCA GAMMA</tns:K_5A>
+    <tns:K_5B>ul. Testowa 22, 00-022 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - USŁUGI PODWYKONAWCÓW</tns:K_6>
+    <tns:K_13>4421.72</tns:K_13>
+    <tns:K_14>4421.72</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>34</tns:K_1>
+    <tns:K_2>2026-09-18</tns:K_2>
+    <tns:K_3A>TEL/09/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990011199</tns:K_4B>
+    <tns:K_5A>TELEKOM RO S.A.</tns:K_5A>
+    <tns:K_5B>ul. Sygnałowa 16, 00-016 Miasto</tns:K_5B>
+    <tns:K_6>KOSZT - TELEFON</tns:K_6>
+    <tns:K_13>106.62</tns:K_13>
+    <tns:K_14>106.62</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>35</tns:K_1>
+    <tns:K_2>2026-09-27</tns:K_2>
+    <tns:K_3A>FV/09/1/2026</tns:K_3A>
+    <tns:K_4A>PL</tns:K_4A>
+    <tns:K_4B>9990012018</tns:K_4B>
+    <tns:K_5A>PROJEKT ALFA SP. Z O.O.</tns:K_5A>
+    <tns:K_5B>ul. Zmyślona 20, 00-020 Miasto</tns:K_5B>
+    <tns:K_6>Przychody ze sprzedaży usług projektowych</tns:K_6>
+    <tns:K_7>14000.00</tns:K_7>
+    <tns:K_9>14000.00</tns:K_9>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRWiersz>
+    <tns:K_1>36</tns:K_1>
+    <tns:K_2>2026-09-28</tns:K_2>
+    <tns:K_3A>E/2026/09/*</tns:K_3A>
+    <tns:K_5A>brak</tns:K_5A>
+    <tns:K_5B>brak</tns:K_5B>
+    <tns:K_6>Lista płac (umowa o pracę) za 2026/9</tns:K_6>
+    <tns:K_12>6200.00</tns:K_12>
+    <tns:K_13>1116.00</tns:K_13>
+    <tns:K_14>7316.00</tns:K_14>
+  </tns:PKPIRWiersz>
+  <tns:PKPIRCtrl>
+    <tns:LiczbaWierszy>36</tns:LiczbaWierszy>
+    <tns:SumaPrzychodow>77000.00</tns:SumaPrzychodow>
+  </tns:PKPIRCtrl>
+</tns:JPK>

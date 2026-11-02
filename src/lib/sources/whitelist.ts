@@ -45,6 +45,7 @@ export async function searchByNip(nip: string, dateIso?: string): Promise<Whitel
   if (cleanNip.length !== 10) throw new WhitelistInvalidNipError('LENGTH');
 
   const res = await fetch(`${BASE}/search/nip/${cleanNip}?date=${date}`, {
+    signal: AbortSignal.timeout(10_000),
     headers: { Accept: 'application/json' },
     next: { revalidate: 21600 },
   });
@@ -67,6 +68,7 @@ export async function checkAccount(nip: string, account: string, dateIso?: strin
   const cleanNip = nip.replace(/\D/g, '');
   const cleanAccount = account.replace(/\D/g, '');
   const res = await fetch(`${BASE}/check/nip/${cleanNip}/bank-account/${cleanAccount}?date=${date}`, {
+    signal: AbortSignal.timeout(10_000),
     headers: { Accept: 'application/json' },
     next: { revalidate: 21600 },
   });

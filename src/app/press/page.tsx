@@ -24,11 +24,11 @@ const FACTS = [
   { n: '0 PLN', label: 'koszt dla użytkownika końcowego' },
 ];
 
-const SHORT_DESC = `wezmezadarmo.com to bezpłatne narzędzie pomagające polskim obywatelom i firmom odkryć świadczenia rządowe, ulgi podatkowe i programy wsparcia, na które się kwalifikują. Agregator 133 świadczeń (ZUS, NFZ, PFRON, KRUS, MOPS, ulgi PIT), 23 programów dotacyjnych B2B (KFS, PARP, NCBR, KPO, ARiMR) i 11 darmowych narzędzi (NFZ kolejki, kursy NBP, jakość powietrza GIOŚ, Biała Lista VAT, sprawdzenie NIP).`;
+const SHORT_DESC = `wezmezadarmo.com to bezpłatne narzędzie pomagające polskim obywatelom i firmom odkryć świadczenia rządowe, ulgi podatkowe i programy wsparcia, na które się kwalifikują. Agregator 133 świadczeń (ZUS, NFZ, PFRON, KRUS, MOPS, ulgi PIT), 59 programów dotacyjnych dla firm (KFS, PARP, NCBR, KPO, ARiMR) i 11 darmowych narzędzi (NFZ kolejki, kursy NBP, jakość powietrza GIOŚ, Biała Lista VAT, sprawdzenie NIP).`;
 
 const LONG_DESC = `Polacy tracą średnio 2 400-5 000 PLN rocznie nie korzystając ze świadczeń, do których mają prawo. Powód: rozproszenie informacji między 8 instytucji rządowych i brak narzędzia agregującego wszystko w jednym miejscu.
 
-wezmezadarmo.com rozwiązuje ten problem. W 10 anonimowych pytaniach (bez logowania, bez PESEL) silnik dopasowania przelicza 133 świadczeń i pokazuje co PEWNIE Ci przysługuje + co MOŻLIWE. Dla firm i JDG: matching 23 programów dotacyjnych na podstawie PKD i województwa pobranego z CEIDG.
+wezmezadarmo.com rozwiązuje ten problem. W 10 anonimowych pytaniach (bez logowania, bez PESEL) silnik dopasowania przelicza 133 świadczenia i pokazuje co PEWNIE Ci przysługuje + co MOŻLIWE. Dla firm i JDG: dopasowanie 59 programów dotacyjnych na podstawie PKD i województwa pobranego z CEIDG.
 
 Asystent AI (Google Gemini 2.0 Flash) ma dostęp do całej bazy + 8 publicznych API rządowych (NBP, NFZ, GIOŚ, Biała Lista VAT, CEIDG, IMGW, ELI/Sejm, BDL GUS) i odpowiada na pytania użytkownika z konkretnym kontekstem jego profilu.
 
@@ -126,9 +126,9 @@ export default function PressPage() {
           Źródła danych
         </h2>
         <div style={{ padding: 18, background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 2, fontSize: 13, color: 'var(--ink-600)', lineHeight: 1.7 }}>
-          Wyłącznie oficjalne źródła rządowe: gov.pl, zus.pl, nfz.gov.pl, pfron.org.pl, krus.gov.pl, podatki.gov.pl, biznes.gov.pl, czystepowietrze.gov.pl, ksef.mf.gov.pl, parp.gov.pl, ncbr.gov.pl, arimr.gov.pl, api.nbp.pl, api.gios.gov.pl, wl-api.mf.gov.pl, dane.biznes.gov.pl, bdl.stat.gov.pl, api.sejm.gov.pl, rcb.gov.pl.
+          Dane na żywo: GUS (BDL, SDG), NFZ, NBP, IMGW, GIOŚ, Sejm (ELI), ZUS i PFRON (RSS), gov.pl (ARiMR, MF, MRiT, MRPiPS), CEIDG. Baza świadczeń i programów powstała na podstawie oficjalnych stron: gov.pl, zus.pl, nfz.gov.pl, pfron.org.pl, krus.gov.pl, podatki.gov.pl, biznes.gov.pl, czystepowietrze.gov.pl.
           <br /><br />
-          Brak danych z third-party, brak scrapowania treści, brak AI-generated benefit descriptions. Każda kwota i regulacja ręcznie zweryfikowana.
+          Każde świadczenie ma link do źródła urzędowego.
         </div>
       </div>
 

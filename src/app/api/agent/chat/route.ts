@@ -26,6 +26,8 @@ import { buildAgentSystemPrompt, profileToUserProfile, getAgentConfig } from '@/
 import { routeToAgent } from '@/agents/router';
 import { getQueues, NFZ_PROVINCE_CODES, PROVINCE_LABELS } from '@/lib/sources/nfz';
 import { getAirIndex } from '@/lib/sources/gios';
+import { fetchWarnings } from '@/lib/sources/imgw';
+import { searchUnitSmart, fetchUnitData } from '@/lib/sources/bdl-gus';
 import { PROGRAMS, type EligibilityFlag } from '@/data/programs-b2b';
 import { getPkdName, dominantSection } from '@/data/pkd-codes';
 
@@ -154,6 +156,7 @@ async function maybeFetchNbp(text: string): Promise<string | null> {
 
   try {
     const res = await fetch('https://api.nbp.pl/api/exchangerates/tables/A?format=json', {
+      signal: AbortSignal.timeout(8_000),
       headers: { Accept: 'application/json' },
       next: { revalidate: 3600 },
     });
@@ -166,7 +169,7 @@ async function maybeFetchNbp(text: string): Promise<string | null> {
       .map((r: { code: string; currency: string; mid: number }) =>
         `  ${r.code} (${r.currency}): ${r.mid.toFixed(4)} PLN`)
       .join('\n');
-    return `AKTUALNE KURSY NBP (Tabela A, ${data[0].effectiveDate}):\n${rates}\n  Pelna tabela: https://wezmezadarmo.com/centrum-obywatela/kursy`;
+    return `AKTUALNE KURSY NBP (Tabela A, ${data[0].effectiveDate}):\n${rates}\n  Pelna tabela: https://www.wezmezadarmo.com/centrum-obywatela/kursy`;
   } catch {
     return null;
   }
@@ -182,6 +185,7 @@ async function maybeFetchWhitelist(text: string): Promise<string | null> {
   try {
     const date = new Date().toISOString().slice(0, 10);
     const res = await fetch(`https://wl-api.mf.gov.pl/api/search/nip/${nip}?date=${date}`, {
+      signal: AbortSignal.timeout(8_000),
       headers: { Accept: 'application/json' },
       next: { revalidate: 3600 },
     });
@@ -198,7 +202,7 @@ async function maybeFetchWhitelist(text: string): Promise<string | null> {
       sub.regon ? `  REGON: ${sub.regon}` : '',
       sub.workingAddress || sub.residenceAddress ? `  Adres: ${sub.workingAddress ?? sub.residenceAddress}` : '',
       sub.accountNumbers?.length ? `  Konta zgloszone do MF: ${sub.accountNumbers.length}` : '',
-      `  Pelne dane: https://wezmezadarmo.com/centrum-obywatela/biala-lista`,
+      `  Pelne dane: https://www.wezmezadarmo.com/centrum-obywatela/biala-lista`,
     ].filter(Boolean).join('\n');
   } catch {
     return null;
@@ -241,7 +245,7 @@ async function maybeFetchNfz(text: string, userProvince: string | null): Promise
             const a = q.attributes;
             lines.push(`  - ${a.provider}, ${a.locality}${a.phone ? `, tel. ${a.phone}` : ''}`);
           }
-          lines.push(`Pelna lista + mapa: https://wezmezadarmo.com/nfz?benefit=${encodeURIComponent(specialty)}`);
+          lines.push(`Pelna lista + mapa: https://www.wezmezadarmo.com/nfz?benefit=${encodeURIComponent(specialty)}`);
           return lines.join('\n');
         }
       } catch { /* fallback below */ }
@@ -289,16 +293,16 @@ async function maybeFetchNfz(text: string, userProvince: string | null): Promise
     }
     const lines = [
       `NFZ - kolejki LIVE dla "${specialty}"${province ? ` (woj. ${Object.entries(NFZ_PROVINCE_CODES).find(([, c]) => c === province)?.[0]})` : ''}, tryb ${isPilny ? 'PILNY' : 'STABILNY'}:`,
-      `Znaleziono ${queues.meta?.count ?? queues.data.length} placowek. Top 5 z najkrotszym oczekiwaniem:`,
+      `Znaleziono ${queues.meta?.count ?? queues.data.length} placowek. Pierwsze 5 wg najblizszego wolnego terminu (dane NFZ):`,
     ];
     for (const q of queues.data.slice(0, 5)) {
       const a = q.attributes;
-      const days = a.dates?.['date-situation-as-at']
-        ? `~${a['statistics']?.['provider-data']?.['awaiting'] ?? '?'} osob w kolejce`
-        : '?';
-      lines.push(`  - ${a.provider} (${a.locality}): ${days}`);
+      const termin = a.dates?.date ? `pierwszy wolny termin ${a.dates.date}` : 'brak podanego terminu';
+      const stan = a.dates?.['date-situation-as-at'] ? `, stan na ${a.dates['date-situation-as-at']}` : '';
+      const czeka = a.statistics?.['provider-data']?.awaiting != null ? `, oczekuje ${a.statistics['provider-data'].awaiting} os.` : '';
+      lines.push(`  - ${a.provider} (${a.locality}): ${termin}${stan}${czeka}`);
     }
-    lines.push(`Pelne dane: https://wezmezadarmo.com/nfz?benefit=${encodeURIComponent(specialty)}`);
+    lines.push(`Pelne dane: https://www.wezmezadarmo.com/nfz?benefit=${encodeURIComponent(specialty)}`);
     return lines.join('\n');
   } catch {
     return `Nie udalo sie pobrac live kolejek. Sprawdz /nfz?benefit=${encodeURIComponent(specialty)} reczne.`;
@@ -333,7 +337,7 @@ async function maybeFetchGios(text: string, userProvince: string | null): Promis
     if (aqi.pm10) lines.push(`  PM10: ${aqi.pm10}`);
     if (aqi.pm25) lines.push(`  PM2.5: ${aqi.pm25}`);
     if (aqi.no2) lines.push(`  NO2: ${aqi.no2}`);
-    lines.push(`  Wiecej miast: https://wezmezadarmo.com/centrum-obywatela/powietrze`);
+    lines.push(`  Wiecej miast: https://www.wezmezadarmo.com/centrum-obywatela/powietrze`);
     return lines.join('\n');
   } catch {
     return `Aby sprawdzic jakosc powietrza w ${info.city} otworz /centrum-obywatela/powietrze.`;
@@ -370,7 +374,7 @@ function buildDotacjeContext(pkd: string[], voivodeship: string | null): string 
     'PROGRAMY DOTACYJNE B2B DOPASOWANE DO FIRMY UZYTKOWNIKA:',
     branża ? `Branza glowna: ${branża.label}` : '',
     `PKD: ${pkd.slice(0, 5).map(c => `${c}${getPkdName(c) ? ' (' + getPkdName(c) + ')' : ''}`).join(', ')}`,
-    `Dopasowane programy: ${matched.length}/23`,
+    `Dopasowane programy: ${matched.length}/${PROGRAMS.length}`,
     '',
   ].filter(Boolean);
   for (const p of matched.slice(0, 10)) {
@@ -395,6 +399,7 @@ async function maybeFetchCeidg(text: string, profileNip: string | null, isJdg: b
 
   try {
     const res = await fetch(`https://dane.biznes.gov.pl/api/ceidg/v3/firmy?nip=${profileNip}`, {
+      signal: AbortSignal.timeout(8_000),
       headers: {
         Authorization: `Bearer ${ceidgToken}`,
         Accept: 'application/json',
@@ -418,34 +423,20 @@ async function maybeFetchCeidg(text: string, profileNip: string | null, isJdg: b
   }
 }
 
-// Smart prefetch: IMGW/RCB ostrzezenia gdy user pyta o pogode/burze/alerty
+// Smart prefetch: ostrzeżenia IMGW gdy user pyta o pogode/burze/alerty.
+// Kanał RSS RCB (rcb.gov.pl/feed) został wycofany, źródłem jest API danepubliczne.imgw.pl.
 async function maybeFetchImgw(text: string): Promise<string | null> {
   const lc = text.toLowerCase();
   const wantsWeather = /\b(pogod|burz|mr[oó]z|przymrozk|pow[oó]d[zź]|opad|wichur|alert.*pogod|rcb|ostrze[zż]eni|gradobic|smog)/.test(lc);
   if (!wantsWeather) return null;
 
   try {
-    const res = await fetch('https://rcb.gov.pl/feed/', {
-      headers: { Accept: 'application/rss+xml,text/xml,*/*', 'User-Agent': 'wezmezadarmo/1.0' },
-      next: { revalidate: 900 },
-    });
-    if (!res.ok) return null;
-    const xml = await res.text();
-    const items: Array<{ title: string; link: string }> = [];
-    const itemRegex = /<item[^>]*>([\s\S]*?)<\/item>/g;
-    let m: RegExpExecArray | null;
-    while ((m = itemRegex.exec(xml)) !== null && items.length < 3) {
-      const titleMatch = m[1].match(/<title[^>]*>([\s\S]*?)<\/title>/i);
-      const linkMatch = m[1].match(/<link[^>]*>([\s\S]*?)<\/link>/i);
-      const title = (titleMatch?.[1] ?? '').replace(/<!\[CDATA\[|\]\]>/g, '').trim();
-      const link = (linkMatch?.[1] ?? '').trim();
-      if (title) items.push({ title, link });
+    const warnings = await fetchWarnings();
+    if (warnings.length === 0) {
+      return `IMGW: brak aktywnych ostrzezen meteorologicznych i hydrologicznych (stan na ${new Date().toISOString().slice(0, 10)}).`;
     }
-    if (items.length === 0) {
-      return `IMGW/RCB: brak aktywnych ostrzezen. Sytuacja meteo w normie.`;
-    }
-    const lines = items.map(i => `  - ${i.title}${i.link ? ` (${i.link})` : ''}`).join('\n');
-    return `IMGW/RCB OSTRZEZENIA AKTYWNE (${items.length}):\n${lines}\n  Pelna lista: https://wezmezadarmo.com/centrum-obywatela/pogoda`;
+    const lines = warnings.slice(0, 5).map(w => `  - ${w.title}${w.pubDate ? ` (opubl. ${w.pubDate})` : ''}`).join('\n');
+    return `IMGW OSTRZEZENIA AKTYWNE (${warnings.length}):\n${lines}\n  Zrodlo: https://danepubliczne.imgw.pl/ | Pelna lista: https://www.wezmezadarmo.com/centrum-obywatela/pogoda`;
   } catch {
     return null;
   }
@@ -460,6 +451,7 @@ async function maybeFetchEli(text: string): Promise<string | null> {
   try {
     const year = new Date().getFullYear();
     const res = await fetch(`https://api.sejm.gov.pl/eli/acts/DU/${year}?limit=30&offset=0`, {
+      signal: AbortSignal.timeout(8_000),
       headers: { Accept: 'application/json', 'User-Agent': 'wezmezadarmo/1.0' },
       next: { revalidate: 1800 },
     });
@@ -471,7 +463,7 @@ async function maybeFetchEli(text: string): Promise<string | null> {
     const matched = items.filter(it => it.title && keywords.some(k => norm(it.title!).includes(k))).slice(0, 5);
     if (matched.length === 0) return null;
     const lines = matched.map(a => `  - ${a.type ?? ''}: ${a.title}${a.announcementDate ? ` (ogl. ${a.announcementDate})` : ''}`).join('\n');
-    return `OSTATNIE ZMIANY W PRZEPISACH O SWIADCZENIACH (${year}, top ${matched.length}):\n${lines}\n  Pelna lista: https://wezmezadarmo.com/centrum-obywatela/prawo`;
+    return `OSTATNIE ZMIANY W PRZEPISACH O SWIADCZENIACH (${year}, top ${matched.length}):\n${lines}\n  Pelna lista: https://www.wezmezadarmo.com/centrum-obywatela/prawo`;
   } catch {
     return null;
   }
@@ -487,42 +479,21 @@ async function maybeFetchBdlGus(text: string, userProvince: string | null): Prom
   const gminaMatch = text.match(/(?:gmin[aęy][\s:]+|w gminie\s+)([A-Za-zĄĆĘŁŃÓŚŹŻąćęłńóśźż-]+)/i);
   const gmina = gminaMatch?.[1];
   if (!gmina && !userProvince) {
-    return `BDL GUS: aby pobrac dane, podaj nazwe gminy ("dane gminy Warszawa") lub uzupelnij wojewodztwo w profilu. Wyszukiwarka: https://wezmezadarmo.com/centrum-obywatela/gus`;
+    return `BDL GUS: aby pobrac dane, podaj nazwe gminy ("dane gminy Warszawa") lub uzupelnij wojewodztwo w profilu. Wyszukiwarka: https://www.wezmezadarmo.com/centrum-obywatela/gus`;
   }
   if (!gmina) return null;
 
   try {
-    const sRes = await fetch(`https://bdl.stat.gov.pl/api/v1/units/search?name=${encodeURIComponent(gmina)}&level=5&format=json&page-size=1`, {
-      headers: { Accept: 'application/json' },
-      next: { revalidate: 86400 },
-    });
-    if (!sRes.ok) return null;
-    const sData = await sRes.json();
-    const unit = (sData.results ?? [])[0] as { id: string; name: string; parentName?: string } | undefined;
-    if (!unit) return `BDL GUS: nie znaleziono gminy "${gmina}". Sprawdz pisownie na https://wezmezadarmo.com/centrum-obywatela/gus`;
-
-    const varParams = ['60559', '459163', '60270'].map(v => `var-id=${v}`).join('&');
-    const dRes = await fetch(`https://bdl.stat.gov.pl/api/v1/data/by-unit/${unit.id}?${varParams}&format=json`, {
-      headers: { Accept: 'application/json' },
-      next: { revalidate: 86400 },
-    });
-    if (!dRes.ok) return null;
-    const dData = await dRes.json();
-    const byId = new Map((dData.results ?? []).map((r: { id: string; values: Array<{ val: number; year: string }> }) => [r.id, r]));
-    const last = (id: string) => {
-      const r = byId.get(id) as { values: Array<{ val: number; year: string }> } | undefined;
-      const v = r?.values?.[r.values.length - 1];
-      return v ? { val: v.val, year: v.year } : null;
-    };
-    const pop = last('60559');
-    const unemp = last('459163');
-    const sal = last('60270');
+    const units = await searchUnitSmart(gmina);
+    const unit = units[0];
+    if (!unit) return `BDL GUS: nie znaleziono gminy "${gmina}". Sprawdz pisownie na https://www.wezmezadarmo.com/centrum-obywatela/gus`;
+    const d = await fetchUnitData(unit.id);
     return [
-      `BDL GUS - dane gminy ${unit.name}${unit.parentName ? ` (${unit.parentName})` : ''}:`,
-      pop ? `  Ludnosc: ${pop.val.toLocaleString('pl-PL')} (${pop.year})` : '',
-      unemp ? `  Bezrobocie: ${unemp.val}% (${unemp.year})` : '',
-      sal ? `  Przecietne wynagrodzenie: ${sal.val.toLocaleString('pl-PL')} PLN brutto (${sal.year})` : '',
-      `  Wiecej: https://wezmezadarmo.com/centrum-obywatela/gus`,
+      `BDL GUS - ${unit.name}${unit.parentName ? ` (${unit.parentName})` : ''}, dane za ${d.year ?? 'ostatni dostepny rok'}:`,
+      d.populationTotal != null ? `  Ludnosc: ${d.populationTotal.toLocaleString('pl-PL')}` : '',
+      d.unemploymentRate != null ? `  Stopa bezrobocia rejestrowanego (powiat): ${d.unemploymentRate}%` : '',
+      d.averageGrossSalary != null ? `  Przecietne wynagrodzenie brutto (powiat): ${d.averageGrossSalary.toLocaleString('pl-PL')} zl` : '',
+      `  Wiecej: https://www.wezmezadarmo.com/centrum-obywatela/gus`,
     ].filter(Boolean).join('\n');
   } catch {
     return null;

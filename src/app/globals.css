@@ -1097,3 +1097,35 @@ html.dark .btn-ghost { background: transparent; border-color: var(--tusz); color
 .stopka-sekcja[open] summary::after { content: '-'; }
 .stopka-sekcja-in { padding: 8px 0 4px; }
 .stopka-dol { margin: 24px 0 0; padding-top: 16px; border-top: 1px solid var(--linia); font-size: 13px; color: var(--szary); }
+
+/* lista z cienką linią (zamiast kart) */
+.lista { list-style: none; margin: 16px 0 0; padding: 0; }
+.lista li { padding: 12px 0; border-top: 1px solid var(--linia); font-size: 16px; line-height: 1.55; }
+.lista li:last-child { border-bottom: 1px solid var(--linia); }
+.lista b { font-family: var(--f-mono); font-weight: 700; }
+.etykieta { font-family: var(--f-mono); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--szary); margin: 0 0 8px; }
+
+/* /swiadczenia: kwadratowe rogi i bez cieni w całej liście */
+.sw-prosta *, .sw-prosta *::before, .sw-prosta *::after { border-radius: 0 !important; box-shadow: none !important; }
+.sw-prosta .benefit-row:last-child { border-bottom: 1px solid var(--linia); }
+
+/* Panele (/panel, /agent/panel): na telefonie i tablecie menu jako pasek zakładek nad treścią */
+@media (max-width: 900px) {
+  .panel-uklad { flex-direction: column !important; height: auto !important; overflow: visible !important; }
+  .panel-boczne { width: 100% !important; flex-direction: row !important; flex-wrap: wrap; align-items: center; border-right: 0 !important; border-bottom: 1px solid var(--linia); overflow: visible !important; }
+  .panel-boczne > div:not(.panel-wyloguj), .panel-boczne > nav { flex: 1 1 0; min-width: 0; }
+  .panel-boczne > div, .panel-boczne > nav { padding: 8px 12px !important; border-top: 0 !important; border-bottom: 0 !important; }
+  .panel-linki { display: flex !important; flex-direction: row !important; flex-wrap: nowrap; gap: 6px !important; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .panel-linki > * { flex-shrink: 0; width: auto !important; white-space: nowrap; margin-bottom: 0 !important; }
+  .panel-etykieta, .panel-opis, .panel-zwin { display: none !important; }
+  .panel-wyloguj { display: flex; justify-content: flex-end; flex: 0 0 auto; padding-left: 0 !important; }
+  .panel-wyloguj > * { width: auto !important; }
+  .panel-tresc { overflow: visible !important; width: 100%; }
+}
+
+/* Wycieczka po panelu (driver.js): mała, kwadratowa, w kolorach strony */
+.driver-popover.wycieczka { border-radius: 0; border: 2px solid var(--tusz); background: var(--surface, #fffaf2); color: var(--tusz); box-shadow: 4px 4px 0 var(--tusz); max-width: min(300px, calc(100vw - 32px)); padding: 14px 16px; font-family: var(--f-sans, Inter, sans-serif); }
+.driver-popover.wycieczka .driver-popover-title { font-family: var(--f-mono); font-size: 15px; font-weight: 700; }
+.driver-popover.wycieczka .driver-popover-description { font-size: 14px; line-height: 1.5; color: var(--szary); }
+.driver-popover.wycieczka .driver-popover-footer button { border-radius: 0; border: 2px solid var(--tusz); background: transparent; color: var(--tusz); font-family: var(--f-mono); text-shadow: none; min-height: 36px; padding: 4px 12px; }
+.driver-popover.wycieczka .driver-popover-progress-text { font-family: var(--f-mono); font-size: 12px; color: var(--szary); }

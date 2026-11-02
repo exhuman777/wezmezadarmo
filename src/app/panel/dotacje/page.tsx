@@ -15,6 +15,13 @@ interface CeidgData {
   vat?: { status: string | null; registeredAt: string | null; removedAt: string | null } | null;
 }
 
+/** „59 programów dotacyjnych”, „22 programy dotacyjne”, „1 program dotacyjny”. */
+function liczbaProgramow(n: number): string {
+  if (n === 1) return '1 program dotacyjny';
+  const d = n % 10, s = n % 100;
+  return d >= 2 && d <= 4 && (s < 12 || s > 14) ? `${n} programy dotacyjne` : `${n} programów dotacyjnych`;
+}
+
 const STATUS_LABELS: Record<string, { label: string; color: string }> = {
   open: { label: 'OTWARTY', color: '#2b7353' },
   continuous: { label: 'CIĄGŁY', color: '#0d5036' },
@@ -123,8 +130,8 @@ export default function PanelDotacjePage() {
         Dofinansowania dopasowane do Twojej firmy
       </h1>
       <p style={{ fontSize: 14, color: 'var(--ink-500)', marginBottom: 24, lineHeight: 1.6 }}>
-        Wpisz NIP firmy - pobierzemy dane z CEIDG (PKD, województwo, status VAT) i dopasujemy
-        23 programy dotacyjne: KFS, PUP, PFRON, KPO, PARP FENG, NCBR, ARiMR, programy regionalne.
+        Wpisz NIP firmy, a pobierzemy dane z CEIDG (PKD, województwo, status VAT) i sprawdzimy{' '}
+        {liczbaProgramow(PROGRAMS.length)}: KFS, PUP, PFRON, KPO, PARP FENG, NCBR, ARiMR i programy regionalne.
       </p>
 
       <form onSubmit={checkNip} style={{ display: 'flex', gap: 8, marginBottom: 24, flexWrap: 'wrap' }}>
@@ -260,10 +267,10 @@ export default function PanelDotacjePage() {
 
       {!ceidg && !error && (
         <div style={{ padding: 32, background: 'var(--green-50)', border: '1px solid var(--green-200)', borderRadius: 2, textAlign: 'center', color: 'var(--green-900)' }}>
-          <div style={{ fontSize: 14, marginBottom: 8 }}>Wpisz NIP firmy żeby zobaczyć dopasowane dotacje.</div>
+          <div style={{ fontSize: 14, marginBottom: 8 }}>Wpisz NIP firmy, żeby zobaczyć dopasowane dotacje.</div>
           <div style={{ fontSize: 12, color: 'var(--ink-500)' }}>
             Dane z CEIDG (rejestr firm) + Białej Listy VAT. Limit: 10 zapytań/dzień/IP.
-            <Link href="/dotacje" style={{ color: '#2b7353', marginLeft: 6 }}>Zobacz wszystkie 23 programy bez personalizacji →</Link>
+            <Link href="/dotacje" style={{ color: '#2b7353', marginLeft: 6 }}>Zobacz wszystkie {liczbaProgramow(PROGRAMS.length)} →</Link>
           </div>
         </div>
       )}
@@ -274,7 +281,7 @@ export default function PanelDotacjePage() {
 function ProgramCard({ program }: { program: B2BProgram }) {
   const status = STATUS_LABELS[program.status] ?? { label: program.status, color: '#666' };
   return (
-    <div style={{ padding: 16, background: 'var(--white)', border: '1px solid var(--line)', borderLeft: `3px solid ${status.color}`, borderRadius: 2 }}>
+    <div style={{ padding: 16, background: 'var(--surface)', border: '1px solid var(--linia)', borderRadius: 0 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12, marginBottom: 8, flexWrap: 'wrap' }}>
         <div>
           <div style={{ display: 'flex', gap: 6, alignItems: 'center', marginBottom: 4, flexWrap: 'wrap' }}>
@@ -312,61 +319,28 @@ function ProgramCard({ program }: { program: B2BProgram }) {
 }
 
 function ViaPromoCard() {
+  // Karta partnerska VIA (tryvia.eu). Treść według ich strony z 2.11.2026: „AI business development partner”,
+  // okazje z rynku UE przychodzą na Telegram, od 199 EUR miesięcznie. Styl strony, bez fioletu.
   return (
-    <div style={{
-      marginTop: 10,
-      padding: 18,
-      background: '#f5f3ff',
-      border: '1px solid #c4b5fd',
-      borderTop: '3px solid #7c3aed',
-      borderRadius: 2,
-      position: 'relative', overflow: 'hidden',
-    }}>
-      <div style={{
-        position: 'absolute', top: 12, right: 14,
-        fontSize: 9, padding: '2px 7px', borderRadius: 2,
-        background: '#7c3aed', color: '#fff', fontWeight: 700,
-        fontFamily: 'var(--f-mono)', letterSpacing: '0.06em',
-      }}>
-        PROMOWANE
+    <div style={{ marginTop: 10, background: '#e8e6df', border: '2px solid var(--tusz)', borderRadius: 0 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8, padding: '8px 14px', background: 'var(--tusz)', color: '#f6f0e4' }}>
+        <span className="mono" style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.06em' }}>VIA</span>
+        <span className="mono" style={{ fontSize: 11, opacity: 0.8 }}>polecamy · poza wezmezadarmo</span>
       </div>
-
-      <div style={{ display: 'flex', gap: 6, alignItems: 'center', marginBottom: 6, flexWrap: 'wrap' }}>
-        <span style={{ fontSize: 9, padding: '2px 7px', borderRadius: 2, background: '#7c3aed', color: '#fff', fontWeight: 700, fontFamily: 'var(--f-mono)', letterSpacing: '0.04em' }}>
-          AI AGENT
-        </span>
-        <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 2, background: 'rgba(124,58,237,0.1)', color: '#5b21b6', fontFamily: 'var(--f-mono)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-          27 KRAJÓW UE
-        </span>
-      </div>
-
-      <div style={{ fontSize: 16, fontWeight: 700, color: '#2e1065', lineHeight: 1.3, marginBottom: 4, letterSpacing: '-0.01em' }}>
-        VIA - autonomiczny agent dla Twojego biznesu
-      </div>
-      <div style={{ fontSize: 12, color: '#5b21b6', marginBottom: 10, fontFamily: 'var(--f-mono)' }}>
-        Sourcing przetargów + B+R + zatrudnienia + regulacji w 27 krajach UE
-      </div>
-
-      <p style={{ fontSize: 13, color: '#3b0764', lineHeight: 1.6, margin: '0 0 12px' }}>
-        VIA czyta przetargi w 27 krajach UE, rundy finansowania, aktywność rekrutacyjną
-        i zmiany regulacyjne — następnie krzyżuje każdy sygnał z Twoim profilem kompetencji,
-        pozycją konkurencyjną i celami, zanim trafi do Ciebie. Nigdy nie przeglądasz surowego
-        feedu; otwierasz krótką listę okazji już ocenionych pod kątem tego, jak dobrze pasują
-        do tego, co możesz wygrać.
-      </p>
-
-      <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
-        <a href="https://www.tryvia.eu/#" target="_blank" rel="noopener noreferrer" style={{
-          display: 'inline-flex', alignItems: 'center', gap: 6,
-          fontSize: 13, fontWeight: 600,
-          padding: '8px 16px', borderRadius: 2,
-          background: '#7c3aed', color: '#fff', textDecoration: 'none',
-          boxShadow: 'none',
-          transition: 'transform 150ms, box-shadow 150ms',
-        }}>
-          Sprawdź VIA →
+      <div style={{ padding: 16 }}>
+        <div className="mono" style={{ fontSize: 17, fontWeight: 700, color: 'var(--tusz)', lineHeight: 1.3, marginBottom: 6 }}>
+          Następny kontrakt sam do Ciebie napisze
+        </div>
+        <p style={{ fontSize: 14, color: 'var(--tusz)', lineHeight: 1.6, margin: '0 0 12px' }}>
+          VIA to partner AI do pozyskiwania klientów: śledzi rynek w całej UE, przetargi, nowe przepisy i budżety, i wysyła Ci na Telegram okazje, które pasują do Twojej firmy. Bez instalacji, od 199 EUR miesięcznie.
+        </p>
+        <div aria-hidden="true" style={{ maxWidth: 360, margin: '0 0 14px', padding: '10px 12px', background: '#ffffff', border: '1px solid var(--linia)', fontSize: 13, lineHeight: 1.5, color: 'var(--tusz)' }}>
+          <span className="mono" style={{ display: 'block', fontSize: 11, color: 'var(--szary)', marginBottom: 4 }}>VIA · przykład wiadomości</span>
+          Dzień dobry. Przed pierwszym telefonem znalazłem przetarg na konstrukcję stalową, termin ofert za 5 tygodni. Robiliście już trzy takie. Biorę się za to?
+        </div>
+        <a href="https://www.tryvia.eu/" target="_blank" rel="noopener noreferrer" className="btn">
+          Zobacz VIA
         </a>
-        <span style={{ fontSize: 11, color: '#7c3aed', fontFamily: 'var(--f-mono)' }}>tryvia.eu · poza wezmezadarmo</span>
       </div>
     </div>
   );

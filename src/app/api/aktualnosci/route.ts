@@ -7,7 +7,10 @@ export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
 // Źródła które działają bezpośrednio z Vercel (nie potrzebują cache)
-const LIVE_SOURCE_IDS = new Set(['zus', 'gus']);
+const LIVE_SOURCE_IDS = new Set(['zus', 'gus', 'arimr']);
+
+// Wpisy z cache starsze niż 14 dni nie są pokazywane jako aktualne (źródło trafia do „niedostępne”).
+const CACHE_MAX_AGE_MS = 14 * 24 * 60 * 60 * 1000;
 
 // Pobiera artykuły z Supabase rss_cache dla zablokowanych źródeł
 async function fetchFromCache(sourceIds: string[]): Promise<FeedItem[]> {
@@ -28,6 +31,7 @@ async function fetchFromCache(sourceIds: string[]): Promise<FeedItem[]> {
       .from('rss_cache')
       .select('id, source_id, source_name, title, link, description, pub_date, audiences')
       .in('source_id', sourceIds)
+      .gte('fetched_at', new Date(Date.now() - CACHE_MAX_AGE_MS).toISOString())
       .order('fetched_at', { ascending: false })
       .limit(150);
 

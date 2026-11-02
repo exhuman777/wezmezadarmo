@@ -2,6 +2,7 @@ import { NextRequest } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { PROGRAMS } from '@/data/programs-b2b';
 import { sendProgramAlert } from '@/lib/dotacje/emailAlerts';
+import { SITE_URL } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';
 
@@ -24,7 +25,7 @@ export async function GET(request: NextRequest) {
   }
 
   const admin = getAdminClient();
-  const baseUrl = process.env.NEXT_PUBLIC_URL ?? 'https://wezmezadarmo.com';
+  const baseUrl = SITE_URL;
 
   // Get all active subscribers with monitoring prefs
   const { data: activeUsers, error: usersError } = await admin

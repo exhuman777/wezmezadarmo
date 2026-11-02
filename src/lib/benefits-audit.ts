@@ -239,7 +239,7 @@ export async function auditUrl(
         httpStatus, status: 'NOT_FOUND',
         contentHash: null, contentLength: 0, changePct: null,
         needsReview: true,
-        note: `Miekki 404 -- przekierowanie na strone glowna (${finalUrl})`,
+        note: `Miękki 404: przekierowanie na stronę główną (${finalUrl})`,
       };
     }
 
@@ -281,7 +281,7 @@ export async function auditUrl(
       needsReview = true;
     }
 
-    if (isRedirect) note = `Redirect -> ${finalUrl}`;
+    if (isRedirect) note = `Przekierowanie na ${finalUrl}`;
 
     return {
       benefitId, benefitName, category, url,

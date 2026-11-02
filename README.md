@@ -21,7 +21,7 @@ actually use the digital state. This is civic infrastructure, not a business.
 
 ## What it does
 
-- Matches your demographic profile against a hand-verified database of 118 Polish government benefits
+- Matches your demographic profile against a hand-verified database of 133 Polish government benefits
 - Covers: ZUS (social insurance), NFZ (healthcare), PFRON (disability), KRUS (farmers), MOPS (social welfare), local government programs
 - AI assistant (Google Gemini via OpenRouter) answers follow-up questions with citation-enforced answers
 - Personal agent panel (`/panel`): saved profile, matched benefits with embedded AI chat, RSS news monitoring, opt-in email newsletter
@@ -104,7 +104,7 @@ Public pages:
 - `/aktualnosci` - RSS news monitoring (public preview + B2B panel for firms)
 - `/statystyki` - GUS/SDG statistics dashboard (live indicators + charts)
 - `/automatyzacje` - educational/informational page only: how AI plus code over structured, human-verified data can further use an already-digitised EU (nothing is sold)
-- `/dotacje` - free grant-monitoring landing (57 programs database)
+- `/dotacje` - free grant-monitoring landing (59 programs database)
 - `/dla-firm` - B2B landing for firms and sole proprietors
 - `/agent` - AI agent landing for individuals
 - `/o-projekcie`, `/polityka-prywatnosci`, `/regulamin` - info pages

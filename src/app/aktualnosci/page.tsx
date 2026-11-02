@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   alternates: canonical('/aktualnosci'),
   title: 'Aktualności z polskich instytucji | wezmezadarmo',
   description:
-    'ZUS, GUS, NBP, UOKiK, Fundusze EU, NFZ, Sejm i ARiMR w jednym miejscu. Filtruj po profilu: JDG, firma lub obywatel.',
+    'Komunikaty ZUS, PFRON, GUS, Sejmu, ARiMR i ministerstw w jednym miejscu. Filtruj po profilu: JDG, firma lub obywatel.',
   openGraph: {
     images: OG_IMAGES,
     title: 'Aktualności rządowe dla JDG, firm i obywateli',

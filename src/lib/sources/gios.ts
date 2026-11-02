@@ -79,6 +79,7 @@ export async function getAllStations(): Promise<GiosStation[]> {
 
   // GIOS ma ~288 stacji - jedna strona size=500 wystarczy
   const res = await fetch(`${BASE}/station/findAll?page=0&size=500`, {
+    signal: AbortSignal.timeout(10_000),
     headers: { Accept: 'application/ld+json' },
     next: { revalidate: 86400 },
   });
@@ -101,6 +102,7 @@ function pollutantLevel(aqi: RawAqi, indicator: string): string | null {
 export async function getAirIndex(stationId: number): Promise<GiosAqi> {
   // GIOŚ v1 zwraca application/ld+json -- Accept: application/json daje 406
   const res = await fetch(`${BASE}/aqindex/getIndex/${stationId}`, {
+    signal: AbortSignal.timeout(10_000),
     headers: { Accept: 'application/ld+json' },
     next: { revalidate: 1800 },
   });
