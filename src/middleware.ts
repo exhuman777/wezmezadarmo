@@ -1,5 +1,6 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
+import { COOKIE_DOSTEP, sprawdzDostep } from '@/lib/narzedzia/dostep';
 
 /** Basic Auth check dla /admin/* -- bez podanego hasla zwraca 401 z popupem przegldarki. */
 function basicAuthChallenge(): NextResponse {
@@ -39,6 +40,27 @@ function checkAdminAuth(request: NextRequest): boolean {
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  // Narzędzia dla firm (statyczne pliki w public/narzedzia): tylko po potwierdzeniu e-maila (ciasteczko z /api/narzedzia/potwierdz).
+  if (pathname === '/narzedzia' || pathname.startsWith('/narzedzia/')) {
+    if (await sprawdzDostep(request.cookies.get(COOKIE_DOSTEP)?.value)) {
+      // Katalog (np. /narzedzia/kpir/kpir/) -> jego index.html z public/.
+      const ostatni = pathname.split('/').filter(Boolean).pop() ?? '';
+      let res: NextResponse;
+      if (!ostatni.includes('.')) {
+        const plik = request.nextUrl.clone();
+        plik.pathname = `${pathname.replace(/\/$/, '')}/index.html`;
+        res = NextResponse.rewrite(plik);
+      } else {
+        res = NextResponse.next();
+      }
+      res.headers.set('X-Robots-Tag', 'noindex, nofollow');
+      // Strony bez pamięci podręcznej (dostęp może wygasnąć), pliki (_astro, czcionki) prywatnie na dobę.
+      res.headers.set('Cache-Control', ostatni.includes('.') && !ostatni.endsWith('.html') ? 'private, max-age=86400' : 'private, no-store');
+      return res;
+    }
+    return NextResponse.redirect(new URL('/dla-firm/narzedzia?wymagany=1', request.url));
+  }
 
   // /admin/*, /api/admin/* i endpoint diagnostyczny -- Basic Auth gate (przed Supabase auth check)
   if (pathname.startsWith('/admin') || pathname.startsWith('/api/admin') || pathname === '/api/aktualnosci/debug') {
@@ -105,5 +127,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/panel/:path*', '/dotacje/panel/:path*', '/agent/panel/:path*', '/admin/:path*', '/api/admin/:path*', '/api/aktualnosci/debug'],
+  matcher: ['/narzedzia', '/narzedzia/:path*', '/panel/:path*', '/dotacje/panel/:path*', '/agent/panel/:path*', '/admin/:path*', '/api/admin/:path*', '/api/aktualnosci/debug'],
 };

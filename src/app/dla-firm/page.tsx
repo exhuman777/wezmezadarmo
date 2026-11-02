@@ -131,8 +131,16 @@ export default function DlaFirmPage() {
     <main className="prosta">
 
       <section className="prosta-blok" style={{ padding: 0 }}>
+        <h1>Za darmo dla firm: sprawdź księgę KPiR, plik JPK_V7 i dofinansowania</h1>
+        <p className="pod">Wgrywasz plik, a przeglądarka pokazuje, co sprawdzić przed wysyłką. Pliki zostają u Ciebie. Bez zakładania konta: link do narzędzi dostajesz mailem.</p>
+        <div className="przyciski">
+          <a href="/dla-firm/narzedzia" className="btn btn-rdza btn-lg">Otwórz narzędzia dla firm</a>
+        </div>
+      </section>
+
+      <section className="prosta-blok" style={{ padding: '32px 0 0' }}>
         <p className="mono mala" style={{ margin: '0 0 8px' }}>Otwarte API dla firm, NGO i instytucji</p>
-        <h1>Jedno API do świadczeń, które należą się ludziom</h1>
+        <h2>Jedno API do świadczeń, które należą się ludziom</h2>
         <p className="pod">Bezpłatna baza zweryfikowanych świadczeń jako REST API. Nie przechowujemy danych osób.</p>
         <div className="przyciski">
           <a href="#api" className="btn btn-primary btn-lg">Zobacz API</a>

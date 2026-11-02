@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Plik syntetyczny do testów i pokazu „Przegląd przed 2027”. Firmy i dane fikcyjne. -->
+<tns:JPK xmlns:etd="http://crd.gov.pl/xml/schematy/dziedzinowe/mf/2022/09/13/eD/DefinicjeTypy/" xmlns:tns="http://crd.gov.pl/wzor/2025/12/19/14090/">
+  <tns:Naglowek>
+    <tns:KodFormularza kodSystemowy="JPK_V7M (3)" wersjaSchemy="1-0E">JPK_VAT</tns:KodFormularza>
+    <tns:WariantFormularza>3</tns:WariantFormularza>
+    <tns:DataWytworzeniaJPK>2026-04-10T09:00:00Z</tns:DataWytworzeniaJPK>
+    <tns:NazwaSystemu>Generator testowy</tns:NazwaSystemu>
+    <tns:CelZlozenia poz="P_7">1</tns:CelZlozenia>
+    <tns:KodUrzedu>0611</tns:KodUrzedu>
+    <tns:Rok>2026</tns:Rok>
+    <tns:Miesiac>3</tns:Miesiac>
+  </tns:Naglowek>
+  <tns:Podmiot1 rola="Podatnik">
+    <tns:OsobaNiefizyczna>
+      <etd:NIP>7129001013</etd:NIP>
+      <etd:PelnaNazwa>Piekarnia Pod Kłosem Sp. z o.o. (dane fikcyjne)</etd:PelnaNazwa>
+      <tns:Email>biuro@przyklad.invalid</tns:Email>
+    </tns:OsobaNiefizyczna>
+  </tns:Podmiot1>
+  <tns:Deklaracja>
+    <tns:Naglowek>
+      <tns:KodFormularzaDekl kodSystemowy="VAT-7 (23)" kodPodatku="VAT" rodzajZobowiazania="Z" wersjaSchemy="1-0E">VAT-7</tns:KodFormularzaDekl>
+      <tns:WariantFormularzaDekl>23</tns:WariantFormularzaDekl>
+    </tns:Naglowek>
+    <tns:PozycjeSzczegolowe>
+      <tns:P_19>52710</tns:P_19>
+      <tns:P_20>12008</tns:P_20>
+      <tns:P_37>52710</tns:P_37>
+      <tns:P_38>12008</tns:P_38>
+      <tns:P_42>40450</tns:P_42>
+      <tns:P_43>9304</tns:P_43>
+      <tns:P_48>9304</tns:P_48>
+      <tns:P_51>2704</tns:P_51>
+    </tns:PozycjeSzczegolowe>
+    <tns:Pouczenia>1</tns:Pouczenia>
+  </tns:Deklaracja>
+  <tns:Ewidencja>
+    <tns:SprzedazWiersz>
+      <tns:LpSprzedazy>1</tns:LpSprzedazy>
+      <tns:NrKontrahenta>7126006062</tns:NrKontrahenta>
+      <tns:NazwaKontrahenta>Kawiarnia Fikcyjna s.c.</tns:NazwaKontrahenta>
+      <tns:DowodSprzedazy>FV/1/03/2026</tns:DowodSprzedazy>
+      <tns:DataWystawienia>2026-03-02</tns:DataWystawienia>
+      <tns:NrKSeF>7129001013-20260302-D3440E-955D2C-F4</tns:NrKSeF>
+      <tns:K_19>1200.00</tns:K_19>
+      <tns:K_20>276.00</tns:K_20>
+    </tns:SprzedazWiersz>
+    <tns:SprzedazWiersz>
+      <tns:LpSprzedazy>2</tns:LpSprzedazy>
+      <tns:NrKontrahenta>7127007075</tns:NrKontrahenta>
+      <tns:NazwaKontrahenta>Hotel Demo Sp. z o.o.</tns:NazwaKontrahenta>
+      <tns:DowodSprzedazy>FV/2/03/2026</tns:DowodSprzedazy>
+      <tns:DataWystawienia>2026-03-05</tns:DataWystawienia>
+      <tns:NrKSeF>7129001013-20260305-A9E355-6C0C72-CB</tns:NrKSeF>
+      <tns:K_19>3400.00</tns:K_19>
+      <tns:K_20>782.00</tns:K_20>
+    </tns:SprzedazWiersz>
+    <tns:SprzedazWiersz>
+      <tns:LpSprzedazy>3</tns:LpSprzedazy>
+      <tns:NrKontrahenta>7126006062</tns:NrKontrahenta>
+      <tns:NazwaKontrahenta>Kawiarnia Fikcyjna s.c.</tns:NazwaKontrahenta>
+      <tns:DowodSprzedazy>FV/3/03/2026</tns:DowodSprzedazy>
+      <tns:DataWystawienia>2026-03-09</tns:DataWystawienia>
+      
+      <tns:K_19>860.00</tns:K_19>
+      <tns:K_20>197.80</tns:K_20>
+    </tns:SprzedazWiersz>
+    <tns:SprzedazWiersz>
+      <tns:LpSprzedazy>4</tns:LpSprzedazy>
+      <tns:NrKontrahenta>7127007075</tns:NrKontrahenta>
+      <tns:NazwaKontrahenta>Hotel Demo Sp. z o.o.</tns:NazwaKontrahenta>
+      <tns:DowodSprzedazy>FV/4/03/2026</tns:DowodSprzedazy>
+      <tns:DataWystawienia>2026-03-11</tns:DataWystawienia>
+      <tns:NrKSeF>123-2026-03-11-ZZZ</tns:NrKSeF>
+      <tns:K_19>540.00</tns:K_19>
+      <tns:K_20>124.20</tns:K_20>
+    </tns:SprzedazWiersz>
+    <tns:SprzedazWiersz>
+      <tns:LpSprzedazy>5</tns:LpSprzedazy>
+      <tns:NrKontrahenta>7128008081</tns:NrKontrahenta>
+      <tns:NazwaKontrahenta>Bistro Literówka</tns:NazwaKontrahenta>
+      <tns:DowodSprzedazy>FV/5/03/2026</tns:DowodSprzedazy>
+      <tns:DataWystawienia>2026-03-12</tns:DataWystawienia>
+      <tns:NrKSeF>7129001013-20260312-1C0163-DEE719-3E</tns:NrKSeF>
+      <tns:K_19>410.00</tns:K_19>
+      <tns:K_20>94.30</tns:K_20>
+    </tns:SprzedazWiersz>
+    <tns:SprzedazWiersz>
+      <tns:LpSprzedazy>6</tns:LpSprzedazy>
+      <tns:NrKontrahenta>7127007075</tns:NrKontrahenta>
+      <tns:NazwaKontrahenta>Hotel Demo Sp. z o.o.</tns:NazwaKontrahenta>
+      <tns:DowodSprzedazy>FV/2/03/2026</tns:DowodSprzedazy>
+      <tns:DataWystawienia>2026-03-05</tns:DataWystawienia>
+      <tns:NrKSeF>7129001013-20260305-A9E355-6C0C72-CB</tns:NrKSeF>
+      <tns:K_19>3400.00</tns:K_19>
+      <tns:K_20>782.00</tns:K_20>
+    </tns:SprzedazWiersz>
+    <tns:SprzedazWiersz>
+      <tns:LpSprzedazy>7</tns:LpSprzedazy>
+      <tns:NrKontrahenta>7126006062</tns:NrKontrahenta>
+      <tns:NazwaKontrahenta>Kawiarnia Fikcyjna s.c.</tns:NazwaKontrahenta>
+      <tns:DowodSprzedazy>FV/7/03/2026</tns:DowodSprzedazy>
+      <tns:DataWystawienia>2026-03-03</tns:DataWystawienia>
+      <tns:DataSprzedazy>2026-02-26</tns:DataSprzedazy>
+      <tns:NrKSeF>7129001013-20260303-8DB85F-40B6A9-AF</tns:NrKSeF>
+      <tns:K_19>300.00</tns:K_19>
+      <tns:K_20>69.00</tns:K_20>
+    </tns:SprzedazWiersz>
+    <tns:SprzedazWiersz>
+      <tns:LpSprzedazy>8</tns:LpSprzedazy>
+      <tns:NrKontrahenta>7127007075</tns:NrKontrahenta>
+      <tns:NazwaKontrahenta>Hotel Demo Sp. z o.o.</tns:NazwaKontrahenta>
+      <tns:DowodSprzedazy>FV/8/03/2026</tns:DowodSprzedazy>
+      <tns:DataWystawienia>2026-03-20</tns:DataWystawienia>
+      <tns:NrKSeF>7129001013-20260320-BE4D1E-7023C1-D0</tns:NrKSeF>
+      <tns:K_19>16000.00</tns:K_19>
+      <tns:K_20>3680.00</tns:K_20>
+    </tns:SprzedazWiersz>
+    <tns:SprzedazWiersz>
+      <tns:LpSprzedazy>9</tns:LpSprzedazy>
+      <tns:NrKontrahenta>7126006062</tns:NrKontrahenta>
+      <tns:NazwaKontrahenta>Kawiarnia Fikcyjna s.c.</tns:NazwaKontrahenta>
+      <tns:DowodSprzedazy>FV/9/03/2026</tns:DowodSprzedazy>
+      <tns:DataWystawienia>2026-03-24</tns:DataWystawienia>
+      <tns:OFF>1</tns:OFF>
+      <tns:K_19>700.00</tns:K_19>
+      <tns:K_20>161.00</tns:K_20>
+    </tns:SprzedazWiersz>
+    <tns:SprzedazWiersz>
+      <tns:LpSprzedazy>10</tns:LpSprzedazy>
+      <tns:NrKontrahenta>brak</tns:NrKontrahenta>
+      <tns:NazwaKontrahenta>brak</tns:NazwaKontrahenta>
+      <tns:DowodSprzedazy>RK/03/2026</tns:DowodSprzedazy>
+      <tns:DataWystawienia>2026-03-31</tns:DataWystawienia>
+      <tns:DI>1</tns:DI>
+      <tns:TypDokumentu>RO</tns:TypDokumentu>
+      <tns:K_19>25400.00</tns:K_19>
+      <tns:K_20>5842.00</tns:K_20>
+    </tns:SprzedazWiersz>
+    <tns:SprzedazCtrl>
+      <tns:LiczbaWierszySprzedazy>10</tns:LiczbaWierszySprzedazy>
+      <tns:PodatekNalezny>12108.30</tns:PodatekNalezny>
+    </tns:SprzedazCtrl>
+    <tns:ZakupWiersz>
+      <tns:LpZakupu>1</tns:LpZakupu>
+      <tns:NrDostawcy>5214004340</tns:NrDostawcy>
+      <tns:NazwaDostawcy>Młyn Zbożowy Przykład Sp. z o.o.</tns:NazwaDostawcy>
+      <tns:DowodZakupu>M/2026/03/118</tns:DowodZakupu>
+      <tns:DataZakupu>2026-03-03</tns:DataZakupu>
+      <tns:NrKSeF>5214004340-20260303-70CD43-33ABCC-82</tns:NrKSeF>
+      <tns:K_42>9800.00</tns:K_42>
+      <tns:K_43>2254.00</tns:K_43>
+    </tns:ZakupWiersz>
+    <tns:ZakupWiersz>
+      <tns:LpZakupu>2</tns:LpZakupu>
+      <tns:NrDostawcy>5225005053</tns:NrDostawcy>
+      <tns:NazwaDostawcy>Hurtownia Spożywcza Testowa S.A.</tns:NazwaDostawcy>
+      <tns:DowodZakupu>H-5521/26</tns:DowodZakupu>
+      <tns:DataZakupu>2026-03-10</tns:DataZakupu>
+      
+      <tns:K_42>1450.00</tns:K_42>
+      <tns:K_43>333.50</tns:K_43>
+    </tns:ZakupWiersz>
+    <tns:ZakupWiersz>
+      <tns:LpZakupu>3</tns:LpZakupu>
+      <tns:NrDostawcy>5261010106</tns:NrDostawcy>
+      <tns:NazwaDostawcy>Energia Przykładowa S.A.</tns:NazwaDostawcy>
+      <tns:DowodZakupu>E/03/99812</tns:DowodZakupu>
+      <tns:DataZakupu>2026-03-15</tns:DataZakupu>
+      <tns:BFK>1</tns:BFK>
+      <tns:K_42>2100.00</tns:K_42>
+      <tns:K_43>483.00</tns:K_43>
+    </tns:ZakupWiersz>
+    <tns:ZakupWiersz>
+      <tns:LpZakupu>4</tns:LpZakupu>
+      <tns:NrDostawcy>6319009098</tns:NrDostawcy>
+      <tns:NazwaDostawcy>Piece Przemysłowe Wzór Sp. z o.o.</tns:NazwaDostawcy>
+      <tns:DowodZakupu>PP/12/2026</tns:DowodZakupu>
+      <tns:DataZakupu>2026-03-18</tns:DataZakupu>
+      <tns:NrKSeF>6319009098-20260318-F4C686-C7C223-16</tns:NrKSeF>
+      <tns:K_42>24000.00</tns:K_42>
+      <tns:K_43>5520.00</tns:K_43>
+    </tns:ZakupWiersz>
+    <tns:ZakupWiersz>
+      <tns:LpZakupu>5</tns:LpZakupu>
+      <tns:NrDostawcy>5271111116</tns:NrDostawcy>
+      <tns:NazwaDostawcy>Leasing Testowy Sp. z o.o.</tns:NazwaDostawcy>
+      <tns:DowodZakupu>L/2026/03/4</tns:DowodZakupu>
+      <tns:DataZakupu>2026-03-01</tns:DataZakupu>
+      <tns:NrKSeF>5271111116-20260301-B1B234-73B94A-D3</tns:NrKSeF>
+      <tns:K_42>3100.00</tns:K_42>
+      <tns:K_43>713.00</tns:K_43>
+    </tns:ZakupWiersz>
+    <tns:ZakupCtrl>
+      <tns:LiczbaWierszyZakupow>5</tns:LiczbaWierszyZakupow>
+      <tns:PodatekNaliczony>9303.50</tns:PodatekNaliczony>
+    </tns:ZakupCtrl>
+  </tns:Ewidencja>
+</tns:JPK>

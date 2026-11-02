@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Plik syntetyczny do testów i pokazu „Przegląd przed 2027”. Firmy i dane fikcyjne. -->
+<tns:JPK xmlns:etd="http://crd.gov.pl/xml/schematy/dziedzinowe/mf/2022/09/13/eD/DefinicjeTypy/" xmlns:tns="http://crd.gov.pl/wzor/2025/12/19/14090/">
+  <tns:Naglowek>
+    <tns:KodFormularza kodSystemowy="JPK_V7M (3)" wersjaSchemy="1-0E">JPK_VAT</tns:KodFormularza>
+    <tns:WariantFormularza>3</tns:WariantFormularza>
+    <tns:DataWytworzeniaJPK>2026-05-10T09:00:00Z</tns:DataWytworzeniaJPK>
+    <tns:NazwaSystemu>Generator testowy</tns:NazwaSystemu>
+    <tns:CelZlozenia poz="P_7">1</tns:CelZlozenia>
+    <tns:KodUrzedu>0611</tns:KodUrzedu>
+    <tns:Rok>2026</tns:Rok>
+    <tns:Miesiac>4</tns:Miesiac>
+  </tns:Naglowek>
+  <tns:Podmiot1 rola="Podatnik">
+    <tns:OsobaNiefizyczna>
+      <etd:NIP>9461002036</etd:NIP>
+      <etd:PelnaNazwa>Pracownia Projektowa Linia Sp. z o.o. (dane fikcyjne)</etd:PelnaNazwa>
+      <tns:Email>biuro@przyklad.invalid</tns:Email>
+    </tns:OsobaNiefizyczna>
+  </tns:Podmiot1>
+  <tns:Deklaracja>
+    <tns:Naglowek>
+      <tns:KodFormularzaDekl kodSystemowy="VAT-7 (23)" kodPodatku="VAT" rodzajZobowiazania="Z" wersjaSchemy="1-0E">VAT-7</tns:KodFormularzaDekl>
+      <tns:WariantFormularzaDekl>23</tns:WariantFormularzaDekl>
+    </tns:Naglowek>
+    <tns:PozycjeSzczegolowe>
+      <tns:P_19>26000</tns:P_19>
+      <tns:P_20>5980</tns:P_20>
+      <tns:P_37>26000</tns:P_37>
+      <tns:P_38>5980</tns:P_38>
+      <tns:P_42>4560</tns:P_42>
+      <tns:P_43>1049</tns:P_43>
+      <tns:P_48>1049</tns:P_48>
+      <tns:P_51>4931</tns:P_51>
+    </tns:PozycjeSzczegolowe>
+    <tns:Pouczenia>1</tns:Pouczenia>
+  </tns:Deklaracja>
+  <tns:Ewidencja>
+    <tns:SprzedazWiersz>
+      <tns:LpSprzedazy>1</tns:LpSprzedazy>
+      <tns:NrKontrahenta>9462121211</tns:NrKontrahenta>
+      <tns:NazwaKontrahenta>Deweloper Fikcyjny Sp. z o.o.</tns:NazwaKontrahenta>
+      <tns:DowodSprzedazy>1/04/2026</tns:DowodSprzedazy>
+      <tns:DataWystawienia>2026-04-07</tns:DataWystawienia>
+      <tns:NrKSeF>9461002036-20260407-392B39-FCCF2A-5B</tns:NrKSeF>
+      <tns:K_19>18000.00</tns:K_19>
+      <tns:K_20>4140.00</tns:K_20>
+    </tns:SprzedazWiersz>
+    <tns:SprzedazWiersz>
+      <tns:LpSprzedazy>2</tns:LpSprzedazy>
+      <tns:NrKontrahenta>9463131312</tns:NrKontrahenta>
+      <tns:NazwaKontrahenta>Drukarnia Przykład s.c.</tns:NazwaKontrahenta>
+      <tns:DowodSprzedazy>2/04/2026</tns:DowodSprzedazy>
+      <tns:DataWystawienia>2026-04-15</tns:DataWystawienia>
+      <tns:NrKSeF>9461002036-20260415-6A838E-2CC436-8C</tns:NrKSeF>
+      <tns:K_19>2400.00</tns:K_19>
+      <tns:K_20>552.00</tns:K_20>
+    </tns:SprzedazWiersz>
+    <tns:SprzedazWiersz>
+      <tns:LpSprzedazy>3</tns:LpSprzedazy>
+      <tns:NrKontrahenta>7127007075</tns:NrKontrahenta>
+      <tns:NazwaKontrahenta>Hotel Demo Sp. z o.o.</tns:NazwaKontrahenta>
+      <tns:DowodSprzedazy>3/04/2026</tns:DowodSprzedazy>
+      <tns:DataWystawienia>2026-04-28</tns:DataWystawienia>
+      <tns:NrKSeF>9461002036-20260428-AB76B7-6DFD52-CD</tns:NrKSeF>
+      <tns:K_19>5600.00</tns:K_19>
+      <tns:K_20>1288.00</tns:K_20>
+    </tns:SprzedazWiersz>
+    <tns:SprzedazCtrl>
+      <tns:LiczbaWierszySprzedazy>3</tns:LiczbaWierszySprzedazy>
+      <tns:PodatekNalezny>5980.00</tns:PodatekNalezny>
+    </tns:SprzedazCtrl>
+    <tns:ZakupWiersz>
+      <tns:LpZakupu>1</tns:LpZakupu>
+      <tns:NrDostawcy>9463131312</tns:NrDostawcy>
+      <tns:NazwaDostawcy>Drukarnia Przykład s.c.</tns:NazwaDostawcy>
+      <tns:DowodZakupu>D/221/2026</tns:DowodZakupu>
+      <tns:DataZakupu>2026-04-02</tns:DataZakupu>
+      <tns:NrKSeF>9463131312-20260402-E0B13C-A23E62-01</tns:NrKSeF>
+      <tns:K_42>820.00</tns:K_42>
+      <tns:K_43>188.60</tns:K_43>
+    </tns:ZakupWiersz>
+    <tns:ZakupWiersz>
+      <tns:LpZakupu>2</tns:LpZakupu>
+      <tns:NrDostawcy>5261010106</tns:NrDostawcy>
+      <tns:NazwaDostawcy>Energia Przykładowa S.A.</tns:NazwaDostawcy>
+      <tns:DowodZakupu>E/04/11872</tns:DowodZakupu>
+      <tns:DataZakupu>2026-04-14</tns:DataZakupu>
+      <tns:BFK>1</tns:BFK>
+      <tns:K_42>640.00</tns:K_42>
+      <tns:K_43>147.20</tns:K_43>
+    </tns:ZakupWiersz>
+    <tns:ZakupWiersz>
+      <tns:LpZakupu>3</tns:LpZakupu>
+      <tns:NrDostawcy>5271111116</tns:NrDostawcy>
+      <tns:NazwaDostawcy>Leasing Testowy Sp. z o.o.</tns:NazwaDostawcy>
+      <tns:DowodZakupu>L/2026/04/9</tns:DowodZakupu>
+      <tns:DataZakupu>2026-04-01</tns:DataZakupu>
+      <tns:NrKSeF>5271111116-20260401-48F175-0AEF21-6A</tns:NrKSeF>
+      <tns:K_42>3100.00</tns:K_42>
+      <tns:K_43>713.00</tns:K_43>
+    </tns:ZakupWiersz>
+    <tns:ZakupCtrl>
+      <tns:LiczbaWierszyZakupow>3</tns:LiczbaWierszyZakupow>
+      <tns:PodatekNaliczony>1048.80</tns:PodatekNaliczony>
+    </tns:ZakupCtrl>
+  </tns:Ewidencja>
+</tns:JPK>
