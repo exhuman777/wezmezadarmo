@@ -900,7 +900,7 @@ Limit IKE 2026: 23.472 PLN.
 
 Mozna miec jednoczesnie IKE i IKZE (i PPK i PPE).
 `,
-    zrodlo: 'https://www.podatki.gov.pl/pit/ulgi-odliczenia-i-zwolnienia/ -- pobrano 2026-05-13',
+    zrodlo: 'https://podatki.gov.pl/ulgi-i-odliczenia -- pobrano 2026-05-13',
   },
 
   'ulga-na-start': {

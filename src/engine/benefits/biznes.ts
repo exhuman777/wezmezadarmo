@@ -130,7 +130,7 @@ export const BIZNES: Benefit[] = [
       pulapki: ['Nie odliczysz kosztów uzyskania przychodu, płacisz od przychodu, nie od dochodu', 'Stawka zależy od rodzaju działalności (PKD)'],
       odwolanie: 'Zmiana formy opodatkowania do 20 lutego następnego roku',
     },
-    zrodloUrl: 'https://www.podatki.gov.pl/podatki-firmowe/pit/informacje-podstawowe/co-jest-opodatkowane/opodatkowanie-ryczaltem-od-przychodow-ewidencjonowanych',
+    zrodloUrl: 'https://podatki.gov.pl/podatki-firmowe/pit/informacje-podstawowe/co-jest-opodatkowane/opodatkowanie-ryczaltem-od-przychodow-ewidencjonowanych',
     zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-07-06', dataWaznosci: '2026-12-31',
   },
   {
@@ -152,7 +152,7 @@ export const BIZNES: Benefit[] = [
       pulapki: ['Program działa do końca 2026 roku', 'Dotyczy TYLKO robotów przemysłowych w rozumieniu ISO 8373'],
       odwolanie: 'Odwołanie od decyzji US',
     },
-    zrodloUrl: 'https://www.podatki.gov.pl/ulgi-i-odliczenia/ulga-na-robotyzacje-pit/',
+    zrodloUrl: 'https://podatki.gov.pl/ulgi-i-odliczenia/ulga-na-robotyzacje-pit',
     zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
 ];

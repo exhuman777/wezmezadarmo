@@ -116,7 +116,7 @@ export const INNE: Benefit[] = [
       ],
       odwolanie: 'Korekta zeznania PIT w ciągu 5 lat od terminu złożenia',
     },
-    zrodloUrl: 'https://www.podatki.gov.pl/ulgi-i-odliczenia/ulga-rehabilitacyjna-pit/',
+    zrodloUrl: 'https://podatki.gov.pl/ulgi-i-odliczenia/ulga-rehabilitacyjna-pit',
     zrodloNazwa: 'podatki.gov.pl (Ministerstwo Finansów)', dataWeryfikacji: '2026-05-23', dataWaznosci: '2027-04-30',
   },
   {

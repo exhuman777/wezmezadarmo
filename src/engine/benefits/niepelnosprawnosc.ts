@@ -69,7 +69,7 @@ export const NIEPELNOSPRAWNOSC: Benefit[] = [
       pulapki: ['Każdy powiat ma własny budżet, środki mogą się skończyć w trakcie roku', 'Warto składać na początku roku kalendarzowego'],
       odwolanie: 'Odwołanie do Starosty',
     },
-    zrodloUrl: 'https://www.pfron.org.pl/',
+    zrodloUrl: 'https://www.pfron.gov.pl/',
     zrodloNazwa: 'PFRON', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {

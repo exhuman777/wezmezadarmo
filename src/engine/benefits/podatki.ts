@@ -21,7 +21,7 @@ export const PODATKI: Benefit[] = [
       pulapki: ['TYLKO domy jednorodzinne, mieszkania w bloku nie kwalifikują się', 'Limit 53 000 PLN na podatnika, nie na budynek', 'Faktura musi być na właściciela domu'],
       odwolanie: 'Korekta PIT',
     },
-    zrodloUrl: 'https://www.podatki.gov.pl/ulgi-i-odliczenia/ulga-termomodernizacyjna-pit/',
+    zrodloUrl: 'https://podatki.gov.pl/ulgi-i-odliczenia/ulga-termomodernizacyjna-pit-kto-i-ile-moze-odliczyc',
     zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
@@ -43,7 +43,7 @@ export const PODATKI: Benefit[] = [
       pulapki: ['Leki: odliczasz nadwyżkę powyżej 100 PLN miesięcznie', 'Utrzymanie psa asystującego: ryczałt 2280 PLN bez dokumentowania'],
       odwolanie: 'Korekta PIT',
     },
-    zrodloUrl: 'https://www.podatki.gov.pl/ulgi-i-odliczenia/ulga-rehabilitacyjna-pit/',
+    zrodloUrl: 'https://podatki.gov.pl/ulgi-i-odliczenia/ulga-rehabilitacyjna-pit',
     zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
@@ -61,7 +61,7 @@ export const PODATKI: Benefit[] = [
       pulapki: ['TYLKO 2 kolejne lata podatkowe, potem ulga przepada na zawsze', 'Nie musiałeś używać internetu wcześniej, liczy się pierwszy rok odliczenia'],
       odwolanie: 'Korekta PIT',
     },
-    zrodloUrl: 'https://www.podatki.gov.pl/ulgi-i-odliczenia/ulga-na-internet-pit/',
+    zrodloUrl: 'https://podatki.gov.pl/ulgi-i-odliczenia/ulga-na-internet-pit',
     zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
@@ -79,7 +79,7 @@ export const PODATKI: Benefit[] = [
       pulapki: ['Limit wpłat zmienia się co roku, sprawdź aktualny', 'Wypłata z IKZE przed 65 r.ż. = podatek 10%'],
       odwolanie: 'Korekta PIT',
     },
-    zrodloUrl: 'https://www.podatki.gov.pl/pit/ulgi-odliczenia-i-zwolnienia/',
+    zrodloUrl: 'https://podatki.gov.pl/ulgi-i-odliczenia',
     zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
@@ -97,7 +97,7 @@ export const PODATKI: Benefit[] = [
       pulapki: ['Oboje musicie mieć wspólność majątkową', 'Nie działa jeśli ktoś rozlicza się ryczałtem'],
       odwolanie: 'Korekta PIT',
     },
-    zrodloUrl: 'https://www.podatki.gov.pl/poradniki-i-informatory/wspolne-rozliczenie-malzonkow',
+    zrodloUrl: 'https://podatki.gov.pl/poradniki-i-informatory/wspolne-rozliczenie-malzonkow',
     zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-07-06', dataWaznosci: '2026-12-31',
   },
   {
@@ -115,7 +115,7 @@ export const PODATKI: Benefit[] = [
       pulapki: ['Nie dotyczy działalności gospodarczej', 'Nie dotyczy umów o dzieło', 'Po 26 urodzinach, ulga kończy się w dniu urodzin'],
       odwolanie: 'Nie dotyczy',
     },
-    zrodloUrl: 'https://www.podatki.gov.pl/ulgi-i-odliczenia/ulga-dla-mlodych-pit/',
+    zrodloUrl: 'https://podatki.gov.pl/ulgi-i-odliczenia/ulga-dla-mlodych-pit',
     zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
@@ -133,7 +133,7 @@ export const PODATKI: Benefit[] = [
       pulapki: ['To nie jest darowizna, to podatek który i tak płacisz, tylko kierujesz go na OPP', 'Jeśli nie wpiszesz KRS, pieniądze idą do budżetu ogólnego'],
       odwolanie: 'Korekta PIT',
     },
-    zrodloUrl: 'https://www.podatki.gov.pl/poradniki-i-informatory/jak-przekazac-1-5-podatku-na-rzecz-opp-pit/',
+    zrodloUrl: 'https://podatki.gov.pl/poradniki-i-informatory/jak-przekazac-1-5-podatku-na-rzecz-opp-pit',
     zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-05-23', dataWaznosci: '2026-12-31',
   },
   {
@@ -155,7 +155,7 @@ export const PODATKI: Benefit[] = [
       pulapki: ['Wymaga prowadzenia szczegółowej ewidencji, bez niej US może zakwestionować', 'Dotyczy patentów, praw autorskich do programów komputerowych, wzorów użytkowych'],
       odwolanie: 'Odwołanie od decyzji US',
     },
-    zrodloUrl: 'https://www.podatki.gov.pl/poradniki-i-informatory/ip-box-rozliczenie-dochodow-z-kwalifikowanych-praw-wlasnosci-intelektualnej-pit',
+    zrodloUrl: 'https://podatki.gov.pl/poradniki-i-informatory/ip-box-rozliczenie-dochodow-z-kwalifikowanych-praw-wlasnosci-intelektualnej-pit',
     zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-07-06', dataWaznosci: '2026-12-31',
   },
   {
@@ -184,7 +184,7 @@ export const PODATKI: Benefit[] = [
       ],
       odwolanie: 'Korekta zeznania PIT',
     },
-    zrodloUrl: 'https://www.podatki.gov.pl/ulgi-i-odliczenia/ulga-dla-rodzin-4plus-pit',
+    zrodloUrl: 'https://podatki.gov.pl/ulgi-i-odliczenia/ulga-dla-rodzin-4plus-pit',
     zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-06-29', dataWaznosci: '2026-12-31',
   },
   {
@@ -218,7 +218,7 @@ export const PODATKI: Benefit[] = [
       ],
       odwolanie: 'Korekta zeznania PIT',
     },
-    zrodloUrl: 'https://www.podatki.gov.pl/ulgi-i-odliczenia/ulga-na-powrot-pit/',
+    zrodloUrl: 'https://podatki.gov.pl/ulgi-i-odliczenia/ulga-na-powrot-pit',
     zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-06-03', dataWaznosci: '2026-12-31',
   },
   {
@@ -249,7 +249,7 @@ export const PODATKI: Benefit[] = [
       ],
       odwolanie: 'Korekta zeznania PIT',
     },
-    zrodloUrl: 'https://www.podatki.gov.pl/ulgi-i-odliczenia/ulga-dla-pracujacych-seniorow-pit/',
+    zrodloUrl: 'https://podatki.gov.pl/ulgi-i-odliczenia/ulga-dla-pracujacych-seniorow-pit-kto-moze-skorzystac',
     zrodloNazwa: 'Ministerstwo Finansów', dataWeryfikacji: '2026-06-03', dataWaznosci: '2026-12-31',
   },
 ];
