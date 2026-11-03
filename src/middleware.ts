@@ -1,6 +1,7 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 import { COOKIE_DOSTEP, sprawdzDostep } from '@/lib/narzedzia/dostep';
+import { bramkaDla } from '@/lib/narzedzia/lista';
 
 /** Basic Auth check dla /admin/* -- bez podanego hasla zwraca 401 z popupem przegldarki. */
 function basicAuthChallenge(): NextResponse {
@@ -41,7 +42,7 @@ function checkAdminAuth(request: NextRequest): boolean {
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Narzędzia dla firm (statyczne pliki w public/narzedzia): tylko po potwierdzeniu e-maila (ciasteczko z /api/narzedzia/potwierdz).
+  // Narzędzia dla firm (statyczne pliki w public/narzedzia): tylko z ciasteczkiem dostępu (formularz z e-mailem i telefonem albo link z maila).
   if (pathname === '/narzedzia' || pathname.startsWith('/narzedzia/')) {
     if (await sprawdzDostep(request.cookies.get(COOKIE_DOSTEP)?.value)) {
       // Katalog (np. /narzedzia/kpir/kpir/) -> jego index.html z public/.
@@ -59,7 +60,11 @@ export async function middleware(request: NextRequest) {
       res.headers.set('Cache-Control', ostatni.includes('.') && !ostatni.endsWith('.html') ? 'private, max-age=86400' : 'private, no-store');
       return res;
     }
-    return NextResponse.redirect(new URL('/dla-firm/narzedzia?wymagany=1', request.url));
+    // Bez dostępu: strona narzędzia z opisem i formularzem, po wysłaniu powrót dokładnie tutaj.
+    const bramka = new URL(bramkaDla(pathname), request.url);
+    bramka.searchParams.set('wymagany', '1');
+    if (pathname !== '/narzedzia' && pathname !== '/narzedzia/') bramka.searchParams.set('next', pathname);
+    return NextResponse.redirect(bramka);
   }
 
   // /admin/*, /api/admin/* i endpoint diagnostyczny -- Basic Auth gate (przed Supabase auth check)

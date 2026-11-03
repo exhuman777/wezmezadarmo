@@ -14,8 +14,7 @@ export function WebSiteJsonLd() {
     inLanguage: 'pl-PL',
     publisher: {
       '@type': 'Organization',
-      name: 'Mooning Charts Research',
-      taxID: '7133061369',
+      name: 'wezmezadarmo.com',
     },
     potentialAction: {
       '@type': 'SearchAction',
@@ -37,8 +36,6 @@ export function OrganizationJsonLd() {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'wezmezadarmo.com',
-    legalName: 'Mooning Charts Research Kamil Sobkowicz',
-    taxID: '7133061369',
     url: 'https://www.wezmezadarmo.com',
     logo: 'https://www.wezmezadarmo.com/icon',
     description: 'Bezpłatne narzędzie do sprawdzania świadczeń, ulg, dotacji i programów wsparcia dla polskich obywateli i firm.',
@@ -50,7 +47,6 @@ export function OrganizationJsonLd() {
       url: 'https://www.wezmezadarmo.com/o-projekcie',
     },
     sameAs: [
-      'https://www.linkedin.com/in/kamil-sobkowicz',
       'https://github.com/exhuman777/wezmezadarmo',
     ],
   };

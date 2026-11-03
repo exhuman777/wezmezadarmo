@@ -22,7 +22,7 @@ export default function PolitykaPage() {
           Polityka prywatności
         </h1>
         <p className="text-[13px] text-text-3 mb-8">
-          Ostatnia aktualizacja: 23 maja 2026 r.
+          Ostatnia aktualizacja: 3 listopada 2026 r.
         </p>
 
         <div className="space-y-8 text-[14px] sm:text-[15px] leading-[1.7] text-text-2">
@@ -100,6 +100,8 @@ export default function PolitykaPage() {
             </TableWrapper>
 
             <P>3.4. <strong className="text-text-1">Formularz kontaktowy:</strong> Imię, nazwa firmy, adres e-mail i treść wiadomości. Cel: odpowiedź na zapytanie. Podstawa: art. 6 ust. 1 lit. b RODO. Dane nie są przechowywane po udzieleniu odpowiedzi.</P>
+
+            <P id="narzedzia">3.4a. <strong className="text-text-1">Narzędzia dla firm (przegląd KPiR, przegląd JPK_V7, dofinansowania po NIP):</strong> adres e-mail, numer telefonu, opcjonalnie imię, treść i data zgody, skrót adresu IP (do ochrony przed nadużyciami). Cel: otwarcie dostępu do narzędzi i kontakt e-mailem lub telefonicznie w sprawie narzędzi dla firm. Podstawa: zgoda (art. 6 ust. 1 lit. a RODO), którą można wycofać w każdej chwili, oraz uzasadniony interes administratora w ochronie przed nadużyciami (art. 6 ust. 1 lit. f RODO). Administrator jest ten sam co dla całego Serwisu. Dane przechowujemy do wycofania zgody. Pliki wgrywane do przeglądów KPiR i JPK_V7 czyta tylko przeglądarka użytkownika, nie trafiają na serwer.</P>
 
             <P>3.5. <strong className="text-text-1">Centrum Obywatela i wyszukiwarka NFZ - zapytania do publicznych API:</strong></P>
             <TableWrapper>
@@ -317,8 +319,8 @@ function Section({ n, title, children }: { n: string; title: string; children: R
   );
 }
 
-function P({ children, className }: { children: React.ReactNode; className?: string }) {
-  return <p className={className}>{children}</p>;
+function P({ children, className, id }: { children: React.ReactNode; className?: string; id?: string }) {
+  return <p className={className} id={id} style={id ? { scrollMarginTop: 80 } : undefined}>{children}</p>;
 }
 
 function ContactEmail() {

@@ -2,7 +2,8 @@ import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { NextRequest } from 'next/server';
 import { wydajDostep, sprawdzDostep, COOKIE_DOSTEP } from '@/lib/narzedzia/dostep';
 import { hashTokenu, nowyToken, poprawnyFormat, terminTokenu, wygasl } from '@/lib/narzedzia/token';
-import { walidujLead } from '@/lib/narzedzia/walidacja';
+import { bezpiecznyNext, normalizujTelefon, walidujLead } from '@/lib/narzedzia/walidacja';
+import { bramkaDla, NARZEDZIA } from '@/lib/narzedzia/lista';
 import { magazynPamiec, wyczyscPamiec } from '@/lib/narzedzia/leady';
 
 const KLUCZ = 'klucz-testowy-co-najmniej-16-znakow';
@@ -45,7 +46,7 @@ describe('token potwierdzenia', () => {
     wyczyscPamiec();
     const t0 = Date.UTC(2026, 10, 2);
     const tok = nowyToken();
-    await magazynPamiec.zapiszOczekujacy({ email: 'a@b.pl', imie: null, telefon: null }, hashTokenu(tok), terminTokenu(t0), 'test', 'x');
+    expect(await magazynPamiec.zapiszOczekujacy({ email: 'a@b.pl', imie: null, telefon: null }, hashTokenu(tok), terminTokenu(t0), 'test', 'x')).toMatch(/^test-\d+$/);
     expect((await magazynPamiec.potwierdz(hashTokenu(tok), t0 + 1000)).ok).toBe(true);
     expect(await magazynPamiec.potwierdz(hashTokenu(tok), t0 + 2000)).toEqual({ ok: false, powod: 'brak' });
     const tok2 = nowyToken();
@@ -55,15 +56,76 @@ describe('token potwierdzenia', () => {
 });
 
 describe('walidacja formularza', () => {
-  it('wymaga e-maila i zgody, reszta opcjonalna', () => {
-    expect(walidujLead({ email: 'zly', zgoda: true })).toMatchObject({ ok: false });
-    expect(walidujLead({ email: 'a@b.pl', zgoda: false })).toMatchObject({ ok: false });
-    expect(walidujLead({ email: ' A@B.pl ', zgoda: true })).toEqual({ ok: true, dane: { email: 'a@b.pl', imie: null, telefon: null } });
-    expect(walidujLead({ email: 'a@b.pl', zgoda: true, imie: 'Iwona', telefon: '600 100 200' })).toEqual({ ok: true, dane: { email: 'a@b.pl', imie: 'Iwona', telefon: '600 100 200' } });
+  it('wymaga e-maila, telefonu i zgody, imię opcjonalne', () => {
+    expect(walidujLead({ email: 'zly', telefon: '600100200', zgoda: true })).toMatchObject({ ok: false });
+    expect(walidujLead({ email: 'a@b.pl', telefon: '600100200', zgoda: false })).toMatchObject({ ok: false });
+    expect(walidujLead({ email: 'a@b.pl', zgoda: true })).toEqual({ ok: false, blad: 'Podaj numer telefonu.' });
+    expect(walidujLead({ email: ' A@B.pl ', telefon: '600 100 200', zgoda: true })).toEqual({ ok: true, dane: { email: 'a@b.pl', imie: null, telefon: '+48 600 100 200' } });
+    expect(walidujLead({ email: 'a@b.pl', zgoda: true, imie: 'Iwona', telefon: '+48 600-100-200' })).toEqual({ ok: true, dane: { email: 'a@b.pl', imie: 'Iwona', telefon: '+48 600 100 200' } });
     expect(walidujLead({ email: 'a@b.pl', zgoda: true, telefon: '12' })).toMatchObject({ ok: false });
   });
   it('honeypot rozpoznany jako bot', () => {
-    expect(walidujLead({ email: 'a@b.pl', zgoda: true, www: 'http://spam' })).toEqual({ ok: false, pulapka: true });
+    expect(walidujLead({ email: 'a@b.pl', telefon: '600100200', zgoda: true, www: 'http://spam' })).toEqual({ ok: false, pulapka: true });
+  });
+});
+
+describe('telefon', () => {
+  it('przyjmuje 9 cyfr z +48, 0048, spacjami, myślnikami i nawiasami', () => {
+    expect(normalizujTelefon('600100200')).toBe('+48 600 100 200');
+    expect(normalizujTelefon('+48600100200')).toBe('+48 600 100 200');
+    expect(normalizujTelefon('0048 600 100 200')).toBe('+48 600 100 200');
+    expect(normalizujTelefon('(81) 532-10-20')).toBe('+48 815 321 020');
+    expect(normalizujTelefon(' 600.100.200 ')).toBe('+48 600 100 200');
+  });
+  it('odrzuca za krótkie, za długie, litery i inne kraje', () => {
+    expect(normalizujTelefon('60010020')).toBeNull();
+    expect(normalizujTelefon('6001002000')).toBeNull();
+    expect(normalizujTelefon('600 abc 200')).toBeNull();
+    expect(normalizujTelefon('+49 600 100 200')).toBeNull();
+    expect(normalizujTelefon('')).toBeNull();
+  });
+});
+
+describe('parametr next (bez open redirect)', () => {
+  it('przepuszcza tylko ścieżki narzędzi', () => {
+    expect(bezpiecznyNext('/narzedzia/kpir/kpir/')).toBe('/narzedzia/kpir/kpir/');
+    expect(bezpiecznyNext('/narzedzia/jpk/')).toBe('/narzedzia/jpk/');
+    expect(bezpiecznyNext('/dla-firm/narzedzia/dofinansowania')).toBe('/dla-firm/narzedzia/dofinansowania');
+    expect(bezpiecznyNext('/narzedzia/kpir/forma/?x=1')).toBe('/narzedzia/kpir/forma/?x=1');
+  });
+  it('odrzuca adresy zewnętrzne i sztuczki', () => {
+    for (const zly of ['https://zly.pl/narzedzia/', '//zly.pl/narzedzia/', '/\\zly.pl', '\\\\zly.pl', 'javascript:alert(1)', '/narzedzia/../admin', '/admin/narzedzia', '/panel', '/narzedzia%2f..%2fadmin', ' /narzedzia/', '/narzedzia/\n', '', null, 42, '/dla-firm/narzedziax']) {
+      const w = bezpiecznyNext(zly);
+      expect(w === '/dla-firm/narzedzia' || w.startsWith('/narzedzia/') || w.startsWith('/dla-firm/narzedzia/')).toBe(true);
+      expect(w).not.toMatch(/^\/\/|zly\.pl|admin|panel|javascript/);
+    }
+    expect(bezpiecznyNext('https://zly.pl/narzedzia/')).toBe('/dla-firm/narzedzia');
+    expect(bezpiecznyNext('//zly.pl/narzedzia/')).toBe('/dla-firm/narzedzia');
+    expect(bezpiecznyNext('/narzedzia/../admin')).toBe('/dla-firm/narzedzia');
+  });
+});
+
+describe('cel po formularzu', () => {
+  it('wraca na podstronę tego samego narzędzia, inaczej na start narzędzia', async () => {
+    const { celPoFormularzu } = await import('@/app/dla-firm/narzedzia/strona-narzedzia');
+    const [kpir, jpk] = NARZEDZIA;
+    expect(celPoFormularzu(kpir, undefined)).toBe('/narzedzia/kpir/kpir/');
+    expect(celPoFormularzu(kpir, '/narzedzia/kpir/forma')).toBe('/narzedzia/kpir/forma');
+    expect(celPoFormularzu(kpir, '/narzedzia/jpk/')).toBe('/narzedzia/kpir/kpir/');
+    expect(celPoFormularzu(jpk, '/narzedzia/jpk')).toBe('/narzedzia/jpk');
+    expect(celPoFormularzu(jpk, 'https://zly.pl')).toBe('/narzedzia/jpk/');
+  });
+});
+
+describe('lista narzędzi i bramki', () => {
+  it('stałe adresy do linkowania i bramka dla ścieżek statycznych', () => {
+    expect(NARZEDZIA.map((n) => n.adres)).toEqual(['/dla-firm/narzedzia/kpir', '/dla-firm/narzedzia/jpk', '/dla-firm/narzedzia/dofinansowania']);
+    expect(bramkaDla('/narzedzia/kpir/kpir/')).toBe('/dla-firm/narzedzia/kpir');
+    expect(bramkaDla('/narzedzia/jpk/')).toBe('/dla-firm/narzedzia/jpk');
+    expect(bramkaDla('/narzedzia/jpk')).toBe('/dla-firm/narzedzia/jpk');
+    expect(bramkaDla('/narzedzia/kpirx/')).toBe('/dla-firm/narzedzia');
+    expect(bramkaDla('/narzedzia/inne/')).toBe('/dla-firm/narzedzia');
+    for (const n of NARZEDZIA) expect(bezpiecznyNext(n.cel)).toBe(n.cel);
   });
 });
 
@@ -73,18 +135,35 @@ describe('API /api/narzedzia/lead', () => {
   const req = (body: unknown, ip = '10.0.0.1') => new NextRequest('http://localhost/api/narzedzia/lead', {
     method: 'POST', body: JSON.stringify(body), headers: { 'content-type': 'application/json', 'x-forwarded-for': ip },
   });
-  it('odrzuca zły e-mail (400) i udaje sukces przy honeypocie bez zapisu', async () => {
+  it('odrzuca zły e-mail i brak telefonu (400), honeypot udaje sukces bez zapisu i bez ciasteczka', async () => {
     const { POST } = await import('@/app/api/narzedzia/lead/route');
-    expect((await POST(req({ email: 'nie-mail', zgoda: true }, '10.0.0.2'))).status).toBe(400);
-    const r = await POST(req({ email: 'bot@spam.pl', zgoda: true, www: 'x' }, '10.0.0.3'));
+    expect((await POST(req({ email: 'nie-mail', telefon: '600100200', zgoda: true }, '10.0.0.2'))).status).toBe(400);
+    expect((await POST(req({ email: 'jan@firma.pl', zgoda: true }, '10.0.0.2'))).status).toBe(400);
+    const r = await POST(req({ email: 'bot@spam.pl', telefon: '600100200', zgoda: true, www: 'x' }, '10.0.0.3'));
     expect(r.status).toBe(200);
+    expect(r.cookies.get(COOKIE_DOSTEP)).toBeUndefined();
     expect(await magazynPamiec.lista()).toHaveLength(0);
   });
-  it('zapisuje leada i daje link testowy, który wydaje ciasteczko', async () => {
+  it('po wysłaniu od razu daje ciasteczko dostępu (30 dni) i bezpieczny next', async () => {
     const { POST } = await import('@/app/api/narzedzia/lead/route');
-    const r = await POST(req({ email: 'jan@firma.pl', zgoda: true, imie: 'Jan' }, '10.0.0.4'));
+    const r = await POST(req({ email: 'jan@firma.pl', telefon: '600 100 200', zgoda: true, imie: 'Jan', next: '/narzedzia/jpk/' }, '10.0.0.4'));
+    expect(r.status).toBe(200);
     const d = await r.json();
-    expect(d.ok).toBe(true);
+    expect(d).toMatchObject({ ok: true, next: '/narzedzia/jpk/' });
+    const c = r.cookies.get(COOKIE_DOSTEP);
+    expect(c?.value).toBeTruthy();
+    expect(c?.httpOnly).toBe(true);
+    expect(c?.maxAge).toBe(30 * 24 * 3600);
+    expect(await sprawdzDostep(c?.value)).toBe(true);
+    const [lead] = await magazynPamiec.lista();
+    expect(lead).toMatchObject({ email: 'jan@firma.pl', telefon: '+48 600 100 200', imie: 'Jan' });
+    const zly = await POST(req({ email: 'ola@firma.pl', telefon: '600100201', zgoda: true, next: 'https://zly.pl/' }, '10.0.0.5'));
+    expect((await zly.json()).next).toBe('/dla-firm/narzedzia');
+  });
+  it('link z maila dalej działa jako potwierdzenie (jednorazowo)', async () => {
+    const { POST } = await import('@/app/api/narzedzia/lead/route');
+    const r = await POST(req({ email: 'ewa@firma.pl', telefon: '600100202', zgoda: true }, '10.0.0.6'));
+    const d = await r.json();
     expect(d.linkTestowy).toMatch(/\/api\/narzedzia\/potwierdz\?token=[0-9a-f]{48}$/);
     const { GET } = await import('@/app/api/narzedzia/potwierdz/route');
     const res = await GET(new NextRequest(d.linkTestowy));
@@ -92,6 +171,13 @@ describe('API /api/narzedzia/lead', () => {
     expect(res.cookies.get(COOKIE_DOSTEP)?.value).toBeTruthy();
     const drugi = await GET(new NextRequest(d.linkTestowy));
     expect(drugi.headers.get('location')).toContain('dostep=zly-link');
+  });
+  it('limit: szóste zgłoszenie z jednego IP w godzinie dostaje 429', async () => {
+    const { POST } = await import('@/app/api/narzedzia/lead/route');
+    for (let i = 0; i < 5; i++) {
+      expect((await POST(req({ email: `l${i}@firma.pl`, telefon: '600100203', zgoda: true }, '10.0.0.99'))).status).toBe(200);
+    }
+    expect((await POST(req({ email: 'l6@firma.pl', telefon: '600100203', zgoda: true }, '10.0.0.99'))).status).toBe(429);
   });
 });
 
@@ -102,7 +188,11 @@ describe('middleware /narzedzia', () => {
     const { middleware } = await import('@/middleware');
     const bez = await middleware(new NextRequest('http://localhost/narzedzia/kpir/kpir/'));
     expect(bez.status).toBe(307);
-    expect(bez.headers.get('location')).toContain('/dla-firm/narzedzia?wymagany=1');
+    const loc = new URL(bez.headers.get('location')!);
+    expect(loc.pathname).toBe('/dla-firm/narzedzia/kpir');
+    expect(loc.searchParams.get('next')).toBe('/narzedzia/kpir/kpir/');
+    const jpk = new URL((await middleware(new NextRequest('http://localhost/narzedzia/jpk/'))).headers.get('location')!);
+    expect(jpk.pathname).toBe('/dla-firm/narzedzia/jpk');
     const c = await wydajDostep('lead-1');
     const z = await middleware(new NextRequest('http://localhost/narzedzia/kpir/kpir/', { headers: { cookie: `${COOKIE_DOSTEP}=${c}` } }));
     expect(z.status).toBe(200);

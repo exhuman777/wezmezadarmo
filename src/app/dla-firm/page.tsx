@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { NARZEDZIA } from '@/lib/narzedzia/lista';
 
 /* ── Terminal code window ── */
 function TerminalWindow() {
@@ -132,10 +133,15 @@ export default function DlaFirmPage() {
 
       <section className="prosta-blok" style={{ padding: 0 }}>
         <h1>Za darmo dla firm: sprawdź księgę KPiR, plik JPK_V7 i dofinansowania</h1>
-        <p className="pod">Wgrywasz plik, a przeglądarka pokazuje, co sprawdzić przed wysyłką. Pliki zostają u Ciebie. Bez zakładania konta: link do narzędzi dostajesz mailem.</p>
+        <p className="pod">Wgrywasz plik, a przeglądarka pokazuje, co sprawdzić przed wysyłką. Pliki zostają u Ciebie. Bez zakładania konta: wystarczy e-mail i telefon.</p>
         <div className="przyciski">
           <a href="/dla-firm/narzedzia" className="btn btn-rdza btn-lg">Otwórz narzędzia dla firm</a>
         </div>
+        <ul className="linki" style={{ marginTop: 16 }}>
+          {NARZEDZIA.map((n) => (
+            <li key={n.slug}><a href={n.adres}><span>{n.nazwa}</span><span aria-hidden="true">→</span></a></li>
+          ))}
+        </ul>
       </section>
 
       <section className="prosta-blok" style={{ padding: '32px 0 0' }}>

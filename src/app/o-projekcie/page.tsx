@@ -70,7 +70,7 @@ export default function OProjekciePage() {
       <section className="prosta-blok">
         <h2>Autor</h2>
         <p>
-          Projekt stworzył Kamil Sobkowicz z Lublina, pro bono. Kod jest otwarty (AGPL-3.0), baza świadczeń to otwarte dane (CC-BY-4.0).
+          Projekt stworzył tuKamil z Lublina, pro bono. Kod jest otwarty (AGPL-3.0), baza świadczeń to otwarte dane (CC-BY-4.0).
         </p>
         <ul className="linki">
           <li><a href="https://pixel-kamil.vercel.app" target="_blank" rel="noopener"><span>pixel-kamil.vercel.app<small>Strona autora</small></span><span aria-hidden="true">→</span></a></li>

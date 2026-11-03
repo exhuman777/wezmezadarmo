@@ -139,7 +139,7 @@ export default function PressPage() {
         </h2>
         <div style={{ padding: 18, background: 'var(--green-50)', border: '1px solid var(--green-200)', borderRadius: 2, fontSize: 14, color: 'var(--green-900)', lineHeight: 1.7 }}>
           <div style={{ marginBottom: 8 }}>
-            <strong>Founder & autor:</strong> Kamil Sobkowicz (Mooning Charts Research)
+            <strong>Founder & autor:</strong> tuKamil
           </div>
           <div style={{ marginBottom: 8 }}>
             <strong>E-mail prasowy:</strong> <a href="mailto:press@wezmezadarmo.com" style={{ color: '#2b7353' }}>press@wezmezadarmo.com</a>
@@ -148,7 +148,7 @@ export default function PressPage() {
             <strong>GitHub (open-source):</strong> <a href="https://github.com/exhuman777/wezmezadarmo" target="_blank" rel="noopener noreferrer" style={{ color: '#2b7353' }}>github.com/exhuman777/wezmezadarmo</a>
           </div>
           <div>
-            <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/kamil-sobkowicz" target="_blank" rel="noopener noreferrer" style={{ color: '#2b7353' }}>kamil-sobkowicz</a>
+            <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/kamil-sobkowicz" target="_blank" rel="noopener noreferrer" style={{ color: '#2b7353' }}>profil autora</a>
           </div>
         </div>
       </div>

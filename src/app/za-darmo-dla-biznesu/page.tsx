@@ -8,8 +8,6 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-const CONTACT_EMAIL = 'kamil.sobkowicz@dogtronic.io';
-
 // Opisy wyłącznie z inwentarzy funkcji produktów (12.09.2026) i z żywych stron doginvoice.com i doganswer.com.
 const DOGINVOICE = [
   'Sam dopasowuje przelewy z banku do faktur z KSeF, więc od razu widzisz, co jest opłacone, a co nie.',
@@ -56,10 +54,7 @@ export default function ZaDarmoDlaBiznesuPage() {
 
       <section className="prosta-blok">
         <h2>Coś na miarę</h2>
-        <p>Jeśli potrzebujesz innej automatyzacji w firmie, napisz.</p>
-        <div className="przyciski">
-          <a href={`mailto:${CONTACT_EMAIL}`} className="btn btn-lg">{CONTACT_EMAIL}</a>
-        </div>
+        <p>Jeśli potrzebujesz innej automatyzacji w firmie, napisz przez formularz „Napisz do nas” w stopce strony.</p>
         <p className="mala" style={{ marginTop: 16 }}>
           DogInvoice i DogAnswer to produkty Dogtronic Labs. Strona wezmezadarmo.com jest projektem prywatnym i niekomercyjnym.
         </p>
