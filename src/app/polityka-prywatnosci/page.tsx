@@ -279,7 +279,7 @@ export default function PolitykaPage() {
           </Section>
 
           <Section n="13" title="Źródła danych o świadczeniach">
-            <P>13.1. Informacje o świadczeniach rządowych pochodzą wyłącznie z oficjalnych, publicznych źródeł: gov.pl, zus.pl, nfz.gov.pl, podatki.gov.pl, pfron.org.pl, praca.gov.pl, krus.gov.pl, biznes.gov.pl, nfosigw.gov.pl. Linki widoczne są bezpośrednio w interfejsie. Dane weryfikowane są regularnie, jednak Administrator nie gwarantuje ich aktualności w każdym momencie.</P>
+            <P>13.1. Informacje o świadczeniach rządowych pochodzą wyłącznie z oficjalnych, publicznych źródeł: gov.pl, zus.pl, nfz.gov.pl, podatki.gov.pl, pfron.gov.pl, praca.gov.pl, krus.gov.pl, biznes.gov.pl, nfosigw.gov.pl. Linki widoczne są bezpośrednio w interfejsie. Dane weryfikowane są regularnie, jednak Administrator nie gwarantuje ich aktualności w każdym momencie.</P>
             <P>13.2. Linki wychodzące do podmiotów trzecich (m.in. partner VIA - tryvia.eu) są oznaczone w interfejsie. Administrator nie ponosi odpowiedzialności za politykę prywatności i działanie serwisów zewnętrznych.</P>
           </Section>
 

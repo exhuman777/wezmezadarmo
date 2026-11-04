@@ -31,6 +31,8 @@ export default defineConfig({
     env: {
       NEXT_PUBLIC_SUPABASE_URL: 'https://dummy.supabase.co',
       NEXT_PUBLIC_SUPABASE_ANON_KEY: 'dummy-anon-key',
+      // ciasteczko narzędzi podpisane kluczem testowym (działa tylko poza Vercelem)
+      NARZEDZIA_TRYB_TESTOWY: '1',
     },
   },
 });
