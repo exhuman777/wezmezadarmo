@@ -51,8 +51,60 @@ ${p.panel ? `<p style="font-size:13px;margin:16px 0 0;"><a href="${esc(p.panel)}
 
 type Fetch = typeof fetch;
 
-/** Wysyła powiadomienie przez Resend. Loguje wynik bez danych osobowych. */
-export async function powiadomKamila(p: Powiadomienie, f: Fetch = fetch): Promise<WynikPowiadomienia> {
+/** Wspólny przekaźnik powiadomień (Cyfrowy Pomocnik). Uwierzytelnienie tokenem OIDC Vercela tej funkcji. */
+export const PRZEKAZNIK = process.env.POWIADOMIENIA_PRZEKAZNIK || 'https://www.cyfrowypomocnik.com/api/powiadomienie';
+
+/** Token OIDC Vercela: nagłówek żądania (route handler) albo VERCEL_OIDC_TOKEN. Brak = pusty napis. */
+export async function tokenOidc(): Promise<string> {
+  try {
+    const { headers } = await import('next/headers');
+    const t = (await headers()).get('x-vercel-oidc-token');
+    if (t) return t;
+  } catch {
+    // poza kontekstem żądania (testy, skrypty)
+  }
+  return process.env.VERCEL_OIDC_TOKEN || '';
+}
+
+/** Próba przez przekaźnik. Zwraca wynik albo null, gdy przekaźnik nie odpowiedział poprawnie (wtedy wysyłka lokalna). */
+export async function przezPrzekaznik(p: Powiadomienie, token: string, f: Fetch = fetch): Promise<WynikPowiadomienia | null> {
+  const etykieta = `[powiadomienie] ${p.strona} / ${p.formularz}`;
+  if (!token) {
+    console.error(`${etykieta}: brak tokenu OIDC, przekaźnik pominięty`);
+    return null;
+  }
+  const body = JSON.stringify({ formularz: p.formularz, pola: p.pola, panel: p.panel, odpowiedzDo: p.odpowiedzDo });
+  for (let proba = 1; proba <= 2; proba++) {
+    try {
+      const r = await f(PRZEKAZNIK, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+        body,
+        signal: AbortSignal.timeout(8000),
+      });
+      const j = (await r.json().catch(() => ({}))) as { ok?: boolean; id?: string; powod?: string };
+      if (r.ok && j.ok) {
+        console.log(`${etykieta}: wysłane przez przekaźnik, id ${j.id ?? '?'}`);
+        return { wyslane: true, id: j.id };
+      }
+      console.error(`${etykieta}: przekaźnik HTTP ${r.status}${j.powod ? ' (' + j.powod + ')' : ''}`);
+      if (r.status < 500 && r.status !== 429) return null;
+    } catch (e) {
+      console.error(`${etykieta}: przekaźnik sieć (${e instanceof Error ? e.name : 'błąd'})`);
+    }
+  }
+  return null;
+}
+
+/** Powiadomienie dla Kamila: najpierw przekaźnik (token OIDC), potem lokalny Resend. Nigdy nie rzuca. */
+export async function powiadomKamila(p: Powiadomienie, f: Fetch = fetch, token?: string): Promise<WynikPowiadomienia> {
+  const przez = await przezPrzekaznik(p, token ?? (await tokenOidc()), f);
+  if (przez) return przez;
+  return powiadomLokalnie(p, f);
+}
+
+/** Wysyła powiadomienie lokalnym Resend. Loguje wynik bez danych osobowych. */
+export async function powiadomLokalnie(p: Powiadomienie, f: Fetch = fetch): Promise<WynikPowiadomienia> {
   const etykieta = `[powiadomienie] ${p.strona} / ${p.formularz}`;
   const klucz = process.env.RESEND_API_KEY;
   if (!klucz) {
