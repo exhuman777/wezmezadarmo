@@ -67,7 +67,7 @@ export async function tokenOidc(): Promise<string> {
 }
 
 /** Próba przez przekaźnik. Zwraca wynik albo null, gdy przekaźnik nie odpowiedział poprawnie (wtedy wysyłka lokalna). */
-export async function przezPrzekaznik(p: Powiadomienie, token: string, f: Fetch = fetch): Promise<WynikPowiadomienia | null> {
+export async function przezPrzekaznik(p: Powiadomienie, token: string, f: Fetch = fetch, opcje: { url?: string; cookie?: string } = {}): Promise<WynikPowiadomienia | null> {
   const etykieta = `[powiadomienie] ${p.strona} / ${p.formularz}`;
   if (!token) {
     console.error(`${etykieta}: brak tokenu OIDC, przekaźnik pominięty`);
@@ -76,9 +76,9 @@ export async function przezPrzekaznik(p: Powiadomienie, token: string, f: Fetch 
   const body = JSON.stringify({ formularz: p.formularz, pola: p.pola, panel: p.panel, odpowiedzDo: p.odpowiedzDo });
   for (let proba = 1; proba <= 2; proba++) {
     try {
-      const r = await f(PRZEKAZNIK, {
+      const r = await f(opcje.url || PRZEKAZNIK, {
         method: 'POST',
-        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json', ...(opcje.cookie ? { Cookie: opcje.cookie } : {}) },
         body,
         signal: AbortSignal.timeout(8000),
       });
@@ -142,4 +142,25 @@ export async function powiadomLokalnie(p: Powiadomienie, f: Fetch = fetch): Prom
   }
   console.error(`${etykieta}: nie wyszło (${blad})`);
   return { wyslane: false, blad };
+}
+
+/** Test toru na podglądzie: adres przekaźnika tylko z podglądu Cyfrowego Pomocnika naszego zespołu. */
+export const PRZEKAZNIK_PODGLAD = /^https:\/\/cyfrowy-pomocnik-[a-z0-9-]+-exhuman777s-projects\.vercel\.app\/api\/powiadomienie$/;
+
+/** Ciasteczko dostępu do chronionego podglądu z linku udostępniania Vercela (tylko do testu toru). */
+export async function ciasteczkoPodgladu(przekaznik: string, share: string, f: Fetch = fetch): Promise<string> {
+  const r = await f(new URL(`/?_vercel_share=${encodeURIComponent(share)}`, przekaznik).toString(), { redirect: 'manual' });
+  const h = r.headers as Headers & { getSetCookie?: () => string[] };
+  const lista = typeof h.getSetCookie === 'function' ? h.getSetCookie() : [r.headers.get('set-cookie') || ''];
+  return lista.map((c) => c.split(';')[0]).filter(Boolean).join('; ');
+}
+
+/** Jawne pola tokenu OIDC (bez podpisu): do sprawdzenia, czy projekt ma włączone OIDC. */
+export function polaTokenu(token: string): Record<string, unknown> | null {
+  try {
+    const c = JSON.parse(Buffer.from(token.split('.')[1] ?? '', 'base64url').toString('utf8'));
+    return { iss: c.iss, aud: c.aud, owner_id: c.owner_id, project_id: c.project_id, environment: c.environment };
+  } catch {
+    return null;
+  }
 }
