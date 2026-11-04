@@ -24,7 +24,7 @@ export function SiteFooter() {
     <footer className="stopka">
       <div className="stopka-in">
         <div className="row-8">
-          <PixelMark size={20} />
+          <PixelMark size={24} />
           <span className="stopka-marka">
             wezmezadarmo<span className="dim">.com</span>
           </span>
