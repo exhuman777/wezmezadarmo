@@ -1,5 +1,6 @@
 /** Mail z linkiem do narzędzi dla firm (Resend, nadawca jak newsletter). W trybie testowym nic nie wysyła. */
 import { getResend } from '@/lib/newsletter';
+import { powiadomKamila } from '@/lib/powiadomienia';
 
 const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'WezmeZaDarmo <hello@wezmezadarmo.com>';
 export const SITE_URL = 'https://www.wezmezadarmo.com';
@@ -57,15 +58,14 @@ ${wiersz('E-mail', dane.email)}${wiersz('Imię', dane.imie)}${wiersz('Telefon', 
 </body></html>`;
 }
 
-/** Powiadomienie dla Kamila o nowym leadzie. Błąd nie blokuje formularza. */
+/** Powiadomienie dla Kamila o nowym leadzie (wspólna funkcja powiadomień: ponowienie, log, adres z POWIADOMIENIA_EMAIL). Błąd nie blokuje formularza. */
 export async function powiadomWlasciciela(dane: { email: string; imie: string | null; telefon: string | null }): Promise<void> {
-  const resend = getResend();
-  const { error } = await resend.emails.send({
-    from: FROM_EMAIL,
-    to: WLASCICIEL_EMAIL,
-    replyTo: dane.email,
-    subject: `[lead] Narzędzia dla firm: ${dane.email}`,
-    html: mailLeadHtml(dane, new Date()),
+  const w = await powiadomKamila({
+    strona: 'wezmezadarmo.com',
+    formularz: 'narzędzia dla firm (lead)',
+    pola: { 'E-mail': dane.email, 'Imię': dane.imie, Telefon: dane.telefon, 'Zgoda na kontakt': 'tak' },
+    panel: `${SITE_URL}/admin/narzedzia`,
+    odpowiedzDo: dane.email,
   });
-  if (error) throw new Error('powiadomienie o leadzie nie wyszło');
+  if (!w.wyslane) throw new Error('powiadomienie o leadzie nie wyszło');
 }

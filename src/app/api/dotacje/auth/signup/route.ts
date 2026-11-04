@@ -3,6 +3,7 @@ import { createClient } from '@supabase/supabase-js';
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { rateLimit } from '@/lib/sources/_helpers';
+import { powiadomKamila } from '@/lib/powiadomienia';
 
 interface CompanyProfileInput {
   nip: string;
@@ -149,6 +150,13 @@ export async function POST(request: NextRequest) {
       { status: 500 },
     );
   }
+
+  await powiadomKamila({
+    strona: 'wezmezadarmo.com',
+    formularz: 'rejestracja firmy (dotacje)',
+    pola: { 'E-mail': email.trim().toLowerCase(), Firma: profile.name.trim(), NIP: profile.nip, 'Województwo': profile.voivodeship ?? '', 'Wielkość': profile.size },
+    panel: 'https://supabase.com/dashboard/project/ssojepwbvynelcmrvmnr/editor',
+  });
 
   // Sign in the newly created user so session cookies are set
   const cookieStore = await cookies();

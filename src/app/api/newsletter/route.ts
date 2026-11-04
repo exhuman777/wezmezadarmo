@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { generateToken, sendConfirmEmail } from '@/lib/newsletter';
 import { rateLimit } from '@/lib/sources/_helpers';
+import { powiadomKamila } from '@/lib/powiadomienia';
 
 interface NewsletterPayload {
   email: string;
@@ -94,6 +95,12 @@ export async function POST(request: NextRequest) {
         { status: 500 },
       );
     }
+
+    await powiadomKamila({
+      strona: 'wezmezadarmo.com',
+      formularz: 'zapis na newsletter',
+      pola: { 'E-mail': email, Profil: profileType },
+    });
 
     // Wyslij email potwierdzajacy (Resend)
     try {
