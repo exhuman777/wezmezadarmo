@@ -1,8 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createSupabaseServer } from '@/lib/dotacje/supabase';
 import { SITE_URL } from '@/lib/seo';
+import { rateLimit } from '@/lib/sources/_helpers';
 
 export async function POST(request: NextRequest) {
+  const limitIp = rateLimit('reset', request, 5, 60 * 60_000);
+  if (!limitIp.ok) return limitIp.response;
   let body: { email?: unknown };
   try {
     body = await request.json();

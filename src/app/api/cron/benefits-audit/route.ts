@@ -13,16 +13,15 @@ const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'WezmeZaDarmo <hello@wezmeza
  *
  * Zabezpieczenia:
  * - CRON_SECRET header (Vercel automatically sends Authorization: Bearer <secret>)
- * - Manual run mozliwy z ?secret=<CRON_SECRET>
+ * - Ręczne uruchomienie: ten sam nagłówek Authorization (sekret nie w adresie URL, bo trafia do logów).
  */
 export async function GET(request: NextRequest) {
   // Auth: Vercel Cron sends Authorization: Bearer <CRON_SECRET>
   const authHeader = request.headers.get('authorization');
   const secret = process.env.CRON_SECRET;
-  const urlSecret = new URL(request.url).searchParams.get('secret');
 
   // Fail closed: bez CRON_SECRET w env endpoint jest zablokowany.
-  if (!secret || (authHeader !== `Bearer ${secret}` && urlSecret !== secret)) {
+  if (!secret || authHeader !== `Bearer ${secret}`) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 

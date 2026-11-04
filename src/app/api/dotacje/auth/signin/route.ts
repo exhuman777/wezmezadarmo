@@ -1,8 +1,11 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
+import { rateLimit } from '@/lib/sources/_helpers';
 
 export async function POST(request: NextRequest) {
+  const limitIp = rateLimit('dotacje-signin', request, 20, 15 * 60_000);
+  if (!limitIp.ok) return limitIp.response;
   let body: { email?: unknown; password?: unknown };
   try {
     body = await request.json();

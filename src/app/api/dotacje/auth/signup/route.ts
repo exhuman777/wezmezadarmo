@@ -2,6 +2,7 @@ import { createServerClient } from '@supabase/ssr';
 import { createClient } from '@supabase/supabase-js';
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
+import { rateLimit } from '@/lib/sources/_helpers';
 
 interface CompanyProfileInput {
   nip: string;
@@ -26,6 +27,8 @@ interface FlagsInput {
 const VALID_SIZES = new Set(['micro', 'small', 'medium', 'large']);
 
 export async function POST(request: NextRequest) {
+  const limitIp = rateLimit('dotacje-signup', request, 5, 60 * 60_000);
+  if (!limitIp.ok) return limitIp.response;
   let body: {
     email?: unknown;
     password?: unknown;

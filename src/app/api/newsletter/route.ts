@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { generateToken, sendConfirmEmail } from '@/lib/newsletter';
+import { rateLimit } from '@/lib/sources/_helpers';
 
 interface NewsletterPayload {
   email: string;
@@ -29,6 +30,8 @@ function isValidEmail(email: string): boolean {
 }
 
 export async function POST(request: NextRequest) {
+  const limitIp = rateLimit('newsletter', request, 5, 60 * 60_000);
+  if (!limitIp.ok) return limitIp.response;
   try {
     const body = (await request.json()) as Partial<NewsletterPayload>;
     const email = body.email?.trim().toLowerCase() ?? '';

@@ -15,6 +15,9 @@ import { buildAgentSystemPrompt } from '@/agents/registry';
 import type { CompanyProfile } from '@/lib/dotacje/companyContext';
 import type { DBCompanyProfile } from '@/lib/dotacje/supabase';
 import type OpenAI from 'openai';
+import { zweryfikowanaSesja } from '@/lib/auth/sesja';
+import { oczyscWiadomosci } from '@/lib/ai/wiadomosci';
+import { rateLimit } from '@/lib/sources/_helpers';
 
 export const dynamic = 'force-dynamic';
 
@@ -60,7 +63,7 @@ export async function POST(request: NextRequest) {
   }
 
   const supabase = await createSupabaseServer();
-  const { data: { session } } = await supabase.auth.getSession();
+  const session = await zweryfikowanaSesja(supabase);
 
   if (!session) {
     return Response.json(
@@ -76,7 +79,10 @@ export async function POST(request: NextRequest) {
     return Response.json({ error: 'Nieprawidlowy format zadania.' }, { status: 400 });
   }
 
-  const { messages } = body;
+  // Limit kosztów AI: 40 zapytań na godzinę z jednego adresu IP.
+  const limitAi = rateLimit('dotacje-chat', request, 40, 60 * 60_000);
+  if (!limitAi.ok) return limitAi.response;
+  const messages = oczyscWiadomosci(body.messages);
   if (!Array.isArray(messages) || messages.length === 0) {
     return Response.json({ error: 'Brak wiadomosci w zadaniu.' }, { status: 400 });
   }

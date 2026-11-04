@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { createSupabaseServer } from '@/lib/dotacje/supabase';
+import { zweryfikowanaSesja } from '@/lib/auth/sesja';
 
 export async function POST() {
   const adminClient = createClient(
@@ -10,9 +11,7 @@ export async function POST() {
   );
   const supabase = await createSupabaseServer();
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  const session = await zweryfikowanaSesja(supabase);
 
   if (!session) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });

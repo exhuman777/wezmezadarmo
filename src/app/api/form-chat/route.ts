@@ -10,6 +10,7 @@ import { chatStream } from '@/ai/openrouter';
 import { buildFormChatPrompt } from '@/agents/registry';
 import { CORS_HEADERS, optionsResponse } from '@/lib/apiAuth';
 import { checkRateLimitDurable } from '@/lib/rateLimit';
+import { oczyscWiadomosci } from '@/lib/ai/wiadomosci';
 
 export async function OPTIONS() {
   return optionsResponse();
@@ -117,7 +118,8 @@ export async function POST(request: NextRequest) {
     });
   }
 
-  const { formType, messages } = body;
+  const { formType } = body;
+  const messages = oczyscWiadomosci(body.messages);
   if (!formType || !Array.isArray(messages) || messages.length === 0) {
     return new Response(JSON.stringify({ error: 'Missing formType or messages' }), {
       status: 400,

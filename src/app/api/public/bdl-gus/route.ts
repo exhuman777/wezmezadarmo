@@ -12,6 +12,9 @@ export async function GET(request: NextRequest) {
 
   try {
     if (terytId) {
+      if (!/^\d{1,14}$/.test(terytId)) {
+        return NextResponse.json({ error: 'Nieprawidłowy terytId: same cyfry.' }, { status: 400 });
+      }
       const data = await fetchUnitData(terytId);
       return NextResponse.json({ terytId, data });
     }

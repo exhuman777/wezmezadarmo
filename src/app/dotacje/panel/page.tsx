@@ -1,5 +1,6 @@
 import { createSupabaseServer } from '@/lib/dotacje/supabase';
 import { redirect } from 'next/navigation';
+import { zweryfikowanaSesja } from '@/lib/auth/sesja';
 import Link from 'next/link';
 import { matchPrograms } from '@/lib/dotacje/programMatcher';
 import type { EligibilityFlag } from '@/data/programs-b2b';
@@ -14,9 +15,7 @@ export const metadata: Metadata = {
 export default async function PanelPage() {
   const supabase = await createSupabaseServer();
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  const session = await zweryfikowanaSesja(supabase);
 
   if (!session) {
     redirect('/dotacje/logowanie');

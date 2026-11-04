@@ -1,9 +1,10 @@
 import { createSupabaseServer } from '@/lib/dotacje/supabase';
 import { NextRequest, NextResponse } from 'next/server';
+import { zweryfikowanaSesja } from '@/lib/auth/sesja';
 
 export async function GET() {
   const supabase = await createSupabaseServer();
-  const { data: { session } } = await supabase.auth.getSession();
+  const session = await zweryfikowanaSesja(supabase);
   if (!session) return NextResponse.json({ error: 'Wymagane zalogowanie.' }, { status: 401 });
 
   const { data, error } = await supabase
@@ -35,7 +36,7 @@ export async function GET() {
 
 export async function PUT(request: NextRequest) {
   const supabase = await createSupabaseServer();
-  const { data: { session } } = await supabase.auth.getSession();
+  const session = await zweryfikowanaSesja(supabase);
   if (!session) return NextResponse.json({ error: 'Wymagane zalogowanie.' }, { status: 401 });
 
   let body: Record<string, unknown>;

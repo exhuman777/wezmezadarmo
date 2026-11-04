@@ -31,7 +31,7 @@ export default function WelcomeTour() {
         const link = document.createElement('link');
         link.id = 'driver-css';
         link.rel = 'stylesheet';
-        link.href = 'https://cdn.jsdelivr.net/npm/driver.js@1.4.0/dist/driver.css';
+        link.href = '/vendor/driver-1.4.0.css';
         document.head.appendChild(link);
       })(),
     ]).then(([{ driver }]) => {

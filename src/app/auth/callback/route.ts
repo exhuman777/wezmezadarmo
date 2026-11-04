@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createSupabaseServer } from '@/lib/dotacje/supabase';
 import type { EmailOtpType } from '@supabase/supabase-js';
+import { bezpiecznaSciezkaPowrotu } from '@/lib/auth/sciezka';
 
 /**
  * Auth callback - 2 flowy:
@@ -10,7 +11,7 @@ import type { EmailOtpType } from '@supabase/supabase-js';
 
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
-  const next = searchParams.get('next') ?? '/panel';
+  const next = bezpiecznaSciezkaPowrotu(searchParams.get('next'), '/panel');
 
   const code = searchParams.get('code');
   const tokenHash = searchParams.get('token_hash');
@@ -34,6 +35,6 @@ export async function GET(request: NextRequest) {
     console.error('[auth/callback] verifyOtp failed:', error.message, 'type:', type);
   }
 
-  console.warn('[auth/callback] no code or token_hash', { url: request.url });
+  console.warn('[auth/callback] no code or token_hash', { path: new URL(request.url).pathname });
   return NextResponse.redirect(`${origin}/logowanie?error=link_wygasl`);
 }
