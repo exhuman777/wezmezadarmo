@@ -1129,3 +1129,20 @@ html.dark .btn-ghost { background: transparent; border-color: var(--tusz); color
 .driver-popover.wycieczka .driver-popover-description { font-size: 14px; line-height: 1.5; color: var(--szary); }
 .driver-popover.wycieczka .driver-popover-footer button { border-radius: 0; border: 2px solid var(--tusz); background: transparent; color: var(--tusz); font-family: var(--f-mono); text-shadow: none; min-height: 36px; padding: 4px 12px; }
 .driver-popover.wycieczka .driver-popover-progress-text { font-family: var(--f-mono); font-size: 12px; color: var(--szary); }
+
+/* Telefon i tablet (ekran dotykowy): cele dotyku co najmniej 44 px, pola formularzy 16 px (iOS nie przybliża
+   ekranu przy wpisywaniu), większe pola wyboru, bez „przyklejonego” najechania po tapnięciu. */
+@media (pointer: coarse) {
+  /* !important, bo część formularzy ma rozmiary w stylach inline */
+  button, [role="button"], input[type="submit"], input[type="button"], .btn { min-height: 44px !important; min-width: 44px; }
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="hidden"]), select, textarea { font-size: 16px !important; min-height: 44px; }
+  textarea { min-height: 88px; }
+  input[type="checkbox"], input[type="radio"] { width: 22px !important; height: 22px !important; flex: none; }
+  .logo { min-height: 44px; display: inline-flex; align-items: center; }
+  .stopka-linki a { display: inline-flex; align-items: center; min-height: 44px; }
+  .stopka-sekcja > summary { min-height: 44px; display: flex; align-items: center; }
+}
+@media (hover: none) {
+  .btn:hover, .linki a:hover, .linki button:hover { transform: none; box-shadow: none; }
+}
+body { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); }

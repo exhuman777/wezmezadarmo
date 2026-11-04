@@ -17,6 +17,8 @@ export default defineConfig({
   use: {
     baseURL: `http://localhost:${PORT}`,
     trace: 'retain-on-failure',
+    // środowisko z własnym Chromium (np. kontener w chmurze): PW_CHROMIUM_PATH=/ścieżka/do/chrome
+    launchOptions: process.env.PW_CHROMIUM_PATH ? { executablePath: process.env.PW_CHROMIUM_PATH } : {},
   },
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
