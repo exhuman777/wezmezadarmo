@@ -594,8 +594,8 @@ export default function Home() {
           <h1 style={{ fontSize: 'clamp(28px, 5.5vw, 40px)' }}><PixelIcon nazwa="gwiazdka" />Należy Ci się więcej, niż myślisz.</h1>
           <p className="pod">Odpowiedz na kilka pytań i zobacz, które ze 133 świadczeń, ulg i dotacji mogą Ci przysługiwać. Bez konta i za darmo.</p>
           <ul className="lista" style={{ marginTop: 16 }}>
-            <li><b>800+</b>: 800 zł miesięcznie na każde dziecko do 18 lat, bez względu na dochód.</li>
-            <li><b>13. emerytura</b>: 1978,49 zł brutto co roku w kwietniu dla emerytów i rencistów.</li>
+            <li className="lista-para"><span className="lista-nazwa">800+</span><span className="lista-opis">800 zł miesięcznie na każde dziecko do 18 lat, bez względu na dochód.</span></li>
+            <li className="lista-para"><span className="lista-nazwa">13. emerytura</span><span className="lista-opis">1978,49 zł brutto co roku w kwietniu dla emerytów i rencistów.</span></li>
           </ul>
           <div style={{ marginTop: 20, padding: 20, background: 'var(--surface)', border: '2px solid var(--tusz)' }}>
             <IntakeForm onSubmit={handleIntakeSubmit} isLoading={isLoading} />
