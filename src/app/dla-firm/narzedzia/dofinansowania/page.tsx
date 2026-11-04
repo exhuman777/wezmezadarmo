@@ -1,17 +1,18 @@
-import type { Metadata } from 'next';
 import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
 import { COOKIE_DOSTEP, sprawdzDostep } from '@/lib/narzedzia/dostep';
+import { narzedzie } from '@/lib/narzedzia/lista';
 import PanelDotacjePage from '@/app/panel/dotacje/page';
+import { metadaneNarzedzia } from '../strona-narzedzia';
+import { Bramka } from '../Bramka';
 
-export const metadata: Metadata = {
-  title: 'Dofinansowania po NIP | wezmezadarmo',
-  robots: { index: false, follow: false },
-};
+export const metadata = metadaneNarzedzia('dofinansowania');
 
-/** Sprawdzenie dofinansowań po NIP bez konta: dostęp po potwierdzeniu e-maila (jak pozostałe narzędzia). */
+/** Dofinansowania po NIP bez konta: z dostępem od razu wyszukiwarka, bez dostępu opis i formularz. */
 export default async function DofinansowaniaPage() {
   const jar = await cookies();
-  if (!(await sprawdzDostep(jar.get(COOKIE_DOSTEP)?.value))) redirect('/dla-firm/narzedzia?wymagany=1');
+  if (!(await sprawdzDostep(jar.get(COOKIE_DOSTEP)?.value))) {
+    const n = narzedzie('dofinansowania');
+    return <Bramka n={n} next={n.cel} />;
+  }
   return <PanelDotacjePage />;
 }

@@ -2,6 +2,7 @@ import { createSupabaseServer } from '@/lib/dotacje/supabase';
 import { createClient } from '@supabase/supabase-js';
 import { fetchFeeds, FEEDS, type FeedMeta, type FeedItem } from '@/app/aktualnosci/rss';
 import { NextRequest, NextResponse } from 'next/server';
+import { zweryfikowanaSesja } from '@/lib/auth/sesja';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
@@ -69,7 +70,7 @@ async function fetchFromCache(sourceIds: string[]): Promise<FeedItem[]> {
 export async function GET() {
   try {
     const supabase = await createSupabaseServer();
-    const { data: { session } } = await supabase.auth.getSession();
+    const session = await zweryfikowanaSesja(supabase);
 
     // Źródła live (ZUS, GUS)
     const liveFeeds = FEEDS.filter(f => LIVE_SOURCE_IDS.has(f.id));
@@ -144,7 +145,7 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const supabase = await createSupabaseServer();
-    const { data: { session } } = await supabase.auth.getSession();
+    const session = await zweryfikowanaSesja(supabase);
 
     if (!session) {
       return NextResponse.json({ error: 'Wymagane zalogowanie.' }, { status: 401 });

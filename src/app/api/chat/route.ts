@@ -12,6 +12,7 @@ import type { AgentContext } from '@/agents/types';
 import { UserProfile, MatchResult } from '@/engine/types';
 import { checkRateLimitDurable } from '@/lib/rateLimit';
 import { checkApiKey, unauthorizedResponse, optionsResponse, CORS_HEADERS } from '@/lib/apiAuth';
+import { oczyscWiadomosci } from '@/lib/ai/wiadomosci';
 
 export async function OPTIONS() {
   return optionsResponse();
@@ -39,7 +40,8 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    const { messages, profile, verifiedResults, focusedBenefitId } = body;
+    const { profile, verifiedResults, focusedBenefitId } = body;
+    const messages = oczyscWiadomosci(body.messages);
 
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
       return new Response(JSON.stringify({ error: 'Brak wiadomosci' }), {

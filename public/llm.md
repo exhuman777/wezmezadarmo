@@ -404,4 +404,4 @@ wezmezadarmo.com/
 
 Dane pochodzą z publicznych źródeł rządowych (gov.pl, zus.pl, pfron.org.pl, itd.).
 Narzędzie udostępniane bezpłatnie jako projekt społeczny.
-Autor: Kamil Sobkowicz | wezmezadarmo.com | 2026
+Autor: tuKamil | wezmezadarmo.com | 2026

@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
 import { createSupabaseServer } from '@/lib/dotacje/supabase';
@@ -7,6 +7,8 @@ import { matchBenefits } from '@/engine/matcher';
 import type { UserProfile } from '@/engine/types';
 import { buildPrivateDigestPayload, buildJdgDigestPayload } from '@/lib/digest';
 import { buildDigestHtml, buildDigestSubject } from '@/emails/digest.html';
+import { zweryfikowanaSesja } from '@/lib/auth/sesja';
+import { rateLimit } from '@/lib/sources/_helpers';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -22,9 +24,11 @@ function getAdminClient() {
 
 function getResend() { return new Resend(process.env.RESEND_API_KEY); }
 
-export async function POST() {
+export async function POST(request: NextRequest) {
+  const limitIp = rateLimit('digest-test', request, 3, 60 * 60_000);
+  if (!limitIp.ok) return limitIp.response;
   const supabase = await createSupabaseServer();
-  const { data: { session } } = await supabase.auth.getSession();
+  const session = await zweryfikowanaSesja(supabase);
 
   if (!session) {
     return NextResponse.json({ error: 'Nieautoryzowany.' }, { status: 401 });

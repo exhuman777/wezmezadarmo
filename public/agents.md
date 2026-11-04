@@ -379,6 +379,6 @@ wezmezadarmo.com/
 
 ## Kontakt i licencja
 
-Autor: Kamil Sobkowicz | wezmezadarmo.com | 2026
+Autor: tuKamil | wezmezadarmo.com | 2026
 Projekt społeczny i komercyjny -- kalkulator świadczeń jest bezpłatny, platforma B2B jest płatna.
 Dane o dofinansowaniach: oficjalne źródła (gov.pl, pup.gov.pl, pfron.org.pl, parp.gov.pl, kfs.praca.gov.pl).

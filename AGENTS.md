@@ -47,7 +47,7 @@ Po każdym zadaniu, przed zgłoszeniem gotowości:
 # Mapa projektu (aktualizuj przy każdej zmianie)
 
 Strony publiczne:
-- `/` -- na górze „Należy Ci się więcej, niż myślisz”, 2 przykłady świadczeń i kalkulator (#kalkulator), pod nim gra (iframe `/gra/index.html`, pliki w `public/gra/`), asystent AI i lista linków; wyniki: świadczenia po śmierci bliskiej osoby zawsze na końcu (NA_KONIEC w src/engine/matcher.ts)
+- `/` -- na górze „Należy Ci się więcej, niż myślisz”, 2 przykłady świadczeń i kalkulator (#kalkulator), pod nim gra (przycisk „Zagraj” ładuje iframe `/gra/index.html` dopiero po kliknięciu, pliki w `public/gra/`), asystent AI i lista linków; wyniki: świadczenia po śmierci bliskiej osoby zawsze na końcu (NA_KONIEC w src/engine/matcher.ts)
 - `/wnioski/` -- AI-asystowane wypełnianie wniosków ZUS z eksportem PDF
 - `/aktualnosci/` -- monitoring RSS (publiczny podgląd + B2B panel dla firm)
 - `/statystyki/` -- dashboard GUS/SDG: wskaźniki live, wykresy, status API państwowych
@@ -55,8 +55,9 @@ Strony publiczne:
 - `/automatyzacje/` -- AI automatyzacje dla firm: KSeF, faktury zagraniczne, custom workflows
 - `/dotacje/` -- B2B SaaS: monitoring dofinansowań, baza 59 programów, AI agent dopasowujący do profilu firmy
 - `/dla-firm/` -- landing dla firm i JDG (na górze wejście do narzędzi)
-- `/dla-firm/narzedzia/` -- narzędzia dla firm bez konta: formularz leadu (e-mail + opcjonalnie imię/telefon), link z maila daje ciasteczko dostępu na 30 dni; `/dla-firm/narzedzia/dofinansowania` (NIP, CEIDG)
-- `/narzedzia/kpir/`, `/narzedzia/jpk/` -- statyczne przeglądy KPiR i JPK_V7 w `public/narzedzia` (budowa: `scripts/narzedzia/zbuduj.sh`), dostęp tylko z ciasteczkiem (middleware); leady w `/admin/narzedzia`, tabela `leady_narzedzia`
+- `/dla-firm/narzedzia/` -- narzędzia dla firm bez konta: formularz leadu (e-mail i telefon wymagane, imię opcjonalne, zgoda), ciasteczko dostępu na 30 dni od razu po wysłaniu; mail z linkiem tylko jako potwierdzenie i dostęp na innym urządzeniu; lead mailem do Kamila
+- Adresy do linkowania (opis + formularz, z dostępem od razu narzędzie): `/dla-firm/narzedzia/kpir`, `/dla-firm/narzedzia/jpk`, `/dla-firm/narzedzia/dofinansowania` (NIP, CEIDG); lista w `src/lib/narzedzia/lista.ts`, parametr `next` tylko ścieżki wewnętrzne (`bezpiecznyNext`)
+- `/narzedzia/kpir/`, `/narzedzia/jpk/` -- statyczne przeglądy KPiR i JPK_V7 w `public/narzedzia` (budowa: `scripts/narzedzia/zbuduj.sh`), dostęp tylko z ciasteczkiem (middleware, bez niego przekierowanie na stronę narzędzia z formularzem); leady w `/admin/narzedzia`, tabela `leady_narzedzia`
 - `/o-projekcie/`, `/polityka-prywatnosci/`, `/regulamin/` -- strony informacyjne
 - `/agent/` -- Agent AI dla JDG i osób prywatnych (świadczenia, RSS, dzienny e-mail digest)
 

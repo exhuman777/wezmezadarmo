@@ -1,5 +1,6 @@
 import { createSupabaseServer } from '@/lib/dotacje/supabase';
 import { NextRequest, NextResponse } from 'next/server';
+import { zweryfikowanaSesja } from '@/lib/auth/sesja';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
@@ -9,7 +10,7 @@ export const runtime = 'nodejs';
 export async function GET() {
   try {
     const supabase = await createSupabaseServer();
-    const { data: { session } } = await supabase.auth.getSession();
+    const session = await zweryfikowanaSesja(supabase);
 
     if (!session) {
       return NextResponse.json({ error: 'Wymagane zalogowanie.' }, { status: 401 });
@@ -39,7 +40,7 @@ export async function GET() {
 export async function DELETE(request: NextRequest) {
   try {
     const supabase = await createSupabaseServer();
-    const { data: { session } } = await supabase.auth.getSession();
+    const session = await zweryfikowanaSesja(supabase);
 
     if (!session) {
       return NextResponse.json({ error: 'Wymagane zalogowanie.' }, { status: 401 });

@@ -16,9 +16,9 @@ export function mailHtml(link: string, imie: string | null): string {
 <table role="presentation" width="540" cellpadding="0" cellspacing="0" style="background:#ffffff;border:2px solid #2b2420;">
 <tr><td style="padding:28px 32px 8px;font-family:'Courier New',monospace;font-weight:bold;font-size:15px;">wezmezadarmo.com</td></tr>
 <tr><td style="padding:8px 32px 0;">
-<h1 style="font-size:21px;margin:0 0 12px;">Potwierdź adres i otwórz narzędzia dla firm</h1>
+<h1 style="font-size:21px;margin:0 0 12px;">Narzędzia dla firm są już otwarte</h1>
 <p style="font-size:15px;line-height:1.6;margin:0 0 8px;">${powitanie}</p>
-<p style="font-size:15px;line-height:1.6;margin:0 0 20px;">Kliknij przycisk, a otworzysz za darmo przegląd księgi KPiR, przegląd pliku JPK_V7 przed 2027 i sprawdzenie dofinansowań po NIP. Link działa 7 dni.</p>
+<p style="font-size:15px;line-height:1.6;margin:0 0 20px;">Na urządzeniu, z którego wysłano formularz, narzędzia działają od razu przez 30 dni: przegląd księgi KPiR, przegląd pliku JPK_V7 przed 2027 i dofinansowania po NIP. Ten przycisk otworzy je na innym urządzeniu i potwierdzi adres. Link działa 7 dni.</p>
 </td></tr>
 <tr><td style="padding:0 32px 24px;"><a href="${link}" style="display:inline-block;padding:14px 24px;background:#2b2420;color:#ffffff;text-decoration:none;font-weight:bold;font-size:15px;">Otwórz narzędzia</a></td></tr>
 <tr><td style="padding:0 32px 24px;font-size:12px;line-height:1.5;color:#6f655b;word-break:break-all;">Link: ${link}</td></tr>
@@ -33,7 +33,7 @@ export async function wyslijLink(email: string, link: string, imie: string | nul
   const { error } = await resend.emails.send({
     from: FROM_EMAIL,
     to: email,
-    subject: 'Twój link do narzędzi dla firm na wezmezadarmo.com',
+    subject: 'Narzędzia dla firm na wezmezadarmo.com: link na inne urządzenie',
     html: mailHtml(link, imie),
   });
   if (error) throw new Error('wysyłka maila nie powiodła się');
@@ -53,7 +53,7 @@ export function mailLeadHtml(dane: { email: string; imie: string | null; telefon
 <table role="presentation" cellpadding="0" cellspacing="0" style="font-size:15px;">
 ${wiersz('E-mail', dane.email)}${wiersz('Imię', dane.imie)}${wiersz('Telefon', dane.telefon)}${wiersz('Kiedy', kiedy.toLocaleString('pl-PL', { timeZone: 'Europe/Warsaw' }))}
 </table>
-<p style="font-size:13px;color:#6f655b;margin:16px 0 0;">Zgoda na kontakt: tak. Adres jeszcze niepotwierdzony; status potwierdzenia: <a href="${SITE_URL}/admin/narzedzia">${SITE_URL}/admin/narzedzia</a></p>
+<p style="font-size:13px;color:#6f655b;margin:16px 0 0;">Zgoda na kontakt: tak. Dostęp otwarty od razu po formularzu. Kliknięcie linku z maila potwierdza adres; status: <a href="${SITE_URL}/admin/narzedzia">${SITE_URL}/admin/narzedzia</a></p>
 </body></html>`;
 }
 

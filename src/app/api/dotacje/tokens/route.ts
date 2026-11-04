@@ -2,6 +2,7 @@ import { NextRequest } from 'next/server';
 import { createSupabaseServer } from '@/lib/dotacje/supabase';
 import { createClient } from '@supabase/supabase-js';
 import { getTokenBalance, TOKEN_COSTS, TOKEN_PACKAGES } from '@/lib/tokens';
+import { zweryfikowanaSesja } from '@/lib/auth/sesja';
 
 export const dynamic = 'force-dynamic';
 
@@ -15,7 +16,7 @@ function getAdminClient() {
 
 export async function GET(_request: NextRequest) {
   const supabase = await createSupabaseServer();
-  const { data: { session } } = await supabase.auth.getSession();
+  const session = await zweryfikowanaSesja(supabase);
 
   if (!session) {
     return Response.json({ error: 'Wymagane zalogowanie.' }, { status: 401 });

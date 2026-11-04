@@ -19,7 +19,8 @@ export interface Lead {
 export type WynikPotwierdzenia = { ok: true; id: string } | { ok: false; powod: 'brak' | 'wygasl' };
 
 export interface MagazynLeadow {
-  zapiszOczekujacy(dane: LeadWejscie, tokenHash: string, wygasa: Date, zrodlo: string, ipHash: string): Promise<void>;
+  /** Zapis albo aktualizacja leada (po e-mailu) z tokenem potwierdzenia. Zwraca id leada (do ciasteczka dostępu). */
+  zapiszOczekujacy(dane: LeadWejscie, tokenHash: string, wygasa: Date, zrodlo: string, ipHash: string): Promise<string>;
   potwierdz(tokenHash: string, teraz?: number): Promise<WynikPotwierdzenia>;
   lista(limit?: number): Promise<Lead[]>;
 }
@@ -31,8 +32,9 @@ const pamiec = new Map<string, Wiersz>();
 export const magazynPamiec: MagazynLeadow = {
   async zapiszOczekujacy(dane, tokenHash, wygasa, zrodlo) {
     const stary = pamiec.get(dane.email);
+    const id = stary?.id ?? `test-${pamiec.size + 1}`;
     pamiec.set(dane.email, {
-      id: stary?.id ?? `test-${pamiec.size + 1}`,
+      id,
       email: dane.email,
       imie: dane.imie ?? stary?.imie ?? null,
       telefon: dane.telefon ?? stary?.telefon ?? null,
@@ -42,6 +44,7 @@ export const magazynPamiec: MagazynLeadow = {
       token_hash: tokenHash,
       token_wygasa: wygasa.toISOString(),
     });
+    return id;
   },
   async potwierdz(tokenHash, teraz = Date.now()) {
     for (const w of pamiec.values()) {
@@ -87,8 +90,9 @@ export const magazynSupabase: MagazynLeadow = {
     // Puste pola nie nadpisują wcześniej podanych danych.
     if (dane.imie) wiersz.imie = dane.imie;
     if (dane.telefon) wiersz.telefon = dane.telefon;
-    const { error } = await db.from('leady_narzedzia').upsert(wiersz, { onConflict: 'email' });
-    if (error) throw new Error('zapis leada nie powiódł się');
+    const { data, error } = await db.from('leady_narzedzia').upsert(wiersz, { onConflict: 'email' }).select('id').single();
+    if (error || !data) throw new Error('zapis leada nie powiódł się');
+    return String((data as { id: string | number }).id);
   },
   async potwierdz(tokenHash, teraz = Date.now()) {
     const db = klient();

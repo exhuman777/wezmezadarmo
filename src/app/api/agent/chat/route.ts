@@ -30,6 +30,9 @@ import { fetchWarnings } from '@/lib/sources/imgw';
 import { searchUnitSmart, fetchUnitData } from '@/lib/sources/bdl-gus';
 import { PROGRAMS, type EligibilityFlag } from '@/data/programs-b2b';
 import { getPkdName, dominantSection } from '@/data/pkd-codes';
+import { zweryfikowanaSesja } from '@/lib/auth/sesja';
+import { oczyscWiadomosci } from '@/lib/ai/wiadomosci';
+import { rateLimit } from '@/lib/sources/_helpers';
 
 // Stolice wojewodztw + hardcoded GIOS stationId (znalezione przez api.gios.gov.pl)
 // Pozwala omijac wolne findNearestStation w chat prefetch
@@ -504,7 +507,7 @@ async function maybeFetchBdlGus(text: string, userProvince: string | null): Prom
 
 export async function POST(request: NextRequest) {
   const supabase = await createSupabaseServer();
-  const { data: { session } } = await supabase.auth.getSession();
+  const session = await zweryfikowanaSesja(supabase);
 
   if (!session) {
     return new Response(JSON.stringify({ error: 'Wymagane zalogowanie.' }), {
@@ -530,7 +533,11 @@ export async function POST(request: NextRequest) {
     });
   }
 
-  const { messages, mode: rawMode = 'auto' } = body;
+  // Limit kosztów AI: 40 zapytań na godzinę z jednego adresu IP.
+  const limitAi = rateLimit('agent-chat', request, 40, 60 * 60_000);
+  if (!limitAi.ok) return limitAi.response;
+  const { mode: rawMode = 'auto' } = body;
+  const messages = oczyscWiadomosci(body.messages);
   if (!messages || !Array.isArray(messages) || messages.length === 0) {
     return new Response(JSON.stringify({ error: 'Brak wiadomosci.' }), {
       status: 400,

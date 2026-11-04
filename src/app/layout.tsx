@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
-import { GeistSans } from 'geist/font/sans';
-import { GeistMono } from 'geist/font/mono';
+import { Inter, JetBrains_Mono } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { CookieConsent } from '@/components/CookieConsent';
@@ -11,11 +10,16 @@ import { WebSiteJsonLd, OrganizationJsonLd } from '@/components/JsonLd';
 import { SITE_URL } from '@/lib/seo';
 import './globals.css';
 
+// Kroje z serwera strony (next/font): bez blokującego CSS z Google Fonts przy pierwszym wyświetleniu.
+const inter = Inter({ subsets: ['latin', 'latin-ext'], weight: ['400', '500', '600', '700'], variable: '--font-inter', display: 'swap' });
+const jetbrainsMono = JetBrains_Mono({ subsets: ['latin', 'latin-ext'], weight: ['400', '500', '700'], variable: '--font-jbmono', display: 'swap' });
+
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-57R2TFXNH7';
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
+  viewportFit: 'cover',
   themeColor: '#f6f0e4',
 };
 
@@ -48,12 +52,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pl" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+    <html lang="pl" className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <head>
         {/* Force light mode -- whitelabel v2 is light-only; clear any stale dark preference */}
         <script dangerouslySetInnerHTML={{ __html: `try{document.documentElement.classList.remove('dark');localStorage.removeItem('theme')}catch(e){}` }} />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {GA_ID && (
           <>
             <Script id="ga-consent-default" strategy="beforeInteractive">
@@ -61,9 +63,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </Script>
             <Script
               src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-              strategy="afterInteractive"
+              strategy="lazyOnload"
             />
-            <Script id="google-analytics" strategy="afterInteractive">
+            <Script id="google-analytics" strategy="lazyOnload">
               {`gtag('js',new Date());gtag('config','${GA_ID}',{anonymize_ip:true});if(typeof localStorage!=='undefined'&&localStorage.getItem('wzd_cookie_consent')==='accepted'){gtag('consent','update',{'analytics_storage':'granted'});}`}
             </Script>
           </>

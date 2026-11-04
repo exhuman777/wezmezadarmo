@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { lookupNip, validateNip, type CeidgBusinessData } from '@/lib/ceidg';
 import { searchByNip } from '@/lib/sources/whitelist';
+import { rateLimit } from '@/lib/sources/_helpers';
 
 interface EnrichedData extends CeidgBusinessData {
   vat: {
@@ -42,6 +43,8 @@ function getCached(nip: string): EnrichedData | null {
 }
 
 export async function POST(request: NextRequest) {
+  const limitIp = rateLimit('ceidg', request, 30, 60 * 60_000);
+  if (!limitIp.ok) return limitIp.response;
   try {
     const { nip } = await request.json();
 

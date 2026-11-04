@@ -2,6 +2,7 @@ import { createClient } from '@supabase/supabase-js';
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { SITE_URL } from '@/lib/seo';
+import { rateLimit } from '@/lib/sources/_helpers';
 
 export const dynamic = 'force-dynamic';
 
@@ -14,6 +15,8 @@ function getAdminClient() {
 }
 
 export async function POST(request: NextRequest) {
+  const limitIp = rateLimit('signup', request, 5, 60 * 60_000);
+  if (!limitIp.ok) return limitIp.response;
   let body: { email?: unknown; password?: unknown };
 
   try {
