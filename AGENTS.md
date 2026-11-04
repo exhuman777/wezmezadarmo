@@ -47,7 +47,7 @@ Po każdym zadaniu, przed zgłoszeniem gotowości:
 # Mapa projektu (aktualizuj przy każdej zmianie)
 
 Strony publiczne:
-- `/` -- na górze „Należy Ci się więcej, niż myślisz”, 2 przykłady świadczeń i kalkulator (#kalkulator), pod nim gra (iframe `/gra/index.html`, pliki w `public/gra/`), asystent AI i lista linków; wyniki: świadczenia po śmierci bliskiej osoby zawsze na końcu (NA_KONIEC w src/engine/matcher.ts)
+- `/` -- na górze „Należy Ci się więcej, niż myślisz”, 2 przykłady świadczeń i kalkulator (#kalkulator), pod nim gra (przycisk „Zagraj” ładuje iframe `/gra/index.html` dopiero po kliknięciu, pliki w `public/gra/`), asystent AI i lista linków; wyniki: świadczenia po śmierci bliskiej osoby zawsze na końcu (NA_KONIEC w src/engine/matcher.ts)
 - `/wnioski/` -- AI-asystowane wypełnianie wniosków ZUS z eksportem PDF
 - `/aktualnosci/` -- monitoring RSS (publiczny podgląd + B2B panel dla firm)
 - `/statystyki/` -- dashboard GUS/SDG: wskaźniki live, wykresy, status API państwowych

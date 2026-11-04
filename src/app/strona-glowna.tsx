@@ -213,6 +213,8 @@ export default function Home() {
   const router = useRouter();
   const [heroQuery, setHeroQuery] = useState('');
   const [phase, setPhase] = useState<Phase>('landing');
+  // Gra ładuje się dopiero po kliknięciu, żeby nie spowalniać pierwszego wyświetlenia strony.
+  const [graWlaczona, setGraWlaczona] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [profile, setProfile] = useState<Partial<UserProfile>>({});
   const [questionIndex, setQuestionIndex] = useState(0);
@@ -605,16 +607,24 @@ export default function Home() {
         {/* Gra jako dodatek */}
         <section className="prosta-blok" aria-labelledby="gra-tytul" style={{ padding: '32px 0 0' }}>
           <h2 id="gra-tytul">Zagraj: dopasuj świadczenia do osób</h2>
-          <div className="gra-pelna" style={{ marginTop: 16 }}>
-            <div className="gra-ramka">
-              <iframe
-                src="/gra/index.html"
-                title="Gra Należy Ci się więcej, niż myślisz: dopasuj świadczenia do osób"
-                loading="lazy"
-                allow="autoplay"
-              />
+          {graWlaczona ? (
+            <div className="gra-pelna" style={{ marginTop: 16 }}>
+              <div className="gra-ramka">
+                <iframe
+                  src="/gra/index.html"
+                  title="Gra Należy Ci się więcej, niż myślisz: dopasuj świadczenia do osób"
+                  allow="autoplay"
+                />
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="gra-zapowiedz">
+              <p className="pod">Krótka gra w przeglądarce: dopasuj świadczenia do osób, zanim skończy się czas.</p>
+              <button type="button" className="btn" onClick={() => setGraWlaczona(true)}>
+                Zagraj
+              </button>
+            </div>
+          )}
         </section>
 
         {/* Pytanie do asystenta */}

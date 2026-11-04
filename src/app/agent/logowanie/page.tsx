@@ -3,6 +3,7 @@
 import { Suspense, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { bezpiecznaSciezkaPowrotu } from '@/lib/auth/sciezka';
 
 const inputStyle = {
   width: '100%', boxSizing: 'border-box' as const,
@@ -39,7 +40,7 @@ function LogowanieForm() {
         return;
       }
       const next = searchParams.get('next');
-      router.push(next && next.startsWith('/') ? next : '/panel');
+      router.push(bezpiecznaSciezkaPowrotu(next, '/panel'));
     } catch {
       setError('Błąd połączenia. Spróbuj ponownie.');
     } finally {
@@ -98,7 +99,8 @@ function LogowanieForm() {
 
 export default function AgentLogowanie() {
   return (
-    <main>
+    // min. wysokość ekranu: stopka nie skacze, gdy formularz pojawia się po stronie przeglądarki
+    <main style={{ minHeight: '100svh' }}>
       <Suspense fallback={null}>
         <LogowanieForm />
       </Suspense>

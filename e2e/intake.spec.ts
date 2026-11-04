@@ -40,4 +40,11 @@ test.describe('Kalkulator świadczeń (strona główna)', () => {
     await expect(page.getByRole('link', { name: /Sprawdź za darmo/i }).first()).toBeVisible();
     await expect(page.getByPlaceholder('np. 34')).toBeVisible();
   });
+
+  test('gra ładuje się dopiero po kliknięciu „Zagraj”', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.locator('iframe[src="/gra/index.html"]')).toHaveCount(0);
+    await page.getByRole('button', { name: 'Zagraj' }).click();
+    await expect(page.locator('iframe[src="/gra/index.html"]')).toBeVisible();
+  });
 });

@@ -129,7 +129,7 @@ export function FormChatWidget({ formType }: Props) {
   }
 
   return (
-    <div style={{ position: 'fixed', bottom: 24, right: 24, zIndex: 1000, fontFamily: "'JetBrains Mono', monospace" }}>
+    <div style={{ position: 'fixed', bottom: 24, right: 24, zIndex: 1000, fontFamily: 'var(--f-mono)' }}>
       {/* Chat panel */}
       {open && (
         <div style={{
