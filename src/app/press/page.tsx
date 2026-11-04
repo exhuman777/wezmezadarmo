@@ -126,7 +126,7 @@ export default function PressPage() {
           Źródła danych
         </h2>
         <div style={{ padding: 18, background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 2, fontSize: 13, color: 'var(--ink-600)', lineHeight: 1.7 }}>
-          Dane na żywo: GUS (BDL, SDG), NFZ, NBP, IMGW, GIOŚ, Sejm (ELI), ZUS i PFRON (RSS), gov.pl (ARiMR, MF, MRiT, MRPiPS), CEIDG. Baza świadczeń i programów powstała na podstawie oficjalnych stron: gov.pl, zus.pl, nfz.gov.pl, pfron.org.pl, krus.gov.pl, podatki.gov.pl, biznes.gov.pl, czystepowietrze.gov.pl.
+          Dane na żywo: GUS (BDL, SDG), NFZ, NBP, IMGW, GIOŚ, Sejm (ELI), ZUS i PFRON (RSS), gov.pl (ARiMR, MF, MRiT, MRPiPS), CEIDG. Baza świadczeń i programów powstała na podstawie oficjalnych stron: gov.pl, zus.pl, nfz.gov.pl, pfron.gov.pl, krus.gov.pl, podatki.gov.pl, biznes.gov.pl, czystepowietrze.gov.pl.
           <br /><br />
           Każde świadczenie ma link do źródła urzędowego.
         </div>

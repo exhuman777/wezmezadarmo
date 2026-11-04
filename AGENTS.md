@@ -57,7 +57,7 @@ Strony publiczne:
 - `/dla-firm/` -- landing dla firm i JDG (na górze wejście do narzędzi)
 - `/dla-firm/narzedzia/` -- narzędzia dla firm bez konta: formularz leadu (e-mail i telefon wymagane, imię opcjonalne, zgoda), ciasteczko dostępu na 30 dni od razu po wysłaniu; mail z linkiem tylko jako potwierdzenie i dostęp na innym urządzeniu; lead mailem do Kamila
 - Adresy do linkowania (opis + formularz, z dostępem od razu narzędzie): `/dla-firm/narzedzia/kpir`, `/dla-firm/narzedzia/jpk`, `/dla-firm/narzedzia/dofinansowania` (NIP, CEIDG); lista w `src/lib/narzedzia/lista.ts`, parametr `next` tylko ścieżki wewnętrzne (`bezpiecznyNext`)
-- `/narzedzia/kpir/`, `/narzedzia/jpk/` -- statyczne przeglądy KPiR i JPK_V7 w `public/narzedzia` (budowa: `scripts/narzedzia/zbuduj.sh`), dostęp tylko z ciasteczkiem (middleware, bez niego przekierowanie na stronę narzędzia z formularzem); leady w `/admin/narzedzia`, tabela `leady_narzedzia`
+- `/narzedzia/kpir/`, `/narzedzia/jpk/` -- statyczne przeglądy KPiR i JPK_V7 w `public/narzedzia` (budowa: `scripts/narzedzia/zbuduj.sh`), bez czatu, formularzy i API: pliki czyta tylko przeglądarka (martwe wywołania `/api/czat`, `/api/zapytanie`, `/api/zgloszenie` z wersji dla biur zostały w paczkach JS, ale nic ich nie uruchamia; pilnuje tego `e2e/narzedzia.spec.ts`), dostęp tylko z ciasteczkiem (middleware, bez niego przekierowanie na stronę narzędzia z formularzem); leady w `/admin/narzedzia`, tabela `leady_narzedzia`
 - `/o-projekcie/`, `/polityka-prywatnosci/`, `/regulamin/` -- strony informacyjne
 - `/agent/` -- Agent AI dla JDG i osób prywatnych (świadczenia, RSS, dzienny e-mail digest)
 

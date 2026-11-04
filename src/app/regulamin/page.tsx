@@ -118,7 +118,7 @@ export default function RegulaminPage() {
           </Section>
 
           <Section n="4" title="Źródła danych o świadczeniach">
-            <P>4.1. Baza świadczeń opiera się wyłącznie na oficjalnych, publicznych źródłach prawa i informacji rządowych. Dane nie są wymyślone, szacowane ani pobierane z prywatnych baz. Główne źródła: gov.pl, zus.pl, nfz.gov.pl, podatki.gov.pl, pfron.org.pl, praca.gov.pl, krus.gov.pl, biznes.gov.pl, nfosigw.gov.pl. Adresy źródeł widoczne są bezpośrednio w interfejsie Serwisu przy każdym świadczeniu.</P>
+            <P>4.1. Baza świadczeń opiera się wyłącznie na oficjalnych, publicznych źródłach prawa i informacji rządowych. Dane nie są wymyślone, szacowane ani pobierane z prywatnych baz. Główne źródła: gov.pl, zus.pl, nfz.gov.pl, podatki.gov.pl, pfron.gov.pl, praca.gov.pl, krus.gov.pl, biznes.gov.pl, nfosigw.gov.pl. Adresy źródeł widoczne są bezpośrednio w interfejsie Serwisu przy każdym świadczeniu.</P>
             <P>4.2. Kalkulator świadczeń nie prowadzi bazy danych użytkowników. Żadne dane podane w formularzu kalkulatora nie są zapisywane na serwerach Operatora, nie są profilowane, sprzedawane ani przekazywane do rejestrów.</P>
           </Section>
 

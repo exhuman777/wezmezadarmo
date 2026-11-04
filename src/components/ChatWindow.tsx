@@ -370,7 +370,7 @@ export function ChatWindow({
               { label: 'zus.pl', url: 'https://www.zus.pl' },
               { label: 'nfz.gov.pl', url: 'https://www.nfz.gov.pl' },
               { label: 'podatki.gov.pl', url: 'https://www.podatki.gov.pl' },
-              { label: 'pfron.org.pl', url: 'https://www.pfron.org.pl' },
+              { label: 'pfron.gov.pl', url: 'https://www.pfron.gov.pl' },
               { label: 'praca.gov.pl', url: 'https://www.praca.gov.pl' },
               { label: 'krus.gov.pl', url: 'https://www.krus.gov.pl' },
             ].map(s => (
