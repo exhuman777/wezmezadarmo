@@ -1,19 +1,9 @@
 import type { Metadata } from 'next';
-import { OG_IMAGES } from '@/lib/seo';
+import { StronaJsonLd } from '@/components/JsonLd';
+import { metadaneStrony } from '@/lib/strony';
 import Link from 'next/link';
 
-export const metadata: Metadata = {
-  title: 'Press kit | wezmezadarmo',
-  description: 'Materiały prasowe dla dziennikarzy, blogerów i influencerów. Logo, screenshoty, statystyki, kontakt.',
-  alternates: { canonical: 'https://www.wezmezadarmo.com/press' },
-  openGraph: {
-    images: OG_IMAGES,
-    title: 'Press kit - wezmezadarmo',
-    description: 'Materiały prasowe, statystyki, kontakt dla mediów.',
-    url: 'https://www.wezmezadarmo.com/press',
-    locale: 'pl_PL', type: 'website',
-  },
-};
+export const metadata: Metadata = metadaneStrony('/press');
 
 const FACTS = [
   { n: '133', label: 'zweryfikowanych świadczeń w bazie' },
@@ -37,6 +27,7 @@ Projekt rozwijany jest pro bono jako wkład w polskie społeczeństwo cyfrowe. C
 export default function PressPage() {
   return (
     <main style={{ maxWidth: 860, margin: '0 auto', padding: '48px 24px 60px' }}>
+      <StronaJsonLd sciezka="/press" />
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
         <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#2b7353', boxShadow: 'none' }} />
         <span style={{ fontFamily: 'var(--f-mono)', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink-500)' }}>

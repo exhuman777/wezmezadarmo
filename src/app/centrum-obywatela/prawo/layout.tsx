@@ -1,18 +1,13 @@
-import type { Metadata } from 'next';
-import { canonical, OG_IMAGES } from '@/lib/seo';
+import { StronaJsonLd } from '@/components/JsonLd';
+import { metadaneStrony } from '@/lib/strony';
 
-export const metadata: Metadata = {
-  alternates: canonical('/centrum-obywatela/prawo'),
-  title: 'Zmiany w prawie - Dziennik Ustaw, projekty Sejmu | wezmezadarmo',
-  description: 'Aktualne zmiany w polskim prawie: Dziennik Ustaw, Monitor Polski, projekty ustaw z Sejmu. Filtrowanie po słowach kluczowych. Dane z api.sejm.gov.pl.',
-  openGraph: {
-    images: OG_IMAGES,
-    title: 'Zmiany w prawie - ELI / Sejm RP',
-    description: 'Dziennik Ustaw, Monitor Polski, projekty ustaw - na żywo.',
-    locale: 'pl_PL', type: 'website',
-  },
-};
+export const metadata = metadaneStrony('/centrum-obywatela/prawo');
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return children;
+  return (
+    <>
+      <StronaJsonLd sciezka="/centrum-obywatela/prawo" />
+      {children}
+    </>
+  );
 }

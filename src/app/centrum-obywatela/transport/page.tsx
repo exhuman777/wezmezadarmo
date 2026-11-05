@@ -1,10 +1,6 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 
-export const metadata: Metadata = {
-  title: 'Ulgi PKP - kto ile płaci za pociąg | Centrum Obywatela',
-  description: 'Pełna tabela ulg PKP, Intercity, Polregio - student, senior, KDR, niepełnosprawni, dziecko.',
-};
+// Metadane i WebPage w layout.tsx (rejestr src/lib/strony.ts).
 
 const ULGI = [
   { grupa: 'Dziecko do 4 lat', ulga: '100%', warunek: 'Bez wykupywania biletu, na rękach opiekuna' },

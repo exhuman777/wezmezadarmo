@@ -1,12 +1,9 @@
 import type { Metadata } from 'next';
-import { canonical } from '@/lib/seo';
+import { StronaJsonLd } from '@/components/JsonLd';
+import { metadaneStrony } from '@/lib/strony';
 import Link from 'next/link';
 
-export const metadata: Metadata = {
-  alternates: canonical('/centrum-obywatela'),
-  title: 'Centrum Obywatela - darmowe narzędzia urzędowe | wezmezadarmo',
-  description: '12 narzędzi z oficjalnych polskich API: NFZ, NBP, GIOŚ, Biała Lista VAT, IMGW, ELI/Sejm, BDL GUS, ARiMR, PKP. Bez logowania.',
-};
+export const metadata: Metadata = metadaneStrony('/centrum-obywatela');
 
 interface Tool {
   href: string;
@@ -120,6 +117,7 @@ const SOURCES = [
 export default function CentrumObywatelaPage() {
   return (
     <main className="prosta">
+      <StronaJsonLd sciezka="/centrum-obywatela" />
       <section className="prosta-blok">
         <p className="etykieta">Centrum Obywatela</p>
         <h1>Narzędzia z danych urzędowych</h1>

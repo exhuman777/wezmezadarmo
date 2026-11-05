@@ -1,65 +1,156 @@
-# Panele i admin poza indeksem. /api/public/* zostaje dostępne, bo strony narzędzi
-# pobierają z niego dane w przeglądarce (Google renderuje je tak samo). Strony logowania mają noindex w metadanych,
-# więc nie blokujemy ich tutaj (robot musi zobaczyć noindex).
-# Każda grupa User-agent jest osobna: boty z własną grupą ignorują grupę *,
-# dlatego reguły Disallow są powtórzone.
+# robots.txt wezmezadarmo.com (adres kanoniczny: https://www.wezmezadarmo.com)
+# Poza indeksem: panele (/panel, /dotacje/panel, /agent/panel), /admin, API i /narzedzia
+# (statyczne narzędzia z dostępem po ciasteczku; publiczne opisy są pod /dla-firm/narzedzia).
+# /api/public/* zostaje dostępne, bo strony Centrum Obywatela pobierają z niego dane w przeglądarce
+# (Google renderuje je tak samo). Strony logowania mają noindex w metadanych, więc nie blokujemy
+# ich tutaj (robot musi zobaczyć noindex).
+# Każda grupa User-agent jest osobna: boty z własną grupą ignorują grupę *, dlatego reguły są powtórzone.
+# Boty AI (wyszukiwarki i asystenci) są wpuszczone jawnie. Opis serwisu dla modeli: /llms.txt
+
 User-agent: *
 Allow: /
-Disallow: /api/admin/
-Disallow: /admin/
-Disallow: /panel/
-Disallow: /dotacje/panel/
-Disallow: /agent/panel/
-Disallow: /narzedzia/
+Allow: /api/public/
+Disallow: /api
+Disallow: /admin
+Disallow: /panel
+Disallow: /dotacje/panel
+Disallow: /agent/panel
+Disallow: /narzedzia
 
-# AI crawlers: pełny dostęp do treści publicznych
 User-agent: GPTBot
 Allow: /
-Disallow: /api/admin/
-Disallow: /admin/
-Disallow: /panel/
-Disallow: /dotacje/panel/
-Disallow: /agent/panel/
-Disallow: /narzedzia/
+Allow: /api/public/
+Disallow: /api
+Disallow: /admin
+Disallow: /panel
+Disallow: /dotacje/panel
+Disallow: /agent/panel
+Disallow: /narzedzia
+
+User-agent: OAI-SearchBot
+Allow: /
+Allow: /api/public/
+Disallow: /api
+Disallow: /admin
+Disallow: /panel
+Disallow: /dotacje/panel
+Disallow: /agent/panel
+Disallow: /narzedzia
+
+User-agent: ChatGPT-User
+Allow: /
+Allow: /api/public/
+Disallow: /api
+Disallow: /admin
+Disallow: /panel
+Disallow: /dotacje/panel
+Disallow: /agent/panel
+Disallow: /narzedzia
 
 User-agent: ClaudeBot
 Allow: /
-Disallow: /api/admin/
-Disallow: /admin/
-Disallow: /panel/
-Disallow: /dotacje/panel/
-Disallow: /agent/panel/
-Disallow: /narzedzia/
+Allow: /api/public/
+Disallow: /api
+Disallow: /admin
+Disallow: /panel
+Disallow: /dotacje/panel
+Disallow: /agent/panel
+Disallow: /narzedzia
+
+User-agent: Claude-User
+Allow: /
+Allow: /api/public/
+Disallow: /api
+Disallow: /admin
+Disallow: /panel
+Disallow: /dotacje/panel
+Disallow: /agent/panel
+Disallow: /narzedzia
+
+User-agent: Claude-SearchBot
+Allow: /
+Allow: /api/public/
+Disallow: /api
+Disallow: /admin
+Disallow: /panel
+Disallow: /dotacje/panel
+Disallow: /agent/panel
+Disallow: /narzedzia
+
+User-agent: anthropic-ai
+Allow: /
+Allow: /api/public/
+Disallow: /api
+Disallow: /admin
+Disallow: /panel
+Disallow: /dotacje/panel
+Disallow: /agent/panel
+Disallow: /narzedzia
 
 User-agent: PerplexityBot
 Allow: /
-Disallow: /api/admin/
-Disallow: /admin/
-Disallow: /panel/
-Disallow: /dotacje/panel/
-Disallow: /agent/panel/
-Disallow: /narzedzia/
+Allow: /api/public/
+Disallow: /api
+Disallow: /admin
+Disallow: /panel
+Disallow: /dotacje/panel
+Disallow: /agent/panel
+Disallow: /narzedzia
 
-User-agent: Gemini-Web
+User-agent: Perplexity-User
 Allow: /
-Disallow: /api/admin/
-Disallow: /admin/
-Disallow: /panel/
-Disallow: /dotacje/panel/
-Disallow: /agent/panel/
-Disallow: /narzedzia/
+Allow: /api/public/
+Disallow: /api
+Disallow: /admin
+Disallow: /panel
+Disallow: /dotacje/panel
+Disallow: /agent/panel
+Disallow: /narzedzia
+
+User-agent: Google-Extended
+Allow: /
+Allow: /api/public/
+Disallow: /api
+Disallow: /admin
+Disallow: /panel
+Disallow: /dotacje/panel
+Disallow: /agent/panel
+Disallow: /narzedzia
 
 User-agent: Applebot-Extended
 Allow: /
-Disallow: /api/admin/
-Disallow: /admin/
-Disallow: /panel/
-Disallow: /dotacje/panel/
-Disallow: /agent/panel/
-Disallow: /narzedzia/
+Allow: /api/public/
+Disallow: /api
+Disallow: /admin
+Disallow: /panel
+Disallow: /dotacje/panel
+Disallow: /agent/panel
+Disallow: /narzedzia
+
+User-agent: CCBot
+Allow: /
+Allow: /api/public/
+Disallow: /api
+Disallow: /admin
+Disallow: /panel
+Disallow: /dotacje/panel
+Disallow: /agent/panel
+Disallow: /narzedzia
+
+User-agent: Bingbot
+Allow: /
+Allow: /api/public/
+Disallow: /api
+Disallow: /admin
+Disallow: /panel
+Disallow: /dotacje/panel
+Disallow: /agent/panel
+Disallow: /narzedzia
 
 Sitemap: https://www.wezmezadarmo.com/sitemap.xml
 
-# LLM discoverability
+# Dla modeli językowych i agentów AI
+# https://www.wezmezadarmo.com/llms.txt
+# https://www.wezmezadarmo.com/llms-full.txt
 # https://www.wezmezadarmo.com/llm.md
 # https://www.wezmezadarmo.com/agents.md

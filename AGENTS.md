@@ -61,6 +61,13 @@ Strony publiczne:
 - `/o-projekcie/`, `/polityka-prywatnosci/`, `/regulamin/` -- strony informacyjne
 - `/agent/` -- Agent AI dla JDG i osób prywatnych (świadczenia, RSS, dzienny e-mail digest)
 
+SEO i pliki dla AI (od 5.11.2026):
+- `src/lib/strony.ts` -- rejestr publicznych stron: title, description, keywords, okruszki, typ schema.org; z niego `metadaneStrony('/sciezka')` (canonical na https://www.wezmezadarmo.com, OG, Twitter, link do .md), `<StronaJsonLd>` (WebPage, BreadcrumbList, WebApplication), `sitemap.ts` i `/llms.txt`. Nowa publiczna strona = wpis w rejestrze + `metadaneStrony` i `StronaJsonLd` w page albo layout (pilnuje `src/lib/__tests__/seo.test.ts`)
+- `src/components/JsonLd.tsx` -- `SerwisJsonLd` w root layout (WebSite z SearchAction na /swiadczenia?q=, Organization wezmezadarmo, wydawca tuKamil https://tukamil.com); nigdy GovernmentService (projekt prywatny); FAQPage tylko przy widocznym FAQ
+- `/llms.txt`, `/llms-full.txt` i wersje `.md` stron (`/index.md`, `/swiadczenia.md`, `/wnioski.md`, `/dotacje.md`, `/dla-firm.md` i inne z `md: true`) -- route handlery, treść w `src/lib/llms.ts` z tych samych danych co strona (rejestr, baza świadczeń, blog, narzędzia); sekcje „Narzędzia na subdomenach” i „Inne aplikacje tuKamil”
+- `public/llm.md`, `public/agents.md` -- przewodniki techniczne dla agentów (API), podlinkowane z llms.txt
+- `public/robots.txt` -- boty AI wpuszczone jawnie, poza indeksem: /api (poza /api/public), /admin, panele, /narzedzia; e2e: `e2e/seo.spec.ts`
+
 Panel główny (/panel/) -- dla zalogowanych obywateli:
 - `/panel/` -- dashboard (Świadczenia, Dotacje, Czat AI, Aktualności, Wnioski, Powiadomienia)
 - `/panel/swiadczenia/` -- dopasowane świadczenia i ulgi

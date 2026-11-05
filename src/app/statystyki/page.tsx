@@ -1,13 +1,10 @@
-import { Metadata } from 'next';
-import { canonical } from '@/lib/seo';
+import type { Metadata } from 'next';
+import { StronaJsonLd } from '@/components/JsonLd';
+import { metadaneStrony } from '@/lib/strony';
 import { getSdgIndicator, FEATURED_INDICATORS } from '@/lib/sources/sdg-gus';
 import { LineChart } from './LineChart';
 
-export const metadata: Metadata = {
-  alternates: canonical('/statystyki'),
-  title: 'Polska w liczbach - statystyki GUS, NBP, NFZ | wezmezadarmo',
-  description: 'Dashboard danych publicznych: ceny mieszkań, inflacja, emisja CO2, edukacja, zdrowie. Źródła GUS, NBP, ZUS, NFZ, aktualizowane na bieżąco.',
-};
+export const metadata: Metadata = metadaneStrony('/statystyki');
 
 const CENA_M2: Array<{ rok: number; q1: number | null; q2: number | null; q3: number | null; q4: number | null }> = [
   { rok: 2026, q1: 8155, q2: null, q3: null, q4: null },
@@ -58,6 +55,7 @@ export default async function StatystykiPage() {
 
   return (
     <main className="prosta">
+      <StronaJsonLd sciezka="/statystyki" />
       <section className="prosta-blok">
         <p className="etykieta">Polska w liczbach</p>
         <h1>Dane publiczne w jednym miejscu</h1>

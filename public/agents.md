@@ -1,6 +1,7 @@
 # wezmezadarmo.com -- Agent Guide for Business AI Systems
 
 > Ten plik jest przeznaczony dla agentów AI działających w imieniu firm i JDG w Polsce.
+> Spis całego serwisu: https://www.wezmezadarmo.com/llms.txt, opis dotacji: https://www.wezmezadarmo.com/dotacje.md
 > Opisuje platformę B2B: monitoring dofinansowań, aktualności rządowe, automatyzacje, wypełnianie wniosków.
 > Dla agentów obsługujących obywateli (kalkulator świadczeń): patrz /llm.md
 > Humans: wezmezadarmo.com/dotacje
@@ -25,7 +26,7 @@ WezmeZaDarmo to agentowy system urzędowy dla polskich firm i JDG. Agenci:
 ```
 Firma rejestruje konto (/dotacje/rejestracja)
   -> podaje profil: NIP, PKD, województwo, liczba pracowników, potrzeby
-  -> wybiera plan subskrypcji (Stripe)
+  -> korzysta bezpłatnie (płatne plany są wyłączone, regulamin §4)
 
 Agent firmowy:
   -> monitoruje dofinansowania (cron: tygodniowo)
@@ -250,6 +251,8 @@ Generuje wypełniony PDF do pobrania.
 
 ## API -- Subskrypcja i płatności
 
+Usługa jest bezpłatna (regulamin dotacji, §4): serwis nie pobiera opłat i nie obsługuje subskrypcji. Adresy /dotacje/panel/subskrypcja i /panel/subskrypcja przekierowują do /panel. Poniższe endpointy zostały w kodzie, ale nie służą do sprzedaży planów.
+
 ### GET /api/dotacje/subscription
 
 Status subskrypcji firmy.
@@ -362,7 +365,7 @@ wezmezadarmo.com/
   /dotacje/panel/agent/            -- konfiguracja AI agenta
   /dotacje/panel/monitoring/       -- dopasowane dofinansowania
   /dotacje/panel/aktualnosci/      -- RSS monitoring i powiadomienia
-  /dotacje/panel/subskrypcja/      -- zarządzanie planem
+  /dotacje/panel/subskrypcja/      -- przekierowanie do /panel (serwis bezpłatny)
   /aktualnosci/                    -- publiczny podgląd RSS
   /automatyzacje/                  -- automatyzacje: KSeF, faktury, custom
   /wnioski/                        -- asystent wniosków ZUS

@@ -9,6 +9,8 @@
 export interface BlogPost {
   slug: string;
   title: string;
+  /** Krótszy tytuł do <title> (do ok. 60 znaków), gdy title jest dłuższy. */
+  tytulSeo?: string;
   description: string;     // Meta description - max 160 chars
   date: string;            // ISO 'YYYY-MM-DD'
   author: string;
@@ -22,6 +24,7 @@ export const POSTS: BlogPost[] = [
   {
     slug: 'co-nowego-lipiec-2026-wyszukiwarka-audyt',
     title: 'Wyszukiwarka, która rozumie "kuroniówkę" i automatyczny audyt 133 źródeł: co nowego w serwisie',
+    tytulSeo: 'Wyszukiwarka świadczeń i audyt 133 źródeł: co nowego',
     description: 'Nowa wyszukiwarka świadczeń działa bez polskich znaków i zna potoczne nazwy. Do tego automatyczny audyt 133 oficjalnych źródeł i szczelniejszy limit czatu AI.',
     date: '2026-07-05',
     author: 'Zespół wezmezadarmo',

@@ -1,12 +1,9 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { canonical } from '@/lib/seo';
+import { StronaJsonLd } from '@/components/JsonLd';
+import { metadaneStrony } from '@/lib/strony';
 
-export const metadata: Metadata = {
-  alternates: canonical('/wnioski'),
-  title: 'Pomoc w wypełnieniu wniosku z AI | wezmezadarmo',
-  description: 'Wypełniaj wnioski ZUS, granty i dofinansowania krok po kroku z pomocą AI. Twoje dane zapisywane lokalnie w przeglądarce, prefill z profilu dla zalogowanych.',
-};
+export const metadata: Metadata = metadaneStrony('/wnioski');
 
 interface Form {
   slug: string;
@@ -147,6 +144,7 @@ const STEPS = [
 export default function WnioskiPage() {
   return (
     <main className="prosta">
+      <StronaJsonLd sciezka="/wnioski" />
 
       <section className="prosta-blok" style={{ padding: 0 }}>
         <p className="mono mala" style={{ margin: '0 0 8px' }}>Narzędzie obywatelskie, bezpłatne</p>

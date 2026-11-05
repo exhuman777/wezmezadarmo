@@ -1,10 +1,15 @@
-import type { Metadata } from 'next';
-import { canonical } from '@/lib/seo';
+import { StronaJsonLd } from '@/components/JsonLd';
+import { metadaneStrony } from '@/lib/strony';
 import Home from './strona-glowna';
 
-// Strona główna jest komponentem klienta (strona-glowna.tsx), więc canonical ustawiamy tutaj.
-export const metadata: Metadata = { alternates: canonical('/') };
+// Strona główna jest komponentem klienta (strona-glowna.tsx), więc metadane i JSON-LD są tutaj.
+export const metadata = metadaneStrony('/');
 
 export default function Page() {
-  return <Home />;
+  return (
+    <>
+      <StronaJsonLd sciezka="/" />
+      <Home />
+    </>
+  );
 }

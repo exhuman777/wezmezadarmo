@@ -1,27 +1,17 @@
 import type { Metadata } from 'next';
-import { OG_IMAGES } from '@/lib/seo';
+import { StronaJsonLd } from '@/components/JsonLd';
+import { metadaneStrony } from '@/lib/strony';
 import Link from 'next/link';
 import { POSTS } from '@/data/blog-posts';
 
-export const metadata: Metadata = {
-  title: 'Blog - świadczenia, ulgi, dofinansowania | wezmezadarmo',
-  description: 'Praktyczne poradniki o świadczeniach, ulgach podatkowych i programach wsparcia w Polsce. Aktualizowane na 2026.',
-  alternates: { canonical: 'https://www.wezmezadarmo.com/blog' },
-  openGraph: {
-    images: OG_IMAGES,
-    title: 'Blog wezmezadarmo - poradniki o świadczeniach',
-    description: 'Co Ci się należy w 2026? Analizy, kalkulacje, instrukcje krok po kroku.',
-    url: 'https://www.wezmezadarmo.com/blog',
-    locale: 'pl_PL',
-    type: 'website',
-  },
-};
+export const metadata: Metadata = metadaneStrony('/blog');
 
 export default function BlogIndex() {
   const sorted = [...POSTS].sort((a, b) => b.date.localeCompare(a.date));
 
   return (
     <main className="prosta">
+      <StronaJsonLd sciezka="/blog" />
       <section className="prosta-blok">
         <p className="etykieta">Blog</p>
         <h1>Poradniki o świadczeniach</h1>

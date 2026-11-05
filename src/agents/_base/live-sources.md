@@ -126,4 +126,4 @@ Gdy NIE masz danych live dla danego narzędzia - wtedy odsyłaj na URL.
 WAŻNE:
 - Wszystkie narzędzia są DARMOWE, bez rejestracji, bez PESEL.
 - Dane LIVE mogą różnić się od tego co masz w bazie świadczeń (statyczna baza, weryfikacja co kilka tygodni).
-- Gdy odsyłasz do narzędzia, podaj pełną ścieżkę: "Sprawdź na /nfz" albo "https://wezmezadarmo.com/centrum-obywatela/kursy".
+- Gdy odsyłasz do narzędzia, podaj pełną ścieżkę: "Sprawdź na /nfz" albo "https://www.wezmezadarmo.com/centrum-obywatela/kursy".

@@ -1,12 +1,8 @@
 import type { Metadata } from 'next';
-import { canonical } from '@/lib/seo';
+import { StronaJsonLd } from '@/components/JsonLd';
+import { metadaneStrony } from '@/lib/strony';
 
-export const metadata: Metadata = {
-  alternates: canonical('/za-darmo-dla-biznesu'),
-  title: 'Narzędzia dla firm: DogInvoice i DogAnswer | wezmezadarmo',
-  description: 'DogInvoice dopasowuje przelewy do faktur z KSeF i płaci kilka faktur jednym plikiem do banku. DogAnswer odbiera telefony, kiedy Ty nie możesz. Narzędzia Dogtronic Labs z Lublina.',
-  robots: { index: true, follow: true },
-};
+export const metadata: Metadata = metadaneStrony('/za-darmo-dla-biznesu');
 
 // Opisy wyłącznie z inwentarzy funkcji produktów (12.09.2026) i z żywych stron doginvoice.com i doganswer.com.
 const DOGINVOICE = [
@@ -24,6 +20,7 @@ const DOGANSWER = [
 export default function ZaDarmoDlaBiznesuPage() {
   return (
     <main className="prosta">
+      <StronaJsonLd sciezka="/za-darmo-dla-biznesu" />
       <section className="prosta-blok">
         <p className="etykieta">Dla firm</p>
         <h1>Dwa narzędzia dla firm</h1>
