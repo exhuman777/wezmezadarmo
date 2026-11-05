@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { AUTOR, DOPISEK_MARKI, LD_ID, OG_IMAGES, SITE_NAME, SITE_URL, adres, jsonLd } from '@/lib/seo';
+import { AUTOR, DOPISEK_MARKI, LD_ID, OBRAZ_OG, OG_IMAGES, SITE_NAME, SITE_URL, adres, jsonLd } from '@/lib/seo';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { POSTS, getPostBySlug } from '@/data/blog-posts';
@@ -108,7 +108,7 @@ export default async function BlogPost({ params }: Props) {
         dateModified: post.date,
         inLanguage: 'pl-PL',
         keywords: post.tags.join(', '),
-        image: `${SITE_URL}/opengraph-image`,
+        image: `${SITE_URL}${OBRAZ_OG}`,
         author: { '@type': 'Organization', name: post.author, url: SITE_URL },
         publisher: { '@type': 'Organization', '@id': LD_ID.autor, name: AUTOR.name, url: AUTOR.url },
         isPartOf: { '@id': LD_ID.website },

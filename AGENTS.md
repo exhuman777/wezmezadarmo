@@ -32,7 +32,7 @@ Przed każdym commitem przejrzyj WSZYSTKIE nowe ciągi tekstowe pod kątem polsk
   - prosto jak strona z linkiem w bio: jedna wąska kolumna (klasa `.prosta`, max 680 px), 1-2 zdania na blok, listy z cienką linią zamiast kart
   - przyciski: kwadratowe, ramka 2 px, min. 44 px wysokości, najechanie = przesunięcie i twardy cień 4 px (bez rozmycia)
   - zakazane: gradienty, glow, rozmycia tła (glassmorphism), paski z lewej, emoji, karty z ikoną i trzema punktami, animacje (poza grą)
-  - piksele tylko w grze (`public/gra/`), w znaku marki (`PixelMark` w `src/components/SiteNav.tsx`) oraz w drobnych ikonach-akcentach 16×16 przy nagłówkach (`PixelIcon` w `src/components/PixelIcon.tsx`, rozmiar 16 albo 32 px; decyzja Kamila z 4.11.2026)
+  - piksele tylko w grze (`public/gra/`), w znaku marki (pikselowy prezent 16×16: `PixelMark` w `src/components/SiteNav.tsx`, wzór w `src/lib/znak.ts`; z tego wzoru są `src/app/icon.png`, `apple-icon.png`, `favicon.ico`, `public/ikona-512.png` i obraz OG `public/og-2026-11.png`, przy zmianie wyglądu OG nowa nazwa pliku, bo komunikatory trzymają podgląd po adresie) oraz w drobnych ikonach-akcentach 16×16 przy nagłówkach (`PixelIcon` w `src/components/PixelIcon.tsx`, rozmiar 16 albo 32 px; decyzja Kamila z 4.11.2026)
 
 # Protokół zakończenia pracy
 
