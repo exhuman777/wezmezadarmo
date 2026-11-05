@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { chatCompletion } from '@/ai/openrouter';
+import { chatCompletion, aiSkonfigurowane } from '@/ai/openrouter';
 import { buildVerifierMessages, parseVerifierResponse } from '@/ai/verifierPrompt';
 import { applyVerification } from '@/ai/formatResults';
 import { matchBenefits } from '@/engine/matcher';
@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Pass 2: Adversarial verification (graceful degradation if no API key)
-    if (!process.env.OPENROUTER_API_KEY || process.env.OPENROUTER_API_KEY === 'your-key-here') {
+    if (!(await aiSkonfigurowane())) {
       return NextResponse.json({ results: matches, aiVerified: false }, { headers: CORS_HEADERS });
     }
 

@@ -237,7 +237,7 @@ export const EZLA: Array<{ rok: number; mln: number }> = [
   { rok: 2023, mln: 21.9 },
   { rok: 2024, mln: 22.1 },
 ];
-export const EZLA_SOURCE = 'https://www.zus.pl/swiadczenia/zasilki/e-zla-elektroniczne-zwolnienia-lekarskie';
+export const EZLA_SOURCE = 'https://www.zus.pl/elektroniczne-zwolnienia-lekarskie-e-zla-';
 
 // ----- Darmowe API panstwowe (publiczna lista) -----
 

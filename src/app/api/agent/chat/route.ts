@@ -15,7 +15,7 @@
 import { NextRequest } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { createSupabaseServer } from '@/lib/dotacje/supabase';
-import { chatStream } from '@/ai/openrouter';
+import { chatStream, aiSkonfigurowane } from '@/ai/openrouter';
 import { matchBenefits } from '@/engine/matcher';
 import { CORS_HEADERS } from '@/lib/apiAuth';
 import type { AgentId } from '@/agents/types';
@@ -516,7 +516,7 @@ export async function POST(request: NextRequest) {
     });
   }
 
-  if (!process.env.OPENROUTER_API_KEY) {
+  if (!(await aiSkonfigurowane())) {
     return new Response(JSON.stringify({ error: 'Brak klucza API.' }), {
       status: 503,
       headers: { 'Content-Type': 'application/json', ...CORS_HEADERS },

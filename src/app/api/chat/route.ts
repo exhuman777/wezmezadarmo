@@ -6,7 +6,7 @@
  */
 
 import { NextRequest } from 'next/server';
-import { chatStream } from '@/ai/openrouter';
+import { chatStream, aiSkonfigurowane } from '@/ai/openrouter';
 import { buildAgentSystemPrompt } from '@/agents/registry';
 import type { AgentContext } from '@/agents/types';
 import { UserProfile, MatchResult } from '@/engine/types';
@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    if (!process.env.OPENROUTER_API_KEY || process.env.OPENROUTER_API_KEY === 'your-key-here') {
+    if (!(await aiSkonfigurowane())) {
       return new Response(JSON.stringify({ error: 'Brak klucza API OpenRouter' }), {
         status: 503,
         headers: { 'Content-Type': 'application/json', ...CORS_HEADERS },

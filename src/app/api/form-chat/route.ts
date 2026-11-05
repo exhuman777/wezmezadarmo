@@ -6,7 +6,7 @@
  */
 
 import { NextRequest } from 'next/server';
-import { chatStream } from '@/ai/openrouter';
+import { chatStream, aiSkonfigurowane } from '@/ai/openrouter';
 import { buildFormChatPrompt } from '@/agents/registry';
 import { CORS_HEADERS, optionsResponse } from '@/lib/apiAuth';
 import { checkRateLimitDurable } from '@/lib/rateLimit';
@@ -87,7 +87,7 @@ interface ChatMessage {
 }
 
 export async function POST(request: NextRequest) {
-  if (!process.env.OPENROUTER_API_KEY) {
+  if (!(await aiSkonfigurowane())) {
     return new Response(JSON.stringify({ error: 'Brak klucza API' }), {
       status: 503,
       headers: { 'Content-Type': 'application/json', ...CORS_HEADERS },

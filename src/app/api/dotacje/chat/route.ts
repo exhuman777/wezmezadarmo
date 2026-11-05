@@ -10,7 +10,7 @@ import { createSupabaseServer } from '@/lib/dotacje/supabase';
 import { buildCompanyBlock, buildMatchedProgramsBlock } from '@/lib/dotacje/companyContext';
 import { buildLiveIntelBlock } from '@/lib/dotacje/grantScraper';
 import type { ScrapeItem } from '@/lib/dotacje/grantScraper';
-import { chatStream } from '@/ai/openrouter';
+import { chatStream, aiSkonfigurowane } from '@/ai/openrouter';
 import { buildAgentSystemPrompt } from '@/agents/registry';
 import type { CompanyProfile } from '@/lib/dotacje/companyContext';
 import type { DBCompanyProfile } from '@/lib/dotacje/supabase';
@@ -55,7 +55,7 @@ const COMPANY_RULES = `ZASADY ANTY-HALUCYNACYJNE DLA CZATU FIRMOWEGO:
 6. Kazda odpowiedz KONCZ zdaniem: "Stan wiedzy: maj 2026. Weryfikuj terminy i wymagania bezposrednio w instytucji przed zlozeniem wniosku."`;
 
 export async function POST(request: NextRequest) {
-  if (!process.env.OPENROUTER_API_KEY) {
+  if (!(await aiSkonfigurowane())) {
     return Response.json(
       { error: 'Konfiguracja serwera niekompletna -- brak klucza AI.' },
       { status: 503 },
