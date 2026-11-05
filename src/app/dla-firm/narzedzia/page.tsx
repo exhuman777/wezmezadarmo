@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { PixelIcon } from '@/components/PixelIcon';
 import Link from 'next/link';
 import { cookies } from 'next/headers';
 import { canonical } from '@/lib/seo';
@@ -34,7 +35,7 @@ export default async function NarzedziaPage({ searchParams }: Props) {
   return (
     <div className="prosta">
       <section className="prosta-blok">
-        <h1>Narzędzia dla firm za darmo</h1>
+        <h1><PixelIcon nazwa="dokument" />Narzędzia dla firm za darmo</h1>
         <p className="pod">Sprawdź księgę KPiR, plik JPK_V7 i dofinansowania. Bez zakładania konta. Pliki czyta tylko Twoja przeglądarka, nie wysyłamy ich na serwer.</p>
         {komunikat && (
           <p role="status" style={{ marginTop: 16, padding: '12px 14px', border: '2px solid var(--tusz)', background: 'var(--kafel)', fontWeight: 600 }}>{komunikat}</p>

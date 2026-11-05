@@ -1,5 +1,6 @@
 'use client';
 
+import { PixelIcon } from '@/components/PixelIcon';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { IntakeForm } from '@/components/IntakeForm';
@@ -590,11 +591,11 @@ export default function Home() {
         {/* Start: co się należy i od razu formularz */}
         <section id="kalkulator" className="prosta-blok" style={{ padding: 0, scrollMarginTop: 80 }}>
           <span id="formularz" />
-          <h1 style={{ fontSize: 'clamp(28px, 5.5vw, 40px)' }}>Należy Ci się więcej, niż myślisz.</h1>
+          <h1 style={{ fontSize: 'clamp(28px, 5.5vw, 40px)' }}><PixelIcon nazwa="gwiazdka" />Należy Ci się więcej, niż myślisz.</h1>
           <p className="pod">Odpowiedz na kilka pytań i zobacz, które ze 133 świadczeń, ulg i dotacji mogą Ci przysługiwać. Bez konta i za darmo.</p>
           <ul className="lista" style={{ marginTop: 16 }}>
-            <li><b>800+</b>: 800 zł miesięcznie na każde dziecko do 18 lat, bez względu na dochód.</li>
-            <li><b>13. emerytura</b>: 1978,49 zł brutto co roku w kwietniu dla emerytów i rencistów.</li>
+            <li className="lista-para"><span className="lista-nazwa">800+</span><span className="lista-opis">800 zł miesięcznie na każde dziecko do 18 lat, bez względu na dochód.</span></li>
+            <li className="lista-para"><span className="lista-nazwa">13. emerytura</span><span className="lista-opis">1978,49 zł brutto co roku w kwietniu dla emerytów i rencistów.</span></li>
           </ul>
           <div style={{ marginTop: 20, padding: 20, background: 'var(--surface)', border: '2px solid var(--tusz)' }}>
             <IntakeForm onSubmit={handleIntakeSubmit} isLoading={isLoading} />
@@ -629,7 +630,7 @@ export default function Home() {
 
         {/* Pytanie do asystenta */}
         <section className="prosta-blok" style={{ padding: '32px 0 0' }}>
-          <h2>Zapytaj asystenta AI</h2>
+          <h2><PixelIcon nazwa="czat" />Zapytaj asystenta AI</h2>
           <p className="pod">Napisz pytanie własnymi słowami.</p>
           <form
             className="pytaj"

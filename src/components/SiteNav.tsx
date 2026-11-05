@@ -19,26 +19,35 @@ const NAV_ITEMS = [
   { href: '/o-projekcie', label: 'O projekcie', prefixes: ['/o-projekcie'] },
 ];
 
-/* Znak marki: pikselowy prezent 8 x 8 (zieleń i rdza) */
+/* Znak marki: pikselowy prezent 12 x 12 na siatce. Kokarda i wstążka w rdzy, pudełko w zieleni z jaśniejszą krawędzią
+   i cieniem u dołu. Stałe kolory z palety (jak wcześniej), więc znak wygląda tak samo w trybie jasnym i ciemnym. */
 const MARK = [
-  '..R..R..',
-  '...RR...',
-  'GGGRRGGG',
-  'GGGRRGGG',
-  '.GGRRGG.',
-  '.GGRRGG.',
-  '.GGRRGG.',
-  '.GGRRGG.',
+  '...RR..RR...',
+  '..R..RR..R..',
+  '...RRRRRR...',
+  'LLLLLRRLLLLL',
+  'GGGGGRRGGGGG',
+  'DDDDDRRDDDDD',
+  '.LGGGRRGGGG.',
+  '.LGGGRRGGGG.',
+  '.LGGGRRGGGG.',
+  '.LGGGRRGGGG.',
+  '.GGGGRRGGGG.',
+  '.DDDDRRDDDD.',
 ];
+const KOLOR: Record<string, string> = {
+  R: '#c4483a',
+  G: '#2b7353',
+  L: '#569e7e',
+  D: '#27503c',
+};
 
-export function PixelMark({ size = 22 }: { size?: number }) {
+export function PixelMark({ size = 24 }: { size?: number }) {
   return (
-    <svg className="logo-mark" width={size} height={size} viewBox="0 0 8 8" aria-hidden="true" focusable="false">
+    <svg className="logo-mark" width={size} height={size} viewBox="0 0 12 12" aria-hidden="true" focusable="false" shapeRendering="crispEdges">
       {MARK.flatMap((row, y) =>
         row.split('').map((c, x) =>
-          c === '.' ? null : (
-            <rect key={`${x}-${y}`} x={x} y={y} width="1" height="1" fill={c === 'R' ? '#c4483a' : '#2b7353'} />
-          ),
+          c === '.' ? null : <rect key={`${x}-${y}`} x={x} y={y} width="1" height="1" fill={KOLOR[c]} />,
         ),
       )}
     </svg>

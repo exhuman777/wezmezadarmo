@@ -397,6 +397,9 @@ section.short { padding: 48px 0; }
   display: inline-block;
 }
 .logo-mark { display: block; flex-shrink: 0; image-rendering: pixelated; shape-rendering: crispEdges; }
+/* Pikselowe akcenty przy nagłówkach (src/components/PixelIcon.tsx): kolor rdzy, wyrównanie do linii tekstu. */
+.px-ikona { display: inline-block; vertical-align: -0.32em; margin-right: 0.35em; color: var(--rdza); image-rendering: pixelated; flex-shrink: 0; }
+
 .logo .dim { color: var(--ink-500); font-weight: 400; }
 
 .navlinks {
@@ -1107,6 +1110,11 @@ html.dark .btn-ghost { background: transparent; border-color: var(--tusz); color
 .lista li { padding: 12px 0; border-top: 1px solid var(--linia); font-size: 16px; line-height: 1.55; }
 .lista li:last-child { border-bottom: 1px solid var(--linia); }
 .lista b { font-family: var(--f-mono); font-weight: 700; }
+/* Para „nazwa i opis” bez pogrubionej etykiety: nazwa zwykłym krojem w kolorze tuszu, opis szary; na szerszym ekranie dwie kolumny. */
+.lista-para { display: grid; gap: 2px; }
+.lista-nazwa { font-size: 17px; color: var(--color-text-1); }
+.lista-opis { color: var(--color-text-3); }
+@media (min-width: 560px) { .lista-para { grid-template-columns: 9.5em 1fr; gap: 16px; align-items: baseline; } }
 .etykieta { font-family: var(--f-mono); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--szary); margin: 0 0 8px; }
 
 /* /swiadczenia: kwadratowe rogi i bez cieni w całej liście */
