@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest';
-import { parseCeidgResponse, validateNip } from '../ceidg';
+import { describe, it, expect, vi, afterEach } from 'vitest';
+import { parseCeidgResponse, validateNip, lookupNip } from '../ceidg';
 
 describe('parseCeidgResponse', () => {
   it('parsuje wojewodztwo z adresDzialalnosci', () => {
@@ -75,5 +75,33 @@ describe('validateNip', () => {
 
   it('odrzuca NIP z litera', () => {
     expect(validateNip('526025027X')).toBe(false);
+  });
+});
+
+describe('lookupNip: puste odpowiedzi CEIDG', () => {
+  afterEach(() => { vi.unstubAllGlobals(); vi.unstubAllEnvs(); });
+  const nip = '7394001248';
+
+  it('204 bez treści = brak firmy, nie błąd', async () => {
+    vi.stubEnv('CEIDG_API_TOKEN', 'x');
+    vi.stubGlobal('fetch', vi.fn(async () => new Response(null, { status: 204 })));
+    const r = await lookupNip(nip);
+    expect(r.aktywna).toBe(false);
+    expect(r.nazwa).toBeNull();
+  });
+
+  it('200 z pustym body = brak firmy, nie błąd', async () => {
+    vi.stubEnv('CEIDG_API_TOKEN', 'x');
+    vi.stubGlobal('fetch', vi.fn(async () => new Response('', { status: 200 })));
+    const r = await lookupNip(nip);
+    expect(r.pkd).toEqual([]);
+  });
+
+  it('200 z firmą = dane firmy', async () => {
+    vi.stubEnv('CEIDG_API_TOKEN', 'x');
+    vi.stubGlobal('fetch', vi.fn(async () => new Response(JSON.stringify({ firmy: [{ nazwa: 'Firma (przykład)', status: 'AKTYWNY', pkd: [] }] }), { status: 200 })));
+    const r = await lookupNip(nip);
+    expect(r.nazwa).toBe('Firma (przykład)');
+    expect(r.aktywna).toBe(true);
   });
 });
