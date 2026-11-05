@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { OG_IMAGES } from '@/lib/seo';
+import { AUTOR, DOPISEK_MARKI, LD_ID, OG_IMAGES, SITE_NAME, SITE_URL, adres, jsonLd } from '@/lib/seo';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { POSTS, getPostBySlug } from '@/data/blog-posts';
@@ -17,17 +17,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = getPostBySlug(slug);
   if (!post) return { title: 'Nie znaleziono | wezmezadarmo' };
 
-  const url = `https://www.wezmezadarmo.com/blog/${post.slug}`;
+  const url = adres(`/blog/${post.slug}`);
+  // Dopisek marki tylko wtedy, gdy tytuł z nim mieści się w ok. 60 znakach.
+  const krotki = post.tytulSeo ?? post.title;
+  const tytul = krotki.length + DOPISEK_MARKI.length <= 62 ? `${krotki}${DOPISEK_MARKI}` : krotki;
   return {
-    title: `${post.title} | wezmezadarmo Blog`,
+    title: { absolute: tytul },
     description: post.description,
+    keywords: post.tags,
     alternates: { canonical: url },
     openGraph: {
       images: OG_IMAGES,
       title: post.title,
       description: post.description,
       url,
-      siteName: 'wezmezadarmo',
+      siteName: SITE_NAME,
       locale: 'pl_PL',
       type: 'article',
       publishedTime: post.date,
@@ -91,25 +95,39 @@ export default async function BlogPost({ params }: Props) {
 
   const blocks = renderContent(post.content);
 
+  const url = adres(`/blog/${post.slug}`);
   const articleLd = {
     '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: post.title,
-    description: post.description,
-    datePublished: post.date,
-    dateModified: post.date,
-    author: { '@type': 'Organization', name: post.author },
-    publisher: {
-      '@type': 'Organization',
-      name: 'wezmezadarmo.com',
-      logo: { '@type': 'ImageObject', url: 'https://www.wezmezadarmo.com/icon' },
-    },
-    mainEntityOfPage: `https://www.wezmezadarmo.com/blog/${post.slug}`,
+    '@graph': [
+      {
+        '@type': 'BlogPosting',
+        '@id': `${url}#artykul`,
+        headline: post.title,
+        description: post.description,
+        datePublished: post.date,
+        dateModified: post.date,
+        inLanguage: 'pl-PL',
+        keywords: post.tags.join(', '),
+        image: `${SITE_URL}/opengraph-image`,
+        author: { '@type': 'Organization', name: post.author, url: SITE_URL },
+        publisher: { '@type': 'Organization', '@id': LD_ID.autor, name: AUTOR.name, url: AUTOR.url },
+        isPartOf: { '@id': LD_ID.website },
+        mainEntityOfPage: url,
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: SITE_NAME, item: SITE_URL },
+          { '@type': 'ListItem', position: 2, name: 'Blog', item: adres('/blog') },
+          { '@type': 'ListItem', position: 3, name: post.title, item: url },
+        ],
+      },
+    ],
   };
 
   return (
     <main className="prosta">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(articleLd) }} />
 
       <section className="prosta-blok">
         <p className="mala" style={{ margin: '0 0 12px' }}><Link href="/blog">← Wszystkie artykuły</Link></p>

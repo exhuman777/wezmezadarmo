@@ -1,12 +1,9 @@
 import type { Metadata } from 'next';
-import { canonical } from '@/lib/seo';
+import { StronaJsonLd } from '@/components/JsonLd';
+import { metadaneStrony } from '@/lib/strony';
 import { DotacjeContactForm } from '@/components/DotacjeContactForm';
 
-export const metadata: Metadata = {
-  alternates: canonical('/dotacje'),
-  title: 'Dotacje dla firm 2026: monitoring naborów i agent AI | wezmezadarmo',
-  description: 'Dotacje dla firm 2026 w jednym miejscu: KFS, PUP, PFRON, KPO i programy samorządowe. Agent AI dopasowuje nabory do profilu firmy i pomaga przygotować wniosek. Bezpłatnie.',
-};
+export const metadata: Metadata = metadaneStrony('/dotacje');
 
 const PROGRAMS = [
   {
@@ -77,6 +74,7 @@ const STEPS = [
 export default function DotacjePage() {
   return (
     <main className="prosta">
+      <StronaJsonLd sciezka="/dotacje" />
 
       <section className="prosta-blok" style={{ padding: 0 }}>
         <p className="mono mala" style={{ margin: '0 0 8px' }}>Dla firm i JDG</p>

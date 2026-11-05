@@ -1,20 +1,15 @@
 import type { Metadata } from 'next';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { canonical } from '@/lib/seo';
+import { metadaneStrony } from '@/lib/strony';
 import { COOKIE_DOSTEP, sprawdzDostep } from '@/lib/narzedzia/dostep';
 import { narzedzie, type Narzedzie } from '@/lib/narzedzia/lista';
 import { bezpiecznyNext } from '@/lib/narzedzia/walidacja';
 import { Bramka } from './Bramka';
 
+/** Metadane z rejestru stron (title, opis, słowa kluczowe, canonical, OG z adresem). Obraz OG z opengraph-image.tsx w folderze narzędzia. */
 export function metadaneNarzedzia(slug: Narzedzie['slug']): Metadata {
-  const n = narzedzie(slug);
-  return {
-    title: n.title,
-    description: n.description,
-    alternates: canonical(n.adres),
-    openGraph: { title: n.title, description: n.description, url: `https://www.wezmezadarmo.com${n.adres}`, type: 'website', locale: 'pl_PL', siteName: 'wezmezadarmo' },
-  };
+  return metadaneStrony(narzedzie(slug).adres);
 }
 
 /** Dokąd prowadzi formularz: ścieżka z middleware (np. podstrona narzędzia) albo domyślne narzędzie. */

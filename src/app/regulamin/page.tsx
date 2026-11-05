@@ -1,18 +1,16 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { canonical } from '@/lib/seo';
+import { StronaJsonLd } from '@/components/JsonLd';
+import { metadaneStrony } from '@/lib/strony';
 
-export const metadata: Metadata = {
-  alternates: canonical('/regulamin'),
-  title: 'Regulamin | wezmezadarmo',
-  description: 'Regulamin świadczenia usług drogą elektroniczną serwisu wezmezadarmo.',
-};
+export const metadata: Metadata = metadaneStrony('/regulamin');
 
 const EMAIL = 'sobkowicz.kamil@gmail.com';
 
 export default function RegulaminPage() {
   return (
     <div className="min-h-screen bg-bg-0 py-8 sm:py-12 px-4 sm:px-6">
+      <StronaJsonLd sciezka="/regulamin" />
       <div className="max-w-2xl mx-auto">
         <Link href="/" className="text-[13px] text-accent hover:underline mb-6 inline-block">
           &larr; Wróć do strony głównej

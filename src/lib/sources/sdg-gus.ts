@@ -80,10 +80,10 @@ export async function getSdgIndicator(id: string, type: 'krajowe' | 'globalne' =
  * Wybor: dotyczace zycia obywateli (mieszkania, edukacja, zdrowie, srodowisko).
  */
 export const FEATURED_INDICATORS = [
-  { id: '11-5-a', label: 'Nowe mieszkania w miastach na 1000 mieszkancow', category: 'mieszkania' },
-  { id: '4-3-g', label: 'Dzieci 3-5 lat objete wychowaniem przedszkolnym (%)', category: 'edukacja' },
-  { id: '3-2-a', label: 'Lekarze na 10 tys. mieszkancow', category: 'zdrowie' },
-  { id: '3-2-b', label: 'Pielegniarki na 10 tys. mieszkancow', category: 'zdrowie' },
+  { id: '11-5-a', label: 'Nowe mieszkania w miastach na 1000 mieszkańców', category: 'mieszkania' },
+  { id: '4-3-g', label: 'Dzieci 3-5 lat objęte wychowaniem przedszkolnym (%)', category: 'edukacja' },
+  { id: '3-2-a', label: 'Lekarze na 10 tys. mieszkańców', category: 'zdrowie' },
+  { id: '3-2-b', label: 'Pielęgniarki na 10 tys. mieszkańców', category: 'zdrowie' },
   { id: '13-1-a', label: 'Dynamika emisji CO2 (2010=100)', category: 'klimat' },
   { id: '13-2-a', label: 'Udzial OZE w koncowym zuzyciu energii brutto (%)', category: 'klimat' },
   { id: '5-1-a', label: 'Luka placowa kobiety vs mezczyzni (%)', category: 'rownosc' },

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { canonical, OG_IMAGES } from '@/lib/seo';
+import { StronaJsonLd } from '@/components/JsonLd';
+import { metadaneStrony } from '@/lib/strony';
 import { fetchAllWithCache, FEEDS } from './rss';
 import FeedClient from './FeedClient';
 import Link from 'next/link';
@@ -10,26 +11,14 @@ import { EliChangesWidget } from '@/components/EliChangesWidget';
 
 export const revalidate = 1800;
 
-export const metadata: Metadata = {
-  alternates: canonical('/aktualnosci'),
-  title: 'Aktualności z polskich instytucji | wezmezadarmo',
-  description:
-    'Komunikaty ZUS, PFRON, GUS, Sejmu, ARiMR i ministerstw w jednym miejscu. Filtruj po profilu: JDG, firma lub obywatel.',
-  openGraph: {
-    images: OG_IMAGES,
-    title: 'Aktualności rządowe dla JDG, firm i obywateli',
-    description:
-      'Agregator RSS z 8 polskich instytucji rządowych. Filtruj po profilu: JDG, firma lub wszyscy.',
-    locale: 'pl_PL',
-    type: 'website',
-  },
-};
+export const metadata: Metadata = metadaneStrony('/aktualnosci');
 
 export default async function AktualnosciPage() {
   const { items, active, failed } = await fetchAllWithCache();
 
   return (
     <main className="prosta">
+      <StronaJsonLd sciezka="/aktualnosci" />
 
       <section className="prosta-blok" style={{ padding: 0 }}>
         <p className="mono mala" style={{ margin: '0 0 8px' }}>Agregator RSS, odświeżany co 30 minut</p>

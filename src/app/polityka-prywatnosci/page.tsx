@@ -1,18 +1,16 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { canonical } from '@/lib/seo';
+import { StronaJsonLd } from '@/components/JsonLd';
+import { metadaneStrony } from '@/lib/strony';
 
-export const metadata: Metadata = {
-  alternates: canonical('/polityka-prywatnosci'),
-  title: 'Polityka prywatności | wezmezadarmo.com',
-  description: 'Polityka prywatności serwisu wezmezadarmo.com. Informacje o przetwarzaniu danych osobowych zgodnie z RODO i EU AI Act.',
-};
+export const metadata: Metadata = metadaneStrony('/polityka-prywatnosci');
 
 const EMAIL = 'sobkowicz.kamil@gmail.com';
 
 export default function PolitykaPage() {
   return (
     <div className="min-h-screen bg-bg-0 py-8 sm:py-12 px-4 sm:px-6">
+      <StronaJsonLd sciezka="/polityka-prywatnosci" />
       <div className="max-w-2xl mx-auto">
         <Link href="/" className="text-[13px] text-accent hover:underline mb-6 inline-block">
           &larr; Wróć do strony głównej

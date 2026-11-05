@@ -1,32 +1,11 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import { getAllBenefits } from '@/engine/benefits';
 import { searchBenefits } from '@/engine/search';
 import { Benefit, BenefitCategory } from '@/engine/types';
-
-const CATEGORY_LABELS: Record<BenefitCategory, string> = {
-  ZDROWIE: 'Zdrowie',
-  RODZINA: 'Rodzina',
-  PODATKI: 'Podatki i ulgi',
-  BIZNES: 'Biznes',
-  MIESZKANIE: 'Mieszkanie',
-  NIEPELNOSPRAWNOSC: 'Niepełnosprawność',
-  ENERGIA: 'Energia',
-  ZUS: 'ZUS',
-  PRACA: 'Praca',
-  EDUKACJA: 'Edukacja',
-  SENIOR: 'Seniorzy',
-  POMOC_SPOLECZNA: 'Pomoc społeczna',
-  EKOLOGIA: 'Ekologia',
-};
-
-const CATEGORY_ORDER: BenefitCategory[] = [
-  'RODZINA', 'ZDROWIE', 'PRACA', 'ZUS', 'PODATKI', 'SENIOR',
-  'POMOC_SPOLECZNA', 'EDUKACJA', 'BIZNES', 'MIESZKANIE',
-  'NIEPELNOSPRAWNOSC', 'EKOLOGIA', 'ENERGIA',
-];
+import { CATEGORY_LABELS, CATEGORY_ORDER } from '@/engine/kategorie';
 
 function BenefitRow({ benefit, isExpanded, onToggle }: { benefit: Benefit; isExpanded: boolean; onToggle: () => void }) {
   return (
@@ -243,8 +222,16 @@ function BenefitRow({ benefit, isExpanded, onToggle }: { benefit: Benefit; isExp
   );
 }
 
+// Adres /swiadczenia?q=... (wyszukiwarka z Google, link z asystenta AI) od razu filtruje listę.
+// Fraza czytana w przeglądarce, więc serwer dalej renderuje pełną listę (bez useSearchParams i Suspense).
+const bezSubskrypcji = () => () => {};
+const frazaZAdresu = () => (new URLSearchParams(window.location.search).get('q') ?? '').slice(0, 100);
+
 export default function SwiadczeniaPage() {
-  const [search, setSearch] = useState('');
+  // null = użytkownik jeszcze nic nie wpisał; wtedy obowiązuje fraza z adresu (?q=).
+  const [wpisane, setSearch] = useState<string | null>(null);
+  const zAdresu = useSyncExternalStore(bezSubskrypcji, frazaZAdresu, () => '');
+  const search = wpisane ?? zAdresu;
   const [activeCategory, setActiveCategory] = useState<BenefitCategory | 'ALL'>('ALL');
   const [expandedId, setExpandedId] = useState<string | null>(null);
 

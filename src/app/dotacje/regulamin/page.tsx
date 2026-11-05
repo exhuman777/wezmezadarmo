@@ -1,12 +1,9 @@
 import type { Metadata } from 'next';
-import { canonical } from '@/lib/seo';
+import { StronaJsonLd } from '@/components/JsonLd';
+import { metadaneStrony } from '@/lib/strony';
 import Link from 'next/link';
 
-export const metadata: Metadata = {
-  alternates: canonical('/dotacje/regulamin'),
-  title: 'Regulamin | dotacje | wezmezadarmo',
-  description: 'Regulamin usługi dotacje.wezmezadarmo.com - warunki korzystania, bezpłatny dostęp, prawa użytkownika.',
-};
+export const metadata: Metadata = metadaneStrony('/dotacje/regulamin');
 
 const SECTION_STYLE = { marginBottom: '40px' } as const;
 
@@ -56,7 +53,7 @@ function Li({ children }: { children: React.ReactNode }) {
         fontSize: '10px',
         color: 'var(--color-green)',
       }}>
-        --
+        -
       </span>
       {children}
     </li>
@@ -66,6 +63,7 @@ function Li({ children }: { children: React.ReactNode }) {
 export default function RegulaminsPage() {
   return (
     <main style={{ maxWidth: '760px', margin: '0 auto', padding: '48px 24px 80px' }}>
+      <StronaJsonLd sciezka="/dotacje/regulamin" />
       {/* Breadcrumb */}
       <div style={{ marginBottom: '32px' }}>
         <Link
@@ -134,7 +132,7 @@ export default function RegulaminsPage() {
       <section style={SECTION_STYLE}>
         <h2 style={H2_STYLE}>§1 Definicje</h2>
         <ul style={UL_STYLE}>
-          <Li><strong>Usługodawca</strong>: wezmezadarmo.com, operator serwisu dotacje.wezmezadarmo.com.</Li>
+          <Li><strong>Usługodawca</strong>: wezmezadarmo.com, operator usługi dotacji pod adresem wezmezadarmo.com/dotacje.</Li>
           <Li><strong>Użytkownik</strong>: osoba fizyczna lub prawna, która zarejestrowała konto w serwisie.</Li>
           <Li><strong>Agent AI</strong>: system sztucznej inteligencji oparty na dużym modelu językowym (LLM), dostępny w panelu użytkownika.</Li>
           <Li><strong>Dostęp</strong>: bezpłatny dostęp do panelu, agenta AI i powiadomień, z limitami uczciwego użycia. Serwis jest prowadzony pro bono.</Li>
@@ -145,7 +143,7 @@ export default function RegulaminsPage() {
       <section style={SECTION_STYLE}>
         <h2 style={H2_STYLE}>§2 Zakres usługi</h2>
         <p style={P_STYLE}>
-          Usługa dotacje.wezmezadarmo.com udostępnia:
+          Usługa dotacji (wezmezadarmo.com/dotacje) udostępnia:
         </p>
         <ul style={UL_STYLE}>
           <Li>Bazę informacji o polskich programach wsparcia publicznego dla firm (KFS, PUP, PFRON, KPO, samorządy, PARP/FENG).</Li>

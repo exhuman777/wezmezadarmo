@@ -1,10 +1,7 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
+import { jsonLd } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Geoportal ARiMR - mapy działek | Centrum Obywatela',
-  description: 'Sprawdź działkę rolną w Geoportalu ARiMR - kontrolę agro, dopłaty bezpośrednie, granice ewidencyjne.',
-};
+// Metadane i WebPage w layout.tsx (rejestr src/lib/strony.ts).
 
 const KROKI = [
   { n: 1, tytul: 'Otwórz Geoportal ARiMR', opis: 'Wejdź na geoportal.arimr.gov.pl - publiczny serwis Agencji Restrukturyzacji i Modernizacji Rolnictwa.' },
@@ -16,6 +13,19 @@ const KROKI = [
 export default function DzialkiPage() {
   return (
     <main style={{ maxWidth: 760, margin: '0 auto', padding: '32px 24px 60px' }}>
+      {/* HowTo z tych samych kroków, które są widoczne niżej. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: jsonLd({
+            '@context': 'https://schema.org',
+            '@type': 'HowTo',
+            name: 'Jak sprawdzić działkę rolną w Geoportalu ARiMR',
+            inLanguage: 'pl-PL',
+            step: KROKI.map(k => ({ '@type': 'HowToStep', position: k.n, name: k.tytul, text: k.opis })),
+          }),
+        }}
+      />
       <Link href="/centrum-obywatela" style={{ fontSize: 13, color: '#2b7353', textDecoration: 'none', marginBottom: 18, display: 'inline-block' }}>
         ← Centrum Obywatela
       </Link>

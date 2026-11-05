@@ -1,18 +1,13 @@
-import type { Metadata } from 'next';
-import { canonical, OG_IMAGES } from '@/lib/seo';
+import { StronaJsonLd } from '@/components/JsonLd';
+import { metadaneStrony } from '@/lib/strony';
 
-export const metadata: Metadata = {
-  alternates: canonical('/centrum-obywatela/powietrze'),
-  title: 'Jakość powietrza GIOŚ - sprawdź smog w swoim mieście | wezmezadarmo',
-  description: 'Aktualny indeks jakości powietrza dla 18 miast wojewódzkich: PM10, PM2.5, NO2, O3, SO2. Dane z api.gios.gov.pl na żywo. Bez logowania.',
-  openGraph: {
-    images: OG_IMAGES,
-    title: 'Jakość powietrza GIOŚ - Polska indeks',
-    description: 'Indeks jakości powietrza dla Twojego miasta. PM10, PM2.5, NO2, O3, SO2.',
-    locale: 'pl_PL', type: 'website',
-  },
-};
+export const metadata = metadaneStrony('/centrum-obywatela/powietrze');
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return children;
+  return (
+    <>
+      <StronaJsonLd sciezka="/centrum-obywatela/powietrze" />
+      {children}
+    </>
+  );
 }

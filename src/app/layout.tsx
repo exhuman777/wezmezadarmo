@@ -6,8 +6,8 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { CookieConsent } from '@/components/CookieConsent';
 import { SiteNav } from '@/components/SiteNav';
 import { SiteFooter } from '@/components/SiteFooter';
-import { WebSiteJsonLd, OrganizationJsonLd } from '@/components/JsonLd';
-import { SITE_URL } from '@/lib/seo';
+import { SerwisJsonLd } from '@/components/JsonLd';
+import { AUTOR, SITE_URL } from '@/lib/seo';
 import './globals.css';
 
 // Kroje z serwera strony (next/font): bez blokującego CSS z Google Fonts przy pierwszym wyświetleniu.
@@ -28,6 +28,10 @@ export const metadata: Metadata = {
   title: 'Jakie świadczenia mi się należą? Kalkulator świadczeń 2026 | wezmezadarmo',
   description: 'Bezpłatny kalkulator świadczeń 2026: sprawdź w 2 minuty, jakie zasiłki, ulgi podatkowe, dopłaty i darmowe badania Ci się należą. Bez logowania, ze źródłami urzędowymi.',
   applicationName: 'wezmezadarmo',
+  authors: [{ name: AUTOR.name, url: AUTOR.url }],
+  creator: AUTOR.name,
+  publisher: AUTOR.name,
+  category: 'świadczenia, ulgi i dotacje',
   appleWebApp: {
     capable: true,
     title: 'wezmezadarmo',
@@ -72,8 +76,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         )}
       </head>
       <body>
-        <WebSiteJsonLd />
-        <OrganizationJsonLd />
+        <SerwisJsonLd />
         <SiteNav />
         {children}
         <SiteFooter />

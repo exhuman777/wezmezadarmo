@@ -436,7 +436,7 @@ function DocSection({ title, docs }: { title: string; docs: string[] }) {
             border: '1px solid var(--color-border)',
             borderRadius: 2,
           }}>
-            <span style={{ color: 'var(--color-accent)', fontSize: 14, lineHeight: 1.4, flexShrink: 0 }}>--</span>
+            <span style={{ color: 'var(--color-accent)', fontSize: 14, lineHeight: 1.4, flexShrink: 0 }}>-</span>
             <span style={{ fontSize: 13, color: 'var(--color-text-2)', lineHeight: 1.6 }}>{doc}</span>
           </div>
         ))}

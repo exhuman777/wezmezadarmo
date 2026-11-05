@@ -7,9 +7,38 @@
 import type { Metadata } from 'next';
 
 export const SITE_URL = 'https://www.wezmezadarmo.com';
+export const SITE_NAME = 'wezmezadarmo';
+/** Dopisek marki w <title>. Tytuł strony z dopiskiem ma mieć do ok. 60 znaków. */
+export const DOPISEK_MARKI = ` | ${SITE_NAME}`;
 
-export function canonical(path: string): NonNullable<Metadata['alternates']> {
-  return { canonical: `${SITE_URL}${path === '/' ? '' : path}` };
+/** Autor i wydawca: marka tuKamil (bez imienia, nazwiska i danych kontaktowych). */
+export const AUTOR = { name: 'tuKamil', url: 'https://tukamil.com' } as const;
+
+/** Identyfikatory węzłów JSON-LD, żeby strony odwoływały się do jednego WebSite i jednej Organization. */
+export const LD_ID = {
+  website: `${SITE_URL}/#website`,
+  organizacja: `${SITE_URL}/#organization`,
+  autor: `${AUTOR.url}/#organization`,
+} as const;
+
+/** Absolutny adres kanoniczny ścieżki (strona główna bez końcowego ukośnika). */
+export function adres(path: string): string {
+  return `${SITE_URL}${path === '/' ? '' : path}`;
+}
+
+/** Ścieżka wersji Markdown strony (dla modeli językowych i agentów). */
+export function sciezkaMd(path: string): string {
+  return path === '/' ? '/index.md' : `${path}.md`;
+}
+
+/**
+ * Canonical i opcjonalnie link do wersji Markdown. Pole alternates scala się płytko,
+ * więc strona z wersją .md musi podać oba naraz.
+ */
+export function canonical(path: string, md = false): NonNullable<Metadata['alternates']> {
+  return md
+    ? { canonical: adres(path), types: { 'text/markdown': adres(sciezkaMd(path)) } }
+    : { canonical: adres(path) };
 }
 
 /** Strony logowania, paneli i techniczne: poza indeksem Google. */
@@ -18,7 +47,16 @@ export const NOINDEX: NonNullable<Metadata['robots']> = { index: false, follow: 
 /**
  * Obraz OG z app/opengraph-image.tsx. Strona, która ustawia własne openGraph,
  * nadpisuje całe pole (płytkie scalanie) i traci obraz z pliku, więc musi go podać.
+ * Plik opengraph-image.tsx w folderze strony ma pierwszeństwo przed tym polem.
  */
 export const OG_IMAGES: NonNullable<NonNullable<Metadata['openGraph']>['images']> = [
   { url: '/opengraph-image', width: 1200, height: 630, alt: 'wezmezadarmo: sprawdź, co Ci się należy' },
 ];
+
+/**
+ * JSON-LD do wstawienia przez dangerouslySetInnerHTML. Znak < zamieniony na <,
+ * żeby tekst z danych nie zamknął znacznika script (zalecenie z przewodnika Next.js).
+ */
+export function jsonLd(dane: object): string {
+  return JSON.stringify(dane).replace(/</g, '\\u003c');
+}

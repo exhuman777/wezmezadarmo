@@ -5,6 +5,12 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     '/api/pdf': ['./public/forms/**', './public/fonts/**'],
   },
+  async headers() {
+    return [
+      // Przewodniki dla agentów AI w public/ (llms.txt i pozostałe .md mają route handlery z własnym Content-Type).
+      { source: '/:plik(llm|agents).md', headers: [{ key: 'Content-Type', value: 'text/markdown; charset=utf-8' }] },
+    ];
+  },
   async redirects() {
     return [
       // Stare ścieżki auth -> nowe zunifikowane

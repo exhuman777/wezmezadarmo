@@ -23,9 +23,38 @@ const PRZYKLADY = [
   'Jakie ulgi podatkowe mam jako JDG?',
 ];
 
-function AgentContent() {
-  const searchParams = useSearchParams();
-  const q = searchParams.get('q');
+/**
+ * Pytanie z adresu (/agent?q=...). useSearchParams wymaga Suspense, więc w Suspense jest tylko ta sekcja,
+ * a reszta strony (nagłówek, przykłady) renderuje się na serwerze i widzą ją roboty wyszukiwarek.
+ */
+function TwojePytanie({ loggedIn }: { loggedIn: boolean | null }) {
+  const q = useSearchParams().get('q');
+  if (!q) return null;
+  return (
+    <section className="prosta-blok" aria-live="polite">
+      <h2>Twoje pytanie</h2>
+      <p style={{ fontFamily: 'var(--f-mono)', fontWeight: 700 }}>&bdquo;{q}&rdquo;</p>
+      <p className="pod">
+        {loggedIn
+          ? 'Otwórz czat, a asystent odpowie z dostępem do Twojego profilu.'
+          : 'Zaloguj się, a asystent odpowie z dostępem do Twojego profilu. Możesz też poszukać w bazie bez logowania.'}
+      </p>
+      <div className="przyciski">
+        <Link
+          href={loggedIn ? `/panel/chat?q=${encodeURIComponent(q)}` : `/logowanie?next=${encodeURIComponent('/panel/chat?q=' + q)}`}
+          className="btn btn-rdza btn-lg"
+        >
+          {loggedIn ? 'Otwórz czat AI' : 'Zaloguj się i zapytaj'}
+        </Link>
+        {!loggedIn && (
+          <Link href={`/swiadczenia?q=${encodeURIComponent(q)}`} className="btn btn-lg">Szukaj w bazie</Link>
+        )}
+      </div>
+    </section>
+  );
+}
+
+export default function AgentLanding() {
   const [loggedIn, setLoggedIn] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -56,28 +85,9 @@ function AgentContent() {
         </div>
       </section>
 
-      {q && (
-        <section className="prosta-blok" aria-live="polite">
-          <h2>Twoje pytanie</h2>
-          <p style={{ fontFamily: 'var(--f-mono)', fontWeight: 700 }}>&bdquo;{q}&rdquo;</p>
-          <p className="pod">
-            {loggedIn
-              ? 'Otwórz czat, a asystent odpowie z dostępem do Twojego profilu.'
-              : 'Zaloguj się, a asystent odpowie z dostępem do Twojego profilu. Możesz też poszukać w bazie bez logowania.'}
-          </p>
-          <div className="przyciski">
-            <Link
-              href={loggedIn ? `/panel/chat?q=${encodeURIComponent(q)}` : `/logowanie?next=${encodeURIComponent('/panel/chat?q=' + q)}`}
-              className="btn btn-rdza btn-lg"
-            >
-              {loggedIn ? 'Otwórz czat AI' : 'Zaloguj się i zapytaj'}
-            </Link>
-            {!loggedIn && (
-              <Link href={`/swiadczenia?q=${encodeURIComponent(q)}`} className="btn btn-lg">Szukaj w bazie</Link>
-            )}
-          </div>
-        </section>
-      )}
+      <Suspense fallback={null}>
+        <TwojePytanie loggedIn={loggedIn} />
+      </Suspense>
 
       <section className="prosta-blok">
         <h2>Przykładowe pytania</h2>
@@ -103,13 +113,5 @@ function AgentContent() {
         </p>
       </section>
     </main>
-  );
-}
-
-export default function AgentLanding() {
-  return (
-    <Suspense>
-      <AgentContent />
-    </Suspense>
   );
 }

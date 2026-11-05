@@ -1,12 +1,9 @@
 import type { Metadata } from 'next';
-import { canonical } from '@/lib/seo';
 import Link from 'next/link';
+import { StronaJsonLd } from '@/components/JsonLd';
+import { metadaneStrony } from '@/lib/strony';
 
-export const metadata: Metadata = {
-  alternates: canonical('/dotacje/polityka-ai'),
-  title: 'Polityka przejrzystości AI | dotacje | wezmezadarmo',
-  description: 'Informacja o charakterze systemu AI zgodnie z art. 52 Rozporządzenia UE o AI (AI Act). Zakres wiedzy agenta, ograniczenia i prawa użytkownika.',
-};
+export const metadata: Metadata = metadaneStrony('/dotacje/polityka-ai');
 
 const SECTION_STYLE = {
   marginBottom: '40px',
@@ -58,7 +55,7 @@ function Li({ children }: { children: React.ReactNode }) {
         fontSize: '10px',
         color: 'var(--color-green)',
       }}>
-        --
+        -
       </span>
       {children}
     </li>
@@ -72,6 +69,7 @@ export default function PolitykAiPage() {
       margin: '0 auto',
       padding: '48px 24px 80px',
     }}>
+      <StronaJsonLd sciezka="/dotacje/polityka-ai" />
       {/* Breadcrumb */}
       <div style={{ marginBottom: '32px' }}>
         <Link

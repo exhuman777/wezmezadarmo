@@ -1,18 +1,15 @@
 import type { Metadata } from 'next';
+import { StronaJsonLd } from '@/components/JsonLd';
+import { metadaneStrony } from '@/lib/strony';
 import { PixelIcon } from '@/components/PixelIcon';
 import Link from 'next/link';
 import { cookies } from 'next/headers';
-import { canonical } from '@/lib/seo';
 import { COOKIE_DOSTEP, sprawdzDostep } from '@/lib/narzedzia/dostep';
 import { NARZEDZIA } from '@/lib/narzedzia/lista';
 import { bezpiecznyNext } from '@/lib/narzedzia/walidacja';
 import { FormularzDostepu } from './FormularzDostepu';
 
-export const metadata: Metadata = {
-  title: 'Narzędzia dla firm za darmo: KPiR, JPK_V7, dofinansowania | wezmezadarmo',
-  description: 'Sprawdź za darmo księgę KPiR, plik JPK_V7 przed 2027 i dofinansowania dla firmy po NIP. Bez zakładania konta: wystarczy e-mail i telefon.',
-  alternates: canonical('/dla-firm/narzedzia'),
-};
+export const metadata: Metadata = metadaneStrony('/dla-firm/narzedzia');
 
 const KOMUNIKATY: Record<string, string> = {
   ok: 'Adres potwierdzony. Narzędzia są otwarte na tym urządzeniu przez 30 dni.',
@@ -34,6 +31,7 @@ export default async function NarzedziaPage({ searchParams }: Props) {
 
   return (
     <div className="prosta">
+      <StronaJsonLd sciezka="/dla-firm/narzedzia" />
       <section className="prosta-blok">
         <h1><PixelIcon nazwa="dokument" />Narzędzia dla firm za darmo</h1>
         <p className="pod">Sprawdź księgę KPiR, plik JPK_V7 i dofinansowania. Bez zakładania konta. Pliki czyta tylko Twoja przeglądarka, nie wysyłamy ich na serwer.</p>

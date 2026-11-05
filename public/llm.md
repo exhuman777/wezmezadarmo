@@ -1,7 +1,8 @@
 # wezmezadarmo.com -- LLM Agent Guide
 
 > Ten plik jest przeznaczony dla agentów AI i modeli językowych.
-> Opisuje bazę 117 polskich świadczeń, ulg i dotacji oraz jak z niej korzystać.
+> Spis całego serwisu: https://www.wezmezadarmo.com/llms.txt, pełna treść: https://www.wezmezadarmo.com/llms-full.txt
+> Opisuje bazę 133 polskich świadczeń, ulg i dotacji oraz jak z niej korzystać.
 > Dla agentów działających w imieniu firm: patrz /agents.md
 > Humans: see wezmezadarmo.com
 
@@ -11,7 +12,7 @@
 
 **wezmezadarmo.com** to niezależne narzędzie dla obywateli i firm, które:
 
-- Przeszukuje bazę 117 polskich świadczeń socjalnych, ulg podatkowych i dotacji
+- Przeszukuje bazę 133 polskich świadczeń socjalnych, ulg podatkowych i dotacji
 - Dopasowuje świadczenia do profilu użytkownika i wyświetla instrukcje krok po kroku
 - Asystuje przy wypełnianiu wniosków ZUS (Z-15a, Z-15b, Z-3, PEL, ERPO, ERSU, ZAS-53)
 - Monitoruje dofinansowania i aktualności rządowe dla firm (platforma B2B /dotacje)
@@ -47,7 +48,7 @@ Szczegoly: **/agents.md**
 
 ### POST /api/verify
 
-Dopasowuje profil użytkownika do bazy 117 świadczeń.
+Dopasowuje profil użytkownika do bazy 133 świadczeń.
 
 **Request:**
 ```json
@@ -213,7 +214,7 @@ Generuje PDF wniosku z wstrzykniętymi danymi (XFA injection do formularzy ZUS).
 
 ---
 
-## Kategorie świadczeń (15 kategorii, 117 świadczeń)
+## Kategorie świadczeń (stan z maja 2026; aktualna lista 133 świadczeń w 13 kategoriach: https://www.wezmezadarmo.com/swiadczenia.md)
 
 | Kategoria | Liczba | Opis | Przykładowe świadczenia |
 |-----------|--------|------|-------------------------|
@@ -388,7 +389,7 @@ curl -X POST https://wezmezadarmo.com/api/verify \
 
 ```
 wezmezadarmo.com/
-  /                    -- kalkulator świadczeń (117 świadczeń, dla obywateli)
+  /                    -- kalkulator świadczeń (133 świadczenia, dla obywateli)
   /wnioski/            -- AI-asystowane wypełnianie wniosków ZUS + PDF
   /aktualnosci/        -- monitoring RSS rządowych i branżowych (publiczny + firmowy)
   /automatyzacje/      -- AI automatyzacje dla firm (KSeF, faktury, custom workflows)
@@ -396,6 +397,8 @@ wezmezadarmo.com/
   /dla-firm/           -- landing page dla firm i JDG
   /llm.md              -- ten plik (kalkulator świadczeń API)
   /agents.md           -- przewodnik dla agentów firmowych (dotacje, monitoring, automatyzacje)
+  /llms.txt            -- spis serwisu dla modeli (llmstxt.org)
+  /llms-full.txt       -- pełna treść serwisu i bazy świadczeń
 ```
 
 ---

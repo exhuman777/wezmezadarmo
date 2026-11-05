@@ -1,12 +1,9 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { canonical } from '@/lib/seo';
+import { StronaJsonLd } from '@/components/JsonLd';
+import { metadaneStrony } from '@/lib/strony';
 
-export const metadata: Metadata = {
-  alternates: canonical('/o-projekcie'),
-  title: 'O projekcie | wezmezadarmo',
-  description: 'Po co powstał wezmezadarmo, co jest w środku, skąd są dane, jak traktujemy prywatność i kto za tym stoi.',
-};
+export const metadata: Metadata = metadaneStrony('/o-projekcie');
 
 const MODULY = [
   { href: '/', nazwa: 'Kalkulator świadczeń', opis: 'Kilka pytań i lista świadczeń z ZUS, NFZ, PFRON, KRUS i MOPS, które mogą Ci przysługiwać.' },
@@ -26,6 +23,7 @@ const ZRODLA = [
 export default function OProjekciePage() {
   return (
     <main className="prosta">
+      <StronaJsonLd sciezka="/o-projekcie" />
       <section className="prosta-blok">
         <p className="etykieta">O projekcie</p>
         <h1>wezmezadarmo.com</h1>
@@ -73,7 +71,7 @@ export default function OProjekciePage() {
           Projekt stworzył tuKamil z Lublina, pro bono. Kod jest otwarty (AGPL-3.0), baza świadczeń to otwarte dane (CC-BY-4.0).
         </p>
         <ul className="linki">
-          <li><a href="https://pixel-kamil.vercel.app" target="_blank" rel="noopener"><span>pixel-kamil.vercel.app<small>Strona autora</small></span><span aria-hidden="true">→</span></a></li>
+          <li><a href="https://tukamil.com" target="_blank" rel="noopener"><span>tukamil.com<small>Strona autora</small></span><span aria-hidden="true">→</span></a></li>
           <li><a href="https://www.linkedin.com/in/kamil-sobkowicz/" target="_blank" rel="noopener noreferrer"><span>LinkedIn<small>Zgłoszenia i kontakt</small></span><span aria-hidden="true">→</span></a></li>
           <li><a href="https://github.com/exhuman777/wezmezadarmo" target="_blank" rel="noopener noreferrer"><span>Kod na GitHubie<small>github.com/exhuman777/wezmezadarmo</small></span><span aria-hidden="true">→</span></a></li>
         </ul>
