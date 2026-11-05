@@ -45,12 +45,15 @@ export function canonical(path: string, md = false): NonNullable<Metadata['alter
 export const NOINDEX: NonNullable<Metadata['robots']> = { index: false, follow: false };
 
 /**
- * Obraz OG z app/opengraph-image.tsx. Strona, która ustawia własne openGraph,
- * nadpisuje całe pole (płytkie scalanie) i traci obraz z pliku, więc musi go podać.
- * Plik opengraph-image.tsx w folderze strony ma pierwszeństwo przed tym polem.
+ * Obraz OG serwisu: statyczny plik public/og-2026-11.png (1200 x 630, znak marki i hasło strony głównej).
+ * Nowa nazwa pliku przy każdej zmianie wyglądu, bo komunikatory (Telegram, Messenger, Slack) trzymają podgląd po adresie obrazu.
+ * Ustawiony w layout.tsx; strona, która ustawia własne openGraph, nadpisuje całe pole (płytkie scalanie), więc musi go podać.
+ * Plik opengraph-image.tsx w folderze strony (narzędzia dla firm) ma pierwszeństwo przed tym polem.
  */
+export const OBRAZ_OG = '/og-2026-11.png';
+export const OBRAZ_OG_ALT = 'wezmezadarmo: należy Ci się więcej, niż myślisz. Pikselowy prezent, znak serwisu.';
 export const OG_IMAGES: NonNullable<NonNullable<Metadata['openGraph']>['images']> = [
-  { url: '/opengraph-image', width: 1200, height: 630, alt: 'wezmezadarmo: sprawdź, co Ci się należy' },
+  { url: OBRAZ_OG, width: 1200, height: 630, alt: OBRAZ_OG_ALT, type: 'image/png' },
 ];
 
 /**

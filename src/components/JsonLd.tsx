@@ -40,7 +40,7 @@ export function SerwisJsonLd() {
             name: SITE_NAME,
             alternateName: 'wezmezadarmo.com',
             url: SITE_URL,
-            logo: { '@type': 'ImageObject', url: `${SITE_URL}/icon`, width: 32, height: 32 },
+            logo: { '@type': 'ImageObject', url: `${SITE_URL}/ikona-512.png`, width: 512, height: 512 },
             description: 'Prywatny, niekomercyjny projekt obywatelski: baza świadczeń, ulg i dotacji ze źródłami urzędowymi, wnioski ZUS z pomocą AI i darmowe narzędzia dla firm.',
             foundingDate: '2026',
             areaServed: { '@type': 'Country', name: 'Polska' },

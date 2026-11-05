@@ -39,7 +39,7 @@ test.describe('pliki dla robotów i modeli', () => {
   });
 
   test('obrazy OG: serwisu i własne obrazy narzędzi, 200 i PNG', async ({ request }) => {
-    for (const [strona, obraz] of [['/', '/opengraph-image'], ['/dla-firm/narzedzia/kpir', '/dla-firm/narzedzia/kpir/opengraph-image'], ['/dla-firm/narzedzia/jpk', '/dla-firm/narzedzia/jpk/opengraph-image']]) {
+    for (const [strona, obraz] of [['/', '/og-2026-11.png'], ['/dla-firm/narzedzia/kpir', '/dla-firm/narzedzia/kpir/opengraph-image'], ['/dla-firm/narzedzia/jpk', '/dla-firm/narzedzia/jpk/opengraph-image']]) {
       const html = await (await request.get(strona)).text();
       expect(meta(html, /<meta property="og:image" content="([^"]+)"/)).toBe(`${SITE}${obraz}`);
       const r = await request.get(obraz);

@@ -7,17 +7,15 @@ export default function manifest(): MetadataRoute.Manifest {
     description: 'Bezpłatne narzędzie do sprawdzania świadczeń, ulg i dotacji rządowych. 133 świadczenia w 13 kategoriach.',
     start_url: '/',
     display: 'standalone',
-    background_color: '#f0f6f1',
-    theme_color: '#0d2b1c',
+    background_color: '#f6f0e4',
+    theme_color: '#f6f0e4',
     orientation: 'portrait',
     lang: 'pl',
     categories: ['government', 'finance', 'lifestyle', 'productivity'],
     icons: [
-      {
-        src: '/icon',
-        sizes: 'any',
-        type: 'image/png',
-      },
+      { src: '/icon.png', sizes: '32x32', type: 'image/png' },
+      { src: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
+      { src: '/ikona-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
     ],
     shortcuts: [
       {

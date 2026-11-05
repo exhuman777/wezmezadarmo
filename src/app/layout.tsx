@@ -7,7 +7,7 @@ import { CookieConsent } from '@/components/CookieConsent';
 import { SiteNav } from '@/components/SiteNav';
 import { SiteFooter } from '@/components/SiteFooter';
 import { SerwisJsonLd } from '@/components/JsonLd';
-import { AUTOR, SITE_URL } from '@/lib/seo';
+import { AUTOR, OG_IMAGES, OBRAZ_OG, OBRAZ_OG_ALT, SITE_URL } from '@/lib/seo';
 import './globals.css';
 
 // Kroje z serwera strony (next/font): bez blokującego CSS z Google Fonts przy pierwszym wyświetleniu.
@@ -43,12 +43,13 @@ export const metadata: Metadata = {
     siteName: 'wezmezadarmo',
     locale: 'pl_PL',
     type: 'website',
+    images: OG_IMAGES,
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Jakie świadczenia mi się należą? Kalkulator świadczeń 2026',
     description: 'Zasiłki, ulgi, dotacje, darmowe badania. Sprawdź w 2 minuty, co Ci się należy od państwa. Bezpłatnie.',
-    images: ['/opengraph-image'],
+    images: [{ url: OBRAZ_OG, alt: OBRAZ_OG_ALT, width: 1200, height: 630 }],
   },
   robots: { index: true, follow: true },
 };
