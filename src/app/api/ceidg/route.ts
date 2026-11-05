@@ -80,12 +80,18 @@ export async function POST(request: NextRequest) {
       searchByNip(cleanNip),
     ]);
 
+    // CEIDG padł, ale Biała Lista odpowiedziała: pokazujemy to, co mamy, zamiast błędu
+    const vatOk = vatResult.status === 'fulfilled' && vatResult.value;
     if (ceidgData.status === 'rejected') {
-      throw ceidgData.reason;
+      console.error('[ceidg] CEIDG niedostępny:', ceidgData.reason);
+      if (!vatOk) throw ceidgData.reason;
     }
+    const ceidgBaza: CeidgBusinessData = ceidgData.status === 'fulfilled'
+      ? ceidgData.value
+      : { aktywna: false, nazwa: null, dataRejestracji: null, dataZawieszenia: null, dataZakonczenia: null, pkd: [], status: null, wojewodztwo: null };
 
     const enriched: EnrichedData = {
-      ...ceidgData.value,
+      ...ceidgBaza,
       vat: vatResult.status === 'fulfilled' && vatResult.value
         ? {
             status: vatResult.value.statusVat,
@@ -100,7 +106,7 @@ export async function POST(request: NextRequest) {
       enriched.nazwa = vatResult.value.name ?? null;
     }
 
-    nipCache.set(cleanNip, { data: enriched, ts: Date.now() });
+    if (ceidgData.status === 'fulfilled') nipCache.set(cleanNip, { data: enriched, ts: Date.now() });
     return NextResponse.json(enriched);
   } catch (error) {
     // Log full error server-side, send sanitized to client

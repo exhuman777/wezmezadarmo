@@ -80,6 +80,15 @@ export async function lookupNip(nip: string): Promise<CeidgBusinessData> {
     throw new Error(`CEIDG API error: ${response.status}`);
   }
 
-  const data = await response.json();
+  // CEIDG zwraca 204 albo puste body, gdy NIP nie ma wpisu (np. spółka z KRS, nie JDG): traktujemy jak brak firmy
+  if (response.status === 204) return emptyCeidgData();
+  const tekst = await response.text();
+  if (!tekst.trim()) return emptyCeidgData();
+  let data: unknown;
+  try {
+    data = JSON.parse(tekst);
+  } catch {
+    throw new Error('CEIDG API: odpowiedź nie jest JSON');
+  }
   return parseCeidgResponse(data);
 }
