@@ -83,7 +83,7 @@ test.describe('metadane publicznych stron', () => {
 });
 
 test.describe('strony w przeglądarce', () => {
-  for (const p of ['/', '/swiadczenia', '/agent', '/wnioski', '/dla-firm', '/centrum-obywatela/dzialki', '/blog']) {
+  for (const p of ['/', '/swiadczenia', '/agent', '/wnioski', '/dla-firm', '/centrum-obywatela/dzialki', '/blog', '/press']) {
     test(`${p}: jeden h1 i bez błędów w konsoli`, async ({ page }) => {
       const bledy: string[] = [];
       page.on('console', m => { if (m.type() === 'error') bledy.push(m.text()); });

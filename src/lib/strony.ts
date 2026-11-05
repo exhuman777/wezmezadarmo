@@ -286,8 +286,8 @@ export const STRONY: Strona[] = [
   {
     sciezka: '/press', nazwa: 'Press kit', grupa: 'informacje',
     tytul: 'Press kit: materiały dla mediów',
-    opis: 'Materiały prasowe wezmezadarmo.com dla dziennikarzy i twórców: krótki i pełny opis projektu, liczby, logo, źródła danych i kontakt dla mediów.',
-    slowa: ['wezmezadarmo press kit', 'materiały prasowe', 'kalkulator świadczeń media', 'logo wezmezadarmo', 'informacja prasowa', 'projekt obywatelski', 'civic tech Polska', 'kontakt dla mediów'],
+    opis: 'Press kit wezmezadarmo.com: opis w jednym i trzech zdaniach, najważniejsze fakty, lista narzędzi, znak marki, zrzuty ekranu i kontakt dla mediów.',
+    slowa: ['wezmezadarmo press kit', 'materiały prasowe', 'kalkulator świadczeń media', 'logo wezmezadarmo', 'znak marki wezmezadarmo', 'zrzuty ekranu', 'informacja prasowa', 'projekt obywatelski', 'civic tech Polska', 'kontakt dla mediów'],
     zmiana: 'monthly', priorytet: 0.5,
   },
   {

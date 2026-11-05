@@ -48,7 +48,8 @@ export function SiteFooter() {
           </div>
         </details>
 
-        <details className="stopka-sekcja">
+        {/* id: przycisk „Otwórz formularz” na /press rozwija tę sekcję (src/app/press/PressAkcje.tsx) */}
+        <details className="stopka-sekcja" id="napisz-do-nas">
           <summary>Napisz do nas</summary>
           <div className="stopka-sekcja-in">
             <FooterContactForm />
