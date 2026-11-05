@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { SITE_URL } from '@/lib/seo';
 import { rateLimit } from '@/lib/sources/_helpers';
+import { powiadomKamila } from '@/lib/powiadomienia';
 
 export const dynamic = 'force-dynamic';
 
@@ -100,6 +101,13 @@ export async function POST(request: NextRequest) {
       console.error('[auth/signup] email error:', emailError);
     }
   }
+
+  await powiadomKamila({
+    strona: 'wezmezadarmo.com',
+    formularz: 'rejestracja konta (panel obywatela)',
+    pola: { 'E-mail': email },
+    panel: 'https://supabase.com/dashboard/project/ssojepwbvynelcmrvmnr/auth/users',
+  });
 
   return NextResponse.json(
     { success: true, userId, requiresEmailVerification: true },

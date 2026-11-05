@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { SITE_URL } from '@/lib/seo';
 import { rateLimit } from '@/lib/sources/_helpers';
+import { powiadomKamila } from '@/lib/powiadomienia';
 
 export const dynamic = 'force-dynamic';
 
@@ -97,6 +98,13 @@ export async function POST(request: NextRequest) {
   const confirmUrl = hashedToken
     ? `${siteUrl}/agent/auth/callback?token_hash=${hashedToken}&type=signup&next=/agent/panel`
     : linkData?.properties?.action_link;
+
+  await powiadomKamila({
+    strona: 'wezmezadarmo.com',
+    formularz: 'rejestracja konta (agent AI)',
+    pola: { 'E-mail': email, Profil: typeof profile?.type === 'string' ? profile.type : undefined },
+    panel: 'https://supabase.com/dashboard/project/ssojepwbvynelcmrvmnr/auth/users',
+  });
 
   if (confirmUrl) {
     await resend.emails.send({

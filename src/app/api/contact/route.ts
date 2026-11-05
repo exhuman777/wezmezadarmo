@@ -1,14 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Resend } from 'resend';
+import { powiadomKamila } from '@/lib/powiadomienia';
 import { rateLimit } from '@/lib/sources/_helpers';
-
-const OWNER_EMAIL = 'sobkowicz.kamil@gmail.com';
-
-function getResend(): Resend {
-  const key = process.env.RESEND_API_KEY;
-  if (!key) throw new Error('RESEND_API_KEY not set');
-  return new Resend(key);
-}
 
 export async function POST(req: NextRequest) {
   const limit = rateLimit('contact', req, 5, 60 * 60_000); // 5 wiadomości / h / IP
@@ -43,53 +35,15 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Wiadomość jest za długa.' }, { status: 400 });
   }
 
-  try {
-    const resend = getResend();
-    await resend.emails.send({
-      from: 'WezmeZaDarmo <hello@wezmezadarmo.com>',
-      to: OWNER_EMAIL,
-      replyTo: email,
-      subject: `Zapytanie o automatyzację: ${(firma || imie).replace(/[\r\n]+/g, ' ')}`,
-      html: `
-        <div style="font-family:monospace;max-width:600px;margin:0 auto;background:#0d0b0a;color:#c4a882;padding:32px;border-radius:12px;">
-          <h2 style="color:#e6993a;margin:0 0 24px;">Nowe zapytanie o automatyzację</h2>
-          <table style="width:100%;border-collapse:collapse;">
-            <tr>
-              <td style="padding:8px 0;color:#888;width:130px;">Imię i nazwisko:</td>
-              <td style="padding:8px 0;color:#c4a882;">${escapeHtml(imie)}</td>
-            </tr>
-            ${firma ? `<tr>
-              <td style="padding:8px 0;color:#888;">Firma:</td>
-              <td style="padding:8px 0;color:#c4a882;">${escapeHtml(firma)}</td>
-            </tr>` : ''}
-            <tr>
-              <td style="padding:8px 0;color:#888;">E-mail:</td>
-              <td style="padding:8px 0;color:#e6993a;">${escapeHtml(email)}</td>
-            </tr>
-          </table>
-          <div style="margin-top:24px;padding-top:24px;border-top:1px solid #2a2420;">
-            <div style="color:#888;font-size:13px;margin-bottom:12px;">Wiadomość:</div>
-            <div style="color:#c4a882;line-height:1.7;white-space:pre-wrap;">${escapeHtml(wiadomosc)}</div>
-          </div>
-          <div style="margin-top:32px;font-size:12px;color:#555;">
-            Wysłano przez formularz na wezmezadarmo.com/automatyzacje
-          </div>
-        </div>
-      `,
-    });
-
-    return NextResponse.json({ ok: true });
-  } catch (err) {
-    console.error('contact send error:', err);
+  // Formularz nie ma własnej bazy: mail do Kamila jest zapisem zgłoszenia, więc przy błędzie prosimy o ponowienie.
+  const wynik = await powiadomKamila({
+    strona: 'wezmezadarmo.com',
+    formularz: 'zapytanie o automatyzację',
+    pola: { 'Imię i nazwisko': imie, Firma: firma, 'E-mail': email, 'Wiadomość': wiadomosc, Strona: '/automatyzacje' },
+    odpowiedzDo: email,
+  });
+  if (!wynik.wyslane) {
     return NextResponse.json({ error: 'Błąd wysyłania. Spróbuj ponownie.' }, { status: 500 });
   }
-}
-
-function escapeHtml(str: string): string {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
+  return NextResponse.json({ ok: true });
 }
