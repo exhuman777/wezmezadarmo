@@ -34,7 +34,7 @@ for (const ekran of EKRANY) {
         expect(r.przew, 'poziome przewijanie').toBeLessThanOrEqual(0);
         expect(r.male, 'za małe cele dotyku').toEqual([]);
         expect(r.pola, 'pola mniejsze niż 16 px').toBe(0);
-        expect(r.vp).toContain('viewport-fit=cover');
+        expect(r.vp, 'bez viewport-fit=cover (iOS 26 chowa wtedy treść pod paskiem przeglądarki)').not.toContain('viewport-fit=cover');
       });
     }
   });

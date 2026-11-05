@@ -19,7 +19,6 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-57R2TFXNH7';
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  viewportFit: 'cover',
   themeColor: '#f6f0e4',
 };
 
