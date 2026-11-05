@@ -6,6 +6,7 @@
  * Cache: no-store (zawsze swieze).
  */
 
+import { aiSkonfigurowane } from '@/ai/openrouter';
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
@@ -78,7 +79,10 @@ async function checkNbp(): Promise<CheckResult> {
 }
 
 async function checkOpenRouter(): Promise<CheckResult> {
-  if (!process.env.OPENROUTER_API_KEY) return { ok: false, detail: 'missing api key' };
+  if (!process.env.OPENROUTER_API_KEY) {
+    // bez klucza czat idzie przez Vercel AI Gateway z tokenem OIDC (src/ai/openrouter.ts)
+    return (await aiSkonfigurowane()) ? { ok: true, detail: 'ai gateway (oidc)' } : { ok: false, detail: 'missing api key and oidc token' };
+  }
   // Tylko check ze klucz jest, brak faktycznego callu zeby nie zabijac quoty
   return { ok: true, detail: 'configured' };
 }

@@ -71,6 +71,10 @@ s=re.sub(r'\s*<li><b>Formularz</b>.*?</li>','',s,count=1,flags=re.S)
 must('  <Czat konfig={CZAT} />\n','')
 must("import Czat from '../components/Czat.astro';\n",'')
 must('<a class="logo" href="/"','<a class="logo" href="/dla-firm/narzedzia"')
+# bez „wersji pokazowej”: narzędzie działa naprawdę (Kamil 5.11.2026); działa ze starym i nowym Strona.astro
+s=re.sub(r'\s*(\{!P\.ogolny && )?<span class="demo(?: demo-hero)?">wersja pokazowa</span>\}?','',s)
+s=re.sub(r'\s*<p class="sub demo-info">.*?</p>','',s,count=1,flags=re.S)
+s=s.replace('<p class="male">Wersja pokazowa. ','<p class="male">').replace("<p class=\"male\">{!P.ogolny && 'Wersja pokazowa. '}",'<p class="male">')
 open(p,'w',encoding='utf-8').write(s)
 PY
 npm ci --no-audit --no-fund >/dev/null

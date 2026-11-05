@@ -7,7 +7,7 @@
 
 import { NextRequest } from 'next/server';
 import { rateLimit } from '@/lib/sources/_helpers';
-import { chatCompletion } from '@/ai/openrouter';
+import { chatCompletion, aiSkonfigurowane } from '@/ai/openrouter';
 import { getAgentConfig } from '@/agents/registry';
 import { CORS_HEADERS, optionsResponse } from '@/lib/apiAuth';
 
@@ -101,7 +101,7 @@ export async function POST(request: NextRequest) {
   const limit = rateLimit('form-assist', request, 20, 60 * 60_000); // 20 wywołań AI / h / IP
   if (!limit.ok) return limit.response;
 
-  if (!process.env.OPENROUTER_API_KEY) {
+  if (!(await aiSkonfigurowane())) {
     return new Response(JSON.stringify({ error: 'Brak klucza API' }), {
       status: 503,
       headers: { 'Content-Type': 'application/json', ...CORS_HEADERS },

@@ -161,7 +161,7 @@ export default function ChatSidebar({ activeId, onSelect, onNew, onDelete, refre
 
       {isOverLimit && (
         <div style={{ padding: '12px 14px', borderTop: '1px solid var(--color-border)', background: 'rgba(220,150,40,0.05)', fontSize: 11, color: 'var(--color-text-2)', lineHeight: 1.5, flexShrink: 0 }}>
-          <strong style={{ color: 'var(--color-text-1)' }}>Osiągnięty limit free.</strong> Wkrótce wersja płatna bez limitów. Usuń starszą rozmowę żeby stworzyć nową.
+          Osiągnięty limit rozmów. Usuń starszą rozmowę, żeby zacząć nową.
         </div>
       )}
     </aside>
