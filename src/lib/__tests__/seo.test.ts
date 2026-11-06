@@ -155,7 +155,7 @@ describe('llms.txt, llms-full.txt i pliki .md', () => {
       expect(sekcja).toContain(`(${u})`);
     }
     expect(NARZEDZIA_NA_SUBDOMENACH).toHaveLength(4);
-    for (const a of INNE_APLIKACJE) expect(a.url).toMatch(/^https:\/\/[a-z0-9.-]+$/);
+    for (const a of INNE_APLIKACJE) expect(a.url).toMatch(/^https:\/\/[a-z0-9.-]+\/([a-z0-9-]+\/)?$/);
   });
 
   it('każda strona z md: true ma treść i route handler', () => {

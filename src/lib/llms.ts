@@ -9,29 +9,38 @@ import { getAllBenefits } from '@/engine/benefits';
 import { CATEGORY_LABELS, CATEGORY_ORDER } from '@/engine/kategorie';
 import type { ApplicationChannel, Benefit } from '@/engine/types';
 import { NARZEDZIA } from '@/lib/narzedzia/lista';
-import { AUTOR, SITE_URL, adres, sciezkaMd } from '@/lib/seo';
+import { SITE_URL, adres, sciezkaMd } from '@/lib/seo';
+import { SIEC_TUKAMIL, TA_STRONA, aplikacjaSieci } from '@/lib/siec';
 import { STRONY, podstrony, strona, type GrupaStrony, type Strona } from '@/lib/strony';
 
 export interface Link { nazwa: string; url: string; opis?: string }
 
-/** Narzędzia tuKamil na subdomenach wezmezadarmo.com (adresy kanoniczne). */
+/**
+ * Narzędzia tuKamil na subdomenach wezmezadarmo.com (adresy kanoniczne).
+ * Dwie Strony i Należy się z opisem z katalogu sieci (src/lib/siec.ts).
+ */
 export const NARZEDZIA_NA_SUBDOMENACH: Link[] = [
-  { nazwa: 'Dwie Strony', url: 'https://dwiestrony.wezmezadarmo.com', opis: 'umowy na dwóch telefonach' },
-  { nazwa: 'Należy się', url: 'https://nalezysie.wezmezadarmo.com', opis: 'NIP i karta dnia' },
+  { nazwa: 'Dwie Strony', url: 'https://dwiestrony.wezmezadarmo.com', opis: zKatalogu('dwie-strony').opis },
+  { nazwa: 'Należy się', url: 'https://nalezysie.wezmezadarmo.com', opis: zKatalogu('nalezy-sie').opis },
   { nazwa: 'Przegląd 2027', url: 'https://jpk.wezmezadarmo.com', opis: 'JPK przed 2027' },
   { nazwa: 'Gry', url: 'https://gry.wezmezadarmo.com', opis: 'gry w pikselach' },
 ];
 
-/** Pozostałe aplikacje tuKamil, tylko adresy kanoniczne. */
-export const INNE_APLIKACJE: Link[] = [
-  { nazwa: 'tuKamil', url: AUTOR.url, opis: 'strona autora' },
-  { nazwa: 'pixelkamil', url: 'https://pixel.tukamil.com', opis: 'gry, studio, syntezator i Powiat Dwunastu w pikselach' },
-  { nazwa: 'thePolacy', url: 'https://thepolacy.com' },
-  { nazwa: 'Claude Start', url: 'https://start.cyfrowypomocnik.com', opis: 'przewodnik na start z Claude' },
-  { nazwa: 'Asystent Firmy', url: 'https://asystent24.com' },
-  { nazwa: 'Brand Agent', url: 'https://brand.cyfrowypomocnik.com' },
-  { nazwa: 'Cyfrowy Pomocnik', url: 'https://www.cyfrowypomocnik.com' },
-  { nazwa: 'YESNO', url: 'https://yesno.events', opis: 'co świat przewiduje' },
+function zKatalogu(id: string): Link {
+  const a = aplikacjaSieci(id);
+  return { nazwa: a.nazwa, url: a.adres, opis: a.jednoZdanie };
+}
+
+/** Aplikacje sieci tuKamil z katalogu (src/lib/siec.ts), bez tej strony; kolejność i nazwy jak w stopce. */
+export const INNE_APLIKACJE: Link[] = SIEC_TUKAMIL.filter(a => a.id !== TA_STRONA).map(a => zKatalogu(a.id));
+
+/** Sekcja w plikach .md: katalog sieci plus subdomeny spoza katalogu (bez powtórzeń adresu). */
+function bezUkosnika(url: string): string {
+  return url.replace(/\/$/, '');
+}
+const INNE_I_SUBDOMENY: Link[] = [
+  ...INNE_APLIKACJE,
+  ...NARZEDZIA_NA_SUBDOMENACH.filter(n => !INNE_APLIKACJE.some(a => bezUkosnika(a.url) === bezUkosnika(n.url))),
 ];
 
 const KANALY: Partial<Record<ApplicationChannel, string>> = {
@@ -63,7 +72,7 @@ function listaLinkow(linki: Link[]): string {
 
 const STOPKA_MD = `## Inne aplikacje tuKamil
 
-${listaLinkow([...NARZEDZIA_NA_SUBDOMENACH, ...INNE_APLIKACJE])}
+${listaLinkow(INNE_I_SUBDOMENY)}
 
 Pełny spis serwisu dla modeli: ${SITE_URL}/llms.txt`;
 

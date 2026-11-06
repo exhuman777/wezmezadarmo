@@ -1058,7 +1058,39 @@ textarea.pole-wejscie { min-height: 120px; resize: vertical; }
 .stopka-sekcja summary::after { content: '+'; margin-left: auto; font-size: 20px; }
 .stopka-sekcja[open] summary::after { content: '-'; }
 .stopka-sekcja-in { padding: 8px 0 4px; }
-.stopka-dol { margin: 24px 0 0; padding-top: 16px; border-top: 1px solid var(--linia); font-size: 13px; color: var(--szary); }
+/* Sieć tuKamil: wspólna stopka sieci (standard z audytu 6.11.2026), wariant tekstowy bez ikon i psa.
+   Zmienne --siec-* z tokenów strony; w kolumnie stopki, więc bez własnej szerokości i bocznego odstępu. */
+.siec-tk {
+  --_tusz: var(--siec-tusz, currentColor);
+  --_szary: var(--siec-szary, currentColor);
+  --_akcent: var(--siec-akcent, currentColor);
+  --_linia: var(--siec-linia, currentColor);
+  --_font: var(--siec-font, ui-monospace, monospace);
+  box-sizing: border-box;
+  max-width: var(--siec-szer, 1120px);
+  margin: 0 auto;
+  padding: 12px 16px 16px;
+  border-top: 1px solid var(--_linia);
+  color: var(--_szary);
+  font: 13px/1.4 var(--_font);
+  overflow-wrap: anywhere;
+}
+.siec-tk__tytul { margin: 0; color: var(--_tusz); font-weight: 700; }
+.siec-tk__lista { display: flex; flex-wrap: wrap; gap: 0 16px; margin: 0; padding: 0; list-style: none; }
+.siec-tk__lista a,
+.siec-tk__lista [aria-current] { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; color: var(--_tusz); text-decoration: none; }
+.siec-tk__lista [aria-current] { color: var(--_szary); }
+.siec-tk a:hover { color: var(--_akcent); text-decoration: underline; text-underline-offset: 3px; }
+.siec-tk a:focus-visible { outline: 2px solid var(--_akcent); outline-offset: 2px; }
+.siec-tk img { flex: none; image-rendering: pixelated; }
+.siec-tk__dol { display: flex; flex-wrap: wrap; align-items: center; gap: 0 16px; margin: 0; }
+.siec-tk__dol a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: inherit; }
+.siec-tk--tekst img { display: none; }
+.stopka .siec-tk {
+  --siec-tusz: var(--tusz); --siec-szary: var(--szary); --siec-akcent: var(--rdza); --siec-linia: var(--linia); --siec-font: var(--f-mono);
+  max-width: none; margin: 20px 0 0; padding: 16px 0 0;
+}
+.stopka-dol { margin: 24px 0 0;padding-top: 16px; border-top: 1px solid var(--linia); font-size: 13px; color: var(--szary); }
 
 /* lista z cienką linią (zamiast kart) */
 .lista { list-style: none; margin: 16px 0 0; padding: 0; }

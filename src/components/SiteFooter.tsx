@@ -1,10 +1,12 @@
 import Link from 'next/link';
 import { FooterContactForm } from './FooterContactForm';
 import { NewsletterSignup } from './NewsletterSignup';
+import { SiecTuKamil } from './SiecTuKamil';
 import { PixelMark } from './SiteNav';
 
 // Stopka w stylu strony głównej: jedna wąska kolumna, linki w jednym ciągu,
-// newsletter i formularz kontaktowy schowane pod krótkimi nagłówkami.
+// newsletter i formularz kontaktowy schowane pod krótkimi nagłówkami, pod nimi
+// stopka „Sieć tuKamil” (wariant tekstowy, katalog w src/lib/siec.ts).
 const LINKI = [
   { href: '/swiadczenia', label: 'Baza 133 świadczeń' },
   { href: '/wnioski', label: 'Wnioski' },
@@ -37,7 +39,6 @@ export function SiteFooter() {
           {LINKI.map(link => (
             <Link key={link.href} href={link.href}>{link.label}</Link>
           ))}
-          <a href="https://tukamil.com" target="_blank" rel="noopener">Autor: tuKamil</a>
           <a href="https://linkedin.com/in/kamil-sobkowicz" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </nav>
 
@@ -55,6 +56,8 @@ export function SiteFooter() {
             <FooterContactForm />
           </div>
         </details>
+
+        <SiecTuKamil />
 
         <p className="stopka-dol">
           &copy; 2026 wezmezadarmo &middot; projekt obywatelski &middot; aktualizacja bazy 1.11.2026

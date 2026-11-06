@@ -14,11 +14,15 @@ export const DOPISEK_MARKI = ` | ${SITE_NAME}`;
 /** Autor i wydawca: marka tuKamil (bez imienia, nazwiska i danych kontaktowych). */
 export const AUTOR = { name: 'tuKamil', url: 'https://tukamil.com' } as const;
 
-/** Identyfikatory węzłów JSON-LD, żeby strony odwoływały się do jednego WebSite i jednej Organization. */
+/**
+ * Identyfikatory węzłów JSON-LD, żeby strony odwoływały się do jednego WebSite i jednej Organization.
+ * organizacja = wezmezadarmo (własna marka serwisu); autor = tuKamil z tym samym @id co na tukamil.com
+ * i w całej sieci (https://tukamil.com/#tukamil), żeby wyszukiwarka połączyła węzły w jeden podmiot.
+ */
 export const LD_ID = {
   website: `${SITE_URL}/#website`,
   organizacja: `${SITE_URL}/#organization`,
-  autor: `${AUTOR.url}/#organization`,
+  autor: 'https://tukamil.com/#tukamil',
 } as const;
 
 /** Absolutny adres kanoniczny ścieżki (strona główna bez końcowego ukośnika). */
