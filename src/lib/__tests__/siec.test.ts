@@ -8,6 +8,9 @@ import { KONTAKT_SIECI, SIEC_TUKAMIL, TA_STRONA } from '@/lib/siec';
 
 // Katalog sieci tuKamil (audyt spójności 6.11.2026): pozycje z wStopce = true, w tej kolejności.
 const KATALOG: [string, string][] = [
+  ['wezmezadarmo.com', 'https://www.wezmezadarmo.com/'],
+  ['yesno.events', 'https://yesno.events/'],
+  ['thePolacy', 'https://thepolacy.com/'],
   ['tuKamil', 'https://tukamil.com/'],
   ['Dwie Strony', 'https://dwiestrony.wezmezadarmo.com/'],
   ['Cyfrowy Pomocnik', 'https://www.cyfrowypomocnik.com/'],
@@ -15,10 +18,7 @@ const KATALOG: [string, string][] = [
   ['Asystent Firmy', 'https://asystent24.com/'],
   ['Brand Agent', 'https://brand.cyfrowypomocnik.com/'],
   ['Claude Start', 'https://start.cyfrowypomocnik.com/'],
-  ['yesno.events', 'https://yesno.events/'],
-  ['thePolacy', 'https://thepolacy.com/'],
   ['pixelkamil', 'https://pixel.tukamil.com/galeria/'],
-  ['wezmezadarmo.com', 'https://www.wezmezadarmo.com/'],
   ['DogInvoice', 'https://doginvoice.com/'],
   ['DogAnswer', 'https://doganswer.com/'],
 ];
