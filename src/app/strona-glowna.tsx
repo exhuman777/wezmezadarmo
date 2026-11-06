@@ -229,43 +229,10 @@ export default function Home() {
   const [copyDone, setCopyDone] = useState(false);
   const [loadingCatIdx, setLoadingCatIdx] = useState(0);
 
-  // Load session from localStorage on mount
+  // Nic nie zapisujemy (od 6.11.2026): profil i wyniki żyją tylko w tej karcie. Stara sesja z localStorage jest usuwana.
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-    try {
-      const raw = localStorage.getItem(SESSION_KEY);
-      if (!raw) return;
-      const data = JSON.parse(raw);
-      if (!data.savedAt || Date.now() - data.savedAt > SESSION_TTL) {
-        localStorage.removeItem(SESSION_KEY);
-        return;
-      }
-      if (Array.isArray(data.messages) && data.messages.length > 0) {
-        setMessages(data.messages);
-        setResults(data.results ?? []);
-        setProfile(data.profile ?? {});
-        setPhase('chat');
-      }
-    } catch {
-      // corrupted session data, ignore
-    }
+    try { localStorage.removeItem(SESSION_KEY); } catch { /* brak dostępu do pamięci */ }
   }, []);
-
-  // Save session to localStorage when in chat phase
-  useEffect(() => {
-    if (phase !== 'chat' || typeof window === 'undefined') return;
-    if (messages.length === 0) return;
-    try {
-      localStorage.setItem(SESSION_KEY, JSON.stringify({
-        messages,
-        results,
-        profile,
-        savedAt: Date.now(),
-      }));
-    } catch {
-      // storage quota exceeded, ignore
-    }
-  }, [phase, messages, results, profile]);
 
   function handleClearHistory() {
     if (typeof window !== 'undefined') {
@@ -659,20 +626,11 @@ export default function Home() {
             <li><a href="/swiadczenia"><span>Baza świadczeń<small>Kwoty, warunki i źródła.</small></span><IconArrowRight /></a></li>
             <li><a href="/wnioski"><span>Wnioski ZUS z pomocą AI<small>Wypełnisz i pobierzesz PDF.</small></span><IconArrowRight /></a></li>
             <li><a href="/dla-firm"><span>Dla firm i JDG<small>Dotacje, ulgi i automatyzacje.</small></span><IconArrowRight /></a></li>
-            <li><a href="/dotacje"><span>Dotacje dla firm<small>Programy dopasowane do profilu firmy.</small></span><IconArrowRight /></a></li>
+            <li><a href="/dotacje"><span>Dotacje dla firm<small>Wyszukiwarka programów bez konta.</small></span><IconArrowRight /></a></li>
+            <li><a href="/blog/najwieksze-dotacje-dla-firm-2026"><span>10 największych dotacji dla firm<small>Nabory z listopada 2026 według budżetu.</small></span><IconArrowRight /></a></li>
             <li><a href="/centrum-obywatela"><span>Centrum Obywatela<small>NFZ, NBP, GIOŚ, GUS i inne, bez logowania.</small></span><IconArrowRight /></a></li>
             <li><a href="/aktualnosci"><span>Aktualności<small>Zmiany w prawie i nowe nabory.</small></span><IconArrowRight /></a></li>
           </ul>
-        </section>
-
-        {/* Konto */}
-        <section className="prosta-blok" style={{ padding: '32px 0 0' }}>
-          <h2>Konto</h2>
-          <p className="pod">Konto zapamięta Twój profil i dopasowane świadczenia. Jest darmowe.</p>
-          <div className="przyciski">
-            <a href="/rejestracja" className="btn btn-primary btn-lg">Załóż konto</a>
-            <a href="/logowanie" className="btn btn-lg">Mam już konto</a>
-          </div>
         </section>
 
         {/* Udostępnij */}

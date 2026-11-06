@@ -2,9 +2,9 @@ import { test, expect, type Page } from '@playwright/test';
 
 // Telefon (emulacja dotyku): publiczne strony i narzędzia dla firm w pionie i w poziomie.
 // Bez poziomego przewijania, przyciski i pola co najmniej 44 px, pola 16 px (iOS nie przybliża ekranu),
-// formularz narzędzi da się wypełnić palcem. Bez wysyłki formularza (nic nie idzie do bazy ani na maila).
+// formularz przy sprawdzeniu po NIP (jedyny z e-mailem) da się wypełnić palcem. Bez wysyłki formularza (nic nie idzie do bazy ani na maila).
 const STRONY = ['/', '/dla-firm', '/dla-firm/narzedzia', '/dla-firm/narzedzia/kpir', '/dla-firm/narzedzia/jpk', '/dla-firm/narzedzia/dofinansowania', '/swiadczenia', '/o-projekcie', '/press', '/polityka-prywatnosci',
-  '/wnioski', '/dotacje', '/aktualnosci', '/statystyki', '/centrum-obywatela', '/centrum-obywatela/polska-cyfrowa', '/nfz', '/blog', '/logowanie', '/rejestracja'];
+  '/wnioski', '/dotacje', '/aktualnosci', '/statystyki', '/centrum-obywatela', '/centrum-obywatela/polska-cyfrowa', '/nfz', '/blog', '/blog/najwieksze-dotacje-dla-firm-2026', '/agent'];
 const EKRANY = [
   { nazwa: '375', viewport: { width: 375, height: 667 } },
   { nazwa: '390', viewport: { width: 390, height: 844 } },
@@ -41,18 +41,18 @@ for (const ekran of EKRANY) {
   });
 }
 
-test.describe('formularz narzędzi palcem', () => {
+test.describe('formularz NIP palcem', () => {
   test.use({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 3 });
-  test('pola i zgoda działają po tapnięciu', async ({ page }) => {
-    await page.goto('/dla-firm/narzedzia/kpir');
+  test('e-mail, telefon i zgoda działają po tapnięciu', async ({ page }) => {
+    await page.goto('/dla-firm/narzedzia/dofinansowania');
     const form = page.getByTestId('formularz-narzedzia');
     await expect(form).toBeVisible();
     await page.locator('#n-email').tap();
     await page.keyboard.type('test@example.com');
     await page.locator('#n-tel').tap();
     await page.keyboard.type('600100200');
-    await form.locator('label:has(input[type=checkbox]) span').first().tap();
-    await expect(form.locator('input[type=checkbox]')).toBeChecked();
+    await form.locator('label:has(input[data-zgoda=email]) span').first().tap();
+    await expect(form.locator('input[data-zgoda=email]')).toBeChecked();
     await expect(page.locator('#n-email')).toHaveValue('test@example.com');
     const przycisk = form.locator('button[type=submit]');
     const r = await przycisk.boundingBox();

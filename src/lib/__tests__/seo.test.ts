@@ -114,7 +114,7 @@ describe('sitemap.xml', () => {
     for (const s of STRONY) expect(adresy).toContain(adres(s.sciezka));
     for (const u of adresy) expect(u.startsWith(SITE_URL)).toBe(true);
   });
-  it('bez paneli, API, admina i narzędzi po ciasteczku', () => {
+  it('bez paneli, API, admina i aplikacji /narzedzia (canonical na /dla-firm/narzedzia)', () => {
     for (const w of mapa) expect(w.url.replace(SITE_URL, '')).not.toMatch(/^\/(panel|api|admin|narzedzia)(\/|$)|\/panel(\/|$)|logowanie|rejestracja/);
   });
 });
@@ -127,7 +127,7 @@ describe('robots.txt', () => {
     }
     expect(robots).toContain(`Sitemap: ${SITE_URL}/sitemap.xml`);
   });
-  it('każda grupa blokuje panele, admina, API i narzędzia po ciasteczku', () => {
+  it('każda grupa blokuje panele, admina, API i aplikacje /narzedzia', () => {
     const grupy = robots.split(/\n(?=User-agent:)/).filter(g => g.startsWith('User-agent:'));
     expect(grupy.length).toBe(14);
     for (const g of grupy) {
@@ -179,5 +179,58 @@ describe('llms.txt, llms-full.txt i pliki .md', () => {
     expect(full).toContain('### Program Moje Zdrowie');
     expect(full.length).toBeGreaterThan(50_000);
     sprawdzTekst('llms-full.txt', full, true);
+  });
+});
+
+describe('blog: wpisy, FAQ, wersje .md', () => {
+  it('każdy wpis ma opis do 160 znaków, unikalny slug i adres w sitemapie', async () => {
+    const mapa = sitemap().map(w => w.url);
+    expect(new Set(POSTS.map(p => p.slug)).size).toBe(POSTS.length);
+    for (const p of POSTS) {
+      expect(p.description.length, p.slug).toBeLessThanOrEqual(160);
+      expect(mapa).toContain(adres(`/blog/${p.slug}`));
+    }
+  });
+
+  it('wpisy o dotacjach: FAQ, źródła z datą, linki do wyszukiwarki, NIP i innych artykułów', async () => {
+    const { WPISY_DOTACJE_2026 } = await import('@/data/blog-dotacje-2026');
+    expect(WPISY_DOTACJE_2026.length).toBeGreaterThanOrEqual(4);
+    const slugi = WPISY_DOTACJE_2026.map(p => p.slug);
+    for (const p of WPISY_DOTACJE_2026) {
+      expect(p.faq?.length, p.slug).toBeGreaterThanOrEqual(3);
+      expect(p.content).toContain('## Źródła');
+      expect(p.content).toMatch(/sprawdzone 6\.11\.2026/);
+      expect(p.content).toContain('/dotacje#wyszukiwarka');
+      expect(p.content).toContain('/dla-firm/narzedzia/dofinansowania');
+      expect(slugi.filter(s => s !== p.slug).some(s => p.content.includes(`/blog/${s}`)), p.slug).toBe(true);
+      expect(p.content).toContain('https://doginvoice.com');
+      sprawdzTekst(p.slug, [p.title, p.description, p.content, ...(p.faq ?? []).flatMap(f => [f.pytanie, f.odpowiedz])].join('\n'));
+      // Źródła tylko oficjalne (plus strona DogInvoice w akapicie o fakturach).
+      for (const m of p.content.matchAll(/\]\((https?:\/\/[^)]+)\)/g)) {
+        expect(new URL(m[1]).hostname, m[1]).toMatch(/(^|\.)(gov\.pl|bgk\.pl|parp\.gov\.pl|arp\.pl|lodzkie\.pl|opolskie\.pl|slaskie\.pl|funduszeueswietokrzyskie\.pl|doginvoice\.com)$/);
+      }
+    }
+  });
+
+  it('wersja .md wpisu: tytuł, adres, absolutne linki i FAQ', async () => {
+    const { wpisMd } = await import('@/lib/blog');
+    for (const p of POSTS) {
+      const md = wpisMd(p);
+      expect(md.startsWith(`# ${p.title}`)).toBe(true);
+      expect(md).toContain(`Strona: ${adres(`/blog/${p.slug}`)}`);
+      expect(md).not.toMatch(/\]\(\//);
+      if (p.faq?.length) expect(md).toContain('## Najczęstsze pytania');
+    }
+    expect(fs.existsSync(path.join(APP, 'blog-md/[slug]/route.ts'))).toBe(true);
+  });
+
+  it('llms.txt: bez konta, jedyny e-mail przy NIP, artykuły i publiczne API', () => {
+    const llms = llmsTxt();
+    expect(llms).toContain('## Bez konta');
+    expect(llms).toContain(`${SITE_URL}/dla-firm/narzedzia/dofinansowania`);
+    expect(llms).toContain('## Artykuły');
+    expect(llms).toContain('## Publiczne API bez klucza');
+    for (const p of POSTS) expect(llms).toContain(adres(`/blog/${p.slug}`));
+    expect(llms).toContain('https://tukamil.com/wezmezadarmo/');
   });
 });

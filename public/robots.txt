@@ -1,6 +1,6 @@
 # robots.txt wezmezadarmo.com (adres kanoniczny: https://www.wezmezadarmo.com)
 # Poza indeksem: panele (/panel, /dotacje/panel, /agent/panel), /admin, API i /narzedzia
-# (statyczne narzędzia z dostępem po ciasteczku; publiczne opisy są pod /dla-firm/narzedzia).
+# (statyczne aplikacje narzędzi, działają bez konta; opisy i adresy kanoniczne są pod /dla-firm/narzedzia).
 # /api/public/* zostaje dostępne, bo strony Centrum Obywatela pobierają z niego dane w przeglądarce
 # (Google renderuje je tak samo). Strony logowania mają noindex w metadanych, więc nie blokujemy
 # ich tutaj (robot musi zobaczyć noindex).

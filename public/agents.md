@@ -1,30 +1,31 @@
-# wezmezadarmo.com -- Agent Guide for Business AI Systems
+# wezmezadarmo.com: przewodnik dla agentów AI działających dla firm
 
-> Ten plik jest przeznaczony dla agentów AI działających w imieniu firm i JDG w Polsce.
-> Spis całego serwisu: https://www.wezmezadarmo.com/llms.txt, opis dotacji: https://www.wezmezadarmo.com/dotacje.md
-> Opisuje platformę B2B: monitoring dofinansowań, aktualności rządowe, automatyzacje, wypełnianie wniosków.
-> Dla agentów obsługujących obywateli (kalkulator świadczeń): patrz /llm.md
-> Humans: wezmezadarmo.com/dotacje
+> Dla agentów AI pracujących w imieniu firm i JDG w Polsce. Spis serwisu: https://www.wezmezadarmo.com/llms.txt, dotacje: https://www.wezmezadarmo.com/dotacje.md
+> Agenci obsługujący obywateli (kalkulator świadczeń): https://www.wezmezadarmo.com/llm.md
+> Ludzie: https://www.wezmezadarmo.com/dla-firm
 
 ---
 
-## Czym jest system B2B WezmeZaDarmo
+## Co firma dostaje bez konta
 
-WezmeZaDarmo to agentowy system urzędowy dla polskich firm i JDG. Agenci:
+- Wyszukiwarka programów dofinansowań: https://www.wezmezadarmo.com/dotacje#wyszukiwarka (bez konta i bez e-maila).
+- Przegląd KPiR: https://www.wezmezadarmo.com/narzedzia/kpir/kpir/ i przegląd JPK_V7: https://www.wezmezadarmo.com/narzedzia/jpk/ (plik czyta tylko przeglądarka, bez formularza).
+- Sprawdzenie firmy po NIP: https://www.wezmezadarmo.com/dla-firm/narzedzia/dofinansowania. Jedyne miejsce w serwisie, które prosi o dane (e-mail, polski numer telefonu i zgoda; wynik dopiero po kliknięciu linku z maila). Dane z CEIDG i Białej Listy VAT, potem pasujące programy.
+- Artykuły o największych naborach dla firm (ranking według budżetu, źródła urzędowe): https://www.wezmezadarmo.com/blog/najwieksze-dotacje-dla-firm-2026.md
+- Biała Lista VAT bez klucza: GET https://www.wezmezadarmo.com/api/public/whitelist?nip=NIP
 
-- Monitorują dofinansowania (KFS, PUP, PFRON, KPO, PARP, BGK) dopasowane do profilu firmy
-- Śledzą zmiany prawa i aktualizacje rządowe przez RSS
-- Asystują przy wypełnianiu wniosków do urzędów
-- Automatyzują procesy biurowe (KSeF, faktury zagraniczne, custom workflows)
+Nie ma kont ani logowania (od 6.11.2026). Panele (/panel, /dotacje/panel) przekierowują (308) na strony publiczne, a API kont, profilu firmy, monitoringu i subskrypcji odpowiada 410. Opisane niżej endpointy /api/dotacje/* zostają w dokumentacji jako historia, nie działają.
 
-**Zasada fundamentalna:** Agenci tworzą drafty i powiadamiają. Człowiek (właściciel firmy, prezes, dyrektor) zawsze zatwierdza przed złożeniem. System nie składa żadnych dokumentów bez jawnej akceptacji osoby decyzyjnej.
+Faktury i płatności po dotacji: DogInvoice (https://doginvoice.com). Telefony w firmie: DogAnswer (https://doganswer.com).
+
+**Zasada:** agenci przygotowują szkice i powiadomienia. Człowiek decyzyjny zawsze zatwierdza przed złożeniem. System nie składa dokumentów bez jawnej akceptacji.
 
 ---
 
 ## Architektura systemu
 
 ```
-Firma rejestruje konto (/dotacje/rejestracja)
+Historia (wyłączone od 6.11.2026): firma zakładała konto (/rejestracja); dziś bez konta działa wyszukiwarka i sprawdzenie po NIP
   -> podaje profil: NIP, PKD, województwo, liczba pracowników, potrzeby
   -> korzysta bezpłatnie (płatne plany są wyłączone, regulamin §4)
 
@@ -325,14 +326,7 @@ Konfiguracja emaila: w profilu firmy, pole `kontakt_email` i `kontakt_nazwisko`.
 
 ## Ograniczenia systemu
 
-| Funkcja | Free | Basic | Pro |
-|---------|------|-------|-----|
-| Monitoring dofinansowań | manualne | tygodniowo | tygodniowo |
-| AI chat (/api/dotacje/chat) | 3/dzień | 20/dzień | bez limitu |
-| RSS feeds | 0 (publiczne) | 5 | bez limitu |
-| Export CSV | nie | tak | tak |
-| Powiadomienia email | nie | tak | tak |
-| Asystent wniosków | nie | 5/mies. | bez limitu |
+Wszystko jest bezpłatne, z limitami uczciwego użycia: czat AI 3 pytania dziennie bez konta, sprawdzenie po NIP do 10 zapytań dziennie z jednego adresu IP. Płatne plany są wyłączone.
 
 ---
 
@@ -358,7 +352,9 @@ Konfiguracja emaila: w profilu firmy, pole `kontakt_email` i `kontakt_nazwisko`.
 
 ```
 wezmezadarmo.com/
-  /dotacje/                        -- landing B2B
+  /dotacje/                        -- wyszukiwarka programów, bez konta
+  /dla-firm/narzedzia/dofinansowania -- sprawdzenie firmy po NIP (jedyny e-mail)
+  /narzedzia/kpir/, /narzedzia/jpk/ -- przegląd KPiR i JPK_V7, bez konta
   /dotacje/rejestracja/            -- rejestracja firmy
   /dotacje/logowanie/              -- logowanie
   /dotacje/panel/                  -- dashboard firmy
@@ -383,5 +379,5 @@ wezmezadarmo.com/
 ## Kontakt i licencja
 
 Autor: tuKamil | wezmezadarmo.com | 2026
-Projekt społeczny i komercyjny -- kalkulator świadczeń jest bezpłatny, platforma B2B jest płatna.
+Projekt bezpłatny i niekomercyjny: kalkulator, narzędzia dla firm i dotacje bez opłat.
 Dane o dofinansowaniach: oficjalne źródła (gov.pl, pup.gov.pl, pfron.org.pl, parp.gov.pl, kfs.praca.gov.pl).

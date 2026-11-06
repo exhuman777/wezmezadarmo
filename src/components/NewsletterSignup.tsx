@@ -2,18 +2,21 @@
 
 import { useState } from 'react';
 import { track } from '@/lib/analytics';
+import { ZgodyKontaktu } from '@/components/ZgodyKontaktu';
+import { ZGODA_NEWSLETTER, ZGODY_PUSTE, type Zgody } from '@/lib/zgody';
 
 export function NewsletterSignup() {
   const [email, setEmail] = useState('');
   const [profileType, setProfileType] = useState<'private' | 'jdg'>('private');
-  const [accepted, setAccepted] = useState(false);
+  const [zgody, setZgody] = useState<Zgody>(ZGODY_PUSTE);
+  const accepted = zgody.email;
   const [status, setStatus] = useState<'idle' | 'sending' | 'ok' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!email.includes('@') || !accepted) {
-      setErrorMsg('Podaj poprawny e-mail i zaakceptuj politykę.');
+      setErrorMsg('Podaj poprawny e-mail i zaznacz zgodę na newsletter.');
       setStatus('error');
       return;
     }
@@ -23,7 +26,7 @@ export function NewsletterSignup() {
       const res = await fetch('/api/newsletter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, profileType }),
+        body: JSON.stringify({ email, profileType, zgody }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
@@ -79,18 +82,7 @@ export function NewsletterSignup() {
         className="pole-wejscie"
       />
 
-      <label style={{ display: 'flex', alignItems: 'flex-start', gap: 10, fontSize: 14, lineHeight: 1.5, color: 'var(--ink-700)', cursor: 'pointer' }}>
-        <input
-          type="checkbox"
-          checked={accepted}
-          onChange={(e) => setAccepted(e.target.checked)}
-          style={{ marginTop: 2, accentColor: 'var(--tusz)', flexShrink: 0, width: 20, height: 20 }}
-        />
-        <span>
-          Zgadzam się na otrzymywanie newslettera. Mogę się wypisać w każdej chwili.{' '}
-          <a href="/polityka-prywatnosci" style={{ color: 'var(--tusz)', textDecoration: 'underline' }}>Polityka prywatności</a>.
-        </span>
-      </label>
+      <ZgodyKontaktu telefon={false} wartosci={zgody} onChange={setZgody} prefiks="newsletter" trescEmail={ZGODA_NEWSLETTER} />
 
       <div>
         <button type="submit" disabled={zablokowany} className="btn btn-primary">

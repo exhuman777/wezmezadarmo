@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 // Zasady designu z AGENTS.md sprawdzane w przeglądarce na publicznych stronach:
 // bez animacji (gra działa w osobnej ramce, więc jej nie liczymy), bez gradientów,
 // bez rozmycia tła i bez zaokrąglonych przycisków. Na 390 i 1280 px.
-const STRONY = ['/', '/swiadczenia', '/wnioski', '/dla-firm', '/dla-firm/narzedzia', '/dotacje', '/aktualnosci', '/press', '/statystyki', '/centrum-obywatela', '/centrum-obywatela/polska-cyfrowa', '/nfz', '/o-projekcie', '/automatyzacje', '/blog', '/logowanie'];
+const STRONY = ['/', '/swiadczenia', '/wnioski', '/dla-firm', '/dla-firm/narzedzia', '/dotacje', '/aktualnosci', '/press', '/statystyki', '/centrum-obywatela', '/centrum-obywatela/polska-cyfrowa', '/nfz', '/o-projekcie', '/automatyzacje', '/blog', '/blog/najwieksze-dotacje-dla-firm-2026', '/agent'];
 
 for (const szerokosc of [390, 1280]) {
   test.describe(`wygląd ${szerokosc} px`, () => {

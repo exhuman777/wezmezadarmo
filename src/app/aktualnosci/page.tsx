@@ -35,9 +35,9 @@ export default async function AktualnosciPage() {
 
       <section className="prosta-blok">
         <h2>Dla firm</h2>
-        <p className="pod">Zaloguj się i ustaw własne kanały monitorowania dla swojej firmy.</p>
+        <p className="pod">Wszystkie komunikaty czytasz bez konta. Nabory dla firm i wyszukiwarka programów są na stronie dotacji.</p>
         <div className="przyciski">
-          <Link href="/panel" className="btn btn-primary btn-lg">Przejdź do panelu</Link>
+          <Link href="/dotacje" className="btn btn-primary btn-lg">Dotacje dla firm</Link>
         </div>
       </section>
 

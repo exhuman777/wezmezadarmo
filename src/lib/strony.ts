@@ -239,7 +239,7 @@ export const STRONY: Strona[] = [
   {
     sciezka: '/dla-firm/narzedzia', nazwa: 'Narzędzia dla firm', grupa: 'firmy', md: true, rodzic: '/dla-firm', typ: 'CollectionPage',
     tytul: 'Darmowe narzędzia dla firm: KPiR i JPK_V7',
-    opis: 'Sprawdź za darmo księgę KPiR, plik JPK_V7 przed 2027 i dofinansowania dla firmy po NIP. Bez zakładania konta: wystarczy e-mail i telefon.',
+    opis: 'Sprawdź za darmo księgę KPiR i plik JPK_V7 przed 2027, od razu i bez konta. Dofinansowania po NIP: e-mail i telefon, bez zakładania konta.',
     slowa: ['narzędzia dla firm', 'przegląd KPiR', 'sprawdzenie JPK_V7', 'dofinansowania po NIP', 'JPK 2027', 'KSeF 2027', 'kontrola księgi przychodów i rozchodów', 'narzędzia dla księgowej'],
     zmiana: 'monthly', priorytet: 0.8,
   },
@@ -249,8 +249,8 @@ export const STRONY: Strona[] = [
   {
     sciezka: '/dotacje', nazwa: 'Dotacje dla firm', grupa: 'firmy', md: true, aplikacja: 'BusinessApplication',
     tytul: 'Dotacje dla firm 2026: KFS, PUP, PFRON, KPO',
-    opis: 'Agent AI śledzi nabory KFS, PUP, PFRON, KPO, PARP i programy samorządowe, dopasowuje je do firmy po NIP i daje znać mailem. Bezpłatnie.',
-    slowa: ['dotacje dla firm 2026', 'dofinansowanie dla firm', 'Krajowy Fundusz Szkoleniowy', 'dotacje PUP', 'dofinansowanie PFRON dla pracodawcy', 'KPO dla firm', 'dotacje PARP', 'nabory dotacji', 'monitoring dotacji', 'dotacje samorządowe'],
+    opis: 'Wyszukiwarka programów dofinansowań dla firm: KFS, PUP, PFRON, FENG, PARP i regionalne. Bez konta i bez e-maila. Dopasowanie po NIP po podaniu e-maila.',
+    slowa: ['dotacje dla firm 2026', 'dofinansowanie dla firm', 'wyszukiwarka dotacji', 'Krajowy Fundusz Szkoleniowy', 'dotacje PUP', 'dofinansowanie PFRON dla pracodawcy', 'dotacje PARP', 'FENG nabory', 'nabory dotacji', 'dotacje samorządowe'],
     zmiana: 'weekly', priorytet: 0.8,
   },
   {
@@ -271,9 +271,9 @@ export const STRONY: Strona[] = [
   // Informacje
   {
     sciezka: '/blog', nazwa: 'Blog', grupa: 'informacje', md: true, typ: 'CollectionPage',
-    tytul: 'Blog: poradniki o świadczeniach i ulgach',
-    opis: 'Praktyczne poradniki o świadczeniach, ulgach podatkowych i programach wsparcia w Polsce w 2026: co Ci się należy, w jakiej kwocie i jak złożyć wniosek.',
-    slowa: ['blog o świadczeniach', 'poradnik świadczenia', 'ulgi podatkowe poradnik', 'świadczenia 2026', 'jak złożyć wniosek', 'pomijane świadczenia', 'programy wsparcia', 'zmiany w świadczeniach'],
+    tytul: 'Blog: świadczenia, ulgi i dotacje dla firm',
+    opis: 'Poradniki o świadczeniach, ulgach i dotacjach dla firm w 2026: największe nabory, Ścieżka SMART, kredyt dual-use, Dig.IT. Kwoty i terminy ze źródłami.',
+    slowa: ['blog o świadczeniach', 'poradnik świadczenia', 'ulgi podatkowe poradnik', 'świadczenia 2026', 'dotacje dla firm 2026', 'największe dotacje', 'jak złożyć wniosek', 'programy wsparcia', 'nabory FENG'],
     zmiana: 'weekly', priorytet: 0.7,
   },
   {

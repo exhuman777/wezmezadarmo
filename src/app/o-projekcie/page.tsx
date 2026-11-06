@@ -12,7 +12,9 @@ const MODULY = [
   { href: '/aktualnosci', nazwa: 'Aktualności', opis: 'Komunikaty urzędów i zmiany w prawie w jednym miejscu.' },
   { href: '/centrum-obywatela', nazwa: 'Centrum Obywatela', opis: 'Narzędzia z oficjalnych API: NFZ, NBP, GIOŚ, Biała Lista VAT, GUS i inne.' },
   { href: '/statystyki', nazwa: 'Polska w liczbach', opis: 'Dane publiczne z GUS, NBP i NFZ.' },
-  { href: '/dotacje', nazwa: 'Dotacje dla firm', opis: 'Agent śledzi nabory i pokazuje te, które pasują do firmy.' },
+  { href: '/dotacje', nazwa: 'Dotacje dla firm', opis: 'Wyszukiwarka programów bez konta i dopasowanie po NIP.' },
+  { href: '/dla-firm/narzedzia', nazwa: 'Narzędzia dla firm', opis: 'Przegląd KPiR i JPK_V7 od razu, bez konta.' },
+  { href: '/blog', nazwa: 'Blog', opis: 'Poradniki o świadczeniach i największych dotacjach dla firm.' },
 ];
 
 const ZRODLA = [
@@ -30,6 +32,7 @@ export default function OProjekciePage() {
         <p className="pod">
           Darmowa strona, która pomaga sprawdzić, jakie świadczenia, ulgi i dotacje mogą Ci przysługiwać. Projekt prywatny, nie rządowy i niekomercyjny.
         </p>
+        <p className="pod">Wszystko działa bez logowania. E-mail podajesz tylko przy sprawdzeniu firmy po NIP.</p>
       </section>
 
       <section className="prosta-blok">
@@ -50,8 +53,8 @@ export default function OProjekciePage() {
         <h2>Prywatność</h2>
         <ul className="lista">
           <li>Kalkulator nie pyta o PESEL i nie zapisuje Twoich odpowiedzi.</li>
-          <li>PESEL jest potrzebny tylko do wniosku ZUS. Zapisuje się w Twojej przeglądarce, a po zalogowaniu opcjonalnie w profilu.</li>
-          <li>Konto i profil są w bazie Supabase na serwerach w UE. Danych nie sprzedajemy.</li>
+          <li>PESEL jest potrzebny tylko do wniosku ZUS i zostaje w Twojej przeglądarce.</li>
+          <li>Nie ma kont ani logowania. E-mail podajesz tylko przy sprawdzeniu firmy po NIP, dane są na serwerach w UE i nie sprzedajemy ich.</li>
           <li>Asystent AI odpowiada z bazy świadczeń i podaje źródła. To program, więc ważne rzeczy sprawdź w urzędzie.</li>
         </ul>
       </section>
@@ -61,19 +64,27 @@ export default function OProjekciePage() {
         <p>Z oficjalnych stron i API instytucji publicznych. Przy każdym świadczeniu jest link do źródła.</p>
         <p className="mala">{ZRODLA.join(' · ')}</p>
         <p className="mala">
-          Widzisz nieaktualną informację? Napisz przez formularz w stopce albo na LinkedIn.
+          Widzisz nieaktualną informację? Napisz przez formularz „Napisz do nas” w stopce.
         </p>
       </section>
 
       <section className="prosta-blok">
-        <h2>Autor</h2>
+        <h2>Kto robi tę stronę</h2>
         <p>
-          Projekt stworzył tuKamil z Lublina, pro bono. Kod jest otwarty (AGPL-3.0), baza świadczeń to otwarte dane (CC-BY-4.0).
+          Stronę robi tuKamil z Lublina, pro bono. Kod jest otwarty (AGPL-3.0), baza świadczeń to otwarte dane (CC-BY-4.0).
         </p>
         <ul className="linki">
-          <li><a href="https://tukamil.com" target="_blank" rel="noopener"><span>tukamil.com<small>Strona autora</small></span><span aria-hidden="true">→</span></a></li>
-          <li><a href="https://www.linkedin.com/in/kamil-sobkowicz/" target="_blank" rel="noopener noreferrer"><span>LinkedIn<small>Zgłoszenia i kontakt</small></span><span aria-hidden="true">→</span></a></li>
+          <li><a href="https://tukamil.com/wezmezadarmo/" target="_blank" rel="noopener"><span>Przewodnik po wezmezadarmo<small>Jak korzystać ze strony, na tukamil.com</small></span><span aria-hidden="true">→</span></a></li>
+          <li><a href="https://tukamil.com" target="_blank" rel="noopener"><span>tukamil.com<small>Inne aplikacje i kontakt</small></span><span aria-hidden="true">→</span></a></li>
           <li><a href="https://github.com/exhuman777/wezmezadarmo" target="_blank" rel="noopener noreferrer"><span>Kod na GitHubie<small>github.com/exhuman777/wezmezadarmo</small></span><span aria-hidden="true">→</span></a></li>
+        </ul>
+      </section>
+
+      <section className="prosta-blok">
+        <h2>Dla firm: produkty, przy których pracuje autor</h2>
+        <ul className="linki">
+          <li><a href="https://doginvoice.com" target="_blank" rel="noopener"><span>DogInvoice<small>Faktury z KSeF, terminy płatności i przelewy. Widzisz, czy zapłacili Ci za fakturę.</small></span><span aria-hidden="true">→</span></a></li>
+          <li><a href="https://doganswer.com" target="_blank" rel="noopener"><span>DogAnswer<small>Asystent AI odbiera telefon w firmie, także w święta.</small></span><span aria-hidden="true">→</span></a></li>
         </ul>
       </section>
     </main>

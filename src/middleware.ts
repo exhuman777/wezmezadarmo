@@ -1,7 +1,4 @@
-import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
-import { COOKIE_DOSTEP, sprawdzDostep } from '@/lib/narzedzia/dostep';
-import { bramkaDla } from '@/lib/narzedzia/lista';
 
 /** Basic Auth check dla /admin/* -- bez podanego hasla zwraca 401 z popupem przegldarki. */
 function basicAuthChallenge(): NextResponse {
@@ -39,35 +36,41 @@ function checkAdminAuth(request: NextRequest): boolean {
   }
 }
 
+/** API kont i paneli: wyłączone, bo serwis działa bez logowania. */
+const WYLACZONE_API = [
+  '/api/auth', '/api/agent/auth', '/api/agent/profile', '/api/agent/chat',
+  '/api/dotacje/auth', '/api/dotacje/company', '/api/dotacje/monitoring', '/api/dotacje/subscription',
+  '/api/dotacje/stripe', '/api/dotacje/tokens', '/api/dotacje/export', '/api/dotacje/chat', '/api/dotacje/cron/weekly-check',
+  '/api/digest', '/api/rss/subscription', '/api/aktualnosci/feeds',
+];
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Narzędzia dla firm (statyczne pliki w public/narzedzia): tylko z ciasteczkiem dostępu (formularz z e-mailem i telefonem albo link z maila).
+  // Narzędzia dla firm (statyczne pliki w public/narzedzia): publiczne, bez formularza, konta i ciasteczka.
+  // Middleware tylko zamienia katalog na jego index.html i ustawia nagłówki.
   if (pathname === '/narzedzia' || pathname.startsWith('/narzedzia/')) {
-    if (await sprawdzDostep(request.cookies.get(COOKIE_DOSTEP)?.value)) {
-      // Katalog (np. /narzedzia/kpir/kpir/) -> jego index.html z public/.
-      const ostatni = pathname.split('/').filter(Boolean).pop() ?? '';
-      let res: NextResponse;
-      if (!ostatni.includes('.')) {
-        const plik = request.nextUrl.clone();
-        plik.pathname = `${pathname.replace(/\/$/, '')}/index.html`;
-        res = NextResponse.rewrite(plik);
-      } else {
-        res = NextResponse.next();
-      }
-      res.headers.set('X-Robots-Tag', 'noindex, nofollow');
-      // Strony bez pamięci podręcznej (dostęp może wygasnąć), pliki (_astro, czcionki) prywatnie na dobę.
-      res.headers.set('Cache-Control', ostatni.includes('.') && !ostatni.endsWith('.html') ? 'private, max-age=86400' : 'private, no-store');
-      return res;
+    if (pathname === '/narzedzia' || pathname === '/narzedzia/') {
+      return NextResponse.redirect(new URL('/dla-firm/narzedzia', request.url));
     }
-    // Bez dostępu: strona narzędzia z opisem i formularzem, po wysłaniu powrót dokładnie tutaj.
-    const bramka = new URL(bramkaDla(pathname), request.url);
-    bramka.searchParams.set('wymagany', '1');
-    if (pathname !== '/narzedzia' && pathname !== '/narzedzia/') bramka.searchParams.set('next', pathname);
-    return NextResponse.redirect(bramka);
+    // Katalog (np. /narzedzia/kpir/kpir/) -> jego index.html z public/.
+    const ostatni = pathname.split('/').filter(Boolean).pop() ?? '';
+    const plikStatyczny = ostatni.includes('.');
+    let res: NextResponse;
+    if (!plikStatyczny) {
+      const plik = request.nextUrl.clone();
+      plik.pathname = `${pathname.replace(/\/$/, '')}/index.html`;
+      res = NextResponse.rewrite(plik);
+    } else {
+      res = NextResponse.next();
+    }
+    // Opis i adres kanoniczny narzędzia są na /dla-firm/narzedzia/kpir i /jpk, sama aplikacja poza indeksem.
+    res.headers.set('X-Robots-Tag', 'noindex, follow');
+    res.headers.set('Cache-Control', plikStatyczny && !ostatni.endsWith('.html') ? 'public, max-age=86400' : 'public, max-age=0, s-maxage=3600');
+    return res;
   }
 
-  // /admin/*, /api/admin/* i endpoint diagnostyczny -- Basic Auth gate (przed Supabase auth check)
+  // /admin/*, /api/admin/* i endpoint diagnostyczny: Basic Auth
   if (pathname.startsWith('/admin') || pathname.startsWith('/api/admin') || pathname === '/api/aktualnosci/debug') {
     if (!checkAdminAuth(request)) {
       return basicAuthChallenge();
@@ -75,62 +78,24 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next({ request });
   }
 
-  // Standardowy Supabase auth dla /panel, /dotacje/panel, /agent/panel.
-  // Gdy brakuje konfiguracji Supabase (zle wdrozenie), NIE wywalamy 500 --
-  // pokazujemy zrozumiala strone bledu z wyjasnieniem, co sie dzieje.
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
-    const errorUrl = request.nextUrl.clone();
-    errorUrl.pathname = '/blad-konfiguracji';
-    errorUrl.search = '';
-    return NextResponse.rewrite(errorUrl);
-  }
-
-  let response = NextResponse.next({
-    request,
-  });
-
-  try {
-    const supabase = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-      {
-        cookies: {
-          getAll() {
-            return request.cookies.getAll();
-          },
-          setAll(cookiesToSet) {
-            cookiesToSet.forEach(({ name, value }) =>
-              request.cookies.set(name, value),
-            );
-            response = NextResponse.next({ request });
-            cookiesToSet.forEach(({ name, value, options }) =>
-              response.cookies.set(name, value, options),
-            );
-          },
-        },
-      },
+  // Konta są wyłączone (6.11.2026): API logowania, profili, paneli i powiadomień kont odpowiada 410.
+  // Strony paneli i logowania przekierowuje next.config.ts (308). Kod i tabele w bazie zostają.
+  if (WYLACZONE_API.some(p => pathname === p || pathname.startsWith(`${p}/`))) {
+    return NextResponse.json(
+      { error: 'Konta na wezmezadarmo.com są wyłączone. Wszystko działa bez logowania.' },
+      { status: 410, headers: { 'Cache-Control': 'no-store' } },
     );
-
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
-
-    if (!session) {
-      const loginUrl = request.nextUrl.clone();
-      loginUrl.pathname = '/logowanie';
-      return NextResponse.redirect(loginUrl);
-    }
-
-    return response;
-  } catch {
-    // Nieoczekiwany blad warstwy auth -> strona bledu zamiast 500.
-    const errorUrl = request.nextUrl.clone();
-    errorUrl.pathname = '/blad-konfiguracji';
-    errorUrl.search = '';
-    return NextResponse.rewrite(errorUrl);
   }
+
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/narzedzia', '/narzedzia/:path*', '/panel/:path*', '/dotacje/panel/:path*', '/agent/panel/:path*', '/admin/:path*', '/api/admin/:path*', '/api/aktualnosci/debug'],
+  matcher: [
+    '/narzedzia', '/narzedzia/:path*', '/admin/:path*', '/api/admin/:path*', '/api/aktualnosci/debug',
+    '/api/auth/:path*', '/api/agent/auth/:path*', '/api/agent/profile', '/api/agent/chat/:path*', '/api/agent/chat',
+    '/api/dotacje/auth/:path*', '/api/dotacje/company', '/api/dotacje/monitoring/:path*', '/api/dotacje/monitoring', '/api/dotacje/subscription',
+    '/api/dotacje/stripe/:path*', '/api/dotacje/tokens', '/api/dotacje/export', '/api/dotacje/chat', '/api/dotacje/cron/weekly-check',
+    '/api/digest', '/api/digest/:path*', '/api/rss/subscription', '/api/aktualnosci/feeds',
+  ],
 };

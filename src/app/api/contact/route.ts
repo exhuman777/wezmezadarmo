@@ -1,21 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { powiadomKamila } from '@/lib/powiadomienia';
 import { rateLimit } from '@/lib/sources/_helpers';
+import { BLAD_ZGODY, odczytajZgody } from '@/lib/zgody';
+import { zapiszZgody } from '@/lib/zgodyZapis';
 
 export async function POST(req: NextRequest) {
   const limit = rateLimit('contact', req, 5, 60 * 60_000); // 5 wiadomości / h / IP
   if (!limit.ok) return limit.response;
 
-  let body: { imie?: string; firma?: string; email?: string; wiadomosc?: string };
+  let body: { imie?: string; firma?: string; email?: string; wiadomosc?: string; zgody?: unknown };
   try {
     body = await req.json();
   } catch {
     return NextResponse.json({ error: 'Nieprawidłowy format danych.' }, { status: 400 });
   }
 
-  const { imie, firma, email, wiadomosc } = body;
+  const { firma, email, wiadomosc } = body;
+  // Imię opcjonalne: formularz kontaktowy potrzebuje tylko adresu do odpowiedzi i treści.
+  const imie = typeof body.imie === 'string' && body.imie.trim() ? body.imie.trim() : 'nie podano';
 
-  if (!imie || !email || !wiadomosc) {
+  if (!email || !wiadomosc) {
     return NextResponse.json({ error: 'Uzupełnij wymagane pola.' }, { status: 400 });
   }
 
@@ -35,11 +39,19 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Wiadomość jest za długa.' }, { status: 400 });
   }
 
+  // Osobne zgody (src/lib/zgody.ts): wymagana tylko zgoda na kontakt e-mailem w sprawie zgłoszenia.
+  const zgody = odczytajZgody(body.zgody, false);
+  if (!zgody.email) return NextResponse.json({ error: BLAD_ZGODY }, { status: 400 });
+  await zapiszZgody({ formularz: 'kontakt', email, zgody, zTelefonem: false }).catch(() => {
+    console.error('[contact] zapis zgód nieudany (migracja 20261106_zgody_formularzy.sql?)');
+  });
+  const opisZgod = [zgody.email && 'e-mail w sprawie zgłoszenia', zgody.emailOferty && 'oferty e-mailem', zgody.ai && 'kontakt przez AI'].filter(Boolean).join(', ');
+
   // Formularz nie ma własnej bazy: mail do Kamila jest zapisem zgłoszenia, więc przy błędzie prosimy o ponowienie.
   const wynik = await powiadomKamila({
     strona: 'wezmezadarmo.com',
-    formularz: 'zapytanie o automatyzację',
-    pola: { 'Imię i nazwisko': imie, Firma: firma, 'E-mail': email, 'Wiadomość': wiadomosc, Strona: '/automatyzacje' },
+    formularz: 'Napisz do nas',
+    pola: { 'Imię': imie, Firma: firma, 'E-mail': email, 'Wiadomość': wiadomosc, Zgody: opisZgod },
     odpowiedzDo: email,
   });
   if (!wynik.wyslane) {

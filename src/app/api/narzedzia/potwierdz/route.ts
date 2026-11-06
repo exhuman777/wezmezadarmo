@@ -3,11 +3,11 @@ import { hashTokenu, poprawnyFormat } from '@/lib/narzedzia/token';
 import { magazyn } from '@/lib/narzedzia/leady';
 import { COOKIE_DOSTEP, DOSTEP_DNI, trybTestowy, wydajDostep } from '@/lib/narzedzia/dostep';
 
-/** Kliknięcie linku z maila: jednorazowy token → ciasteczko dostępu (30 dni) → narzędzia. */
+/** Kliknięcie linku z maila: jednorazowy token → ciasteczko dostępu (30 dni) → sprawdzenie firmy po NIP. */
 export async function GET(request: NextRequest) {
   const url = new URL(request.url);
   const baza = trybTestowy() ? url.origin : 'https://www.wezmezadarmo.com';
-  const wroc = (stan: string) => NextResponse.redirect(`${baza}/dla-firm/narzedzia?dostep=${stan}`);
+  const wroc = (stan: string) => NextResponse.redirect(`${baza}/dla-firm/narzedzia/dofinansowania?dostep=${stan}`);
 
   const token = url.searchParams.get('token');
   if (!poprawnyFormat(token)) return wroc('zly-link');

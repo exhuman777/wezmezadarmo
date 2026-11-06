@@ -10,7 +10,7 @@ Poland has 118+ government benefits, subsidies, and social programs. Most citize
 
 WezmeZadarmo ("I'll take it for free") solves this. Answer a short set of anonymous questions. Get a personalised list of benefits you qualify for, with step-by-step application instructions and links to official sources. Ask the AI assistant follow-up questions.
 
-**The calculator needs no account and stores nothing.** Optional features (AI assistant, form-filling, newsletter) are opt-in.
+**Everything works without an account and without giving personal data.** The only place that asks for an e-mail is the company check by NIP (`/dla-firm/narzedzia/dofinansowania`). Accounts and the newsletter are optional.
 
 **Free public good.** WezmeZadarmo is free and open source for citizens across Poland
 and, through the planned open engine, the EU. A personal AI assistant for the citizen of
@@ -104,9 +104,11 @@ Public pages:
 - `/aktualnosci` - RSS news monitoring (public preview + B2B panel for firms)
 - `/statystyki` - GUS/SDG statistics dashboard (live indicators + charts)
 - `/automatyzacje` - educational/informational page only: how AI plus code over structured, human-verified data can further use an already-digitised EU (nothing is sold)
-- `/dotacje` - free grant-monitoring landing (59 programs database)
+- `/dotacje` - public grant program search, no account and no e-mail (`#wyszukiwarka`)
+- `/dla-firm/narzedzia` - KPiR and JPK_V7 checks open directly (static apps under `/narzedzia/*`, no cookie, no form); grants by NIP ask for an e-mail (the only e-mail on the site)
+- `/blog` - guides; grant articles for firms in `src/data/blog-dotacje-2026.ts` (official sources only, check date on each fact), Markdown versions at `/blog/<slug>.md`
 - `/dla-firm` - B2B landing for firms and sole proprietors
-- `/agent` - AI agent landing for individuals
+- `/agent` - AI assistant chat on the page, no account (3 questions/day via `/api/chat`)
 - `/o-projekcie`, `/polityka-prywatnosci`, `/regulamin` - info pages
 
 Agent panel (`/panel/*`):

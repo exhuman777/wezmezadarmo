@@ -1,8 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
-import { normalizujTelefon, ZGODA_TRESC } from '@/lib/narzedzia/walidacja';
+import { ZgodyKontaktu } from '@/components/ZgodyKontaktu';
+import { BLAD_ZGODY, ZGODY_PUSTE, type Zgody } from '@/lib/zgody';
+import { normalizujTelefon } from '@/lib/narzedzia/telefon';
 
 type Stan = 'idle' | 'wysylam' | 'gotowe' | 'blad';
 
@@ -19,36 +20,37 @@ interface Props {
   przycisk?: string;
 }
 
-/** Formularz dostępu do narzędzi: e-mail i telefon wymagane, imię opcjonalne, zgoda. Dostęp od razu po wysłaniu. */
-export function FormularzDostepu({ next = '/dla-firm/narzedzia', przycisk = 'Otwórz narzędzia' }: Props) {
+/**
+ * Formularz przy sprawdzeniu firmy po NIP: e-mail i telefon (polski numer) wymagane, imię opcjonalne, zgoda.
+ * Double opt-in: po wysłaniu prosi o kliknięcie linku z maila, wynik otwiera się dopiero po nim.
+ */
+export function FormularzDostepu({ next = '/dla-firm/narzedzia/dofinansowania', przycisk = 'Sprawdź firmę po NIP' }: Props) {
   const [email, setEmail] = useState('');
   const [telefon, setTelefon] = useState('');
   const [imie, setImie] = useState('');
-  const [zgoda, setZgoda] = useState(false);
+  const [zgody, setZgody] = useState<Zgody>(ZGODY_PUSTE);
   const [www, setWww] = useState('');
   const [stan, setStan] = useState<Stan>('idle');
   const [blad, setBlad] = useState('');
-  const [cel, setCel] = useState('');
+  const [linkTestowy, setLinkTestowy] = useState('');
 
   async function wyslij(e: React.FormEvent) {
     e.preventDefault();
     setBlad('');
     if (!email.includes('@')) { setBlad('Podaj adres e-mail.'); return; }
-    if (!normalizujTelefon(telefon)) { setBlad('Podaj numer telefonu: 9 cyfr, np. 600 100 200.'); return; }
-    if (!zgoda) { setBlad('Zaznacz zgodę na kontakt, żeby otworzyć narzędzia.'); return; }
+    if (!normalizujTelefon(telefon)) { setBlad('Podaj polski numer telefonu: 9 cyfr, np. 600 100 200.'); return; }
+    if (!zgody.email) { setBlad(BLAD_ZGODY); return; }
     setStan('wysylam');
     try {
       const r = await fetch('/api/narzedzia/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, telefon, imie, zgoda, www, next }),
+        body: JSON.stringify({ email, telefon, imie, zgody, www, next }),
       });
-      const d = (await r.json().catch(() => ({}))) as { error?: string; next?: string };
+      const d = (await r.json().catch(() => ({}))) as { error?: string; linkTestowy?: string };
       if (!r.ok) { setBlad(d.error ?? 'Nie udało się wysłać. Spróbuj za chwilę.'); setStan('blad'); return; }
-      const dokad = d.next ?? next;
-      setCel(dokad);
+      setLinkTestowy(d.linkTestowy ?? '');
       setStan('gotowe');
-      window.location.assign(dokad);
     } catch {
       setBlad('Brak połączenia. Spróbuj ponownie.');
       setStan('blad');
@@ -58,8 +60,9 @@ export function FormularzDostepu({ next = '/dla-firm/narzedzia', przycisk = 'Otw
   if (stan === 'gotowe') {
     return (
       <div role="status" style={{ border: '2px solid var(--tusz)', padding: 20, background: 'var(--surface, #fff)' }}>
-        <h3 style={{ fontFamily: 'var(--f-mono)', fontSize: 20, margin: '0 0 8px' }}>Gotowe, otwieram narzędzie</h3>
-        <p style={{ margin: 0 }}>Dostęp działa na tym urządzeniu przez 30 dni. Nie otworzyło się? <a href={cel} data-testid="link-do-narzedzia">Przejdź do narzędzia</a>.</p>
+        <h3 style={{ fontFamily: 'var(--f-mono)', fontSize: 20, margin: '0 0 8px' }}>Sprawdź skrzynkę</h3>
+        <p style={{ margin: 0 }}>Wysłaliśmy link na {email}. Kliknij go, a wyszukiwarka po NIP otworzy się na 30 dni. Link działa 7 dni. Nie widzisz maila? Zajrzyj do spamu.</p>
+        {linkTestowy && <p className="mala" style={{ margin: '8px 0 0' }}><a href={linkTestowy} data-testid="link-testowy">Link testowy (tylko tryb testowy)</a></p>}
       </div>
     );
   }
@@ -82,10 +85,7 @@ export function FormularzDostepu({ next = '/dla-firm/narzedzia', przycisk = 'Otw
         <label htmlFor="n-www">Strona www</label>
         <input id="n-www" tabIndex={-1} autoComplete="off" value={www} onChange={(e) => setWww(e.target.value)} />
       </div>
-      <label style={{ display: 'flex', gap: 10, alignItems: 'flex-start', fontSize: 14, lineHeight: 1.5 }}>
-        <input type="checkbox" checked={zgoda} onChange={(e) => setZgoda(e.target.checked)} style={{ width: 20, height: 20, marginTop: 2, flex: '0 0 auto' }} />
-        <span>{ZGODA_TRESC} <Link href="/polityka-prywatnosci#narzedzia">Polityka prywatności</Link>.</span>
-      </label>
+      <ZgodyKontaktu telefon wartosci={zgody} onChange={setZgody} prefiks="n" />
       {blad && <p role="alert" style={{ margin: 0, color: 'var(--rdza)', fontWeight: 600 }}>{blad}</p>}
       <button type="submit" className="btn btn-rdza btn-lg" disabled={stan === 'wysylam'}>
         {stan === 'wysylam' ? 'Otwieram...' : przycisk}

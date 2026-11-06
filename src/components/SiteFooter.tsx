@@ -5,7 +5,7 @@ import { SiecTuKamil } from './SiecTuKamil';
 import { PixelMark } from './SiteNav';
 
 // Stopka w stylu strony głównej: jedna wąska kolumna, linki w jednym ciągu,
-// newsletter i formularz kontaktowy schowane pod krótkimi nagłówkami, pod nimi
+// newsletter (dobrowolny, nic od niego nie zależy) i formularz kontaktowy schowane pod krótkimi nagłówkami, pod nimi
 // stopka „Sieć tuKamil” (wariant tekstowy, katalog w src/lib/siec.ts).
 const LINKI = [
   { href: '/swiadczenia', label: 'Baza 133 świadczeń' },
@@ -39,11 +39,10 @@ export function SiteFooter() {
           {LINKI.map(link => (
             <Link key={link.href} href={link.href}>{link.label}</Link>
           ))}
-          <a href="https://linkedin.com/in/kamil-sobkowicz" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </nav>
 
         <details className="stopka-sekcja">
-          <summary>Newsletter co tydzień</summary>
+          <summary>Newsletter co tydzień (dobrowolny)</summary>
           <div className="stopka-sekcja-in">
             <NewsletterSignup />
           </div>

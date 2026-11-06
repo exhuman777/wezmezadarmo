@@ -1,12 +1,9 @@
-'use client';
-
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
-import { Suspense, useEffect, useState } from 'react';
-import { createBrowserClient } from '@supabase/ssr';
+import { Suspense } from 'react';
+import { CzatPubliczny } from './CzatPubliczny';
 
 const CECHY = [
-  { label: 'Zna Twoją sytuację', desc: 'Po uzupełnieniu profilu odpowiada pod Twój wiek, rodzinę, dochód i firmę.' },
+  { label: 'Bez konta', desc: 'Pytasz od razu, bez logowania. Nic nie zapisujemy, rozmowa znika po zamknięciu karty.' },
   { label: '133 świadczenia', desc: 'Pokazuje te, które pasują, z linkiem do źródła.' },
   { label: 'Dane na żywo', desc: 'Kurs w NBP, kolejka w NFZ, NIP na Białej Liście VAT, powietrze z GIOŚ.' },
   { label: 'Komunikaty urzędów', desc: 'Cytuje komunikaty ZUS, PFRON, GUS, Sejmu i ministerstw, z linkiem.' },
@@ -23,83 +20,26 @@ const PRZYKLADY = [
   'Jakie ulgi podatkowe mam jako JDG?',
 ];
 
-/**
- * Pytanie z adresu (/agent?q=...). useSearchParams wymaga Suspense, więc w Suspense jest tylko ta sekcja,
- * a reszta strony (nagłówek, przykłady) renderuje się na serwerze i widzą ją roboty wyszukiwarek.
- */
-function TwojePytanie({ loggedIn }: { loggedIn: boolean | null }) {
-  const q = useSearchParams().get('q');
-  if (!q) return null;
-  return (
-    <section className="prosta-blok" aria-live="polite">
-      <h2>Twoje pytanie</h2>
-      <p style={{ fontFamily: 'var(--f-mono)', fontWeight: 700 }}>&bdquo;{q}&rdquo;</p>
-      <p className="pod">
-        {loggedIn
-          ? 'Otwórz czat, a asystent odpowie z dostępem do Twojego profilu.'
-          : 'Zaloguj się, a asystent odpowie z dostępem do Twojego profilu. Możesz też poszukać w bazie bez logowania.'}
-      </p>
-      <div className="przyciski">
-        <Link
-          href={loggedIn ? `/panel/chat?q=${encodeURIComponent(q)}` : `/logowanie?next=${encodeURIComponent('/panel/chat?q=' + q)}`}
-          className="btn btn-rdza btn-lg"
-        >
-          {loggedIn ? 'Otwórz czat AI' : 'Zaloguj się i zapytaj'}
-        </Link>
-        {!loggedIn && (
-          <Link href={`/swiadczenia?q=${encodeURIComponent(q)}`} className="btn btn-lg">Szukaj w bazie</Link>
-        )}
-      </div>
-    </section>
-  );
-}
-
 export default function AgentLanding() {
-  const [loggedIn, setLoggedIn] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    const supabase = createBrowserClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    );
-    supabase.auth.getSession().then(({ data }) => setLoggedIn(!!data.session));
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => setLoggedIn(!!session));
-    return () => subscription.unsubscribe();
-  }, []);
-
-  // Zalogowany -> /panel, niezalogowany -> /rejestracja (bez starych przekierowań /agent/*).
-  const primaryHref = loggedIn ? '/panel' : '/rejestracja';
-  const secondaryHref = loggedIn ? '/panel/chat' : '/logowanie';
-  const primaryLabel = loggedIn ? 'Przejdź do panelu' : 'Załóż darmowe konto';
-  const secondaryLabel = loggedIn ? 'Otwórz czat AI' : 'Mam już konto';
-
   return (
     <main className="prosta">
       <section className="prosta-blok">
         <p className="etykieta">Asystent AI</p>
         <h1>Zapytaj o świadczenia, ZUS i urzędy</h1>
-        <p className="pod">Asystent odpowiada z bazy świadczeń i danych urzędów. Bez konta zadasz 3 pytania dziennie.</p>
-        <div className="przyciski">
-          <Link href={primaryHref} className="btn btn-primary btn-lg">{primaryLabel}</Link>
-          <Link href={secondaryHref} className="btn btn-lg">{secondaryLabel}</Link>
-        </div>
+        <p className="pod">Asystent odpowiada z bazy świadczeń i danych urzędów. Działa od razu, bez konta: 3 pytania dziennie.</p>
+        <Suspense fallback={null}>
+          <CzatPubliczny />
+        </Suspense>
       </section>
-
-      <Suspense fallback={null}>
-        <TwojePytanie loggedIn={loggedIn} />
-      </Suspense>
 
       <section className="prosta-blok">
         <h2>Przykładowe pytania</h2>
         <ul className="linki">
-          {PRZYKLADY.map(text => {
-            const href = loggedIn ? `/panel/chat?q=${encodeURIComponent(text)}` : `/agent?q=${encodeURIComponent(text)}`;
-            return (
-              <li key={text}>
-                <Link href={href}><span>{text}</span><span aria-hidden="true">→</span></Link>
-              </li>
-            );
-          })}
+          {PRZYKLADY.map(text => (
+            <li key={text}>
+              <Link href={`/agent?q=${encodeURIComponent(text)}`}><span>{text}</span><span aria-hidden="true">→</span></Link>
+            </li>
+          ))}
         </ul>
       </section>
 

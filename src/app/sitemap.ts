@@ -4,9 +4,9 @@ import { POSTS } from '@/data/blog-posts';
 import { adres } from '@/lib/seo';
 import { STRONY } from '@/lib/strony';
 
-// Data ostatniej istotnej zmiany treści stron statycznych (metadane i opisy: 5.11.2026). Podbij przy zmianie treści,
+// Data ostatniej istotnej zmiany treści stron statycznych (narzędzia bez formularza, dotacje, blog: 6.11.2026). Podbij przy zmianie treści,
 // zamiast wpisywać "teraz": Google ignoruje lastmod, który zmienia się przy każdym buildzie.
-const STATIC_LASTMOD = new Date('2026-11-05');
+const STATIC_LASTMOD = new Date('2026-11-06');
 
 function latest(dates: string[]): Date {
   const times = dates.map(d => new Date(d).getTime()).filter(t => !Number.isNaN(t));
@@ -15,7 +15,7 @@ function latest(dates: string[]): Date {
 
 /**
  * Wszystkie publiczne strony z rejestru src/lib/strony.ts plus wpisy bloga. Bez paneli, API,
- * logowania i /narzedzia (dostęp po ciasteczku). Adresy /swiadczenia?id= i ?q= nie trafiają tu,
+ * logowania i /narzedzia (aplikacje statyczne, opis i canonical na /dla-firm/narzedzia/*). Adresy /swiadczenia?id= i ?q= nie trafiają tu,
  * bo canonical wskazuje /swiadczenia.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -33,7 +33,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const blog: MetadataRoute.Sitemap = POSTS.map(p => ({
     url: adres(`/blog/${p.slug}`),
-    lastModified: new Date(p.date),
+    lastModified: new Date(p.zmiana ?? p.date),
     changeFrequency: 'monthly' as const,
     priority: 0.7,
   }));

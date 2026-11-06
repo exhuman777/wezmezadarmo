@@ -48,6 +48,23 @@ test.describe('pliki dla robotów i modeli', () => {
     }
   });
 
+  test('wpis bloga: wersja .md, Article i FAQPage z widocznymi pytaniami', async ({ request }) => {
+    const md = await request.get('/blog/najwieksze-dotacje-dla-firm-2026.md');
+    expect(md.status()).toBe(200);
+    expect(md.headers()['content-type']).toMatch(/^text\/markdown; charset=utf-8/);
+    expect(md.headers()['link']).toBe(`<${SITE}/blog/najwieksze-dotacje-dla-firm-2026>; rel="canonical"`);
+    expect(await md.text()).toContain('## Najczęstsze pytania');
+    const html = await (await request.get('/blog/najwieksze-dotacje-dla-firm-2026')).text();
+    expect(meta(html, /<link rel="canonical" href="([^"]+)"/)).toBe(`${SITE}/blog/najwieksze-dotacje-dla-firm-2026`);
+    expect(html).toContain(`<link rel="alternate" type="text/markdown" href="${SITE}/blog/najwieksze-dotacje-dla-firm-2026.md"/>`);
+    const ld = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(m => JSON.parse(m[1]) as { '@graph'?: { '@type': string; mainEntity?: { name: string }[] }[] });
+    const graf = ld.flatMap(l => l['@graph'] ?? []);
+    expect(graf.some(g => g['@type'] === 'Article')).toBe(true);
+    const faq = graf.find(g => g['@type'] === 'FAQPage');
+    expect(faq?.mainEntity?.length).toBeGreaterThanOrEqual(3);
+    for (const q of faq?.mainEntity ?? []) expect(html).toContain(q.name);
+  });
+
   test('wersja .md wskazuje stronę HTML jako kanoniczną', async ({ request }) => {
     const r = await request.get('/swiadczenia.md');
     expect(r.headers()['link']).toBe(`<${SITE}/swiadczenia>; rel="canonical"`);
