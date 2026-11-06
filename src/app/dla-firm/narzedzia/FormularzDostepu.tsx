@@ -7,10 +7,10 @@ import { normalizujTelefon, ZGODA_TRESC } from '@/lib/narzedzia/walidacja';
 type Stan = 'idle' | 'wysylam' | 'gotowe' | 'blad';
 
 const pole: React.CSSProperties = {
-  width: '100%', minHeight: 44, padding: '10px 12px', fontSize: 16,
+  width: '100%', minHeight: 48, padding: '10px 14px', fontSize: 16,
   border: '2px solid var(--tusz)', background: 'var(--surface, #fff)', color: 'var(--tusz)',
 };
-const etykieta: React.CSSProperties = { display: 'block', fontSize: 14, fontWeight: 600, marginBottom: 6 };
+const etykieta: React.CSSProperties = { display: 'block', fontFamily: 'var(--f-mono)', fontSize: 14, fontWeight: 700, marginBottom: 6 };
 
 interface Props {
   /** Dokąd przejść po wysłaniu (ścieżka wewnętrzna, serwer i tak ją sprawdza). */

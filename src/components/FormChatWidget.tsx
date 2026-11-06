@@ -218,7 +218,6 @@ export function FormChatWidget({ formType }: Props) {
               style={{
                 flex: 1, background: '#25201b', border: '1px solid #3a312b', borderRadius: 2,
                 color: '#d9cbb2', fontSize: 12, padding: '7px 10px', fontFamily: 'inherit',
-                outline: 'none',
               }}
             />
             <button

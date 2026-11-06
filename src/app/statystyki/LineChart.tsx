@@ -10,9 +10,9 @@ export function LineChart({ data, xLabel, yLabel, color = '#2b7353' }: {
 }) {
   if (!data.length) return <div>Brak danych</div>;
 
-  const W = 800;
+  const W = 560;
   const H = 280;
-  const padL = 60, padR = 20, padT = 20, padB = 40;
+  const padL = 64, padR = 20, padT = 20, padB = 48;
   const plotW = W - padL - padR;
   const plotH = H - padT - padB;
 
@@ -44,22 +44,22 @@ export function LineChart({ data, xLabel, yLabel, color = '#2b7353' }: {
       {/* Y grid + labels */}
       {yTicks.map((t, i) => (
         <g key={`y${i}`}>
-          <line x1={padL} y1={t.y} x2={W - padR} y2={t.y} stroke="currentColor" strokeOpacity={0.08} strokeWidth={1} />
-          <text x={padL - 8} y={t.y + 4} textAnchor="end" fontSize={11} fill="currentColor" opacity={0.6}>
-            {t.val.toLocaleString('pl', { maximumFractionDigits: 0 })}
+          <line x1={padL} y1={t.y} x2={W - padR} y2={t.y} stroke="currentColor" strokeOpacity={0.15} strokeWidth={1} />
+          <text x={padL - 8} y={t.y + 4} textAnchor="end" fontSize={16} fill="var(--szary)">
+            {t.val.toLocaleString('pl', { maximumFractionDigits: rangeY < 10 ? 2 : 0 })}
           </text>
         </g>
       ))}
 
       {/* X labels */}
       {points.map((p, i) => i % xStep === 0 ? (
-        <text key={`x${i}`} x={p.x} y={H - padB + 16} textAnchor="middle" fontSize={11} fill="currentColor" opacity={0.6}>
+        <text key={`x${i}`} x={p.x} y={H - padB + 22} textAnchor="middle" fontSize={16} fill="var(--szary)">
           {String(p.raw.x)}
         </text>
       ) : null)}
 
       {/* Line */}
-      <path d={pathD} fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+      <path d={pathD} fill="none" stroke={color} strokeWidth={3} strokeLinecap="square" strokeLinejoin="miter" />
 
       {/* Points */}
       {points.map((p, i) => (
@@ -69,9 +69,9 @@ export function LineChart({ data, xLabel, yLabel, color = '#2b7353' }: {
       ))}
 
       {/* Axis labels */}
-      {xLabel && <text x={W / 2} y={H - 4} textAnchor="middle" fontSize={11} fill="currentColor" opacity={0.5}>{xLabel}</text>}
+      {xLabel && <text x={W / 2} y={H - 4} textAnchor="middle" fontSize={16} fill="var(--szary)">{xLabel}</text>}
       {yLabel && (
-        <text x={14} y={H / 2} textAnchor="middle" fontSize={11} fill="currentColor" opacity={0.5} transform={`rotate(-90 14 ${H / 2})`}>
+        <text x={14} y={H / 2} textAnchor="middle" fontSize={16} fill="var(--szary)" transform={`rotate(-90 14 ${H / 2})`}>
           {yLabel}
         </text>
       )}

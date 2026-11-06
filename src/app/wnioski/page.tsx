@@ -146,8 +146,8 @@ export default function WnioskiPage() {
     <main className="prosta">
       <StronaJsonLd sciezka="/wnioski" />
 
-      <section className="prosta-blok" style={{ padding: 0 }}>
-        <p className="mono mala" style={{ margin: '0 0 8px' }}>Narzędzie obywatelskie, bezpłatne</p>
+      <section className="prosta-blok">
+        <p className="etykieta">Narzędzie obywatelskie, bezpłatne</p>
         <h1>Wypełnij wniosek z pomocą AI</h1>
         <p className="pod">AI tłumaczy każde pole i podpowiada treść. Pobierasz gotowy PDF do podpisania i złożenia.</p>
         <p className="mala" style={{ marginTop: 12 }}>
@@ -156,7 +156,7 @@ export default function WnioskiPage() {
       </section>
 
       {CATEGORIES.map((cat) => (
-        <section key={cat.id} className="prosta-blok" style={{ padding: '32px 0 0' }}>
+        <section key={cat.id} className="prosta-blok">
           <h2>{cat.label}</h2>
           <ul style={{ margin: '12px 0 0', padding: 0, listStyle: 'none' }}>
             {cat.forms.map((form) => (
@@ -166,7 +166,7 @@ export default function WnioskiPage() {
         </section>
       ))}
 
-      <section className="prosta-blok" style={{ padding: '32px 0 0' }}>
+      <section className="prosta-blok">
         <h2>Jak to działa</h2>
         <ol style={{ margin: '12px 0 0', padding: 0, listStyle: 'none' }}>
           {STEPS.map((s) => (
@@ -178,7 +178,7 @@ export default function WnioskiPage() {
         </ol>
       </section>
 
-      <section className="prosta-blok" style={{ padding: '32px 0 0' }}>
+      <section className="prosta-blok">
         <h2>Następne formularze</h2>
         <p className="pod">Kolejność ustalamy według potrzeb. <a href="/dla-firm#kontakt" style={{ textDecoration: 'underline' }}>Napisz, którego potrzebujesz</a>.</p>
         <ul style={{ margin: '12px 0 0', padding: 0, listStyle: 'none' }}>
@@ -191,7 +191,7 @@ export default function WnioskiPage() {
         </ul>
       </section>
 
-      <section className="prosta-blok" style={{ padding: '32px 0 0' }}>
+      <section className="prosta-blok">
         <h2>Prywatność</h2>
         <p className="pod">PESEL, imię i adres zapisujemy w Twojej przeglądarce, a dla zalogowanych opcjonalnie w profilu. Do serwera trafiają tylko na chwilę, żeby wypełnić PDF.</p>
       </section>

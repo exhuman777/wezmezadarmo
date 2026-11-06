@@ -136,10 +136,9 @@ export function MessageBubble({ role, content, isStreaming }: MessageBubbleProps
           <span style={{
             display: 'inline-block', width: 6, height: 16,
             background: 'var(--color-accent)',
-            borderRadius: 2,
+            borderRadius: 0,
             marginLeft: 2,
             verticalAlign: 'middle',
-            animation: 'fade 800ms ease-in-out infinite alternate',
           }} />
         )}
       </div>

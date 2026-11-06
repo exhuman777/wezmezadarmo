@@ -50,72 +50,31 @@ export function CookieConsent() {
   if (!visible) return null;
 
   return (
-    <div style={{
-      position: 'fixed',
-      bottom: 0,
-      left: 0,
-      right: 0,
-      zIndex: 9999,
-      background: 'var(--color-surface)',
-      borderTop: '1px solid var(--color-border)',
-      boxShadow: 'none',
-    }}>
-      <div style={{
-        maxWidth: 960,
-        margin: '0 auto',
-        padding: '16px 24px',
-      }}>
+    <div className="ciastka" role="region" aria-label="Pliki cookie">
+      <div className="ciastka-in">
         {!showDetails ? (
-          <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
-            <p style={{ flex: 1, minWidth: 260, fontSize: 13, color: 'var(--color-text-2)', lineHeight: 1.6, margin: 0 }}>
+          <>
+            <p className="ciastka-tekst">
               Serwis korzysta z plików cookie Google Analytics do zbierania anonimowych statystyk odwiedzin.{' '}
-              <button
-                onClick={() => setShowDetails(true)}
-                style={{ background: 'none', border: 'none', color: 'var(--color-accent)', fontSize: 13, cursor: 'pointer', padding: 0, textDecoration: 'underline' }}
-              >
-                Szczegóły
-              </button>
-              {' '}|{' '}
-              <a href="/polityka-prywatnosci" style={{ color: 'var(--color-accent)', fontSize: 13, textDecoration: 'underline' }}>
-                Polityka prywatności
-              </a>
+              <button type="button" className="ciastka-link" onClick={() => setShowDetails(true)}>Szczegóły</button>
+              {' · '}
+              <a href="/polityka-prywatnosci" className="ciastka-link">Polityka prywatności</a>
             </p>
-            <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
-              <button
-                onClick={reject}
-                style={{
-                  padding: '8px 18px', fontSize: 13, fontWeight: 500,
-                  borderRadius: 2, border: '1px solid var(--color-border)',
-                  background: 'transparent', color: 'var(--color-text-2)', cursor: 'pointer',
-                }}
-              >
-                Odrzuć
-              </button>
-              <button
-                onClick={accept}
-                style={{
-                  padding: '8px 18px', fontSize: 13, fontWeight: 500,
-                  borderRadius: 2, border: 'none',
-                  background: 'var(--color-text-1)', color: 'var(--color-bg-0)', cursor: 'pointer',
-                }}
-              >
-                Akceptuję
-              </button>
+            <div className="ciastka-przyciski">
+              <button type="button" className="btn btn-ghost btn-sm" onClick={reject}>Odrzuć</button>
+              <button type="button" className="btn btn-primary btn-sm" onClick={accept}>Akceptuję</button>
             </div>
-          </div>
+          </>
         ) : (
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-              <p style={{ fontSize: 14, fontWeight: 600, color: 'var(--color-text-1)', margin: 0 }}>Ustawienia cookies</p>
-              <button
-                onClick={() => setShowDetails(false)}
-                style={{ background: 'none', border: 'none', color: 'var(--color-text-3)', cursor: 'pointer', fontSize: 20, lineHeight: 1 }}
-              >
-                &times;
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, marginBottom: 12 }}>
+              <p className="pole-etykieta" style={{ margin: 0 }}>Ustawienia cookies</p>
+              <button type="button" className="przycisk-ikona" aria-label="Zamknij szczegóły" onClick={() => setShowDetails(false)}>
+                <span aria-hidden="true" style={{ fontSize: 20, lineHeight: 1 }}>&times;</span>
               </button>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 14 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', marginBottom: 14 }}>
               <CookieRow
                 title="Niezbędne (techniczne)"
                 desc="Wymagane do prawidłowego działania serwisu. Nie mogą być wyłączone."
@@ -127,34 +86,14 @@ export function CookieConsent() {
               />
             </div>
 
-            <p style={{ fontSize: 11, color: 'var(--color-text-3)', margin: '0 0 12px' }}>
+            <p className="ciastka-tekst" style={{ margin: '0 0 12px' }}>
               Serwis nie stosuje cookies reklamowych, pikseli śledzących ani fingerprintingu.{' '}
-              <a href="/polityka-prywatnosci" style={{ color: 'var(--color-accent)', textDecoration: 'underline' }}>
-                Pełna polityka prywatności
-              </a>
+              <a href="/polityka-prywatnosci" className="ciastka-link">Pełna polityka prywatności</a>
             </p>
 
-            <div style={{ display: 'flex', gap: 8 }}>
-              <button
-                onClick={reject}
-                style={{
-                  padding: '8px 18px', fontSize: 13, fontWeight: 500,
-                  borderRadius: 2, border: '1px solid var(--color-border)',
-                  background: 'transparent', color: 'var(--color-text-2)', cursor: 'pointer',
-                }}
-              >
-                Tylko niezbędne
-              </button>
-              <button
-                onClick={accept}
-                style={{
-                  padding: '8px 18px', fontSize: 13, fontWeight: 500,
-                  borderRadius: 2, border: 'none',
-                  background: 'var(--color-text-1)', color: 'var(--color-bg-0)', cursor: 'pointer',
-                }}
-              >
-                Akceptuję wszystkie
-              </button>
+            <div className="ciastka-przyciski">
+              <button type="button" className="btn btn-ghost btn-sm" onClick={reject}>Tylko niezbędne</button>
+              <button type="button" className="btn btn-primary btn-sm" onClick={accept}>Akceptuję wszystkie</button>
             </div>
           </div>
         )}
@@ -167,20 +106,15 @@ function CookieRow({ title, desc, locked }: { title: string; desc: string; locke
   return (
     <div style={{
       display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 16,
-      padding: '10px 14px', borderRadius: 2,
-      background: 'var(--color-surface-2)', border: '1px solid var(--color-border)',
+      padding: '10px 0', borderTop: '1px solid var(--linia)',
     }}>
       <div>
-        <p style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-text-1)', margin: '0 0 2px' }}>{title}</p>
-        <p style={{ fontSize: 12, color: 'var(--color-text-3)', margin: 0, lineHeight: 1.5 }}>{desc}</p>
+        <p style={{ fontSize: 14, fontWeight: 600, color: 'var(--tusz)', margin: '0 0 2px' }}>{title}</p>
+        <p style={{ fontSize: 14, color: 'var(--szary)', margin: 0, lineHeight: 1.5 }}>{desc}</p>
       </div>
-      <div style={{ flexShrink: 0, paddingTop: 2 }}>
-        {locked ? (
-          <span style={{ fontSize: 11, color: 'var(--color-text-3)', fontWeight: 500 }}>Zawsze włączone</span>
-        ) : (
-          <span style={{ fontSize: 11, color: 'var(--color-green)', fontWeight: 500 }}>Włączone po zgodzie</span>
-        )}
-      </div>
+      <span style={{ flexShrink: 0, fontFamily: 'var(--f-mono)', fontSize: 12, color: locked ? 'var(--szary)' : 'var(--zielen)' }}>
+        {locked ? 'Zawsze włączone' : 'Włączone po zgodzie'}
+      </span>
     </div>
   );
 }

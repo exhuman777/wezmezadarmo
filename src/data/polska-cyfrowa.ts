@@ -35,9 +35,9 @@ export interface FreeApi {
 
 export const NEWS_ELEVENLABS: NewsItem[] = [
   {
-    title: 'ElevenLabs zalozony przez dwoch Polakow',
+    title: 'ElevenLabs założony przez dwóch Polaków',
     date: '2022',
-    summary: 'Firme zalozyli w 2022 r. Mati Staniszewski (były Palantir) i Piotr Dąbkowski (były inżynier Google). Inspiracją były polskie filmy z lektorem - chcieli przełamać bariery językowe dzięki AI.',
+    summary: 'Firmę założyli w 2022 r. Mati Staniszewski (były Palantir) i Piotr Dąbkowski (były inżynier Google). Inspiracją były polskie filmy z lektorem - chcieli przełamać bariery językowe dzięki AI.',
     sourceName: 'Wikipedia / Endeavor',
     sourceUrl: 'https://en.wikipedia.org/wiki/ElevenLabs',
   },

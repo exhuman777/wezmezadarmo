@@ -576,7 +576,7 @@ function StepRodzic2({ data, update, onBack, onNext }: { data: Z15aData; update:
                 onChange={e => update('małżonekJestRodzic2', e.target.checked)}
                 style={{ accentColor: 'var(--color-accent)', width: 15, height: 15 }}
               />
-              <span style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Małżonek jest jednocześnie drugim rodzicem dziecka (dane juz podane powyżej)</span>
+              <span style={{ fontSize: 13, color: 'var(--color-text-2)' }}>Małżonek jest jednocześnie drugim rodzicem dziecka (dane już podane powyżej)</span>
             </label>
           )}
         </div>
@@ -886,7 +886,7 @@ function Field({ label, hint, children }: { label: string; hint?: string; childr
 }
 
 const IC = [
-  'w-full bg-bg-1 border border-border rounded-[8px] px-3 py-2.5',
-  'text-[13px] text-text-1 placeholder:text-text-3',
-  'focus:outline-none focus:border-accent/60 transition-colors',
+  'w-full bg-bg-1 border-2 border-text-1 rounded-none px-3 py-2.5',
+  'text-[16px] text-text-1 placeholder:text-text-3',
+  'focus:border-text-1',
 ].join(' ');

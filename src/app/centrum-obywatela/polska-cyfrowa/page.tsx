@@ -7,9 +7,10 @@ import {
   type NewsItem,
 } from '@/data/polska-cyfrowa';
 
-const GREEN = '#2b7353';
-const AMBER = '#c4841a';
-const BLUE = '#003874';
+// Kolory serii z palety strony: zieleń, rdza, tusz.
+const GREEN = 'var(--zielen)';
+const AMBER = 'var(--rdza)';
+const BLUE = 'var(--tusz)';
 
 // ----- Pochodne serie (liczone ze zrodel surowych) -----
 
@@ -53,188 +54,134 @@ export default function PolskaCyfrowaPage() {
   ];
 
   return (
-    <main style={{ maxWidth: 1080, margin: '0 auto', padding: '32px 24px 64px' }}>
+    <main className="prosta">
+      <section className="prosta-blok">
+        <p className="etykieta">Centrum Obywatela · Polska cyfrowa</p>
+        <h1>Polska jest cyfrowa i mamy na to liczby</h1>
+        <p className="pod">
+          Ponad 2,3 mld e-recept, 20 mln kont pacjenta i asystent AI w rejestracji do lekarza.
+          ElevenLabs, jeden z najszybciej rosnących startupów AI, założyli Polacy. Każda liczba poniżej ma link do źródła.
+        </p>
+      </section>
 
-      {/* HERO */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
-        <span style={{ width: 6, height: 6, borderRadius: '50%', background: GREEN, boxShadow: 'none' }} />
-        <span style={{ fontFamily: 'var(--f-mono)', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink-500)' }}>
-          Centrum Obywatela · Polska cyfrowa
-        </span>
-      </div>
-      <h1 style={{ fontSize: 'clamp(26px, 3.8vw, 40px)', fontWeight: 700, marginBottom: 14, color: 'var(--ink-900)', lineHeight: 1.15, letterSpacing: '-0.02em' }}>
-        Polska jest cyfrowa - i mamy na to liczby
-      </h1>
-      <p style={{ fontSize: 16, color: 'var(--ink-500)', marginBottom: 28, lineHeight: 1.6, maxWidth: 800 }}>
-        e-zdrowie i e-administracja w Polsce działają na poziomie światowym: ponad 2,3 mld e-recept,
-        20 mln kont pacjenta, asystent AI w rejestracji do lekarza. A jeden z najszybciej rosnących
-        startupów AI na świecie, ElevenLabs, założyli Polacy i buduje centrum R&D w Warszawie.
-        Wszystkie liczby poniżej pochodzą ze źródeł oficjalnych - każda z linkiem.
-      </p>
-
-      {/* KAFELKI: Polska w liczbach */}
-      <section style={{ marginBottom: 36 }}>
-        <SectionLabel text="Polska w liczbach" />
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(160px, 100%), 1fr))', gap: 12 }}>
+      <section className="prosta-blok">
+        <h2>Polska w liczbach</h2>
+        <ul className="lista">
           {STAT_TILES.map(t => (
-            <a key={t.label} href={t.sourceUrl} target="_blank" rel="noopener noreferrer"
-              style={{ textDecoration: 'none', display: 'block', padding: '16px 18px', background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 2, position: 'relative', overflow: 'hidden' }}>
-              <span style={{ position: 'absolute', top: 0, left: 0, bottom: 0, width: 3, background: `transparent` }} />
-              <div style={{ fontSize: 26, fontWeight: 700, color: 'var(--ink-900)', letterSpacing: '-0.02em', fontFamily: 'var(--f-mono)', lineHeight: 1.1 }}>{t.value}</div>
-              <div style={{ fontSize: 12, color: 'var(--ink-600)', marginTop: 6, lineHeight: 1.4 }}>{t.label}</div>
-              <div style={{ fontSize: 10, fontFamily: 'var(--f-mono)', color: 'var(--ink-500)', marginTop: 8, letterSpacing: '0.04em' }}>{t.sourceName} · {t.year}</div>
-            </a>
+            <li key={t.label} className="pc-liczba">
+              <b>{t.value}</b>
+              <span>
+                {t.label}
+                <a href={t.sourceUrl} target="_blank" rel="noopener noreferrer" className="pc-zrodlo">{t.sourceName}, {t.year}</a>
+              </span>
+            </li>
           ))}
-        </div>
+        </ul>
       </section>
 
-      {/* NEWSY: ElevenLabs */}
-      <section style={{ marginBottom: 36 }}>
-        <SectionLabel text="ElevenLabs - polski jednorożec AI" />
-        <p style={{ fontSize: 14, color: 'var(--ink-500)', marginBottom: 16, lineHeight: 1.55, maxWidth: 760 }}>
-          Wyceniany na 11 mld USD lider syntezy mowy AI. Założony przez dwóch Polaków, dziś z głównym
-          centrum badawczym w Unii Europejskiej zlokalizowanym w Warszawie.
-        </p>
-        <NewsGrid items={NEWS_ELEVENLABS} accent={BLUE} />
+      <section className="prosta-blok">
+        <h2>ElevenLabs, polski jednorożec AI</h2>
+        <p className="pod">Lider syntezy mowy AI wyceniany na 11 mld USD. Założyli go dwaj Polacy, główne centrum badawcze w UE jest w Warszawie.</p>
+        <NewsList items={NEWS_ELEVENLABS} />
       </section>
 
-      {/* NEWSY: NFZ / e-zdrowie */}
-      <section style={{ marginBottom: 36 }}>
-        <SectionLabel text="NFZ i e-zdrowie - cyfryzacja zdrowia" />
-        <p style={{ fontSize: 14, color: 'var(--ink-500)', marginBottom: 16, lineHeight: 1.55, maxWidth: 760 }}>
-          System e-zdrowie w Polsce należy do najszerzej używanych w Europie. Recepta, skierowanie i
-          rejestracja do lekarza działają online, a NFZ wdraża asystenta AI do umawiania wizyt.
-        </p>
-        <NewsGrid items={NEWS_NFZ} accent={GREEN} />
+      <section className="prosta-blok">
+        <h2>NFZ i e-zdrowie</h2>
+        <p className="pod">Recepta, skierowanie i rejestracja do lekarza działają online. NFZ wdraża asystenta AI do umawiania wizyt.</p>
+        <NewsList items={NEWS_NFZ} />
       </section>
 
-      {/* WYKRES 1: Dostepnosc mieszkan */}
-      <ChartCard
+      <ChartBlock
         label="Dostępność mieszkań"
         title="Ile m² nowego mieszkania kupisz za jedną pensję"
-        desc="Przeciętne miesięczne wynagrodzenie brutto podzielone przez średnią cenę 1 m². Wartość ~1 oznacza, że za miesięczną pensję kupisz ok. 1 m². Mimo szybko rosnących cen mieszkań dostępność jest w ostatniej dekadzie w miarę stabilna - bo płace rosną podobnie szybko."
+        desc="Przeciętna pensja brutto podzielona przez średnią cenę 1 m². Ceny rosną szybko, ale płace podobnie, więc dostępność od dekady jest w miarę stabilna."
         sources={[['GUS - wynagrodzenia', WYNAGRODZENIE_SOURCE], ['GUS - ceny m²', CENA_M2_SOURCE]]}
       >
         <MultiLineChart series={[affordability]} xLabel="Rok" yLabel="m² za pensję" />
-      </ChartCard>
+      </ChartBlock>
 
-      {/* WYKRES 2: Realne vs nominalne ceny m2 */}
-      <ChartCard
-        label="Ceny mieszkań - realnie"
-        title="Cena m² nominalnie vs po odjęciu inflacji"
-        desc="Cena nominalna prawie się podwoiła (2015-2024), ale po przeliczeniu na siłę nabywczą złotówki z 2015 r. realny wzrost jest dużo mniejszy. Skok inflacji 2022-2023 „zjadł” znaczną część nominalnego wzrostu cen. Seria realna kończy się na 2024 r. (ostatni zweryfikowany wskaźnik CPI)."
+      <ChartBlock
+        label="Ceny mieszkań realnie"
+        title="Cena m² nominalnie i po odjęciu inflacji"
+        desc="Cena nominalna prawie się podwoiła (2015-2024), realna, w złotówkach z 2015 r., wzrosła dużo mniej. Seria realna kończy się na 2024 r., ostatnim zweryfikowanym wskaźniku CPI."
         sources={[['GUS - ceny m²', CENA_M2_SOURCE], ['GUS - inflacja CPI', CPI_SOURCE]]}
       >
         <MultiLineChart series={[nominal, real]} xLabel="Rok" yLabel="zł/m²" />
-      </ChartCard>
+      </ChartBlock>
 
-      {/* WYKRES 3: Wzrost e-uslug */}
-      <ChartCard
+      <ChartBlock
         label="Wzrost e-usług"
         title="Adopcja e-usług państwowych w czasie"
-        desc="Dwie najlepiej udokumentowane serie roczne. Profil Zaufany (logowanie do e-administracji) urósł z 1,3 mln (2018) do 14,5 mln (2022). e-ZLA to elektroniczne zwolnienia lekarskie - od 2018 r. praktycznie 100% zwolnień jest cyfrowych, ok. 22 mln rocznie."
+        desc="Profil Zaufany urósł z 1,3 mln (2018) do 14,5 mln (2022). Od 2018 r. praktycznie wszystkie zwolnienia lekarskie (e-ZLA) są cyfrowe, ok. 22 mln rocznie."
         sources={[['Ministerstwo Cyfryzacji', PROFIL_ZAUFANY_SOURCE], ['ZUS - e-ZLA', EZLA_SOURCE]]}
       >
         <MultiLineChart series={eUslugi} xLabel="Rok" yLabel="mln" />
-      </ChartCard>
+      </ChartBlock>
 
-      {/* UCZCIWY KONTEKST: DESI */}
-      <section style={{ marginBottom: 36, padding: '16px 20px', background: 'var(--green-25, #fbf7ef)', border: '1px dashed var(--line)', borderRadius: 2 }}>
-        <div style={{ fontSize: 13, color: 'var(--ink-600)', lineHeight: 1.6 }}>
-          <strong>Dla równowagi:</strong> w unijnym indeksie cyfryzacji DESI (ostatnia edycja 2022) Polska
-          zajmowała 24. miejsce na 27 krajów - słabe strony to cyfrowe usługi dla firm i część usług
-          publicznych. Ale w tempie poprawy 2017-2022 Polska była wśród liderów UE, a w e-zdrowiu należy
-          do europejskiej czołówki. Cyfryzacja idzie szybko, choć nie wszędzie równo.
-          {' '}
-          <a href="https://digital-strategy.ec.europa.eu/en/policies/desi-poland" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--green-900)' }}>
-            Źródło: Komisja Europejska
-          </a>
-        </div>
-      </section>
-
-      {/* DARMOWE API */}
-      <section style={{ marginBottom: 12 }}>
-        <SectionLabel text="Darmowe API państwowe - co jeszcze podpinamy" />
-        <p style={{ fontSize: 14, color: 'var(--ink-500)', marginBottom: 16, lineHeight: 1.55, maxWidth: 760 }}>
-          Polska udostępnia dziesiątki publicznych API bez opłat. Poniżej te, które rozważamy do
-          integracji obok już używanych (NFZ, NBP, GIOŚ, GUS, Sejm/ELI, CEIDG, MF).
+      <section className="prosta-blok">
+        <h2>Dla równowagi</h2>
+        <p className="pod">
+          W unijnym indeksie DESI (ostatnia edycja 2022) Polska była 24. na 27 krajów. Słabe strony to cyfrowe usługi dla firm
+          i część usług publicznych. W tempie poprawy 2017-2022 Polska była wśród liderów UE, a w e-zdrowiu należy do czołówki.
         </p>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))', gap: 10 }}>
-          {FREE_APIS.map(api => (
-            <a key={api.name} href={api.url} target="_blank" rel="noopener noreferrer"
-              style={{ textDecoration: 'none', display: 'block', padding: 14, background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 2 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
-                <code style={{ fontSize: 13, fontFamily: 'var(--f-mono)', fontWeight: 700, color: 'var(--ink-900)' }}>{api.name}</code>
-                <span style={{ marginLeft: 'auto', fontSize: 9, fontFamily: 'var(--f-mono)', padding: '2px 7px', borderRadius: 2, textTransform: 'uppercase', letterSpacing: '0.05em',
-                  background: api.key ? 'rgba(196,132,26,0.12)' : 'rgba(47,125,90,0.12)',
-                  color: api.key ? '#9a6512' : '#157a4f',
-                  border: `1px solid ${api.key ? 'rgba(196,132,26,0.3)' : 'rgba(47,125,90,0.3)'}` }}>
-                  {api.key ? 'klucz API' : 'bez klucza'}
-                </span>
-              </div>
-              <div style={{ fontSize: 12, color: 'var(--ink-500)', lineHeight: 1.45 }}>{api.data}</div>
-            </a>
-          ))}
-        </div>
+        <p className="mala" style={{ marginTop: 8 }}>
+          <a href="https://digital-strategy.ec.europa.eu/en/policies/desi-poland" target="_blank" rel="noopener noreferrer">Źródło: Komisja Europejska</a>
+        </p>
       </section>
 
-      {/* Link powrotny */}
-      <div style={{ marginTop: 32 }}>
-        <Link href="/centrum-obywatela" style={{ fontSize: 13, color: 'var(--green-900)', fontFamily: 'var(--f-mono)' }}>
-          ← wszystkie narzędzia Centrum Obywatela
-        </Link>
-      </div>
+      <section className="prosta-blok">
+        <h2>Darmowe API państwowe, które podpinamy</h2>
+        <p className="pod">Kolejne publiczne API bez opłat, które rozważamy obok używanych już NFZ, NBP, GIOŚ, GUS, Sejm/ELI, CEIDG i MF.</p>
+        <ul className="lista">
+          {FREE_APIS.map(api => (
+            <li key={api.name}>
+              <a href={api.url} target="_blank" rel="noopener noreferrer"><b>{api.name}</b></a>
+              {' '}<span className={api.key ? 'znacznik' : 'znacznik znacznik-zielony'}>{api.key ? 'klucz API' : 'bez klucza'}</span>
+              <br /><span className="lista-opis">{api.data}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <p className="mala">
+        <Link href="/centrum-obywatela">← Wszystkie narzędzia Centrum Obywatela</Link>
+      </p>
     </main>
   );
 }
 
 // ----- Komponenty pomocnicze -----
 
-function SectionLabel({ text }: { text: string }) {
+function NewsList({ items }: { items: NewsItem[] }) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 3, marginBottom: 14, paddingLeft: 12, borderLeft: `3px solid ${GREEN}` }}>
-      <h2 style={{ fontSize: 19, fontWeight: 700, color: 'var(--ink-900)', letterSpacing: '-0.01em', lineHeight: 1.2, margin: 0 }}>{text}</h2>
-    </div>
-  );
-}
-
-function NewsGrid({ items, accent }: { items: NewsItem[]; accent: string }) {
-  return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))', gap: 12 }}>
+    <ul className="lista">
       {items.map(n => (
-        <a key={n.title} href={n.sourceUrl} target="_blank" rel="noopener noreferrer"
-          style={{ textDecoration: 'none', display: 'block', padding: 16, background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 2, position: 'relative', overflow: 'hidden' }}>
-          <span style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: `transparent`, opacity: 0.6 }} />
-          <div style={{ fontSize: 10, fontFamily: 'var(--f-mono)', color: accent, letterSpacing: '0.06em', marginBottom: 6 }}>{n.date}</div>
-          <div style={{ fontSize: 14.5, fontWeight: 600, color: 'var(--ink-900)', lineHeight: 1.3, marginBottom: 8, letterSpacing: '-0.01em' }}>{n.title}</div>
-          <p style={{ fontSize: 12.5, color: 'var(--ink-500)', lineHeight: 1.5, margin: 0, marginBottom: 10 }}>{n.summary}</p>
-          <div style={{ fontSize: 10, fontFamily: 'var(--f-mono)', color: 'var(--ink-500)' }}>{n.sourceName} ↗</div>
-        </a>
+        <li key={n.title}>
+          <span className="pc-data">{n.date}</span>
+          <a href={n.sourceUrl} target="_blank" rel="noopener noreferrer" className="pc-tytul">{n.title}</a>
+          <span className="pc-opis">{n.summary}</span>
+          <span className="pc-zrodlo">{n.sourceName}</span>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }
 
-function ChartCard({ label, title, desc, sources, children }: {
+function ChartBlock({ label, title, desc, sources, children }: {
   label: string; title: string; desc: string; sources: Array<[string, string]>; children: React.ReactNode;
 }) {
   return (
-    <section style={{ marginBottom: 28 }}>
-      <SectionLabel text={label} />
-      <div style={{ border: '1px solid var(--line)', borderRadius: 2, overflow: 'hidden', background: 'var(--white)' }}>
-        <div style={{ padding: '16px 22px 4px' }}>
-          <h3 style={{ fontSize: 16, fontWeight: 600, color: 'var(--ink-900)', margin: 0, marginBottom: 8, letterSpacing: '-0.01em' }}>{title}</h3>
-          <p style={{ fontSize: 13, color: 'var(--ink-500)', lineHeight: 1.55, margin: 0, marginBottom: 12 }}>{desc}</p>
-        </div>
-        <div style={{ padding: '4px 18px 12px', color: 'var(--ink-900)' }}>
-          {children}
-        </div>
-        <div style={{ padding: '8px 22px 14px', fontSize: 10, color: 'var(--ink-500)', fontFamily: 'var(--f-mono)', borderTop: '1px solid var(--line)', display: 'flex', gap: 14, flexWrap: 'wrap' }}>
-          {sources.map(([name, url]) => (
-            <a key={url} href={url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--ink-500)', textDecoration: 'underline', textDecorationStyle: 'dotted' }}>{name}</a>
-          ))}
-        </div>
-      </div>
+    <section className="prosta-blok">
+      <p className="etykieta">{label}</p>
+      <h2>{title}</h2>
+      <p className="pod">{desc}</p>
+      <div className="pc-wykres">{children}</div>
+      <p className="mala" style={{ marginTop: 8 }}>
+        Źródła:{' '}
+        {sources.map(([name, url], i) => (
+          <span key={url}>{i > 0 ? ', ' : ''}<a href={url} target="_blank" rel="noopener noreferrer">{name}</a></span>
+        ))}
+      </p>
     </section>
   );
 }

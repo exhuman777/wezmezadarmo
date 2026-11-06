@@ -20,30 +20,30 @@ export default async function AktualnosciPage() {
     <main className="prosta">
       <StronaJsonLd sciezka="/aktualnosci" />
 
-      <section className="prosta-blok" style={{ padding: 0 }}>
-        <p className="mono mala" style={{ margin: '0 0 8px' }}>Agregator RSS, odświeżany co 30 minut</p>
+      <section className="prosta-blok">
+        <p className="etykieta">Agregator RSS, odświeżany co 30 minut</p>
         <h1>Aktualności z polskich instytucji</h1>
         <p className="pod">Komunikaty z {FEEDS.length} źródeł w jednym miejscu, bez odwiedzania osobnych stron.</p>
         <p className="mono mala" style={{ marginTop: 10 }}>
           {FEEDS.map((f, i) => (
-            <span key={f.id} title={f.fullName} style={{ opacity: active.includes(f.id) ? 1 : 0.5 }}>
+            <span key={f.id} title={active.includes(f.id) ? f.fullName : `${f.fullName} (chwilowo niedostępne)`} style={{ color: active.includes(f.id) ? 'var(--tusz)' : 'var(--szary)' }}>
               {i > 0 ? ' · ' : ''}{f.name}
             </span>
           ))}
         </p>
       </section>
 
-      <section className="prosta-blok" style={{ padding: '32px 0 0' }}>
+      <section className="prosta-blok">
         <h2>Dla firm</h2>
         <p className="pod">Zaloguj się i ustaw własne kanały monitorowania dla swojej firmy.</p>
         <div className="przyciski">
-          <Link href="/panel" className="btn btn-primary btn-lg aktualnosci-cta-btn">Przejdź do panelu</Link>
+          <Link href="/panel" className="btn btn-primary btn-lg">Przejdź do panelu</Link>
         </div>
       </section>
 
-      <section className="prosta-blok" style={{ padding: '32px 0 0' }}>
+      <section className="prosta-blok">
         <h2>Na żywo</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 12, marginTop: 12 }}>
+        <div style={{ marginTop: 16 }}>
           <AirQualityWidget />
           <NbpRatesWidget />
           <ImgwAlertWidget />
@@ -51,7 +51,7 @@ export default async function AktualnosciPage() {
         </div>
       </section>
 
-      <section className="prosta-blok" style={{ padding: '32px 0 0' }}>
+      <section className="prosta-blok">
         <FeedClient
           items={items}
           active={active}
@@ -60,7 +60,7 @@ export default async function AktualnosciPage() {
         />
       </section>
 
-      <section className="prosta-blok" style={{ padding: '24px 0 0' }}>
+      <section className="prosta-blok">
         <p className="mala">Treści pochodzą prosto z kanałów RSS instytucji publicznych.</p>
         <p className="mala" style={{ marginTop: 8 }}>
           <Link href="/" style={{ textDecoration: 'underline' }}>Strona główna</Link>

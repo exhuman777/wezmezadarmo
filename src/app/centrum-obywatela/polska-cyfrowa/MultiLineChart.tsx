@@ -22,9 +22,9 @@ export function MultiLineChart({ series, xLabel, yLabel }: {
   const allPoints = series.flatMap(s => s.points);
   if (allPoints.length === 0) return <div style={{ fontSize: 13, opacity: 0.6 }}>Brak danych</div>;
 
-  const W = 800;
+  const W = 560;
   const H = 300;
-  const padL = 60, padR = 20, padT = 20, padB = 56;
+  const padL = 64, padR = 20, padT = 20, padB = 56;
   const plotW = W - padL - padR;
   const plotH = H - padT - padB;
 
@@ -56,15 +56,15 @@ export function MultiLineChart({ series, xLabel, yLabel }: {
       <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height: 'auto', display: 'block' }}>
         {yTicks.map((t, i) => (
           <g key={`y${i}`}>
-            <line x1={padL} y1={t.y} x2={W - padR} y2={t.y} stroke="currentColor" strokeOpacity={0.08} strokeWidth={1} />
-            <text x={padL - 8} y={t.y + 4} textAnchor="end" fontSize={11} fill="currentColor" opacity={0.6}>
-              {t.val.toLocaleString('pl', { maximumFractionDigits: 0 })}
+            <line x1={padL} y1={t.y} x2={W - padR} y2={t.y} stroke="currentColor" strokeOpacity={0.15} strokeWidth={1} />
+            <text x={padL - 8} y={t.y + 4} textAnchor="end" fontSize={16} fill="var(--szary)">
+              {t.val.toLocaleString('pl', { maximumFractionDigits: rangeY < 10 ? 2 : 0 })}
             </text>
           </g>
         ))}
 
         {xs.map((x, i) => i % xStep === 0 ? (
-          <text key={`x${i}`} x={sx(x)} y={H - padB + 16} textAnchor="middle" fontSize={11} fill="currentColor" opacity={0.6}>
+          <text key={`x${i}`} x={sx(x)} y={H - padB + 22} textAnchor="middle" fontSize={16} fill="var(--szary)">
             {String(x)}
           </text>
         ) : null)}
@@ -75,7 +75,7 @@ export function MultiLineChart({ series, xLabel, yLabel }: {
             .join(' ');
           return (
             <g key={s.name}>
-              <path d={pathD} fill="none" stroke={s.color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+              <path d={pathD} fill="none" stroke={s.color} strokeWidth={3} strokeLinecap="square" strokeLinejoin="miter" />
               {s.points.map((p, i) => (
                 <circle key={i} cx={sx(p.x)} cy={sy(p.y)} r={3} fill={s.color}>
                   <title>{`${s.name} - ${p.x}: ${p.y.toLocaleString('pl', { maximumFractionDigits: 2 })}${s.unit ?? ''}`}</title>
@@ -85,9 +85,9 @@ export function MultiLineChart({ series, xLabel, yLabel }: {
           );
         })}
 
-        {xLabel && <text x={W / 2} y={H - 4} textAnchor="middle" fontSize={11} fill="currentColor" opacity={0.5}>{xLabel}</text>}
+        {xLabel && <text x={W / 2} y={H - 4} textAnchor="middle" fontSize={16} fill="var(--szary)">{xLabel}</text>}
         {yLabel && (
-          <text x={14} y={(padT + plotH) / 2 + padT / 2} textAnchor="middle" fontSize={11} fill="currentColor" opacity={0.5}
+          <text x={14} y={(padT + plotH) / 2 + padT / 2} textAnchor="middle" fontSize={16} fill="var(--szary)"
             transform={`rotate(-90 14 ${(padT + plotH) / 2 + padT / 2})`}>
             {yLabel}
           </text>
@@ -97,8 +97,8 @@ export function MultiLineChart({ series, xLabel, yLabel }: {
       {/* Legenda */}
       <div style={{ display: 'flex', gap: 18, flexWrap: 'wrap', justifyContent: 'center', marginTop: 6 }}>
         {series.map(s => (
-          <span key={s.name} style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--ink-500)' }}>
-            <span style={{ width: 14, height: 3, borderRadius: 2, background: s.color, display: 'inline-block' }} />
+          <span key={s.name} style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 14, color: 'var(--szary)' }}>
+            <span style={{ width: 16, height: 4, background: s.color, display: 'inline-block' }} />
             {s.name}
           </span>
         ))}

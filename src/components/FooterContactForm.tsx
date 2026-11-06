@@ -30,84 +30,62 @@ export function FooterContactForm() {
     }
   }
 
-  const inputStyle: React.CSSProperties = {
-    width: '100%',
-    boxSizing: 'border-box',
-    padding: '10px 12px',
-    minHeight: 44,
-    fontSize: 15,
-    background: 'var(--surface)',
-    border: '1px solid var(--tusz)',
-    borderRadius: 0,
-    color: 'var(--tusz)',
-    fontFamily: 'inherit',
-  };
-
   if (status === 'ok') {
     return (
-      <div style={{ fontSize: 13, color: 'var(--ink-500)', padding: '12px 0' }}>
+      <p role="status" style={{ fontSize: 15, color: 'var(--ink-700)', padding: '12px 0', margin: 0 }}>
         Wiadomość wysłana. Odpiszemy wkrótce.
-      </div>
+      </p>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-      <div>
-        <label style={{ display: 'block', fontSize: 12, color: 'var(--ink-500)', marginBottom: 5 }}>Imię i nazwisko</label>
+    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <div className="pole">
+        <label htmlFor="stopka-imie">Imię i nazwisko</label>
         <input
+          id="stopka-imie"
           type="text"
           required
           placeholder="Jan Kowalski"
           autoComplete="name"
           value={form.imie}
           onChange={e => setForm(prev => ({ ...prev, imie: e.target.value }))}
-          style={inputStyle}
+          className="pole-wejscie"
         />
       </div>
-      <div>
-        <label style={{ display: 'block', fontSize: 12, color: 'var(--ink-500)', marginBottom: 5 }}>E-mail</label>
+      <div className="pole">
+        <label htmlFor="stopka-email">E-mail</label>
         <input
+          id="stopka-email"
           type="email"
           required
           placeholder="jan@firma.pl"
           autoComplete="email"
           value={form.email}
           onChange={e => setForm(prev => ({ ...prev, email: e.target.value }))}
-          style={inputStyle}
+          className="pole-wejscie"
         />
       </div>
-      <div>
-        <label style={{ display: 'block', fontSize: 12, color: 'var(--ink-500)', marginBottom: 5 }}>Wiadomość</label>
+      <div className="pole">
+        <label htmlFor="stopka-wiadomosc">Wiadomość</label>
         <textarea
+          id="stopka-wiadomosc"
           required
           rows={3}
-          placeholder="Opisz krótko czego szukasz..."
+          placeholder="Opisz krótko, czego szukasz..."
           value={form.wiadomosc}
           onChange={e => setForm(prev => ({ ...prev, wiadomosc: e.target.value }))}
-          style={{ ...inputStyle, resize: 'none' }}
+          className="pole-wejscie"
         />
       </div>
       {status === 'error' && (
-        <p style={{ fontSize: 12, color: 'var(--red-400)', margin: 0 }}>{errorMsg}</p>
+        <p role="alert" style={{ fontSize: 14, color: 'var(--rdza)', margin: 0 }}>{errorMsg}</p>
       )}
-      <button
-        type="submit"
-        disabled={status === 'sending'}
-        style={{
-          padding: '9px 18px',
-          background: status === 'sending' ? 'var(--ink-300)' : 'var(--ink-900)',
-          color: 'var(--paper)',
-          fontWeight: 600,
-          fontSize: 13,
-          borderRadius: 2,
-          border: 'none',
-          cursor: status === 'sending' ? 'not-allowed' : 'pointer',
-          alignSelf: 'flex-start',
-        }}
-      >
-        {status === 'sending' ? 'Wysyłanie...' : 'Wyślij'}
-      </button>
+      <div>
+        <button type="submit" disabled={status === 'sending'} className="btn btn-primary">
+          {status === 'sending' ? 'Wysyłanie...' : 'Wyślij'}
+        </button>
+      </div>
     </form>
   );
 }

@@ -76,8 +76,8 @@ export default function DotacjePage() {
     <main className="prosta">
       <StronaJsonLd sciezka="/dotacje" />
 
-      <section className="prosta-blok" style={{ padding: 0 }}>
-        <p className="mono mala" style={{ margin: '0 0 8px' }}>Dla firm i JDG</p>
+      <section className="prosta-blok">
+        <p className="etykieta">Dla firm i JDG</p>
         <h1>Dotacje dla Twojej firmy</h1>
         <p className="pod">Agent AI śledzi KFS, PUP, PFRON, KPO i programy samorządowe. Daje znać, gdy otworzy się nabór dla Twojej firmy.</p>
         <div className="przyciski">
@@ -86,7 +86,7 @@ export default function DotacjePage() {
         </div>
       </section>
 
-      <section id="jak-dziala" className="prosta-blok" style={{ padding: '32px 0 0', scrollMarginTop: 80 }}>
+      <section id="jak-dziala" className="prosta-blok" style={{ scrollMarginTop: 80 }}>
         <h2>Jak to działa</h2>
         <ol style={{ margin: '16px 0 0', padding: 0, listStyle: 'none' }}>
           {STEPS.map((step) => (
@@ -100,7 +100,7 @@ export default function DotacjePage() {
         </ol>
       </section>
 
-      <section id="programy" className="prosta-blok" style={{ padding: '32px 0 0' }}>
+      <section id="programy" className="prosta-blok">
         <h2>Co monitoruje agent</h2>
         <ul style={{ margin: '16px 0 0', padding: 0, listStyle: 'none' }}>
           {PROGRAMS.map((prog) => (
@@ -113,13 +113,13 @@ export default function DotacjePage() {
         </ul>
       </section>
 
-      <section className="prosta-blok" style={{ padding: '32px 0 0' }}>
+      <section className="prosta-blok">
         <h2>Skąd agent bierze informacje</h2>
         <p className="pod">Śledzi RSS instytucji i przygotowuje wstępne wnioski do Twojej weryfikacji. Nic nie jest składane bez Twojej zgody.</p>
         <p className="mono mala" style={{ marginTop: 8 }}>ZUS · PFRON · GUS · Sejm · ARiMR · MF · MRiT · MRPiPS · CEIDG</p>
       </section>
 
-      <section id="kontakt" className="prosta-blok" style={{ padding: '32px 0 0', scrollMarginTop: 80 }}>
+      <section id="kontakt" className="prosta-blok" style={{ scrollMarginTop: 80 }}>
         <h2>Chcesz korzystać?</h2>
         <p className="pod">Dostęp jest bezpłatny, z limitami uczciwego użycia. Napisz o swojej firmie, dobierzemy monitoring.</p>
         <div style={{ marginTop: 20, padding: 20, background: 'var(--surface)', border: '2px solid var(--tusz)' }}>

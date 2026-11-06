@@ -53,57 +53,35 @@ export default function Rejestracja() {
     <main>
       <section style={{ padding: '80px 0', minHeight: 'calc(100vh - 200px)', display: 'flex', alignItems: 'center' }}>
         <div style={{ maxWidth: 440, margin: '0 auto', padding: '0 24px', width: '100%' }}>
-          <div className="card card-glass" style={{ padding: '40px 36px' }}>
-            <div className="eyebrow green" style={{ marginBottom: 16 }}>Rejestracja</div>
-            <h3 style={{ fontSize: 'clamp(22px, 3vw, 28px)', marginBottom: 8 }}>
+          <div style={{ padding: '24px 20px', border: '2px solid var(--tusz)', background: 'var(--surface)' }}>
+            <p className="etykieta">Rejestracja</p>
+            <h1 style={{ fontSize: 'clamp(24px, 4vw, 30px)', marginBottom: 8 }}>
               Załóż darmowe konto
-            </h3>
+            </h1>
             <p style={{ fontSize: 14, color: 'var(--ink-500)', marginBottom: 28 }}>
               Świadczenia, dotacje, wnioski, aktualności i asystent AI w jednym miejscu
             </p>
 
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
               <div>
-                <label style={{
-                  display: 'block', fontFamily: 'var(--f-mono)', fontSize: 11,
-                  color: 'var(--ink-500)', letterSpacing: '0.06em',
-                  textTransform: 'uppercase', marginBottom: 6,
-                }}>E-mail</label>
+                <label className="pole-etykieta" style={{ display: 'block', marginBottom: 6 }}>E-mail</label>
                 <input
                   type="email"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   required
                   placeholder="jan@kowalski.pl"
-                  style={{
-                    width: '100%', boxSizing: 'border-box',
-                    padding: '12px 14px', fontSize: 15,
-                    background: 'var(--white)',
-                    border: '1px solid var(--line-strong)',
-                    borderRadius: 'var(--r-sm)',
-                    color: 'var(--ink-900)',
-                  }}
+                  className="pole-wejscie"
                 />
               </div>
               <div>
-                <label style={{
-                  display: 'block', fontFamily: 'var(--f-mono)', fontSize: 11,
-                  color: 'var(--ink-500)', letterSpacing: '0.06em',
-                  textTransform: 'uppercase', marginBottom: 6,
-                }}>Hasło (min. 8 znaków)</label>
+                <label className="pole-etykieta" style={{ display: 'block', marginBottom: 6 }}>Hasło (min. 8 znaków)</label>
                 <input
                   type="password"
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   required
-                  style={{
-                    width: '100%', boxSizing: 'border-box',
-                    padding: '12px 14px', fontSize: 15,
-                    background: 'var(--white)',
-                    border: '1px solid var(--line-strong)',
-                    borderRadius: 'var(--r-sm)',
-                    color: 'var(--ink-900)',
-                  }}
+                  className="pole-wejscie"
                 />
               </div>
 
@@ -143,7 +121,7 @@ export default function Rejestracja() {
               <button
                 type="submit"
                 disabled={loading}
-                className="btn btn-green"
+                className="btn btn-primary"
                 style={{
                   width: '100%', justifyContent: 'center',
                   marginTop: 4,
@@ -174,12 +152,9 @@ export default function Rejestracja() {
                   'Aktualności prawne i RSS',
                   'Dzienny digest e-mail',
                 ].map(item => (
-                  <div key={item} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                      <circle cx="8" cy="8" r="8" fill="var(--green-100)" />
-                      <path d="M5 8l2 2 4-4" stroke="var(--green-700)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                    <span style={{ fontSize: 13, color: 'var(--ink-700)' }}>{item}</span>
+                  <div key={item} style={{ display: 'flex', alignItems: 'baseline', gap: 10 }}>
+                    <span aria-hidden="true" style={{ fontFamily: 'var(--f-mono)', fontWeight: 700, color: 'var(--zielen)' }}>+</span>
+                    <span style={{ fontSize: 15, color: 'var(--ink-700)' }}>{item}</span>
                   </div>
                 ))}
               </div>

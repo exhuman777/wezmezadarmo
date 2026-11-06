@@ -2,20 +2,6 @@
 
 import { useState } from 'react';
 
-const inputStyle: React.CSSProperties = {
-  width: '100%',
-  boxSizing: 'border-box',
-  padding: '12px 16px',
-  fontSize: 14,
-  background: 'var(--color-surface)',
-  border: '1px solid var(--color-border)',
-  borderRadius: 2,
-  color: 'var(--color-text-1)',
-  outline: 'none',
-  fontFamily: 'var(--font-sans)',
-  transition: 'border-color 200ms',
-};
-
 export function DotacjeContactForm() {
   const [form, setForm] = useState({ imie: '', email: '', wiadomosc: '' });
   const [status, setStatus] = useState<'idle' | 'sending' | 'ok' | 'error'>('idle');
@@ -46,90 +32,63 @@ export function DotacjeContactForm() {
 
   if (status === 'ok') {
     return (
-      <div style={{
-        padding: '24px',
-        background: 'var(--color-green-bg)',
-        border: '1px solid var(--color-green-border)',
-        borderRadius: 2,
-        display: 'flex', alignItems: 'center', gap: 12,
-      }}>
-        <span style={{ width: 32, height: 32, borderRadius: '50%', background: 'var(--color-green)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, flexShrink: 0 }}>✓</span>
-        <div>
-          <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 2 }}>Wiadomość wysłana</div>
-          <div style={{ fontSize: 13, color: 'var(--color-text-3)' }}>Odpiszemy w ciągu 1-2 dni roboczych.</div>
-        </div>
+      <div role="status">
+        <h3 style={{ fontSize: 20, margin: '0 0 8px', color: 'var(--zielen)' }}>Wiadomość wysłana</h3>
+        <p style={{ margin: 0 }}>Odpiszemy w ciągu 1-2 dni roboczych.</p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
-        <div>
-          <label style={{ display: 'block', fontSize: 12, fontWeight: 500, color: 'var(--color-text-2)', marginBottom: 6 }}>Imię i nazwisko</label>
+    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div className="pola-2">
+        <div className="pole">
+          <label htmlFor="dotacje-imie">Imię i nazwisko</label>
           <input
+            id="dotacje-imie"
             type="text"
             required
             placeholder="Jan Kowalski"
             autoComplete="name"
             value={form.imie}
             onChange={e => setForm(prev => ({ ...prev, imie: e.target.value }))}
-            style={inputStyle}
-            onFocus={e => e.currentTarget.style.borderColor = 'var(--color-accent)'}
-            onBlur={e => e.currentTarget.style.borderColor = 'var(--color-border)'}
+            className="pole-wejscie"
           />
         </div>
-        <div>
-          <label style={{ display: 'block', fontSize: 12, fontWeight: 500, color: 'var(--color-text-2)', marginBottom: 6 }}>E-mail firmowy</label>
+        <div className="pole">
+          <label htmlFor="dotacje-email">E-mail firmowy</label>
           <input
+            id="dotacje-email"
             type="email"
             required
             placeholder="jan@firma.pl"
             autoComplete="email"
             value={form.email}
             onChange={e => setForm(prev => ({ ...prev, email: e.target.value }))}
-            style={inputStyle}
-            onFocus={e => e.currentTarget.style.borderColor = 'var(--color-accent)'}
-            onBlur={e => e.currentTarget.style.borderColor = 'var(--color-border)'}
+            className="pole-wejscie"
           />
         </div>
       </div>
-      <div>
-        <label style={{ display: 'block', fontSize: 12, fontWeight: 500, color: 'var(--color-text-2)', marginBottom: 6 }}>Opisz czego szukasz</label>
+      <div className="pole">
+        <label htmlFor="dotacje-wiadomosc">Opisz, czego szukasz</label>
         <textarea
+          id="dotacje-wiadomosc"
           required
           rows={4}
           placeholder="Branża firmy, liczba pracowników, co chcesz zautomatyzować..."
           value={form.wiadomosc}
           onChange={e => setForm(prev => ({ ...prev, wiadomosc: e.target.value }))}
-          style={{ ...inputStyle, resize: 'none', lineHeight: 1.6 }}
-          onFocus={e => e.currentTarget.style.borderColor = 'var(--color-accent)'}
-          onBlur={e => e.currentTarget.style.borderColor = 'var(--color-border)'}
+          className="pole-wejscie"
         />
       </div>
       {status === 'error' && (
-        <p style={{ fontSize: 13, color: 'var(--color-red, #e06c75)', margin: 0 }}>{errorMsg}</p>
+        <p role="alert" style={{ fontSize: 15, color: 'var(--rdza)', margin: 0 }}>{errorMsg}</p>
       )}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-        <button
-          type="submit"
-          disabled={status === 'sending'}
-          style={{
-            padding: '12px 28px',
-            background: status === 'sending' ? 'var(--color-surface-2)' : 'var(--color-text-1)',
-            color: status === 'sending' ? 'var(--color-text-3)' : 'var(--color-bg-0)',
-            fontWeight: 500,
-            fontSize: 14,
-            borderRadius: 2,
-            border: 'none',
-            cursor: status === 'sending' ? 'not-allowed' : 'pointer',
-            transition: 'all 200ms',
-            letterSpacing: '-0.01em',
-          }}
-        >
+      <div>
+        <button type="submit" disabled={status === 'sending'} className="btn btn-rdza btn-lg">
           {status === 'sending' ? 'Wysyłanie...' : 'Wyślij zapytanie'}
         </button>
-        <span style={{ fontSize: 12, color: 'var(--color-text-3)' }}>Bezpłatnie - odpowiemy po poznaniu potrzeb</span>
+        <p className="mala" style={{ marginTop: 10 }}>Bezpłatnie. Odpowiemy po poznaniu potrzeb.</p>
       </div>
     </form>
   );
