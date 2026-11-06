@@ -18,8 +18,8 @@ export default function BlogIndex() {
         <p className="pod">Co Ci się należy, jak złożyć wniosek i ile to warte. Prostym językiem.</p>
       </section>
 
-      <section className="prosta-blok">
-        <ul className="lista">
+      <section aria-label="Wpisy">
+        <ul className="lista" style={{ marginTop: 0 }}>
           {sorted.map(post => (
             <li key={post.slug}>
               <p className="mala" style={{ margin: '0 0 4px' }}>

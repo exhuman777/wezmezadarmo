@@ -5,16 +5,17 @@ import { NARZEDZIA } from '@/lib/narzedzia/lista';
 
 /* ── Terminal code window ── */
 function TerminalWindow() {
+  // Kolory składni z palety strony (jasne odcienie na tle tuszu, kontrast powyżej 4,5:1)
   const C = {
-    cmd:    '#e06c75',
-    flag:   '#56b6c2',
-    method: '#e5c07b',
-    url:    '#61afef',
-    str:    '#98c379',
-    key:    '#e06c75',
-    num:    '#d19a66',
-    dim:    '#6b7280',
-    base:   '#abb2bf',
+    cmd:    '#e3978d',
+    flag:   '#97c4ad',
+    method: '#e8722c',
+    url:    '#f6f0e4',
+    str:    '#97c4ad',
+    key:    '#e3978d',
+    num:    '#e8722c',
+    dim:    '#b5a993',
+    base:   '#f6f0e4',
   };
   return (
     <div style={{ margin: '16px 0 0', border: '2px solid var(--tusz)' }}>
@@ -145,7 +146,7 @@ export default function DlaFirmPage() {
       </section>
 
       <section className="prosta-blok" style={{ padding: '32px 0 0' }}>
-        <p className="mono mala" style={{ margin: '0 0 8px' }}>Otwarte API dla firm, NGO i instytucji</p>
+        <p className="etykieta">Otwarte API dla firm, NGO i instytucji</p>
         <h2>Jedno API do świadczeń, które należą się ludziom</h2>
         <p className="pod">Bezpłatna baza zweryfikowanych świadczeń jako REST API. Nie przechowujemy danych osób.</p>
         <div className="przyciski">

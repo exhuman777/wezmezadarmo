@@ -1,25 +1,16 @@
+// Ekran ładowania: sam napis, bez kręcącego się kółka (strona nie używa animacji).
 export default function Loading() {
   return (
-    <div style={{
+    <div role="status" aria-live="polite" style={{
       minHeight: '60vh',
       display: 'flex',
-      flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: '40px 20px',
-      gap: 16,
+      padding: '40px 16px',
     }}>
-      <div style={{
-        width: 32, height: 32,
-        border: '3px solid var(--color-border)',
-        borderTopColor: 'var(--color-accent)',
-        borderRadius: '50%',
-        animation: 'spin 0.8s linear infinite',
-      }} />
-      <div style={{ fontSize: 13, fontFamily: 'var(--font-mono)', color: 'var(--color-text-3)', letterSpacing: '0.08em' }}>
+      <p style={{ margin: 0, fontSize: 14, fontFamily: 'var(--f-mono)', color: 'var(--szary)', letterSpacing: '0.08em' }}>
         ŁADOWANIE...
-      </div>
-      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+      </p>
     </div>
   );
 }

@@ -171,7 +171,6 @@ export default function RssSubscriptionForm() {
                 width: '100%', padding: '10px 14px',
                 background: 'var(--color-bg-0)', border: '1px solid var(--color-border)',
                 borderRadius: 2, fontSize: 13, color: 'var(--color-text-1)',
-                outline: 'none',
               }}
             />
             <p style={{ fontSize: 11, color: 'var(--color-text-3)', marginTop: 6 }}>

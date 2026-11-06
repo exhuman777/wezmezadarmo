@@ -408,7 +408,7 @@ function StepChory({ data, update, onBack, onNext }: { data: Z15bData; update: (
           <DateInput className={IC} value={data.dataUrodzChory} onChange={v => update('dataUrodzChory', v)} placeholder="15.03.1950" />
         </Field>
         <div style={{ padding: '12px 16px', background: 'var(--color-bg-1)', border: '1px solid var(--color-border)', borderRadius: 2, fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.6 }}>
-          Czlonkami rodziny objety wnioskiem Z-15b sa: małżonek, rodzice, rodzic dziecka, ojczym, macocha, rodzice adopcyjni, teściowie, dziadkowie, wnuki, rodzeństwo. Muszą prowadzic z Toba wspólne gospodarstwo domowe w okresie sprawowania opieki.
+          Członkami rodziny objętymi wnioskiem Z-15b są: małżonek, rodzice, rodzic dziecka, ojczym, macocha, rodzice adopcyjni, teściowie, dziadkowie, wnuki, rodzeństwo. Muszą prowadzić z Tobą wspólne gospodarstwo domowe w okresie sprawowania opieki.
         </div>
       </div>
       <NavButtons onBack={onBack} onNext={onNext} nextDisabled={!valid} />
@@ -773,8 +773,8 @@ function Field({ label, hint, children }: { label: string; hint?: string; childr
 }
 
 const IC = [
-  'w-full bg-bg-1 border border-border rounded-[8px] px-3 py-2.5',
-  'text-[13px] text-text-1 placeholder:text-text-3',
-  'focus:outline-none focus:border-accent/60 transition-colors',
+  'w-full bg-bg-1 border-2 border-text-1 rounded-none px-3 py-2.5',
+  'text-[16px] text-text-1 placeholder:text-text-3',
+  'focus:border-text-1',
 ].join(' ');
 

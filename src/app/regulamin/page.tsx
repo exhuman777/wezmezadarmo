@@ -23,7 +23,7 @@ export default function RegulaminPage() {
           Ostatnia aktualizacja: 23 maja 2026 r.
         </p>
 
-        <div className="mb-8 p-4 border border-accent/30 bg-accent/5 rounded-[8px] text-[13px] text-text-2">
+        <div className="mb-8 p-4 border border-border rounded-none text-[13px] text-text-2">
           Regulamin obejmuje wszystkie usługi Serwisu, w tym: kalkulator świadczeń (/), kreator wniosków ZUS (/wnioski), agregator aktualności (/aktualnosci), wyszukiwarkę NFZ (/nfz), Centrum Obywatela (/centrum-obywatela), panel agenta AI (/agent/panel), panel monitoringu dotacji B2B (/dotacje/panel) oraz katalog automatyzacji (/dla-firm, /automatyzacje).
         </div>
 

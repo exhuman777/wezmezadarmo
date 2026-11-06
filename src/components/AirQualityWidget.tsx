@@ -10,13 +10,14 @@ interface AirQuality {
   measuredAt: string;
 }
 
+// Kolory z palety strony; każdy ma kontrast co najmniej 4,5:1 na papierze (WCAG AA).
 const LEVEL_COLOR: Record<string, string> = {
-  'Bardzo dobry': '#2b7353',
-  'Dobry': '#4DB97A',
-  'Umiarkowany': '#FFB020',
-  'Dostateczny': '#FF8A1F',
-  'Zły': '#E0432B',
-  'Bardzo zły': '#992018',
+  'Bardzo dobry': 'var(--zielen)',
+  'Dobry': 'var(--zielen)',
+  'Umiarkowany': 'var(--color-warn)',
+  'Dostateczny': 'var(--color-warn)',
+  'Zły': 'var(--rdza)',
+  'Bardzo zły': 'var(--rdza)',
 };
 
 const CITIES: { name: string; lat: number; lon: number }[] = [
@@ -41,8 +42,8 @@ const CITIES: { name: string; lat: number; lon: number }[] = [
 ];
 
 function colorFor(level: string | null): string {
-  if (!level) return 'var(--color-muted-2)';
-  return LEVEL_COLOR[level] ?? 'var(--color-muted-2)';
+  if (!level) return 'var(--szary)';
+  return LEVEL_COLOR[level] ?? 'var(--szary)';
 }
 
 const STORAGE_KEY = 'wzd_air_city';
@@ -92,29 +93,11 @@ export function AirQualityWidget() {
   const mainColor = colorFor(main);
 
   return (
-    <div style={{
-      padding: 16,
-      background: 'var(--color-surface)',
-      border: '1px solid var(--color-border)',
-      borderRadius: 2,
-      display: 'flex', flexDirection: 'column', gap: 12,
-    }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, flexWrap: 'wrap' }}>
-        <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--color-text-3)', letterSpacing: '0.08em' }}>
-          JAKOŚĆ POWIETRZA · GIOŚ
-        </span>
-        <select
-          value={city}
-          onChange={(e) => handleCity(e.target.value)}
-          style={{
-            fontSize: 12, fontFamily: 'var(--font-mono)',
-            padding: '4px 8px', borderRadius: 2,
-            border: '1px solid var(--color-border)',
-            background: 'var(--color-bg-2)',
-            color: 'var(--color-text-1)',
-            cursor: 'pointer',
-          }}
-        >
+    <section className="wid" aria-label="Jakość powietrza GIOŚ">
+      <div className="wid-glowa">
+        <span>Jakość powietrza · GIOŚ</span>
+        <label className="sr-only" htmlFor="wid-miasto">Miasto</label>
+        <select id="wid-miasto" className="pole-wejscie wid-wybor" value={city} onChange={(e) => handleCity(e.target.value)}>
           {CITIES.map(c => (
             <option key={c.name} value={c.name}>{c.name}</option>
           ))}
@@ -122,56 +105,32 @@ export function AirQualityWidget() {
       </div>
 
       {loading ? (
-        <div style={{ fontSize: 12, color: 'var(--color-text-3)', padding: '8px 0' }}>
-          Ładowanie...
-        </div>
+        <p className="wid-mala">Ładowanie...</p>
       ) : error ? (
-        <div style={{ fontSize: 12, color: 'var(--color-text-3)', padding: '8px 0' }}>
-          {error}
-        </div>
+        <p className="wid-mala">{error}</p>
       ) : (
         <>
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: 10 }}>
-            <span style={{ width: 10, height: 10, borderRadius: '50%', background: mainColor, boxShadow: `0 0 10px ${mainColor}` }} />
-            <span style={{ fontSize: 20, fontWeight: 600, color: 'var(--color-text-1)', letterSpacing: '-0.02em' }}>
-              {main ?? 'brak danych'}
-            </span>
-            {data?.distanceKm != null && (
-              <span style={{ fontSize: 10, color: 'var(--color-muted-2)', marginLeft: 'auto' }}>
-                {data.stationName} · {data.distanceKm} km
-              </span>
-            )}
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(80px, 1fr))', gap: 8 }}>
+          <p className="wid-wynik">
+            <span style={{ color: mainColor }}>{main ?? 'brak danych'}</span>
+            {data?.distanceKm != null && <small>{data.stationName} · {data.distanceKm} km</small>}
+          </p>
+          <ul className="wid-lista">
             {data && (['pm10', 'pm25', 'no2', 'o3', 'so2'] as const).map((key) => {
               const level = data.pollutants[key];
               if (!level) return null;
               const labels: Record<typeof key, string> = { pm10: 'PM10', pm25: 'PM2.5', no2: 'NO₂', o3: 'O₃', so2: 'SO₂' };
               return (
-                <div key={key} style={{
-                  padding: '6px 10px',
-                  borderRadius: 2,
-                  background: 'var(--color-bg-2)',
-                  border: '1px solid var(--color-border)',
-                }}>
-                  <div style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: 'var(--color-text-3)', letterSpacing: '0.06em' }}>{labels[key]}</div>
-                  <div style={{ fontSize: 12, color: colorFor(level), fontWeight: 500, marginTop: 2 }}>{level}</div>
-                </div>
+                <li key={key}>
+                  <span className="wid-nazwa">{labels[key]}</span>
+                  <span style={{ color: colorFor(level), fontWeight: 600 }}>{level}</span>
+                </li>
               );
             })}
-          </div>
+          </ul>
         </>
       )}
 
-      <a
-        href="https://powietrze.gios.gov.pl"
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{ fontSize: 10, color: 'var(--color-muted-2)', textDecoration: 'none' }}
-      >
-        Dane: powietrze.gios.gov.pl
-      </a>
-    </div>
+      <a className="wid-zrodlo" href="https://powietrze.gios.gov.pl" target="_blank" rel="noopener noreferrer">Dane: powietrze.gios.gov.pl</a>
+    </section>
   );
 }

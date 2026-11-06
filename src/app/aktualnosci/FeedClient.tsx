@@ -18,17 +18,6 @@ const AUDIENCE_LABELS: Record<Audience | 'all', string> = {
   firmy: 'Firmy',
 };
 
-const SOURCE_COLORS: Record<string, { bg: string; text: string }> = {
-  zus:      { bg: '#003874', text: '#fff' },
-  gus:      { bg: '#004B8D', text: '#fff' },
-  nbp:      { bg: '#CC0000', text: '#fff' },
-  uokik:    { bg: '#1B5E20', text: '#fff' },
-  fundusze: { bg: '#6A0DAD', text: '#fff' },
-  ezdrowie: { bg: '#00695C', text: '#fff' },
-  sejm:     { bg: '#8B0000', text: '#fff' },
-  arimr:    { bg: '#4E342E', text: '#fff' },
-};
-
 function relativeTime(isoStr: string | null, now: Date): string {
   if (!isoStr) return '';
   const date = new Date(isoStr);
@@ -73,106 +62,54 @@ export default function FeedClient({ items, active, failed, fetchedAt }: Props) 
 
   return (
     <div>
-      <style>{`
-        .feed-item { background: var(--color-bg-1); }
-        .feed-item:hover { border-color: var(--tusz) !important; }
-        .filter-pill, .source-toggle { font-family: var(--font-mono); min-height: 36px; }
-        .filter-pill:hover, .source-toggle:not(:disabled):hover { border-color: var(--tusz) !important; }
-        .filter-pill-active { background: var(--tusz) !important; color: var(--papier) !important; border-color: var(--tusz) !important; }
-      `}</style>
-
-      {/* Status + controls row */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8, marginBottom: 16 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-          <span style={{
-            width: 6, height: 6, borderRadius: '50%', flexShrink: 0,
-            background: active.length > 0 ? '#2b7353' : '#e06c75',
-          }} />
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.06em', color: 'var(--color-text-3)' }}>
-            {active.length} z {FEEDS.length} źródeł aktywnych
-          </span>
-        </div>
-        {failed.length > 0 && (
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--color-text-3)', opacity: 0.7 }}>
-            niedostępne: {failed.map(id => feedMap[id]?.name ?? id).join(', ')}
-          </span>
-        )}
+      {/* Stan źródeł i przełącznik filtra źródeł */}
+      <div className="ak-stan">
+        <p className="mala" style={{ margin: 0 }}>
+          {active.length} z {FEEDS.length} źródeł aktywnych
+          {failed.length > 0 && <>, niedostępne: {failed.map(id => feedMap[id]?.name ?? id).join(', ')}</>}
+        </p>
         <button
+          type="button"
           onClick={() => setShowSourceFilter(s => !s)}
-          className="filter-pill"
-          style={{
-            marginLeft: 'auto', fontSize: 11, letterSpacing: '0.06em',
-            padding: '5px 12px', borderRadius: 2,
-            border: '1px solid var(--color-border)',
-            background: showSourceFilter ? 'rgba(47,125,90,0.08)' : 'var(--color-bg-2)',
-            color: showSourceFilter ? '#2b7353' : 'var(--color-text-3)',
-            cursor: 'pointer',
-          }}
+          className="filtr"
+          aria-expanded={showSourceFilter}
         >
-          {showSourceFilter ? 'ukryj źródła' : 'filtruj źródła'}
+          {showSourceFilter ? 'Ukryj źródła' : 'Filtruj źródła'}
         </button>
       </div>
 
-      {/* Audience filter pills */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 12 }}>
+      {/* Dla kogo */}
+      <div className="filtry" role="group" aria-label="Dla kogo">
         {(['all', 'wszyscy', 'jdg', 'firmy'] as const).map(a => (
           <button
+            type="button"
             key={a}
             onClick={() => setAudience(a)}
-            className={`filter-pill${audience === a ? ' filter-pill-active' : ''}`}
-            style={{
-              fontSize: 12, letterSpacing: '0.04em',
-              padding: '6px 14px', borderRadius: 2,
-              border: audience === a ? '1px solid rgba(47,125,90,0.35)' : '1px solid var(--color-border)',
-              background: audience === a ? undefined : 'var(--color-bg-2)',
-              color: audience === a ? '#2b7353' : 'var(--color-text-3)',
-              cursor: 'pointer',
-            }}
+            className="filtr"
+            aria-pressed={audience === a}
           >
             {AUDIENCE_LABELS[a]}
           </button>
         ))}
       </div>
 
-      {/* Source filter panel */}
+      {/* Źródła */}
       {showSourceFilter && (
-        <div style={{
-          padding: '14px 16px', marginBottom: 12,
-          background: 'rgba(47,125,90,0.04)',
-          border: '1px solid rgba(47,125,90,0.12)',
-          borderRadius: 2,
-        }}>
-          <div style={{
-            fontFamily: 'var(--font-mono)', fontSize: 10,
-            letterSpacing: '0.1em', textTransform: 'uppercase' as const,
-            color: 'var(--color-text-3)', marginBottom: 10,
-            display: 'flex', alignItems: 'center', gap: 6,
-          }}>
-            <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#2b7353', opacity: 0.6 }} />
-            Aktywne źródła
-          </div>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+        <div style={{ marginTop: 16 }}>
+          <p className="etykieta">Aktywne źródła</p>
+          <div className="filtry" role="group" aria-label="Źródła" style={{ marginTop: 0 }}>
             {FEEDS.map(f => {
               const isOn = activeSources.has(f.id);
               const isFailed = failed.includes(f.id);
-              const col = SOURCE_COLORS[f.id] ?? { bg: '#444', text: '#fff' };
               return (
                 <button
+                  type="button"
                   key={f.id}
                   onClick={() => !isFailed && toggleSource(f.id)}
                   disabled={isFailed}
                   title={isFailed ? `${f.fullName} - niedostępne` : f.fullName}
-                  className="source-toggle"
-                  style={{
-                    fontSize: 11, fontFamily: 'var(--font-mono)',
-                    padding: '4px 10px', borderRadius: 2,
-                    border: `1px solid ${isOn && !isFailed ? col.bg + '80' : 'var(--color-border)'}`,
-                    background: isOn && !isFailed ? col.bg + '18' : 'var(--color-bg-2)',
-                    color: isOn && !isFailed ? col.bg : 'var(--color-text-3)',
-                    opacity: isFailed ? 0.3 : 1,
-                    cursor: isFailed ? 'not-allowed' : 'pointer',
-                    letterSpacing: '0.04em',
-                  }}
+                  className="filtr"
+                  aria-pressed={isOn && !isFailed}
                 >
                   {f.name}
                 </button>
@@ -182,41 +119,26 @@ export default function FeedClient({ items, active, failed, fetchedAt }: Props) 
         </div>
       )}
 
-      {/* Count */}
-      <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--color-text-3)', marginBottom: 12 }}>
+      <p className="mala" style={{ margin: '16px 0 0' }}>
         {filtered.length} {filtered.length === 1 ? 'wynik' : 'wyników'}
         {audience !== 'all' && ` · ${AUDIENCE_LABELS[audience]}`}
-      </div>
+      </p>
 
-      {/* Feed items */}
+      {/* Lista komunikatów */}
       {filtered.length === 0 ? (
-        <div style={{
-          border: '1px solid var(--color-border)', borderRadius: 2,
-          padding: '32px 20px', textAlign: 'center',
-        }}>
+        <div style={{ borderTop: '1px solid var(--linia)', borderBottom: '1px solid var(--linia)', padding: '24px 0', marginTop: 12 }}>
           {items.length === 0 ? (
             <>
-              <p style={{ fontSize: 14, color: 'var(--color-text-2)', fontWeight: 500, marginBottom: 8 }}>
-                Nie udało się pobrać aktualności.
-              </p>
-              <p style={{ fontSize: 12, color: 'var(--color-text-3)', marginBottom: 14 }}>
-                Źródła RSS mogą być chwilowo niedostępne.
-              </p>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, justifyContent: 'center' }}>
+              <p style={{ margin: '0 0 4px', fontWeight: 600 }}>Nie udało się pobrać aktualności.</p>
+              <p className="mala" style={{ margin: '0 0 12px' }}>Źródła RSS mogą być chwilowo niedostępne. Zajrzyj prosto na strony instytucji:</p>
+              <div className="filtry" style={{ marginTop: 0 }}>
                 {FEEDS.map(f => (
                   <a
                     key={f.id}
                     href={f.url.split('/rss')[0].split('/kanal-rss')[0]}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="filter-pill"
-                    style={{
-                      fontFamily: 'var(--font-mono)', fontSize: 11,
-                      padding: '4px 10px', borderRadius: 2,
-                      border: '1px solid var(--color-border)',
-                      color: 'var(--color-text-3)',
-                      textDecoration: 'none',
-                    }}
+                    className="filtr"
                   >
                     {f.name}
                   </a>
@@ -224,132 +146,26 @@ export default function FeedClient({ items, active, failed, fetchedAt }: Props) 
               </div>
             </>
           ) : (
-            <p style={{ fontSize: 14, color: 'var(--color-text-3)' }}>Brak wyników dla wybranych filtrów.</p>
+            <p className="mala" style={{ margin: 0 }}>Brak wyników dla wybranych filtrów.</p>
           )}
         </div>
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-          {filtered.map(item => {
-            const col = SOURCE_COLORS[item.sourceId] ?? { bg: '#444', text: '#fff' };
-            return (
-              <article
-                key={item.id}
-                className="feed-item"
-                style={{
-                  borderRadius: 2,
-                  border: '1px solid var(--color-border)',
-                  padding: '14px 16px',
-                  overflow: 'hidden',
-                }}
-              >
-                {/* Source + meta row */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8, flexWrap: 'wrap' }}>
-                  <span style={{
-                    fontFamily: 'var(--font-mono)', fontSize: 10,
-                    padding: '2px 8px', borderRadius: 2,
-                    background: col.bg, color: col.text,
-                    letterSpacing: '0.08em', textTransform: 'uppercase' as const,
-                    flexShrink: 0,
-                  }}>
-                    {item.source}
-                  </span>
-                  {item.pubDate && (
-                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--color-text-3)' }}>
-                      {relativeTime(item.pubDate, now)}
-                    </span>
-                  )}
-                  {item.audiences.includes('jdg') && (
-                    <span style={{
-                      fontFamily: 'var(--font-mono)', fontSize: 10,
-                      padding: '2px 7px', borderRadius: 2,
-                      border: '1px solid rgba(47,125,90,0.2)',
-                      background: 'rgba(47,125,90,0.06)',
-                      color: '#2b7353', letterSpacing: '0.04em',
-                    }}>JDG</span>
-                  )}
-                  {item.audiences.includes('firmy') && !item.audiences.includes('jdg') && (
-                    <span style={{
-                      fontFamily: 'var(--font-mono)', fontSize: 10,
-                      padding: '2px 7px', borderRadius: 2,
-                      border: '1px solid var(--color-border)',
-                      color: 'var(--color-text-3)', letterSpacing: '0.04em',
-                    }}>Firmy</span>
-                  )}
-                </div>
-
-                {/* Title + arrow */}
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <a
-                      href={item.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        fontSize: 14, fontWeight: 500,
-                        color: 'var(--color-text-1)',
-                        textDecoration: 'none',
-                        lineHeight: 1.45,
-                        display: '-webkit-box',
-                        WebkitLineClamp: 2,
-                        WebkitBoxOrient: 'vertical' as const,
-                        overflow: 'hidden',
-                        transition: 'color 0.15s',
-                      }}
-                      onMouseEnter={e => { (e.target as HTMLElement).style.color = '#2b7353'; }}
-                      onMouseLeave={e => { (e.target as HTMLElement).style.color = 'var(--color-text-1)'; }}
-                    >
-                      {item.title}
-                    </a>
-                    {item.description && (
-                      <p style={{
-                        marginTop: 5, fontSize: 12,
-                        color: 'var(--color-text-3)', lineHeight: 1.55,
-                        display: '-webkit-box',
-                        WebkitLineClamp: 2,
-                        WebkitBoxOrient: 'vertical' as const,
-                        overflow: 'hidden',
-                      }}>
-                        {item.description}
-                      </p>
-                    )}
-                  </div>
-                  <a
-                    href={item.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Czytaj"
-                    style={{
-                      flexShrink: 0,
-                      width: 28, height: 28,
-                      borderRadius: '50%',
-                      border: '1px solid var(--color-border)',
-                      background: 'var(--color-bg-2)',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      color: 'var(--color-text-3)',
-                      fontSize: 12, textDecoration: 'none',
-                      transition: 'border-color 0.15s, background 0.15s, color 0.15s',
-                      marginTop: 1,
-                    }}
-                    onMouseEnter={e => {
-                      const el = e.currentTarget;
-                      el.style.borderColor = 'rgba(47,125,90,0.4)';
-                      el.style.background = 'rgba(47,125,90,0.08)';
-                      el.style.color = '#2b7353';
-                    }}
-                    onMouseLeave={e => {
-                      const el = e.currentTarget;
-                      el.style.borderColor = 'var(--color-border)';
-                      el.style.background = 'var(--color-bg-2)';
-                      el.style.color = 'var(--color-text-3)';
-                    }}
-                  >
-                    →
-                  </a>
-                </div>
-              </article>
-            );
-          })}
-        </div>
+        <ul className="ak-lista">
+          {filtered.map(item => (
+            <li key={item.id}>
+              <p className="ak-meta">
+                <span className="znacznik">{item.source}</span>
+                {item.pubDate && <span>{relativeTime(item.pubDate, now)}</span>}
+                {item.audiences.includes('jdg') && <span className="znacznik znacznik-zielony">JDG</span>}
+                {item.audiences.includes('firmy') && !item.audiences.includes('jdg') && <span className="znacznik znacznik-zielony">Firmy</span>}
+              </p>
+              <a href={item.link} target="_blank" rel="noopener noreferrer" className="ak-tytul">
+                {item.title}
+              </a>
+              {item.description && <p className="ak-opis">{item.description}</p>}
+            </li>
+          ))}
+        </ul>
       )}
     </div>
   );

@@ -3,7 +3,8 @@ import { test, expect, type Page } from '@playwright/test';
 // Telefon (emulacja dotyku): publiczne strony i narzędzia dla firm w pionie i w poziomie.
 // Bez poziomego przewijania, przyciski i pola co najmniej 44 px, pola 16 px (iOS nie przybliża ekranu),
 // formularz narzędzi da się wypełnić palcem. Bez wysyłki formularza (nic nie idzie do bazy ani na maila).
-const STRONY = ['/', '/dla-firm', '/dla-firm/narzedzia', '/dla-firm/narzedzia/kpir', '/dla-firm/narzedzia/jpk', '/dla-firm/narzedzia/dofinansowania', '/swiadczenia', '/o-projekcie', '/press', '/polityka-prywatnosci'];
+const STRONY = ['/', '/dla-firm', '/dla-firm/narzedzia', '/dla-firm/narzedzia/kpir', '/dla-firm/narzedzia/jpk', '/dla-firm/narzedzia/dofinansowania', '/swiadczenia', '/o-projekcie', '/press', '/polityka-prywatnosci',
+  '/wnioski', '/dotacje', '/aktualnosci', '/statystyki', '/centrum-obywatela', '/centrum-obywatela/polska-cyfrowa', '/nfz', '/blog', '/logowanie', '/rejestracja'];
 const EKRANY = [
   { nazwa: '375', viewport: { width: 375, height: 667 } },
   { nazwa: '390', viewport: { width: 390, height: 844 } },

@@ -42,107 +42,66 @@ export function NewsletterSignup() {
 
   if (status === 'ok') {
     return (
-      <div style={{
-        padding: '14px 18px',
-        background: 'rgba(47,125,90,0.08)',
-        border: '1px solid rgba(47,125,90,0.3)',
-        borderRadius: 2,
-        fontSize: 13,
-        color: 'var(--color-text-1)',
-      }}>
-        ✓ Dziękujemy! Sprawdź skrzynkę, żeby potwierdzić zapis.
-      </div>
+      <p role="status" style={{ margin: 0, padding: '12px 0', fontSize: 15, color: 'var(--ink-700)' }}>
+        Dziękujemy! Sprawdź skrzynkę, żeby potwierdzić zapis.
+      </p>
     );
   }
 
+  const zablokowany = status === 'sending' || !email || !accepted;
+
   return (
-    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-      <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink-900)', marginBottom: 2 }}>
-        Newsletter wezmezadarmo
-      </div>
-      <p style={{ fontSize: 12, color: 'var(--ink-500)', margin: 0, lineHeight: 1.5 }}>
+    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <p className="pole-etykieta" style={{ margin: 0 }}>Newsletter wezmezadarmo</p>
+      <p style={{ fontSize: 14, color: 'var(--szary)', margin: 0, lineHeight: 1.5 }}>
         Co tydzień: nowe świadczenia, terminy naborów, zmiany w prawie. Bez spamu, wypisanie 1 klik.
       </p>
 
-      <div style={{ display: 'flex', gap: 6 }}>
-        <button
-          type="button"
-          onClick={() => setProfileType('private')}
-          style={{
-            padding: '6px 10px', fontSize: 11,
-            background: profileType === 'private' ? 'var(--ink-900)' : 'transparent',
-            color: profileType === 'private' ? '#fff' : 'var(--ink-700)',
-            border: '1px solid ' + (profileType === 'private' ? 'var(--ink-900)' : 'var(--line)'),
-            borderRadius: 2, cursor: 'pointer',
-          }}
-        >
+      <div className="filtry" role="group" aria-label="Dla kogo" style={{ marginTop: 0 }}>
+        <button type="button" className="filtr" aria-pressed={profileType === 'private'} onClick={() => setProfileType('private')}>
           Osoba prywatna
         </button>
-        <button
-          type="button"
-          onClick={() => setProfileType('jdg')}
-          style={{
-            padding: '6px 10px', fontSize: 11,
-            background: profileType === 'jdg' ? 'var(--ink-900)' : 'transparent',
-            color: profileType === 'jdg' ? '#fff' : 'var(--ink-700)',
-            border: '1px solid ' + (profileType === 'jdg' ? 'var(--ink-900)' : 'var(--line)'),
-            borderRadius: 2, cursor: 'pointer',
-          }}
-        >
+        <button type="button" className="filtr" aria-pressed={profileType === 'jdg'} onClick={() => setProfileType('jdg')}>
           Firma / JDG
         </button>
       </div>
 
+      <label htmlFor="newsletter-email" className="sr-only">Adres e-mail</label>
       <input
+        id="newsletter-email"
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="twoj@email.pl"
         disabled={status === 'sending'}
         required
-        style={{
-          width: '100%', padding: '10px 12px',
-          fontSize: 14,
-          background: 'var(--surface)',
-          border: '1px solid var(--line)',
-          borderRadius: 2,
-          color: 'var(--ink-900)',
-          outline: 'none',
-        }}
+        autoComplete="email"
+        className="pole-wejscie"
       />
 
-      <label style={{ display: 'flex', alignItems: 'flex-start', gap: 8, fontSize: 11, color: 'var(--ink-500)', cursor: 'pointer' }}>
+      <label style={{ display: 'flex', alignItems: 'flex-start', gap: 10, fontSize: 14, lineHeight: 1.5, color: 'var(--ink-700)', cursor: 'pointer' }}>
         <input
           type="checkbox"
           checked={accepted}
           onChange={(e) => setAccepted(e.target.checked)}
-          style={{ marginTop: 2, accentColor: '#2b7353', flexShrink: 0 }}
+          style={{ marginTop: 2, accentColor: 'var(--tusz)', flexShrink: 0, width: 20, height: 20 }}
         />
         <span>
           Zgadzam się na otrzymywanie newslettera. Mogę się wypisać w każdej chwili.{' '}
-          <a href="/polityka-prywatnosci" style={{ color: 'var(--ink-700)', textDecoration: 'underline' }}>Polityka prywatności</a>.
+          <a href="/polityka-prywatnosci" style={{ color: 'var(--tusz)', textDecoration: 'underline' }}>Polityka prywatności</a>.
         </span>
       </label>
 
-      <button
-        type="submit"
-        disabled={status === 'sending' || !email || !accepted}
-        style={{
-          padding: '10px 16px',
-          background: (status === 'sending' || !email || !accepted) ? 'var(--line)' : 'var(--ink-900)',
-          color: '#fff',
-          border: 'none', borderRadius: 2,
-          fontSize: 13, fontWeight: 500,
-          cursor: (status === 'sending' || !email || !accepted) ? 'not-allowed' : 'pointer',
-        }}
-      >
-        {status === 'sending' ? 'Zapisuję...' : 'Zapisz się'}
-      </button>
+      <div>
+        <button type="submit" disabled={zablokowany} className="btn btn-primary">
+          {status === 'sending' ? 'Zapisuję...' : 'Zapisz się'}
+        </button>
+      </div>
 
       {status === 'error' && errorMsg && (
-        <div style={{ fontSize: 11, color: '#b23d30', marginTop: 2 }}>
+        <p role="alert" style={{ fontSize: 14, color: 'var(--rdza)', margin: 0 }}>
           {errorMsg}
-        </div>
+        </p>
       )}
     </form>
   );

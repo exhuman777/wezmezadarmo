@@ -115,7 +115,7 @@ export function OnboardingWizard({ profileType, isPanel = false }: Props) {
       position: 'fixed', inset: 0, zIndex: 100,
       background: 'rgba(8, 17, 13, 0.65)',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
-      padding: 20, animation: 'fadeIn 0.2s ease',
+      padding: 20,
     }}>
       <div style={{
         maxWidth: 540, width: '100%',
@@ -123,7 +123,6 @@ export function OnboardingWizard({ profileType, isPanel = false }: Props) {
         borderRadius: 2,
         boxShadow: 'none',
         overflow: 'hidden',
-        animation: 'slideUp 0.3s ease',
       }}>
         {/* Progress bar */}
         <div style={{ height: 4, background: 'var(--color-bg-2, #efe4cf)' }}>
@@ -245,10 +244,6 @@ export function OnboardingWizard({ profileType, isPanel = false }: Props) {
           </div>
         </div>
 
-        <style>{`
-          @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-          @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        `}</style>
       </div>
     </div>
   );

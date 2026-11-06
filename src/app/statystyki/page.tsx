@@ -65,7 +65,7 @@ export default async function StatystykiPage() {
       <section className="prosta-blok">
         <h2>Cena 1 m² nowego mieszkania</h2>
         <p><b style={{ fontFamily: 'var(--f-mono)', fontSize: 28 }}>{lastM2.toLocaleString('pl')} zł/m²</b> w 1. kwartale 2026, o {zmianaPct}% więcej niż w 1. kwartale 2020.</p>
-        <div style={{ border: '1px solid var(--linia)', padding: '12px 8px 4px', marginTop: 16, background: 'var(--surface)' }}>
+        <div className="pc-wykres">
           <LineChart
             data={CENA_M2.slice().reverse().map(r => ({ x: r.rok, y: r.q1 ?? 0 }))}
             xLabel="Rok"
@@ -73,7 +73,7 @@ export default async function StatystykiPage() {
             color="var(--zielen)"
           />
         </div>
-        <p className="mala">Źródło: stat.gov.pl, budownictwo, dane za 1. kwartał każdego roku.</p>
+        <p className="mala" style={{ marginTop: 8 }}>Źródło: stat.gov.pl, budownictwo, dane za 1. kwartał każdego roku.</p>
       </section>
 
       <section className="prosta-blok">

@@ -7,20 +7,6 @@ interface IntakeFormProps {
   isLoading: boolean;
 }
 
-const fieldStyle: React.CSSProperties = {
-  width: '100%',
-  height: 50,
-  padding: '0 16px',
-  background: 'var(--color-surface)',
-  border: '1px solid var(--color-border)',
-  borderRadius: 2,
-  fontSize: 15,
-  letterSpacing: '0.02em',
-  color: 'var(--color-text-1)',
-  fontFamily: 'var(--font-mono)',
-  transition: 'border-color 200ms, box-shadow 200ms',
-};
-
 export function IntakeForm({ onSubmit, isLoading }: IntakeFormProps) {
   const [age, setAge] = useState('');
   const [plec, setPlec] = useState<'K' | 'M' | ''>('');
@@ -43,54 +29,45 @@ export function IntakeForm({ onSubmit, isLoading }: IntakeFormProps) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Field label="Wiek">
+      <Field label="Wiek" htmlFor="kalk-wiek">
         <input
+          id="kalk-wiek"
           type="text"
           inputMode="numeric"
           value={age}
           onChange={(e) => setAge(e.target.value.replace(/\D/g, '').slice(0, 3))}
           placeholder="np. 34"
-          style={fieldStyle}
+          className="pole-wejscie"
           disabled={isLoading}
-          onFocus={e => e.currentTarget.style.borderColor = 'var(--color-accent)'}
-          onBlur={e => e.currentTarget.style.borderColor = 'var(--color-border)'}
         />
       </Field>
 
       <Field label="Płeć">
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+        <div role="group" aria-label="Płeć" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
           {[
             { id: 'K' as const, label: 'Kobieta' },
             { id: 'M' as const, label: 'Mężczyzna' },
           ].map(({ id, label }) => (
             <button key={id} type="button" onClick={() => setPlec(id)}
               disabled={isLoading}
-              style={{
-                ...fieldStyle,
-                padding: '14px 12px', height: 50,
-                textAlign: 'left' as const,
-                background: plec === id ? 'var(--color-text-1)' : 'var(--color-surface)',
-                color: plec === id ? 'var(--color-bg-0)' : 'var(--color-text-1)',
-                borderColor: plec === id ? 'var(--color-text-1)' : 'var(--color-border)',
-                cursor: 'pointer',
-                display: 'flex', alignItems: 'center',
-                fontFamily: 'var(--font-sans)',
-              }}>{label}</button>
+              aria-pressed={plec === id}
+              className="filtr"
+              style={{ minHeight: 48, justifyContent: 'flex-start', fontFamily: 'var(--f-sans)', fontSize: 16, fontWeight: 500 }}
+            >{label}</button>
           ))}
         </div>
       </Field>
 
-      <Field label="NIP firmy" hint="Opcjonalnie, dla JDG i przedsiębiorców">
+      <Field label="NIP firmy" hint="Opcjonalnie, dla JDG i przedsiębiorców" htmlFor="kalk-nip">
         <input
+          id="kalk-nip"
           type="text"
           inputMode="numeric"
           value={nip}
           onChange={(e) => setNip(e.target.value.replace(/\D/g, '').slice(0, 10))}
           placeholder="NIP (10 cyfr)"
-          style={fieldStyle}
+          className="pole-wejscie"
           disabled={isLoading}
-          onFocus={e => e.currentTarget.style.borderColor = 'var(--color-accent)'}
-          onBlur={e => e.currentTarget.style.borderColor = 'var(--color-border)'}
         />
       </Field>
 
@@ -103,14 +80,14 @@ export function IntakeForm({ onSubmit, isLoading }: IntakeFormProps) {
           checked={accepted}
           onChange={e => setAccepted(e.target.checked)}
           disabled={isLoading}
-          style={{ marginTop: 3, accentColor: 'var(--color-accent)', flexShrink: 0, width: 15, height: 15, cursor: 'pointer' }}
+          style={{ marginTop: 2, accentColor: 'var(--tusz)', flexShrink: 0, width: 20, height: 20, cursor: 'pointer' }}
         />
-        <span style={{ fontSize: 12, color: 'var(--color-text-3)', lineHeight: 1.5 }}>
+        <span style={{ fontSize: 14, color: 'var(--ink-700)', lineHeight: 1.5 }}>
           Korzystając z serwisu akceptuję{' '}
-          <a href="/regulamin" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)', textDecoration: 'underline' }}>
+          <a href="/regulamin" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--tusz)', textDecoration: 'underline' }}>
             regulamin
           </a>{' '}i zapoznałem/am się z{' '}
-          <a href="/polityka-prywatnosci" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)', textDecoration: 'underline' }}>
+          <a href="/polityka-prywatnosci" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--tusz)', textDecoration: 'underline' }}>
             polityką prywatności
           </a>.
         </span>
@@ -119,39 +96,24 @@ export function IntakeForm({ onSubmit, isLoading }: IntakeFormProps) {
       <button
         type="submit"
         disabled={isLoading || !canSubmit}
-        style={{
-          width: '100%',
-          height: 56,
-          marginTop: 8,
-          background: canSubmit ? 'var(--color-text-1)' : 'var(--color-surface-2)',
-          color: canSubmit ? 'var(--color-bg-0)' : 'var(--color-muted-2)',
-          border: 'none',
-          borderRadius: 2,
-          fontSize: 15, fontWeight: 500, letterSpacing: '-0.01em',
-          display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 10,
-          cursor: canSubmit ? 'pointer' : 'not-allowed',
-          transition: 'all 220ms cubic-bezier(.2,.7,.1,1)',
-        }}
-        onMouseEnter={e => canSubmit && (e.currentTarget.style.background = 'var(--color-accent)')}
-        onMouseLeave={e => canSubmit && (e.currentTarget.style.background = 'var(--color-text-1)')}
+        className="btn btn-rdza btn-lg"
+        style={{ width: '100%', minHeight: 56, marginTop: 8 }}
       >
         {isLoading ? 'Sprawdzam...' : 'Sprawdź co Ci się należy'}
-        {!isLoading && (
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M5 12h14M13 6l6 6-6 6"/>
-          </svg>
-        )}
+        {!isLoading && <span aria-hidden="true">→</span>}
       </button>
     </form>
   );
 }
 
-function Field({ label, hint, children }: { label: string; hint?: string; children: React.ReactNode }) {
+function Field({ label, hint, htmlFor, children }: { label: string; hint?: string; htmlFor?: string; children: React.ReactNode }) {
   return (
-    <div style={{ marginBottom: 14 }}>
-      <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 8 }}>
-        <label style={{ fontSize: 12, fontWeight: 500, color: 'var(--color-text-2)', letterSpacing: '-0.005em' }}>{label}</label>
-        {hint && <span style={{ fontSize: 11, color: 'var(--color-text-3)' }}>{hint}</span>}
+    <div style={{ marginBottom: 16 }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline', justifyContent: 'space-between', gap: '2px 12px', marginBottom: 6 }}>
+        {htmlFor
+          ? <label htmlFor={htmlFor} className="pole-etykieta">{label}</label>
+          : <span className="pole-etykieta">{label}</span>}
+        {hint && <span style={{ fontSize: 13, color: 'var(--szary)' }}>{hint}</span>}
       </div>
       {children}
     </div>

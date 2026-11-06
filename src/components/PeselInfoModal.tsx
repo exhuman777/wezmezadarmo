@@ -19,7 +19,7 @@ export function PeselInfoModal({ isOpen, onClose }: PeselInfoModalProps) {
       {/* Modal */}
       <div
         className="relative w-full sm:max-w-lg max-h-[85vh] overflow-y-auto bg-bg-1 border border-border sm:rounded-2xl rounded-t-2xl"
-        style={{ boxShadow: 'none', animation: 'sheetUp 0.3s ease' }}
+        style={{ boxShadow: 'none' }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}

@@ -12,7 +12,6 @@ const inputStyle = {
   border: '1px solid var(--color-border)',
   borderRadius: 'var(--radius-sm)',
   color: 'var(--color-text-1)',
-  outline: 'none',
 };
 
 function LogowanieForm() {

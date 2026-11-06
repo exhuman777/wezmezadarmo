@@ -33,6 +33,7 @@ Przed każdym commitem przejrzyj WSZYSTKIE nowe ciągi tekstowe pod kątem polsk
   - przyciski: kwadratowe, ramka 2 px, min. 44 px wysokości, najechanie = przesunięcie i twardy cień 4 px (bez rozmycia)
   - zakazane: gradienty, glow, rozmycia tła (glassmorphism), paski z lewej, emoji, karty z ikoną i trzema punktami, animacje (poza grą)
   - piksele tylko w grze (`public/gra/`), w znaku marki (pikselowy prezent 16×16: `PixelMark` w `src/components/SiteNav.tsx`, wzór w `src/lib/znak.ts`; z tego wzoru są `src/app/icon.png`, `apple-icon.png`, `favicon.ico`, `public/ikona-512.png` i obraz OG `public/og-2026-11.png`, przy zmianie wyglądu OG nowa nazwa pliku, bo komunikatory trzymają podgląd po adresie) oraz w drobnych ikonach-akcentach 16×16 przy nagłówkach (`PixelIcon` w `src/components/PixelIcon.tsx`, rozmiar 16 albo 32 px; decyzja Kamila z 4.11.2026)
+  - wspólne klasy w `globals.css`: `.prosta`/`.prosta-blok` (kolumna i bloki), `.lista` (lista z linią), `.linki` (przyciski jak w bio), `.btn` (+ `-primary`, `-rdza`, `-ghost`; `-sm` też 44 px), `.filtr` z `aria-pressed` (filtry i przełączniki), `.pole`/`.pole-wejscie` (formularze: ramka 2 px, tekst 16 px), `.etykieta` (nadtytuł), `.znacznik` (źródło w liście), `.przycisk-ikona` (kwadrat 44 px); pilnują tego `e2e/wyglad.spec.ts` (bez animacji, gradientów, rozmyć, zaokrągleń) i `e2e/mobile.spec.ts` (cele dotyku 44 px, bez przewijania w poziomie)
 
 # Protokół zakończenia pracy
 

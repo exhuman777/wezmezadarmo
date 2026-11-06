@@ -210,7 +210,7 @@ export default function NLnetWizardPage() {
         setFields((prev) => ({
           ...prev,
           [fieldKey]: {
-            value: data.result ?? 'Blad generowania: wpisz recznie.',
+            value: data.result ?? 'Błąd generowania: wpisz ręcznie.',
             status: data.result ? 'done' : 'error',
             editing: false,
           },
@@ -367,7 +367,7 @@ function ProfileStep({ profile, amountRequested, updateProfile, setAmount, onNex
             />
           </Field>
 
-          <Field label="Opis projektu w 3-4 zdaniach (po angielsku) *" hint="Co to jest, jak dziala, co robi uzytkownik. AI uzyje tego jako bazy.">
+          <Field label="Opis projektu w 3-4 zdaniach (po angielsku) *" hint="Co to jest, jak działa, co robi użytkownik. AI użyje tego jako bazy.">
             <textarea
               className={TEXTAREA_CLS}
               rows={4}
@@ -377,7 +377,7 @@ function ProfileStep({ profile, amountRequested, updateProfile, setAmount, onNex
             />
           </Field>
 
-          <Field label="Jaki problem rozwiazuje? *" hint="Opisz problem, nie rozwiazanie. Wiecej kontekstu = lepszy wniosek.">
+          <Field label="Jaki problem rozwiązuje? *" hint="Opisz problem, nie rozwiązanie. Więcej kontekstu = lepszy wniosek.">
             <textarea
               className={TEXTAREA_CLS}
               rows={3}
@@ -387,7 +387,7 @@ function ProfileStep({ profile, amountRequested, updateProfile, setAmount, onNex
             />
           </Field>
 
-          <Field label="Kto korzysta z projektu?" hint="Kim sa Twoi uzytkonicy? (obywatele, NGO, firmy, urzednicy...)">
+          <Field label="Kto korzysta z projektu?" hint="Kim są Twoi użytkownicy? (obywatele, NGO, firmy, urzędnicy...)">
             <textarea
               className={TEXTAREA_CLS}
               rows={2}
@@ -407,7 +407,7 @@ function ProfileStep({ profile, amountRequested, updateProfile, setAmount, onNex
             />
           </Field>
 
-          <Field label="Zespol" hint="Solo developer? Dwuosobowy team? Partnerzy? (opcjonalne)">
+          <Field label="Zespół" hint="Solo developer? Dwuosobowy team? Partnerzy? (opcjonalne)">
             <input
               className={INPUT_CLS}
               value={profile.teamDescription}
@@ -416,7 +416,7 @@ function ProfileStep({ profile, amountRequested, updateProfile, setAmount, onNex
             />
           </Field>
 
-          <Field label="Poprzednie finansowanie" hint="VC, granty, wlasne - co bylo wczesniej? Jesli brak, zostaw puste.">
+          <Field label="Poprzednie finansowanie" hint="VC, granty, własne: co było wcześniej? Jeśli brak, zostaw puste.">
             <input
               className={INPUT_CLS}
               value={profile.priorFunding}
@@ -501,7 +501,7 @@ function GeneratingStep({ generatingIdx, total, fields }: {
     <WizardShell step={doneCount} total={total + 3}>
       <div style={{ maxWidth: 680, margin: '0 auto', padding: '48px 24px 80px' }}>
         <span className="label-eyebrow">NLnet NGI Zero Commons Fund</span>
-        <h1 className="display" style={{ fontSize: 'clamp(28px, 4vw, 42px)', margin: '16px 0 32px' }}>Generuje wniosek...</h1>
+        <h1 className="display" style={{ fontSize: 'clamp(28px, 4vw, 42px)', margin: '16px 0 32px' }}>Generuję wniosek...</h1>
 
         {/* Progress bar */}
         <div style={{ height: 4, background: 'var(--color-border)', borderRadius: 2, marginBottom: 32, overflow: 'hidden' }}>
@@ -533,7 +533,7 @@ function GeneratingStep({ generatingIdx, total, fields }: {
         </div>
 
         <p style={{ marginTop: 24, fontSize: 12, color: 'var(--color-text-3)' }}>
-          Generuje pole {generatingIdx + 1} z {total}. Proszę czekać...
+          Generuję pole {generatingIdx + 1} z {total}. Proszę czekać...
         </p>
       </div>
     </WizardShell>
@@ -804,9 +804,9 @@ function DoneStep({ onDownload, onCopyAll, copied, onRestart }: {
 
 const INPUT_CLS = [
   'w-full',
-  'bg-bg-1 border border-border rounded-[8px] px-3 py-2.5',
-  'text-[13px] text-text-1 placeholder:text-text-3',
-  'focus:outline-none focus:border-accent/60 transition-colors',
+  'bg-bg-1 border-2 border-text-1 rounded-none px-3 py-2.5',
+  'text-[16px] text-text-1 placeholder:text-text-3',
+  'focus:border-text-1',
 ].join(' ');
 const TEXTAREA_CLS = `${INPUT_CLS} resize-vertical`;
 

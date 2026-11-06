@@ -104,7 +104,6 @@ function inputStyle(hasError = false): React.CSSProperties {
     fontFamily: 'var(--font-mono)',
     fontSize: '13px',
     color: 'var(--color-text-1)',
-    outline: 'none',
   };
 }
 

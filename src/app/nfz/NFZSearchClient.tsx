@@ -204,10 +204,10 @@ export default function NFZSearchClient() {
   }, [queueResults, sortMode]);
 
   return (
-    <main style={{ minHeight: '100vh' }}>
+    <main className="nfz-strona" style={{ minHeight: '100vh' }}>
       <Hero />
 
-      <section style={{ padding: 'clamp(24px, 4vw, 40px) 20px', maxWidth: 1080, margin: '0 auto' }}>
+      <section style={{ padding: '8px 16px 72px', maxWidth: 680, margin: '0 auto' }}>
         {/* Mode tabs */}
         <div style={{ display: 'flex', gap: 8, marginBottom: 24, flexWrap: 'wrap' }}>
           {([
@@ -217,20 +217,20 @@ export default function NFZSearchClient() {
             <button
               key={t.id}
               onClick={() => { setMode(t.id); setError(null); }}
+              aria-pressed={mode === t.id}
               style={{
-                padding: '18px 26px',
-                background: mode === t.id ? '#2b2420' : '#fff',
-                color: mode === t.id ? '#fff' : 'var(--color-text-1)',
-                border: '2px solid ' + (mode === t.id ? '#2b2420' : 'var(--color-border)'),
-                borderRadius: 2,
+                padding: '12px 16px',
+                background: mode === t.id ? 'var(--tusz)' : 'transparent',
+                color: mode === t.id ? 'var(--papier)' : 'var(--tusz)',
+                border: '2px solid var(--tusz)',
+                borderRadius: 0,
                 cursor: 'pointer',
-                display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 4,
-                minWidth: 200, flex: 1, maxWidth: 280,
-                transition: 'all 0.15s',
+                display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 2,
+                flex: '1 1 200px', textAlign: 'left',
               }}
             >
-              <span style={{ fontSize: 18, fontWeight: 700, letterSpacing: '-0.01em' }}>{t.label}</span>
-              <span style={{ fontSize: 14, opacity: 0.85 }}>{t.desc}</span>
+              <span style={{ fontFamily: 'var(--f-mono)', fontSize: 16, fontWeight: 700 }}>{t.label}</span>
+              <span style={{ fontSize: 14 }}>{t.desc}</span>
             </button>
           ))}
         </div>
@@ -239,33 +239,18 @@ export default function NFZSearchClient() {
         {mode === 'queues' && (
           <>
             {/* Preset categories */}
-            <div style={{
-              background: 'var(--surface)',
-              border: '1px solid var(--color-border)',
-              borderRadius: 2, padding: 22,
-              marginBottom: 18,
-            }}>
-              <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 14 }}>
+            <div style={{ marginBottom: 24 }}>
+              <p className="pole-etykieta" style={{ margin: '0 0 10px' }}>
                 Popularne kategorie
-              </div>
+              </p>
               <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 18 }}>
                 {BENEFIT_GROUPS.map(g => (
                   <button
                     key={g.id}
                     onClick={() => setActiveGroup(g.id)}
-                    style={{
-                      padding: '10px 16px',
-                      background: activeGroup === g.id ? '#2b2420' : '#f5f5f0',
-                      color: activeGroup === g.id ? '#fff' : 'var(--color-text-1)',
-                      border: '2px solid ' + (activeGroup === g.id ? '#2b2420' : 'transparent'),
-                      borderRadius: 2,
-                      cursor: 'pointer',
-                      fontSize: 14, fontWeight: 600,
-                      display: 'inline-flex', alignItems: 'center', gap: 8,
-                      transition: 'all 0.15s',
-                    }}
+                    aria-pressed={activeGroup === g.id}
+                    className="filtr"
                   >
-                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, opacity: 0.7 }}>{g.icon}</span>
                     {g.label}
                   </button>
                 ))}
@@ -275,14 +260,8 @@ export default function NFZSearchClient() {
                   <button
                     key={p}
                     onClick={() => { setBenefit(p); setShowSuggestions(false); }}
-                    style={{
-                      padding: '8px 14px', borderRadius: 2,
-                      background: benefit === p ? 'var(--color-accent-soft)' : '#fff',
-                      color: benefit === p ? 'var(--color-green)' : 'var(--color-text-1)',
-                      border: '1.5px solid ' + (benefit === p ? 'var(--color-accent)' : 'var(--color-border)'),
-                      fontSize: 13, fontWeight: 500, cursor: 'pointer',
-                      transition: 'all 0.15s',
-                    }}
+                    aria-pressed={benefit === p}
+                    style={miniPillStyle(benefit === p)}
                   >{p}</button>
                 ))}
               </div>
@@ -290,30 +269,20 @@ export default function NFZSearchClient() {
 
             {/* Recent searches */}
             {recentBenefits.length > 0 && (
-              <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center', marginBottom: 18 }}>
-                <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-text-2)' }}>Ostatnio:</span>
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center', marginBottom: 18 }}>
+                <span className="pole-etykieta">Ostatnio:</span>
                 {recentBenefits.map(r => (
                   <button
                     key={r}
                     onClick={() => setBenefit(r)}
-                    style={{
-                      padding: '8px 14px', borderRadius: 2,
-                      background: 'var(--surface)', border: '1.5px solid var(--color-border)',
-                      fontSize: 13, fontWeight: 500, color: 'var(--color-text-1)',
-                      cursor: 'pointer',
-                    }}
+                    style={miniPillStyle(false)}
                   >{r}</button>
                 ))}
               </div>
             )}
 
             {/* Search form */}
-            <div style={{
-              background: 'var(--surface)',
-              border: '1px solid var(--color-border)',
-              borderRadius: 2, padding: 22,
-              marginBottom: 26,
-            }}>
+            <div style={formBlockStyle}>
               <div style={{ position: 'relative', marginBottom: 16 }}>
                 <label style={labelStyle}>Świadczenie</label>
                 <input
@@ -374,7 +343,7 @@ export default function NFZSearchClient() {
                 </button>
                 {(province || locality || caseType !== '1') && (
                   <button onClick={() => { setProvince(''); setLocality(''); setCaseType('1'); }}
-                    style={{ background: 'none', border: 'none', color: 'var(--color-text-1)', fontSize: 14, fontWeight: 500, cursor: 'pointer', textDecoration: 'underline' }}>
+                    className="btn btn-ghost btn-sm">
                     Wyczyść filtry
                   </button>
                 )}
@@ -389,10 +358,10 @@ export default function NFZSearchClient() {
             {/* Stats bar */}
             {queueStats && !loading && (
               <div style={statsBarStyle}>
-                <Stat label="Najszybciej" value={`${queueStats.fastest} dni`} color="#2b7353" />
+                <Stat label="Najszybciej" value={`${queueStats.fastest} dni`} color="var(--zielen)" />
                 <Stat label="Średnio" value={`${queueStats.median} dni`} color="var(--color-text-1)" />
-                <Stat label="Najdłużej" value={`${queueStats.slowest} dni`} color="#b23d30" />
-                <Stat label="Wyników" value={`${queueStats.total}`} color="var(--color-text-3)" />
+                <Stat label="Najdłużej" value={`${queueStats.slowest} dni`} color="var(--rdza)" />
+                <Stat label="Wyników" value={`${queueStats.total}`} color="var(--tusz)" />
               </div>
             )}
 
@@ -420,7 +389,7 @@ export default function NFZSearchClient() {
                 {sortedQueues.length === 0 ? (
                   <EmptyState mode={mode} />
                 ) : (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                  <div style={{ borderBottom: '1px solid var(--linia)' }}>
                     {sortedQueues.map((r, i) => <QueueCard key={i} r={r} />)}
                   </div>
                 )}
@@ -434,7 +403,7 @@ export default function NFZSearchClient() {
           <>
             {/* Provider type presets */}
             <div style={{ marginBottom: 16 }}>
-              <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 10 }}>Typ placówki</div>
+              <p className="pole-etykieta" style={{ margin: '0 0 10px' }}>Typ placówki</p>
               <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                 {PROVIDER_TYPES.map(t => (
                   <button key={t.q} onClick={() => setProviderName(t.q)} style={miniPillStyle(providerName === t.q)}>
@@ -445,15 +414,15 @@ export default function NFZSearchClient() {
             </div>
 
             {recentProviders.length > 0 && (
-              <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center', marginBottom: 18 }}>
-                <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-text-2)' }}>Ostatnio:</span>
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center', marginBottom: 18 }}>
+                <span className="pole-etykieta">Ostatnio:</span>
                 {recentProviders.map(r => (
                   <button key={r} onClick={() => setProviderName(r)} style={miniPillStyle(false)}>{r}</button>
                 ))}
               </div>
             )}
 
-            <div style={{ background: 'var(--surface)', border: '1px solid var(--color-border)', borderRadius: 2, padding: 22, marginBottom: 26 }}>
+            <div style={formBlockStyle}>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 14, marginBottom: 18 }}>
                 <div>
                   <label style={labelStyle}>Nazwa lub typ</label>
@@ -485,7 +454,7 @@ export default function NFZSearchClient() {
                 {providerResults.length === 0 ? (
                   <EmptyState mode={mode} />
                 ) : (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                  <div style={{ borderBottom: '1px solid var(--linia)' }}>
                     {providerResults.map((p) => <ProviderCard key={p.code} p={p} />)}
                   </div>
                 )}
@@ -495,8 +464,8 @@ export default function NFZSearchClient() {
         )}
 
         {/* Source attribution */}
-        <div style={{ marginTop: 44, paddingTop: 22, borderTop: '1px solid var(--color-border)', fontSize: 13, color: 'var(--color-text-2)', textAlign: 'center' }}>
-          Źródło: <a href="https://api.nfz.gov.pl" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-accent)', textDecoration: 'none', fontWeight: 600 }}>api.nfz.gov.pl</a> · Dane orientacyjne, weryfikuj na nfz.gov.pl
+        <div style={{ marginTop: 40, paddingTop: 16, borderTop: '1px solid var(--linia)', fontSize: 14, color: 'var(--szary)' }}>
+          Źródło: <a href="https://api.nfz.gov.pl" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--tusz)', textDecoration: 'underline', textUnderlineOffset: 3 }}>api.nfz.gov.pl</a> · Dane orientacyjne, weryfikuj na nfz.gov.pl
         </div>
       </section>
     </main>
@@ -508,7 +477,7 @@ export default function NFZSearchClient() {
 // ============================================================
 function Hero() {
   return (
-    <section className="prosta" style={{ paddingBottom: 8 }}>
+    <section className="prosta" style={{ paddingBottom: 24 }}>
       <div className="prosta-blok">
         <p className="etykieta">Wyszukiwarka NFZ</p>
         <h1>Kolejki i świadczeniodawcy NFZ</h1>
@@ -523,25 +492,24 @@ function Hero() {
 // ============================================================
 function QueueCard({ r }: { r: QueueResult }) {
   const wait = r.averageDays;
-  const waitColor = wait == null ? 'var(--color-muted-2)' : wait > 90 ? '#b23d30' : wait > 30 ? '#a05a1a' : '#2d6b2a';
-  const waitBg = wait == null ? 'var(--color-bg-2)' : wait > 90 ? '#fce4e6' : wait > 30 ? '#fff4e0' : '#e3ecdc';
+  const waitColor = wait == null ? 'var(--szary)' : wait > 90 ? 'var(--rdza)' : wait > 30 ? 'var(--color-warn)' : 'var(--zielen)';
 
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${r.provider} ${r.address} ${r.locality}`)}`;
 
   return (
     <div style={cardStyle}>
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 14, marginBottom: 10 }}>
-        <div style={{ fontWeight: 700, fontSize: 18, color: 'var(--color-text-1)', flex: 1, lineHeight: 1.3, letterSpacing: '-0.01em' }}>{r.provider}</div>
+        <div style={{ fontWeight: 700, fontSize: 17, color: 'var(--tusz)', flex: 1, lineHeight: 1.35 }}>{r.provider}</div>
         {wait != null && (
           <span style={{
-            padding: '8px 14px', borderRadius: 2,
-            background: waitBg, color: waitColor,
+            padding: '4px 10px',
+            color: waitColor, fontFamily: 'var(--f-mono)',
             fontSize: 15, fontWeight: 700, whiteSpace: 'nowrap',
             border: `2px solid ${waitColor}`,
           }}>~{wait} dni</span>
         )}
       </div>
-      <div style={{ fontSize: 13, color: 'var(--color-text-2)', marginBottom: 8, lineHeight: 1.5 }}>{r.benefit}</div>
+      <div style={{ fontSize: 14, color: 'var(--szary)', marginBottom: 6, lineHeight: 1.5 }}>{r.benefit}</div>
       <div style={{ fontSize: 15, color: 'var(--color-text-1)', marginBottom: 12, lineHeight: 1.5, fontWeight: 500 }}>{r.address}, {r.locality}</div>
 
       <div style={{ display: 'flex', gap: 18, marginBottom: 12, fontSize: 14, color: 'var(--color-text-2)', flexWrap: 'wrap' }}>
@@ -555,7 +523,7 @@ function QueueCard({ r }: { r: QueueResult }) {
             Zadzwoń: {r.phone}
           </a>
         )}
-        <a href={mapsUrl} target="_blank" rel="noopener noreferrer" style={{ ...actionLinkStyle, background: 'var(--surface)', color: '#2b2420' }}>
+        <a href={mapsUrl} target="_blank" rel="noopener noreferrer" style={{ ...actionLinkStyle, background: 'transparent', color: 'var(--tusz)' }}>
           Pokaż na mapie
         </a>
       </div>
@@ -568,14 +536,14 @@ function ProviderCard({ p }: { p: ProviderResult }) {
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${p.name} ${addressLine}`)}`;
   return (
     <div style={cardStyle}>
-      <div style={{ fontWeight: 700, fontSize: 18, color: 'var(--color-text-1)', marginBottom: 8, lineHeight: 1.3, letterSpacing: '-0.01em' }}>{p.name}</div>
+      <div style={{ fontWeight: 700, fontSize: 17, color: 'var(--tusz)', marginBottom: 6, lineHeight: 1.35 }}>{p.name}</div>
       {addressLine && <div style={{ fontSize: 15, color: 'var(--color-text-1)', marginBottom: 8, lineHeight: 1.5, fontWeight: 500 }}>{addressLine}</div>}
       <div style={{ display: 'flex', gap: 14, marginBottom: 12, fontSize: 14, color: 'var(--color-text-2)', flexWrap: 'wrap' }}>
         {p.nip && <span>NIP: <strong style={{ color: 'var(--color-text-1)' }}>{p.nip}</strong></span>}
       </div>
       <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 4 }}>
         {p.phone && <a href={`tel:${p.phone.replace(/\s/g, '')}`} style={actionLinkStyle}>Zadzwoń: {p.phone}</a>}
-        <a href={mapsUrl} target="_blank" rel="noopener noreferrer" style={{ ...actionLinkStyle, background: 'var(--surface)', color: '#2b2420' }}>Pokaż na mapie</a>
+        <a href={mapsUrl} target="_blank" rel="noopener noreferrer" style={{ ...actionLinkStyle, background: 'transparent', color: 'var(--tusz)' }}>Pokaż na mapie</a>
       </div>
     </div>
   );
@@ -584,8 +552,8 @@ function ProviderCard({ p }: { p: ProviderResult }) {
 function Stat({ label, value, color }: { label: string; value: string; color: string }) {
   return (
     <div style={{ flex: 1, minWidth: 120 }}>
-      <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--color-text-2)', marginBottom: 6, letterSpacing: '-0.005em' }}>{label}</div>
-      <div style={{ fontSize: 22, fontWeight: 700, color, letterSpacing: '-0.02em' }}>{value}</div>
+      <div style={{ fontSize: 13, color: 'var(--szary)', marginBottom: 4 }}>{label}</div>
+      <div style={{ fontFamily: 'var(--f-mono)', fontSize: 22, fontWeight: 700, color }}>{value}</div>
     </div>
   );
 }
@@ -598,11 +566,8 @@ function SkeletonRows() {
           ...cardStyle,
           height: 100,
           background: 'var(--color-bg-2)',
-          backgroundSize: '200% 100%',
-          animation: 'pulse 1.5s ease-in-out infinite',
         }} />
       ))}
-      <style>{`@keyframes pulse { 0% { background-position: 0% 0; } 100% { background-position: -200% 0; } }`}</style>
     </div>
   );
 }
@@ -610,11 +575,10 @@ function SkeletonRows() {
 function ErrorBox({ children }: { children: React.ReactNode }) {
   return (
     <div style={{
-      padding: '16px 20px', marginBottom: 20,
-      background: '#fce4e6', color: '#8b1f24',
-      borderRadius: 2, fontSize: 15, fontWeight: 500,
-      border: '2px solid #f5b3b8',
-    }}>{children}</div>
+      padding: '12px 16px', marginBottom: 20,
+      color: 'var(--rdza)', fontSize: 15, fontWeight: 600,
+      border: '2px solid var(--rdza)',
+    }} role="alert">{children}</div>
   );
 }
 
@@ -625,13 +589,11 @@ function EmptyState({ mode }: { mode: SearchMode }) {
   };
   return (
     <div style={{
-      padding: 36, textAlign: 'center',
-      background: 'var(--surface)',
-      border: '2px dashed var(--color-border)',
-      borderRadius: 2,
+      padding: '20px 0',
+      borderTop: '1px solid var(--linia)', borderBottom: '1px solid var(--linia)',
     }}>
-      <div style={{ fontSize: 17, fontWeight: 600, color: 'var(--color-text-1)', marginBottom: 8 }}>Brak wyników</div>
-      <div style={{ fontSize: 14, color: 'var(--color-text-2)' }}>{hints[mode]}</div>
+      <div style={{ fontSize: 17, fontWeight: 600, color: 'var(--tusz)', marginBottom: 4 }}>Brak wyników</div>
+      <div style={{ fontSize: 15, color: 'var(--szary)' }}>{hints[mode]}</div>
     </div>
   );
 }
@@ -640,88 +602,87 @@ function EmptyState({ mode }: { mode: SearchMode }) {
 // STYLES -- accessibility-first (WCAG AA): wieksze czcionki, mocniejsze kontrasty
 // ============================================================
 const labelStyle: React.CSSProperties = {
-  fontSize: 13, fontWeight: 600,
-  color: 'var(--color-text-1)', display: 'block', marginBottom: 8,
-  letterSpacing: '-0.005em',
+  fontFamily: 'var(--f-mono)', fontSize: 14, fontWeight: 700,
+  color: 'var(--tusz)', display: 'block', marginBottom: 6,
 };
 
 const inputStyle: React.CSSProperties = {
-  width: '100%', padding: '14px 16px',
-  fontSize: 16, fontFamily: 'var(--font-sans)',
+  width: '100%', minHeight: 48, padding: '10px 14px',
+  fontSize: 16, fontFamily: 'var(--f-sans)',
   background: 'var(--surface)',
-  border: '2px solid var(--color-border)',
-  borderRadius: 2,
-  color: 'var(--color-text-1)',
-  outline: 'none',
+  border: '2px solid var(--tusz)',
+  borderRadius: 0,
+  color: 'var(--tusz)',
   lineHeight: 1.4,
 };
 
+// Formularz wyszukiwania: bez karty, oddzielony cienką linią od wyników.
+const formBlockStyle: React.CSSProperties = {
+  paddingBottom: 24,
+  marginBottom: 24,
+  borderBottom: '1px solid var(--linia)',
+};
+
+// Wynik: wiersz listy z cienką linią zamiast karty.
 const cardStyle: React.CSSProperties = {
-  padding: 20,
-  background: 'var(--surface)',
-  border: '1px solid var(--color-border)',
-  borderRadius: 2,
-  transition: 'border-color 0.15s, box-shadow 0.15s',
+  padding: '16px 0',
+  borderTop: '1px solid var(--linia)',
 };
 
 const suggestStyle: React.CSSProperties = {
   position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 10,
   background: 'var(--surface)',
-  border: '2px solid var(--color-border)',
-  borderRadius: 2, marginTop: 6,
+  border: '2px solid var(--tusz)',
+  borderRadius: 0, marginTop: 4,
   maxHeight: 260, overflowY: 'auto',
-  boxShadow: 'none',
 };
 
 const suggestItemStyle: React.CSSProperties = {
   display: 'block', width: '100%', textAlign: 'left',
-  padding: '12px 16px', fontSize: 14, fontFamily: 'var(--font-sans)',
-  background: 'transparent', border: 'none',
-  color: 'var(--color-text-1)', cursor: 'pointer',
+  minHeight: 44, padding: '10px 14px', fontSize: 15, fontFamily: 'var(--f-sans)',
+  background: 'transparent', border: 'none', borderBottom: '1px solid var(--linia)',
+  color: 'var(--tusz)', cursor: 'pointer',
 };
 
 const statsBarStyle: React.CSSProperties = {
   display: 'flex',
-  gap: 24,
-  padding: '18px 22px',
-  background: 'var(--surface)',
-  border: '1px solid var(--color-border)',
-  borderRadius: 2,
+  gap: 16,
+  padding: '16px 0',
+  borderTop: '1px solid var(--linia)',
+  borderBottom: '1px solid var(--linia)',
   marginBottom: 18,
   flexWrap: 'wrap',
 };
 
 const actionLinkStyle: React.CSSProperties = {
   display: 'inline-flex', alignItems: 'center', gap: 8,
-  padding: '10px 16px', borderRadius: 2,
-  background: '#2b2420',
-  border: '1px solid #2b2420',
-  fontSize: 14, fontWeight: 500, fontFamily: 'var(--font-sans)',
-  color: '#fff',
+  minHeight: 44, padding: '8px 14px', borderRadius: 0,
+  background: 'var(--tusz)',
+  border: '2px solid var(--tusz)',
+  fontSize: 14, fontWeight: 700, fontFamily: 'var(--f-mono)',
+  color: 'var(--papier)',
   textDecoration: 'none',
 };
 
 function miniPillStyle(active: boolean): React.CSSProperties {
   return {
-    padding: '8px 14px', borderRadius: 2,
-    background: active ? '#2b2420' : '#fff',
-    color: active ? '#fff' : 'var(--color-text-1)',
-    border: '1.5px solid ' + (active ? '#2b2420' : 'var(--color-border)'),
-    fontSize: 13, fontWeight: 500, fontFamily: 'var(--font-sans)', cursor: 'pointer',
-    letterSpacing: '-0.005em',
-    transition: 'all 0.15s',
+    minHeight: 44, padding: '8px 12px', borderRadius: 0,
+    background: active ? 'var(--tusz)' : 'transparent',
+    color: active ? 'var(--papier)' : 'var(--tusz)',
+    border: '2px solid var(--tusz)',
+    fontSize: 14, fontWeight: 500, fontFamily: 'var(--f-sans)', cursor: 'pointer',
+    textAlign: 'left',
   };
 }
 
 function primaryButton(disabled: boolean): React.CSSProperties {
   return {
-    padding: '16px 32px',
-    background: disabled ? '#d6dad4' : '#2b2420',
-    color: disabled ? '#7a807c' : '#fff',
-    border: 'none', borderRadius: 2,
-    fontSize: 16, fontWeight: 600,
-    letterSpacing: '-0.005em',
+    minHeight: 48, padding: '12px 24px',
+    background: 'var(--tusz)',
+    color: 'var(--papier)',
+    border: '2px solid var(--tusz)', borderRadius: 0,
+    fontFamily: 'var(--f-mono)', fontSize: 16, fontWeight: 700,
     cursor: disabled ? 'not-allowed' : 'pointer',
-    transition: 'all 0.15s',
+    opacity: disabled ? 0.5 : 1,
   };
 }

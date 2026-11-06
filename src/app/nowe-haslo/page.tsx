@@ -65,53 +65,31 @@ export default function NoweHaslo() {
     <main>
       <section style={{ padding: '80px 0', minHeight: 'calc(100vh - 200px)', display: 'flex', alignItems: 'center' }}>
         <div style={{ maxWidth: 440, margin: '0 auto', padding: '0 24px', width: '100%' }}>
-          <div className="card card-glass" style={{ padding: '40px 36px' }}>
-            <div className="eyebrow green" style={{ marginBottom: 16 }}>Nowe hasło</div>
-            <h3 style={{ fontSize: 'clamp(22px, 3vw, 28px)', marginBottom: 28 }}>
+          <div style={{ padding: '24px 20px', border: '2px solid var(--tusz)', background: 'var(--surface)' }}>
+            <p className="etykieta">Nowe hasło</p>
+            <h1 style={{ fontSize: 'clamp(24px, 4vw, 30px)', marginBottom: 28 }}>
               Ustaw nowe hasło
-            </h3>
+            </h1>
 
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
               <div>
-                <label style={{
-                  display: 'block', fontFamily: 'var(--f-mono)', fontSize: 11,
-                  color: 'var(--ink-500)', letterSpacing: '0.06em',
-                  textTransform: 'uppercase', marginBottom: 6,
-                }}>Nowe hasło (min. 8 znaków)</label>
+                <label className="pole-etykieta" style={{ display: 'block', marginBottom: 6 }}>Nowe hasło (min. 8 znaków)</label>
                 <input
                   type="password"
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   required
-                  style={{
-                    width: '100%', boxSizing: 'border-box',
-                    padding: '12px 14px', fontSize: 15,
-                    background: 'var(--white)',
-                    border: '1px solid var(--line-strong)',
-                    borderRadius: 'var(--r-sm)',
-                    color: 'var(--ink-900)',
-                  }}
+                  className="pole-wejscie"
                 />
               </div>
               <div>
-                <label style={{
-                  display: 'block', fontFamily: 'var(--f-mono)', fontSize: 11,
-                  color: 'var(--ink-500)', letterSpacing: '0.06em',
-                  textTransform: 'uppercase', marginBottom: 6,
-                }}>Powtórz hasło</label>
+                <label className="pole-etykieta" style={{ display: 'block', marginBottom: 6 }}>Powtórz hasło</label>
                 <input
                   type="password"
                   value={confirmPassword}
                   onChange={e => setConfirmPassword(e.target.value)}
                   required
-                  style={{
-                    width: '100%', boxSizing: 'border-box',
-                    padding: '12px 14px', fontSize: 15,
-                    background: 'var(--white)',
-                    border: '1px solid var(--line-strong)',
-                    borderRadius: 'var(--r-sm)',
-                    color: 'var(--ink-900)',
-                  }}
+                  className="pole-wejscie"
                 />
               </div>
 
