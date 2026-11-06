@@ -1,156 +1,206 @@
+/**
+ * Press kit (/press): opis w 1 i 3 zdaniach z przyciskiem „Kopiuj”, fakty, narzędzia, pliki do pobrania,
+ * kontakt i data aktualizacji. Liczby liczone z kodu (baza świadczeń, programy B2B, źródła RSS), więc nie
+ * rozjeżdżają się z resztą strony. Pliki w public/press/: znak (SVG i PNG z src/lib/znak.ts) i zrzuty ekranu.
+ * Kontakt tylko przez formularz w stopce i strony autora, bez telefonu, e-maila i nazwiska.
+ */
+import Link from 'next/link';
 import type { Metadata } from 'next';
 import { StronaJsonLd } from '@/components/JsonLd';
+import { PixelMark } from '@/components/SiteNav';
+import { BENEFITS } from '@/engine/benefits';
+import { PROGRAMS } from '@/data/programs-b2b';
+import { FEEDS } from '@/app/aktualnosci/rss';
 import { metadaneStrony } from '@/lib/strony';
-import Link from 'next/link';
+import { Kopiuj, OtworzKontakt } from './PressAkcje';
 
 export const metadata: Metadata = metadaneStrony('/press');
 
-const FACTS = [
-  { n: '133', label: 'zweryfikowanych świadczeń w bazie' },
-  { n: '23', label: 'programy dotacyjne B2B' },
-  { n: '11', label: 'darmowych narzędzi Centrum Obywatela' },
-  { n: '8', label: 'instytucji rządowych w agregatorze RSS' },
-  { n: '2026', label: 'data weryfikacji (aktualizacja co 2-3 tygodnie)' },
-  { n: '0 PLN', label: 'koszt dla użytkownika końcowego' },
+/** Data ostatniej zmiany treści tej strony. Podbij przy każdej zmianie press kitu. */
+const AKTUALIZACJA = '2026-11-05';
+
+const LICZBA_SWIADCZEN = BENEFITS.length;
+const LICZBA_KATEGORII = new Set(BENEFITS.map(b => b.kategoria)).size;
+const ZE_ZRODLEM = BENEFITS.filter(b => b.zrodloUrl.startsWith('https://')).length;
+const WERYFIKACJA = BENEFITS.map(b => b.dataWeryfikacji).sort().at(-1) ?? AKTUALIZACJA;
+const LICZBA_PROGRAMOW = PROGRAMS.length;
+const ZRODLA_RSS = FEEDS.map(f => f.name);
+
+const NAZWY_KATEGORII_B2B: Record<string, string> = {
+  kfs: 'KFS', pup: 'PUP', pfron: 'PFRON', kpo: 'KPO', feng: 'FENG', parp: 'PARP', ncbr: 'NCBR', nfz: 'NFZ', arimir: 'ARiMR', samorzad: 'samorządy',
+};
+const KATEGORIE_B2B = [...new Set(PROGRAMS.map(p => p.category))].map(k => NAZWY_KATEGORII_B2B[k] ?? k);
+
+function data(iso: string): string {
+  return new Date(`${iso}T12:00:00Z`).toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Warsaw' });
+}
+
+function lista(slowa: string[]): string {
+  return slowa.length < 2 ? slowa.join('') : `${slowa.slice(0, -1).join(', ')} i ${slowa.at(-1)}`;
+}
+
+const OPIS_1 = `wezmezadarmo.com to darmowy serwis, w którym bez zakładania konta można sprawdzić, które ze ${LICZBA_SWIADCZEN} świadczeń, ulg i dotacji mogą przysługiwać.`;
+
+const OPIS_3 = [
+  `wezmezadarmo.com to darmowy serwis, w którym bez zakładania konta i bez numeru PESEL można sprawdzić, które ze ${LICZBA_SWIADCZEN} świadczeń, ulg i dotacji mogą przysługiwać.`,
+  `Przy każdym świadczeniu jest kwota, warunki, kroki wniosku i link do źródła urzędowego, a obok działają wnioski ZUS z pomocą AI, kolejki NFZ, aktualności z urzędów i darmowe narzędzia dla firm z bazą ${LICZBA_PROGRAMOW} programów dofinansowań.`,
+  'Projekt jest prywatny i niekomercyjny, prowadzi go tuKamil z Lublina, kod jest otwarty (AGPL-3.0), a baza świadczeń to otwarte dane (CC-BY-4.0).',
+].join(' ');
+
+const FAKTY: { liczba: string; tekst: string }[] = [
+  { liczba: String(LICZBA_SWIADCZEN), tekst: `świadczeń, ulg i programów w bazie, w ${LICZBA_KATEGORII} kategoriach.` },
+  { liczba: `${ZE_ZRODLEM} z ${LICZBA_SWIADCZEN}`, tekst: 'świadczeń ma link do źródła urzędowego i datę weryfikacji.' },
+  { liczba: String(LICZBA_PROGRAMOW), tekst: `programów dofinansowań dla firm: ${lista(KATEGORIE_B2B)}.` },
+  { liczba: String(ZRODLA_RSS.length), tekst: `źródeł komunikatów w Aktualnościach (${lista(ZRODLA_RSS)}), odświeżanych co 30 minut.` },
+  { liczba: 'Na żywo', tekst: 'dane z API: NFZ, NBP, GIOŚ, IMGW, Sejm (ELI), GUS (BDL i SDG), Biała Lista VAT i CEIDG.' },
+  { liczba: '0 zł', tekst: 'za każdą funkcję. Kalkulator działa bez konta i nie pyta o PESEL.' },
+  { liczba: data(WERYFIKACJA), tekst: 'ostatnia weryfikacja bazy świadczeń.' },
+  { liczba: 'AGPL-3.0', tekst: 'licencja kodu. Baza świadczeń: otwarte dane CC-BY-4.0, wolno jej używać z podaniem źródła.' },
 ];
 
-const SHORT_DESC = `wezmezadarmo.com to bezpłatne narzędzie pomagające polskim obywatelom i firmom odkryć świadczenia rządowe, ulgi podatkowe i programy wsparcia, na które się kwalifikują. Agregator 133 świadczeń (ZUS, NFZ, PFRON, KRUS, MOPS, ulgi PIT), 59 programów dotacyjnych dla firm (KFS, PARP, NCBR, KPO, ARiMR) i 11 darmowych narzędzi (NFZ kolejki, kursy NBP, jakość powietrza GIOŚ, Biała Lista VAT, sprawdzenie NIP).`;
+const NARZEDZIA = [
+  { href: '/', nazwa: 'Kalkulator świadczeń', opis: 'Kilka pytań bez konta i lista świadczeń, ulg i dotacji, które mogą przysługiwać.' },
+  { href: '/swiadczenia', nazwa: 'Baza świadczeń', opis: `${LICZBA_SWIADCZEN} pozycji: kwota, warunki, kroki wniosku i link do źródła.` },
+  { href: '/wnioski', nazwa: 'Wnioski ZUS z pomocą AI', opis: 'Z-15A, Z-15B, ZAS-53, ERPO, PEL, ERSU i ERU krok po kroku, na końcu PDF do podpisu.' },
+  { href: '/agent', nazwa: 'Asystent AI', opis: 'Odpowiada na pytania o świadczenia, ZUS i urzędy z bazy świadczeń i podaje źródła.' },
+  { href: '/nfz', nazwa: 'Kolejki NFZ', opis: 'Czas oczekiwania do specjalisty i placówki z kontraktem NFZ, dane z api.nfz.gov.pl.' },
+  { href: '/aktualnosci', nazwa: 'Aktualności', opis: `Komunikaty z ${ZRODLA_RSS.length} źródeł w jednym miejscu, z filtrem dla JDG, firm i obywateli.` },
+  { href: '/centrum-obywatela', nazwa: 'Centrum Obywatela', opis: 'Kursy NBP, powietrze GIOŚ, Biała Lista VAT, ostrzeżenia IMGW, zmiany w prawie, dane gminy z GUS i ulgi PKP.' },
+  { href: '/statystyki', nazwa: 'Polska w liczbach', opis: 'Cena metra mieszkania od 2000 roku, wskaźniki GUS i lista publicznych API.' },
+  { href: '/dla-firm/narzedzia', nazwa: 'Narzędzia dla firm', opis: 'Przegląd KPiR, sprawdzenie pliku JPK_V7 i dofinansowania po NIP, dostęp po podaniu e-maila i telefonu.' },
+  { href: '/dotacje', nazwa: 'Dotacje dla firm', opis: `Baza ${LICZBA_PROGRAMOW} programów i agent, który dopasowuje nabory do firmy po NIP.` },
+  { href: '/blog', nazwa: 'Blog', opis: 'Poradniki o świadczeniach, ulgach i wnioskach.' },
+];
 
-const LONG_DESC = `Polacy tracą średnio 2 400-5 000 PLN rocznie nie korzystając ze świadczeń, do których mają prawo. Powód: rozproszenie informacji między 8 instytucji rządowych i brak narzędzia agregującego wszystko w jednym miejscu.
+const ZNAKI = [
+  { plik: '/press/znak.svg', nazwa: 'Znak marki, SVG', opis: 'Wektor, przezroczyste tło.' },
+  { plik: '/press/znak-1024.png', nazwa: 'Znak marki, PNG 1024 px', opis: 'Przezroczyste tło.' },
+  { plik: '/ikona-512.png', nazwa: 'Ikona, PNG 512 px', opis: 'Znak na tle papieru.' },
+  { plik: '/apple-icon.png', nazwa: 'Ikona aplikacji, PNG 180 px', opis: 'Ekran główny telefonu.' },
+  { plik: '/favicon.ico', nazwa: 'Favicon, ICO', opis: '16 i 32 px.' },
+  { plik: '/og-2026-11.png', nazwa: 'Obraz podglądu linku, PNG 1200 x 630', opis: 'Hasło strony głównej i znak.' },
+];
 
-wezmezadarmo.com rozwiązuje ten problem. W 10 anonimowych pytaniach (bez logowania, bez PESEL) silnik dopasowania przelicza 133 świadczenia i pokazuje co PEWNIE Ci przysługuje + co MOŻLIWE. Dla firm i JDG: dopasowanie 59 programów dotacyjnych na podstawie PKD i województwa pobranego z CEIDG.
+const ZRZUTY = [
+  { slug: 'strona-glowna', nazwa: 'Strona główna' },
+  { slug: 'swiadczenia', nazwa: 'Baza świadczeń' },
+  { slug: 'wnioski', nazwa: 'Wnioski ZUS' },
+  { slug: 'nfz', nazwa: 'Kolejki NFZ' },
+  { slug: 'dla-firm', nazwa: 'Dla firm' },
+];
 
-Asystent AI (Google Gemini 2.0 Flash) ma dostęp do całej bazy + 8 publicznych API rządowych (NBP, NFZ, GIOŚ, Biała Lista VAT, CEIDG, IMGW, ELI/Sejm, BDL GUS) i odpowiada na pytania użytkownika z konkretnym kontekstem jego profilu.
-
-Projekt rozwijany jest pro bono jako wkład w polskie społeczeństwo cyfrowe. Cała baza świadczeń (src/engine/benefits/) udostępniona na licencji AGPL-3.0.`;
+function nazwaPliku(plik: string): string {
+  return `wezmezadarmo-${plik.split('/').at(-1)}`;
+}
 
 export default function PressPage() {
   return (
-    <main style={{ maxWidth: 860, margin: '0 auto', padding: '48px 24px 60px' }}>
-      <StronaJsonLd sciezka="/press" />
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
-        <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#2b7353', boxShadow: 'none' }} />
-        <span style={{ fontFamily: 'var(--f-mono)', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--ink-500)' }}>
-          Press kit
-        </span>
-      </div>
+    <main className="prosta">
+      <section className="prosta-blok">
+        <p className="etykieta">Press kit</p>
+        <h1>Materiały dla mediów</h1>
+        <p className="pod">Opis serwisu, fakty, znak marki i zrzuty ekranu wezmezadarmo.com.</p>
+        <p className="mala">Stan na {data(AKTUALIZACJA)}.</p>
+      </section>
 
-      <h1 style={{ fontSize: 'clamp(26px, 4vw, 36px)', fontWeight: 700, marginBottom: 12, color: 'var(--ink-900)' }}>
-        Materiały dla mediów
-      </h1>
-      <p style={{ fontSize: 15, color: 'var(--ink-500)', marginBottom: 36, lineHeight: 1.6 }}>
-        Piszesz artykuł, robisz wywiad, kręcisz materiał? Wszystko czego potrzebujesz - poniżej.
-        Możesz cytować bez prośby o pozwolenie (licencja AGPL-3.0).
-      </p>
+      <section className="prosta-blok">
+        <h2>Opis w jednym zdaniu</h2>
+        <p className="press-tekst">{OPIS_1}</p>
+        <Kopiuj tekst={OPIS_1} etykieta="opis w jednym zdaniu" />
+      </section>
 
-      {/* Quick stats */}
-      <div style={{ marginBottom: 36 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, marginBottom: 14, color: 'var(--ink-900)' }}>
-          Liczby (stan: 24 maja 2026)
-        </h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(180px, 100%), 1fr))', gap: 12 }}>
-          {FACTS.map(f => (
-            <div key={f.label} style={{
-              padding: 16, background: 'var(--white)',
-              border: '1px solid var(--line)', borderTop: '3px solid #2b7353',
-              borderRadius: 2,
-            }}>
-              <div style={{ fontSize: 22, fontWeight: 700, color: '#2b7353', fontFamily: 'var(--f-mono)' }}>
-                {f.n}
-              </div>
-              <div style={{ fontSize: 12, color: 'var(--ink-500)', marginTop: 4, lineHeight: 1.4 }}>
-                {f.label}
-              </div>
-            </div>
+      <section className="prosta-blok">
+        <h2>Opis w trzech zdaniach</h2>
+        <p className="press-tekst">{OPIS_3}</p>
+        <Kopiuj tekst={OPIS_3} etykieta="opis w trzech zdaniach" />
+      </section>
+
+      <section className="prosta-blok">
+        <h2>Najważniejsze fakty</h2>
+        <ul className="lista">
+          {FAKTY.map(f => (
+            <li key={f.liczba}><b>{f.liczba}</b> {f.tekst}</li>
           ))}
-        </div>
-      </div>
+        </ul>
+      </section>
 
-      {/* Short description */}
-      <div style={{ marginBottom: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, marginBottom: 12, color: 'var(--ink-900)' }}>
-          Krótki opis (~60 słów)
-        </h2>
-        <div style={{ padding: 18, background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 2, fontSize: 14, lineHeight: 1.65, color: 'var(--ink-700)' }}>
-          {SHORT_DESC}
-        </div>
-      </div>
+      <section className="prosta-blok">
+        <h2>Co robi każde narzędzie</h2>
+        <ul className="linki">
+          {NARZEDZIA.map(n => (
+            <li key={n.href}>
+              <Link href={n.href}>
+                <span>{n.nazwa}<small>{n.opis}</small></span>
+                <span aria-hidden="true">→</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
 
-      {/* Long description */}
-      <div style={{ marginBottom: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, marginBottom: 12, color: 'var(--ink-900)' }}>
-          Pełny opis (~200 słów)
-        </h2>
-        <div style={{ padding: 18, background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 2, fontSize: 14, lineHeight: 1.65, color: 'var(--ink-700)', whiteSpace: 'pre-wrap' }}>
-          {LONG_DESC}
+      <section className="prosta-blok">
+        <h2>Znak marki do pobrania</h2>
+        <p className="pod">Pikselowy prezent 16 x 16. Przy powiększaniu skaluj bez wygładzania.</p>
+        <div className="press-znak">
+          <PixelMark size={96} />
+          <span className="stopka-marka">wezmezadarmo<span className="dim">.com</span></span>
         </div>
-      </div>
+        <ul className="linki">
+          {ZNAKI.map(z => (
+            <li key={z.plik}>
+              <a href={z.plik} download={nazwaPliku(z.plik)}>
+                <span>{z.nazwa}<small>{z.opis}</small></span>
+                <span aria-hidden="true">↓</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
 
-      {/* Logo */}
-      <div style={{ marginBottom: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, marginBottom: 12, color: 'var(--ink-900)' }}>Logo</h2>
-        <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
-          <div style={{ padding: 24, background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 2, textAlign: 'center', minWidth: 180 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, justifyContent: 'center', marginBottom: 10 }}>
-              <span style={{ width: 16, height: 16, borderRadius: '50%', background: '#2b7353' }} />
-              <span style={{ fontWeight: 600, fontSize: 16, color: 'var(--ink-900)' }}>wezmezadarmo</span>
-              <span style={{ color: 'var(--ink-400)', fontSize: 13 }}>.com</span>
-            </div>
-            <a href="/icon" download="wezmezadarmo-logo.png" style={{ fontSize: 12, color: '#2b7353', textDecoration: 'none' }}>
-              Pobierz PNG →
-            </a>
-          </div>
-          <div style={{ padding: 24, background: '#0c1714', border: '1px solid var(--line)', borderRadius: 2, textAlign: 'center', minWidth: 180 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, justifyContent: 'center', marginBottom: 10 }}>
-              <span style={{ width: 16, height: 16, borderRadius: '50%', background: '#a9d4bd' }} />
-              <span style={{ fontWeight: 600, fontSize: 16, color: '#fff' }}>wezmezadarmo</span>
-              <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: 13 }}>.com</span>
-            </div>
-            <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)' }}>Wersja dark</span>
-          </div>
+      <section className="prosta-blok">
+        <h2>Zrzuty ekranu</h2>
+        <p className="pod">PNG z komputera (1280 x 800) i z telefonu (390 x 844, podwójna rozdzielczość), stan na {data(AKTUALIZACJA)}.</p>
+        <ul className="lista press-zrzuty">
+          {ZRZUTY.map(z => (
+            <li key={z.slug}>
+              <span>{z.nazwa}</span>
+              <span className="press-zrzuty-pliki">
+                {[1280, 390].map(szer => {
+                  const plik = `/press/zrzut-${z.slug}-${szer}.png`;
+                  return (
+                    <a key={szer} className="btn btn-ghost" href={plik} download={nazwaPliku(plik)} aria-label={`${szer} px: ${z.nazwa}`}>
+                      {szer} px
+                    </a>
+                  );
+                })}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="prosta-blok">
+        <h2>Kontakt dla mediów</h2>
+        <p>Napisz przez formularz „Napisz do nas” w stopce. Wiadomość trafia do autora projektu.</p>
+        <div className="przyciski">
+          <OtworzKontakt />
         </div>
-      </div>
+        <ul className="linki">
+          <li><a href="https://tukamil.com" target="_blank" rel="noopener"><span>tukamil.com<small>Strona autora</small></span><span aria-hidden="true">→</span></a></li>
+          <li><a href="https://github.com/exhuman777/wezmezadarmo" target="_blank" rel="noopener noreferrer"><span>Kod na GitHubie<small>github.com/exhuman777/wezmezadarmo</small></span><span aria-hidden="true">→</span></a></li>
+          <li><Link href="/o-projekcie"><span>O projekcie<small>Skąd są dane i jak dbamy o prywatność.</small></span><span aria-hidden="true">→</span></Link></li>
+        </ul>
+      </section>
 
-      {/* Sources */}
-      <div style={{ marginBottom: 32 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, marginBottom: 12, color: 'var(--ink-900)' }}>
-          Źródła danych
-        </h2>
-        <div style={{ padding: 18, background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 2, fontSize: 13, color: 'var(--ink-600)', lineHeight: 1.7 }}>
-          Dane na żywo: GUS (BDL, SDG), NFZ, NBP, IMGW, GIOŚ, Sejm (ELI), ZUS i PFRON (RSS), gov.pl (ARiMR, MF, MRiT, MRPiPS), CEIDG. Baza świadczeń i programów powstała na podstawie oficjalnych stron: gov.pl, zus.pl, nfz.gov.pl, pfron.gov.pl, krus.gov.pl, podatki.gov.pl, biznes.gov.pl, czystepowietrze.gov.pl.
-          <br /><br />
-          Każde świadczenie ma link do źródła urzędowego.
-        </div>
-      </div>
+      <section className="prosta-blok">
+        <h2>Aktualizacja</h2>
+        <p className="mala">
+          Press kit: {data(AKTUALIZACJA)}. Baza świadczeń: {data(WERYFIKACJA)}. Liczby na tej stronie pochodzą wprost z bazy serwisu.
+        </p>
+      </section>
 
-      {/* Contact */}
-      <div style={{ marginBottom: 24 }}>
-        <h2 style={{ fontSize: 18, fontWeight: 600, marginBottom: 12, color: 'var(--ink-900)' }}>
-          Kontakt
-        </h2>
-        <div style={{ padding: 18, background: 'var(--green-50)', border: '1px solid var(--green-200)', borderRadius: 2, fontSize: 14, color: 'var(--green-900)', lineHeight: 1.7 }}>
-          <div style={{ marginBottom: 8 }}>
-            <strong>Founder & autor:</strong> tuKamil
-          </div>
-          <div style={{ marginBottom: 8 }}>
-            <strong>E-mail prasowy:</strong> <a href="mailto:press@wezmezadarmo.com" style={{ color: '#2b7353' }}>press@wezmezadarmo.com</a>
-          </div>
-          <div style={{ marginBottom: 8 }}>
-            <strong>GitHub (open-source):</strong> <a href="https://github.com/exhuman777/wezmezadarmo" target="_blank" rel="noopener noreferrer" style={{ color: '#2b7353' }}>github.com/exhuman777/wezmezadarmo</a>
-          </div>
-          <div>
-            <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/kamil-sobkowicz" target="_blank" rel="noopener noreferrer" style={{ color: '#2b7353' }}>profil autora</a>
-          </div>
-        </div>
-      </div>
-
-      {/* License */}
-      <div style={{ padding: 16, background: 'var(--white)', border: '1px solid var(--line)', borderRadius: 2, fontSize: 12, color: 'var(--ink-500)' }}>
-        <strong style={{ color: 'var(--ink-700)' }}>Licencja:</strong> Cała baza świadczeń (src/engine/benefits/) na licencji AGPL-3.0.
-        Możesz cytować, kopiować, modyfikować z zachowaniem atrybucji. Komercyjne wykorzystanie bazy poza tym oprogramowaniem wymaga osobnej licencji.
-        <br />
-        <Link href="/regulamin" style={{ color: '#2b7353' }}>Pełne warunki →</Link>
-      </div>
+      {/* JSON-LD na końcu: pierwszy blok zostaje :first-child (bez linii i odstępu nad nagłówkiem). */}
+      <StronaJsonLd sciezka="/press" />
     </main>
   );
 }

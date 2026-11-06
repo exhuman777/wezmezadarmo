@@ -59,6 +59,7 @@ Strony publiczne:
 - Adresy do linkowania (opis + formularz, z dostępem od razu narzędzie): `/dla-firm/narzedzia/kpir`, `/dla-firm/narzedzia/jpk`, `/dla-firm/narzedzia/dofinansowania` (NIP, CEIDG); lista w `src/lib/narzedzia/lista.ts`, parametr `next` tylko ścieżki wewnętrzne (`bezpiecznyNext`)
 - `/narzedzia/kpir/`, `/narzedzia/jpk/` -- statyczne przeglądy KPiR i JPK_V7 w `public/narzedzia` (budowa: `scripts/narzedzia/zbuduj.sh`), bez czatu, formularzy i API: pliki czyta tylko przeglądarka (martwe wywołania `/api/czat`, `/api/zapytanie`, `/api/zgloszenie` z wersji dla biur zostały w paczkach JS, ale nic ich nie uruchamia; pilnuje tego `e2e/narzedzia.spec.ts`), dostęp tylko z ciasteczkiem (middleware, bez niego przekierowanie na stronę narzędzia z formularzem); leady w `/admin/narzedzia`, tabela `leady_narzedzia`
 - `/o-projekcie/`, `/polityka-prywatnosci/`, `/regulamin/` -- strony informacyjne
+- `/press/` -- press kit: opis w 1 i 3 zdaniach z przyciskiem „Kopiuj” (src/app/press/PressAkcje.tsx), fakty liczone z bazy (świadczenia, programy B2B, źródła RSS), lista narzędzi, pliki do pobrania (znak SVG i PNG z `znakSvg()` w src/lib/znak.ts, ikony, obraz OG, zrzuty 1280 i 390 w `public/press/`), kontakt przez formularz w stopce (`#napisz-do-nas`), test `e2e/press.spec.ts`
 - `/agent/` -- Agent AI dla JDG i osób prywatnych (świadczenia, RSS, dzienny e-mail digest)
 
 SEO i pliki dla AI (od 5.11.2026):
