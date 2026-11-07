@@ -14,8 +14,8 @@ export default function BlogIndex() {
       <StronaJsonLd sciezka="/blog" />
       <section className="prosta-blok">
         <p className="etykieta">Blog</p>
-        <h1>Poradniki o świadczeniach</h1>
-        <p className="pod">Co Ci się należy, jak złożyć wniosek i ile to warte. Prostym językiem.</p>
+        <h1>Poradniki o świadczeniach i dotacjach</h1>
+        <p className="pod">Co Ci się należy, jakie dotacje dostanie firma i jak złożyć wniosek. Kwoty i terminy ze źródłami.</p>
       </section>
 
       <section aria-label="Wpisy">

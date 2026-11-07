@@ -3,10 +3,13 @@ import { createClient } from '@supabase/supabase-js';
 import { generateToken, sendConfirmEmail } from '@/lib/newsletter';
 import { rateLimit } from '@/lib/sources/_helpers';
 import { powiadomKamila } from '@/lib/powiadomienia';
+import { ZGODA_NEWSLETTER, odczytajZgody } from '@/lib/zgody';
+import { zapiszZgody } from '@/lib/zgodyZapis';
 
 interface NewsletterPayload {
   email: string;
   profileType: 'private' | 'jdg';
+  zgody?: unknown;
 }
 
 // Rate limit: 5 zapisow per IP per 24h (anty-spam)
@@ -42,6 +45,12 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Nieprawidłowy adres e-mail' }, { status: 400 });
     }
 
+    // Wymagana tylko zgoda na newsletter e-mailem; oferty i kontakt przez AI dobrowolne (src/lib/zgody.ts).
+    const zgody = odczytajZgody(body.zgody, false);
+    if (!zgody.email) {
+      return NextResponse.json({ error: 'Zaznacz zgodę na newsletter e-mailem. Pozostałe zgody są dobrowolne.' }, { status: 400 });
+    }
+
     const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
       ?? request.headers.get('x-real-ip')
       ?? 'unknown';
@@ -58,6 +67,10 @@ export async function POST(request: NextRequest) {
     }
 
     const supabase = createClient(url, key);
+
+    await zapiszZgody({ formularz: 'newsletter', email, zgody, zTelefonem: false, trescEmail: ZGODA_NEWSLETTER }).catch(() => {
+      console.error('[newsletter] zapis zgód nieudany (migracja 20261106_zgody_formularzy.sql?)');
+    });
 
     // Sprawdz czy email juz zapisany i potwierdzony
     const { data: existing } = await supabase

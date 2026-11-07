@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import type { PrefillStatus } from '@/lib/wnioski/useFormPrefill';
 
 interface Props {
@@ -19,60 +18,17 @@ const baseStyle: React.CSSProperties = {
   lineHeight: 1.45,
 };
 
-export function PrefillBanner({ status, count, isLoggedIn, english = false }: Props) {
-  if (status === 'loading') return null;
-
-  if (status === 'profile' || status === 'mixed') {
-    const msg = english
-      ? `Filled ${count} ${count === 1 ? 'field' : 'fields'} from your profile.`
-      : `Wypelniono ${count} ${count === 1 ? 'pole' : count < 5 ? 'pola' : 'pol'} z Twojego profilu.`;
-    // Polskie znaki w komentarzu, ale UI musi miec poprawne diakrytyki:
-    const msgPl = `Wypełniono ${count} ${count === 1 ? 'pole' : count < 5 ? 'pola' : 'pól'} z Twojego profilu.`;
-    return (
-      <div style={{
-        ...baseStyle,
-        color: 'var(--color-text-2)',
-        background: 'rgba(47,125,90,0.08)',
-        border: '1px solid rgba(47,125,90,0.3)',
-      }}>
-        {english ? msg : msgPl}{' '}
-        <Link href="/agent/panel/profil" style={{ color: '#2b7353', textDecoration: 'underline' }}>
-          {english ? 'Manage data' : 'Zarządzaj danymi'}
-        </Link>
-      </div>
-    );
-  }
-
-  if (status === 'localStorage') {
-    return (
-      <div style={{
-        ...baseStyle,
-        color: 'var(--color-text-2)',
-        background: 'var(--color-bg-2)',
-        border: '1px solid var(--color-border)',
-      }}>
-        {english ? 'Restored data from previous session.' : 'Przywrócono dane z poprzedniej sesji.'}
-      </div>
-    );
-  }
-
-  // status === 'idle'
-  if (!isLoggedIn) {
-    return (
-      <div style={{
-        ...baseStyle,
-        color: 'var(--color-text-2)',
-        background: 'var(--color-bg-2)',
-        border: '1px dashed var(--color-border)',
-      }}>
-        {english ? (
-          <><Link href="/logowanie" style={{ color: '#2b7353', textDecoration: 'underline' }}>Sign in</Link> to auto-fill the form from your profile.</>
-        ) : (
-          <><Link href="/logowanie" style={{ color: '#2b7353', textDecoration: 'underline' }}>Zaloguj się</Link> aby auto-wypełnić formularz z Twojego profilu.</>
-        )}
-      </div>
-    );
-  }
-
-  return null;
+/** Od 6.11.2026 bez kont: baner pokazuje tylko przywrócenie danych z tej przeglądarki. */
+export function PrefillBanner({ status, english = false }: Props) {
+  if (status !== 'localStorage') return null;
+  return (
+    <div style={{
+      ...baseStyle,
+      color: 'var(--color-text-2)',
+      background: 'var(--color-bg-2)',
+      border: '1px solid var(--color-border)',
+    }}>
+      {english ? 'Restored data from previous session in this browser.' : 'Przywrócono dane z poprzedniej sesji w tej przeglądarce.'}
+    </div>
+  );
 }

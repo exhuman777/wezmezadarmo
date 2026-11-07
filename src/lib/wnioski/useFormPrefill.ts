@@ -17,10 +17,10 @@ export interface PrefillResult<T> {
  * Hook do persystencji + prefill formularzy wnioskow.
  *
  * Strategia:
- * 1. Mount: spróbuj odczytać localStorage (klucz `wnioski_<slug>_v1`)
- * 2. Mount: jesli zalogowany, fetch /api/agent/profile i zmapuj dane przez fieldMap
- * 3. Merge: profile fills empty fields, localStorage values wygrywaja (uznaje sie ze sa nowsze)
- * 4. Kazda zmiana data -> debounced save do localStorage (500ms)
+ * 1. Mount: odczytaj szkic z sessionStorage (klucz `wnioski_<slug>_v1`), tylko ta karta przeglądarki.
+ * 2. Od 7.11.2026 nie ma kont, więc nie pobieramy profilu (status 'profile' już nie występuje).
+ * 3. Merge: szkic wypełnia puste pola initialState.
+ * 4. Każda zmiana data -> zapis szkicu w sessionStorage po 500 ms; zamknięcie karty kasuje szkic.
  *
  * fieldMap: mapa kluczy formularza na klucze profilu (snake_case w DB).
  * Np. { imie: 'imie', miejscowość: 'miejscowosc', nrKonta: 'nr_konta' }
@@ -52,12 +52,17 @@ export function useFormPrefill<T extends object>(
       let fromLocal: Partial<T> = {};
       const fromProfile: Partial<T> = {};
       let hasLocal = false;
-      let hasProfile = false;
-      let loggedIn = false;
+      const hasProfile = false;
+      const loggedIn = false;
 
-      // 1) localStorage
+      // 1) szkic z tej karty (sessionStorage); stary szkic z localStorage usuwamy, żeby PESEL nie leżał w przeglądarce
       try {
-        const raw = typeof window !== 'undefined' ? window.localStorage.getItem(storageKey) : null;
+        if (typeof window !== 'undefined') window.localStorage.removeItem(storageKey);
+      } catch {
+        // brak dostępu do pamięci przeglądarki
+      }
+      try {
+        const raw = typeof window !== 'undefined' ? window.sessionStorage.getItem(storageKey) : null;
         if (raw) {
           const parsed = JSON.parse(raw) as Partial<T>;
           if (parsed && typeof parsed === 'object') {
@@ -69,25 +74,8 @@ export function useFormPrefill<T extends object>(
         // Cichy fallback - corrupted localStorage
       }
 
-      // 2) profile
-      try {
-        const res = await fetch('/api/agent/profile', { credentials: 'include' });
-        if (res.status === 200) {
-          loggedIn = true;
-          const json = (await res.json()) as { profile?: Record<string, unknown> };
-          const profile: Record<string, unknown> = json.profile ?? {};
-          for (const [formKey, profileKey] of Object.entries(fieldMap) as [string, string | undefined][]) {
-            if (!profileKey) continue;
-            const v = profile[profileKey];
-            if (!isEmpty(v)) {
-              (fromProfile as Record<string, unknown>)[formKey] = v;
-            }
-          }
-          hasProfile = Object.keys(fromProfile).length > 0;
-        }
-      } catch {
-        // Cichy fallback - offline / fetch error
-      }
+      // 2) profil z konta: wyłączony od 7.11.2026 (bez kont). fieldMap zostaje dla zgodności wywołań.
+      void fieldMap;
 
       if (cancelled) return;
 
@@ -150,7 +138,7 @@ export function useFormPrefill<T extends object>(
     saveTimer.current = setTimeout(() => {
       try {
         if (typeof window !== 'undefined') {
-          window.localStorage.setItem(storageKey, JSON.stringify(data));
+          window.sessionStorage.setItem(storageKey, JSON.stringify(data));
         }
       } catch {
         // QuotaExceeded lub private mode - ignoruj
@@ -163,7 +151,7 @@ export function useFormPrefill<T extends object>(
 
   const clearSaved = useCallback(() => {
     try {
-      if (typeof window !== 'undefined') window.localStorage.removeItem(storageKey);
+      if (typeof window !== 'undefined') window.sessionStorage.removeItem(storageKey);
     } catch {
       // ignore
     }

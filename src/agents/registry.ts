@@ -146,7 +146,7 @@ function buildRssBlock(items: import('./types').RssContextItem[]): string {
     lines.push(`  ${item.link}`);
   }
   if (items.length > 15) {
-    lines.push(`...i ${items.length - 15} wiecej (pelna lista na /panel/aktualnosci)`);
+    lines.push(`...i ${items.length - 15} wiecej (pelna lista na /aktualnosci)`);
   }
   return lines.join('\n');
 }
@@ -164,7 +164,7 @@ function buildRssSubscriptionBlock(sub: import('./types').RssSubscriptionContext
     const date = new Date(sub.last_sent_at).toLocaleString('pl-PL');
     parts.push(`Ostatni e-mail alertu: ${date}`);
   }
-  parts.push('Możesz odsyłać do /panel/aktualnosci po jego spersonalizowany widok.');
+  parts.push('Pełna lista aktualności: /aktualnosci.');
   return parts.join('\n');
 }
 

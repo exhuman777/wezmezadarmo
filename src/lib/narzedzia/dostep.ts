@@ -1,10 +1,11 @@
 /**
- * Dostęp do narzędzi dla firm (/narzedzia/*) po potwierdzeniu e-maila.
+ * Dostęp do sprawdzenia firmy po NIP po potwierdzeniu e-maila (kliknięcie linku z maila, double opt-in).
  * Ciasteczko httpOnly: `<idLeada>.<wygasa_unix>.<podpis>`, podpis HMAC-SHA256 (Web Crypto: działa w middleware i w API).
  * Sekret: NARZEDZIA_SECRET, a bez niego klucz pochodny od SUPABASE_SERVICE_ROLE_KEY. Bez obu dostępu nie da się wydać ani sprawdzić: fail closed.
  */
 
-export const COOKIE_DOSTEP = 'wzd_narzedzia';
+// Nowa nazwa od 6.11.2026: stare ciasteczka wydawane przed potwierdzeniem adresu przestają działać.
+export const COOKIE_DOSTEP = 'wzd_nip_potwierdzony';
 export const DOSTEP_DNI = 30;
 const TEST_SECRET = 'tylko-tryb-testowy-narzedzia';
 

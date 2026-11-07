@@ -5,10 +5,12 @@
  * Teksty bez długich myślników, bez emoji i bez „--”; pilnuje tego src/lib/__tests__/llms.test.ts.
  */
 import { POSTS } from '@/data/blog-posts';
+import { sciezkaWpisu, wpisMd } from '@/lib/blog';
 import { getAllBenefits } from '@/engine/benefits';
 import { CATEGORY_LABELS, CATEGORY_ORDER } from '@/engine/kategorie';
 import type { ApplicationChannel, Benefit } from '@/engine/types';
 import { NARZEDZIA } from '@/lib/narzedzia/lista';
+import { PROGRAMS } from '@/data/programs-b2b';
 import { SITE_URL, adres, sciezkaMd } from '@/lib/seo';
 import { SIEC_TUKAMIL, TA_STRONA, aplikacjaSieci } from '@/lib/siec';
 import { STRONY, podstrony, strona, type GrupaStrony, type Strona } from '@/lib/strony';
@@ -78,6 +80,29 @@ Pełny spis serwisu dla modeli: ${SITE_URL}/llms.txt`;
 
 const UWAGA = 'Projekt prywatny, nie rządowy i niekomercyjny. Informacja orientacyjna, nie decyzja urzędowa: ważne sprawy potwierdź w urzędzie.';
 
+/** Co działa bez konta i gdzie pada jedyny e-mail (llms.txt, /index.md, llm.md i agents.md mówią to samo). */
+export const BEZ_KONTA = `Wszystko działa bez logowania i bez podawania danych: kalkulator świadczeń, baza świadczeń, asystent AI (3 pytania dziennie), wnioski ZUS z PDF, przegląd KPiR i JPK_V7, wyszukiwarka programów dotacji, artykuły na blogu, aktualności, statystyki i Centrum Obywatela. E-mail i telefon podaje tylko firma przy sprawdzeniu po NIP (${SITE_URL}/dla-firm/narzedzia/dofinansowania): polski numer telefonu, e-mail bez aliasu z plusem i bez domeny jednorazowej, potwierdzony linkiem z maila. Formularz „Napisz do nas” w stopce prosi tylko o e-mail do odpowiedzi. Każda zgoda na kontakt (e-mail w sprawie zgłoszenia, oferty e-mailem, telefon, kontakt przez asystenta AI) to osobne pole, domyślnie odznaczone: ${SITE_URL}/polityka-prywatnosci#zgody. Nie ma kont, logowania ani newslettera; strona nie zapisuje profilu.`;
+
+/** Publiczne API bez klucza (GET, dane urzędów na żywo). */
+export const API_PUBLICZNE: Link[] = [
+  { nazwa: 'GET /api/public/nbp', url: `${SITE_URL}/api/public/nbp`, opis: 'kursy walut NBP (tabela A)' },
+  { nazwa: 'GET /api/public/nfz?type=queues&q=kardiolog&province=lubelskie', url: `${SITE_URL}/api/public/nfz?type=queues&q=kardiolog&province=lubelskie`, opis: 'kolejki i świadczeniodawcy NFZ' },
+  { nazwa: 'GET /api/public/gios?lat=51.25&lon=22.57', url: `${SITE_URL}/api/public/gios?lat=51.25&lon=22.57`, opis: 'jakość powietrza GIOŚ dla najbliższej stacji' },
+  { nazwa: 'GET /api/public/whitelist?nip=NIP', url: `${SITE_URL}/api/public/whitelist?nip=7342867148`, opis: 'Biała Lista VAT Ministerstwa Finansów' },
+  { nazwa: 'GET /api/public/imgw', url: `${SITE_URL}/api/public/imgw`, opis: 'ostrzeżenia meteorologiczne i hydrologiczne IMGW' },
+  { nazwa: 'GET /api/public/eli-sejm?q=zasiłek', url: `${SITE_URL}/api/public/eli-sejm?q=zasi%C5%82ek`, opis: 'akty prawne z Dziennika Ustaw (ELI Sejm)' },
+  { nazwa: 'GET /api/public/bdl-gus?gmina=Lublin', url: `${SITE_URL}/api/public/bdl-gus?gmina=Lublin`, opis: 'dane gminy z Banku Danych Lokalnych GUS' },
+];
+
+/** Wpisy bloga od najnowszego. */
+function wpisy() {
+  return [...POSTS].sort((a, b) => b.date.localeCompare(a.date));
+}
+
+function listaWpisow(): string {
+  return wpisy().map(p => `- [${p.title}](${adres(sciezkaWpisu(p.slug))}.md) (${p.date}): ${p.description}`).join('\n');
+}
+
 function naglowek(s: Strona): string {
   return `# ${s.tytul}
 
@@ -135,6 +160,10 @@ wezmezadarmo pomaga sprawdzić, jakie świadczenia, ulgi i dotacje mogą Ci przy
 
 Bez konta i bez PESEL. Odpowiedzi nie są zapisywane.
 
+## Bez konta
+
+${BEZ_KONTA}
+
 ## Dwa przykłady ze strony
 
 - 800+: 800 zł miesięcznie na każde dziecko do 18 lat, bez względu na dochód.
@@ -143,6 +172,10 @@ Bez konta i bez PESEL. Odpowiedzi nie są zapisywane.
 ## Co jeszcze jest w serwisie
 
 ${listaStron(STRONY.filter(s => s.sciezka !== '/' && s.md))}
+
+## Artykuły
+
+${listaWpisow()}
 
 ${STOPKA_MD}`;
   },
@@ -167,7 +200,7 @@ AI tłumaczy każde pole i podpowiada treść. Pobierasz gotowy PDF do podpisani
 
 ## Jak to działa
 
-1. Wybierasz formularz. Po zalogowaniu dane z profilu (PESEL, imię, adres, numer konta) wpisują się same.
+1. Wybierasz formularz. Konto nie jest potrzebne.
 2. AI proponuje treść pól na podstawie kontekstu wniosku, a Ty czytasz i potwierdzasz.
 3. Dane zostają w Twojej przeglądarce, więc przy kolejnym wniosku pola wypełnią się same.
 4. Pobierasz PDF z danymi, instrukcją złożenia i wskazówkami. Drukujesz, podpisujesz i składasz.
@@ -180,11 +213,10 @@ ${STOPKA_MD}`,
 
   '/agent': () => `${naglowek(strona('/agent'))}
 
-Asystent odpowiada z bazy świadczeń i danych urzędów. Bez konta zadasz 3 pytania dziennie, z kontem odpowiada pod Twój profil.
+Asystent odpowiada z bazy świadczeń i danych urzędów. Czat działa na stronie od razu, bez konta: 3 pytania dziennie. Rozmowa nie jest zapisywana.
 
 ## Co potrafi
 
-- Po uzupełnieniu profilu odpowiada pod Twój wiek, rodzinę, dochód i firmę.
 - Pokazuje świadczenia, które pasują, z linkiem do źródła.
 - Sprawdza dane na żywo: kurs w NBP, kolejkę w NFZ, NIP na Białej Liście VAT, powietrze z GIOŚ.
 - Cytuje komunikaty ZUS, PFRON, GUS, Sejmu i ministerstw.
@@ -221,7 +253,7 @@ ${STOPKA_MD}`,
 
 Agregator RSS odświeżany co 30 minut. Źródła: ZUS, GUS, NBP, UOKiK, Fundusze EU, e-Zdrowie, Sejm i ARiMR. Wpisy można filtrować: dla wszystkich, dla JDG, dla firm. Obok widżety na żywo: jakość powietrza GIOŚ, kursy NBP, ostrzeżenia i zmiany w prawie.
 
-Firmy po zalogowaniu ustawiają własne kanały monitorowania w panelu.
+Wszystkie wpisy czyta się bez konta.
 
 ${STOPKA_MD}`,
 
@@ -255,15 +287,25 @@ ${STOPKA_MD}`,
 
 ## Narzędzia dla firm za darmo
 
-Wgrywasz plik, a przeglądarka pokazuje, co sprawdzić przed wysyłką. Pliki zostają u Ciebie. Bez zakładania konta: wystarczy e-mail i telefon.
+Wgrywasz plik, a przeglądarka pokazuje, co sprawdzić przed wysyłką. Pliki zostają u Ciebie. KPiR i JPK_V7 działają od razu, bez konta i formularza. E-mail pada tylko przy sprawdzeniu firmy po NIP.
 
-${listaStron(podstrony('/dla-firm/narzedzia'))}
+${NARZEDZIA.map(n => `- [${n.nazwa}](${adres(n.email ? n.adres : n.cel)}): ${n.opis}`).join('\n')}
+
+## Dotacje dla firm
+
+- [Wyszukiwarka programów](${SITE_URL}/dotacje#wyszukiwarka): programy z bazy bez konta i bez e-maila.
+${wpisy().filter(p => p.dlaFirm).map(p => `- [${p.title}](${adres(sciezkaWpisu(p.slug))})`).join('\n')}
 
 ## Otwarte API bazy świadczeń
 
 Jeden endpoint REST: POST ${SITE_URL}/api/verify z profilem osoby (wiek, płeć, dzieci, dochód) i kluczem API w nagłówku X-API-Key. API nie zapisuje danych osób, o które pytasz. Kod AGPL-3.0, dane CC-BY-4.0, bezpłatnie także dla NGO i instytucji publicznych. Klucz API: formularz na stronie. Dokumentacja dla agentów: ${SITE_URL}/llm.md
 
 Z API korzystają głównie ci, którzy pomagają ludziom: NGO i ośrodki pomocy, pracownicy socjalni i doradcy, biblioteki i punkty pomocy cyfrowej, uczelnie i badacze.
+
+## Faktury, płatności i telefony
+
+- [DogInvoice](https://doginvoice.com): faktury z KSeF wpadają same, wpłaty dopasowują się do faktur, koszyk przelewów do banku. Widać, czy zapłacili Ci za fakturę.
+- [DogAnswer](https://doganswer.com): asystent AI odbiera telefon w firmie, gdy właściciel nie może, i wysyła podsumowanie rozmowy. Demo pod numerem +48 732 126 419.
 
 ## Więcej dla firm
 
@@ -277,35 +319,27 @@ Pliki czyta tylko Twoja przeglądarka, nie wysyłamy ich na serwer. Narzędzia w
 
 ## Narzędzia
 
-${NARZEDZIA.map(n => `### ${n.nazwa}\n\n${n.opis}\n\nAdres: ${adres(n.adres)}`).join('\n\n')}
+${NARZEDZIA.map(n => `### ${n.nazwa}\n\n${n.opis}\n\nOpis: ${adres(n.adres)}\nNarzędzie: ${adres(n.cel)}`).join('\n\n')}
 
 ## Jak otworzyć
 
-1. Wejdź na stronę narzędzia.
-2. Podaj e-mail i telefon (imię opcjonalnie) i zaznacz zgodę na kontakt.
-3. Narzędzia otwierają się od razu na 30 dni, bez zakładania konta.
+- Przegląd KPiR i przegląd JPK_V7: otwierasz od razu, bez konta, formularza i ciasteczka.
+- Dofinansowania po NIP: podajesz e-mail i polski numer telefonu (imię opcjonalnie) i zaznaczasz zgodę. Przychodzi mail z linkiem, wynik otwiera się po jego kliknięciu (na 30 dni). Adresy z plusem i domeny jednorazowe są odrzucane.
 
 ${STOPKA_MD}`,
 
   '/dotacje': () => `${naglowek(strona('/dotacje'))}
 
-## Jak to działa
+Wyszukiwarka programów działa od razu, bez konta i bez e-maila: ${SITE_URL}/dotacje#wyszukiwarka. Baza ma ${liczba(PROGRAMS.length, ['program', 'programy', 'programów'])} (KFS, PUP, PFRON, FENG, PARP, NCBR, ARiMR i programy regionalne), przy każdym link do strony instytucji i data sprawdzenia.
 
-1. Podajesz NIP. Agent pobiera dane z CEIDG i Białej Listy VAT: nazwę, PKD, województwo, status VAT.
-2. Zaznaczasz, co Cię interesuje: szkolenia, zatrudnienie, innowacje, zielona transformacja, eksport.
-3. Rozmawiasz z agentem: pokazuje, co pasuje do profilu firmy, i wyjaśnia, dlaczego inne programy nie spełniają kryteriów.
-4. Dostajesz e-mail, gdy otworzy się nowy nabór pasujący do profilu firmy.
+## Sprawdzenie firmy po NIP
 
-## Co monitoruje agent
+Jedyne miejsce w serwisie, które prosi o dane (e-mail i telefon): ${SITE_URL}/dla-firm/narzedzia/dofinansowania. Podajesz e-mail i telefon, klikasz link z maila, potem wpisujesz NIP. Serwis pobiera z CEIDG i Białej Listy VAT nazwę, PKD, województwo i status VAT, a potem pokazuje pasujące programy. 
+## Artykuły o naborach
 
-- Krajowy Fundusz Szkoleniowy: do 300% przeciętnego wynagrodzenia na kształcenie pracowników i pracodawcy, nabory przez PUP.
-- Refundacja kosztów zatrudnienia bezrobotnego: do 6-krotności średniej krajowej.
-- Dofinansowanie zatrudnienia osób z niepełnosprawnością (PFRON): 2400 zł miesięcznie na osobę, wnioski przez SODiR.
-- Krajowy Plan Odbudowy: do 2 mln zł na cyfryzację, zieloną transformację i odporność firm, nabory PARP i BGK.
-- Programy samorządowe: od 5 tys. zł, monitoring 16 województw.
-- PARP: do 10 mln zł na B+R, innowacje, eksport i cyfryzację z funduszy FEP 2021-2027.
+${wpisy().filter(p => p.dlaFirm).map(p => `- [${p.title}](${adres(sciezkaWpisu(p.slug))}.md): ${p.description}`).join('\n')}
 
-Dostęp jest bezpłatny, z limitami uczciwego użycia. Nic nie jest składane bez Twojej zgody, a decyzja o dofinansowaniu należy do instytucji, która prowadzi program.
+Dane orientacyjne. Termin i kwotę potwierdź w ogłoszeniu naboru, a decyzja o dofinansowaniu należy do instytucji, która prowadzi program.
 
 ${STOPKA_MD}`,
 
@@ -343,21 +377,23 @@ ${STOPKA_MD}`,
 
   '/blog': () => `${naglowek(strona('/blog'))}
 
-${[...POSTS].sort((a, b) => b.date.localeCompare(a.date)).map(p => `- [${p.title}](${adres(`/blog/${p.slug}`)}) (${p.date}): ${p.description}`).join('\n')}
+${listaWpisow()}
 
-Pełna treść wpisów: ${SITE_URL}/llms-full.txt
+Każdy wpis ma wersję Markdown pod adresem wpisu z końcówką .md. Pełna treść wpisów: ${SITE_URL}/llms-full.txt
 
 ${STOPKA_MD}`,
 
   '/o-projekcie': () => `${naglowek(strona('/o-projekcie'))}
 
-Darmowa strona, która pomaga sprawdzić, jakie świadczenia, ulgi i dotacje mogą Ci przysługiwać. Projekt prywatny, nie rządowy i niekomercyjny. Stworzył go tuKamil z Lublina, pro bono. Kod jest otwarty (AGPL-3.0), baza świadczeń to otwarte dane (CC-BY-4.0): https://github.com/exhuman777/wezmezadarmo
+Darmowa strona, która pomaga sprawdzić, jakie świadczenia, ulgi i dotacje mogą Ci przysługiwać. Projekt prywatny, nie rządowy i niekomercyjny. Stronę robi tuKamil z Lublina (https://tukamil.com), pro bono. Przewodnik po wezmezadarmo: https://tukamil.com/wezmezadarmo/. Pakiet Wdrożenie AI w firmie (4 godziny szkolenia u klienta): https://tukamil.com/wdrozenie-ai/. Kod jest otwarty (AGPL-3.0), baza świadczeń to otwarte dane (CC-BY-4.0): https://github.com/exhuman777/wezmezadarmo
+
+${BEZ_KONTA}
 
 ## Prywatność
 
 - Kalkulator nie pyta o PESEL i nie zapisuje Twoich odpowiedzi.
-- PESEL jest potrzebny tylko do wniosku ZUS. Zapisuje się w Twojej przeglądarce, a po zalogowaniu opcjonalnie w profilu.
-- Konto i profil są w bazie Supabase na serwerach w UE. Danych nie sprzedajemy.
+- PESEL jest potrzebny tylko do wniosku ZUS: serwer składa PDF w pamięci, a szkic zostaje w karcie przeglądarki do jej zamknięcia.
+- Nie ma kont ani logowania. E-mail i telefon podajesz tylko przy sprawdzeniu firmy po NIP, każda zgoda na kontakt jest osobna i domyślnie odznaczona. Danych nie sprzedajemy.
 - Asystent AI odpowiada z bazy świadczeń i podaje źródła. Ważne rzeczy sprawdź w urzędzie.
 
 ## Skąd są dane
@@ -391,7 +427,11 @@ export function llmsTxt(): string {
 
 > Darmowy serwis, który pomaga osobom w Polsce sprawdzić, jakie świadczenia, ulgi i dotacje mogą im przysługiwać (baza ${liczba(n, ['świadczenia', 'świadczeń', 'świadczeń'])}, ulg i dotacji ze źródłami urzędowymi), wypełnić wniosek ZUS z pomocą AI i skorzystać z darmowych narzędzi dla firm. Projekt prywatny tuKamil, nie rządowy.
 
-Wszystko po polsku, bez logowania (konto tylko do panelu). Informacja orientacyjna, nie decyzja urzędowa. Adres kanoniczny: ${SITE_URL}. Pliki .md mają tę samą treść co strony, bez nawigacji.
+Wszystko po polsku. Informacja orientacyjna, nie decyzja urzędowa. Adres kanoniczny: ${SITE_URL}. Pliki .md mają tę samą treść co strony, bez nawigacji. Stronę robi tuKamil (https://tukamil.com), przewodnik: https://tukamil.com/wezmezadarmo/
+
+## Bez konta
+
+${BEZ_KONTA}
 
 ## ${NAZWY_GRUP.obywatele}
 
@@ -408,6 +448,16 @@ ${grupa('centrum')}
 ## ${NAZWY_GRUP.firmy}
 
 ${grupa('firmy')}
+
+## Artykuły
+
+${listaWpisow()}
+
+## Publiczne API bez klucza
+
+${listaLinkow(API_PUBLICZNE)}
+
+Dopasowanie świadczeń: POST ${SITE_URL}/api/verify (z innych domen wymaga klucza X-API-Key, opis w llm.md). Czat: POST ${SITE_URL}/api/chat (3 pytania dziennie bez klucza).
 
 ## Dla agentów AI
 
@@ -426,20 +476,13 @@ ${listaLinkow(INNE_APLIKACJE)}
 ## Optional
 
 ${grupa('informacje')}
-${POSTS.map(p => `- [${p.title}](${adres(`/blog/${p.slug}`)}): ${p.description}`).join('\n')}
 `;
 }
 
 /** /llms-full.txt: treść wszystkich stron .md po kolei, pełna baza świadczeń i wpisy bloga. */
 export function llmsFullTxt(): string {
   const strony = SCIEZKI_MD.filter(p => p !== '/swiadczenia').map(p => TRESCI[p]().replace(/\n## Inne aplikacje tuKamil[\s\S]*$/, '').trim());
-  const blog = [...POSTS].sort((a, b) => b.date.localeCompare(a.date)).map(p => `# ${p.title}
-
-> ${p.description}
-
-Strona: ${adres(`/blog/${p.slug}`)}, ${p.date}
-
-${p.content.trim().replace(/^ • /gm, '- ')}`);
+  const blog = wpisy().map(p => wpisMd(p));
   return `# wezmezadarmo: pełna treść dla modeli językowych
 
 > Spis z linkami: ${SITE_URL}/llms.txt. ${UWAGA}

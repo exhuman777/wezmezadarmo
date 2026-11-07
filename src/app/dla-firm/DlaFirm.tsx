@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { ZgodyKontaktu } from '@/components/ZgodyKontaktu';
+import { BLAD_ZGODY, ZGODY_PUSTE, type Zgody } from '@/lib/zgody';
 import { NARZEDZIA } from '@/lib/narzedzia/lista';
 
 /* ── Terminal code window ── */
@@ -98,16 +100,18 @@ export default function DlaFirmPage() {
   const [form, setForm] = useState({ imie: '', firma: '', email: '', wiadomosc: '' });
   const [status, setStatus] = useState<'idle' | 'sending' | 'ok' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
+  const [zgody, setZgody] = useState<Zgody>(ZGODY_PUSTE);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (!zgody.email) { setErrorMsg(BLAD_ZGODY); setStatus('error'); return; }
     setStatus('sending');
     setErrorMsg('');
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, zgody }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -134,14 +138,31 @@ export default function DlaFirmPage() {
 
       <section className="prosta-blok" style={{ padding: 0 }}>
         <h1>Za darmo dla firm: sprawdź księgę KPiR, plik JPK_V7 i dofinansowania</h1>
-        <p className="pod">Wgrywasz plik, a przeglądarka pokazuje, co sprawdzić przed wysyłką. Pliki zostają u Ciebie. Bez zakładania konta: wystarczy e-mail i telefon.</p>
+        <p className="pod">Wgrywasz plik, a przeglądarka pokazuje, co sprawdzić przed wysyłką. Pliki zostają u Ciebie. Bez konta i bez formularza, e-mail tylko przy sprawdzeniu firmy po NIP.</p>
         <div className="przyciski">
           <a href="/dla-firm/narzedzia" className="btn btn-rdza btn-lg">Otwórz narzędzia dla firm</a>
         </div>
         <ul className="linki" style={{ marginTop: 16 }}>
           {NARZEDZIA.map((n) => (
-            <li key={n.slug}><a href={n.adres}><span>{n.nazwa}</span><span aria-hidden="true">→</span></a></li>
+            <li key={n.slug}><a href={n.email ? n.adres : n.cel}><span>{n.nazwa}</span><span aria-hidden="true">→</span></a></li>
           ))}
+        </ul>
+      </section>
+
+      <section className="prosta-blok" style={{ padding: '32px 0 0' }}>
+        <h2>Dotacje dla firm w 2026</h2>
+        <p className="pod">Największe nabory z listopada 2026 według budżetu, każdy z linkiem do ogłoszenia.</p>
+        <ul className="linki">
+          <li><a href="/blog/najwieksze-dotacje-dla-firm-2026"><span>10 największych dotacji dla firm<small>Ranking według budżetu naboru, źródło MFiPR.</small></span><span aria-hidden="true">→</span></a></li>
+          <li><a href="/dotacje#wyszukiwarka"><span>Wyszukiwarka programów<small>Programy z bazy bez konta i bez e-maila.</small></span><span aria-hidden="true">→</span></a></li>
+        </ul>
+      </section>
+
+      <section className="prosta-blok" style={{ padding: '32px 0 0' }}>
+        <h2>Faktury, płatności i telefony</h2>
+        <ul className="linki">
+          <li><a href="https://doginvoice.com" target="_blank" rel="noopener"><span>DogInvoice<small>Faktury z KSeF wpadają same, wpłaty dopasowują się do faktur. Widzisz, czy zapłacili Ci za fakturę.</small></span><span aria-hidden="true">→</span></a></li>
+          <li><a href="https://doganswer.com" target="_blank" rel="noopener"><span>DogAnswer<small>Asystent AI odbiera telefon w firmie, gdy Ty nie możesz, i wysyła podsumowanie rozmowy.</small></span><span aria-hidden="true">→</span></a></li>
         </ul>
       </section>
 
@@ -201,7 +222,7 @@ export default function DlaFirmPage() {
           ) : (
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
               {([
-                { key: 'imie', label: 'Imię i nazwisko', placeholder: 'Jan Kowalski', type: 'text', autocomplete: 'name', required: true },
+                { key: 'imie', label: 'Imię (opcjonalnie)', placeholder: 'Jan', type: 'text', autocomplete: 'given-name', required: false },
                 { key: 'firma', label: 'Organizacja lub firma (opcjonalnie)', placeholder: 'Fundacja / firma', type: 'text', autocomplete: 'organization', required: false },
                 { key: 'email', label: 'Adres e-mail', placeholder: 'jan@przyklad.pl', type: 'email', autocomplete: 'email', required: true },
               ] as const).map(f => (
@@ -231,6 +252,7 @@ export default function DlaFirmPage() {
                   style={{ ...pole, resize: 'vertical' }}
                 />
               </div>
+              <ZgodyKontaktu telefon={false} wartosci={zgody} onChange={setZgody} prefiks="kontakt" />
               {status === 'error' && (
                 <p role="alert" style={{ fontSize: 15, color: 'var(--red-600)', margin: 0 }}>{errorMsg}</p>
               )}

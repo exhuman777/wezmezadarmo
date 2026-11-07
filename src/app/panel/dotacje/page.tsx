@@ -265,6 +265,18 @@ export default function PanelDotacjePage() {
         </>
       )}
 
+      {ceidg && (
+        <section aria-label="Po dotacji" style={{ marginTop: 28, paddingTop: 16, borderTop: '1px solid var(--linia)' }}>
+          <h2 style={{ fontSize: 16, fontWeight: 600, marginBottom: 8, color: 'var(--ink-900)' }}>Po otrzymaniu dotacji</h2>
+          <p style={{ fontSize: 14, lineHeight: 1.6, margin: '0 0 8px', color: 'var(--ink-700)' }}>
+            Dotacja to faktury i płatności do rozliczenia. <a href="https://doginvoice.com" target="_blank" rel="noopener" style={{ color: '#2b7353' }}>DogInvoice</a> pobiera faktury z KSeF, dopasowuje wpłaty do faktur i robi jeden plik przelewów do banku: widzisz, czy zapłacili Ci za fakturę.
+          </p>
+          <p style={{ fontSize: 14, lineHeight: 1.6, margin: 0, color: 'var(--ink-700)' }}>
+            Nie odbierasz telefonu w trakcie projektu? <a href="https://doganswer.com" target="_blank" rel="noopener" style={{ color: '#2b7353' }}>DogAnswer</a> odbierze za Ciebie i wyśle podsumowanie rozmowy. Demo: <a href="tel:+48732126419" style={{ color: '#2b7353' }}>+48 732 126 419</a>.
+          </p>
+        </section>
+      )}
+
       {!ceidg && !error && (
         <div style={{ padding: 32, background: 'var(--green-50)', border: '1px solid var(--green-200)', borderRadius: 2, textAlign: 'center', color: 'var(--green-900)' }}>
           <div style={{ fontSize: 14, marginBottom: 8 }}>Wpisz NIP firmy, żeby zobaczyć dopasowane dotacje.</div>

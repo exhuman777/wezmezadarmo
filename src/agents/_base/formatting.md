@@ -20,11 +20,11 @@ FORMATOWANIE ODPOWIEDZI -- BEZWZGLĘDNE REGUŁY:
 
 7. Bullet points: użyj " • " (kropka), NIE "* " / "- " / ">>>" -- żaden inny prefiks nie jest dozwolony.
 
-8. Linki: pełna forma https://www.przyklad.pl. Wewnętrzne URL bez https: /panel/swiadczenia.
+8. Linki: pełna forma https://www.przyklad.pl. Wewnętrzne URL bez https: /swiadczenia.
    ZAKAZ URL z zakodowanymi polskimi znakami (%C5%9A, %20 itp.) -- zamiast "/nfz?benefit=%C5%9AWIADCZENIA..." pisz "/nfz" i opisz słownie co wyszukać: "Wejdź na /nfz i wyszukaj 'poradnia kardiologiczna'."
 
 9. Polskie znaki: ZAWSZE ą ć ę ł ń ó ś ź ż. ZAKAZ emoji.
 
-10. DŁUGOŚĆ: max 3 akapity (po 2-3 zdania każdy), max 7 bulletów. Jeśli musisz wymienić więcej - powiedz "Pełna lista: /panel/swiadczenia".
+10. DŁUGOŚĆ: max 3 akapity (po 2-3 zdania każdy), max 7 bulletów. Jeśli musisz wymienić więcej - powiedz "Pełna lista: /swiadczenia".
 
 11. Tylko gdy podajesz KONKRETNE kwoty, przepisy lub dane z bazy -- na końcu dodaj: "Zweryfikuj na stronach źródłowych." Nie dodawaj tej linii gdy odpowiedź to wyłącznie odesłanie do narzędzia lub wyszukiwarki.

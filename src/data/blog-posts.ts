@@ -1,10 +1,11 @@
 /**
- * Baza artykulow bloga - statyczne MDX-like.
+ * Baza artykułów bloga. Wpisy o dotacjach dla firm: src/data/blog-dotacje-2026.ts.
  * Kazdy artykul = jeden eksport object z metadata + content (Markdown-like).
  *
  * Format: zostaw 'opis' krotki (do meta description SEO),
  * 'content' to surowy tekst (rendered jako paragraphs + headings).
  */
+import { WPISY_DOTACJE_2026 } from './blog-dotacje-2026';
 
 export interface BlogPost {
   slug: string;
@@ -17,10 +18,21 @@ export interface BlogPost {
   readingMinutes: number;
   tags: string[];
   ogImage?: string;
-  content: string;         // Surowy text/markdown - renderowane po heading patterns
+  /** Data ostatniej zmiany treści (dateModified w JSON-LD, lastmod w sitemap). */
+  zmiana?: string;
+  /** Wpis dla firm: na końcu przyciski do wyszukiwarki dotacji i sprawdzenia po NIP zamiast kalkulatora. */
+  dlaFirm?: boolean;
+  /** Pytania i odpowiedzi widoczne na końcu wpisu; z nich FAQPage w JSON-LD. Odpowiedź może mieć linki [tekst](adres). */
+  faq?: { pytanie: string; odpowiedz: string }[];
+  /**
+   * Treść: „## ” i „### ” to nagłówki, linia z „ • ” albo „- ” to punkt listy, [tekst](adres) to link w tekście.
+   * Linia z samym linkiem wewnętrznym [tekst](/adres) to przycisk.
+   */
+  content: string;
 }
 
 export const POSTS: BlogPost[] = [
+  ...WPISY_DOTACJE_2026,
   {
     slug: 'co-nowego-lipiec-2026-wyszukiwarka-audyt',
     title: 'Wyszukiwarka, która rozumie "kuroniówkę" i automatyczny audyt 133 źródeł: co nowego w serwisie',
@@ -71,7 +83,7 @@ Pracujemy nad rozszerzeniem bazy świadczeń i lepszym dopasowaniem do profilu r
   {
     slug: '10-swiadczen-o-ktorych-nie-wiesz',
     title: '10 świadczeń o których nie wiesz, że Ci się należą w 2026',
-    description: 'Polacy tracą ~3000 PLN rocznie nie korzystając ze świadczeń. Sprawdź 10 najczęściej pomijanych: bon ciepłowniczy, ulga IKZE, refundacja okularów NFZ, dodatek mieszkaniowy i inne.',
+    description: '10 najczęściej pomijanych świadczeń w 2026: bon ciepłowniczy, ulga IKZE, refundacja okularów NFZ, dodatek mieszkaniowy i inne. Sprawdź, co Ci się należy.',
     date: '2026-05-24',
     author: 'Zespół wezmezadarmo',
     readingMinutes: 8,

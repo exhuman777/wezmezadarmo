@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { FooterContactForm } from './FooterContactForm';
-import { NewsletterSignup } from './NewsletterSignup';
 import { SiecTuKamil } from './SiecTuKamil';
 import { PixelMark } from './SiteNav';
 
 // Stopka w stylu strony głównej: jedna wąska kolumna, linki w jednym ciągu,
-// newsletter i formularz kontaktowy schowane pod krótkimi nagłówkami, pod nimi
+// formularz „Napisz do nas” schowany pod krótkim nagłówkiem, pod nim
+// (newslettera nie ma od 7.11.2026: nic go nie wysyłało, wypisanie /newsletter/unsubscribe działa dalej),
 // stopka „Sieć tuKamil” (wariant tekstowy, katalog w src/lib/siec.ts).
 const LINKI = [
   { href: '/swiadczenia', label: 'Baza 133 świadczeń' },
@@ -39,15 +39,7 @@ export function SiteFooter() {
           {LINKI.map(link => (
             <Link key={link.href} href={link.href}>{link.label}</Link>
           ))}
-          <a href="https://linkedin.com/in/kamil-sobkowicz" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </nav>
-
-        <details className="stopka-sekcja">
-          <summary>Newsletter co tydzień</summary>
-          <div className="stopka-sekcja-in">
-            <NewsletterSignup />
-          </div>
-        </details>
 
         {/* id: przycisk „Otwórz formularz” na /press rozwija tę sekcję (src/app/press/PressAkcje.tsx) */}
         <details className="stopka-sekcja" id="napisz-do-nas">

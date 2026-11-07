@@ -1,12 +1,14 @@
 'use client';
 
 import { PixelIcon } from '@/components/PixelIcon';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { IntakeForm } from '@/components/IntakeForm';
 import { ChatWindow, ChatMessage } from '@/components/ChatWindow';
 import { MatchResult, UserProfile } from '@/engine/types';
 import { getAllBenefits } from '@/engine/benefits';
+import { matchBenefits } from '@/engine/matcher';
+import { Licznik, Rotator } from '@/components/Ruch';
 import { CeidgBusinessData } from '@/lib/ceidg';
 import { track } from '@/lib/analytics';
 
@@ -210,7 +212,49 @@ const IconArrowLeft = () => (
 const SESSION_KEY = 'wzd_session_v1';
 const SESSION_TTL = 7 * 24 * 60 * 60 * 1000;
 
-export default function Home() {
+/** Profil z odpowiedzi do tej pory; brakujące pola dostają te same wartości domyślne co w pełnym sprawdzeniu. */
+function pelnyProfil(p: Partial<UserProfile>): UserProfile {
+  return {
+    wiek: p.wiek ?? 30,
+    plec: p.plec ?? 'K',
+    stanCywilny: p.stanCywilny ?? 'wolny',
+    liczbaDzieci: p.liczbaDzieci ?? 0,
+    wiekDzieci: [],
+    dochodMiesiecznie: p.dochodMiesiecznie ?? 5000,
+    dochodNaOsobe: p.dochodNaOsobe ?? 5000,
+    zatrudnienie: p.zatrudnienie ?? 'umowa_o_prace',
+    niepelnosprawnosc: p.niepelnosprawnosc ?? 'brak',
+    wlasnosc: p.wlasnosc ?? 'mieszkanie',
+    wojewodztwo: p.wojewodztwo ?? 'inne',
+    prowadzDzialalnosc: p.prowadzDzialalnosc ?? false,
+    pierwszaDzialalnosc: p.pierwszaDzialalnosc ?? false,
+    dataDzialalnosci: p.dataDzialalnosci,
+    pkd: p.pkd,
+    ciaza: p.ciaza ?? false,
+    student: p.student ?? false,
+    emeryt: p.zatrudnienie === 'emeryt',
+    rolnik: p.rolnik ?? false,
+    bezrobotnyZarejestrowany: p.bezrobotnyZarejestrowany ?? false,
+  };
+}
+
+/** „Pasuje już 1 świadczenie”, „Pasują już 3 świadczenia”, „Pasuje już 12 świadczeń”. */
+function odmiana(n: number): { czasownik: string; rzeczownik: string } {
+  if (n === 1) return { czasownik: 'Pasuje', rzeczownik: 'świadczenie' };
+  const d = n % 10, s = n % 100;
+  if (d >= 2 && d <= 4 && (s < 12 || s > 14)) return { czasownik: 'Pasują', rzeczownik: 'świadczenia' };
+  return { czasownik: 'Pasuje', rzeczownik: 'świadczeń' };
+}
+
+interface HomeProps {
+  /** Liczby do licznika na górze: z bazy świadczeń i bazy programów (src/app/page.tsx). */
+  liczbaSwiadczen: number;
+  liczbaProgramow: number;
+  /** Nazwy świadczeń do rotatora „Należy Ci się: …”. */
+  rotator: string[];
+}
+
+export default function Home({ liczbaSwiadczen, liczbaProgramow, rotator }: HomeProps) {
   const router = useRouter();
   const [heroQuery, setHeroQuery] = useState('');
   const [phase, setPhase] = useState<Phase>('landing');
@@ -224,48 +268,21 @@ export default function Home() {
   const [isStreaming, setIsStreaming] = useState(false);
   const [guideBenefitId, setGuideBenefitId] = useState<string | null>(null);
 
+  // Kalkulator na żywo: ile świadczeń pasuje do odpowiedzi do tej pory (ten sam silnik co /api/verify, bez weryfikacji AI).
+  const pasujeTeraz = useMemo(
+    () => (phase === 'questions' && profile.wiek ? matchBenefits(pelnyProfil(profile)).length : null),
+    [phase, profile],
+  );
+
   // Loading progress for ring animation
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [copyDone, setCopyDone] = useState(false);
   const [loadingCatIdx, setLoadingCatIdx] = useState(0);
 
-  // Load session from localStorage on mount
+  // Nic nie zapisujemy (od 6.11.2026): profil i wyniki żyją tylko w tej karcie. Stara sesja z localStorage jest usuwana.
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-    try {
-      const raw = localStorage.getItem(SESSION_KEY);
-      if (!raw) return;
-      const data = JSON.parse(raw);
-      if (!data.savedAt || Date.now() - data.savedAt > SESSION_TTL) {
-        localStorage.removeItem(SESSION_KEY);
-        return;
-      }
-      if (Array.isArray(data.messages) && data.messages.length > 0) {
-        setMessages(data.messages);
-        setResults(data.results ?? []);
-        setProfile(data.profile ?? {});
-        setPhase('chat');
-      }
-    } catch {
-      // corrupted session data, ignore
-    }
+    try { localStorage.removeItem(SESSION_KEY); } catch { /* brak dostępu do pamięci */ }
   }, []);
-
-  // Save session to localStorage when in chat phase
-  useEffect(() => {
-    if (phase !== 'chat' || typeof window === 'undefined') return;
-    if (messages.length === 0) return;
-    try {
-      localStorage.setItem(SESSION_KEY, JSON.stringify({
-        messages,
-        results,
-        profile,
-        savedAt: Date.now(),
-      }));
-    } catch {
-      // storage quota exceeded, ignore
-    }
-  }, [phase, messages, results, profile]);
 
   function handleClearHistory() {
     if (typeof window !== 'undefined') {
@@ -386,28 +403,7 @@ export default function Home() {
     setIsLoading(true);
     setPhase('loading');
 
-    const completeProfile: UserProfile = {
-      wiek: fullProfile.wiek,
-      plec: fullProfile.plec,
-      stanCywilny: fullProfile.stanCywilny ?? 'wolny',
-      liczbaDzieci: fullProfile.liczbaDzieci ?? 0,
-      wiekDzieci: [],
-      dochodMiesiecznie: fullProfile.dochodMiesiecznie ?? 5000,
-      dochodNaOsobe: fullProfile.dochodNaOsobe ?? 5000,
-      zatrudnienie: fullProfile.zatrudnienie ?? 'umowa_o_prace',
-      niepelnosprawnosc: fullProfile.niepelnosprawnosc ?? 'brak',
-      wlasnosc: fullProfile.wlasnosc ?? 'mieszkanie',
-      wojewodztwo: fullProfile.wojewodztwo ?? 'inne',
-      prowadzDzialalnosc: fullProfile.prowadzDzialalnosc ?? false,
-      pierwszaDzialalnosc: fullProfile.pierwszaDzialalnosc ?? false,
-      dataDzialalnosci: fullProfile.dataDzialalnosci,
-      pkd: fullProfile.pkd,
-      ciaza: fullProfile.ciaza ?? false,
-      student: fullProfile.student ?? false,
-      emeryt: fullProfile.zatrudnienie === 'emeryt',
-      rolnik: fullProfile.rolnik ?? false,
-      bezrobotnyZarejestrowany: fullProfile.bezrobotnyZarejestrowany ?? false,
-    };
+    const completeProfile: UserProfile = pelnyProfil(fullProfile);
 
     setProfile(completeProfile);
 
@@ -592,7 +588,12 @@ export default function Home() {
         <section id="kalkulator" className="prosta-blok" style={{ padding: 0, scrollMarginTop: 80 }}>
           <span id="formularz" />
           <h1 style={{ fontSize: 'clamp(28px, 5.5vw, 40px)' }}><PixelIcon nazwa="gwiazdka" />Należy Ci się więcej, niż myślisz.</h1>
-          <p className="pod">Odpowiedz na kilka pytań i zobacz, które ze 133 świadczeń, ulg i dotacji mogą Ci przysługiwać. Bez konta i za darmo.</p>
+          <Rotator etykieta="Należy Ci się:" pozycje={rotator} />
+          <p className="pod">Odpowiedz na kilka pytań i zobacz, które ze {liczbaSwiadczen} świadczeń, ulg i dotacji mogą Ci przysługiwać. Bez konta i za darmo.</p>
+          <ul className="liczniki" aria-label="Co jest w bazie">
+            <li><Licznik wartosc={liczbaSwiadczen} /><span className="licznik-opis">świadczeń, ulg i dotacji</span></li>
+            <li><Licznik wartosc={liczbaProgramow} /><span className="licznik-opis">programów dla firm</span></li>
+          </ul>
           <ul className="lista" style={{ marginTop: 16 }}>
             <li className="lista-para"><span className="lista-nazwa">800+</span><span className="lista-opis">800 zł miesięcznie na każde dziecko do 18 lat, bez względu na dochód.</span></li>
             <li className="lista-para"><span className="lista-nazwa">13. emerytura</span><span className="lista-opis">1978,49 zł brutto co roku w kwietniu dla emerytów i rencistów.</span></li>
@@ -659,20 +660,11 @@ export default function Home() {
             <li><a href="/swiadczenia"><span>Baza świadczeń<small>Kwoty, warunki i źródła.</small></span><IconArrowRight /></a></li>
             <li><a href="/wnioski"><span>Wnioski ZUS z pomocą AI<small>Wypełnisz i pobierzesz PDF.</small></span><IconArrowRight /></a></li>
             <li><a href="/dla-firm"><span>Dla firm i JDG<small>Dotacje, ulgi i automatyzacje.</small></span><IconArrowRight /></a></li>
-            <li><a href="/dotacje"><span>Dotacje dla firm<small>Programy dopasowane do profilu firmy.</small></span><IconArrowRight /></a></li>
+            <li><a href="/dotacje"><span>Dotacje dla firm<small>Wyszukiwarka programów bez konta.</small></span><IconArrowRight /></a></li>
+            <li><a href="/blog/najwieksze-dotacje-dla-firm-2026"><span>10 największych dotacji dla firm<small>Nabory z listopada 2026 według budżetu.</small></span><IconArrowRight /></a></li>
             <li><a href="/centrum-obywatela"><span>Centrum Obywatela<small>NFZ, NBP, GIOŚ, GUS i inne, bez logowania.</small></span><IconArrowRight /></a></li>
             <li><a href="/aktualnosci"><span>Aktualności<small>Zmiany w prawie i nowe nabory.</small></span><IconArrowRight /></a></li>
           </ul>
-        </section>
-
-        {/* Konto */}
-        <section className="prosta-blok" style={{ padding: '32px 0 0' }}>
-          <h2>Konto</h2>
-          <p className="pod">Konto zapamięta Twój profil i dopasowane świadczenia. Jest darmowe.</p>
-          <div className="przyciski">
-            <a href="/rejestracja" className="btn btn-primary btn-lg">Załóż konto</a>
-            <a href="/logowanie" className="btn btn-lg">Mam już konto</a>
-          </div>
         </section>
 
         {/* Udostępnij */}
@@ -728,6 +720,11 @@ export default function Home() {
             <div className="label-eyebrow" style={{ marginBottom: 16 }}>
               Pytanie {questionIndex + 1} z {QUESTIONS.length}
             </div>
+            {pasujeTeraz !== null && (
+              <p className="pasuje-teraz" data-testid="pasuje-teraz" aria-live="polite">
+                {odmiana(pasujeTeraz).czasownik} już <strong className="licznik-liczba">{pasujeTeraz}</strong> {odmiana(pasujeTeraz).rzeczownik}
+              </p>
+            )}
 
             {questionIndex === 0 && profile.statusVat && (
               <div style={{

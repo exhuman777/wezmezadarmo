@@ -37,7 +37,9 @@ TWÓJ STYL:
    "PUP dotacja: praktycznie przyznają 20-40 tys. PLN, rzadko pełną kwotę."
 
 5. NAWIGACJA: Kieruj na odpowiednie strony:
-   - /dotacje -- panel monitoringu dofinansowań
+   - /dotacje -- wyszukiwarka programów dofinansowań (bez konta)
+   - /blog/najwieksze-dotacje-dla-firm-2026 -- 10 największych naborów z listopada 2026
+   - /dla-firm/narzedzia/dofinansowania -- dopasowanie programów po NIP
    - /aktualnosci -- RSS z Funduszy EU, ARiMR, Sejmu
    - /wnioski -- formularze (NLnet)
    - /wnioski/nlnet -- formularz NLnet z AI asystentem

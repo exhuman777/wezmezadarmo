@@ -701,12 +701,47 @@ html.dark .btn-ghost { background: transparent; border-color: var(--tusz); color
 
 
 /* =======================================================
-   Bez animacji (zasada designu z AGENTS.md). Gra ma własny
-   dokument w ramce (public/gra/), więc ta reguła jej nie dotyczy.
-   Zostaje tylko najechanie: przesunięcie i twardy cień.
+   Ruch (od 6.11.2026, decyzja Kamila): tylko transform i opacity,
+   krótko, bez przesunięć układu (CLS), wyłączony przy
+   prefers-reduced-motion. Dozwolone: wejście kafli (.linki > li),
+   elementy .ruch (rotator), licznik w JS (tylko tekst liczby).
+   Pozostałe animacje CSS wyłączone. Gradienty, glow i rozmycia dalej zakazane.
    ======================================================= */
 
-*, *::before, *::after { animation: none !important; }
+*:not(.linki > li, .ruch), *::before, *::after { animation: none !important; }
+
+@keyframes wejscie-kafla {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .linki > li { animation: wejscie-kafla .32s ease-out both; }
+  .linki > li:nth-child(2) { animation-delay: 40ms; }
+  .linki > li:nth-child(3) { animation-delay: 80ms; }
+  .linki > li:nth-child(4) { animation-delay: 120ms; }
+  .linki > li:nth-child(5) { animation-delay: 160ms; }
+  .linki > li:nth-child(n+6) { animation-delay: 200ms; }
+}
+
+/* Licznik: stała szerokość cyfr, więc odliczanie nie przesuwa tekstu. */
+.licznik-liczba { font-family: var(--f-mono); font-weight: 700; font-variant-numeric: tabular-nums; display: inline-block; text-align: right; }
+.liczniki { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 12px 0 0; padding: 0; list-style: none; }
+.liczniki li { display: flex; align-items: baseline; gap: 6px; }
+.liczniki .licznik-liczba { font-size: 28px; color: var(--rdza); }
+.liczniki .licznik-opis { font-size: 15px; color: var(--szary); }
+
+/* Rotator „Należy Ci się: …”: jedna linia o stałej wysokości, kolejne pozycje wjeżdżają od dołu. */
+.rotator { display: flex; flex-wrap: wrap; align-items: center; gap: 0 8px; margin: 12px 0 8px; font-size: 18px; line-height: 1.5; }
+.rotator-etykieta { font-family: var(--f-mono); font-weight: 700; }
+.rotator-okno { position: relative; display: inline-block; height: 1.5em; line-height: 1.5em; overflow: hidden; flex: 1 1 200px; min-width: 0; }
+.rotator-x { position: absolute; left: 0; top: 0; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--rdza); font-weight: 600;
+  opacity: 0; transform: translateY(100%); transition: transform .4s ease, opacity .4s ease; }
+.rotator-x.jest { opacity: 1; transform: none; }
+.rotator-x.bylo { opacity: 0; transform: translateY(-100%); }
+@media (prefers-reduced-motion: reduce) {
+  .rotator-x { transition: none; }
+  .linki > li { animation: none; }
+}
 
 .red-dot {
   display: inline-block;
@@ -1247,3 +1282,7 @@ body { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-ins
 
 /* /nfz: kolumny mają własny odstęp 16 px, więc bez dodatkowego paddingu <main> z reguły dla paneli */
 @media (max-width: 480px) { main.nfz-strona { padding-left: 0 !important; padding-right: 0 !important; } }
+
+/* Kalkulator na żywo: „Pasuje już N świadczeń” nad pytaniem (stała wysokość linii, liczba o stałej szerokości cyfr). */
+.pasuje-teraz { margin: 0 0 20px; font-size: 16px; line-height: 1.5; min-height: 1.5em; }
+.pasuje-teraz .licznik-liczba { color: var(--rdza); }

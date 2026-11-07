@@ -36,7 +36,7 @@ function BenefitRow({ benefit, isExpanded, onToggle }: { benefit: Benefit; isExp
             <a href={benefit.zrodloUrl} target="_blank" rel="noopener noreferrer" className="btn btn-green btn-sm">
               Pełny przewodnik <span aria-hidden="true">→</span>
             </a>
-            <a href="/panel/chat" className="btn btn-ghost btn-sm">Zapytaj AI</a>
+            <a href="/agent" className="btn btn-ghost btn-sm">Zapytaj AI</a>
           </div>
 
           {benefit.wniosek.dokumenty.length > 0 && (

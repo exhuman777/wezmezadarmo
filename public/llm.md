@@ -1,46 +1,64 @@
-# wezmezadarmo.com -- LLM Agent Guide
+# wezmezadarmo.com: przewodnik dla agentów AI
 
-> Ten plik jest przeznaczony dla agentów AI i modeli językowych.
-> Spis całego serwisu: https://www.wezmezadarmo.com/llms.txt, pełna treść: https://www.wezmezadarmo.com/llms-full.txt
-> Opisuje bazę 133 polskich świadczeń, ulg i dotacji oraz jak z niej korzystać.
-> Dla agentów działających w imieniu firm: patrz /agents.md
-> Humans: see wezmezadarmo.com
+> Dla agentów AI i modeli językowych. Spis serwisu: https://www.wezmezadarmo.com/llms.txt, pełna treść: https://www.wezmezadarmo.com/llms-full.txt
+> Agenci działający dla firm: https://www.wezmezadarmo.com/agents.md
+> Ludzie: https://www.wezmezadarmo.com
 
 ---
 
-## Co to jest
+## Co jest na stronie
 
-**wezmezadarmo.com** to niezależne narzędzie dla obywateli i firm, które:
+Darmowy, prywatny serwis tuKamil (https://tukamil.com), nie rządowy. Przewodnik dla ludzi: https://tukamil.com/wezmezadarmo/
 
-- Przeszukuje bazę 133 polskich świadczeń socjalnych, ulg podatkowych i dotacji
-- Dopasowuje świadczenia do profilu użytkownika i wyświetla instrukcje krok po kroku
-- Asystuje przy wypełnianiu wniosków ZUS (Z-15a, Z-15b, Z-3, PEL, ERPO, ERSU, ZAS-53)
-- Monitoruje dofinansowania i aktualności rządowe dla firm (platforma B2B /dotacje)
-- Automatyzuje procesy biurowe dla firm (KSeF, faktury zagraniczne, własne workflow)
+- Kalkulator świadczeń (/): kilka pytań, dopasowanie do bazy 133 świadczeń, ulg i dotacji ze źródłami urzędowymi.
+- Baza świadczeń (/swiadczenia): kwota, warunki, kroki wniosku i link do źródła przy każdym świadczeniu.
+- Asystent AI (/agent): czat na stronie, 3 pytania dziennie.
+- Wnioski ZUS (/wnioski): Z-15A, Z-15B, ZAS-53, ERPO, PEL, ERSU, Z-3, z PDF do podpisu.
+- Narzędzia dla firm (/dla-firm/narzedzia): przegląd KPiR i JPK_V7 w przeglądarce, dofinansowania po NIP.
+- Dotacje (/dotacje): wyszukiwarka programów dofinansowań i artykuły o największych naborach.
+- Centrum Obywatela (/centrum-obywatela), Aktualności (/aktualnosci), Polska w liczbach (/statystyki), kolejki NFZ (/nfz).
+- Blog (/blog): poradniki, każdy wpis ma wersję .md (adres wpisu + .md).
 
-Dane: oficjalne źródła rządowe (gov.pl), zweryfikowane 2026-05-09.
-Kalkulator świadczeń: brak bazy danych, dane przetwarzane na serwerze jednorazowo bez zapisu.
-Panel agenta (/agent/panel): wymaga konta, profil demograficzny przechowywany w Supabase (UE).
-Platforma B2B (/dotacje): wymaga konta, profil firmy i historia monitorowania przechowywane w Supabase (UE).
+## Co działa bez danych
 
-Przewodnik dla agentów działających jako asystenci firm: **/agents.md**
+Wszystko powyżej działa bez logowania i bez podawania danych kontaktowych. Strona nie zapisuje profilu ani dopasowanych świadczeń.
 
----
+## Gdzie pada e-mail i telefon (tylko firmy)
 
-## Dwa tryby pracy
+- Sprawdzenie firmy po NIP (/dla-firm/narzedzia/dofinansowania): e-mail i polski numer telefonu. Adres z plusem (a+1@firma.pl) i domena jednorazowa są odrzucane. Wynik otwiera link z maila (ciasteczko na 30 dni).
+- „Napisz do nas” w stopce: tylko e-mail do odpowiedzi.
+- Zgody na kontakt to osobne pola, domyślnie odznaczone: e-mail w sprawie zgłoszenia (wymagane), oferty e-mailem, telefon (tylko przy telefonie) i kontakt przez asystenta AI. Opis: /polityka-prywatnosci#zgody.
+- Kont, logowania i newslettera nie ma: /panel, /logowanie i /rejestracja przekierowują (308) na strony publiczne, a API kont odpowiada 410.
 
-### 1. Kalkulator świadczeń (obywatele)
+Kalkulator nie zapisuje odpowiedzi. Pliki KPiR i JPK czyta tylko przeglądarka. Dane zweryfikowane w oficjalnych źródłach, data przy każdym świadczeniu.
 
-Bezstanowy. Użytkownik podaje profil, system zwraca dopasowane świadczenia. Brak logowania.
-Endpointy: `/api/verify`, `/api/chat`, `/api/form-assist`, `/api/pdf`
+## Artykuły dla firm
 
-### 2. Platforma B2B -- dotacje i monitoring (firmy)
+- 10 największych dotacji dla firm w 2026 (ranking naborów z listopada według budżetu, źródło MFiPR): /blog/najwieksze-dotacje-dla-firm-2026.md
+- Ścieżka SMART 2026 dla MŚP: /blog/sciezka-smart-2026-dotacja-dla-msp.md
+- Kredyt dual-use z BGK: /blog/kredyt-dual-use-bgk-2026.md
+- Dig.IT z ARP: /blog/digit-arp-dotacja-na-cyfryzacje-2026.md
+- Wszystkie wpisy: /blog i lista w /llms.txt
 
-Stanowy. Firmy rejestrują konto, podają profil (NIP, PKD, lokalizacja, potrzeby).
-Agent monitoruje dofinansowania, aktualności RSS, asystuje przy wnioskach.
-Ludzie zawsze zatwierdzają przed złożeniem.
-Endpointy: `/api/dotacje/*`, `/api/aktualnosci/*`
-Szczegoly: **/agents.md**
+## Publiczne API bez klucza (GET)
+
+- /api/public/nbp: kursy walut NBP
+- /api/public/nfz?type=queues&q=kardiolog&province=lubelskie: kolejki NFZ
+- /api/public/gios?lat=51.25&lon=22.57: jakość powietrza GIOŚ
+- /api/public/whitelist?nip=NIP: Biała Lista VAT
+- /api/public/imgw: ostrzeżenia IMGW
+- /api/public/eli-sejm?q=fraza: akty prawne ELI Sejm
+- /api/public/bdl-gus?gmina=Lublin: dane gminy z GUS
+
+Endpointy POST poniżej (/api/verify, /api/chat, /api/form-assist, /api/pdf) działają ze strony bez klucza. Z innych domen wymagają nagłówka X-API-Key, klucz bezpłatny: poproś przez formularz na /dla-firm#kontakt albo „Napisz do nas”.
+
+## Inne aplikacje tuKamil
+
+- DogInvoice (https://doginvoice.com): faktury z KSeF wpadają same, wpłaty dopasowują się do faktur, paczka przelewów do banku.
+- DogAnswer (https://doganswer.com): asystent AI odbiera telefon w firmie 24/7 i wysyła podsumowanie rozmowy.
+- Wdrożenie AI w firmie (https://tukamil.com/wdrozenie-ai/): 4 godziny szkolenia u klienta.
+- Przewodnik po wezmezadarmo dla ludzi: https://tukamil.com/wezmezadarmo/
+- Pełny katalog: sekcja „Inne aplikacje tuKamil” w https://www.wezmezadarmo.com/llms.txt
 
 ---
 
@@ -108,7 +126,7 @@ Czat z AI w kontekście profilu i wyników. SSE stream.
 
 **Response:** SSE stream -- `data: {"content": "..."}` chunks, kończy się `data: [DONE]`
 
-**Rate limit:** 3 zapytania dziennie na IP dla niezalogowanych. Brak limitu dla firm z API key.
+**Rate limit:** 3 zapytania dziennie na IP. Brak limitu dla kluczy API.
 
 ### POST /api/form-assist
 
@@ -393,7 +411,9 @@ wezmezadarmo.com/
   /wnioski/            -- AI-asystowane wypełnianie wniosków ZUS + PDF
   /aktualnosci/        -- monitoring RSS rządowych i branżowych (publiczny + firmowy)
   /automatyzacje/      -- AI automatyzacje dla firm (KSeF, faktury, custom workflows)
-  /dotacje/            -- B2B SaaS: monitoring dofinansowań dla firm
+  /dotacje/            -- wyszukiwarka programów dofinansowań, bez konta
+  /dla-firm/narzedzia/ -- przegląd KPiR i JPK_V7 bez konta, dofinansowania po NIP (jedyny e-mail)
+  /blog/               -- poradniki, wersje .md wpisów pod /blog/<slug>.md
   /dla-firm/           -- landing page dla firm i JDG
   /llm.md              -- ten plik (kalkulator świadczeń API)
   /agents.md           -- przewodnik dla agentów firmowych (dotacje, monitoring, automatyzacje)

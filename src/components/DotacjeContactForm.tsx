@@ -1,21 +1,25 @@
 'use client';
 
 import { useState } from 'react';
+import { ZgodyKontaktu } from '@/components/ZgodyKontaktu';
+import { BLAD_ZGODY, ZGODY_PUSTE, type Zgody } from '@/lib/zgody';
 
 export function DotacjeContactForm() {
   const [form, setForm] = useState({ imie: '', email: '', wiadomosc: '' });
   const [status, setStatus] = useState<'idle' | 'sending' | 'ok' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
+  const [zgody, setZgody] = useState<Zgody>(ZGODY_PUSTE);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (!zgody.email) { setErrorMsg(BLAD_ZGODY); setStatus('error'); return; }
     setStatus('sending');
     setErrorMsg('');
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, zgody }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -43,12 +47,11 @@ export function DotacjeContactForm() {
     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
       <div className="pola-2">
         <div className="pole">
-          <label htmlFor="dotacje-imie">Imię i nazwisko</label>
+          <label htmlFor="dotacje-imie">Imię (opcjonalnie)</label>
           <input
             id="dotacje-imie"
             type="text"
-            required
-            placeholder="Jan Kowalski"
+            placeholder="Jan"
             autoComplete="name"
             value={form.imie}
             onChange={e => setForm(prev => ({ ...prev, imie: e.target.value }))}
@@ -81,6 +84,7 @@ export function DotacjeContactForm() {
           className="pole-wejscie"
         />
       </div>
+      <ZgodyKontaktu telefon={false} wartosci={zgody} onChange={setZgody} prefiks="dotacje" />
       {status === 'error' && (
         <p role="alert" style={{ fontSize: 15, color: 'var(--rdza)', margin: 0 }}>{errorMsg}</p>
       )}
