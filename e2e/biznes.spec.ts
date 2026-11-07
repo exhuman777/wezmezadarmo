@@ -17,7 +17,8 @@ test.describe('Za darmo dla biznesu', () => {
     await expect(page.getByText(/Napisz do nas/).first()).toBeVisible();
     // decyzja 11.2026: na stronie nie ma prywatnych adresów e-mail ani starego adresu
     await expect(page.locator('a[href^="mailto:"]')).toHaveCount(0);
-    await expect(page.locator('a[href*="admin@dogtronic.io"]')).toHaveCount(0);
+    // decyzja Kamila 7.11.2026: DogInvoice i DogAnswer bez nazwy firmy, która je robi
+    await expect(page.locator('body')).not.toContainText(/dogtronic|hajdowska/i);
   });
 
   test('żaden obrazek na stronie nie jest zepsuty', async ({ page }) => {

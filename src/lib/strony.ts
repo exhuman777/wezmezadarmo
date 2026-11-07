@@ -264,7 +264,7 @@ export const STRONY: Strona[] = [
     sciezka: '/za-darmo-dla-biznesu', nazwa: 'DogInvoice i DogAnswer', grupa: 'firmy', md: true,
     tytul: 'DogInvoice i DogAnswer: narzędzia dla firm',
     opis: 'DogInvoice dopasowuje przelewy do faktur z KSeF i płaci kilka faktur jednym plikiem do banku. DogAnswer odbiera telefony, kiedy Ty nie możesz.',
-    slowa: ['DogInvoice', 'DogAnswer', 'dopasowanie przelewów do faktur', 'KSeF faktury', 'płatności masowe', 'biała lista VAT przelew', 'asystent głosowy AI', 'automatyczna sekretarka', 'Dogtronic Labs'],
+    slowa: ['DogInvoice', 'DogAnswer', 'dopasowanie przelewów do faktur', 'KSeF faktury', 'płatności masowe', 'biała lista VAT przelew', 'asystent głosowy AI', 'automatyczna sekretarka'],
     zmiana: 'monthly', priorytet: 0.7,
   },
 

@@ -75,6 +75,12 @@ must('<a class="logo" href="/"','<a class="logo" href="/dla-firm/narzedzia"')
 s=re.sub(r'\s*(\{!P\.ogolny && )?<span class="demo(?: demo-hero)?">wersja pokazowa</span>\}?','',s)
 s=re.sub(r'\s*<p class="sub demo-info">.*?</p>','',s,count=1,flags=re.S)
 s=s.replace('<p class="male">Wersja pokazowa. ','<p class="male">').replace("<p class=\"male\">{!P.ogolny && 'Wersja pokazowa. '}",'<p class="male">')
+# bez Dogtronic Labs (decyzja Kamila 7.11.2026): w stopce operator wezmezadarmo.com, ukryty formularz biura bez treści zgody
+# (zostają puste #form-oko i #co-idzie-t, bo app.js ich szuka; formularz i tak nie miał API w wersji WZD)
+s,n=re.subn(r'<div><b>DogInvoice</b>\{DOGTRONIC\.nazwa\}<br />NIP \{DOGTRONIC\.nip\}<br />\{DOGTRONIC\.adres\}</div>','<div><b>wezmezadarmo.com</b>Mooning Charts Research<br />NIP 7133061369</div>',s,count=1)
+assert n==1, 'stopka DOGTRONIC'
+s,n=re.subn(r'<section class="s oko" id="oko" hidden.*?</section>','<div hidden><form id="form-oko"></form><div id="co-idzie-t"></div></div>',s,count=1,flags=re.S)
+assert n==1, 'sekcja oko'
 open(p,'w',encoding='utf-8').write(s)
 PY
 npm ci --no-audit --no-fund >/dev/null
@@ -82,6 +88,9 @@ node scripts/przygotuj.mjs >/dev/null
 npx astro build >/dev/null
 node "$WZD/scripts/narzedzia/przepisz-sciezki.mjs" dist /narzedzia/jpk
 rm -rf "$CEL/jpk"; cp -r dist "$CEL/jpk"
+
+# Bez Dogtronic Labs w wersji WZD (decyzja Kamila 7.11.2026); pilnuje też e2e/narzedzia.spec.ts
+if grep -rIilE 'dogtronic|hajdowska|9462765575' "$CEL"; then echo "zbuduj: w public/narzedzia zostało Dogtronic" >&2; exit 1; fi
 
 KPIR_REV="$(git -C "$KPIR_SRC" rev-parse --short HEAD 2>/dev/null || echo ?)"; JPK_REV="$(git -C "$JPK_SRC" rev-parse --short HEAD 2>/dev/null || echo ?)"
 printf '{"kpir":"%s","jpk":"%s"}\n' "$KPIR_REV" "$JPK_REV" > "$CEL/wersja.json"
