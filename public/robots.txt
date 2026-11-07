@@ -2,8 +2,8 @@
 # Poza indeksem: panele (/panel, /dotacje/panel, /agent/panel), /admin, API i /narzedzia
 # (statyczne aplikacje narzędzi, działają bez konta; opisy i adresy kanoniczne są pod /dla-firm/narzedzia).
 # /api/public/* zostaje dostępne, bo strony Centrum Obywatela pobierają z niego dane w przeglądarce
-# (Google renderuje je tak samo). Strony logowania mają noindex w metadanych, więc nie blokujemy
-# ich tutaj (robot musi zobaczyć noindex).
+# (Google renderuje je tak samo). Kont nie ma (od 6.11.2026): dawne adresy logowania i paneli
+# przekierowują 308 na strony publiczne (next.config.ts).
 # Każda grupa User-agent jest osobna: boty z własną grupą ignorują grupę *, dlatego reguły są powtórzone.
 # Boty AI (wyszukiwarki i asystenci) są wpuszczone jawnie. Opis serwisu dla modeli: /llms.txt
 

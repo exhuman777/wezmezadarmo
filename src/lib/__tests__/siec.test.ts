@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { SiecTuKamil } from '@/components/SiecTuKamil';
 import { INNE_APLIKACJE, llmsTxt } from '@/lib/llms';
 import { LD_ID } from '@/lib/seo';
-import { KONTAKT_SIECI, SIEC_TUKAMIL, TA_STRONA } from '@/lib/siec';
+import { KONTAKT_SIECI, MARKA_TEJ_STRONY, SIEC_TUKAMIL, TA_STRONA } from '@/lib/siec';
 
 // Katalog sieci tuKamil (audyt spójności 6.11.2026): pozycje z wStopce = true, w tej kolejności.
 const KATALOG: [string, string][] = [
@@ -44,6 +44,7 @@ describe('Sieć tuKamil', () => {
     }
     expect(html).toContain(`href="${KONTAKT_SIECI}"`);
     expect(KONTAKT_SIECI).toBe('https://tukamil.com/#kontakt');
+    expect(html).toContain(`<a href="${MARKA_TEJ_STRONY}">Marka i materiały</a>`);
   });
 
   it('llms.txt: Inne aplikacje tuKamil z katalogu, z Należy się i Dwiema Stronami, bez tej strony', () => {
@@ -55,6 +56,8 @@ describe('Sieć tuKamil', () => {
     expect(INNE_APLIKACJE).toHaveLength(KATALOG.length - 1);
     expect(sekcja).not.toContain('YESNO');
     expect(SIEC_TUKAMIL.some(a => a.id === TA_STRONA)).toBe(true);
+    expect(MARKA_TEJ_STRONY).toBe('https://tukamil.com/marka/wezmezadarmo/');
+    expect(sekcja).toContain(`Materiały marki: ${MARKA_TEJ_STRONY}`);
   });
 
   it('JSON-LD: tuKamil z @id wspólnym dla całej sieci', () => {

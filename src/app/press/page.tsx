@@ -12,6 +12,7 @@ import { BENEFITS } from '@/engine/benefits';
 import { PROGRAMS } from '@/data/programs-b2b';
 import { FEEDS } from '@/app/aktualnosci/rss';
 import { metadaneStrony } from '@/lib/strony';
+import { MARKA_TEJ_STRONY } from '@/lib/siec';
 import { Kopiuj, OtworzKontakt } from './PressAkcje';
 
 export const metadata: Metadata = metadaneStrony('/press');
@@ -154,6 +155,12 @@ export default function PressPage() {
               </a>
             </li>
           ))}
+          <li>
+            <a href={MARKA_TEJ_STRONY}>
+              <span>Marka i materiały<small>Księga marki, kolory, kroje i pliki do druku na tukamil.com.</small></span>
+              <span aria-hidden="true">→</span>
+            </a>
+          </li>
         </ul>
       </section>
 

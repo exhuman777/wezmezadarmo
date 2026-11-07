@@ -43,7 +43,7 @@ Kalkulator nie zapisuje odpowiedzi. Pliki KPiR i JPK czyta tylko przeglądarka. 
 ## Publiczne API bez klucza (GET)
 
 - /api/public/nbp: kursy walut NBP
-- /api/public/nfz?type=queues&q=kardiolog&province=lubelskie: kolejki NFZ
+- /api/public/nfz?type=queues&benefit=kardiolog&province=lubelskie: kolejki NFZ
 - /api/public/gios?lat=51.25&lon=22.57: jakość powietrza GIOŚ
 - /api/public/whitelist?nip=NIP: Biała Lista VAT
 - /api/public/imgw: ostrzeżenia IMGW

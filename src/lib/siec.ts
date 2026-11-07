@@ -32,6 +32,9 @@ export const SIEC_TUKAMIL: readonly AplikacjaSieci[] = [
   { id: 'doganswer', nazwa: 'DogAnswer', adres: 'https://doganswer.com/', jednoZdanie: 'Asystent głosowy AI odbiera telefon i umawia spotkania w Kalendarzu Google.' },
 ];
 
+/** Pakiet marki i druku tej aplikacji na tukamil.com (dział /marka/, od 7.11.2026). */
+export const MARKA_TEJ_STRONY = 'https://tukamil.com/marka/wezmezadarmo/';
+
 /** Kontakt sieci: jedna sekcja na tukamil.com. */
 export const KONTAKT_SIECI = 'https://tukamil.com/#kontakt';
 
