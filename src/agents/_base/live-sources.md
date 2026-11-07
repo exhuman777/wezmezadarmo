@@ -67,8 +67,6 @@ Gdy NIE masz danych live dla danego narzędzia - wtedy odsyłaj na URL.
 
 6. Aktualności RSS (8 polskich instytucji):
    - URL publiczny: /aktualnosci
-   - URL dla zalogowanych (z filtrem subskrypcji): /panel/aktualnosci
-   - Subskrypcja user (e-mail + filtr źródeł/kategorii/słów): /panel/powiadomienia
    - Źródła: ZUS, GUS, NBP, UOKiK, Fundusze EU, e-Zdrowie, Sejm, ARiMR
    - Aktualizacja 2x dziennie (~10:00 i ~15:00 PL)
    - Polecaj gdy: "co nowego w ZUS", "kiedy nowy nabór", "zmiany w prawie podatkowym", "aktualności z sejmu"

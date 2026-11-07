@@ -44,6 +44,9 @@ const WYLACZONE_API = [
   '/api/digest', '/api/rss/subscription', '/api/aktualnosci/feeds',
 ];
 
+/** Zapis na newsletter: wyłączony od 7.11.2026 (żaden mechanizm go nie wysyłał). Potwierdzenie i wypisanie działają dalej. */
+const WYLACZONE_DOKLADNIE = ['/api/newsletter'];
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
@@ -80,7 +83,7 @@ export async function middleware(request: NextRequest) {
 
   // Konta są wyłączone (6.11.2026): API logowania, profili, paneli i powiadomień kont odpowiada 410.
   // Strony paneli i logowania przekierowuje next.config.ts (308). Kod i tabele w bazie zostają.
-  if (WYLACZONE_API.some(p => pathname === p || pathname.startsWith(`${p}/`))) {
+  if (WYLACZONE_DOKLADNIE.includes(pathname) || WYLACZONE_API.some(p => pathname === p || pathname.startsWith(`${p}/`))) {
     return NextResponse.json(
       { error: 'Konta na wezmezadarmo.com są wyłączone. Wszystko działa bez logowania.' },
       { status: 410, headers: { 'Cache-Control': 'no-store' } },
@@ -96,6 +99,6 @@ export const config = {
     '/api/auth/:path*', '/api/agent/auth/:path*', '/api/agent/profile', '/api/agent/chat/:path*', '/api/agent/chat',
     '/api/dotacje/auth/:path*', '/api/dotacje/company', '/api/dotacje/monitoring/:path*', '/api/dotacje/monitoring', '/api/dotacje/subscription',
     '/api/dotacje/stripe/:path*', '/api/dotacje/tokens', '/api/dotacje/export', '/api/dotacje/chat', '/api/dotacje/cron/weekly-check',
-    '/api/digest', '/api/digest/:path*', '/api/rss/subscription', '/api/aktualnosci/feeds',
+    '/api/digest', '/api/digest/:path*', '/api/rss/subscription', '/api/aktualnosci/feeds', '/api/newsletter',
   ],
 };

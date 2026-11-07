@@ -2,8 +2,8 @@
  * Zgody na kontakt w formularzach, które zbierają e-mail (albo e-mail i telefon).
  * Osobne pola, domyślnie odznaczone. Wymagana jest tylko zgoda, bez której zgłoszenie nie ma sensu
  * (kontakt e-mailem w sprawie tego zgłoszenia). Oferty e-mailem, kontakt telefoniczny i kontakt przez
- * asystenta AI są dobrowolne i osobne (RODO art. 6 i 7; Prawo komunikacji elektronicznej: zgoda na marketing
- * e-mailem i telefonicznie wyrażana osobno).
+ * asystenta AI są dobrowolne i osobne (zasady wspólne tuKamil z 7.11.2026; numery przepisów celowo pominięte,
+ * bo baza-prawa-pl nie ma zweryfikowanych wpisów o zgodach).
  * Zmiana treści = nowa ZGODY_WERSJA: w bazie (tabela zgody_formularzy) zapisujemy wersję, treść i datę.
  * Plik bez zależności serwerowych: używa go formularz w przeglądarce i API.
  */

@@ -26,6 +26,9 @@ const nextConfig: NextConfig = {
       ...['/logowanie', '/rejestracja', '/reset-hasla', '/nowe-haslo', '/sprawdz-email', '/blad-konfiguracji', '/auth/:path*'].map(s => naStrone(s, '/')),
       ...['/agent/logowanie', '/agent/rejestracja', '/agent/reset-hasla', '/agent/nowe-haslo', '/agent/sprawdz-email', '/agent/auth/:path*'].map(s => naStrone(s, '/agent')),
       ...['/dotacje/logowanie', '/dotacje/rejestracja'].map(s => naStrone(s, '/dotacje')),
+      // Dokumenty starej usługi dotacji z kontami: jeden regulamin i jedna polityka dla całej strony
+      naStrone('/dotacje/regulamin', '/regulamin'),
+      naStrone('/dotacje/polityka-ai', '/polityka-prywatnosci'),
       // Panel obywatela
       naStrone('/panel/swiadczenia/:path*', '/swiadczenia'),
       naStrone('/panel/dotacje/:path*', '/dotacje'),

@@ -293,30 +293,16 @@ export const STRONY: Strona[] = [
   {
     sciezka: '/regulamin', nazwa: 'Regulamin', grupa: 'informacje',
     tytul: 'Regulamin serwisu',
-    opis: 'Regulamin świadczenia usług drogą elektroniczną w wezmezadarmo.com: kalkulator i baza świadczeń, kreator wniosków ZUS, automatyzacje, konto i asystent AI.',
-    slowa: ['regulamin wezmezadarmo', 'regulamin serwisu', 'warunki korzystania', 'usługi drogą elektroniczną', 'kreator wniosków ZUS', 'asystent AI', 'konto użytkownika', 'zasady korzystania'],
+    opis: 'Regulamin wezmezadarmo.com: kalkulator i baza świadczeń, wnioski ZUS, narzędzia dla firm i asystent AI. Bez kont i logowania, za darmo.',
+    slowa: ['regulamin wezmezadarmo', 'regulamin serwisu', 'warunki korzystania', 'usługi drogą elektroniczną', 'kreator wniosków ZUS', 'asystent AI', 'bez konta', 'zasady korzystania'],
     zmiana: 'yearly', priorytet: 0.4,
   },
   {
     sciezka: '/polityka-prywatnosci', nazwa: 'Polityka prywatności', grupa: 'informacje',
     tytul: 'Polityka prywatności',
-    opis: 'Polityka prywatności wezmezadarmo.com: kto jest administratorem, jakie dane zbieramy i po co, jak długo je trzymamy i jakie masz prawa według RODO.',
+    opis: 'Polityka prywatności wezmezadarmo.com: bez kont, jakie dane zbieramy i po co, zgody na kontakt e-mailem, telefonem i przez asystenta AI oraz Twoje prawa.',
     slowa: ['polityka prywatności', 'RODO', 'dane osobowe', 'prywatność kalkulatora', 'PESEL bezpieczeństwo', 'administrator danych', 'pliki cookie', 'AI Act'],
     zmiana: 'yearly', priorytet: 0.4,
-  },
-  {
-    sciezka: '/dotacje/regulamin', nazwa: 'Regulamin dotacji', grupa: 'informacje', rodzic: '/dotacje',
-    tytul: 'Regulamin usługi dotacji dla firm',
-    opis: 'Regulamin usługi dotacji dla firm w wezmezadarmo.com: zakres usługi, konto, bezpłatny dostęp z limitami uczciwego użycia, dane osobowe i reklamacje.',
-    slowa: ['regulamin dotacje', 'monitoring dotacji regulamin', 'agent AI dotacje', 'bezpłatny dostęp', 'konto firmowe', 'reklamacje', 'ochrona danych', 'warunki usługi'],
-    zmiana: 'yearly', priorytet: 0.3,
-  },
-  {
-    sciezka: '/dotacje/polityka-ai', nazwa: 'Polityka przejrzystości AI', grupa: 'informacje', rodzic: '/dotacje',
-    tytul: 'Polityka przejrzystości AI w dotacjach',
-    opis: 'Informacja o charakterze systemu AI zgodnie z art. 52 Rozporządzenia UE o AI (AI Act). Zakres wiedzy agenta, ograniczenia i prawa użytkownika.',
-    slowa: ['AI Act', 'przejrzystość AI', 'art. 52 AI Act', 'agent AI dotacje', 'ograniczenia AI', 'prawa użytkownika AI', 'rozporządzenie o AI', 'system AI informacja'],
-    zmiana: 'yearly', priorytet: 0.3,
   },
 ];
 

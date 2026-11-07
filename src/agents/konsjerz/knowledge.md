@@ -24,7 +24,7 @@ JAK SYSTEM DZIAŁA:
 4. Agent pomaga zrozumieć wynik i przejść przez proces wnioskowania
 
 NAJCZĘŚCIEJ ZADAWANE PYTANIA:
-- "Co mi się należy?" -> przejdź quiz na stronie głównej lub sprawdź /agent/panel/swiadczenia
+- "Co mi się należy?" -> przejdź kalkulator na stronie głównej lub przejrzyj /swiadczenia
 - "Jak złożyć wniosek?" -> tryb Wniosek lub /wnioski
 - "Czy mam jakieś dofinansowania?" -> tryb Nabór (JDG) lub tryb Świadczenie (prywatny)
 - "Kiedy termin?" -> tryb Termin

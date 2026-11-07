@@ -32,7 +32,7 @@ export default function OProjekciePage() {
         <p className="pod">
           Darmowa strona, która pomaga sprawdzić, jakie świadczenia, ulgi i dotacje mogą Ci przysługiwać. Projekt prywatny, nie rządowy i niekomercyjny.
         </p>
-        <p className="pod">Wszystko działa bez logowania. E-mail podajesz tylko przy sprawdzeniu firmy po NIP.</p>
+        <p className="pod">Wszystko działa bez konta i logowania. E-mail i telefon podajesz tylko przy sprawdzeniu firmy po NIP.</p>
       </section>
 
       <section className="prosta-blok">
@@ -54,7 +54,7 @@ export default function OProjekciePage() {
         <ul className="lista">
           <li>Kalkulator nie pyta o PESEL i nie zapisuje Twoich odpowiedzi.</li>
           <li>PESEL jest potrzebny tylko do wniosku ZUS i zostaje w Twojej przeglądarce.</li>
-          <li>Nie ma kont ani logowania. E-mail podajesz tylko przy sprawdzeniu firmy po NIP, dane są na serwerach w UE i nie sprzedajemy ich.</li>
+          <li>Nie ma kont ani logowania. E-mail i telefon podajesz tylko przy sprawdzeniu firmy po NIP, każda zgoda na kontakt jest osobna i domyślnie odznaczona. Danych nie sprzedajemy.</li>
           <li>Asystent AI odpowiada z bazy świadczeń i podaje źródła. To program, więc ważne rzeczy sprawdź w urzędzie.</li>
         </ul>
       </section>
@@ -76,6 +76,7 @@ export default function OProjekciePage() {
         <ul className="linki">
           <li><a href="https://tukamil.com/wezmezadarmo/" target="_blank" rel="noopener"><span>Przewodnik po wezmezadarmo<small>Jak korzystać ze strony, na tukamil.com</small></span><span aria-hidden="true">→</span></a></li>
           <li><a href="https://tukamil.com" target="_blank" rel="noopener"><span>tukamil.com<small>Inne aplikacje i kontakt</small></span><span aria-hidden="true">→</span></a></li>
+          <li><a href="https://tukamil.com/wdrozenie-ai/" target="_blank" rel="noopener"><span>Wdrożenie AI w firmie<small>Pakiet tuKamil: 4 godziny szkolenia z AI w Twojej firmie</small></span><span aria-hidden="true">→</span></a></li>
           <li><a href="https://github.com/exhuman777/wezmezadarmo" target="_blank" rel="noopener noreferrer"><span>Kod na GitHubie<small>github.com/exhuman777/wezmezadarmo</small></span><span aria-hidden="true">→</span></a></li>
         </ul>
       </section>

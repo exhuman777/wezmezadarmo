@@ -19,11 +19,26 @@ Darmowy, prywatny serwis tuKamil (https://tukamil.com), nie rządowy. Przewodnik
 - Centrum Obywatela (/centrum-obywatela), Aktualności (/aktualnosci), Polska w liczbach (/statystyki), kolejki NFZ (/nfz).
 - Blog (/blog): poradniki, każdy wpis ma wersję .md (adres wpisu + .md).
 
-## Co działa bez konta
+## Co działa bez danych
 
-Wszystko powyżej działa bez logowania i bez podawania danych. Jedyne miejsce, które prosi o dane: sprawdzenie firmy po NIP (/dla-firm/narzedzia/dofinansowania), e-mail, polski numer telefonu i zgoda; wynik otwiera link z maila (adresy z plusem i domeny jednorazowe są odrzucane). Nie ma kont ani logowania: /panel, /logowanie i /rejestracja przekierowują (308) na strony publiczne, a API kont odpowiada 410.
+Wszystko powyżej działa bez logowania i bez podawania danych kontaktowych. Strona nie zapisuje profilu ani dopasowanych świadczeń.
+
+## Gdzie pada e-mail i telefon (tylko firmy)
+
+- Sprawdzenie firmy po NIP (/dla-firm/narzedzia/dofinansowania): e-mail i polski numer telefonu. Adres z plusem (a+1@firma.pl) i domena jednorazowa są odrzucane. Wynik otwiera link z maila (ciasteczko na 30 dni).
+- „Napisz do nas” w stopce: tylko e-mail do odpowiedzi.
+- Zgody na kontakt to osobne pola, domyślnie odznaczone: e-mail w sprawie zgłoszenia (wymagane), oferty e-mailem, telefon (tylko przy telefonie) i kontakt przez asystenta AI. Opis: /polityka-prywatnosci#zgody.
+- Kont, logowania i newslettera nie ma: /panel, /logowanie i /rejestracja przekierowują (308) na strony publiczne, a API kont odpowiada 410.
 
 Kalkulator nie zapisuje odpowiedzi. Pliki KPiR i JPK czyta tylko przeglądarka. Dane zweryfikowane w oficjalnych źródłach, data przy każdym świadczeniu.
+
+## Artykuły dla firm
+
+- 10 największych dotacji dla firm w 2026 (ranking naborów z listopada według budżetu, źródło MFiPR): /blog/najwieksze-dotacje-dla-firm-2026.md
+- Ścieżka SMART 2026 dla MŚP: /blog/sciezka-smart-2026-dotacja-dla-msp.md
+- Kredyt dual-use z BGK: /blog/kredyt-dual-use-bgk-2026.md
+- Dig.IT z ARP: /blog/digit-arp-dotacja-na-cyfryzacje-2026.md
+- Wszystkie wpisy: /blog i lista w /llms.txt
 
 ## Publiczne API bez klucza (GET)
 
@@ -35,12 +50,14 @@ Kalkulator nie zapisuje odpowiedzi. Pliki KPiR i JPK czyta tylko przeglądarka. 
 - /api/public/eli-sejm?q=fraza: akty prawne ELI Sejm
 - /api/public/bdl-gus?gmina=Lublin: dane gminy z GUS
 
-Endpointy POST poniżej (/api/verify, /api/chat, /api/form-assist, /api/pdf) działają ze strony bez klucza. Z innych domen wymagają nagłówka X-API-Key, klucz bezpłatny przez formularz na /dla-firm#kontakt.
+Endpointy POST poniżej (/api/verify, /api/chat, /api/form-assist, /api/pdf) działają ze strony bez klucza. Z innych domen wymagają nagłówka X-API-Key, klucz bezpłatny: poproś przez formularz na /dla-firm#kontakt albo „Napisz do nas”.
 
 ## Inne aplikacje tuKamil
 
-- DogInvoice (https://doginvoice.com): faktury z KSeF, dopasowanie wpłat do faktur, koszyk przelewów.
-- DogAnswer (https://doganswer.com): asystent AI odbiera telefon w firmie.
+- DogInvoice (https://doginvoice.com): faktury z KSeF wpadają same, wpłaty dopasowują się do faktur, paczka przelewów do banku.
+- DogAnswer (https://doganswer.com): asystent AI odbiera telefon w firmie 24/7 i wysyła podsumowanie rozmowy.
+- Wdrożenie AI w firmie (https://tukamil.com/wdrozenie-ai/): 4 godziny szkolenia u klienta.
+- Przewodnik po wezmezadarmo dla ludzi: https://tukamil.com/wezmezadarmo/
 - Pełny katalog: sekcja „Inne aplikacje tuKamil” w https://www.wezmezadarmo.com/llms.txt
 
 ---
@@ -109,7 +126,7 @@ Czat z AI w kontekście profilu i wyników. SSE stream.
 
 **Response:** SSE stream -- `data: {"content": "..."}` chunks, kończy się `data: [DONE]`
 
-**Rate limit:** 3 zapytania dziennie na IP dla niezalogowanych. Brak limitu dla firm z API key.
+**Rate limit:** 3 zapytania dziennie na IP. Brak limitu dla kluczy API.
 
 ### POST /api/form-assist
 

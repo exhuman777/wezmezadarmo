@@ -25,7 +25,7 @@ export function mailHtml(link: string, imie: string | null): string {
 <tr><td style="padding:0 32px 24px;font-size:12px;line-height:1.5;color:#6f655b;word-break:break-all;">Link: ${link}</td></tr>
 <tr><td style="padding:16px 32px 24px;border-top:1px solid #d9cbb2;font-size:12px;line-height:1.5;color:#6f655b;">
 Jeśli to nie Ty, zignoruj tę wiadomość.<br>
-wezmezadarmo.com, Mooning Charts Research Kamil Sobkowicz (NIP 7133061369)</td></tr>
+wezmezadarmo.com, tuKamil (NIP 7133061369)</td></tr>
 </table></td></tr></table></body></html>`;
 }
 
@@ -54,7 +54,7 @@ export function mailLeadHtml(dane: { email: string; imie: string | null; telefon
 <table role="presentation" cellpadding="0" cellspacing="0" style="font-size:15px;">
 ${wiersz('E-mail', dane.email)}${wiersz('Imię', dane.imie)}${wiersz('Telefon', dane.telefon)}${wiersz('Kiedy', kiedy.toLocaleString('pl-PL', { timeZone: 'Europe/Warsaw' }))}
 </table>
-<p style="font-size:13px;color:#6f655b;margin:16px 0 0;">Zgoda na kontakt: tak. Dostęp otwarty od razu po formularzu. Kliknięcie linku z maila potwierdza adres; status: <a href="${SITE_URL}/admin/narzedzia">${SITE_URL}/admin/narzedzia</a></p>
+<p style="font-size:13px;color:#6f655b;margin:16px 0 0;">Zgoda na kontakt e-mailem w sprawie zgłoszenia: tak. Wynik otwiera dopiero kliknięcie linku z maila; status: <a href="${SITE_URL}/admin/narzedzia">${SITE_URL}/admin/narzedzia</a></p>
 </body></html>`;
 }
 

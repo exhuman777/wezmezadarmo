@@ -38,6 +38,8 @@ export function FormularzDostepu({ next = '/dla-firm/narzedzia/dofinansowania', 
     e.preventDefault();
     setBlad('');
     if (!email.includes('@')) { setBlad('Podaj adres e-mail.'); return; }
+    // Domeny jednorazowe sprawdza serwer (lista jest za duża dla przeglądarki).
+    if (email.slice(0, email.lastIndexOf('@')).includes('+')) { setBlad('Podaj adres bez znaku plus (np. jan@firma.pl zamiast jan+1@firma.pl).'); return; }
     if (!normalizujTelefon(telefon)) { setBlad('Podaj polski numer telefonu: 9 cyfr, np. 600 100 200.'); return; }
     if (!zgody.email) { setBlad(BLAD_ZGODY); return; }
     setStan('wysylam');

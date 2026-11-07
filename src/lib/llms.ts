@@ -81,7 +81,7 @@ Pełny spis serwisu dla modeli: ${SITE_URL}/llms.txt`;
 const UWAGA = 'Projekt prywatny, nie rządowy i niekomercyjny. Informacja orientacyjna, nie decyzja urzędowa: ważne sprawy potwierdź w urzędzie.';
 
 /** Co działa bez konta i gdzie pada jedyny e-mail (llms.txt, /index.md, llm.md i agents.md mówią to samo). */
-export const BEZ_KONTA = `Wszystko działa bez logowania i bez podawania danych: kalkulator świadczeń, baza świadczeń, asystent AI (3 pytania dziennie), wnioski ZUS z PDF, przegląd KPiR i JPK_V7, wyszukiwarka programów dotacji, aktualności, statystyki i Centrum Obywatela. Jedyne miejsce, które prosi o dane (e-mail i telefon): sprawdzenie firmy po NIP (${SITE_URL}/dla-firm/narzedzia/dofinansowania), e-mail, telefon i zgoda, adres e-mail potwierdzany linkiem z maila. Nie ma kont ani logowania, strona nie zapisuje profilu.`;
+export const BEZ_KONTA = `Wszystko działa bez logowania i bez podawania danych: kalkulator świadczeń, baza świadczeń, asystent AI (3 pytania dziennie), wnioski ZUS z PDF, przegląd KPiR i JPK_V7, wyszukiwarka programów dotacji, artykuły na blogu, aktualności, statystyki i Centrum Obywatela. E-mail i telefon podaje tylko firma przy sprawdzeniu po NIP (${SITE_URL}/dla-firm/narzedzia/dofinansowania): polski numer telefonu, e-mail bez aliasu z plusem i bez domeny jednorazowej, potwierdzony linkiem z maila. Formularz „Napisz do nas” w stopce prosi tylko o e-mail do odpowiedzi. Każda zgoda na kontakt (e-mail w sprawie zgłoszenia, oferty e-mailem, telefon, kontakt przez asystenta AI) to osobne pole, domyślnie odznaczone: ${SITE_URL}/polityka-prywatnosci#zgody. Nie ma kont, logowania ani newslettera; strona nie zapisuje profilu.`;
 
 /** Publiczne API bez klucza (GET, dane urzędów na żywo). */
 export const API_PUBLICZNE: Link[] = [
@@ -385,15 +385,15 @@ ${STOPKA_MD}`,
 
   '/o-projekcie': () => `${naglowek(strona('/o-projekcie'))}
 
-Darmowa strona, która pomaga sprawdzić, jakie świadczenia, ulgi i dotacje mogą Ci przysługiwać. Projekt prywatny, nie rządowy i niekomercyjny. Stronę robi tuKamil z Lublina (https://tukamil.com), pro bono. Przewodnik po wezmezadarmo: https://tukamil.com/wezmezadarmo/. Kod jest otwarty (AGPL-3.0), baza świadczeń to otwarte dane (CC-BY-4.0): https://github.com/exhuman777/wezmezadarmo
+Darmowa strona, która pomaga sprawdzić, jakie świadczenia, ulgi i dotacje mogą Ci przysługiwać. Projekt prywatny, nie rządowy i niekomercyjny. Stronę robi tuKamil z Lublina (https://tukamil.com), pro bono. Przewodnik po wezmezadarmo: https://tukamil.com/wezmezadarmo/. Pakiet Wdrożenie AI w firmie (4 godziny szkolenia u klienta): https://tukamil.com/wdrozenie-ai/. Kod jest otwarty (AGPL-3.0), baza świadczeń to otwarte dane (CC-BY-4.0): https://github.com/exhuman777/wezmezadarmo
 
 ${BEZ_KONTA}
 
 ## Prywatność
 
 - Kalkulator nie pyta o PESEL i nie zapisuje Twoich odpowiedzi.
-- PESEL jest potrzebny tylko do wniosku ZUS i zostaje w Twojej przeglądarce.
-- Nie ma kont ani logowania. E-mail podajesz tylko przy sprawdzeniu firmy po NIP, dane są na serwerach w UE i nie sprzedajemy ich.
+- PESEL jest potrzebny tylko do wniosku ZUS: serwer składa PDF w pamięci, a szkic zostaje w karcie przeglądarki do jej zamknięcia.
+- Nie ma kont ani logowania. E-mail i telefon podajesz tylko przy sprawdzeniu firmy po NIP, każda zgoda na kontakt jest osobna i domyślnie odznaczona. Danych nie sprzedajemy.
 - Asystent AI odpowiada z bazy świadczeń i podaje źródła. Ważne rzeczy sprawdź w urzędzie.
 
 ## Skąd są dane

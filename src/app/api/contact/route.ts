@@ -3,6 +3,7 @@ import { powiadomKamila } from '@/lib/powiadomienia';
 import { rateLimit } from '@/lib/sources/_helpers';
 import { BLAD_ZGODY, odczytajZgody } from '@/lib/zgody';
 import { zapiszZgody } from '@/lib/zgodyZapis';
+import { domenaJednorazowa } from '@/lib/narzedzia/walidacja';
 
 export async function POST(req: NextRequest) {
   const limit = rateLimit('contact', req, 5, 60 * 60_000); // 5 wiadomości / h / IP
@@ -25,6 +26,10 @@ export async function POST(req: NextRequest) {
 
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return NextResponse.json({ error: 'Podaj poprawny adres e-mail.' }, { status: 400 });
+  }
+
+  if (domenaJednorazowa(email)) {
+    return NextResponse.json({ error: 'Adresy jednorazowe nie działają. Podaj stały adres e-mail, na który odpowiemy.' }, { status: 400 });
   }
 
   if (typeof imie !== 'string' || typeof email !== 'string' || typeof wiadomosc !== 'string' || (firma !== undefined && typeof firma !== 'string')) {

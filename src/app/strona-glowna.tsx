@@ -1,12 +1,14 @@
 'use client';
 
 import { PixelIcon } from '@/components/PixelIcon';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { IntakeForm } from '@/components/IntakeForm';
 import { ChatWindow, ChatMessage } from '@/components/ChatWindow';
 import { MatchResult, UserProfile } from '@/engine/types';
 import { getAllBenefits } from '@/engine/benefits';
+import { matchBenefits } from '@/engine/matcher';
+import { Licznik, Rotator } from '@/components/Ruch';
 import { CeidgBusinessData } from '@/lib/ceidg';
 import { track } from '@/lib/analytics';
 
@@ -210,7 +212,49 @@ const IconArrowLeft = () => (
 const SESSION_KEY = 'wzd_session_v1';
 const SESSION_TTL = 7 * 24 * 60 * 60 * 1000;
 
-export default function Home() {
+/** Profil z odpowiedzi do tej pory; brakujące pola dostają te same wartości domyślne co w pełnym sprawdzeniu. */
+function pelnyProfil(p: Partial<UserProfile>): UserProfile {
+  return {
+    wiek: p.wiek ?? 30,
+    plec: p.plec ?? 'K',
+    stanCywilny: p.stanCywilny ?? 'wolny',
+    liczbaDzieci: p.liczbaDzieci ?? 0,
+    wiekDzieci: [],
+    dochodMiesiecznie: p.dochodMiesiecznie ?? 5000,
+    dochodNaOsobe: p.dochodNaOsobe ?? 5000,
+    zatrudnienie: p.zatrudnienie ?? 'umowa_o_prace',
+    niepelnosprawnosc: p.niepelnosprawnosc ?? 'brak',
+    wlasnosc: p.wlasnosc ?? 'mieszkanie',
+    wojewodztwo: p.wojewodztwo ?? 'inne',
+    prowadzDzialalnosc: p.prowadzDzialalnosc ?? false,
+    pierwszaDzialalnosc: p.pierwszaDzialalnosc ?? false,
+    dataDzialalnosci: p.dataDzialalnosci,
+    pkd: p.pkd,
+    ciaza: p.ciaza ?? false,
+    student: p.student ?? false,
+    emeryt: p.zatrudnienie === 'emeryt',
+    rolnik: p.rolnik ?? false,
+    bezrobotnyZarejestrowany: p.bezrobotnyZarejestrowany ?? false,
+  };
+}
+
+/** „Pasuje już 1 świadczenie”, „Pasują już 3 świadczenia”, „Pasuje już 12 świadczeń”. */
+function odmiana(n: number): { czasownik: string; rzeczownik: string } {
+  if (n === 1) return { czasownik: 'Pasuje', rzeczownik: 'świadczenie' };
+  const d = n % 10, s = n % 100;
+  if (d >= 2 && d <= 4 && (s < 12 || s > 14)) return { czasownik: 'Pasują', rzeczownik: 'świadczenia' };
+  return { czasownik: 'Pasuje', rzeczownik: 'świadczeń' };
+}
+
+interface HomeProps {
+  /** Liczby do licznika na górze: z bazy świadczeń i bazy programów (src/app/page.tsx). */
+  liczbaSwiadczen: number;
+  liczbaProgramow: number;
+  /** Nazwy świadczeń do rotatora „Należy Ci się: …”. */
+  rotator: string[];
+}
+
+export default function Home({ liczbaSwiadczen, liczbaProgramow, rotator }: HomeProps) {
   const router = useRouter();
   const [heroQuery, setHeroQuery] = useState('');
   const [phase, setPhase] = useState<Phase>('landing');
@@ -223,6 +267,12 @@ export default function Home() {
   const [results, setResults] = useState<MatchResult[]>([]);
   const [isStreaming, setIsStreaming] = useState(false);
   const [guideBenefitId, setGuideBenefitId] = useState<string | null>(null);
+
+  // Kalkulator na żywo: ile świadczeń pasuje do odpowiedzi do tej pory (ten sam silnik co /api/verify, bez weryfikacji AI).
+  const pasujeTeraz = useMemo(
+    () => (phase === 'questions' && profile.wiek ? matchBenefits(pelnyProfil(profile)).length : null),
+    [phase, profile],
+  );
 
   // Loading progress for ring animation
   const [loadingProgress, setLoadingProgress] = useState(0);
@@ -353,28 +403,7 @@ export default function Home() {
     setIsLoading(true);
     setPhase('loading');
 
-    const completeProfile: UserProfile = {
-      wiek: fullProfile.wiek,
-      plec: fullProfile.plec,
-      stanCywilny: fullProfile.stanCywilny ?? 'wolny',
-      liczbaDzieci: fullProfile.liczbaDzieci ?? 0,
-      wiekDzieci: [],
-      dochodMiesiecznie: fullProfile.dochodMiesiecznie ?? 5000,
-      dochodNaOsobe: fullProfile.dochodNaOsobe ?? 5000,
-      zatrudnienie: fullProfile.zatrudnienie ?? 'umowa_o_prace',
-      niepelnosprawnosc: fullProfile.niepelnosprawnosc ?? 'brak',
-      wlasnosc: fullProfile.wlasnosc ?? 'mieszkanie',
-      wojewodztwo: fullProfile.wojewodztwo ?? 'inne',
-      prowadzDzialalnosc: fullProfile.prowadzDzialalnosc ?? false,
-      pierwszaDzialalnosc: fullProfile.pierwszaDzialalnosc ?? false,
-      dataDzialalnosci: fullProfile.dataDzialalnosci,
-      pkd: fullProfile.pkd,
-      ciaza: fullProfile.ciaza ?? false,
-      student: fullProfile.student ?? false,
-      emeryt: fullProfile.zatrudnienie === 'emeryt',
-      rolnik: fullProfile.rolnik ?? false,
-      bezrobotnyZarejestrowany: fullProfile.bezrobotnyZarejestrowany ?? false,
-    };
+    const completeProfile: UserProfile = pelnyProfil(fullProfile);
 
     setProfile(completeProfile);
 
@@ -559,7 +588,12 @@ export default function Home() {
         <section id="kalkulator" className="prosta-blok" style={{ padding: 0, scrollMarginTop: 80 }}>
           <span id="formularz" />
           <h1 style={{ fontSize: 'clamp(28px, 5.5vw, 40px)' }}><PixelIcon nazwa="gwiazdka" />Należy Ci się więcej, niż myślisz.</h1>
-          <p className="pod">Odpowiedz na kilka pytań i zobacz, które ze 133 świadczeń, ulg i dotacji mogą Ci przysługiwać. Bez konta i za darmo.</p>
+          <Rotator etykieta="Należy Ci się:" pozycje={rotator} />
+          <p className="pod">Odpowiedz na kilka pytań i zobacz, które ze {liczbaSwiadczen} świadczeń, ulg i dotacji mogą Ci przysługiwać. Bez konta i za darmo.</p>
+          <ul className="liczniki" aria-label="Co jest w bazie">
+            <li><Licznik wartosc={liczbaSwiadczen} /><span className="licznik-opis">świadczeń, ulg i dotacji</span></li>
+            <li><Licznik wartosc={liczbaProgramow} /><span className="licznik-opis">programów dla firm</span></li>
+          </ul>
           <ul className="lista" style={{ marginTop: 16 }}>
             <li className="lista-para"><span className="lista-nazwa">800+</span><span className="lista-opis">800 zł miesięcznie na każde dziecko do 18 lat, bez względu na dochód.</span></li>
             <li className="lista-para"><span className="lista-nazwa">13. emerytura</span><span className="lista-opis">1978,49 zł brutto co roku w kwietniu dla emerytów i rencistów.</span></li>
@@ -686,6 +720,11 @@ export default function Home() {
             <div className="label-eyebrow" style={{ marginBottom: 16 }}>
               Pytanie {questionIndex + 1} z {QUESTIONS.length}
             </div>
+            {pasujeTeraz !== null && (
+              <p className="pasuje-teraz" data-testid="pasuje-teraz" aria-live="polite">
+                {odmiana(pasujeTeraz).czasownik} już <strong className="licznik-liczba">{pasujeTeraz}</strong> {odmiana(pasujeTeraz).rzeczownik}
+              </p>
+            )}
 
             {questionIndex === 0 && profile.statusVat && (
               <div style={{
