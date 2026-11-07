@@ -25,7 +25,7 @@ export function mailHtml(link: string, imie: string | null): string {
 <tr><td style="padding:0 32px 24px;font-size:12px;line-height:1.5;color:#6f655b;word-break:break-all;">Link: ${link}</td></tr>
 <tr><td style="padding:16px 32px 24px;border-top:1px solid #d9cbb2;font-size:12px;line-height:1.5;color:#6f655b;">
 Jeśli to nie Ty, zignoruj tę wiadomość.<br>
-wezmezadarmo.com, tuKamil (NIP 7133061369)</td></tr>
+wezmezadarmo.com, Mooning Charts Research (marka tuKamil), NIP 7133061369</td></tr>
 </table></td></tr></table></body></html>`;
 }
 

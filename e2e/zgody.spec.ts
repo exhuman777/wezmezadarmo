@@ -108,5 +108,8 @@ test.describe('zgody na kontakt', () => {
     const regulamin = await page.locator('body').innerText();
     expect(regulamin).not.toMatch(/art\.\s*\d/i);
     expect(regulamin).not.toMatch(/Sobkowicz|@gmail\.com/i);
+    expect(tekst).toContain('Mooning Charts Research (marka tuKamil), NIP 7133061369');
+    expect(regulamin).toContain('Mooning Charts Research (marka tuKamil), NIP 7133061369');
+    expect(tekst + regulamin).not.toMatch(/jednoosobowa działalność gospodarcza z Lublina/);
   });
 });

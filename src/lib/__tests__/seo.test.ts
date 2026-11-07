@@ -149,12 +149,13 @@ describe('llms.txt, llms-full.txt i pliki .md', () => {
     sprawdzTekst('llms.txt', llms);
   });
 
-  it('llms.txt ma sekcję Narzędzia na subdomenach z czterema adresami', () => {
+  it('llms.txt ma sekcję Narzędzia na subdomenach z trzema adresami (jpk zamknięte 7.11.2026)', () => {
     const sekcja = llms.split('## Narzędzia na subdomenach\n')[1].split('\n## ')[0];
-    for (const u of ['https://dwiestrony.wezmezadarmo.com', 'https://nalezysie.wezmezadarmo.com', 'https://jpk.wezmezadarmo.com', 'https://gry.wezmezadarmo.com']) {
+    for (const u of ['https://dwiestrony.wezmezadarmo.com', 'https://nalezysie.wezmezadarmo.com', 'https://gry.wezmezadarmo.com']) {
       expect(sekcja).toContain(`(${u})`);
     }
-    expect(NARZEDZIA_NA_SUBDOMENACH).toHaveLength(4);
+    expect(llms).not.toContain('jpk.wezmezadarmo.com');
+    expect(NARZEDZIA_NA_SUBDOMENACH).toHaveLength(3);
     for (const a of INNE_APLIKACJE) expect(a.url).toMatch(/^https:\/\/[a-z0-9.-]+\/([a-z0-9-]+\/)?$/);
   });
 

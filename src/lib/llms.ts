@@ -24,7 +24,6 @@ export interface Link { nazwa: string; url: string; opis?: string }
 export const NARZEDZIA_NA_SUBDOMENACH: Link[] = [
   { nazwa: 'Dwie Strony', url: 'https://dwiestrony.wezmezadarmo.com', opis: zKatalogu('dwie-strony').opis },
   { nazwa: 'Należy się', url: 'https://nalezysie.wezmezadarmo.com', opis: zKatalogu('nalezy-sie').opis },
-  { nazwa: 'Przegląd 2027', url: 'https://jpk.wezmezadarmo.com', opis: 'JPK przed 2027' },
   { nazwa: 'Gry', url: 'https://gry.wezmezadarmo.com', opis: 'gry w pikselach' },
 ];
 

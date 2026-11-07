@@ -29,7 +29,7 @@ export default function RegulaminPage() {
         <div className="space-y-8 text-[14px] sm:text-[15px] leading-[1.7] text-text-2">
 
           <Section n="1" title="Kto prowadzi serwis">
-            <P>1.1. Serwis wezmezadarmo.com prowadzi tuKamil, jednoosobowa działalność gospodarcza z Lublina, NIP 7133061369 (dalej: Operator).</P>
+            <P>1.1. Serwis wezmezadarmo.com prowadzi Mooning Charts Research (marka tuKamil), NIP 7133061369 (dalej: Operator).</P>
             <P>1.2. Kontakt: formularz „Napisz do nas” w stopce każdej strony albo <a href="https://tukamil.com/#kontakt" target="_blank" rel="noopener" className="text-accent hover:underline">tukamil.com/#kontakt</a>.</P>
             <P>1.3. Serwis jest prywatny, nie rządowy. Nie przyznaje świadczeń ani dotacji i nie gwarantuje ich uzyskania.</P>
           </Section>

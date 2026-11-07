@@ -4,7 +4,7 @@ import { tokenOidc } from '@/lib/powiadomienia';
 // Dostęp do modelu bez klucza w repo:
 // 1) OPENROUTER_API_KEY w Vercel: OpenRouter jak dotąd,
 // 2) bez niego: Vercel AI Gateway z tokenem OIDC tej funkcji (nagłówek x-vercel-oidc-token albo VERCEL_OIDC_TOKEN),
-//    ten sam sposób co czat asystent24.com i jpk.wezmezadarmo.com. Modele google/gemini-2.5-* mają w Gateway te same nazwy.
+//    ten sam sposób co czat asystent24.com. Modele google/gemini-2.5-* mają w Gateway te same nazwy.
 export const GATEWAY_URL = 'https://ai-gateway.vercel.sh/v1';
 
 /** Czy czat ma czym odpowiadać: klucz OpenRouter albo token OIDC do AI Gateway. */

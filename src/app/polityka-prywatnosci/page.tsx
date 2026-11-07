@@ -40,7 +40,7 @@ export default function PolitykaPage() {
           </Section>
 
           <Section n="2" title="Kto odpowiada za dane">
-            <P>Administratorem danych jest tuKamil, jednoosobowa działalność gospodarcza z Lublina, NIP 7133061369 (pełne dane firmy są w publicznym rejestrze CEIDG).</P>
+            <P>Administratorem danych jest Mooning Charts Research (marka tuKamil), NIP 7133061369.</P>
             <P>Kontakt w sprawie danych: formularz <a href="#napisz-do-nas" className="text-accent hover:underline">„Napisz do nas”</a> w stopce każdej strony albo <a href="https://tukamil.com/#kontakt" target="_blank" rel="noopener" className="text-accent hover:underline">tukamil.com/#kontakt</a>.</P>
             <P>Serwis jest prywatny, nie rządowy. Wyniki mają charakter informacyjny i nie są decyzją urzędu.</P>
           </Section>

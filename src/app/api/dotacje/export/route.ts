@@ -46,7 +46,7 @@ export async function GET() {
     monitoring_preferences: prefs ?? null,
     notification_history: logs ?? [],
     gdpr_note:
-      'Eksport danych osobowych zgodnie z art. 20 RODO. Dane przechowywane są na serwerach Supabase (UE). Administrator: wezmezadarmo.com.',
+      'Eksport danych osobowych zgodnie z art. 20 RODO. Dane przechowywane są na serwerach Supabase (UE). Administrator: Mooning Charts Research (marka tuKamil), NIP 7133061369.',
   };
 
   const json = JSON.stringify(exportData, null, 2);
