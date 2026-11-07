@@ -51,7 +51,7 @@ test.describe('formularz NIP palcem', () => {
     await page.keyboard.type('test@example.com');
     await page.locator('#n-tel').tap();
     await page.keyboard.type('600100200');
-    await form.locator('label:has(input[data-zgoda=email]) span').first().tap();
+    await form.locator('input[data-zgoda=email]').tap();
     await expect(form.locator('input[data-zgoda=email]')).toBeChecked();
     await expect(page.locator('#n-email')).toHaveValue('test@example.com');
     const przycisk = form.locator('button[type=submit]');

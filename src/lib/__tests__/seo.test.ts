@@ -199,7 +199,7 @@ describe('blog: wpisy, FAQ, wersje .md', () => {
     for (const p of WPISY_DOTACJE_2026) {
       expect(p.faq?.length, p.slug).toBeGreaterThanOrEqual(3);
       expect(p.content).toContain('## Źródła');
-      expect(p.content).toMatch(/sprawdzone 6\.11\.2026/);
+      expect(p.content).toMatch(/sprawdzone 7\.11\.2026/);
       expect(p.content).toContain('/dotacje#wyszukiwarka');
       expect(p.content).toContain('/dla-firm/narzedzia/dofinansowania');
       expect(slugi.filter(s => s !== p.slug).some(s => p.content.includes(`/blog/${s}`)), p.slug).toBe(true);
@@ -207,7 +207,7 @@ describe('blog: wpisy, FAQ, wersje .md', () => {
       sprawdzTekst(p.slug, [p.title, p.description, p.content, ...(p.faq ?? []).flatMap(f => [f.pytanie, f.odpowiedz])].join('\n'));
       // Źródła tylko oficjalne (plus strona DogInvoice w akapicie o fakturach).
       for (const m of p.content.matchAll(/\]\((https?:\/\/[^)]+)\)/g)) {
-        expect(new URL(m[1]).hostname, m[1]).toMatch(/(^|\.)(gov\.pl|bgk\.pl|parp\.gov\.pl|arp\.pl|lodzkie\.pl|opolskie\.pl|slaskie\.pl|funduszeueswietokrzyskie\.pl|doginvoice\.com)$/);
+        expect(new URL(m[1]).hostname, m[1]).toMatch(/(^|\.)(gov\.pl|bgk\.pl|parp\.gov\.pl|arp\.pl|lodzkie\.pl|opolskie\.pl|slaskie\.pl|malopolska\.pl|funduszeueswietokrzyskie\.pl|doginvoice\.com)$/);
       }
     }
   });

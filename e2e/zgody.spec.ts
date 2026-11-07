@@ -23,10 +23,10 @@ test.describe('zgody na kontakt', () => {
     for (let i = 0; i < 4; i++) await expect(zgody.nth(i)).not.toBeChecked();
     await expect(form.locator('input[data-zgoda=telefon]')).toHaveCount(1);
     await expect(form.locator('input[data-zgoda=ai]')).toHaveCount(1);
-    await page.locator('#n-email').fill('jan@firma.pl');
-    await page.locator('#n-tel').fill('600100200');
-    await page.locator('input[data-zgoda=telefon]').check();
-    await page.locator('input[data-zgoda=ai]').check();
+    await form.locator('#n-email').fill('jan@firma.pl');
+    await form.locator('#n-tel').fill('600100200');
+    await form.locator('input[data-zgoda=telefon]').check();
+    await form.locator('input[data-zgoda=ai]').check();
     await form.locator('button[type=submit]').click();
     await expect(form.getByRole('alert')).toContainText('Zaznacz zgodę');
     expect(wyslane).toEqual([]);
@@ -48,7 +48,7 @@ test.describe('zgody na kontakt', () => {
   });
 
   test('API formularza NIP odrzuca alias z plusem, domenę jednorazową, zły telefon i brak zgody', async ({ request }) => {
-    const wyslij = (dane: Record<string, unknown>) => request.post('/api/narzedzia/lead', { data: { telefon: '600100200', zgody: ZGODA_EMAIL, ...dane }, headers: { 'x-forwarded-for': '203.0.113.71' } });
+    const wyslij = (dane: Record<string, unknown>) => request.post('/api/narzedzia/lead', { data: { telefon: '600100200', zgody: ZGODA_EMAIL, ...dane }, headers: { 'x-forwarded-for': `198.18.0.${Math.floor(Math.random() * 250) + 1}` } });
     const plus = await wyslij({ email: 'a+1@x.pl' });
     expect(plus.status()).toBe(400);
     expect((await plus.json()).error).toContain('plus');
@@ -75,12 +75,14 @@ test.describe('zgody na kontakt', () => {
     await k.locator('#stopka-wiadomosc').fill('Pytanie');
     await k.locator('input[data-zgoda=emailOferty]').check();
     await k.locator('button[type=submit]').click();
-    await expect(k.getByRole('alert')).toContainText('Zaznacz zgodę');
+    // wymagana zgoda ma atrybut required: przeglądarka zatrzymuje wysłanie
+    expect(await k.locator('input[data-zgoda=email]').evaluate((el) => (el as HTMLInputElement).validity.valueMissing)).toBe(true);
+    await page.waitForTimeout(500);
     expect(kontakt).toEqual([]);
   });
 
   test('API „Napisz do nas” odrzuca brak zgody i domenę jednorazową', async ({ request }) => {
-    const h = { 'x-forwarded-for': '203.0.113.72' };
+    const h = { 'x-forwarded-for': `198.51.100.${Math.floor(Math.random() * 250) + 1}` };
     const bez = await request.post('/api/contact', { data: { email: 'jan@firma.pl', wiadomosc: 'x' }, headers: h });
     expect(bez.status()).toBe(400);
     const jedn = await request.post('/api/contact', { data: { email: 'jan@mailinator.com', wiadomosc: 'x', zgody: ZGODA_EMAIL }, headers: h });

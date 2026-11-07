@@ -10,7 +10,7 @@ Poland has 118+ government benefits, subsidies, and social programs. Most citize
 
 WezmeZadarmo ("I'll take it for free") solves this. Answer a short set of anonymous questions. Get a personalised list of benefits you qualify for, with step-by-step application instructions and links to official sources. Ask the AI assistant follow-up questions.
 
-**Everything works without an account and without giving personal data.** The only place that asks for an e-mail is the company check by NIP (`/dla-firm/narzedzia/dofinansowania`). Accounts and the newsletter are optional.
+**Everything works without an account and without giving personal data.** E-mail and phone are asked only by the company check by NIP (`/dla-firm/narzedzia/dofinansowania`); the "Napisz do nas" form asks only for an e-mail. There are no accounts, logins or newsletter (old panel URLs redirect 308 to public pages).
 
 **Free public good.** WezmeZadarmo is free and open source for citizens across Poland
 and, through the planned open engine, the EU. A personal AI assistant for the citizen of
@@ -24,7 +24,6 @@ actually use the digital state. This is civic infrastructure, not a business.
 - Matches your demographic profile against a hand-verified database of 133 Polish government benefits
 - Covers: ZUS (social insurance), NFZ (healthcare), PFRON (disability), KRUS (farmers), MOPS (social welfare), local government programs
 - AI assistant (Google Gemini via OpenRouter) answers follow-up questions with citation-enforced answers
-- Personal agent panel (`/panel`): saved profile, matched benefits with embedded AI chat, RSS news monitoring, opt-in email newsletter
 - Free dotacje panel (`/dotacje/panel`): company-specific grant monitoring, AI matching, RSS feeds per firm (free, no payments, fair-use limits)
 - ZUS forms wizard (`/wnioski`): AI-assisted form filling with PDF export
 - Automations info page (`/automatyzacje`): educational and informational only. It illustrates that the EU is already digitised and that this digital infrastructure can be put to further use with AI and code over structured, human-verified data. Nothing is sold here.
@@ -105,19 +104,13 @@ Public pages:
 - `/statystyki` - GUS/SDG statistics dashboard (live indicators + charts)
 - `/automatyzacje` - educational/informational page only: how AI plus code over structured, human-verified data can further use an already-digitised EU (nothing is sold)
 - `/dotacje` - public grant program search, no account and no e-mail (`#wyszukiwarka`)
-- `/dla-firm/narzedzia` - KPiR and JPK_V7 checks open directly (static apps under `/narzedzia/*`, no cookie, no form); grants by NIP ask for an e-mail (the only e-mail on the site)
+- `/dla-firm/narzedzia` - KPiR and JPK_V7 checks open directly (static apps under `/narzedzia/*`, no cookie, no form); grants by NIP ask for an e-mail and a Polish phone number, confirmed by a link (no plus aliases, no disposable domains)
 - `/blog` - guides; grant articles for firms in `src/data/blog-dotacje-2026.ts` (official sources only, check date on each fact), Markdown versions at `/blog/<slug>.md`
 - `/dla-firm` - B2B landing for firms and sole proprietors
 - `/agent` - AI assistant chat on the page, no account (3 questions/day via `/api/chat`)
 - `/o-projekcie`, `/polityka-prywatnosci`, `/regulamin` - info pages
 
-Agent panel (`/panel/*`):
-- `/panel` - dashboard with module cards + empty-profile onboarding banner
-- `/panel/swiadczenia` - master-detail view of matched benefits with embedded AI chat
-- `/panel/chat` - AI assistant with 8 specialized agents + auto-routing
-- `/panel/aktualnosci` - personalized RSS feed
-- `/panel/profil` - step-by-step profile wizard
-- `/panel/powiadomienia` - email newsletter settings
+Account panels (`/panel/*`, `/agent/panel/*`, `/dotacje/panel/*`) and login pages are disabled since 6.11.2026: 308 redirects to public pages (`next.config.ts`), account APIs answer 410 (`src/middleware.ts`). The code stays in the repo but is unreachable.
 
 AI agent system (`src/agents/`):
 - 8 specialized agents: konsjerz, swiadczenia, wnioski, nfz-zdrowie, finanse-jdg, dotacje, prawo-terminy, rolnik
@@ -134,7 +127,7 @@ API:
 - `/api/aktualnosci` - merged RSS (live + Supabase cache)
 - `/api/dotacje/*` - company endpoints (auth, company, monitoring, cron)
 - `/api/ceidg` - Polish business registry integration
-- `/api/digest` - Vercel Cron endpoint for the opt-in email newsletter
+- `/api/digest` - disabled (410), account digests are no longer sent
 - `/api/contact` - contact form
 
 ## RSS monitoring architecture

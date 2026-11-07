@@ -32,7 +32,7 @@ export function ZgodyKontaktu({ telefon, wartosci, onChange, prefiks, trescEmail
             onChange={e => onChange({ ...wartosci, [z.id]: e.target.checked })}
             style={{ width: 20, height: 20, marginTop: 2, flex: '0 0 auto' }}
           />
-          <span>{z.id === 'email' && trescEmail ? trescEmail : z.tresc} <Link href="/polityka-prywatnosci#zgody">Polityka prywatności</Link>.</span>
+          <span>{z.id === 'email' && trescEmail ? trescEmail : z.tresc} <Link href="/polityka-prywatnosci#zgody" style={{ textDecoration: 'underline', color: 'inherit' }}>Polityka prywatności</Link>.</span>
         </label>
       ))}
     </fieldset>

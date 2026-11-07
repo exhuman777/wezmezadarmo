@@ -51,9 +51,9 @@ export const NARZEDZIA: Narzedzie[] = [
     prefiks: '/dla-firm/narzedzia/dofinansowania',
     email: true,
     nazwa: 'Dofinansowania po NIP',
-    opis: 'Podajesz e-mail i NIP, pobieramy dane firmy z CEIDG i dopasowujemy programy dofinansowań z naszej bazy. Bez konta.',
+    opis: 'Podajesz e-mail, telefon i NIP, pobieramy dane firmy z CEIDG i dopasowujemy programy dofinansowań z naszej bazy. Bez konta.',
     title: 'Dofinansowania dla firmy po NIP za darmo',
-    description: 'Podaj e-mail i NIP: pobieramy dane firmy z CEIDG (PKD, województwo) i dopasowujemy programy dofinansowań z bazy wezmezadarmo. Bez konta.',
+    description: 'Podaj e-mail, telefon i NIP: pobieramy dane firmy z CEIDG (PKD, województwo) i dopasowujemy programy dofinansowań z bazy wezmezadarmo. Bez konta.',
   },
 ];
 

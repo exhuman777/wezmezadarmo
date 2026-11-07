@@ -34,7 +34,7 @@ const Z = ZRODLA;
 
 const PO_DOTACJI = `## Po otrzymaniu dotacji: faktury i płatności
 
-Dotacja to też rozliczenie: faktury od dostawców, przelewy i terminy. [DogInvoice](${Z.doginvoice}) pobiera faktury z KSeF, łączy się z bankiem i sam dopasowuje wpłaty do faktur, więc widać, co jest opłacone, a co czeka. Widzisz też, czy klienci zapłacili Ci za fakturę.`;
+Dotacja to też rozliczenie: faktury od dostawców, przelewy i terminy. [DogInvoice](${Z.doginvoice}) pobiera faktury z KSeF, a po podłączeniu banku albo wgraniu wyciągu sam dopasowuje wpłaty do faktur i pokazuje, co opłacone, a co czeka. Widzisz też, czy klienci zapłacili Ci za fakturę.`;
 
 const SPRAWDZ_FIRME = `## Sprawdź, co pasuje do Twojej firmy
 
@@ -60,7 +60,7 @@ Kolejność wyznacza budżet naboru, czyli pula pieniędzy na wszystkie projekty
 
 Do rankingu bierzemy nabory, w których wnioski przyjmowane są w listopadzie 2026 i które ministerstwo oznacza jako nabory dla przedsiębiorców. Zostają tylko te, których celem jest rozwój samej firmy: badania, inwestycje, produkcja, cyfryzacja albo kompetencje kadr. Pomijamy infrastrukturę publiczną, mieszkania, usługi społeczne i szkoły, a także nabory bez opublikowanego ogłoszenia.
 
-Listę, budżety i terminy bierzemy z zestawienia Ministerstwa Funduszy i Polityki Regionalnej z 4.11.2026: [Nabory z Funduszy Europejskich w listopadzie 2026 roku](${Z.mfiprListopad}). Według ministerstwa w listopadzie trwa 152 konkursy, w tym 15 z programów krajowych na prawie 1,7 mld zł i 122 z programów regionalnych na ponad 3 mld zł. Sprawdzone ${SPRAWDZONO}.
+Listę, budżety i terminy bierzemy z zestawienia Ministerstwa Funduszy i Polityki Regionalnej z 4.11.2026: [Nabory z Funduszy Europejskich w listopadzie 2026 roku](${Z.mfiprListopad}). Według ministerstwa w listopadzie trwają 152 konkursy, w tym 15 z programów krajowych na prawie 1,7 mld zł i 122 z programów regionalnych na ponad 3 mld zł. Sprawdzone ${SPRAWDZONO}.
 
 ## 1. Ścieżka SMART dla MŚP: 500 mln zł
 
