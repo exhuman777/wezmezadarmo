@@ -39,7 +39,7 @@ Kont, logowania, paneli firmowych i newslettera. Adresy /dotacje/panel, /panel, 
 
 - /api/public/whitelist?nip=NIP: Biała Lista VAT
 - /api/public/nbp: kursy walut NBP
-- /api/public/nfz?type=queues&q=kardiolog&province=lubelskie: kolejki NFZ
+- /api/public/nfz?type=queues&benefit=kardiolog&province=lubelskie: kolejki NFZ
 - /api/public/gios?lat=51.25&lon=22.57: jakość powietrza GIOŚ
 - /api/public/imgw: ostrzeżenia IMGW
 - /api/public/eli-sejm?q=fraza: akty prawne ELI Sejm

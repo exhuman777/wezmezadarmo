@@ -1,4 +1,4 @@
-import { KONTAKT_SIECI, SIEC_TUKAMIL, TA_STRONA } from '@/lib/siec';
+import { KONTAKT_SIECI, MARKA_TEJ_STRONY, SIEC_TUKAMIL, TA_STRONA } from '@/lib/siec';
 
 /**
  * Stopka „Sieć tuKamil” (wspólny standard sieci, wariant tekstowy siec-tk--tekst):
@@ -21,6 +21,7 @@ export function SiecTuKamil() {
       </ul>
       <p className="siec-tk__dol">
         <a href="https://tukamil.com/">zrobione przez tuKamil</a>
+        <a href={MARKA_TEJ_STRONY}>Marka i materiały</a>
         <a href={KONTAKT_SIECI}>Kontakt</a>
       </p>
     </nav>

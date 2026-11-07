@@ -12,7 +12,7 @@ import type { ApplicationChannel, Benefit } from '@/engine/types';
 import { NARZEDZIA } from '@/lib/narzedzia/lista';
 import { PROGRAMS } from '@/data/programs-b2b';
 import { SITE_URL, adres, sciezkaMd } from '@/lib/seo';
-import { SIEC_TUKAMIL, TA_STRONA, aplikacjaSieci } from '@/lib/siec';
+import { MARKA_TEJ_STRONY, SIEC_TUKAMIL, TA_STRONA, aplikacjaSieci } from '@/lib/siec';
 import { STRONY, podstrony, strona, type GrupaStrony, type Strona } from '@/lib/strony';
 
 export interface Link { nazwa: string; url: string; opis?: string }
@@ -76,6 +76,8 @@ const STOPKA_MD = `## Inne aplikacje tuKamil
 
 ${listaLinkow(INNE_I_SUBDOMENY)}
 
+Materiały marki: ${MARKA_TEJ_STRONY}
+
 Pełny spis serwisu dla modeli: ${SITE_URL}/llms.txt`;
 
 const UWAGA = 'Projekt prywatny, nie rządowy i niekomercyjny. Informacja orientacyjna, nie decyzja urzędowa: ważne sprawy potwierdź w urzędzie.';
@@ -86,7 +88,7 @@ export const BEZ_KONTA = `Wszystko działa bez logowania i bez podawania danych:
 /** Publiczne API bez klucza (GET, dane urzędów na żywo). */
 export const API_PUBLICZNE: Link[] = [
   { nazwa: 'GET /api/public/nbp', url: `${SITE_URL}/api/public/nbp`, opis: 'kursy walut NBP (tabela A)' },
-  { nazwa: 'GET /api/public/nfz?type=queues&q=kardiolog&province=lubelskie', url: `${SITE_URL}/api/public/nfz?type=queues&q=kardiolog&province=lubelskie`, opis: 'kolejki i świadczeniodawcy NFZ' },
+  { nazwa: 'GET /api/public/nfz?type=queues&benefit=kardiolog&province=lubelskie', url: `${SITE_URL}/api/public/nfz?type=queues&benefit=kardiolog&province=lubelskie`, opis: 'kolejki i świadczeniodawcy NFZ' },
   { nazwa: 'GET /api/public/gios?lat=51.25&lon=22.57', url: `${SITE_URL}/api/public/gios?lat=51.25&lon=22.57`, opis: 'jakość powietrza GIOŚ dla najbliższej stacji' },
   { nazwa: 'GET /api/public/whitelist?nip=NIP', url: `${SITE_URL}/api/public/whitelist?nip=7342867148`, opis: 'Biała Lista VAT Ministerstwa Finansów' },
   { nazwa: 'GET /api/public/imgw', url: `${SITE_URL}/api/public/imgw`, opis: 'ostrzeżenia meteorologiczne i hydrologiczne IMGW' },
@@ -472,6 +474,8 @@ ${listaLinkow(NARZEDZIA_NA_SUBDOMENACH)}
 ## Inne aplikacje tuKamil
 
 ${listaLinkow(INNE_APLIKACJE)}
+
+Materiały marki: ${MARKA_TEJ_STRONY}
 
 ## Optional
 
