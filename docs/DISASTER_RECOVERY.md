@@ -1,7 +1,7 @@
 # Disaster Recovery & Backup Strategy
 
 **Ostatnia aktualizacja:** 2026-05-24
-**Owner:** Mooning Charts Research Kamil Sobkowicz (NIP 7133061369)
+**Owner:** Mooning Charts Research (marka tuKamil), NIP 7133061369
 
 ## Co jest do uratowania
 
@@ -57,7 +57,7 @@
   ```
   TXT @ "v=spf1 include:_spf.resend.com -all"
   CNAME resend._domainkey.wezmezadarmo.com → resend._domainkey.amazonses.com
-  TXT _dmarc "v=DMARC1; p=none; rua=mailto:sobkowicz.kamil@gmail.com"
+  TXT _dmarc "v=DMARC1; p=none; rua=mailto:<skrzynka właściciela, adres w Sejfie>"
   A @ → Vercel IP
   CNAME www → cname.vercel-dns.com
   ```
