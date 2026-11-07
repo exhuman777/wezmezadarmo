@@ -360,7 +360,7 @@ ${STOPKA_MD}`,
 
   '/za-darmo-dla-biznesu': () => `${naglowek(strona('/za-darmo-dla-biznesu'))}
 
-wezmezadarmo.com jest darmowe. Ta strona opisuje dwa płatne produkty Dogtronic Labs z Lublina, przy których pracuje autor serwisu.
+wezmezadarmo.com jest darmowe. Ta strona opisuje dwa płatne narzędzia dla firm: DogInvoice i DogAnswer.
 
 ## DogInvoice (https://doginvoice.com)
 

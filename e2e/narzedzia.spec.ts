@@ -1,4 +1,6 @@
 import { test, expect } from '@playwright/test';
+import fs from 'node:fs';
+import path from 'node:path';
 
 /**
  * Narzędzia KPiR i JPK w wersji WZD działają tylko w przeglądarce: bez czatu, bez formularzy
@@ -101,4 +103,23 @@ test.describe('narzędzia dla firm bez konta i bez ciasteczka', () => {
       expect(szerokosc).toBeLessThanOrEqual(390);
     });
   }
+
+  // Decyzja Kamila 7.11.2026: w kopii narzędzi dla wezmezadarmo.com nie ma Dogtronic Labs ani jej adresu i NIP-u
+  // (podmiana w scripts/narzedzia/zbuduj.sh); operator w stopce JPK: Mooning Charts Research.
+  test('public/narzedzia: bez Dogtronic Labs, adresu i NIP-u spółki', async ({ page }) => {
+    const pliki = (k: string): string[] => fs.readdirSync(k, { withFileTypes: true }).flatMap((w) => w.isDirectory() ? pliki(path.join(k, w.name)) : [path.join(k, w.name)]);
+    const katalog = path.join(process.cwd(), 'public/narzedzia');
+    const trafienia = pliki(katalog)
+      .filter((p) => /\.(html|js|mjs|json|xml|txt|css|svg|md)$/.test(p))
+      .filter((p) => /dogtronic|hajdowska|9462765575/i.test(fs.readFileSync(p, 'utf8')))
+      .map((p) => path.relative(katalog, p));
+    expect(trafienia).toEqual([]);
+    for (const sciezka of NARZEDZIA) {
+      await page.goto(sciezka);
+      expect(await page.content(), sciezka).not.toMatch(/dogtronic|hajdowska|9462765575/i);
+    }
+    await page.goto('/narzedzia/jpk/');
+    await expect(page.locator('footer.stopka')).toContainText('Mooning Charts Research');
+    await expect(page.locator('footer.stopka')).toContainText('NIP 7133061369');
+  });
 });

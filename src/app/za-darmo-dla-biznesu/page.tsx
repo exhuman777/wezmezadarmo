@@ -25,7 +25,7 @@ export default function ZaDarmoDlaBiznesuPage() {
         <p className="etykieta">Dla firm</p>
         <h1>Dwa narzędzia dla firm</h1>
         <p className="pod">
-          wezmezadarmo.com jest darmowe. Tu są dwa płatne produkty Dogtronic Labs z Lublina, przy których pracuje autor serwisu.
+          wezmezadarmo.com jest darmowe. Tu są dwa płatne narzędzia dla firm: DogInvoice i DogAnswer.
         </p>
       </section>
 
@@ -53,7 +53,7 @@ export default function ZaDarmoDlaBiznesuPage() {
         <h2>Coś na miarę</h2>
         <p>Jeśli potrzebujesz innej automatyzacji w firmie, napisz przez formularz „Napisz do nas” w stopce strony.</p>
         <p className="mala" style={{ marginTop: 16 }}>
-          DogInvoice i DogAnswer to produkty Dogtronic Labs. Strona wezmezadarmo.com jest projektem prywatnym i niekomercyjnym.
+          DogInvoice i DogAnswer to osobne płatne produkty. Strona wezmezadarmo.com jest projektem prywatnym i niekomercyjnym.
         </p>
       </section>
     </main>
