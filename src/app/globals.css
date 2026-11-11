@@ -730,6 +730,21 @@ html.dark .btn-ghost { background: transparent; border-color: var(--tusz); color
 .liczniki .licznik-liczba { font-size: 28px; color: var(--rdza); }
 .liczniki .licznik-opis { font-size: 15px; color: var(--szary); }
 
+/* Trzy kroki nad formularzem na stronie głównej: co zrobić i co się dostaje. */
+.kroki { list-style: none; margin: 8px 0 16px; padding: 0; border-top: 1px solid var(--linia); }
+.kroki li { display: flex; align-items: baseline; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--linia); font-size: 17px; line-height: 1.4; }
+.kroki-nr { font-family: var(--f-mono); font-weight: 700; color: var(--rdza); }
+@media (max-width: 560px) { .kroki-start { display: flex; width: 100%; } }
+
+/* Podsumowanie wyniku: liczba świadczeń, stałe kwoty z bazy i przycisk „Udostępnij”. */
+.wynik-podsumowanie { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding: 12px 0; border-bottom: 1px solid var(--linia); }
+.wynik-podsumowanie-tekst { flex: 1 1 260px; margin: 0; }
+.wynik-podsumowanie-liczba { font-family: var(--f-mono); font-weight: 700; font-size: 20px; color: var(--tusz); margin: 0; }
+.wynik-podsumowanie-liczba strong { color: var(--rdza); }
+.wynik-podsumowanie-kwoty { font-size: 15px; color: var(--tusz); margin: 4px 0 0; }
+.wynik-podsumowanie-uwaga { font-size: 13px; color: var(--szary); margin: 2px 0 0; }
+@media (max-width: 560px) { .wynik-podsumowanie-liczba { font-size: 17px; } .wynik-podsumowanie-kwoty { font-size: 14px; } }
+
 /* Rotator „Należy Ci się: …”: jedna linia o stałej wysokości, kolejne pozycje wjeżdżają od dołu. */
 .rotator { display: flex; flex-wrap: wrap; align-items: center; gap: 0 8px; margin: 12px 0 8px; font-size: 18px; line-height: 1.5; }
 .rotator-etykieta { font-family: var(--f-mono); font-weight: 700; }

@@ -5,6 +5,7 @@ import { MessageBubble } from './MessageBubble';
 import { StepByStepGuide } from './StepByStepGuide';
 import { ChatFallbackPrompt } from './ChatFallbackPrompt';
 import { MatchResult, BenefitCategory } from '@/engine/types';
+import { WynikPodsumowanie } from './WynikPodsumowanie';
 import { getAllBenefits } from '@/engine/benefits';
 
 const CATEGORY_LABELS: Record<BenefitCategory, string> = {
@@ -362,8 +363,11 @@ export function ChatWindow({
       {results.length > 0 && (
         <div style={{ padding: isMobile ? '0 12px' : '0 24px', borderBottom: '1px solid var(--color-border)', background: 'var(--color-surface)', flexShrink: 0 }}>
 
-          {/* Sources row */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 0', flexWrap: 'wrap' }}>
+          {/* Podsumowanie: ile pasuje, stałe kwoty z bazy, Udostępnij */}
+          <WynikPodsumowanie results={results} />
+
+          {/* Sources row (na telefonie źródło ma każde świadczenie) */}
+          {!isMobile && <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 0', flexWrap: 'wrap' }}>
             <span className="mono" style={{ fontSize: 10, color: 'var(--color-text-3)', letterSpacing: '0.06em', textTransform: 'uppercase', flexShrink: 0 }}>Źródła:</span>
             {[
               { label: 'gov.pl', url: 'https://www.gov.pl/web/rodzina' },
@@ -380,7 +384,7 @@ export function ChatWindow({
               >{s.label}</a>
             ))}
             <span className="mono" style={{ fontSize: 10, color: 'var(--color-text-3)' }}>· baza zweryfikowana {new Date().getFullYear()}</span>
-          </div>
+          </div>}
 
           {/* Filter bar */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 0 10px', flexWrap: 'wrap' }}>
