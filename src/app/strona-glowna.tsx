@@ -219,7 +219,8 @@ function pelnyProfil(p: Partial<UserProfile>): UserProfile {
     plec: p.plec ?? 'K',
     stanCywilny: p.stanCywilny ?? 'wolny',
     liczbaDzieci: p.liczbaDzieci ?? 0,
-    wiekDzieci: [],
+    // pytanie dotyczy dzieci poniżej 18 lat, wieku nie znamy: 17 lat liczy je tylko do świadczeń „do 18 lat” (np. 800+), bez zawyżania
+    wiekDzieci: Array.from({ length: p.liczbaDzieci ?? 0 }, () => 17),
     dochodMiesiecznie: p.dochodMiesiecznie ?? 5000,
     dochodNaOsobe: p.dochodNaOsobe ?? 5000,
     zatrudnienie: p.zatrudnienie ?? 'umowa_o_prace',
@@ -433,33 +434,13 @@ export default function Home({ liczbaSwiadczen, liczbaProgramow, rotator }: Home
 
       let welcomeText: string;
       if (total > 0) {
-        welcomeText = `Znalazłem ${total} świadczeń, z których teoretycznie możesz skorzystać`;
-        if (pewne > 0 && mozliwe > 0) welcomeText += ` (${pewne} pewnych, ${mozliwe} do weryfikacji)`;
-        else if (pewne > 0) welcomeText += ` (${pewne} pewnych)`;
-        else if (mozliwe > 0) welcomeText += ` (${mozliwe} do weryfikacji)`;
-        welcomeText += '.\n\n';
-
-        welcomeText += 'Jak to działa:\n';
-        welcomeText += '>>> Krok 1: Algorytm dopasował świadczenia do Twojego profilu na podstawie kryteriów (wiek, dochód, status)\n';
-        if (aiVerified) {
-          welcomeText += '>>> Krok 2: AI zweryfikowała wyniki i oznaczyła wątpliwe pozycje do samodzielnego sprawdzenia\n';
-        } else {
-          welcomeText += '>>> Krok 2: Wyniki nie zostały zweryfikowane przez AI (weryfikator niedostępny)\n';
-        }
-        welcomeText += '>>> Każde świadczenie ma link do oficjalnego źródła rządowego\n\n';
-        welcomeText += 'Sprawdź dokładnie wymagania każdego świadczenia. Nie wszystkie muszą dotyczyć Twojej sytuacji.\n\n';
-
-        welcomeText += 'Przejdź do zakładki "Świadczenia" żeby zobaczyć listę. Kliknij dowolne świadczenie żeby zobaczyć jak złożyć wniosek krok po kroku.\n\n';
-
-        welcomeText += 'Jestem asystentem AI. Moje odpowiedzi opierają się na zweryfikowanej bazie danych, ale nie jestem urzędnikiem. Mogę:\n\n';
-        welcomeText += '>>> Przeprowadzić Cię przez składanie wniosku krok po kroku\n';
-        welcomeText += '>>> Wyjaśnić warunki, wymagane dokumenty i terminy\n';
-        welcomeText += '>>> Odpowiedzieć na pytania o dowolne świadczenie\n\n';
-        welcomeText += 'Napisz pytanie, jestem tutaj żeby pomóc.';
+        welcomeText = 'Wynik jest na liście świadczeń: oznaczyłem pewne i te do sprawdzenia.\n\n';
+        welcomeText += 'Kliknij świadczenie, żeby zobaczyć, jak złożyć wniosek krok po kroku. Każde ma link do oficjalnego źródła.';
+        if (!aiVerified) welcomeText += ' Tym razem bez dodatkowego sprawdzenia przez AI.';
+        welcomeText += '\n\nMasz pytanie? Napisz je tutaj. Jestem asystentem AI, nie urzędnikiem.';
       } else {
         welcomeText = 'Nie znalazłem świadczeń pasujących do Twojego profilu.\n\n';
-        welcomeText += 'Sprawdziłem 133 świadczenia z 13 kategorii. Opisz mi swoją sytuację, a sprawdzę czy czegoś nie przeoczyłem.\n\n';
-        welcomeText += 'Jestem asystentem AI. Moje odpowiedzi opierają się na zweryfikowanej bazie danych, ale zawsze sprawdź informacje na stronach źródłowych.';
+        welcomeText += `Sprawdziłem ${liczbaSwiadczen} świadczeń, ulg i dotacji. Opisz swoją sytuację, a sprawdzę, czy czegoś nie przeoczyłem.`;
       }
 
       setMessages([{
@@ -589,21 +570,32 @@ export default function Home({ liczbaSwiadczen, liczbaProgramow, rotator }: Home
           <span id="formularz" />
           <h1 style={{ fontSize: 'clamp(28px, 5.5vw, 40px)' }}><PixelIcon nazwa="gwiazdka" />Należy Ci się więcej, niż myślisz.</h1>
           <Rotator etykieta="Należy Ci się:" pozycje={rotator} />
-          <p className="pod">Odpowiedz na kilka pytań i zobacz, które ze {liczbaSwiadczen} świadczeń, ulg i dotacji mogą Ci przysługiwać. Bez konta i za darmo.</p>
+          <ol className="kroki" aria-label="Jak to działa">
+            <li><span className="kroki-nr">1</span>Podaj wiek i odpowiedz na kilka pytań.</li>
+            <li><span className="kroki-nr">2</span>Zobacz, co Ci się należy i ile.</li>
+            <li><span className="kroki-nr">3</span>Wyślij wynik bliskim.</li>
+          </ol>
+          <a
+            href="#kalk-wiek"
+            className="btn btn-primary btn-lg kroki-start"
+            onClick={(e) => {
+              const pole = document.getElementById('kalk-wiek');
+              if (!pole) return;
+              e.preventDefault();
+              pole.scrollIntoView({ block: 'center' });
+              pole.focus({ preventScroll: true });
+            }}
+          >Zacznij: wpisz wiek</a>
+          <div style={{ marginTop: 16, padding: 20, background: 'var(--surface)', border: '2px solid var(--tusz)' }}>
+            <IntakeForm onSubmit={handleIntakeSubmit} isLoading={isLoading} />
+          </div>
+          <p className="mala" style={{ marginTop: 12 }}>
+            Bez konta, odpowiedzi nie są zapisywane. Informacja orientacyjna, nie decyzja urzędowa. Projekt prywatny, nie rządowy.
+          </p>
           <ul className="liczniki" aria-label="Co jest w bazie">
             <li><Licznik wartosc={liczbaSwiadczen} /><span className="licznik-opis">świadczeń, ulg i dotacji</span></li>
             <li><Licznik wartosc={liczbaProgramow} /><span className="licznik-opis">programów dla firm</span></li>
           </ul>
-          <ul className="lista" style={{ marginTop: 16 }}>
-            <li className="lista-para"><span className="lista-nazwa">800+</span><span className="lista-opis">800 zł miesięcznie na każde dziecko do 18 lat, bez względu na dochód.</span></li>
-            <li className="lista-para"><span className="lista-nazwa">13. emerytura</span><span className="lista-opis">1978,49 zł brutto co roku w kwietniu dla emerytów i rencistów.</span></li>
-          </ul>
-          <div style={{ marginTop: 20, padding: 20, background: 'var(--surface)', border: '2px solid var(--tusz)' }}>
-            <IntakeForm onSubmit={handleIntakeSubmit} isLoading={isLoading} />
-          </div>
-          <p className="mala" style={{ marginTop: 12 }}>
-            Informacja orientacyjna, nie decyzja urzędowa. Projekt prywatny, nie rządowy.
-          </p>
         </section>
 
         {/* Gra jako dodatek */}
