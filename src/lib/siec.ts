@@ -27,6 +27,7 @@ export const SIEC_TUKAMIL: readonly AplikacjaSieci[] = [
   { id: 'asystent-firmy', nazwa: 'Asystent Firmy', adres: 'https://asystent24.com/', jednoZdanie: 'Czat AI na stronie firmy odpowiada klientom z wiedzy firmy.' },
   { id: 'brand-agent', nazwa: 'Brand Agent', adres: 'https://brand.cyfrowypomocnik.com/', jednoZdanie: 'Wizytówka z agentem AI, który odpowiada wyłącznie wiedzą marki.' },
   { id: 'claude-start', nazwa: 'Claude Start', adres: 'https://start.cyfrowypomocnik.com/', jednoZdanie: 'Przewodnik krok po kroku: instalacja Claude, połączenia i pierwsze polecenie.' },
+  { id: 'recepcja', nazwa: 'Recepcja w telefonie', adres: 'https://tukamil.com/recepcja-w-telefonie/', jednoZdanie: 'Kod QR w pokoju albo na stoliku, prośby gości na jednym ekranie.' },
   { id: 'pixelkamil', nazwa: 'pixelkamil', adres: 'https://pixel.tukamil.com/galeria/', jednoZdanie: 'Gry w pikselach, studio pixel artu, syntezator lo-fi i widżety.' },
   { id: 'doginvoice', nazwa: 'DogInvoice', adres: 'https://doginvoice.com/', jednoZdanie: 'Pilnuje faktur z KSeF i banku i mówi mailem, kto zapłacił.' },
   { id: 'doganswer', nazwa: 'DogAnswer', adres: 'https://doganswer.com/', jednoZdanie: 'Asystent głosowy AI odbiera telefon i umawia spotkania w Kalendarzu Google.' },
