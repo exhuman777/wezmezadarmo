@@ -18,6 +18,7 @@ const KATALOG: [string, string][] = [
   ['Asystent Firmy', 'https://asystent24.com/'],
   ['Brand Agent', 'https://brand.cyfrowypomocnik.com/'],
   ['Claude Start', 'https://start.cyfrowypomocnik.com/'],
+  ['Recepcja w telefonie', 'https://tukamil.com/recepcja-w-telefonie/'],
   ['pixelkamil', 'https://pixel.tukamil.com/galeria/'],
   ['DogInvoice', 'https://doginvoice.com/'],
   ['DogAnswer', 'https://doganswer.com/'],
